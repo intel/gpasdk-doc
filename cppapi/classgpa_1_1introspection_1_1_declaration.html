@@ -1,0 +1,495 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Class Declaration &mdash; Intel GPA SDK  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../static/jquery.js"></script>
+        <script type="text/javascript" src="../static/underscore.js"></script>
+        <script type="text/javascript" src="../static/doctools.js"></script>
+        <script type="text/javascript" src="../static/language_data.js"></script>
+        <script type="text/javascript" src="../static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script type="text/javascript" src="../static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    
+    <script type="text/javascript" src="../static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../static/css/gpasdk.css" type="text/css" />
+  <link rel="stylesheet" href="../static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Class Instance" href="classgpa_1_1introspection_1_1_instance.html" />
+    <link rel="prev" title="Class File" href="classgpa_1_1filesystem_1_1_file.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Intel GPA SDK
+          
+
+          
+            
+            <img src="../static/intel-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-system-primer">Layer System Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-application">Capture Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-captured-stream">Play Back Captured Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending “Helloworld” Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">‘Helloworld’ Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">‘Helloworld’ Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extractor">Texture Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#id1">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#summary">Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel GPA SDK</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../src/reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="library_root.html">C++ Interfaces</a> &raquo;</li>
+        
+      <li>Class Declaration</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="class-declaration">
+<span id="exhale-class-classgpa-1-1introspection-1-1-declaration"></span><h1>Class Declaration<a class="headerlink" href="#class-declaration" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_introspection_declaration.h.html#file-include-introspection-declaration-h"><span class="std std-ref">File declaration.h</span></a></p></li>
+</ul>
+<div class="section" id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv4N3gpa13introspection11DeclarationE">
+<span id="_CPPv3N3gpa13introspection11DeclarationE"></span><span id="_CPPv2N3gpa13introspection11DeclarationE"></span><span id="gpa::introspection::Declaration"></span><span class="target" id="classgpa_1_1introspection_1_1_declaration"></span><em class="property">class </em><code class="sig-name descname">Declaration</code><a class="headerlink" href="#_CPPv4N3gpa13introspection11DeclarationE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Represents a single forward-declared member in an aggregate type such as a struct. </p>
+<p>The <a class="reference internal" href="#classgpa_1_1introspection_1_1_declaration"><span class="std std-ref">Declaration</span></a> class is used to represent the declaration of, for example, the members in a struct. In the following struct declaration, <code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">x;</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">y;</span></code> and <code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">z;</span></code> are declarations: struct Position { float x; float y; float z; }</p>
+<p>Since structs can contain other structs as members, a <a class="reference internal" href="#classgpa_1_1introspection_1_1_declaration"><span class="std std-ref">Declaration</span></a> construct could also represent a nested struct.</p>
+<p>The struct definition above could be constructed in code as follows (<a class="reference internal" href="#classgpa_1_1introspection_1_1_declaration"><span class="std std-ref">Declaration</span></a> declX(kFloat, “x”); structDef.AddMember(&amp;declX);<dl class="simple">
+<dt><strong>See</strong></dt><dd><p><a class="reference internal" href="classgpa_1_1introspection_1_1_struct.html#classgpa_1_1introspection_1_1_struct"><span class="std std-ref">Struct</span></a>): <a class="reference internal" href="classgpa_1_1introspection_1_1_struct.html#classgpa_1_1introspection_1_1_struct"><span class="std std-ref">Struct</span></a> structDef;</p>
+</dd>
+</dl>
+</p>
+<p><a class="reference internal" href="#classgpa_1_1introspection_1_1_declaration"><span class="std std-ref">Declaration</span></a> declY(kFloat, “y”); structDef.AddMember(&amp;declY);</p>
+<p><a class="reference internal" href="#classgpa_1_1introspection_1_1_declaration"><span class="std std-ref">Declaration</span></a> declZ(kFloat, “z”); structDef.AddMember(&amp;declX); </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv4N3gpa13introspection11Declaration11DeclarationEv">
+<span id="_CPPv3N3gpa13introspection11Declaration11DeclarationEv"></span><span id="_CPPv2N3gpa13introspection11Declaration11DeclarationEv"></span><span id="gpa::introspection::Declaration::Declaration"></span><span class="target" id="classgpa_1_1introspection_1_1_declaration_1a569bb91608aa969411fc817ecbb33f44"></span><code class="sig-name descname">Declaration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13introspection11Declaration11DeclarationEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Default constructor initializes all variables to zero/unknown/none. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa13introspection11Declaration11DeclarationERK11Declaration">
+<span id="_CPPv3N3gpa13introspection11Declaration11DeclarationERK11Declaration"></span><span id="_CPPv2N3gpa13introspection11Declaration11DeclarationERK11Declaration"></span><span id="gpa::introspection::Declaration::Declaration__DeclarationCR"></span><span class="target" id="classgpa_1_1introspection_1_1_declaration_1a3b4d5d03708f04385d4034057be1cae0"></span><code class="sig-name descname">Declaration</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa13introspection11Declaration11DeclarationEv" title="gpa::introspection::Declaration::Declaration">Declaration</a> <em class="property">const</em> &amp;<em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13introspection11Declaration11DeclarationERK11Declaration" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa13introspection11Declaration11DeclarationERR11Declaration">
+<span id="_CPPv3N3gpa13introspection11Declaration11DeclarationERR11Declaration"></span><span id="_CPPv2N3gpa13introspection11Declaration11DeclarationERR11Declaration"></span><span id="gpa::introspection::Declaration::Declaration__DeclarationRR"></span><span class="target" id="classgpa_1_1introspection_1_1_declaration_1a313d1eb1ced297986673014f325f2ffd"></span><code class="sig-name descname">Declaration</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa13introspection11Declaration11DeclarationEv" title="gpa::introspection::Declaration::Declaration">Declaration</a> &amp;&amp;<em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13introspection11Declaration11DeclarationERR11Declaration" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa13introspection11DeclarationaSERK11Declaration">
+<span id="_CPPv3N3gpa13introspection11DeclarationaSERK11Declaration"></span><span id="_CPPv2N3gpa13introspection11DeclarationaSERK11Declaration"></span><span id="gpa::introspection::Declaration::assign-operator__DeclarationCR"></span><span class="target" id="classgpa_1_1introspection_1_1_declaration_1a5786f603676042e0d960844d1524fa20"></span><a class="reference internal" href="#_CPPv4N3gpa13introspection11DeclarationE" title="gpa::introspection::Declaration">Declaration</a> &amp;<code class="sig-name descname">operator=</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa13introspection11DeclarationE" title="gpa::introspection::Declaration">Declaration</a> <em class="property">const</em> &amp;<em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13introspection11DeclarationaSERK11Declaration" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa13introspection11Declaration11DeclarationEN13introspection4TypeEPKc">
+<span id="_CPPv3N3gpa13introspection11Declaration11DeclarationEN13introspection4TypeEPKc"></span><span id="_CPPv2N3gpa13introspection11Declaration11DeclarationEN13introspection4TypeEPKc"></span><span id="gpa::introspection::Declaration::Declaration__introspection::Type.cCP"></span><span class="target" id="classgpa_1_1introspection_1_1_declaration_1a25d40465bbf24cd7003deeb46fbef58b"></span><code class="sig-name descname">Declaration</code><span class="sig-paren">(</span>introspection::<a class="reference internal" href="enum_introspection_2types_8h_1a4d40abc5b6070cb3383495d0deb32769.html#_CPPv4N3gpa13introspection4TypeE" title="gpa::introspection::Type">Type</a> <em>type</em>, char <em class="property">const</em> *<em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13introspection11Declaration11DeclarationEN13introspection4TypeEPKc" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Scalar constructor will initialize cardinality to 1. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code>: Element <em>Type</em> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name of element. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa13introspection11Declaration11DeclarationEN13introspection4TypeEPKcPKc">
+<span id="_CPPv3N3gpa13introspection11Declaration11DeclarationEN13introspection4TypeEPKcPKc"></span><span id="_CPPv2N3gpa13introspection11Declaration11DeclarationEN13introspection4TypeEPKcPKc"></span><span id="gpa::introspection::Declaration::Declaration__introspection::Type.cCP.cCP"></span><span class="target" id="classgpa_1_1introspection_1_1_declaration_1a91c62420b35713bf7a0b8943ad17b16e"></span><code class="sig-name descname">Declaration</code><span class="sig-paren">(</span>introspection::<a class="reference internal" href="enum_introspection_2types_8h_1a4d40abc5b6070cb3383495d0deb32769.html#_CPPv4N3gpa13introspection4TypeE" title="gpa::introspection::Type">Type</a> <em>type</em>, char <em class="property">const</em> *<em>name</em>, char <em class="property">const</em> *<em>typeAlias</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13introspection11Declaration11DeclarationEN13introspection4TypeEPKcPKc" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa13introspection11Declaration11DeclarationEN13introspection4TypeEPKcPKc8uint64_t">
+<span id="_CPPv3N3gpa13introspection11Declaration11DeclarationEN13introspection4TypeEPKcPKc8uint64_t"></span><span id="_CPPv2N3gpa13introspection11Declaration11DeclarationEN13introspection4TypeEPKcPKc8uint64_t"></span><span id="gpa::introspection::Declaration::Declaration__introspection::Type.cCP.cCP.uint64_t"></span><span class="target" id="classgpa_1_1introspection_1_1_declaration_1abf6170f2066be18ffbba351a6c22eb8c"></span><code class="sig-name descname">Declaration</code><span class="sig-paren">(</span>introspection::<a class="reference internal" href="enum_introspection_2types_8h_1a4d40abc5b6070cb3383495d0deb32769.html#_CPPv4N3gpa13introspection4TypeE" title="gpa::introspection::Type">Type</a> <em>type</em>, char <em class="property">const</em> *<em>name</em>, char <em class="property">const</em> *<em>typeAlias</em>, uint64_t <em>vectorSize</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13introspection11Declaration11DeclarationEN13introspection4TypeEPKcPKc8uint64_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa13introspection11Declaration11DeclarationEN13introspection4TypeEPKcPKc8uint64_t8uint64_tb">
+<span id="_CPPv3N3gpa13introspection11Declaration11DeclarationEN13introspection4TypeEPKcPKc8uint64_t8uint64_tb"></span><span id="_CPPv2N3gpa13introspection11Declaration11DeclarationEN13introspection4TypeEPKcPKc8uint64_t8uint64_tb"></span><span id="gpa::introspection::Declaration::Declaration__introspection::Type.cCP.cCP.uint64_t.uint64_t.b"></span><span class="target" id="classgpa_1_1introspection_1_1_declaration_1a4e209f0fcce87eb5c4663b59b5740bd8"></span><code class="sig-name descname">Declaration</code><span class="sig-paren">(</span>introspection::<a class="reference internal" href="enum_introspection_2types_8h_1a4d40abc5b6070cb3383495d0deb32769.html#_CPPv4N3gpa13introspection4TypeE" title="gpa::introspection::Type">Type</a> <em>type</em>, char <em class="property">const</em> *<em>name</em>, char <em class="property">const</em> *<em>typeAlias</em>, uint64_t <em>vectorSize</em>, uint64_t <em>columnCount</em>, bool <em>columnMajor</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13introspection11Declaration11DeclarationEN13introspection4TypeEPKcPKc8uint64_t8uint64_tb" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa13introspection11Declaration11DeclarationEN13introspection4TypeEPKcPKc8uint64_t8uint64_tbPK8uint64_t8uint64_t">
+<span id="_CPPv3N3gpa13introspection11Declaration11DeclarationEN13introspection4TypeEPKcPKc8uint64_t8uint64_tbPK8uint64_t8uint64_t"></span><span id="_CPPv2N3gpa13introspection11Declaration11DeclarationEN13introspection4TypeEPKcPKc8uint64_t8uint64_tbPK8uint64_t8uint64_t"></span><span id="gpa::introspection::Declaration::Declaration__introspection::Type.cCP.cCP.uint64_t.uint64_t.b.uint64_tCP.uint64_t"></span><span class="target" id="classgpa_1_1introspection_1_1_declaration_1ae7964201b34f0ba1d9b2e95c1fd7e22a"></span><code class="sig-name descname">Declaration</code><span class="sig-paren">(</span>introspection::<a class="reference internal" href="enum_introspection_2types_8h_1a4d40abc5b6070cb3383495d0deb32769.html#_CPPv4N3gpa13introspection4TypeE" title="gpa::introspection::Type">Type</a> <em>type</em>, char <em class="property">const</em> *<em>name</em>, char <em class="property">const</em> *<em>typeAlias</em>, uint64_t <em>vectorSize</em>, uint64_t <em>columnCount</em>, bool <em>columnMajor</em>, uint64_t <em class="property">const</em> *<em>arrayDimensions</em>, uint64_t <em>nDimensions</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13introspection11Declaration11DeclarationEN13introspection4TypeEPKcPKc8uint64_t8uint64_tbPK8uint64_t8uint64_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa13introspection11Declaration11DeclarationERRN13introspection6StructEPKc">
+<span id="_CPPv3N3gpa13introspection11Declaration11DeclarationERRN13introspection6StructEPKc"></span><span id="_CPPv2N3gpa13introspection11Declaration11DeclarationERRN13introspection6StructEPKc"></span><span id="gpa::introspection::Declaration::Declaration__introspection::StructRR.cCP"></span><span class="target" id="classgpa_1_1introspection_1_1_declaration_1a537e4c6da50c1957acb0eee19d14e1c7"></span><code class="sig-name descname">Declaration</code><span class="sig-paren">(</span>introspection::<a class="reference internal" href="classgpa_1_1introspection_1_1_struct.html#_CPPv4N3gpa13introspection6StructE" title="gpa::introspection::Struct">Struct</a> &amp;&amp;<em>structDef</em>, char <em class="property">const</em> *<em>declaredName</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13introspection11Declaration11DeclarationERRN13introspection6StructEPKc" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Scalar constructor will initialize cardinality to 1. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">structDef</span></code>: A <a class="reference internal" href="classgpa_1_1introspection_1_1_struct.html#classgpa_1_1introspection_1_1_struct"><span class="std std-ref">Struct</span></a> that should be associated with this <a class="reference internal" href="#classgpa_1_1introspection_1_1_declaration"><span class="std std-ref">Declaration</span></a>. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">declaredName</span></code>: Name of element. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa13introspection11Declaration11DeclarationERRN13introspection6StructEPKcPKc">
+<span id="_CPPv3N3gpa13introspection11Declaration11DeclarationERRN13introspection6StructEPKcPKc"></span><span id="_CPPv2N3gpa13introspection11Declaration11DeclarationERRN13introspection6StructEPKcPKc"></span><span id="gpa::introspection::Declaration::Declaration__introspection::StructRR.cCP.cCP"></span><span class="target" id="classgpa_1_1introspection_1_1_declaration_1af9d1a98508cdad377f6fc705ec5672a6"></span><code class="sig-name descname">Declaration</code><span class="sig-paren">(</span>introspection::<a class="reference internal" href="classgpa_1_1introspection_1_1_struct.html#_CPPv4N3gpa13introspection6StructE" title="gpa::introspection::Struct">Struct</a> &amp;&amp;<em>structDef</em>, char <em class="property">const</em> *<em>declaredName</em>, char <em class="property">const</em> *<em>typeAlias</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13introspection11Declaration11DeclarationERRN13introspection6StructEPKcPKc" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa13introspection11Declaration11DeclarationERRN13introspection6StructEPKcPKcPK8uint64_t8uint64_t">
+<span id="_CPPv3N3gpa13introspection11Declaration11DeclarationERRN13introspection6StructEPKcPKcPK8uint64_t8uint64_t"></span><span id="_CPPv2N3gpa13introspection11Declaration11DeclarationERRN13introspection6StructEPKcPKcPK8uint64_t8uint64_t"></span><span id="gpa::introspection::Declaration::Declaration__introspection::StructRR.cCP.cCP.uint64_tCP.uint64_t"></span><span class="target" id="classgpa_1_1introspection_1_1_declaration_1a40c7d6892948da812d86fadbd76411c8"></span><code class="sig-name descname">Declaration</code><span class="sig-paren">(</span>introspection::<a class="reference internal" href="classgpa_1_1introspection_1_1_struct.html#_CPPv4N3gpa13introspection6StructE" title="gpa::introspection::Struct">Struct</a> &amp;&amp;<em>structDef</em>, char <em class="property">const</em> *<em>declaredName</em>, char <em class="property">const</em> *<em>typeAlias</em>, uint64_t <em class="property">const</em> *<em>arrayDimensions</em>, uint64_t <em>nArrayDimensions</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13introspection11Declaration11DeclarationERRN13introspection6StructEPKcPKcPK8uint64_t8uint64_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa13introspection11DeclarationD0Ev">
+<span id="_CPPv3N3gpa13introspection11DeclarationD0Ev"></span><span id="_CPPv2N3gpa13introspection11DeclarationD0Ev"></span><span id="gpa::introspection::Declaration::~Declaration"></span><span class="target" id="classgpa_1_1introspection_1_1_declaration_1a21157abaf1093423a84a2e3955fcaddf"></span><code class="sig-name descname">~Declaration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13introspection11DeclarationD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13introspection11Declaration4TypeEv">
+<span id="_CPPv3NK3gpa13introspection11Declaration4TypeEv"></span><span id="_CPPv2NK3gpa13introspection11Declaration4TypeEv"></span><span id="gpa::introspection::Declaration::TypeC"></span><span class="target" id="classgpa_1_1introspection_1_1_declaration_1a89d1e20324e1c6e07bc96a7607f04fa1"></span>introspection::<a class="reference internal" href="enum_introspection_2types_8h_1a4d40abc5b6070cb3383495d0deb32769.html#_CPPv4N3gpa13introspection4TypeE" title="gpa::introspection::Type">Type</a> <code class="sig-name descname">Type</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13introspection11Declaration4TypeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Getters. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13introspection11Declaration4NameEv">
+<span id="_CPPv3NK3gpa13introspection11Declaration4NameEv"></span><span id="_CPPv2NK3gpa13introspection11Declaration4NameEv"></span><span id="gpa::introspection::Declaration::NameC"></span><span class="target" id="classgpa_1_1introspection_1_1_declaration_1aa98d3ad148749ea0cabb284870f54512"></span>char <em class="property">const</em> *<code class="sig-name descname">Name</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13introspection11Declaration4NameEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13introspection11Declaration9TypeAliasEv">
+<span id="_CPPv3NK3gpa13introspection11Declaration9TypeAliasEv"></span><span id="_CPPv2NK3gpa13introspection11Declaration9TypeAliasEv"></span><span id="gpa::introspection::Declaration::TypeAliasC"></span><span class="target" id="classgpa_1_1introspection_1_1_declaration_1a9201271b1ed84270b890009cff673ece"></span>char <em class="property">const</em> *<code class="sig-name descname">TypeAlias</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13introspection11Declaration9TypeAliasEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13introspection11Declaration11VectorWidthEv">
+<span id="_CPPv3NK3gpa13introspection11Declaration11VectorWidthEv"></span><span id="_CPPv2NK3gpa13introspection11Declaration11VectorWidthEv"></span><span id="gpa::introspection::Declaration::VectorWidthC"></span><span class="target" id="classgpa_1_1introspection_1_1_declaration_1a6678d70ce2c45b5d0070728d02851517"></span>uint64_t <code class="sig-name descname">VectorWidth</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13introspection11Declaration11VectorWidthEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13introspection11Declaration11ColumnCountEv">
+<span id="_CPPv3NK3gpa13introspection11Declaration11ColumnCountEv"></span><span id="_CPPv2NK3gpa13introspection11Declaration11ColumnCountEv"></span><span id="gpa::introspection::Declaration::ColumnCountC"></span><span class="target" id="classgpa_1_1introspection_1_1_declaration_1a704513962219cc680e089f90fe899fa7"></span>uint64_t <code class="sig-name descname">ColumnCount</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13introspection11Declaration11ColumnCountEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13introspection11Declaration11ColumnMajorEv">
+<span id="_CPPv3NK3gpa13introspection11Declaration11ColumnMajorEv"></span><span id="_CPPv2NK3gpa13introspection11Declaration11ColumnMajorEv"></span><span id="gpa::introspection::Declaration::ColumnMajorC"></span><span class="target" id="classgpa_1_1introspection_1_1_declaration_1a6b08f36b31173b5efb674e7c06bed5e4"></span>bool <code class="sig-name descname">ColumnMajor</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13introspection11Declaration11ColumnMajorEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13introspection11Declaration19ArrayDimensionCountEv">
+<span id="_CPPv3NK3gpa13introspection11Declaration19ArrayDimensionCountEv"></span><span id="_CPPv2NK3gpa13introspection11Declaration19ArrayDimensionCountEv"></span><span id="gpa::introspection::Declaration::ArrayDimensionCountC"></span><span class="target" id="classgpa_1_1introspection_1_1_declaration_1a45d6eee4c2da8a62d06061d1f99e4cf6"></span>uint64_t <code class="sig-name descname">ArrayDimensionCount</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13introspection11Declaration19ArrayDimensionCountEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13introspection11Declaration14ArrayDimensionE8uint64_t">
+<span id="_CPPv3NK3gpa13introspection11Declaration14ArrayDimensionE8uint64_t"></span><span id="_CPPv2NK3gpa13introspection11Declaration14ArrayDimensionE8uint64_t"></span><span id="gpa::introspection::Declaration::ArrayDimension__uint64_tC"></span><span class="target" id="classgpa_1_1introspection_1_1_declaration_1a8fdbf8c761615febd0980caffd20db1c"></span>uint64_t <code class="sig-name descname">ArrayDimension</code><span class="sig-paren">(</span>uint64_t <em>index</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13introspection11Declaration14ArrayDimensionE8uint64_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13introspection11Declaration11StorageSizeEv">
+<span id="_CPPv3NK3gpa13introspection11Declaration11StorageSizeEv"></span><span id="_CPPv2NK3gpa13introspection11Declaration11StorageSizeEv"></span><span id="gpa::introspection::Declaration::StorageSizeC"></span><span class="target" id="classgpa_1_1introspection_1_1_declaration_1acc2f0ed97141b9741e8fddfd82bc5c94"></span>uint64_t <code class="sig-name descname">StorageSize</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13introspection11Declaration11StorageSizeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13introspection11Declaration8IsStructEv">
+<span id="_CPPv3NK3gpa13introspection11Declaration8IsStructEv"></span><span id="_CPPv2NK3gpa13introspection11Declaration8IsStructEv"></span><span id="gpa::introspection::Declaration::IsStructC"></span><span class="target" id="classgpa_1_1introspection_1_1_declaration_1ae9da94a18c04a4c707004e7f1bd2356a"></span>bool <code class="sig-name descname">IsStruct</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13introspection11Declaration8IsStructEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13introspection11Declaration17StructDeclarationEv">
+<span id="_CPPv3NK3gpa13introspection11Declaration17StructDeclarationEv"></span><span id="_CPPv2NK3gpa13introspection11Declaration17StructDeclarationEv"></span><span id="gpa::introspection::Declaration::StructDeclarationC"></span><span class="target" id="classgpa_1_1introspection_1_1_declaration_1ae09d683e5efce85224af90a715656a63"></span>introspection::<a class="reference internal" href="classgpa_1_1introspection_1_1_struct.html#_CPPv4N3gpa13introspection6StructE" title="gpa::introspection::Struct">Struct</a> <em class="property">const</em> *<code class="sig-name descname">StructDeclaration</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13introspection11Declaration17StructDeclarationEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="classgpa_1_1introspection_1_1_instance.html" class="btn btn-neutral float-right" title="Class Instance" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="classgpa_1_1filesystem_1_1_file.html" class="btn btn-neutral float-left" title="Class File" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

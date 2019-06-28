@@ -1,0 +1,401 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Class Player &mdash; Intel GPA SDK  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../static/jquery.js"></script>
+        <script type="text/javascript" src="../static/underscore.js"></script>
+        <script type="text/javascript" src="../static/doctools.js"></script>
+        <script type="text/javascript" src="../static/language_data.js"></script>
+        <script type="text/javascript" src="../static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script type="text/javascript" src="../static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    
+    <script type="text/javascript" src="../static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../static/css/gpasdk.css" type="text/css" />
+  <link rel="stylesheet" href="../static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Class ProgressListener" href="classgpa_1_1playback_1_1_progress_listener.html" />
+    <link rel="prev" title="Class PlaybackMonitor" href="classgpa_1_1playback_1_1_playback_monitor.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Intel GPA SDK
+          
+
+          
+            
+            <img src="../static/intel-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-system-primer">Layer System Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-application">Capture Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-captured-stream">Play Back Captured Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending “Helloworld” Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">‘Helloworld’ Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">‘Helloworld’ Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extractor">Texture Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#id1">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#summary">Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel GPA SDK</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../src/reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="library_root.html">C++ Interfaces</a> &raquo;</li>
+        
+      <li>Class Player</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="class-player">
+<span id="exhale-class-classgpa-1-1playback-1-1-player"></span><h1>Class Player<a class="headerlink" href="#class-player" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_playback_player.h.html#file-include-playback-player-h"><span class="std std-ref">File player.h</span></a></p></li>
+</ul>
+<div class="section" id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv4N3gpa8playback6PlayerE">
+<span id="_CPPv3N3gpa8playback6PlayerE"></span><span id="_CPPv2N3gpa8playback6PlayerE"></span><span id="gpa::playback::Player"></span><span class="target" id="classgpa_1_1playback_1_1_player"></span><em class="property">class </em><code class="sig-name descname">Player</code><a class="headerlink" href="#_CPPv4N3gpa8playback6PlayerE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback6Player6PlayerEPPCK5TCHARPPCK5TCHARPN13serialization7StorageEPN8playback17IPlaybackListenerEPK14LayerArgLookup">
+<span id="_CPPv3N3gpa8playback6Player6PlayerEPPCK5TCHARPPCK5TCHARPN13serialization7StorageEPN8playback17IPlaybackListenerEPK14LayerArgLookup"></span><span id="_CPPv2N3gpa8playback6Player6PlayerEPPCK5TCHARPPCK5TCHARPN13serialization7StorageEPN8playback17IPlaybackListenerEPK14LayerArgLookup"></span><span id="gpa::playback::Player::Player__TCHARCPCP.TCHARCPCP.serialization::StorageP.playback::IPlaybackListenerP.LayerArgLookupCP"></span><span class="target" id="classgpa_1_1playback_1_1_player_1addd57e0b95fdf56048214eba7a557b9b"></span><code class="sig-name descname">Player</code><span class="sig-paren">(</span>TCHAR <em class="property">const</em> *<em class="property">const</em> *<em>prePlaybackLayers</em>, TCHAR <em class="property">const</em> *<em class="property">const</em> *<em>postPlaybackLayers</em>, serialization::<a class="reference internal" href="classgpa_1_1serialization_1_1_storage.html#_CPPv4N3gpa13serialization7StorageE" title="gpa::serialization::Storage">Storage</a> *<em>resourceStorage</em>, playback::<a class="reference internal" href="classgpa_1_1playback_1_1_i_playback_listener.html#_CPPv4N3gpa8playback17IPlaybackListenerE" title="gpa::playback::IPlaybackListener">IPlaybackListener</a> *<em>playbackListener</em>, <a class="reference internal" href="typedef_layer-system_8h_1a5185a0b5c6fdcdc4dfbec813010c8fe0.html#_CPPv4N3gpa14LayerArgLookupE" title="gpa::LayerArgLookup">LayerArgLookup</a> <em class="property">const</em> *<em>argLookup</em> = nullptr<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6Player6PlayerEPPCK5TCHARPPCK5TCHARPN13serialization7StorageEPN8playback17IPlaybackListenerEPK14LayerArgLookup" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Sets up player class and loads the given layers. </p>
+<p><dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>The “playback-layer” is always loaded. It will be inserted in between the pre and post playback layers. </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">prePlaybackLayers</span></code>: Layers that will be executed before the recorded call is played back. If not null, the last entry must be null. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">postPlaybackLayers</span></code>: Layers that will be executed after the recorded call is played back. If not null, the last entry must be null. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">resourceStorage</span></code>: resource storage belonging to the stream to be played back. This parameter must be valid. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">playbackListener</span></code>: pointer to what acts on callbacks resulting from playback, such as window resizing. This parameter must be valid. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">argLookup</span></code>: a mapping of layer names to a list of parameters to be passed to that specific layer. Not every layer accepts parameters. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback6PlayerD0Ev">
+<span id="_CPPv3N3gpa8playback6PlayerD0Ev"></span><span id="_CPPv2N3gpa8playback6PlayerD0Ev"></span><span id="gpa::playback::Player::~Player"></span><span class="target" id="classgpa_1_1playback_1_1_player_1acdc9f17da0b002924a5dc45c0fee0eee"></span><code class="sig-name descname">~Player</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6PlayerD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback6Player13UpdateContextEP8Callableb8uint64_t">
+<span id="_CPPv3N3gpa8playback6Player13UpdateContextEP8Callableb8uint64_t"></span><span id="_CPPv2N3gpa8playback6Player13UpdateContextEP8Callableb8uint64_t"></span><span id="gpa::playback::Player::UpdateContext__CallableP.b.uint64_t"></span><span class="target" id="classgpa_1_1playback_1_1_player_1a6e7f39d1453bb6b351ac10b1578a2034"></span>bool <code class="sig-name descname">UpdateContext</code><span class="sig-paren">(</span>Callable *<em>callable</em>, bool <em>isRepeating</em> = false, uint64_t <em>repeatPass</em> = 0<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6Player13UpdateContextEP8Callableb8uint64_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Updates the playback context for the given callable, prepping it for use in playback operations. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">callable</span></code>: The callable whose context should be updated. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">isRepeating</span></code>: True if we are currently playing iterations of a range of calls; this triggers special range repeat state collection during the range. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">repeatPass</span></code>: The current iteration of the range being played; 0 if this is the first time the call is encountered. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback6Player4PlayEP8Callablebb8uint64_tb">
+<span id="_CPPv3N3gpa8playback6Player4PlayEP8Callablebb8uint64_tb"></span><span id="_CPPv2N3gpa8playback6Player4PlayEP8Callablebb8uint64_tb"></span><span id="gpa::playback::Player::Play__CallableP.b.b.uint64_t.b"></span><span class="target" id="classgpa_1_1playback_1_1_player_1a4f70576e302b0795c10c3f8a1578d8ff"></span>bool <code class="sig-name descname">Play</code><span class="sig-paren">(</span>Callable *<em>callable</em>, bool <em>isRepeating</em> = false, bool <em>isRepeated</em> = false, uint64_t <em>repeatPass</em> = 0, bool <em>releaseCallableResources</em> = true<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6Player4PlayEP8Callablebb8uint64_tb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Plays the given callable. </p>
+<p>This reads the callable data (if needed), executes it, and performs any other playback logic in order for the call to successfully execute. <dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">callable</span></code>: The callable to execute. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">isRepeating</span></code>: True if we are currently playing iterations of a range of calls; this triggers special range repeat state collection during the range. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">isRepeated</span></code>: True if we should collect state information important for range repeat or other data extraction. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">repeatPass</span></code>: The current iteration of the range being played; 0 if this is the first time the call is encountered. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">releaseCallableResources</span></code>: Whether or not to release callable resources after execution. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="classgpa_1_1playback_1_1_progress_listener.html" class="btn btn-neutral float-right" title="Class ProgressListener" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="classgpa_1_1playback_1_1_playback_monitor.html" class="btn btn-neutral float-left" title="Class PlaybackMonitor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

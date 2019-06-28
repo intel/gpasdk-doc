@@ -1,0 +1,604 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Class IQueryManager &mdash; Intel GPA SDK  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../static/jquery.js"></script>
+        <script type="text/javascript" src="../static/underscore.js"></script>
+        <script type="text/javascript" src="../static/doctools.js"></script>
+        <script type="text/javascript" src="../static/language_data.js"></script>
+        <script type="text/javascript" src="../static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script type="text/javascript" src="../static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    
+    <script type="text/javascript" src="../static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../static/css/gpasdk.css" type="text/css" />
+  <link rel="stylesheet" href="../static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Class ApiLog" href="classgpa_1_1playback_1_1_api_log.html" />
+    <link rel="prev" title="Class IMetricsSource" href="classgpa_1_1metrics_1_1_i_metrics_source.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Intel GPA SDK
+          
+
+          
+            
+            <img src="../static/intel-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-system-primer">Layer System Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-application">Capture Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-captured-stream">Play Back Captured Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending “Helloworld” Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">‘Helloworld’ Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">‘Helloworld’ Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extractor">Texture Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#id1">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#summary">Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel GPA SDK</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../src/reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="library_root.html">C++ Interfaces</a> &raquo;</li>
+        
+      <li>Class IQueryManager</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="class-iquerymanager">
+<span id="exhale-class-classgpa-1-1metrics-1-1-i-query-manager"></span><h1>Class IQueryManager<a class="headerlink" href="#class-iquerymanager" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_metrics_query-manager.h.html#file-include-metrics-query-manager-h"><span class="std std-ref">File query-manager.h</span></a></p></li>
+</ul>
+<div class="section" id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv4N3gpa7metrics13IQueryManagerE">
+<span id="_CPPv3N3gpa7metrics13IQueryManagerE"></span><span id="_CPPv2N3gpa7metrics13IQueryManagerE"></span><span id="gpa::metrics::IQueryManager"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager"></span><em class="property">class </em><code class="sig-name descname">IQueryManager</code><a class="headerlink" href="#_CPPv4N3gpa7metrics13IQueryManagerE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Interface used to accurately query all metrics for a graphics API call or range of calls. <dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>The underlying implementation used to collect the metrics is based on the QueryManagerType specified when CreateQueryManager was called, and platform specific selection logic also if it was kUnspecified or kDefault. </p>
+</dd>
+<dt><strong>Note</strong></dt><dd><p>High-level usage and typical function call flow: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>//!         &lt;APPLICATION STARTUP&gt;
+//!             LinkAndPrepareForMdApiSourceUsage (if Intel MD library based query provider will be used)
+//!         &lt;WORKLOAD STARTUP&gt;
+//!             GetQueryManagerRequiredDeviceExtensions
+//!             CreateQueryManager
+//!             RegisterCallback
+//!             AreRangeQueriesSupported
+//!             AreRangeQueriesAcrossCommandBuffersSupported
+//!         &lt;WORKLOAD FRAME (iterate as needed)&gt;
+//!             &lt;WORKLOAD COLLECTION RANGE with QUEUE CHANGE (iterate based on ranges split by queue changes)&gt;
+//!                 OnCreateCommandQueue
+//!                 OnCreateCommandList
+//!                 Subscribe
+//!                 &lt;WORKLOAD CALL / COLLECTION RANGE without QUEUE CHANGE (iterate based on queries subscribed/needed)&gt;
+//!                     BeginQuery
+//!                     &lt;WORKLOAD GRAPHICS API CALL / CALLS&gt;
+//!                     EndQuery
+//!                 OnExecuteCommandLists
+//!                 &lt;WORKLOAD FRAME RENDER / SUBMIT&gt;
+//!                 Unsubscribe
+//!         &lt;WORKLOAD SHUTDOWN&gt;
+//!             DestroyQueryManager
+//!         &lt;APPLICATION SHUTDOWN&gt;
+//!             UnlinkMdApiSourceUsage (if Intel MD library based query provider was used)
+//!
+</pre></div>
+</div>
+ </p>
+</dd>
+<dt><strong>Note</strong></dt><dd><p>This interface is NOT thread-safe. </p>
+</dd>
+</dl>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv4N3gpa7metrics13IQueryManager14GetInformationEv">
+<span id="_CPPv3N3gpa7metrics13IQueryManager14GetInformationEv"></span><span id="_CPPv2N3gpa7metrics13IQueryManager14GetInformationEv"></span><span id="gpa::metrics::IQueryManager::GetInformation"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager_1afa9a7c29f7d22d3b60d426e130cbe59a"></span><em class="property">virtual</em> char <em class="property">const</em> *<code class="sig-name descname">GetInformation</code><span class="sig-paren">(</span><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N3gpa7metrics13IQueryManager14GetInformationEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Obtain information about the metrics implementation that would be used. <dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Pointer to null-terminated buffer containing the name and version of the implementation. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa7metrics13IQueryManager10InitializeEP16QueryManagerData">
+<span id="_CPPv3N3gpa7metrics13IQueryManager10InitializeEP16QueryManagerData"></span><span id="_CPPv2N3gpa7metrics13IQueryManager10InitializeEP16QueryManagerData"></span><span id="gpa::metrics::IQueryManager::Initialize__QueryManagerDataP"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager_1a3997e0e6b54c2927efd9d92258e9d64f"></span><em class="property">virtual</em> <a class="reference internal" href="enum_metrics_2types_8h_1a4d0ae4d7c74d47d463792c91476ef842.html#_CPPv4N3gpa7metrics6ResultE" title="gpa::metrics::Result">Result</a> <code class="sig-name descname">Initialize</code><span class="sig-paren">(</span><a class="reference internal" href="structgpa_1_1metrics_1_1_query_manager_data.html#_CPPv4N3gpa7metrics16QueryManagerDataE" title="gpa::metrics::QueryManagerData">QueryManagerData</a> *<em>pData</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N3gpa7metrics13IQueryManager10InitializeEP16QueryManagerData" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Prepares the QueryManager for usage.</p>
+<p>Must be called first, and is automatically called by CreateQueryManager. <dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Upon success, returns Result::kSuccess. Otherwise, another enumerator is returned and if the provided <a class="reference internal" href="structgpa_1_1metrics_1_1_query_manager_data.html#structgpa_1_1metrics_1_1_query_manager_data_1a26774ed306c9fba501c6e2aa1a4a53bc"><span class="std std-ref">QueryManagerData::errMessage</span></a> field is valid, it will contain the cause of the failure. </p>
+</dd>
+<dt><strong>Note</strong></dt><dd><p>If the QueryManager implementation is Intel MD library based, the LinkAndPrepareForMdApiSourceUsage function must have been previously called. </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[inout]</span> <span class="pre">pData</span></code>: Pointer to a structure that provides data needed to perform initialization. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa7metrics13IQueryManager13MetricsSourceEv">
+<span id="_CPPv3NK3gpa7metrics13IQueryManager13MetricsSourceEv"></span><span id="_CPPv2NK3gpa7metrics13IQueryManager13MetricsSourceEv"></span><span id="gpa::metrics::IQueryManager::MetricsSourceC"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager_1a416b10cc2302ca4ae97c2f0aca13f7a6"></span><em class="property">virtual</em> <a class="reference internal" href="classgpa_1_1metrics_1_1_i_metrics_source.html#_CPPv4N3gpa7metrics14IMetricsSourceE" title="gpa::metrics::IMetricsSource">IMetricsSource</a> <em class="property">const</em> *<code class="sig-name descname">MetricsSource</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK3gpa7metrics13IQueryManager13MetricsSourceEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Return an interface describing the source of data for this QueryManager. <dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>This will replace the various methods in this class with overlapping functionality. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa7metrics13IQueryManager19NumAvailableMetricsEv">
+<span id="_CPPv3N3gpa7metrics13IQueryManager19NumAvailableMetricsEv"></span><span id="_CPPv2N3gpa7metrics13IQueryManager19NumAvailableMetricsEv"></span><span id="gpa::metrics::IQueryManager::NumAvailableMetrics"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager_1ab89319ed833fba543b7594e0d211a962"></span><em class="property">virtual</em> uint32_t <code class="sig-name descname">NumAvailableMetrics</code><span class="sig-paren">(</span><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N3gpa7metrics13IQueryManager19NumAvailableMetricsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This returned number can used to determine the maximum uint32_t supported: validuint32_tRange = [0, <a class="reference internal" href="#classgpa_1_1metrics_1_1_i_query_manager_1ab89319ed833fba543b7594e0d211a962"><span class="std std-ref">NumAvailableMetrics()</span></a>-1) </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa7metrics13IQueryManager17MetricDescriptionE8uint32_t">
+<span id="_CPPv3N3gpa7metrics13IQueryManager17MetricDescriptionE8uint32_t"></span><span id="_CPPv2N3gpa7metrics13IQueryManager17MetricDescriptionE8uint32_t"></span><span id="gpa::metrics::IQueryManager::MetricDescription__uint32_t"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager_1a71da44ea5eb608144b0d3d749139c603"></span><em class="property">virtual</em> <a class="reference internal" href="structgpa_1_1metrics_1_1_metric_desc.html#_CPPv4N3gpa7metrics10MetricDescE" title="gpa::metrics::MetricDesc">MetricDesc</a> <em class="property">const</em> &amp;<code class="sig-name descname">MetricDescription</code><span class="sig-paren">(</span>uint32_t <em>metricIndex</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N3gpa7metrics13IQueryManager17MetricDescriptionE8uint32_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Gets the metric description for the specified index. <dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">metricIndex</span></code>: ID specified in the range [0, <a class="reference internal" href="#classgpa_1_1metrics_1_1_i_query_manager_1ab89319ed833fba543b7594e0d211a962"><span class="std std-ref">NumAvailableMetrics()</span></a>). </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa7metrics13IQueryManager15NumMetricGroupsEv">
+<span id="_CPPv3N3gpa7metrics13IQueryManager15NumMetricGroupsEv"></span><span id="_CPPv2N3gpa7metrics13IQueryManager15NumMetricGroupsEv"></span><span id="gpa::metrics::IQueryManager::NumMetricGroups"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager_1afaadb755bc22e599adc62c7411ecabd9"></span><em class="property">virtual</em> uint32_t <code class="sig-name descname">NumMetricGroups</code><span class="sig-paren">(</span><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N3gpa7metrics13IQueryManager15NumMetricGroupsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This returned number can used to determine the maximum MetricGroupId supported: validMetricGroupIdRange = [0, <a class="reference internal" href="#classgpa_1_1metrics_1_1_i_query_manager_1afaadb755bc22e599adc62c7411ecabd9"><span class="std std-ref">NumMetricGroups()</span></a>). </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa7metrics13IQueryManager5GroupE8uint32_t">
+<span id="_CPPv3N3gpa7metrics13IQueryManager5GroupE8uint32_t"></span><span id="_CPPv2N3gpa7metrics13IQueryManager5GroupE8uint32_t"></span><span id="gpa::metrics::IQueryManager::Group__uint32_t"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager_1a3e4b8d426b8741379b5a58f395814c90"></span><em class="property">virtual</em> <a class="reference internal" href="classgpa_1_1metrics_1_1_i_metric_group.html#_CPPv4N3gpa7metrics12IMetricGroupE" title="gpa::metrics::IMetricGroup">IMetricGroup</a> <em class="property">const</em> *<code class="sig-name descname">Group</code><span class="sig-paren">(</span>uint32_t <em>index</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N3gpa7metrics13IQueryManager5GroupE8uint32_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa7metrics13IQueryManager17NumMetricsInGroupE8uint32_t">
+<span id="_CPPv3N3gpa7metrics13IQueryManager17NumMetricsInGroupE8uint32_t"></span><span id="_CPPv2N3gpa7metrics13IQueryManager17NumMetricsInGroupE8uint32_t"></span><span id="gpa::metrics::IQueryManager::NumMetricsInGroup__uint32_t"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager_1add75b7abbdc2d6e08ec313f89d989cc3"></span><em class="property">virtual</em> uint32_t <code class="sig-name descname">NumMetricsInGroup</code><span class="sig-paren">(</span>uint32_t <em>metricGroup</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N3gpa7metrics13IQueryManager17NumMetricsInGroupE8uint32_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa7metrics13IQueryManager21GroupContainingMetricE8uint32_t">
+<span id="_CPPv3N3gpa7metrics13IQueryManager21GroupContainingMetricE8uint32_t"></span><span id="_CPPv2N3gpa7metrics13IQueryManager21GroupContainingMetricE8uint32_t"></span><span id="gpa::metrics::IQueryManager::GroupContainingMetric__uint32_t"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager_1a5c7a944847c757115633db07671b8096"></span><em class="property">virtual</em> int32_t <code class="sig-name descname">GroupContainingMetric</code><span class="sig-paren">(</span>uint32_t <em>metricId</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N3gpa7metrics13IQueryManager21GroupContainingMetricE8uint32_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns the group id containing the specified metric. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa7metrics13IQueryManager15DefaultMetricIdEv">
+<span id="_CPPv3NK3gpa7metrics13IQueryManager15DefaultMetricIdEv"></span><span id="_CPPv2NK3gpa7metrics13IQueryManager15DefaultMetricIdEv"></span><span id="gpa::metrics::IQueryManager::DefaultMetricIdC"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager_1a243e2975a21c7c24f7a3b7d96fa8f2f7"></span><em class="property">virtual</em> uint32_t <code class="sig-name descname">DefaultMetricId</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK3gpa7metrics13IQueryManager15DefaultMetricIdEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Query the manager for its “default” metric index. <dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>This is essentially what the metric index is for GPU time elapsed. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa7metrics13IQueryManager16RegisterCallbackE28QueryResultAvailableCallbackPv">
+<span id="_CPPv3N3gpa7metrics13IQueryManager16RegisterCallbackE28QueryResultAvailableCallbackPv"></span><span id="_CPPv2N3gpa7metrics13IQueryManager16RegisterCallbackE28QueryResultAvailableCallbackPv"></span><span id="gpa::metrics::IQueryManager::RegisterCallback__QueryResultAvailableCallback.voidP"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager_1a6991f6274fbc269eb452f53d7e2b8569"></span><em class="property">virtual</em> <a class="reference internal" href="enum_metrics_2types_8h_1a4d0ae4d7c74d47d463792c91476ef842.html#_CPPv4N3gpa7metrics6ResultE" title="gpa::metrics::Result">Result</a> <code class="sig-name descname">RegisterCallback</code><span class="sig-paren">(</span>QueryResultAvailableCallback <em>callback</em>, void *<em>userData</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N3gpa7metrics13IQueryManager16RegisterCallbackE28QueryResultAvailableCallbackPv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Used to register a callback function that will be called when metrics are available from the query implementation and Unsubscribe is called.</p>
+<p>The results returned to the callback are always returned in the order queried from the CPU. This means that if two back-to-back queries happen on two different command buffers, the results will be returned in the order that BeginQuery and EndQuery were called, not the order the command buffers were executed in. <dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">callback</span></code>: Callback function pointer that will receive the results. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">userData</span></code>: Opaque user data value that provided to the callback function when it is invoked. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa7metrics13IQueryManager9SubscribeERK17CommandBufferData8uint32_t8uint32_t">
+<span id="_CPPv3N3gpa7metrics13IQueryManager9SubscribeERK17CommandBufferData8uint32_t8uint32_t"></span><span id="_CPPv2N3gpa7metrics13IQueryManager9SubscribeERK17CommandBufferData8uint32_t8uint32_t"></span><span id="gpa::metrics::IQueryManager::Subscribe__CommandBufferDataCR.uint32_t.uint32_t"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager_1a0717146b4741be856231f79e907fe909"></span><em class="property">virtual</em> <a class="reference internal" href="enum_metrics_2types_8h_1a4d0ae4d7c74d47d463792c91476ef842.html#_CPPv4N3gpa7metrics6ResultE" title="gpa::metrics::Result">Result</a> <code class="sig-name descname">Subscribe</code><span class="sig-paren">(</span><a class="reference internal" href="structgpa_1_1metrics_1_1_command_buffer_data.html#_CPPv4N3gpa7metrics17CommandBufferDataE" title="gpa::metrics::CommandBufferData">CommandBufferData</a> <em class="property">const</em> &amp;<em>bufferData</em>, uint32_t <em>metricGroup</em>, uint32_t <em>numQueries</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N3gpa7metrics13IQueryManager9SubscribeERK17CommandBufferData8uint32_t8uint32_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Subscribe to a group/list of metrics.</p>
+<p>Allocates numQueries number of queries indexed in range [0,numQueries). The indices are to be used in BeginQuery and EndQuery. <dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">bufferData</span></code>: Provides the graphics command queue to collect metrics from. The OnCreateCommandQueue function must have been previously called for the queue. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">metricGroup</span></code>: Metric group index to use in range [0, <a class="reference internal" href="#classgpa_1_1metrics_1_1_i_query_manager_1afaadb755bc22e599adc62c7411ecabd9"><span class="std std-ref">NumMetricGroups()</span></a>). </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">numQueries</span></code>: Maximum number of queries desired. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa7metrics13IQueryManager11UnsubscribeERK17CommandBufferData">
+<span id="_CPPv3N3gpa7metrics13IQueryManager11UnsubscribeERK17CommandBufferData"></span><span id="_CPPv2N3gpa7metrics13IQueryManager11UnsubscribeERK17CommandBufferData"></span><span id="gpa::metrics::IQueryManager::Unsubscribe__CommandBufferDataCR"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager_1aba1cf9a664f27e1ae91a86cb195f3099"></span><em class="property">virtual</em> <a class="reference internal" href="enum_metrics_2types_8h_1a4d0ae4d7c74d47d463792c91476ef842.html#_CPPv4N3gpa7metrics6ResultE" title="gpa::metrics::Result">Result</a> <code class="sig-name descname">Unsubscribe</code><span class="sig-paren">(</span><a class="reference internal" href="structgpa_1_1metrics_1_1_command_buffer_data.html#_CPPv4N3gpa7metrics17CommandBufferDataE" title="gpa::metrics::CommandBufferData">CommandBufferData</a> <em class="property">const</em> &amp;<em>bufferData</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N3gpa7metrics13IQueryManager11UnsubscribeERK17CommandBufferData" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Unsubscribe from the current group/list of previously subscribed metrics and get all of the resulting metrics collected. <dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>The metrics are returned using the callback function previously provided in an earlier call to RegisterCallback. </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">bufferData</span></code>: Provides the graphics command queue metrics were collected from. Must match the one specified in the previous call to Subscribe. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa7metrics13IQueryManager10BeginQueryERK17CommandBufferData8uint32_t">
+<span id="_CPPv3N3gpa7metrics13IQueryManager10BeginQueryERK17CommandBufferData8uint32_t"></span><span id="_CPPv2N3gpa7metrics13IQueryManager10BeginQueryERK17CommandBufferData8uint32_t"></span><span id="gpa::metrics::IQueryManager::BeginQuery__CommandBufferDataCR.uint32_t"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager_1a7fe72cfcfb0837712afd8ec11d6c8ff2"></span><em class="property">virtual</em> <a class="reference internal" href="enum_metrics_2types_8h_1a4d0ae4d7c74d47d463792c91476ef842.html#_CPPv4N3gpa7metrics6ResultE" title="gpa::metrics::Result">Result</a> <code class="sig-name descname">BeginQuery</code><span class="sig-paren">(</span><a class="reference internal" href="structgpa_1_1metrics_1_1_command_buffer_data.html#_CPPv4N3gpa7metrics17CommandBufferDataE" title="gpa::metrics::CommandBufferData">CommandBufferData</a> <em class="property">const</em> &amp;<em>bufferData</em>, uint32_t <em>queryId</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N3gpa7metrics13IQueryManager10BeginQueryERK17CommandBufferData8uint32_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Begin a query.</p>
+<p>Identifies the start of a query using the specified command buffer data for a specific query index. <dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>There must be an unspecified/available query of those requested in an earlier call to Subscribe. </p>
+</dd>
+<dt><strong>Note</strong></dt><dd><p>Currently, only one query is allowed to be open/active at a time thus nested queries within the same command buffer are not supported. After calling BeginQuery, EndQuery must be called before BeginQuery is called again. </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">bufferData</span></code>: Graphics command queue and command buffer state to begin the query with. The Subscribe function must have been previously called for the queue. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">queryId</span></code>: Query index to associate the query with [0, numQueries) where numQueries was specified earlier in Subscribe. Query indices are not required to be used sequentially. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa7metrics13IQueryManager8EndQueryERK17CommandBufferData8uint32_t">
+<span id="_CPPv3N3gpa7metrics13IQueryManager8EndQueryERK17CommandBufferData8uint32_t"></span><span id="_CPPv2N3gpa7metrics13IQueryManager8EndQueryERK17CommandBufferData8uint32_t"></span><span id="gpa::metrics::IQueryManager::EndQuery__CommandBufferDataCR.uint32_t"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager_1a8b186c530df37d2d3826bae8afaf7cb2"></span><em class="property">virtual</em> <a class="reference internal" href="enum_metrics_2types_8h_1a4d0ae4d7c74d47d463792c91476ef842.html#_CPPv4N3gpa7metrics6ResultE" title="gpa::metrics::Result">Result</a> <code class="sig-name descname">EndQuery</code><span class="sig-paren">(</span><a class="reference internal" href="structgpa_1_1metrics_1_1_command_buffer_data.html#_CPPv4N3gpa7metrics17CommandBufferDataE" title="gpa::metrics::CommandBufferData">CommandBufferData</a> <em class="property">const</em> &amp;<em>bufferData</em>, uint32_t <em>queryId</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N3gpa7metrics13IQueryManager8EndQueryERK17CommandBufferData8uint32_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>End a query.</p>
+<p>Identifies the end of a query using the specified command buffer data for the specified query index. <dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">bufferData</span></code>: Graphics command queue and command buffer state to end the query with. The queue must match the one provided in the prior Subscribe and BeginQuery calls. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">queryId</span></code>: Index of query to end that must match the one provided in the prior BeginQuery call. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa7metrics13IQueryManager20OnCreateCommandQueueEPKv">
+<span id="_CPPv3N3gpa7metrics13IQueryManager20OnCreateCommandQueueEPKv"></span><span id="_CPPv2N3gpa7metrics13IQueryManager20OnCreateCommandQueueEPKv"></span><span id="gpa::metrics::IQueryManager::OnCreateCommandQueue__voidCP"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager_1a5f60dbf45188a71404f98d374c64d2ba"></span><em class="property">virtual</em> <a class="reference internal" href="enum_metrics_2types_8h_1a4d0ae4d7c74d47d463792c91476ef842.html#_CPPv4N3gpa7metrics6ResultE" title="gpa::metrics::Result">Result</a> <code class="sig-name descname">OnCreateCommandQueue</code><span class="sig-paren">(</span>void <em class="property">const</em> *<em>commandQueue</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N3gpa7metrics13IQueryManager20OnCreateCommandQueueEPKv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Creates graphics command queue based resources needed by the QueryManager.</p>
+<p>Must be called after creating any graphics command queue and before calling Subscribe. <dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>Resources created by calling this function are automatically released when the QueryManager implementation is destroyed. </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">commandQueue</span></code>: Graphics command queue that will be used to collect metrics from. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa7metrics13IQueryManager19OnCreateCommandListERK17CommandBufferData">
+<span id="_CPPv3N3gpa7metrics13IQueryManager19OnCreateCommandListERK17CommandBufferData"></span><span id="_CPPv2N3gpa7metrics13IQueryManager19OnCreateCommandListERK17CommandBufferData"></span><span id="gpa::metrics::IQueryManager::OnCreateCommandList__CommandBufferDataCR"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager_1aee9dbc99ec88d7300019e37da1e6e67c"></span><em class="property">virtual</em> <a class="reference internal" href="enum_metrics_2types_8h_1a4d0ae4d7c74d47d463792c91476ef842.html#_CPPv4N3gpa7metrics6ResultE" title="gpa::metrics::Result">Result</a> <code class="sig-name descname">OnCreateCommandList</code><span class="sig-paren">(</span><a class="reference internal" href="structgpa_1_1metrics_1_1_command_buffer_data.html#_CPPv4N3gpa7metrics17CommandBufferDataE" title="gpa::metrics::CommandBufferData">CommandBufferData</a> <em class="property">const</em> &amp;<em>commandList</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N3gpa7metrics13IQueryManager19OnCreateCommandListERK17CommandBufferData" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Creates graphics command buffer based resources needed by the QueryManager.</p>
+<p>Must be called after creating any graphics command buffer (and encoder if the graphics API is Metal) and before calling OnExecuteCommandLists. <dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>Resources created by calling this function are automatically released when the QueryManager implementation is destroyed. </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">commandList</span></code>: Graphics command queue and command buffer (as well as the command encoder if the graphics API is Metal). The OnCreateCommandQueue function must have been previously called for the queue. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa7metrics13IQueryManager21OnExecuteCommandListsEPKv">
+<span id="_CPPv3N3gpa7metrics13IQueryManager21OnExecuteCommandListsEPKv"></span><span id="_CPPv2N3gpa7metrics13IQueryManager21OnExecuteCommandListsEPKv"></span><span id="gpa::metrics::IQueryManager::OnExecuteCommandLists__voidCP"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager_1a060a2166bd241ea51d9a2fcda0038f75"></span><em class="property">virtual</em> <a class="reference internal" href="enum_metrics_2types_8h_1a4d0ae4d7c74d47d463792c91476ef842.html#_CPPv4N3gpa7metrics6ResultE" title="gpa::metrics::Result">Result</a> <code class="sig-name descname">OnExecuteCommandLists</code><span class="sig-paren">(</span>void <em class="property">const</em> *<em>commandQueue</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N3gpa7metrics13IQueryManager21OnExecuteCommandListsEPKv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Perform implementation specific logic, such as setting the metric group/list configuration metrics will be collected for.</p>
+<p>Must be called right before executing/submitting/committing the queue or command buffer(s) to the GPU to be rendered. <dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">commandQueue</span></code>: Graphics command queue associated with the work about to be submitted to the GPU. An earlier call to the OnCreateCommandList function must have included the specified queue, as well as a prior call to the Subscribe function. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa7metrics13IQueryManager24AreRangeQueriesSupportedEv">
+<span id="_CPPv3N3gpa7metrics13IQueryManager24AreRangeQueriesSupportedEv"></span><span id="_CPPv2N3gpa7metrics13IQueryManager24AreRangeQueriesSupportedEv"></span><span id="gpa::metrics::IQueryManager::AreRangeQueriesSupported"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager_1a25c7881a092afd3f3c3a41fc6d118f68"></span><em class="property">virtual</em> bool <code class="sig-name descname">AreRangeQueriesSupported</code><span class="sig-paren">(</span><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N3gpa7metrics13IQueryManager24AreRangeQueriesSupportedEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns whether or not the query provider supports querying a region (consecutive graphics API calls). </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa7metrics13IQueryManager44AreRangeQueriesAcrossCommandBuffersSupportedEv">
+<span id="_CPPv3N3gpa7metrics13IQueryManager44AreRangeQueriesAcrossCommandBuffersSupportedEv"></span><span id="_CPPv2N3gpa7metrics13IQueryManager44AreRangeQueriesAcrossCommandBuffersSupportedEv"></span><span id="gpa::metrics::IQueryManager::AreRangeQueriesAcrossCommandBuffersSupported"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager_1a8dabd1c407facd8663cff466ea3a0a2f"></span><em class="property">virtual</em> bool <code class="sig-name descname">AreRangeQueriesAcrossCommandBuffersSupported</code><span class="sig-paren">(</span><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N3gpa7metrics13IQueryManager44AreRangeQueriesAcrossCommandBuffersSupportedEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Return whether or not the query provider supports querying a region (consecutive graphics API calls) that spans more than one graphics command buffer (begin query is in one grapics command buffer and the end query is in a different one). </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa7metrics13IQueryManagerD0Ev">
+<span id="_CPPv3N3gpa7metrics13IQueryManagerD0Ev"></span><span id="_CPPv2N3gpa7metrics13IQueryManagerD0Ev"></span><span id="gpa::metrics::IQueryManager::~IQueryManager"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager_1aa9514757e34cd6f829c8e791ab9e06de"></span><em class="property">virtual</em> <code class="sig-name descname">~IQueryManager</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa7metrics13IQueryManagerD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="classgpa_1_1playback_1_1_api_log.html" class="btn btn-neutral float-right" title="Class ApiLog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="classgpa_1_1metrics_1_1_i_metrics_source.html" class="btn btn-neutral float-left" title="Class IMetricsSource" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

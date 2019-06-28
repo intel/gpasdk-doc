@@ -1,0 +1,469 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Class Struct &mdash; Intel GPA SDK  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../static/jquery.js"></script>
+        <script type="text/javascript" src="../static/underscore.js"></script>
+        <script type="text/javascript" src="../static/doctools.js"></script>
+        <script type="text/javascript" src="../static/language_data.js"></script>
+        <script type="text/javascript" src="../static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script type="text/javascript" src="../static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    
+    <script type="text/javascript" src="../static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../static/css/gpasdk.css" type="text/css" />
+  <link rel="stylesheet" href="../static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Class StructDataEditor" href="classgpa_1_1serialization_1_1_struct_data_editor.html" />
+    <link rel="prev" title="Class StreamSerializer" href="classgpa_1_1serialization_1_1_stream_serializer.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Intel GPA SDK
+          
+
+          
+            
+            <img src="../static/intel-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-system-primer">Layer System Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-application">Capture Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-captured-stream">Play Back Captured Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending “Helloworld” Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">‘Helloworld’ Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">‘Helloworld’ Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extractor">Texture Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#id1">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#summary">Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel GPA SDK</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../src/reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="library_root.html">C++ Interfaces</a> &raquo;</li>
+        
+      <li>Class Struct</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="class-struct">
+<span id="exhale-class-classgpa-1-1serialization-1-1-struct"></span><h1>Class Struct<a class="headerlink" href="#class-struct" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_reflection_struct.h.html#file-include-reflection-struct-h"><span class="std std-ref">File reflection/struct.h</span></a></p></li>
+</ul>
+<div class="section" id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv4N3gpa13serialization6StructE">
+<span id="_CPPv3N3gpa13serialization6StructE"></span><span id="_CPPv2N3gpa13serialization6StructE"></span><span id="gpa::serialization::Struct"></span><span class="target" id="classgpa_1_1serialization_1_1_struct"></span><em class="property">class </em><code class="sig-name descname">Struct</code><a class="headerlink" href="#_CPPv4N3gpa13serialization6StructE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The <a class="reference internal" href="#classgpa_1_1serialization_1_1_struct"><span class="std std-ref">Struct</span></a> class is intended to allow examining arbitrary blocks of memory in a structured way, in an API-independent manner. </p>
+<p>The <a class="reference internal" href="#classgpa_1_1serialization_1_1_struct"><span class="std std-ref">Struct</span></a> class describes the layout of a C/C++ struct in a generic fashion, which allows the user to interpret an arbitrary block of memory independent of the original declaration. The methods of a <em><a class="reference internal" href="#classgpa_1_1serialization_1_1_struct"><span class="std std-ref">Struct</span></a></em> instance can be used to determine the offsets, sizes, basic types, declared types and names of the fields within the struct, and given a pointer containing the base location of the start of the struct’s memory, this can be used to examine and/or change the contents of the struct, without having access to the struct’s original definition in the source language.</p>
+<p>This is useful in cases where there is a need to be able to access both the struct’s data and metadata independent of the context in which the struct instance was created.</p>
+<p><em>Examples</em></p>
+<p>Examine a memory block as a <a class="reference internal" href="#classgpa_1_1serialization_1_1_struct"><span class="std std-ref">Struct</span></a>. In this example we define a function that takes a pointer to memory, and a pointer to a <a class="reference internal" href="#classgpa_1_1serialization_1_1_struct"><span class="std std-ref">Struct</span></a> instance, and accesses the memory using the layout definition provided by the <a class="reference internal" href="#classgpa_1_1serialization_1_1_struct"><span class="std std-ref">Struct</span></a> instance. <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &quot;reflection/field.h&quot;</span>
+<span class="c1">#include &lt;cstdint&gt;</span>
+<span class="c1">#include &lt;iostream&gt;</span>
+
+<span class="n">struct</span> <span class="n">Foo</span> <span class="p">{</span>
+ <span class="n">uint32_t</span> <span class="n">x</span><span class="p">;</span>
+ <span class="n">char</span> <span class="n">const</span><span class="o">*</span> <span class="nb">str</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="o">//</span> <span class="n">validation</span> <span class="ow">and</span> <span class="n">error</span><span class="o">-</span><span class="n">checking</span> <span class="n">left</span> <span class="n">out</span> <span class="k">for</span> <span class="n">brevity</span>
+<span class="n">void</span> <span class="n">Bar</span><span class="p">(</span><span class="n">void</span> <span class="n">const</span><span class="o">*</span> <span class="n">memory</span><span class="p">,</span> <span class="n">Struct</span> <span class="n">const</span><span class="o">*</span> <span class="n">structDef</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">//</span> <span class="k">for</span> <span class="n">simple</span> <span class="n">pointer</span> <span class="n">arithmetic</span><span class="p">,</span> <span class="n">cast</span> <span class="n">the</span> <span class="n">pointer</span> <span class="n">to</span> <span class="n">uint8_t</span><span class="o">*</span>
+    <span class="n">uint8_t</span> <span class="n">const</span><span class="o">*</span> <span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="n">uint8_t</span> <span class="n">const</span><span class="o">*</span><span class="p">)</span><span class="n">memory</span><span class="p">;</span>
+
+    <span class="n">Field</span> <span class="n">const</span><span class="o">*</span> <span class="n">xField</span> <span class="o">=</span> <span class="n">structDef</span><span class="o">-&gt;</span><span class="n">GetField</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">Field</span> <span class="n">const</span><span class="o">*</span> <span class="n">strField</span> <span class="o">=</span> <span class="n">structDef</span><span class="o">-&gt;</span><span class="n">GetField</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+    <span class="n">uint32_t</span> <span class="n">const</span><span class="o">*</span> <span class="n">xValuePtr</span> <span class="o">=</span> <span class="p">(</span><span class="n">uint32_t</span> <span class="n">const</span><span class="o">*</span><span class="p">)(</span><span class="n">data</span> <span class="o">+</span> <span class="n">xField</span><span class="o">-&gt;</span><span class="n">Offset</span><span class="p">());</span>
+    <span class="n">char</span> <span class="n">const</span><span class="o">**</span> <span class="n">strValuePtr</span> <span class="o">=</span> <span class="p">(</span><span class="n">char</span> <span class="n">const</span><span class="o">**</span><span class="p">)(</span><span class="n">data</span> <span class="o">+</span> <span class="n">strField</span><span class="o">-&gt;</span><span class="n">Offset</span><span class="p">());</span>
+
+    <span class="n">std</span><span class="p">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;x: &quot;</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">xValuePtr</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="p">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">std</span><span class="p">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;str: &quot;</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">strValuePtr</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="p">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+ </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv4N3gpa13serialization6Struct6StructEv">
+<span id="_CPPv3N3gpa13serialization6Struct6StructEv"></span><span id="_CPPv2N3gpa13serialization6Struct6StructEv"></span><span id="gpa::serialization::Struct::Struct"></span><span class="target" id="classgpa_1_1serialization_1_1_struct_1a961f6b430df466c425f1736e9c32d702"></span><code class="sig-name descname">Struct</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13serialization6Struct6StructEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Default constructor. </p>
+<p><dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>All members are initialized to their type-specific “zero” values. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa13serialization6Struct6StructEPKcPK5Field8uint64_t6size_t">
+<span id="_CPPv3N3gpa13serialization6Struct6StructEPKcPK5Field8uint64_t6size_t"></span><span id="_CPPv2N3gpa13serialization6Struct6StructEPKcPK5Field8uint64_t6size_t"></span><span id="gpa::serialization::Struct::Struct__cCP.FieldCP.uint64_t.s"></span><span class="target" id="classgpa_1_1serialization_1_1_struct_1ac960ea26458df12b3e97c284765b4cf7"></span><code class="sig-name descname">Struct</code><span class="sig-paren">(</span>char <em class="property">const</em> *<em>name</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_field.html#_CPPv4N3gpa13serialization5FieldE" title="gpa::serialization::Field">Field</a> <em class="property">const</em> *<em>fields</em>, uint64_t <em>fieldCount</em>, size_t <em>size</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13serialization6Struct6StructEPKcPK5Field8uint64_t6size_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Full constructor  all members initialized to provided parameter values. </p>
+<p><dl class="simple">
+<dt><strong>Note</strong></dt><dd><p><em>fields</em> refers only to the members directly declared for this struct; any nested fields are referred to by the fields themselves </p>
+</dd>
+<dt><strong>Note</strong></dt><dd><p>Since <em>size</em> may be compiler-dependent, and may depend on compiler-specific packing algorithms, it is important to know that the compiler used to parse the original API headers when this SDK was built, is <strong>clang</strong>. </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name of the struct as declared in the original API header. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fields</span></code>: Pointer to one or more <a class="reference internal" href="classgpa_1_1serialization_1_1_field.html#classgpa_1_1serialization_1_1_field"><span class="std std-ref">Field</span></a> instances that define the top-level struct members </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fieldCount</span></code>: Number of fields pointed to by the <em>fields</em> argument </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>: Size, in bytes, of the struct as determined by the compiler used to parse the original API headers </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa13serialization6StructD0Ev">
+<span id="_CPPv3N3gpa13serialization6StructD0Ev"></span><span id="_CPPv2N3gpa13serialization6StructD0Ev"></span><span id="gpa::serialization::Struct::~Struct"></span><span class="target" id="classgpa_1_1serialization_1_1_struct_1a05f7ea94d838197dd8fefe9337215f01"></span><code class="sig-name descname">~Struct</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13serialization6StructD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13serialization6Struct4NameEv">
+<span id="_CPPv3NK3gpa13serialization6Struct4NameEv"></span><span id="_CPPv2NK3gpa13serialization6Struct4NameEv"></span><span id="gpa::serialization::Struct::NameC"></span><span class="target" id="classgpa_1_1serialization_1_1_struct_1a3d913c385b6445e285165a06f29ca9d7"></span>char <em class="property">const</em> *<code class="sig-name descname">Name</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13serialization6Struct4NameEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Access the name of the struct as declared in the original API header. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The struct name as declared in original code. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13serialization6Struct10FieldCountEv">
+<span id="_CPPv3NK3gpa13serialization6Struct10FieldCountEv"></span><span id="_CPPv2NK3gpa13serialization6Struct10FieldCountEv"></span><span id="gpa::serialization::Struct::FieldCountC"></span><span class="target" id="classgpa_1_1serialization_1_1_struct_1acf1918552e2b029ee9e84d3e8c318df2"></span>uint64_t <code class="sig-name descname">FieldCount</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13serialization6Struct10FieldCountEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Access the number of fields declared in the struct. </p>
+<p><dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>This value can be zero if the struct does not have any declared fields. </p>
+</dd>
+<dt><strong>Return</strong></dt><dd><p>Number of fields declared in the struct, or zero if no fields declared. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13serialization6Struct8GetFieldE8uint64_t">
+<span id="_CPPv3NK3gpa13serialization6Struct8GetFieldE8uint64_t"></span><span id="_CPPv2NK3gpa13serialization6Struct8GetFieldE8uint64_t"></span><span id="gpa::serialization::Struct::GetField__uint64_tC"></span><span class="target" id="classgpa_1_1serialization_1_1_struct_1a0da2557d841ee7d2dd6afa3c6dd29eab"></span><a class="reference internal" href="classgpa_1_1serialization_1_1_field.html#_CPPv4N3gpa13serialization5FieldE" title="gpa::serialization::Field">Field</a> <em class="property">const</em> *<code class="sig-name descname">GetField</code><span class="sig-paren">(</span>uint64_t <em>index</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13serialization6Struct8GetFieldE8uint64_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Access metadata for a struct member. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>A <a class="reference internal" href="classgpa_1_1serialization_1_1_field.html#classgpa_1_1serialization_1_1_field"><span class="std std-ref">Field</span></a> instance describing one of the struct members, or <em>nullptr</em> if <em>index</em> is out of range (greater than or equal to the number of members in the struct). </p>
+</dd>
+<dt><strong>See</strong></dt><dd><p><a class="reference internal" href="#classgpa_1_1serialization_1_1_struct_1acf1918552e2b029ee9e84d3e8c318df2"><span class="std std-ref">FieldCount()</span></a>. </p>
+</dd>
+<dt><strong>Note</strong></dt><dd><p><a class="reference internal" href="classgpa_1_1serialization_1_1_field.html#classgpa_1_1serialization_1_1_field"><span class="std std-ref">Field</span></a> ordering is defined by the ordering of the struct layout as declared in the original API headers. </p>
+</dd>
+<dt><strong>Warning</strong></dt><dd><p>Bitfield members are not supported. </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">index</span></code>: Zero-based index of the member in the struct. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13serialization6Struct4SizeEv">
+<span id="_CPPv3NK3gpa13serialization6Struct4SizeEv"></span><span id="_CPPv2NK3gpa13serialization6Struct4SizeEv"></span><span id="gpa::serialization::Struct::SizeC"></span><span class="target" id="classgpa_1_1serialization_1_1_struct_1aac8d441e6c6cdcb51cbcc3a311016437"></span>size_t <code class="sig-name descname">Size</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13serialization6Struct4SizeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Obtain struct size, in bytes. </p>
+<p>This value can be used to allocate space for am instance of this struct, which can then be filled in using the field member definitions. <dl class="simple">
+<dt><strong>See</strong></dt><dd><p><a class="reference internal" href="#classgpa_1_1serialization_1_1_struct_1acf1918552e2b029ee9e84d3e8c318df2"><span class="std std-ref">FieldCount()</span></a>, <a class="reference internal" href="#classgpa_1_1serialization_1_1_struct_1a0da2557d841ee7d2dd6afa3c6dd29eab"><span class="std std-ref">GetField()</span></a>. </p>
+</dd>
+<dt><strong>Return</strong></dt><dd><p>The number of bytes required to store an instance of this struct. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="classgpa_1_1serialization_1_1_struct_data_editor.html" class="btn btn-neutral float-right" title="Class StructDataEditor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="classgpa_1_1serialization_1_1_stream_serializer.html" class="btn btn-neutral float-left" title="Class StreamSerializer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

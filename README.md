@@ -1,1 +1,1 @@
-Placeholder readme, content will be uploaded as soon as possible
+Intel(R) Graphics Performance Analyzers SDK 2019.2

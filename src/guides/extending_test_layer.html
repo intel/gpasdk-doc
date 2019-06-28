@@ -1,0 +1,350 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Extending “Helloworld” Simple Layer &mdash; Intel GPA SDK  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../static/jquery.js"></script>
+        <script type="text/javascript" src="../../static/underscore.js"></script>
+        <script type="text/javascript" src="../../static/doctools.js"></script>
+        <script type="text/javascript" src="../../static/language_data.js"></script>
+        <script type="text/javascript" src="../../static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script type="text/javascript" src="../../static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    
+    <script type="text/javascript" src="../../static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../static/css/gpasdk.css" type="text/css" />
+  <link rel="stylesheet" href="../../static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Samples" href="../samples.html" />
+    <link rel="prev" title="Guides" href="../guides.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Intel GPA SDK
+          
+
+          
+            
+            <img src="../../static/intel-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#layer-system-primer">Layer System Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#capture-application">Capture Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#play-back-captured-stream">Play Back Captured Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../guides.html">Guides</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Extending “Helloworld” Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../samples.html#helloworld-simple-layer">‘Helloworld’ Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../samples.html#helloworld-generated-layer">‘Helloworld’ Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../samples.html#texture-extractor">Texture Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utilities.html#gpa-player">gpa-player</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../layers.html#logging">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../python.html">Python Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cppapi/library_root.html">C++ Interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../cppapi/library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../cppapi/library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../cppapi/library_root.html#full-api">Full API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../cppapi/library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../cppapi/library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../cppapi/library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../cppapi/library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../cppapi/library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../cppapi/library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../cppapi/library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features.html#range-repeat">Range Repeat</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../requirements.html#id1">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release_notes.html#june-2019">2019.2 (27 June 2019)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release_notes.html#summary">Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release_notes.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Intel GPA SDK</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../guides.html">Guides</a> &raquo;</li>
+        
+      <li>Extending “Helloworld” Simple Layer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="extending-helloworld-simple-layer">
+<h1>Extending “Helloworld” Simple Layer<a class="headerlink" href="#extending-helloworld-simple-layer" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference internal" href="../samples.html#hello-simple-layer"><span class="std std-ref">‘Helloworld’ Simple Layer</span></a> is a minimal implementation that demonstrates common basic functionality of an Intel<sup>®</sup> GPA SDK layer. Not every layer interacts with every API call. For example, a layer may require to intercept only present calls. There is a certain complexity in creating a layer, as it is necessary to account for API-specific behavior and the layer system expects a certain interface. This guide teaches the basics of adding to, or modifying the <a class="reference internal" href="../samples.html#hello-simple-layer"><span class="std std-ref">‘Helloworld’ Simple Layer</span></a>.</p>
+<div class="section" id="layer-anatomy">
+<h2>Layer Anatomy<a class="headerlink" href="#layer-anatomy" title="Permalink to this headline">¶</a></h2>
+<p>Layers are structured as a dynamically linked/shared library.</p>
+<p>The core of a layer is a special structure called GPADispatchTable, part of which is explicitly defined in dispatch-table.h. However, the file also includes in-line lists of funtions for every available API. These lists are added when the layer is loaded by your initialization code. Every layer dispatch table is stacked in the loading order to provide complete access to every API call to every layer.</p>
+<p>Layers must at least have a function with the signature <code class="code docutils literal notranslate"><span class="pre">GPA_LAYER_EXPORT</span> <span class="pre">GPADispatchTable*</span> <span class="pre">LAYER_ENTRYPOINT()</span></code>. The layer system looks for the signature while loading the layer. This function should contain all your initialization. Use the function to explicitly define behavior. After the function execution the code in your layer runs only if the correct hook is triggered.</p>
+<p>You can also use this function to connect your custom function to the specific API calls.</p>
+<p>It is recommended to include layer specific globals and function implementations into a namespace named after the layer.</p>
+<p>To document the layer usage, you can use the second entry point with the signature <code class="code docutils literal notranslate"><span class="pre">GPA_LAYER_EXPORT</span> <span class="pre">TCHAR</span> <span class="pre">const*</span> <span class="pre">LAYER_HELP_FUNCTION</span></code> together with the gpa-help utility.</p>
+</div>
+<div class="section" id="api-call-routing">
+<h2>API Call Routing<a class="headerlink" href="#api-call-routing" title="Permalink to this headline">¶</a></h2>
+<p>To add a custom override function, do the following:</p>
+<ol class="arabic simple">
+<li><p>In the main file of the layer, before your <code class="code docutils literal notranslate"><span class="pre">LAYER_ENTRYPOINT</span></code>, list the function definitions to be overridden. These definitions are identical to the corresponding API calls, with the addition of a const pointer to the next layer. You should use the inbuilt <code class="code docutils literal notranslate"><span class="pre">HAVE_METAL</span></code>, <code class="code docutils literal notranslate"><span class="pre">HAVE_DIRECTX</span></code>, and <code class="code docutils literal notranslate"><span class="pre">HAVE_VULKAN</span></code> together with the preprocessor directive <code class="code docutils literal notranslate"><span class="pre">#if</span> <span class="pre">defined</span></code> to ensure platform cross-compatibility. For example, overriding a Metal* API call on a Windows* machine that  has only DirectX* causes fatal build issues.</p></li>
+<li><p>Implement the custom behavior of your function. Create separate files for each API override to avoid the build issues. Include these files into the layer main file using the <code class="code docutils literal notranslate"><span class="pre">#if</span> <span class="pre">defined</span></code> directive.</p></li>
+<li><p>In the <code class="code docutils literal notranslate"><span class="pre">LAYER_ENTRYPOINT</span></code>, connect your custom implementation to the layer dispatch table by assigning a function pointer to your implementation to the appropriate slot in the dispatch table.</p></li>
+<li><p>Ensure that the <code class="code docutils literal notranslate"><span class="pre">LAYER_ENTRYPOINT</span></code> returns the modified dispatch table. If you extend the test layer, this step is already done.</p></li>
+</ol>
+<p>The created custom function is run when the correct API call is made and your layer is loaded.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../samples.html" class="btn btn-neutral float-right" title="Samples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../guides.html" class="btn btn-neutral float-left" title="Guides" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

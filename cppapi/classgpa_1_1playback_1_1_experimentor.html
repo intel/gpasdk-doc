@@ -1,0 +1,624 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Class Experimentor &mdash; Intel GPA SDK  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../static/jquery.js"></script>
+        <script type="text/javascript" src="../static/underscore.js"></script>
+        <script type="text/javascript" src="../static/doctools.js"></script>
+        <script type="text/javascript" src="../static/language_data.js"></script>
+        <script type="text/javascript" src="../static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script type="text/javascript" src="../static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    
+    <script type="text/javascript" src="../static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../static/css/gpasdk.css" type="text/css" />
+  <link rel="stylesheet" href="../static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Class IPlayable" href="classgpa_1_1playback_1_1_i_playable.html" />
+    <link rel="prev" title="Class DefaultPlaybackListener" href="classgpa_1_1playback_1_1_default_playback_listener.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Intel GPA SDK
+          
+
+          
+            
+            <img src="../static/intel-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-system-primer">Layer System Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-application">Capture Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-captured-stream">Play Back Captured Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending “Helloworld” Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">‘Helloworld’ Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">‘Helloworld’ Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extractor">Texture Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#id1">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#summary">Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel GPA SDK</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../src/reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="library_root.html">C++ Interfaces</a> &raquo;</li>
+        
+      <li>Class Experimentor</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="class-experimentor">
+<span id="exhale-class-classgpa-1-1playback-1-1-experimentor"></span><h1>Class Experimentor<a class="headerlink" href="#class-experimentor" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_playback_experiments_experimentor.h.html#file-include-playback-experiments-experimentor-h"><span class="std std-ref">File experimentor.h</span></a></p></li>
+</ul>
+<div class="section" id="inheritance-relationships">
+<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="base-types">
+<h3>Base Types<a class="headerlink" href="#base-types" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::playback::CallableReceiver</span></code> (<a class="reference internal" href="classgpa_1_1playback_1_1_callable_receiver.html#exhale-class-classgpa-1-1playback-1-1-callable-receiver"><span class="std std-ref">Class CallableReceiver</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::playback::CallableBroadcaster</span></code> (<a class="reference internal" href="classgpa_1_1playback_1_1_callable_broadcaster.html#exhale-class-classgpa-1-1playback-1-1-callable-broadcaster"><span class="std std-ref">Class CallableBroadcaster</span></a>)</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv4N3gpa8playback12ExperimentorE">
+<span id="_CPPv3N3gpa8playback12ExperimentorE"></span><span id="_CPPv2N3gpa8playback12ExperimentorE"></span><span id="gpa::playback::Experimentor"></span><span class="target" id="classgpa_1_1playback_1_1_experimentor"></span><em class="property">class </em><code class="sig-name descname">Experimentor</code> : <em class="property">public</em> gpa::playback::<a class="reference internal" href="classgpa_1_1playback_1_1_callable_receiver.html#_CPPv4N3gpa8playback16CallableReceiverE" title="gpa::playback::CallableReceiver">CallableReceiver</a>, <em class="property">public</em> gpa::playback::<a class="reference internal" href="classgpa_1_1playback_1_1_callable_broadcaster.html#_CPPv4N3gpa8playback19CallableBroadcasterE" title="gpa::playback::CallableBroadcaster">CallableBroadcaster</a><a class="headerlink" href="#_CPPv4N3gpa8playback12ExperimentorE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Provides an API agnostic interface for applying Experiments. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback12ExperimentorD0Ev">
+<span id="_CPPv3N3gpa8playback12ExperimentorD0Ev"></span><span id="_CPPv2N3gpa8playback12ExperimentorD0Ev"></span><span id="gpa::playback::Experimentor::~Experimentor"></span><span class="target" id="classgpa_1_1playback_1_1_experimentor_1aaf05395a06080177821cd74a58455362"></span><em class="property">virtual</em> <code class="sig-name descname">~Experimentor</code><span class="sig-paren">(</span><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N3gpa8playback12ExperimentorD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Destroys this instance of <a class="reference internal" href="#classgpa_1_1playback_1_1_experimentor"><span class="std std-ref">Experimentor</span></a>. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa8playback12Experimentor17GetShaderCompilerEv">
+<span id="_CPPv3NK3gpa8playback12Experimentor17GetShaderCompilerEv"></span><span id="_CPPv2NK3gpa8playback12Experimentor17GetShaderCompilerEv"></span><span id="gpa::playback::Experimentor::GetShaderCompilerC"></span><span class="target" id="classgpa_1_1playback_1_1_experimentor_1a354487409354e6c98f42384032aea432"></span><em class="property">virtual</em> <a class="reference internal" href="classgpa_1_1playback_1_1_shader.html#_CPPv4N3gpa8playback6ShaderE" title="gpa::playback::Shader">Shader</a>::<a class="reference internal" href="classgpa_1_1playback_1_1_shader.html#_CPPv4N3gpa8playback6Shader8CompilerE" title="gpa::playback::Shader::Compiler">Compiler</a> <em class="property">const</em> &amp;<code class="sig-name descname">GetShaderCompiler</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK3gpa8playback12Experimentor17GetShaderCompilerEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Gets this <a class="reference internal" href="#classgpa_1_1playback_1_1_experimentor"><span class="std std-ref">Experimentor</span></a>’s <a class="reference internal" href="classgpa_1_1playback_1_1_shader_1_1_compiler.html#classgpa_1_1playback_1_1_shader_1_1_compiler"><span class="std std-ref">Shader::Compiler</span></a>. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>This <a class="reference internal" href="#classgpa_1_1playback_1_1_experimentor"><span class="std std-ref">Experimentor</span></a>’s <a class="reference internal" href="classgpa_1_1playback_1_1_shader_1_1_compiler.html#classgpa_1_1playback_1_1_shader_1_1_compiler"><span class="std std-ref">Shader::Compiler</span></a> </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback12Experimentor5ApplyE8uint64_t8uint64_tRK14BaseExperiment6size_tPKN14BaseExperiment6PrefabE">
+<span id="_CPPv3N3gpa8playback12Experimentor5ApplyE8uint64_t8uint64_tRK14BaseExperiment6size_tPKN14BaseExperiment6PrefabE"></span><span id="_CPPv2N3gpa8playback12Experimentor5ApplyE8uint64_t8uint64_tRK14BaseExperiment6size_tPKN14BaseExperiment6PrefabE"></span><span id="gpa::playback::Experimentor::Apply__uint64_t.uint64_t.BaseExperimentCR.s.BaseExperiment::PrefabCP"></span><span class="target" id="classgpa_1_1playback_1_1_experimentor_1ac26992f2f28a97561810715cf16c9624"></span>void <code class="sig-name descname">Apply</code><span class="sig-paren">(</span>uint64_t <em>startIndex</em>, uint64_t <em>endIndex</em>, <a class="reference internal" href="classgpa_1_1playback_1_1_base_experiment.html#_CPPv4N3gpa8playback14BaseExperimentE" title="gpa::playback::BaseExperiment">BaseExperiment</a> <em class="property">const</em> &amp;<em>experiment</em>, size_t <em>prefabCount</em> = 0, <a class="reference internal" href="classgpa_1_1playback_1_1_base_experiment.html#_CPPv4N3gpa8playback14BaseExperimentE" title="gpa::playback::BaseExperiment">BaseExperiment</a>::<a class="reference internal" href="classgpa_1_1playback_1_1_base_experiment.html#_CPPv4N3gpa8playback14BaseExperiment6PrefabE" title="gpa::playback::BaseExperiment::Prefab">Prefab</a> <em class="property">const</em> *<em>pPrefabs</em> = nullptr<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback12Experimentor5ApplyE8uint64_t8uint64_tRK14BaseExperiment6size_tPKN14BaseExperiment6PrefabE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Applies an Experiment to a range of Callables. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">startIndex</span></code>: The index of the first Callable at which to apply the Experiment </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">endIndex</span></code>: The index of the last Callable at which to apply the Experiment </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">experiment</span></code>: The Experiment to apply to the given range of Callables </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prefabCount</span></code>: The number of Experiment::Prefabs to apply to the given range of Callables (optional = 0) </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pPrefabs</span></code>: A pointer to prefabCount Experiment::Prefabs to apply to the given range of Callables (optional = nullptr) </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback12Experimentor5ApplyE8uint64_tRK14BaseExperiment6size_tPKN14BaseExperiment6PrefabE">
+<span id="_CPPv3N3gpa8playback12Experimentor5ApplyE8uint64_tRK14BaseExperiment6size_tPKN14BaseExperiment6PrefabE"></span><span id="_CPPv2N3gpa8playback12Experimentor5ApplyE8uint64_tRK14BaseExperiment6size_tPKN14BaseExperiment6PrefabE"></span><span id="gpa::playback::Experimentor::Apply__uint64_t.BaseExperimentCR.s.BaseExperiment::PrefabCP"></span><span class="target" id="classgpa_1_1playback_1_1_experimentor_1a99fcac275c587a5eea36843d6bf3bce7"></span>void <code class="sig-name descname">Apply</code><span class="sig-paren">(</span>uint64_t <em>callIndex</em>, <a class="reference internal" href="classgpa_1_1playback_1_1_base_experiment.html#_CPPv4N3gpa8playback14BaseExperimentE" title="gpa::playback::BaseExperiment">BaseExperiment</a> <em class="property">const</em> &amp;<em>experiment</em>, size_t <em>prefabCount</em> = 0, <a class="reference internal" href="classgpa_1_1playback_1_1_base_experiment.html#_CPPv4N3gpa8playback14BaseExperimentE" title="gpa::playback::BaseExperiment">BaseExperiment</a>::<a class="reference internal" href="classgpa_1_1playback_1_1_base_experiment.html#_CPPv4N3gpa8playback14BaseExperiment6PrefabE" title="gpa::playback::BaseExperiment::Prefab">Prefab</a> <em class="property">const</em> *<em>pPrefabs</em> = nullptr<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback12Experimentor5ApplyE8uint64_tRK14BaseExperiment6size_tPKN14BaseExperiment6PrefabE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Applies an Experiment at a given Callable index. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">callIndex</span></code>: The index of the Callable at which to apply the Experiment </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">experiment</span></code>: The Experiment to apply to the Callable at the given callIndex </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prefabCount</span></code>: The number of Experiment::Prefabs to apply to the Callable at the given callIndex (optional = 0) </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pPrefabs</span></code>: A pointer to prefabCount Experiment::Prefabs to apply to the Callable at the given callIndex (optional = nullptr) </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback12Experimentor5ApplyE8uint64_t8uint64_t6size_tPKN14BaseExperiment6PrefabE">
+<span id="_CPPv3N3gpa8playback12Experimentor5ApplyE8uint64_t8uint64_t6size_tPKN14BaseExperiment6PrefabE"></span><span id="_CPPv2N3gpa8playback12Experimentor5ApplyE8uint64_t8uint64_t6size_tPKN14BaseExperiment6PrefabE"></span><span id="gpa::playback::Experimentor::Apply__uint64_t.uint64_t.s.BaseExperiment::PrefabCP"></span><span class="target" id="classgpa_1_1playback_1_1_experimentor_1ab2fe578ca108bfac40215590a945d2d1"></span>void <code class="sig-name descname">Apply</code><span class="sig-paren">(</span>uint64_t <em>startIndex</em>, uint64_t <em>endIndex</em>, size_t <em>prefabCount</em>, <a class="reference internal" href="classgpa_1_1playback_1_1_base_experiment.html#_CPPv4N3gpa8playback14BaseExperimentE" title="gpa::playback::BaseExperiment">BaseExperiment</a>::<a class="reference internal" href="classgpa_1_1playback_1_1_base_experiment.html#_CPPv4N3gpa8playback14BaseExperiment6PrefabE" title="gpa::playback::BaseExperiment::Prefab">Prefab</a> <em class="property">const</em> *<em>pPrefabs</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback12Experimentor5ApplyE8uint64_t8uint64_t6size_tPKN14BaseExperiment6PrefabE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Applies Experiment::Prefabs to a range of Callables. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">startIndex</span></code>: The index of the first Callable at which to apply the Experiment::Preabs </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">endIndex</span></code>: The index of the last Callable at which to apply the Experiment::Prefabs </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prefabCount</span></code>: The number of Experiment::Prefabs to apply to the given range of Callables </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pPrefabs</span></code>: A pointer to prefabCount Experiment::Prefabs to apply to the given range of Callables </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback12Experimentor5ApplyE8uint64_t6size_tPKN14BaseExperiment6PrefabE">
+<span id="_CPPv3N3gpa8playback12Experimentor5ApplyE8uint64_t6size_tPKN14BaseExperiment6PrefabE"></span><span id="_CPPv2N3gpa8playback12Experimentor5ApplyE8uint64_t6size_tPKN14BaseExperiment6PrefabE"></span><span id="gpa::playback::Experimentor::Apply__uint64_t.s.BaseExperiment::PrefabCP"></span><span class="target" id="classgpa_1_1playback_1_1_experimentor_1aa1157d64a4be519c916dbd7b6c6f2690"></span>void <code class="sig-name descname">Apply</code><span class="sig-paren">(</span>uint64_t <em>callIndex</em>, size_t <em>prefabCount</em>, <a class="reference internal" href="classgpa_1_1playback_1_1_base_experiment.html#_CPPv4N3gpa8playback14BaseExperimentE" title="gpa::playback::BaseExperiment">BaseExperiment</a>::<a class="reference internal" href="classgpa_1_1playback_1_1_base_experiment.html#_CPPv4N3gpa8playback14BaseExperiment6PrefabE" title="gpa::playback::BaseExperiment::Prefab">Prefab</a> <em class="property">const</em> *<em>pPrefabs</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback12Experimentor5ApplyE8uint64_t6size_tPKN14BaseExperiment6PrefabE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Applies Experiment::Prefabs at a given Callable index. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">callIndex</span></code>: The index of the Callable at which to apply the Experiment::Prefabs </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prefabCount</span></code>: The number of Experiment::Prefabs to apply to the Callable at the given callIndex </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pPrefabs</span></code>: A pointer to prefabCount Experiment::Prefabs to apply to the Callable at the given callIndex </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback12Experimentor5ClearE8uint64_t8uint64_t">
+<span id="_CPPv3N3gpa8playback12Experimentor5ClearE8uint64_t8uint64_t"></span><span id="_CPPv2N3gpa8playback12Experimentor5ClearE8uint64_t8uint64_t"></span><span id="gpa::playback::Experimentor::Clear__uint64_t.uint64_t"></span><span class="target" id="classgpa_1_1playback_1_1_experimentor_1af34f3e9109df91d293b1413693a65e48"></span><em class="property">virtual</em> void <code class="sig-name descname">Clear</code><span class="sig-paren">(</span>uint64_t <em>startIndex</em>, uint64_t <em>endIndex</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback12Experimentor5ClearE8uint64_t8uint64_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Clears all Experiments from a range of Callables. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">startIndex</span></code>: The index of the first Callable at which to clear Experiments </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">endIndex</span></code>: The index of the last Callable at which to clear Experiments </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback12Experimentor5ClearE8uint64_t">
+<span id="_CPPv3N3gpa8playback12Experimentor5ClearE8uint64_t"></span><span id="_CPPv2N3gpa8playback12Experimentor5ClearE8uint64_t"></span><span id="gpa::playback::Experimentor::Clear__uint64_t"></span><span class="target" id="classgpa_1_1playback_1_1_experimentor_1ab3b077a07ec8ffff1772087cfb613eda"></span><em class="property">virtual</em> void <code class="sig-name descname">Clear</code><span class="sig-paren">(</span>uint64_t <em>callIndex</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback12Experimentor5ClearE8uint64_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Clears all Experiments at a given Callable index. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">callIndex</span></code>: The index of the Callable at which to clear Experiments </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback12Experimentor5ClearEv">
+<span id="_CPPv3N3gpa8playback12Experimentor5ClearEv"></span><span id="_CPPv2N3gpa8playback12Experimentor5ClearEv"></span><span id="gpa::playback::Experimentor::Clear"></span><span class="target" id="classgpa_1_1playback_1_1_experimentor_1a933e2679ad86e6fe0f4751dc29425af4"></span><em class="property">virtual</em> void <code class="sig-name descname">Clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback12Experimentor5ClearEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Clears all Experiments. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback12Experimentor25ConnectExecutionCallbacksERK18ExecutionCallbacks">
+<span id="_CPPv3N3gpa8playback12Experimentor25ConnectExecutionCallbacksERK18ExecutionCallbacks"></span><span id="_CPPv2N3gpa8playback12Experimentor25ConnectExecutionCallbacksERK18ExecutionCallbacks"></span><span id="gpa::playback::Experimentor::ConnectExecutionCallbacks__ExecutionCallbacksCR"></span><span class="target" id="classgpa_1_1playback_1_1_experimentor_1a17247e53ddbcb5775690ac3e95787f16"></span>void <code class="sig-name descname">ConnectExecutionCallbacks</code><span class="sig-paren">(</span><a class="reference internal" href="structgpa_1_1playback_1_1_execution_callbacks.html#_CPPv4N3gpa8playback18ExecutionCallbacksE" title="gpa::playback::ExecutionCallbacks">ExecutionCallbacks</a> <em class="property">const</em> &amp;<em>callbacks</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback12Experimentor25ConnectExecutionCallbacksERK18ExecutionCallbacks" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Connects this <a class="reference internal" href="#classgpa_1_1playback_1_1_experimentor"><span class="std std-ref">Experimentor</span></a>’s <a class="reference internal" href="structgpa_1_1playback_1_1_execution_callbacks.html#structgpa_1_1playback_1_1_execution_callbacks"><span class="std std-ref">ExecutionCallbacks</span></a>. </p>
+<p><dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>If this method is overriden, the base implementation must be called </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">callbacks</span></code>: The <a class="reference internal" href="structgpa_1_1playback_1_1_execution_callbacks.html#structgpa_1_1playback_1_1_execution_callbacks"><span class="std std-ref">ExecutionCallbacks</span></a> to connect this <a class="reference internal" href="#classgpa_1_1playback_1_1_experimentor"><span class="std std-ref">Experimentor</span></a> to </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback12Experimentor28DisconnectExecutionCallbacksEv">
+<span id="_CPPv3N3gpa8playback12Experimentor28DisconnectExecutionCallbacksEv"></span><span id="_CPPv2N3gpa8playback12Experimentor28DisconnectExecutionCallbacksEv"></span><span id="gpa::playback::Experimentor::DisconnectExecutionCallbacks"></span><span class="target" id="classgpa_1_1playback_1_1_experimentor_1a06721795c83e0c35971b717a844a2076"></span>void <code class="sig-name descname">DisconnectExecutionCallbacks</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback12Experimentor28DisconnectExecutionCallbacksEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Disconnects this <a class="reference internal" href="#classgpa_1_1playback_1_1_experimentor"><span class="std std-ref">Experimentor</span></a>’s <a class="reference internal" href="structgpa_1_1playback_1_1_execution_callbacks.html#structgpa_1_1playback_1_1_execution_callbacks"><span class="std std-ref">ExecutionCallbacks</span></a>. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa8playback12Experimentor9IsEnabledEv">
+<span id="_CPPv3NK3gpa8playback12Experimentor9IsEnabledEv"></span><span id="_CPPv2NK3gpa8playback12Experimentor9IsEnabledEv"></span><span id="gpa::playback::Experimentor::IsEnabledC"></span><span class="target" id="classgpa_1_1playback_1_1_experimentor_1a4e908d10c4b6e882196166f650820bac"></span>bool <code class="sig-name descname">IsEnabled</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa8playback12Experimentor9IsEnabledEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Gets a value indicating whether or not this <a class="reference internal" href="#classgpa_1_1playback_1_1_experimentor"><span class="std std-ref">Experimentor</span></a> is enabled. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Whether or not this <a class="reference internal" href="#classgpa_1_1playback_1_1_experimentor"><span class="std std-ref">Experimentor</span></a> is enabled </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback12Experimentor9IsEnabledEb">
+<span id="_CPPv3N3gpa8playback12Experimentor9IsEnabledEb"></span><span id="_CPPv2N3gpa8playback12Experimentor9IsEnabledEb"></span><span id="gpa::playback::Experimentor::IsEnabled__b"></span><span class="target" id="classgpa_1_1playback_1_1_experimentor_1ad6df7abfc58d44084a5e2be0bb47fc68"></span>void <code class="sig-name descname">IsEnabled</code><span class="sig-paren">(</span>bool <em>enabled</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback12Experimentor9IsEnabledEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Sets a value indicating whether or not this <a class="reference internal" href="#classgpa_1_1playback_1_1_experimentor"><span class="std std-ref">Experimentor</span></a> is enabled. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">enabled</span></code>: Whether or not this <a class="reference internal" href="#classgpa_1_1playback_1_1_experimentor"><span class="std std-ref">Experimentor</span></a> is enabled </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Protected Functions</p>
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback12Experimentor12ApplyPrefabsE8uint64_t8uint64_t6size_tPKN14BaseExperiment6PrefabE">
+<span id="_CPPv3N3gpa8playback12Experimentor12ApplyPrefabsE8uint64_t8uint64_t6size_tPKN14BaseExperiment6PrefabE"></span><span id="_CPPv2N3gpa8playback12Experimentor12ApplyPrefabsE8uint64_t8uint64_t6size_tPKN14BaseExperiment6PrefabE"></span><span id="gpa::playback::Experimentor::ApplyPrefabs__uint64_t.uint64_t.s.BaseExperiment::PrefabCP"></span><span class="target" id="classgpa_1_1playback_1_1_experimentor_1ae4d42e8c3c531506d1bee0c889704ea6"></span><em class="property">virtual</em> void <code class="sig-name descname">ApplyPrefabs</code><span class="sig-paren">(</span>uint64_t <em>startIndex</em>, uint64_t <em>endIndex</em>, size_t <em>prefabCount</em>, <a class="reference internal" href="classgpa_1_1playback_1_1_base_experiment.html#_CPPv4N3gpa8playback14BaseExperimentE" title="gpa::playback::BaseExperiment">BaseExperiment</a>::<a class="reference internal" href="classgpa_1_1playback_1_1_base_experiment.html#_CPPv4N3gpa8playback14BaseExperiment6PrefabE" title="gpa::playback::BaseExperiment::Prefab">Prefab</a> <em class="property">const</em> *<em>pPrefabs</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback12Experimentor12ApplyPrefabsE8uint64_t8uint64_t6size_tPKN14BaseExperiment6PrefabE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This method should be overriden to recieve calls when this <a class="reference internal" href="#classgpa_1_1playback_1_1_experimentor"><span class="std std-ref">Experimentor</span></a> has Experiment::Prefabs applied. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">startIndex</span></code>: The index of the first Callable at which to apply the Experiment::Prefab </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">endIndex</span></code>: The index of the last Callable at which to apply the Experiment::Prefab </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prefabCount</span></code>: The number of Experiment::Prefabs to apply to the given range of Callables </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pPrefabs</span></code>: A pointer to prefabCount Experiment::Prefabs to apply to the given range of Callables </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback12Experimentor16OnPostSetupRangeEP13CallableCache">
+<span id="_CPPv3N3gpa8playback12Experimentor16OnPostSetupRangeEP13CallableCache"></span><span id="_CPPv2N3gpa8playback12Experimentor16OnPostSetupRangeEP13CallableCache"></span><span id="gpa::playback::Experimentor::OnPostSetupRange__CallableCacheP"></span><span class="target" id="classgpa_1_1playback_1_1_experimentor_1a8bfd34182cd442ceeed8c64bdbb1cc34"></span><em class="property">virtual</em> void <code class="sig-name descname">OnPostSetupRange</code><span class="sig-paren">(</span><a class="reference internal" href="classgpa_1_1playback_1_1_callable_cache.html#_CPPv4N3gpa8playback13CallableCacheE" title="gpa::playback::CallableCache">CallableCache</a> *<em>range</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback12Experimentor16OnPostSetupRangeEP13CallableCache" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This method should be overriden to recieve calls when the given range has copmpleted setup <p> NOTE : This method will only be called if this </p>
+<a class="reference internal" href="#classgpa_1_1playback_1_1_experimentor"><span class="std std-ref">Experimentor</span></a> is enabled. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">range</span></code>: The <a class="reference internal" href="classgpa_1_1playback_1_1_callable_cache.html#classgpa_1_1playback_1_1_callable_cache"><span class="std std-ref">CallableCache</span></a> to execute Experiments on </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback12Experimentor17OnPreExecuteRangeEP13CallableCache">
+<span id="_CPPv3N3gpa8playback12Experimentor17OnPreExecuteRangeEP13CallableCache"></span><span id="_CPPv2N3gpa8playback12Experimentor17OnPreExecuteRangeEP13CallableCache"></span><span id="gpa::playback::Experimentor::OnPreExecuteRange__CallableCacheP"></span><span class="target" id="classgpa_1_1playback_1_1_experimentor_1abda30bbee6877fd451617dac9bae4d8b"></span><em class="property">virtual</em> void <code class="sig-name descname">OnPreExecuteRange</code><span class="sig-paren">(</span><a class="reference internal" href="classgpa_1_1playback_1_1_callable_cache.html#_CPPv4N3gpa8playback13CallableCacheE" title="gpa::playback::CallableCache">CallableCache</a> *<em>range</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback12Experimentor17OnPreExecuteRangeEP13CallableCache" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This method should be overriden to recieve calls when the given range is ready for execution <p> NOTE : This method will only be called if this </p>
+<a class="reference internal" href="#classgpa_1_1playback_1_1_experimentor"><span class="std std-ref">Experimentor</span></a> is enabled. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">range</span></code>: The <a class="reference internal" href="classgpa_1_1playback_1_1_callable_cache.html#classgpa_1_1playback_1_1_callable_cache"><span class="std std-ref">CallableCache</span></a> to execute Experiments on </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback12Experimentor16OnPreExecuteCallEP8Callable8uint64_t">
+<span id="_CPPv3N3gpa8playback12Experimentor16OnPreExecuteCallEP8Callable8uint64_t"></span><span id="_CPPv2N3gpa8playback12Experimentor16OnPreExecuteCallEP8Callable8uint64_t"></span><span id="gpa::playback::Experimentor::OnPreExecuteCall__CallableP.uint64_t"></span><span class="target" id="classgpa_1_1playback_1_1_experimentor_1abab3d037df6477a2db1e17581f5f5a47"></span><em class="property">virtual</em> void <code class="sig-name descname">OnPreExecuteCall</code><span class="sig-paren">(</span>Callable *<em>callable</em>, uint64_t <em>callIndex</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback12Experimentor16OnPreExecuteCallEP8Callable8uint64_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This method should be overriden to recieve calls when the given Callable is ready for execution <p> NOTE : This method will only be called if this </p>
+<a class="reference internal" href="#classgpa_1_1playback_1_1_experimentor"><span class="std std-ref">Experimentor</span></a> is enabled. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">callable</span></code>: The next Callable that will be executed </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">callIndex</span></code>: The index of the next Callable that will be executed </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback12Experimentor17OnPostExecuteCallEP8Callable8uint64_t">
+<span id="_CPPv3N3gpa8playback12Experimentor17OnPostExecuteCallEP8Callable8uint64_t"></span><span id="_CPPv2N3gpa8playback12Experimentor17OnPostExecuteCallEP8Callable8uint64_t"></span><span id="gpa::playback::Experimentor::OnPostExecuteCall__CallableP.uint64_t"></span><span class="target" id="classgpa_1_1playback_1_1_experimentor_1ab91645d62ac2b6cc03f9db40bd9aa777"></span><em class="property">virtual</em> void <code class="sig-name descname">OnPostExecuteCall</code><span class="sig-paren">(</span>Callable *<em>callable</em>, uint64_t <em>callIndex</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback12Experimentor17OnPostExecuteCallEP8Callable8uint64_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This method should be overriden to recieve calls when the given Callable has completed execution <p> NOTE : This method will only be called if this </p>
+<a class="reference internal" href="#classgpa_1_1playback_1_1_experimentor"><span class="std std-ref">Experimentor</span></a> is enabled. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">callable</span></code>: The Callable that most recently completed execution </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">callIndex</span></code>: The index of the Callable that most recently completed execution </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback12Experimentor18OnPostExecuteRangeEP13CallableCache">
+<span id="_CPPv3N3gpa8playback12Experimentor18OnPostExecuteRangeEP13CallableCache"></span><span id="_CPPv2N3gpa8playback12Experimentor18OnPostExecuteRangeEP13CallableCache"></span><span id="gpa::playback::Experimentor::OnPostExecuteRange__CallableCacheP"></span><span class="target" id="classgpa_1_1playback_1_1_experimentor_1a7758e4b24be39dec14680badc34bd914"></span><em class="property">virtual</em> void <code class="sig-name descname">OnPostExecuteRange</code><span class="sig-paren">(</span><a class="reference internal" href="classgpa_1_1playback_1_1_callable_cache.html#_CPPv4N3gpa8playback13CallableCacheE" title="gpa::playback::CallableCache">CallableCache</a> *<em>range</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback12Experimentor18OnPostExecuteRangeEP13CallableCache" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This method should be overriden to recieve calls when the given range has completed execution <p> NOTE : This method will only be called if this </p>
+<a class="reference internal" href="#classgpa_1_1playback_1_1_experimentor"><span class="std std-ref">Experimentor</span></a> is enabled. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">range</span></code>: The <a class="reference internal" href="classgpa_1_1playback_1_1_callable_cache.html#classgpa_1_1playback_1_1_callable_cache"><span class="std std-ref">CallableCache</span></a> to execute Experiments on </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Protected Attributes</p>
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback12Experimentor28mGraphicsPipelineExperimentsE">
+<span id="_CPPv3N3gpa8playback12Experimentor28mGraphicsPipelineExperimentsE"></span><span id="_CPPv2N3gpa8playback12Experimentor28mGraphicsPipelineExperimentsE"></span><span id="gpa::playback::Experimentor::mGraphicsPipelineExperiments__Collection:PipelineExperiment:"></span><span class="target" id="classgpa_1_1playback_1_1_experimentor_1adf0a84291769a036e07e19bcbd2c9303"></span>Collection&lt;<a class="reference internal" href="classgpa_1_1playback_1_1_pipeline_experiment.html#_CPPv4N3gpa8playback18PipelineExperimentE" title="gpa::playback::PipelineExperiment">PipelineExperiment</a>&gt; <code class="sig-name descname">mGraphicsPipelineExperiments</code><a class="headerlink" href="#_CPPv4N3gpa8playback12Experimentor28mGraphicsPipelineExperimentsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback12Experimentor27mComputePipelineExperimentsE">
+<span id="_CPPv3N3gpa8playback12Experimentor27mComputePipelineExperimentsE"></span><span id="_CPPv2N3gpa8playback12Experimentor27mComputePipelineExperimentsE"></span><span id="gpa::playback::Experimentor::mComputePipelineExperiments__Collection:PipelineExperiment:"></span><span class="target" id="classgpa_1_1playback_1_1_experimentor_1a8164a99bbc65d76448892f746800516c"></span>Collection&lt;<a class="reference internal" href="classgpa_1_1playback_1_1_pipeline_experiment.html#_CPPv4N3gpa8playback18PipelineExperimentE" title="gpa::playback::PipelineExperiment">PipelineExperiment</a>&gt; <code class="sig-name descname">mComputePipelineExperiments</code><a class="headerlink" href="#_CPPv4N3gpa8playback12Experimentor27mComputePipelineExperimentsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback12Experimentor20mResourceExperimentsE">
+<span id="_CPPv3N3gpa8playback12Experimentor20mResourceExperimentsE"></span><span id="_CPPv2N3gpa8playback12Experimentor20mResourceExperimentsE"></span><span id="gpa::playback::Experimentor::mResourceExperiments__Collection:ResourceExperiment:"></span><span class="target" id="classgpa_1_1playback_1_1_experimentor_1a6de911974424ef1f838dc00a11f32659"></span>Collection&lt;<a class="reference internal" href="classgpa_1_1playback_1_1_resource_experiment.html#_CPPv4N3gpa8playback18ResourceExperimentE" title="gpa::playback::ResourceExperiment">ResourceExperiment</a>&gt; <code class="sig-name descname">mResourceExperiments</code><a class="headerlink" href="#_CPPv4N3gpa8playback12Experimentor20mResourceExperimentsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="classgpa_1_1playback_1_1_i_playable.html" class="btn btn-neutral float-right" title="Class IPlayable" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="classgpa_1_1playback_1_1_default_playback_listener.html" class="btn btn-neutral float-left" title="Class DefaultPlaybackListener" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

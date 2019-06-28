@@ -1,0 +1,643 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Class Argument &mdash; Intel GPA SDK  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../static/jquery.js"></script>
+        <script type="text/javascript" src="../static/underscore.js"></script>
+        <script type="text/javascript" src="../static/doctools.js"></script>
+        <script type="text/javascript" src="../static/language_data.js"></script>
+        <script type="text/javascript" src="../static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script type="text/javascript" src="../static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    
+    <script type="text/javascript" src="../static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../static/css/gpasdk.css" type="text/css" />
+  <link rel="stylesheet" href="../static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Class BufferSerializer" href="classgpa_1_1serialization_1_1_buffer_serializer.html" />
+    <link rel="prev" title="Class RWLock" href="classgpa_1_1_r_w_lock.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Intel GPA SDK
+          
+
+          
+            
+            <img src="../static/intel-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-system-primer">Layer System Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-application">Capture Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-captured-stream">Play Back Captured Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending “Helloworld” Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">‘Helloworld’ Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">‘Helloworld’ Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extractor">Texture Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#id1">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#summary">Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel GPA SDK</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../src/reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="library_root.html">C++ Interfaces</a> &raquo;</li>
+        
+      <li>Class Argument</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="class-argument">
+<span id="exhale-class-classgpa-1-1serialization-1-1-argument"></span><h1>Class Argument<a class="headerlink" href="#class-argument" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_reflection_argument.h.html#file-include-reflection-argument-h"><span class="std std-ref">File argument.h</span></a></p></li>
+</ul>
+<div class="section" id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv4N3gpa13serialization8ArgumentE">
+<span id="_CPPv3N3gpa13serialization8ArgumentE"></span><span id="_CPPv2N3gpa13serialization8ArgumentE"></span><span id="gpa::serialization::Argument"></span><span class="target" id="classgpa_1_1serialization_1_1_argument"></span><em class="property">class </em><code class="sig-name descname">Argument</code><a class="headerlink" href="#_CPPv4N3gpa13serialization8ArgumentE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The <a class="reference internal" href="#classgpa_1_1serialization_1_1_argument"><span class="std std-ref">Argument</span></a> class describes a single argument to an API call. </p>
+<p>The function call can be part of a graphics API, a system API, or any API that is intercepted by the GPA call interceptor. Each function call has zero or more arguments, and each of these arguments is described in full by an instance of the <a class="reference internal" href="#classgpa_1_1serialization_1_1_argument"><span class="std std-ref">Argument</span></a> class.</p>
+<p>Arguments are not standalone objects; they are constructed as part of the metadata for the API call, and are available via the Callable::Argument method. These metadata objects are defined based on data extracted from the parsed API headers; therefore, names and type strings are as they were defined in the original header file.</p>
+<p><dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>The various overloaded constructors to <a class="reference internal" href="#classgpa_1_1serialization_1_1_argument"><span class="std std-ref">Argument</span></a> are implemented such that automatic type inference will produce an <a class="reference internal" href="#classgpa_1_1serialization_1_1_argument"><span class="std std-ref">Argument</span></a> with the correct generic BasicType. </p>
+</dd>
+</dl>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPKcPK6StructPK4EnumPK8Argument">
+<span id="_CPPv3N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPKcPK6StructPK4EnumPK8Argument"></span><span id="_CPPv2N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPKcPK6StructPK4EnumPK8Argument"></span><span id="gpa::serialization::Argument::Argument__cCP.cCP.s.s.cCP.StructCP.EnumCP.ArgumentCP"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a556eede8487434b548ed0a7904d59faf"></span><code class="sig-name descname">Argument</code><span class="sig-paren">(</span>char <em class="property">const</em> *<em>name</em>, char <em class="property">const</em> *<em>typeString</em>, size_t <em>index</em>, size_t <em>constElemCount</em>, char <em class="property">const</em> *<em>value</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_struct.html#_CPPv4N3gpa13serialization6StructE" title="gpa::serialization::Struct">Struct</a> <em class="property">const</em> *<em>structDef</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_enum.html#_CPPv4N3gpa13serialization4EnumE" title="gpa::serialization::Enum">Enum</a> <em class="property">const</em> *<em>enumDef</em>, <a class="reference internal" href="#_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPKcPK6StructPK4EnumPK8Argument" title="gpa::serialization::Argument::Argument">Argument</a> <em class="property">const</em> *<em>elementCountArg</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPKcPK6StructPK4EnumPK8Argument" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPcPK6StructPK4EnumPK8Argument">
+<span id="_CPPv3N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPcPK6StructPK4EnumPK8Argument"></span><span id="_CPPv2N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPcPK6StructPK4EnumPK8Argument"></span><span id="gpa::serialization::Argument::Argument__cCP.cCP.s.s.cP.StructCP.EnumCP.ArgumentCP"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a57e8f1c212f546103ad81840ce54ae06"></span><code class="sig-name descname">Argument</code><span class="sig-paren">(</span>char <em class="property">const</em> *<em>name</em>, char <em class="property">const</em> *<em>typeString</em>, size_t <em>index</em>, size_t <em>constElemCount</em>, char *<em>value</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_struct.html#_CPPv4N3gpa13serialization6StructE" title="gpa::serialization::Struct">Struct</a> <em class="property">const</em> *<em>structDef</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_enum.html#_CPPv4N3gpa13serialization4EnumE" title="gpa::serialization::Enum">Enum</a> <em class="property">const</em> *<em>enumDef</em>, <a class="reference internal" href="#_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPKcPK6StructPK4EnumPK8Argument" title="gpa::serialization::Argument::Argument">Argument</a> <em class="property">const</em> *<em>elementCountArg</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPcPK6StructPK4EnumPK8Argument" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tfPK6StructPK4EnumPK8Argument">
+<span id="_CPPv3N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tfPK6StructPK4EnumPK8Argument"></span><span id="_CPPv2N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tfPK6StructPK4EnumPK8Argument"></span><span id="gpa::serialization::Argument::Argument__cCP.cCP.s.s.float.StructCP.EnumCP.ArgumentCP"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a5d5f3495dffc3f929071929ca839df0d"></span><code class="sig-name descname">Argument</code><span class="sig-paren">(</span>char <em class="property">const</em> *<em>name</em>, char <em class="property">const</em> *<em>typeString</em>, size_t <em>index</em>, size_t <em>constElemCount</em>, float <em>value</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_struct.html#_CPPv4N3gpa13serialization6StructE" title="gpa::serialization::Struct">Struct</a> <em class="property">const</em> *<em>structDef</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_enum.html#_CPPv4N3gpa13serialization4EnumE" title="gpa::serialization::Enum">Enum</a> <em class="property">const</em> *<em>enumDef</em>, <a class="reference internal" href="#_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPKcPK6StructPK4EnumPK8Argument" title="gpa::serialization::Argument::Argument">Argument</a> <em class="property">const</em> *<em>elementCountArg</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tfPK6StructPK4EnumPK8Argument" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tdPK6StructPK4EnumPK8Argument">
+<span id="_CPPv3N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tdPK6StructPK4EnumPK8Argument"></span><span id="_CPPv2N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tdPK6StructPK4EnumPK8Argument"></span><span id="gpa::serialization::Argument::Argument__cCP.cCP.s.s.double.StructCP.EnumCP.ArgumentCP"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a8e12e235da3daae76f49da3a61e08a6d"></span><code class="sig-name descname">Argument</code><span class="sig-paren">(</span>char <em class="property">const</em> *<em>name</em>, char <em class="property">const</em> *<em>typeString</em>, size_t <em>index</em>, size_t <em>constElemCount</em>, double <em>value</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_struct.html#_CPPv4N3gpa13serialization6StructE" title="gpa::serialization::Struct">Struct</a> <em class="property">const</em> *<em>structDef</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_enum.html#_CPPv4N3gpa13serialization4EnumE" title="gpa::serialization::Enum">Enum</a> <em class="property">const</em> *<em>enumDef</em>, <a class="reference internal" href="#_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPKcPK6StructPK4EnumPK8Argument" title="gpa::serialization::Argument::Argument">Argument</a> <em class="property">const</em> *<em>elementCountArg</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tdPK6StructPK4EnumPK8Argument" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tjPK6StructPK4EnumPK8Argument">
+<span id="_CPPv3N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tjPK6StructPK4EnumPK8Argument"></span><span id="_CPPv2N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tjPK6StructPK4EnumPK8Argument"></span><span id="gpa::serialization::Argument::Argument__cCP.cCP.s.s.unsigned-i.StructCP.EnumCP.ArgumentCP"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1aac1ec8157704a068cca5d6231ff0b266"></span><code class="sig-name descname">Argument</code><span class="sig-paren">(</span>char <em class="property">const</em> *<em>name</em>, char <em class="property">const</em> *<em>typeString</em>, size_t <em>index</em>, size_t <em>constElemCount</em>, unsigned int <em>value</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_struct.html#_CPPv4N3gpa13serialization6StructE" title="gpa::serialization::Struct">Struct</a> <em class="property">const</em> *<em>structDef</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_enum.html#_CPPv4N3gpa13serialization4EnumE" title="gpa::serialization::Enum">Enum</a> <em class="property">const</em> *<em>enumDef</em>, <a class="reference internal" href="#_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPKcPK6StructPK4EnumPK8Argument" title="gpa::serialization::Argument::Argument">Argument</a> <em class="property">const</em> *<em>elementCountArg</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tjPK6StructPK4EnumPK8Argument" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tmPK6StructPK4EnumPK8Argument">
+<span id="_CPPv3N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tmPK6StructPK4EnumPK8Argument"></span><span id="_CPPv2N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tmPK6StructPK4EnumPK8Argument"></span><span id="gpa::serialization::Argument::Argument__cCP.cCP.s.s.unsigned-l.StructCP.EnumCP.ArgumentCP"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a4da842e647c62e822ae905f265f67660"></span><code class="sig-name descname">Argument</code><span class="sig-paren">(</span>char <em class="property">const</em> *<em>name</em>, char <em class="property">const</em> *<em>typeString</em>, size_t <em>index</em>, size_t <em>constElemCount</em>, unsigned long <em>value</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_struct.html#_CPPv4N3gpa13serialization6StructE" title="gpa::serialization::Struct">Struct</a> <em class="property">const</em> *<em>structDef</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_enum.html#_CPPv4N3gpa13serialization4EnumE" title="gpa::serialization::Enum">Enum</a> <em class="property">const</em> *<em>enumDef</em>, <a class="reference internal" href="#_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPKcPK6StructPK4EnumPK8Argument" title="gpa::serialization::Argument::Argument">Argument</a> <em class="property">const</em> *<em>elementCountArg</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tmPK6StructPK4EnumPK8Argument" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tyPK6StructPK4EnumPK8Argument">
+<span id="_CPPv3N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tyPK6StructPK4EnumPK8Argument"></span><span id="_CPPv2N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tyPK6StructPK4EnumPK8Argument"></span><span id="gpa::serialization::Argument::Argument__cCP.cCP.s.s.unsigned-l-l.StructCP.EnumCP.ArgumentCP"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a6632f153474168bfaae5bd4f51cafa9b"></span><code class="sig-name descname">Argument</code><span class="sig-paren">(</span>char <em class="property">const</em> *<em>name</em>, char <em class="property">const</em> *<em>typeString</em>, size_t <em>index</em>, size_t <em>constElemCount</em>, unsigned long long <em>value</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_struct.html#_CPPv4N3gpa13serialization6StructE" title="gpa::serialization::Struct">Struct</a> <em class="property">const</em> *<em>structDef</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_enum.html#_CPPv4N3gpa13serialization4EnumE" title="gpa::serialization::Enum">Enum</a> <em class="property">const</em> *<em>enumDef</em>, <a class="reference internal" href="#_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPKcPK6StructPK4EnumPK8Argument" title="gpa::serialization::Argument::Argument">Argument</a> <em class="property">const</em> *<em>elementCountArg</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tyPK6StructPK4EnumPK8Argument" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tiPK6StructPK4EnumPK8Argument">
+<span id="_CPPv3N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tiPK6StructPK4EnumPK8Argument"></span><span id="_CPPv2N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tiPK6StructPK4EnumPK8Argument"></span><span id="gpa::serialization::Argument::Argument__cCP.cCP.s.s.i.StructCP.EnumCP.ArgumentCP"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a9994623b288962cfa93bd0b08bf20ae2"></span><code class="sig-name descname">Argument</code><span class="sig-paren">(</span>char <em class="property">const</em> *<em>name</em>, char <em class="property">const</em> *<em>typeString</em>, size_t <em>index</em>, size_t <em>constElemCount</em>, int <em>value</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_struct.html#_CPPv4N3gpa13serialization6StructE" title="gpa::serialization::Struct">Struct</a> <em class="property">const</em> *<em>structDef</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_enum.html#_CPPv4N3gpa13serialization4EnumE" title="gpa::serialization::Enum">Enum</a> <em class="property">const</em> *<em>enumDef</em>, <a class="reference internal" href="#_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPKcPK6StructPK4EnumPK8Argument" title="gpa::serialization::Argument::Argument">Argument</a> <em class="property">const</em> *<em>elementCountArg</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tiPK6StructPK4EnumPK8Argument" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tlPK6StructPK4EnumPK8Argument">
+<span id="_CPPv3N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tlPK6StructPK4EnumPK8Argument"></span><span id="_CPPv2N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tlPK6StructPK4EnumPK8Argument"></span><span id="gpa::serialization::Argument::Argument__cCP.cCP.s.s.l.StructCP.EnumCP.ArgumentCP"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a09f04fb197ae72a57f8474f993088709"></span><code class="sig-name descname">Argument</code><span class="sig-paren">(</span>char <em class="property">const</em> *<em>name</em>, char <em class="property">const</em> *<em>typeString</em>, size_t <em>index</em>, size_t <em>constElemCount</em>, long <em>value</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_struct.html#_CPPv4N3gpa13serialization6StructE" title="gpa::serialization::Struct">Struct</a> <em class="property">const</em> *<em>structDef</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_enum.html#_CPPv4N3gpa13serialization4EnumE" title="gpa::serialization::Enum">Enum</a> <em class="property">const</em> *<em>enumDef</em>, <a class="reference internal" href="#_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPKcPK6StructPK4EnumPK8Argument" title="gpa::serialization::Argument::Argument">Argument</a> <em class="property">const</em> *<em>elementCountArg</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tlPK6StructPK4EnumPK8Argument" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_txPK6StructPK4EnumPK8Argument">
+<span id="_CPPv3N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_txPK6StructPK4EnumPK8Argument"></span><span id="_CPPv2N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_txPK6StructPK4EnumPK8Argument"></span><span id="gpa::serialization::Argument::Argument__cCP.cCP.s.s.l-l.StructCP.EnumCP.ArgumentCP"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a3c650f0c4cbbaa78112aca0452bce5dc"></span><code class="sig-name descname">Argument</code><span class="sig-paren">(</span>char <em class="property">const</em> *<em>name</em>, char <em class="property">const</em> *<em>typeString</em>, size_t <em>index</em>, size_t <em>constElemCount</em>, long long <em>value</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_struct.html#_CPPv4N3gpa13serialization6StructE" title="gpa::serialization::Struct">Struct</a> <em class="property">const</em> *<em>structDef</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_enum.html#_CPPv4N3gpa13serialization4EnumE" title="gpa::serialization::Enum">Enum</a> <em class="property">const</em> *<em>enumDef</em>, <a class="reference internal" href="#_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPKcPK6StructPK4EnumPK8Argument" title="gpa::serialization::Argument::Argument">Argument</a> <em class="property">const</em> *<em>elementCountArg</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_txPK6StructPK4EnumPK8Argument" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK6StructPK4EnumPK8Argument9BasicType">
+<span id="_CPPv3I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK6StructPK4EnumPK8Argument9BasicType"></span><span id="_CPPv2I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK6StructPK4EnumPK8Argument9BasicType"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a2c82c088c26a95996d61614a89297282"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br /><code class="sig-name descname">Argument</code><span class="sig-paren">(</span>char <em class="property">const</em> *<em>name</em>, char <em class="property">const</em> *<em>typeString</em>, size_t <em>index</em>, size_t <em>constElemCount</em>, <a class="reference internal" href="#_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK6StructPK4EnumPK8Argument9BasicType" title="gpa::serialization::Argument::Argument::T">T</a> *, <a class="reference internal" href="classgpa_1_1serialization_1_1_struct.html#_CPPv4N3gpa13serialization6StructE" title="gpa::serialization::Struct">Struct</a> <em class="property">const</em> *<em>structDef</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_enum.html#_CPPv4N3gpa13serialization4EnumE" title="gpa::serialization::Enum">Enum</a> <em class="property">const</em> *<em>enumDef</em>, <a class="reference internal" href="#_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK6StructPK4EnumPK8Argument9BasicType" title="gpa::serialization::Argument::Argument">Argument</a> <em class="property">const</em> *<em>elementCountArg</em>, <a class="reference internal" href="enum_basic-type_8h_1acb946daa90422fc8142cd72ba06898c5.html#_CPPv4N3gpa13serialization9BasicTypeE" title="gpa::serialization::BasicType">BasicType</a> <em>referencedType</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK6StructPK4EnumPK8Argument9BasicType" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPK1TPK6StructPK4EnumPK8Argument9BasicType">
+<span id="_CPPv3I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPK1TPK6StructPK4EnumPK8Argument9BasicType"></span><span id="_CPPv2I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPK1TPK6StructPK4EnumPK8Argument9BasicType"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1aa1a7d1bb9147f358934ba7b2446c8847"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br /><code class="sig-name descname">Argument</code><span class="sig-paren">(</span>char <em class="property">const</em> *<em>name</em>, char <em class="property">const</em> *<em>typeString</em>, size_t <em>index</em>, size_t <em>constElemCount</em>, <a class="reference internal" href="#_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK6StructPK4EnumPK8Argument9BasicType" title="gpa::serialization::Argument::Argument::T">T</a> <em class="property">const</em> *, <a class="reference internal" href="classgpa_1_1serialization_1_1_struct.html#_CPPv4N3gpa13serialization6StructE" title="gpa::serialization::Struct">Struct</a> <em class="property">const</em> *<em>structDef</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_enum.html#_CPPv4N3gpa13serialization4EnumE" title="gpa::serialization::Enum">Enum</a> <em class="property">const</em> *<em>enumDef</em>, <a class="reference internal" href="#_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK6StructPK4EnumPK8Argument9BasicType" title="gpa::serialization::Argument::Argument">Argument</a> <em class="property">const</em> *<em>elementCountArg</em>, <a class="reference internal" href="enum_basic-type_8h_1acb946daa90422fc8142cd72ba06898c5.html#_CPPv4N3gpa13serialization9BasicTypeE" title="gpa::serialization::BasicType">BasicType</a> <em>referencedType</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPK1TPK6StructPK4EnumPK8Argument9BasicType" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK8Argument">
+<span id="_CPPv3I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK8Argument"></span><span id="_CPPv2I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK8Argument"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a061322b524c792843b9cb8e617ad91f8"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br /><code class="sig-name descname">Argument</code><span class="sig-paren">(</span>char <em class="property">const</em> *<em>name</em>, char <em class="property">const</em> *<em>typeString</em>, size_t <em>index</em>, size_t <em>constElemCount</em>, <a class="reference internal" href="#_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK6StructPK4EnumPK8Argument9BasicType" title="gpa::serialization::Argument::Argument::T">T</a> *, <a class="reference internal" href="#_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK6StructPK4EnumPK8Argument9BasicType" title="gpa::serialization::Argument::Argument">Argument</a> <em class="property">const</em> *<em>elementCountArg</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK8Argument" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPK1TPK8Argument">
+<span id="_CPPv3I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPK1TPK8Argument"></span><span id="_CPPv2I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPK1TPK8Argument"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a45745e9f26859a0bd6f19e330e54070b"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br /><code class="sig-name descname">Argument</code><span class="sig-paren">(</span>char <em class="property">const</em> *<em>name</em>, char <em class="property">const</em> *<em>typeString</em>, size_t <em>index</em>, size_t <em>constElemCount</em>, <a class="reference internal" href="#_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK6StructPK4EnumPK8Argument9BasicType" title="gpa::serialization::Argument::Argument::T">T</a> <em class="property">const</em> *, <a class="reference internal" href="#_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK6StructPK4EnumPK8Argument9BasicType" title="gpa::serialization::Argument::Argument">Argument</a> <em class="property">const</em> *<em>elementCountArg</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPK1TPK8Argument" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_t8uint64_tPK8Argument">
+<span id="_CPPv3N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_t8uint64_tPK8Argument"></span><span id="_CPPv2N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_t8uint64_tPK8Argument"></span><span id="gpa::serialization::Argument::Argument__cCP.cCP.s.s.uint64_t.ArgumentCP"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1aadad7e9bd56f1eceb7b0b0e4d3a14d7b"></span><code class="sig-name descname">Argument</code><span class="sig-paren">(</span>char <em class="property">const</em> *<em>name</em>, char <em class="property">const</em> *<em>typeString</em>, size_t <em>index</em>, size_t <em>constElemCount</em>, uint64_t, <a class="reference internal" href="#_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPKcPK6StructPK4EnumPK8Argument" title="gpa::serialization::Argument::Argument">Argument</a> <em class="property">const</em> *<em>elementCountArg</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_t8uint64_tPK8Argument" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK6StructPK4EnumPK8Argument">
+<span id="_CPPv3I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK6StructPK4EnumPK8Argument"></span><span id="_CPPv2I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK6StructPK4EnumPK8Argument"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a8a6b45320a3b98fcc2b28a4e3b50f512"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br /><code class="sig-name descname">Argument</code><span class="sig-paren">(</span>char <em class="property">const</em> *<em>name</em>, char <em class="property">const</em> *<em>typeString</em>, size_t <em>index</em>, size_t <em>constElemCount</em>, <a class="reference internal" href="#_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK6StructPK4EnumPK8Argument9BasicType" title="gpa::serialization::Argument::Argument::T">T</a> *, <a class="reference internal" href="classgpa_1_1serialization_1_1_struct.html#_CPPv4N3gpa13serialization6StructE" title="gpa::serialization::Struct">Struct</a> <em class="property">const</em> *<em>structDef</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_enum.html#_CPPv4N3gpa13serialization4EnumE" title="gpa::serialization::Enum">Enum</a> <em class="property">const</em> *<em>enumDef</em>, <a class="reference internal" href="#_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK6StructPK4EnumPK8Argument9BasicType" title="gpa::serialization::Argument::Argument">Argument</a> <em class="property">const</em> *<em>elementCountArg</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK6StructPK4EnumPK8Argument" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPK1TPK6StructPK4EnumPK8Argument">
+<span id="_CPPv3I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPK1TPK6StructPK4EnumPK8Argument"></span><span id="_CPPv2I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPK1TPK6StructPK4EnumPK8Argument"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1ab5c4edeb58ad6c41b3d3bb3721e8c22a"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br /><code class="sig-name descname">Argument</code><span class="sig-paren">(</span>char <em class="property">const</em> *<em>name</em>, char <em class="property">const</em> *<em>typeString</em>, size_t <em>index</em>, size_t <em>constElemCount</em>, <a class="reference internal" href="#_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK6StructPK4EnumPK8Argument9BasicType" title="gpa::serialization::Argument::Argument::T">T</a> <em class="property">const</em> *, <a class="reference internal" href="classgpa_1_1serialization_1_1_struct.html#_CPPv4N3gpa13serialization6StructE" title="gpa::serialization::Struct">Struct</a> <em class="property">const</em> *<em>structDef</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_enum.html#_CPPv4N3gpa13serialization4EnumE" title="gpa::serialization::Enum">Enum</a> <em class="property">const</em> *<em>enumDef</em>, <a class="reference internal" href="#_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK6StructPK4EnumPK8Argument9BasicType" title="gpa::serialization::Argument::Argument">Argument</a> <em class="property">const</em> *<em>elementCountArg</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tPK1TPK6StructPK4EnumPK8Argument" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tR1TPK6StructPK4EnumPK8Argument">
+<span id="_CPPv3I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tR1TPK6StructPK4EnumPK8Argument"></span><span id="_CPPv2I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tR1TPK6StructPK4EnumPK8Argument"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a3ec160a9c5056bbc82996232129ebfa6"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br /><code class="sig-name descname">Argument</code><span class="sig-paren">(</span>char <em class="property">const</em> *<em>name</em>, char <em class="property">const</em> *<em>typeString</em>, size_t <em>index</em>, size_t <em>constElemCount</em>, <a class="reference internal" href="#_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK6StructPK4EnumPK8Argument9BasicType" title="gpa::serialization::Argument::Argument::T">T</a>&amp;, <a class="reference internal" href="classgpa_1_1serialization_1_1_struct.html#_CPPv4N3gpa13serialization6StructE" title="gpa::serialization::Struct">Struct</a> <em class="property">const</em> *<em>structDef</em>, <a class="reference internal" href="classgpa_1_1serialization_1_1_enum.html#_CPPv4N3gpa13serialization4EnumE" title="gpa::serialization::Enum">Enum</a> <em class="property">const</em> *<em>enumDef</em>, <a class="reference internal" href="#_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tP1TPK6StructPK4EnumPK8Argument9BasicType" title="gpa::serialization::Argument::Argument">Argument</a> <em class="property">const</em> *<em>elementCountArg</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3gpa13serialization8Argument8ArgumentEPKcPKc6size_t6size_tR1TPK6StructPK4EnumPK8Argument" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa13serialization8ArgumentD0Ev">
+<span id="_CPPv3N3gpa13serialization8ArgumentD0Ev"></span><span id="_CPPv2N3gpa13serialization8ArgumentD0Ev"></span><span id="gpa::serialization::Argument::~Argument"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1ac87e943b7a9343d299a4f841d7840d00"></span><code class="sig-name descname">~Argument</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13serialization8ArgumentD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13serialization8Argument4NameEv">
+<span id="_CPPv3NK3gpa13serialization8Argument4NameEv"></span><span id="_CPPv2NK3gpa13serialization8Argument4NameEv"></span><span id="gpa::serialization::Argument::NameC"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a637edce7a5798e904b923b4715e042de"></span>char <em class="property">const</em> *<code class="sig-name descname">Name</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13serialization8Argument4NameEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><a class="reference internal" href="#classgpa_1_1serialization_1_1_argument"><span class="std std-ref">Argument</span></a> name. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The name of the argument as declared by the parsed API. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13serialization8Argument10TypeStringEv">
+<span id="_CPPv3NK3gpa13serialization8Argument10TypeStringEv"></span><span id="_CPPv2NK3gpa13serialization8Argument10TypeStringEv"></span><span id="gpa::serialization::Argument::TypeStringC"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1aa16073359758dcb950bedb7bbc0352b5"></span>char <em class="property">const</em> *<code class="sig-name descname">TypeString</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13serialization8Argument10TypeStringEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The type of the argument as declared by the parsed API. </p>
+<p>This type may be different than the BasicType enum value returned by the Type method; the SDK necessarily must translate any API-specific types into “generic” types defined by the SDK. For example, <code class="docutils literal notranslate"><span class="pre">Foo*</span> <span class="pre">foo</span></code> may end up with a Type of BasicType::kPointer or BasicType::kHandle, depending on how <code class="docutils literal notranslate"><span class="pre">Foo*</span> <span class="pre">foo</span></code> was used in the original API declaration. <dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Pointer to immutable string containing the original type declaration. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13serialization8Argument5IndexEv">
+<span id="_CPPv3NK3gpa13serialization8Argument5IndexEv"></span><span id="_CPPv2NK3gpa13serialization8Argument5IndexEv"></span><span id="gpa::serialization::Argument::IndexC"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1ad53785609c2da6278737c813707de274"></span>size_t <code class="sig-name descname">Index</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13serialization8Argument5IndexEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Index of this <a class="reference internal" href="#classgpa_1_1serialization_1_1_argument"><span class="std std-ref">Argument</span></a> in the API call’s argument list. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The zero-based index of the <a class="reference internal" href="#classgpa_1_1serialization_1_1_argument"><span class="std std-ref">Argument</span></a> in the API call’s argument list. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13serialization8Argument4TypeEv">
+<span id="_CPPv3NK3gpa13serialization8Argument4TypeEv"></span><span id="_CPPv2NK3gpa13serialization8Argument4TypeEv"></span><span id="gpa::serialization::Argument::TypeC"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a5c653a35e6dacd2b907db79edd46847d"></span><a class="reference internal" href="enum_basic-type_8h_1acb946daa90422fc8142cd72ba06898c5.html#_CPPv4N3gpa13serialization9BasicTypeE" title="gpa::serialization::BasicType">BasicType</a> <code class="sig-name descname">Type</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13serialization8Argument4TypeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The SDK type of the <a class="reference internal" href="#classgpa_1_1serialization_1_1_argument"><span class="std std-ref">Argument</span></a> as inferred from the type and context of the argument. </p>
+<p><dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>If the proper type could not be inferred from the argument’s declared type and context, this function may return kUndefined. </p>
+</dd>
+<dt><strong>Return</strong></dt><dd><p>The API-independent type of this argument. </p>
+</dd>
+<dt><strong>See</strong></dt><dd><p>BasicType. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13serialization8Argument14ReferencedTypeEv">
+<span id="_CPPv3NK3gpa13serialization8Argument14ReferencedTypeEv"></span><span id="_CPPv2NK3gpa13serialization8Argument14ReferencedTypeEv"></span><span id="gpa::serialization::Argument::ReferencedTypeC"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1ae5b60fb7903b7d0c8b586016c8b33e12"></span><a class="reference internal" href="enum_basic-type_8h_1acb946daa90422fc8142cd72ba06898c5.html#_CPPv4N3gpa13serialization9BasicTypeE" title="gpa::serialization::BasicType">BasicType</a> <code class="sig-name descname">ReferencedType</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13serialization8Argument14ReferencedTypeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>For types that are pointers or references to one or more instances of another type, the type of the referenced object. </p>
+<p>This is most common when the <a class="reference internal" href="#classgpa_1_1serialization_1_1_argument"><span class="std std-ref">Argument</span></a> has a Type of BasicType::kPointer or BasicType::kEmbedded, and references one or more instances of a struct or other primitive type. The caller can examine the combination of return values from Type, ReferencedType, IsStruct, and IsVector to determine whether or not the <a class="reference internal" href="#classgpa_1_1serialization_1_1_argument"><span class="std std-ref">Argument</span></a> references (for example, points to) another object. <dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>If the argument is a pointer, but is not a struct (isStruct() returns false), then this returns the API-independent type that this argument refers to; otherwise, returns BasicType::kUndefined. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13serialization8Argument12ElemCountArgEv">
+<span id="_CPPv3NK3gpa13serialization8Argument12ElemCountArgEv"></span><span id="_CPPv2NK3gpa13serialization8Argument12ElemCountArgEv"></span><span id="gpa::serialization::Argument::ElemCountArgC"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1ae96c39791e8feae1912b9309a5a675e4"></span><a class="reference internal" href="#_CPPv4N3gpa13serialization8ArgumentE" title="gpa::serialization::Argument">Argument</a> <em class="property">const</em> *<code class="sig-name descname">ElemCountArg</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13serialization8Argument12ElemCountArgEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Access the <a class="reference internal" href="#classgpa_1_1serialization_1_1_argument"><span class="std std-ref">Argument</span></a> that provides the element count for vector (array) Arguments. </p>
+<p>This method will return non-null when this <a class="reference internal" href="#classgpa_1_1serialization_1_1_argument"><span class="std std-ref">Argument</span></a> references an array. For example, <code class="docutils literal notranslate"><span class="pre">Foo*</span> <span class="pre">foo</span></code> references one or more objects of type <code class="docutils literal notranslate"><span class="pre">Foo</span></code> that are arranged contiguously in memory. If the original API accepts arrays of <code class="docutils literal notranslate"><span class="pre">Foo</span></code>, then <a class="reference internal" href="#classgpa_1_1serialization_1_1_argument_1ae96c39791e8feae1912b9309a5a675e4"><span class="std std-ref">ElemCountArg()</span></a> will return non-null, regardless the actual number of elements specified by the <a class="reference internal" href="#classgpa_1_1serialization_1_1_argument"><span class="std std-ref">Argument</span></a> referenced by <a class="reference internal" href="#classgpa_1_1serialization_1_1_argument_1ae96c39791e8feae1912b9309a5a675e4"><span class="std std-ref">ElemCountArg()</span></a> at runtime, even if the runtime number of elements is 1. <dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>If argument references an array, return a pointer to another <a class="reference internal" href="#classgpa_1_1serialization_1_1_argument"><span class="std std-ref">Argument</span></a> in the call list, that describes the element count in the array; otherwise, returns <em>nullptr</em>. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13serialization8Argument25ConstantArrayElementCountEv">
+<span id="_CPPv3NK3gpa13serialization8Argument25ConstantArrayElementCountEv"></span><span id="_CPPv2NK3gpa13serialization8Argument25ConstantArrayElementCountEv"></span><span id="gpa::serialization::Argument::ConstantArrayElementCountC"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a3d7516ddb65b3d1fc399ff0eb0624443"></span>size_t <code class="sig-name descname">ConstantArrayElementCount</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13serialization8Argument25ConstantArrayElementCountEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>For constant-sized array arguments, access the number of elements in the array. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>If this <a class="reference internal" href="#classgpa_1_1serialization_1_1_argument"><span class="std std-ref">Argument</span></a> is a constant-sized array, the number of elements in the array. Otherwise, zero (0). </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13serialization8Argument8IsVectorEv">
+<span id="_CPPv3NK3gpa13serialization8Argument8IsVectorEv"></span><span id="_CPPv2NK3gpa13serialization8Argument8IsVectorEv"></span><span id="gpa::serialization::Argument::IsVectorC"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a428ba400851cd2a617d98a862a4b1fb2"></span>bool <code class="sig-name descname">IsVector</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13serialization8Argument8IsVectorEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Convenience method to detect whether the <a class="reference internal" href="#classgpa_1_1serialization_1_1_argument"><span class="std std-ref">Argument</span></a> references an array or vector of objects. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p><em>true</em> if this argument refers to, or contains, an array; <em>false</em> otherwise. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13serialization8Argument20IsConstantSizedArrayEv">
+<span id="_CPPv3NK3gpa13serialization8Argument20IsConstantSizedArrayEv"></span><span id="_CPPv2NK3gpa13serialization8Argument20IsConstantSizedArrayEv"></span><span id="gpa::serialization::Argument::IsConstantSizedArrayC"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a847bb6a476f65b4c371b32ac1685a98b"></span>bool <code class="sig-name descname">IsConstantSizedArray</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13serialization8Argument20IsConstantSizedArrayEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Convenience method to detect whether the <a class="reference internal" href="#classgpa_1_1serialization_1_1_argument"><span class="std std-ref">Argument</span></a> is a constant-sized array. </p>
+<p>If this method returns <em>true</em>, then <a class="reference internal" href="#classgpa_1_1serialization_1_1_argument_1ae5b60fb7903b7d0c8b586016c8b33e12"><span class="std std-ref">ReferencedType()</span></a> contains the type of the elements in the array. Obtain the constant number of elements in the array from <a class="reference internal" href="#classgpa_1_1serialization_1_1_argument_1a3d7516ddb65b3d1fc399ff0eb0624443"><span class="std std-ref">ConstantArrayElementCount()</span></a>. <dl class="simple">
+<dt><strong>Return</strong></dt><dd><p><em>true</em> if this argument refers to, or contains, an array; <em>false</em> otherwise. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13serialization8Argument8IsStructEv">
+<span id="_CPPv3NK3gpa13serialization8Argument8IsStructEv"></span><span id="_CPPv2NK3gpa13serialization8Argument8IsStructEv"></span><span id="gpa::serialization::Argument::IsStructC"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a6deb0e8d20c1d9ee4954bc459c2bfe85"></span>bool <code class="sig-name descname">IsStruct</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13serialization8Argument8IsStructEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Convenience method to detect whether the <a class="reference internal" href="#classgpa_1_1serialization_1_1_argument"><span class="std std-ref">Argument</span></a> references one or more instances of a struct that is defined by and known to the original API. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p><em>true</em> if this argument refers to, or contains, a struct; <em>false</em> otherwise. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13serialization8Argument9StructDefEv">
+<span id="_CPPv3NK3gpa13serialization8Argument9StructDefEv"></span><span id="_CPPv2NK3gpa13serialization8Argument9StructDefEv"></span><span id="gpa::serialization::Argument::StructDefC"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a42b81d8cd74af085e3355b8a822f4f05"></span><a class="reference internal" href="classgpa_1_1serialization_1_1_struct.html#_CPPv4N3gpa13serialization6StructE" title="gpa::serialization::Struct">Struct</a> <em class="property">const</em> *<code class="sig-name descname">StructDef</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13serialization8Argument9StructDefEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Provide access to the metadata that describes the API-specific struct layout referenced by this <a class="reference internal" href="#classgpa_1_1serialization_1_1_argument"><span class="std std-ref">Argument</span></a>. </p>
+<p>Whenever this method returns non-null, or IsStruct returns true, this <a class="reference internal" href="#classgpa_1_1serialization_1_1_argument"><span class="std std-ref">Argument</span></a> refers to an instance of an API-defined struct. In order to inspect that struct layout, this method returns a pointer to an instances of a <a class="reference internal" href="classgpa_1_1serialization_1_1_struct.html#classgpa_1_1serialization_1_1_struct"><span class="std std-ref">Struct</span></a> class that provides the layout metadata. This will be true when Type returns kPointer, kEmbedded and, on rare occasions, kUserDefined; this is independent of whether IsVector returns true or false. <dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Pointer to struct metadata if this argument refers to a struct (via pointer or embed), or <em>nullptr</em> otherwise. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13serialization8Argument7EnumDefEv">
+<span id="_CPPv3NK3gpa13serialization8Argument7EnumDefEv"></span><span id="_CPPv2NK3gpa13serialization8Argument7EnumDefEv"></span><span id="gpa::serialization::Argument::EnumDefC"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a5a8210b953cd64345a505ba6f1e1907c"></span><a class="reference internal" href="classgpa_1_1serialization_1_1_enum.html#_CPPv4N3gpa13serialization4EnumE" title="gpa::serialization::Enum">Enum</a> <em class="property">const</em> *<code class="sig-name descname">EnumDef</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13serialization8Argument7EnumDefEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Provide access to the metadata that describes the API-specific enumeration referenced by this <a class="reference internal" href="#classgpa_1_1serialization_1_1_argument"><span class="std std-ref">Argument</span></a>. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Pointer to enum metadata if this argument refers to an enumeration (via pointer or embed), or <em>nullptr</em> otherwise. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa13serialization8Argument19IsIntegralPrimitiveEv">
+<span id="_CPPv3NK3gpa13serialization8Argument19IsIntegralPrimitiveEv"></span><span id="_CPPv2NK3gpa13serialization8Argument19IsIntegralPrimitiveEv"></span><span id="gpa::serialization::Argument::IsIntegralPrimitiveC"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1adcb46c912429f7eb063aac98bbfbb699"></span>bool <code class="sig-name descname">IsIntegralPrimitive</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa13serialization8Argument19IsIntegralPrimitiveEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Convenience method to detect whether the <a class="reference internal" href="#classgpa_1_1serialization_1_1_argument"><span class="std std-ref">Argument</span></a> references a primitive, integral type. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>If the argument is a 32- or 64-bit integer type (signed or unsigned), returns true. Otherwise, returns false. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Protected Attributes</p>
+<dl class="member">
+<dt id="_CPPv4N3gpa13serialization8Argument5mNameE">
+<span id="_CPPv3N3gpa13serialization8Argument5mNameE"></span><span id="_CPPv2N3gpa13serialization8Argument5mNameE"></span><span id="gpa::serialization::Argument::mName__cCP"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a993ab7bb2cdd8e95155e5f2b951af7f5"></span>char <em class="property">const</em> *<code class="sig-name descname">mName</code><a class="headerlink" href="#_CPPv4N3gpa13serialization8Argument5mNameE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa13serialization8Argument11mTypeStringE">
+<span id="_CPPv3N3gpa13serialization8Argument11mTypeStringE"></span><span id="_CPPv2N3gpa13serialization8Argument11mTypeStringE"></span><span id="gpa::serialization::Argument::mTypeString__cCP"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a2f56efef401c33cbf6adb24b72473b87"></span>char <em class="property">const</em> *<code class="sig-name descname">mTypeString</code><a class="headerlink" href="#_CPPv4N3gpa13serialization8Argument11mTypeStringE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa13serialization8Argument6mIndexE">
+<span id="_CPPv3N3gpa13serialization8Argument6mIndexE"></span><span id="_CPPv2N3gpa13serialization8Argument6mIndexE"></span><span id="gpa::serialization::Argument::mIndex__s"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a6f30788068446e48c8a67774a6669ea3"></span>size_t <code class="sig-name descname">mIndex</code><a class="headerlink" href="#_CPPv4N3gpa13serialization8Argument6mIndexE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa13serialization8Argument13mElementCountE">
+<span id="_CPPv3N3gpa13serialization8Argument13mElementCountE"></span><span id="_CPPv2N3gpa13serialization8Argument13mElementCountE"></span><span id="gpa::serialization::Argument::mElementCount__s"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1afdc395884e0ca8a9b41273e4aa0d7496"></span>size_t <code class="sig-name descname">mElementCount</code><a class="headerlink" href="#_CPPv4N3gpa13serialization8Argument13mElementCountE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa13serialization8Argument16mElementCountArgE">
+<span id="_CPPv3N3gpa13serialization8Argument16mElementCountArgE"></span><span id="_CPPv2N3gpa13serialization8Argument16mElementCountArgE"></span><span id="gpa::serialization::Argument::mElementCountArg__ArgumentCP"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a5b9163fbe115f7e40746f92a14575e11"></span><a class="reference internal" href="#_CPPv4N3gpa13serialization8ArgumentE" title="gpa::serialization::Argument">Argument</a> <em class="property">const</em> *<code class="sig-name descname">mElementCountArg</code><a class="headerlink" href="#_CPPv4N3gpa13serialization8Argument16mElementCountArgE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa13serialization8Argument10mStructDefE">
+<span id="_CPPv3N3gpa13serialization8Argument10mStructDefE"></span><span id="_CPPv2N3gpa13serialization8Argument10mStructDefE"></span><span id="gpa::serialization::Argument::mStructDef__StructCP"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1af4b61df959592ae669d7e7bdaedea0c3"></span><a class="reference internal" href="classgpa_1_1serialization_1_1_struct.html#_CPPv4N3gpa13serialization6StructE" title="gpa::serialization::Struct">Struct</a> <em class="property">const</em> *<code class="sig-name descname">mStructDef</code><a class="headerlink" href="#_CPPv4N3gpa13serialization8Argument10mStructDefE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa13serialization8Argument8mEnumDefE">
+<span id="_CPPv3N3gpa13serialization8Argument8mEnumDefE"></span><span id="_CPPv2N3gpa13serialization8Argument8mEnumDefE"></span><span id="gpa::serialization::Argument::mEnumDef__EnumCP"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a3125e99b840c8d072537f991c4bee6d6"></span><a class="reference internal" href="classgpa_1_1serialization_1_1_enum.html#_CPPv4N3gpa13serialization4EnumE" title="gpa::serialization::Enum">Enum</a> <em class="property">const</em> *<code class="sig-name descname">mEnumDef</code><a class="headerlink" href="#_CPPv4N3gpa13serialization8Argument8mEnumDefE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa13serialization8Argument5mTypeE">
+<span id="_CPPv3N3gpa13serialization8Argument5mTypeE"></span><span id="_CPPv2N3gpa13serialization8Argument5mTypeE"></span><span id="gpa::serialization::Argument::mType__BasicType"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1ad6622baaeb65448e0a801443925206d5"></span><a class="reference internal" href="enum_basic-type_8h_1acb946daa90422fc8142cd72ba06898c5.html#_CPPv4N3gpa13serialization9BasicTypeE" title="gpa::serialization::BasicType">BasicType</a> <code class="sig-name descname">mType</code><a class="headerlink" href="#_CPPv4N3gpa13serialization8Argument5mTypeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa13serialization8Argument15mReferencedTypeE">
+<span id="_CPPv3N3gpa13serialization8Argument15mReferencedTypeE"></span><span id="_CPPv2N3gpa13serialization8Argument15mReferencedTypeE"></span><span id="gpa::serialization::Argument::mReferencedType__BasicType"></span><span class="target" id="classgpa_1_1serialization_1_1_argument_1a055137a20b5db713bdbfe435f832837c"></span><a class="reference internal" href="enum_basic-type_8h_1acb946daa90422fc8142cd72ba06898c5.html#_CPPv4N3gpa13serialization9BasicTypeE" title="gpa::serialization::BasicType">BasicType</a> <code class="sig-name descname">mReferencedType</code><a class="headerlink" href="#_CPPv4N3gpa13serialization8Argument15mReferencedTypeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="classgpa_1_1serialization_1_1_buffer_serializer.html" class="btn btn-neutral float-right" title="Class BufferSerializer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="classgpa_1_1_r_w_lock.html" class="btn btn-neutral float-left" title="Class RWLock" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

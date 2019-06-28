@@ -1,0 +1,399 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Getting Started &mdash; Intel GPA SDK  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
+        <script type="text/javascript" src="../static/jquery.js"></script>
+        <script type="text/javascript" src="../static/underscore.js"></script>
+        <script type="text/javascript" src="../static/doctools.js"></script>
+        <script type="text/javascript" src="../static/language_data.js"></script>
+        <script type="text/javascript" src="../static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script type="text/javascript" src="../static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    
+    <script type="text/javascript" src="../static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../static/css/gpasdk.css" type="text/css" />
+  <link rel="stylesheet" href="../static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Guides" href="guides.html" />
+    <link rel="prev" title="What is Intel® Graphics Performance Analyzers SDK (Intel® GPA SDK)?" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Intel GPA SDK
+          
+
+          
+            
+            <img src="../static/intel-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#layer-system-primer">Layer System Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#capture-application">Capture Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#play-back-captured-stream">Play Back Captured Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="guides/extending_test_layer.html">Extending “Helloworld” Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#helloworld-simple-layer">‘Helloworld’ Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#helloworld-generated-layer">‘Helloworld’ Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#texture-extractor">Texture Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilities.html#gpa-player">gpa-player</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="layers.html#logging">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="python.html">Python Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cppapi/library_root.html">C++ Interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cppapi/library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cppapi/library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cppapi/library_root.html#full-api">Full API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#range-repeat">Range Repeat</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requirements.html#id1">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#june-2019">2019.2 (27 June 2019)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#summary">Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel GPA SDK</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Getting Started</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="getting-started">
+<span id="id1"></span><h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>Use this guide to learn how to use the Intel<sup>®</sup> GPA SDK to do the following:</p>
+<ul class="simple">
+<li><p>Capture a stream of a running application using the <a class="reference internal" href="utilities.html#gpa-injector"><span class="std std-ref">gpa-injector</span></a> utility</p></li>
+<li><p>Play the stream back using <a class="reference internal" href="utilities.html#gpa-player"><span class="std std-ref">gpa-player</span></a></p></li>
+<li><p>Use additional layers</p></li>
+</ul>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>From the root folder, where Intel<sup>®</sup> GPA SDK was unzipped, navigate to:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd bin/Release/</span>
+</pre></div>
+</div>
+<p>The root folder contains all utilities used within the Intel<sup>®</sup> GPA SDK, including the layers.</p>
+<p>The following utilities control capture and playback of applications, respectively:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;</span> gpa-injector
+<span class="gp">&gt;</span> gpa-player
+</pre></div>
+</div>
+<p><a class="reference internal" href="utilities.html#gpa-injector"><span class="std std-ref">gpa-injector</span></a> takes in the executable of the application to capture and controls injection of the graphics API.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="utilities.html#gpa-injector"><span class="std std-ref">gpa-injector</span></a> does not capture data from the running application. The data are captured by the <a class="reference internal" href="layers.html#capture-layer"><span class="std std-ref">Capture</span></a> layer.</p>
+</div>
+<p><a class="reference internal" href="utilities.html#gpa-player"><span class="std std-ref">gpa-player</span></a> takes a stream folder as input and plays back the given string.</p>
+<p>To learn more about the utilities capabilities and parameters, refer to the <a class="reference internal" href="utilities.html#utilities"><span class="std std-ref">Utilities</span></a> reference page.</p>
+</div>
+<div class="section" id="layer-system-primer">
+<h2>Layer System Primer<a class="headerlink" href="#layer-system-primer" title="Permalink to this headline">¶</a></h2>
+<p>Intel<sup>®</sup> GPA SDK provides a cross-platform, cross-API layer system similar to the Vulkan* layer paradigm. The layers control what is intercepted and can inject the required code. For example, the <a class="reference internal" href="layers.html#hud-layer"><span class="std std-ref">HUD-Layer</span></a> hooks the Present equivalent function calls across graphics APIs and injects the required code to create an overlay on the rendered surface.</p>
+<p><a class="reference internal" href="utilities.html#gpa-injector"><span class="std std-ref">gpa-injector</span></a> and <a class="reference internal" href="utilities.html#gpa-player"><span class="std std-ref">gpa-player</span></a> take layers as input, but the <a class="reference internal" href="layers.html#capture-layer"><span class="std std-ref">Capture</span></a> layer is exclusive to the <a class="reference internal" href="utilities.html#gpa-injector"><span class="std std-ref">gpa-injector</span></a> application. This layer controls graphics APIs capturing and serialization into the generated multi-frame capture stream files.</p>
+<p>You can specify layers with the <cite>–layer [layer_name]</cite> flag. The available layers are stored in the <cite>bin/Release/layers</cite> folder.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Layer usage and available parameters can be queried by supplying the desired layer to the <cite>gpa-help.exe</cite> executable.</p>
+</div>
+<p>To learn more about the <a class="reference internal" href="layers.html#capture-layer"><span class="std std-ref">Capture</span></a> layer and other available layers, see the <a class="reference internal" href="layers.html#layers"><span class="std std-ref">Layers</span></a> page.</p>
+</div>
+<div class="section" id="capture-application">
+<h2>Capture Application<a class="headerlink" href="#capture-application" title="Permalink to this headline">¶</a></h2>
+<p>To capture and playback an application, run the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;</span> gpa-injector --layer capture <span class="o">[</span>path_to_executable<span class="o">]</span>
+</pre></div>
+</div>
+<p>The command starts execution of the application specified by <cite>[path_to_executable]</cite> with the <a class="reference internal" href="layers.html#capture-layer"><span class="std std-ref">Capture</span></a> layer instrumented. The <a class="reference internal" href="layers.html#capture-layer"><span class="std std-ref">Capture</span></a> layer records all graphics API commands issued by the application and saves them into a stream file in the user <cite>[user]/Documents/GPA/</cite> folder.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Intel<sup>®</sup> GPA SDK instruments and captures only the graphics APIs from the <a class="reference internal" href="requirements.html#supported-graphics-apis"><span class="std std-ref">Hardware Requirements</span></a>.</p>
+</div>
+<p>Capturing lasts while the executable is running. To stop capturing, exit, close or force close the application once the desired information is gathered in a stream. A new stream file is stored in <cite>[user]/Documents/GPA/[stream_folder]</cite>. The name of <cite>[stream_folder]</cite> consists of the workload name and the capture date in the DD/MM/YYYY format.</p>
+</div>
+<div class="section" id="play-back-captured-stream">
+<h2>Play Back Captured Stream<a class="headerlink" href="#play-back-captured-stream" title="Permalink to this headline">¶</a></h2>
+<p>To play back a stream, execute the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;</span> gpa-player <span class="o">[</span>path_to_stream_folder<span class="o">]</span>
+</pre></div>
+</div>
+<p>The command opens a window to replay the stream contents. On the playback completion, the window closes and <a class="reference internal" href="utilities.html#gpa-player"><span class="std std-ref">gpa-player</span></a> ends execution.</p>
+<p><a class="reference internal" href="utilities.html#gpa-player"><span class="std std-ref">gpa-player</span></a> can take several arguments that control a playback mode, a frame to start from (if the stream is captured with enabled keyframing), and optionally repeat a certain range of calls. For more information on the parameters, see the <a class="reference internal" href="utilities.html#utilities"><span class="std std-ref">Utilities</span></a> section.</p>
+</div>
+<div class="section" id="stack-multiple-layers">
+<h2>Stack Multiple Layers<a class="headerlink" href="#stack-multiple-layers" title="Permalink to this headline">¶</a></h2>
+<p>To add the <a class="reference internal" href="layers.html#hud-layer"><span class="std std-ref">HUD-Layer</span></a>, supply the <cite>–layer hud-layer</cite> argument to <a class="reference internal" href="utilities.html#gpa-injector"><span class="std std-ref">gpa-injector</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you include the <a class="reference internal" href="layers.html#hud-layer"><span class="std std-ref">HUD-Layer</span></a> before <cite>–layer capture</cite>, the command is also captured in a stream and playbacked. To avoid such behavior, include the <a class="reference internal" href="layers.html#hud-layer"><span class="std std-ref">HUD-Layer</span></a> after the <a class="reference internal" href="layers.html#capture-layer"><span class="std std-ref">Capture</span></a> layer.</p>
+</div>
+<p>You can also use the <a class="reference internal" href="layers.html#hud-layer"><span class="std std-ref">HUD-Layer</span></a> in playback by running the <cite>–post-layer hud-layer</cite> command. The command adds the HUD to the stream playback and can help identify the frame number you may be interested in.</p>
+</div>
+<div class="section" id="next-steps">
+<span id="id2"></span><h2>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
+<p>To identify further possible steps, see the <a class="reference internal" href="samples.html#samples"><span class="std std-ref">Samples</span></a> page to identify a sample that suits your use case.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="guides.html" class="btn btn-neutral float-right" title="Guides" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral float-left" title="What is Intel® Graphics Performance Analyzers SDK (Intel® GPA SDK)?" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
