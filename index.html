@@ -8,38 +8,54 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>What is Intel® Graphics Performance Analyzers SDK (Intel® GPA SDK)? &mdash; Intel GPA SDK  documentation</title>
+  <title>Intel® Graphics Performance Analyzers Framework (Intel® GPA Framework) &mdash; Intel® GPA Framework  documentation</title>
   
 
   
   
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
   
   
 
   
-  <script type="text/javascript" src="static/js/modernizr.min.js"></script>
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
-        <script type="text/javascript" src="static/jquery.js"></script>
-        <script type="text/javascript" src="static/underscore.js"></script>
-        <script type="text/javascript" src="static/doctools.js"></script>
-        <script type="text/javascript" src="static/language_data.js"></script>
-        <script type="text/javascript" src="static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
-        <script type="text/javascript" src="static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script type="text/javascript" src="_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
     
-    <script type="text/javascript" src="static/js/theme.js"></script>
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
 
   
-  <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="static/css/gpasdk.css" type="text/css" />
-  <link rel="stylesheet" href="static/collapsible-lists/css/tree_view.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/gpa.css" type="text/css" />
+  <link rel="stylesheet" href="_static/collapsible-lists/css/tree_view.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Getting Started" href="src/getting_started.html" /> 
+    <link rel="next" title="Getting Started" href="src/getting_started.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
 </head>
 
 <body class="wy-body-for-nav">
@@ -52,13 +68,18 @@
         <div class="wy-side-nav-search" >
           
 
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
           
-            <a href="#" class="icon icon-home"> Intel GPA SDK
+            <a href="#">
           
 
           
             
-            <img src="static/intel-logo.png" class="logo" alt="Logo"/>
+            <img src="_static/intel-logo.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -77,6 +98,7 @@
 </div>
 
           
+
         </div>
 
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
@@ -90,9 +112,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="src/getting_started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="src/getting_started.html#introduction">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="src/getting_started.html#layer-system-primer">Layer System Primer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="src/getting_started.html#capture-application">Capture Application</a></li>
-<li class="toctree-l2"><a class="reference internal" href="src/getting_started.html#play-back-captured-stream">Play Back Captured Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/getting_started.html#play-back-stream">Play Back Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="src/getting_started.html#next-steps">Next Steps</a></li>
 </ul>
@@ -106,7 +128,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="src/samples.html">Samples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/samples.html#how-to-build">How to build</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="src/samples.html#windows">Windows*</a></li>
 </ul>
 </li>
@@ -170,6 +192,7 @@
 <li class="toctree-l2"><a class="reference internal" href="src/features.html#stream-analysis">Stream Analysis</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="src/features.html#metric-collection">Metric Collection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src/features.html#metadata-extraction">Metadata Extraction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src/features.html#resource-extraction">Resource Extraction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src/features.html#api-call-inspection">API Call Inspection</a></li>
 </ul>
@@ -186,15 +209,16 @@
 <li class="toctree-l1"><a class="reference internal" href="src/requirements.html">System Requirements</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="src/requirements.html#software-requirements">Software Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="src/requirements.html#id1">Supported Graphics APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="src/release_notes.html">Release Notes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="src/release_notes.html#june-2019">2019.2 (27 June 2019)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="src/release_notes.html#summary">Summary</a></li>
-<li class="toctree-l3"><a class="reference internal" href="src/release_notes.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="src/licenses.html">Legal Information</a><ul>
@@ -215,7 +239,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">Intel GPA SDK</a>
+          <a href="#">Intel® GPA Framework</a>
         
       </nav>
 
@@ -246,7 +270,7 @@
     
       <li><a href="#">Docs</a> &raquo;</li>
         
-      <li>What is Intel<sup>®</sup> Graphics Performance Analyzers SDK (Intel<sup>®</sup> GPA SDK)?</li>
+      <li>Intel<sup>®</sup> Graphics Performance Analyzers Framework (Intel<sup>®</sup> GPA Framework)</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -263,16 +287,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="what-is-intel-graphics-performance-analyzers-sdk-intel-gpa-sdk">
-<h1>What is Intel<sup>®</sup> Graphics Performance Analyzers SDK (Intel<sup>®</sup> GPA SDK)?<a class="headerlink" href="#what-is-intel-graphics-performance-analyzers-sdk-intel-gpa-sdk" title="Permalink to this headline">¶</a></h1>
-<p>Intel<sup>®</sup> GPA SDK is a cross-platform, cross-API suite of tools and APIs, which allows users to capture, playback and analyze graphics applications. The heart of the Intel<sup>®</sup> GPA SDK is a robust, scalable and low overhead layering system similar to the Vulkan* layer framework.</p>
+  <div class="section" id="intel-graphics-performance-analyzers-framework-gpasdk">
+<h1>Intel<sup>®</sup> Graphics Performance Analyzers Framework (Intel<sup>®</sup> GPA Framework)<a class="headerlink" href="#intel-graphics-performance-analyzers-framework-gpasdk" title="Permalink to this headline">¶</a></h1>
+<p>Intel<sup>®</sup> GPA Framework is a cross-platform, cross-API suite of tools and interfaces, which allows users to capture, playback and analyze graphics applications. The heart of the Intel<sup>®</sup> GPA Framework is a robust, scalable and low overhead layering framework similar to the Vulkan* layer framework.</p>
 <ul class="grid">
    <li class="grid-item">
       <a href="src/getting_started.html">
          <span class="grid-icon fa fa-map-signs"></span>
          <h2>Getting Started</h2>
       </a>
-      <p>New to Intel<sup>&reg;</sup> GPA SDK? Start here!</p>
+      <p>New to Intel<sup>&reg;</sup> GPA Framework? Start here!</p>
    </li>
    <li class="grid-item">
       <a href="src/guides.html">
@@ -300,39 +324,39 @@
          <span class="grid-icon fa fa-puzzle-piece"></span>
          <h2>Features</h2>
       </a>
-      <p>Feature set supported in Intel<sup>&reg;</sup> GPA SDK by various graphics APIs.</p>
+      <p>Feature set supported in Intel<sup>&reg;</sup> GPA Framework by various graphics APIs.</p>
    </li>
    <li class="grid-item">
       <a href="src/requirements.html">
          <span class="grid-icon fa fa-laptop"></span>
          <h2>System Requirements</h2>
       </a>
-      <p>Hardware and software requirements for Intel<sup>&reg;</sup> GPA SDK.</p>
+      <p>Hardware and software requirements for Intel<sup>&reg;</sup> GPA Framework.</p>
    </li>
    <li class="grid-item">
       <a href="src/release_notes.html">
          <span class="grid-icon fa fa-database"></span>
          <h2>Release Notes</h2>
       </a>
-      <p>Check out what's new in Intel<sup>&reg;</sup> GPA SDK.</p>
+      <p>Check out what's new in Intel<sup>&reg;</sup> GPA Framework.</p>
    </li>
    <li class="grid-item">
-      <a href="src/licenses.html">
-         <span class="grid-icon fa fa-file"></span>
-         <h2>Legal Information</h2>
+      <a href="src/troubleshooting.html">
+         <span class="grid-icon fa fa-question"></span>
+         <h2>Troubleshooting</h2>
       </a>
-      <p>Intel<sup>&reg;</sup> GPA SDK legal information and 3rd Party License acknowledgements.</p>
+      <p>Known issues and limitations.</p>
    </li>
-</ul><p>In a nutshell, an Intel<sup>®</sup> GPA SDK user can:</p>
-<p>Capture a stream of a running application:</p>
+</ul><p>In a nutshell, an Intel<sup>®</sup> GPA Framework user can:</p>
+<p><strong>Capture</strong> a stream of a running application:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;</span> gpa-injector --layer capture <span class="o">[</span>PATH_TO_EXECUTABLE<span class="o">]</span>
 </pre></div>
 </div>
-<p>Playback the stream to recreate the application graphics execution:</p>
+<p><strong>Playback</strong> the stream to recreate the application graphics execution:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;</span> gpa-player Documents/GPA/<span class="o">[</span>PATH_TO_STREAM<span class="o">]</span>
 </pre></div>
 </div>
-<p>Or create a script that can:</p>
+<p><strong>Analyze</strong> the stream using programmatic interfaces. For example:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>Play back a stream up to a given frame</p></li>
@@ -343,20 +367,31 @@
 </div></blockquote>
 </div>
 <div class="section" id="why-should-i-use-gpasdk">
-<h1>Why should I use Intel<sup>®</sup> GPA SDK?<a class="headerlink" href="#why-should-i-use-gpasdk" title="Permalink to this headline">¶</a></h1>
-<p>Intel<sup>®</sup> GPA SDK is a powerful tool that caters to various use cases. This section describes example use cases.</p>
+<h1>Why should I use Intel<sup>®</sup> GPA Framework?<a class="headerlink" href="#why-should-i-use-gpasdk" title="Permalink to this headline">¶</a></h1>
+<p>Intel<sup>®</sup> GPA Framework is a powerful tool that caters to various use cases. This section describes example use cases.</p>
 <div class="section" id="test-validation-engineer">
 <h2>Test/Validation Engineer<a class="headerlink" href="#test-validation-engineer" title="Permalink to this headline">¶</a></h2>
-<p>Unlike crash no/crash validation, performance regressions are difficult to characterize and spot at a granular level. Test/validation engineers can integrate Intel<sup>®</sup> GPA SDK into Continuous Integration automated frameworks with native C++ applications or with python interfaces to capture a known workload and analyze a given frame. Intel<sup>®</sup> GPA SDK reports performance improvements, regressions and frame budget analysis at a per draw call or debug region level.</p>
+<p>Unlike crash no/crash validation, performance regressions are difficult to characterize and spot at a granular level. Test/validation engineers can integrate Intel<sup>®</sup> GPA Framework into Continuous Integration automated frameworks with native C++ applications or with python interfaces to capture a known workload and analyze a given frame. Intel<sup>®</sup> GPA Framework reports performance improvements, regressions and frame budget analysis at a per draw call or debug region level.</p>
 </div>
 <div class="section" id="game-engine-developer">
 <h2>Game Engine Developer<a class="headerlink" href="#game-engine-developer" title="Permalink to this headline">¶</a></h2>
-<p>Intel<sup>®</sup> GPA SDK allows game engine developers to integrate performance profiling capabilities into an engine.</p>
+<p>Intel<sup>®</sup> GPA Framework allows game engine developers to integrate performance profiling capabilities into an engine.</p>
 </div>
 <div class="section" id="game-developer">
 <h2>Game Developer<a class="headerlink" href="#game-developer" title="Permalink to this headline">¶</a></h2>
-<p>Game developers can use Intel<sup>®</sup> GPA SDK to automate performance optimization experiments into scripts to quickly identify common bottlenecks. Multi-frame streams can help spotting performance issues, which are hard to characterize with single-frame capture, such as overall frame time variance, intermittent glitches, frame drops.</p>
+<p>Game developers can use Intel<sup>®</sup> GPA Framework to automate performance optimization experiments into scripts to quickly identify common bottlenecks. Multi-frame streams can help spotting performance issues, which are hard to characterize with single-frame capture, such as overall frame time variance, intermittent glitches, frame drops.</p>
 </div>
+</div>
+<div class="section" id="contents">
+<h1>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><ul class="simple">
+<li><p>Binary tools to capture and playback graphics streams to/from disk</p></li>
+<li><p>C++ and Python interfaces. Collection of headers and libraries for programmatical analysis of a stream</p></li>
+<li><p>Sample code showing how to leverage the programmatic interfaces to gather data</p></li>
+<li><p>Customizable layering/shimming framework to enable real-time and replay data collection</p></li>
+</ul>
+</div></blockquote>
 </div>
 <div class="section" id="features">
 <h1>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h1>
@@ -378,153 +413,86 @@
 <tr class="row-even"><td colspan="4"><p><strong>Capture and playback</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="src/features.html#features-basic-c-and-p"><span class="std std-ref">Basic Capture and Playback</span></a></p></td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="src/features.html#features-keyframing"><span class="std std-ref">Keyframing Capture</span></a></p></td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="src/features.html#features-range-repeat"><span class="std std-ref">Range Repeat</span></a></p></td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
-<td></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
 </tr>
 <tr class="row-even"><td colspan="4"><p><strong>Stream Analysis</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="src/features.html#features-metrics"><span class="std std-ref">Metric Collection</span></a></p></td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
+<td><p>✓</p></td>
 <td></td>
 <td></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="src/features.html#features-experiments"><span class="std std-ref">Experiments</span></a></p></td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
+<td><p>✓</p></td>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="src/features.html#features-resource-extraction"><span class="std std-ref">Resource Extraction</span></a></p></td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="src/features.html#features-metadata-extraction"><span class="std std-ref">Metadata Extraction</span></a></p></td>
+<td><p>✓</p></td>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="src/features.html#features-api-inspection"><span class="std std-ref">API Call Inspection</span></a></p></td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
+<tr class="row-even"><td><p><a class="reference internal" href="src/features.html#features-resource-extraction"><span class="std std-ref">Resource Extraction</span></a></p></td>
+<td><p>✓</p></td>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td colspan="4"><p><strong>Layers</strong></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="src/features.html#features-api-inspection"><span class="std std-ref">API Call Inspection</span></a></p></td>
+<td><p>✓</p></td>
+<td></td>
+<td><p>✓</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="src/features.html#features-custom-layers"><span class="std std-ref">Custom (User) Layers</span></a></p></td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
+<tr class="row-even"><td colspan="4"><p><strong>Layers</strong></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="src/features.html#features-hud-layer"><span class="std std-ref">Heads-Up Display(HUD) Layer</span></a></p></td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="src/features.html#features-custom-layers"><span class="std std-ref">Custom (User) Layers</span></a></p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="src/features.html#features-screenshot-layer"><span class="std std-ref">Screenshot Layer</span></a></p></td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
+<tr class="row-even"><td><p><a class="reference internal" href="src/features.html#features-hud-layer"><span class="std std-ref">Heads-Up Display(HUD) Layer</span></a></p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="src/features.html#features-logging-layer"><span class="std std-ref">Logging Layer</span></a></p></td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
-<td><ul class="simple">
-<li></li>
-</ul>
-</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="src/features.html#features-screenshot-layer"><span class="std std-ref">Screenshot Layer</span></a></p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="src/features.html#features-logging-layer"><span class="std std-ref">Logging Layer</span></a></p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
+<td><p>✓</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="how-to-use-this-guide">
 <h1>How to Use This Guide<a class="headerlink" href="#how-to-use-this-guide" title="Permalink to this headline">¶</a></h1>
-<p>See the <a class="reference internal" href="src/getting_started.html#getting-started"><span class="std std-ref">Getting Started</span></a> guide to learn how to use the built-in capture and playback functionality.</p>
-<p>To learn more about the layers that are packaged with the Intel<sup>®</sup> GPA SDK visit the <a class="reference internal" href="src/layers.html#layers"><span class="std std-ref">Layers</span></a> page.</p>
-<p>See the <a class="reference internal" href="src/utilities.html#utilities"><span class="std std-ref">Utilities</span></a> page to find a deeper explanation of all the parameters that can be passed to the capture and playback applications.</p>
-<p>Find the right tool for your needs by navigating straight to the <a class="reference internal" href="src/getting_started.html#next-steps"><span class="std std-ref">Next Steps</span></a> section within the <a class="reference internal" href="src/getting_started.html#getting-started"><span class="std std-ref">Getting Started</span></a> guide. Explore the Intel<sup>®</sup> GPA SDK components in the <a class="reference internal" href="src/reference.html#reference"><span class="std std-ref">Reference</span></a> section. To find a sample that applies to your use case, explore the <a class="reference internal" href="src/samples.html#samples"><span class="std std-ref">Samples</span></a> page.</p>
+<p>Check out the <a class="reference internal" href="src/getting_started.html#getting-started"><span class="std std-ref">Getting Started</span></a> guide to learn how to use the built-in capture and playback functionality.</p>
+<p>To learn more about the layers that are packaged with the Intel<sup>®</sup> GPA Framework visit the <a class="reference internal" href="src/layers.html#layers"><span class="std std-ref">Layers</span></a> page.</p>
+<p>Explore the <a class="reference internal" href="src/utilities.html#utilities"><span class="std std-ref">Utilities</span></a> page to find a deeper explanation of all the parameters that can be passed to the capture and playback applications.</p>
+<p>Find the right workflow for your needs by navigating straight to the <a class="reference internal" href="src/getting_started.html#next-steps"><span class="std std-ref">Next Steps</span></a> section within the <a class="reference internal" href="src/getting_started.html#getting-started"><span class="std std-ref">Getting Started</span></a> guide. Explore the Intel<sup>®</sup> GPA Framework components in the <a class="reference internal" href="src/reference.html#reference"><span class="std std-ref">Reference</span></a> section. To find a sample that applies to your use case, explore the <a class="reference internal" href="src/samples.html#samples"><span class="std std-ref">Samples</span></a> page.</p>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Table of Contents</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="src/getting_started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="src/getting_started.html#introduction">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="src/getting_started.html#layer-system-primer">Layer System Primer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="src/getting_started.html#capture-application">Capture Application</a></li>
-<li class="toctree-l2"><a class="reference internal" href="src/getting_started.html#play-back-captured-stream">Play Back Captured Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/getting_started.html#play-back-stream">Play Back Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="src/getting_started.html#next-steps">Next Steps</a></li>
 </ul>
@@ -538,7 +506,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="src/samples.html">Samples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/samples.html#how-to-build">How to build</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="src/samples.html#windows">Windows*</a></li>
 </ul>
 </li>
@@ -593,6 +561,7 @@
 <li class="toctree-l2"><a class="reference internal" href="src/features.html#stream-analysis">Stream Analysis</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="src/features.html#metric-collection">Metric Collection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src/features.html#metadata-extraction">Metadata Extraction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src/features.html#resource-extraction">Resource Extraction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="src/features.html#api-call-inspection">API Call Inspection</a></li>
 </ul>
@@ -609,15 +578,16 @@
 <li class="toctree-l1"><a class="reference internal" href="src/requirements.html">System Requirements</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="src/requirements.html#software-requirements">Software Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="src/requirements.html#id1">Supported Graphics APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="src/release_notes.html">Release Notes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="src/release_notes.html#june-2019">2019.2 (27 June 2019)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="src/release_notes.html#summary">Summary</a></li>
-<li class="toctree-l3"><a class="reference internal" href="src/release_notes.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="src/licenses.html">Legal Information</a><ul>

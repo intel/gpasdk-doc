@@ -8,39 +8,55 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Python Interface &mdash; Intel GPA SDK  documentation</title>
+  <title>Python Interface &mdash; Intel® GPA Framework  documentation</title>
   
 
   
   
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
   
   
 
   
-  <script type="text/javascript" src="../static/js/modernizr.min.js"></script>
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
-        <script type="text/javascript" src="../static/jquery.js"></script>
-        <script type="text/javascript" src="../static/underscore.js"></script>
-        <script type="text/javascript" src="../static/doctools.js"></script>
-        <script type="text/javascript" src="../static/language_data.js"></script>
-        <script type="text/javascript" src="../static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
-        <script type="text/javascript" src="../static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script type="text/javascript" src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
     
-    <script type="text/javascript" src="../static/js/theme.js"></script>
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
 
   
-  <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../static/css/gpasdk.css" type="text/css" />
-  <link rel="stylesheet" href="../static/collapsible-lists/css/tree_view.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="C++ Interfaces" href="../cppapi/library_root.html" />
-    <link rel="prev" title="Layers" href="layers.html" /> 
+    <link rel="prev" title="Layers" href="layers.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
 </head>
 
 <body class="wy-body-for-nav">
@@ -53,13 +69,18 @@
         <div class="wy-side-nav-search" >
           
 
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
           
-            <a href="../index.html" class="icon icon-home"> Intel GPA SDK
+            <a href="../index.html">
           
 
           
             
-            <img src="../static/intel-logo.png" class="logo" alt="Logo"/>
+            <img src="../_static/intel-logo.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -78,6 +99,7 @@
 </div>
 
           
+
         </div>
 
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
@@ -91,9 +113,9 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html#introduction">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started.html#layer-system-primer">Layer System Primer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started.html#capture-application">Capture Application</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started.html#play-back-captured-stream">Play Back Captured Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#play-back-stream">Play Back Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html#next-steps">Next Steps</a></li>
 </ul>
@@ -107,7 +129,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="samples.html">Samples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="samples.html#how-to-build">How to build</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="samples.html#windows">Windows*</a></li>
 </ul>
 </li>
@@ -171,6 +193,7 @@
 <li class="toctree-l2"><a class="reference internal" href="features.html#stream-analysis">Stream Analysis</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="features.html#metric-collection">Metric Collection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#metadata-extraction">Metadata Extraction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="features.html#resource-extraction">Resource Extraction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="features.html#api-call-inspection">API Call Inspection</a></li>
 </ul>
@@ -187,15 +210,16 @@
 <li class="toctree-l1"><a class="reference internal" href="requirements.html">System Requirements</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="requirements.html#hardware-requirements">Hardware Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="requirements.html#software-requirements">Software Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="requirements.html#id1">Supported Graphics APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="release_notes.html">Release Notes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="release_notes.html#june-2019">2019.2 (27 June 2019)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="release_notes.html#summary">Summary</a></li>
-<li class="toctree-l3"><a class="reference internal" href="release_notes.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="licenses.html">Legal Information</a><ul>
@@ -216,7 +240,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Intel GPA SDK</a>
+          <a href="../index.html">Intel® GPA Framework</a>
         
       </nav>
 
@@ -280,16 +304,13 @@
 <dd><p>Returns a ‘CallableCache’ object containing each ‘Callable’ object in the given range index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>range_index</strong> – API call range index</p>
+<dd class="field-odd"><p><strong>range_index</strong> (<em>int</em>) – API call range index</p>
 </dd>
-<dt class="field-even">Type range_index</dt>
-<dd class="field-even"><p>int</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>CallableCache</p>
 </dd>
-<dt class="field-odd">Rtype</dt>
-<dd class="field-odd"><p>CallableCache</p>
-</dd>
-<dt class="field-even">Example</dt>
-<dd class="field-even"><p></p></dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
 </dl>
 <p>callable_cache = api_lig.range(28)</p>
 </dd></dl>
@@ -300,16 +321,13 @@
 <dd><p>Get the stream bookmark that corresponds to this location.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>range_index</strong> – API call range index</p>
+<dd class="field-odd"><p><strong>range_index</strong> (<em>int</em>) – API call range index</p>
 </dd>
-<dt class="field-even">Type range_index</dt>
-<dd class="field-even"><p>int</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>StreamDataBookmark</p>
 </dd>
-<dt class="field-odd">Rtype</dt>
-<dd class="field-odd"><p>StreamDataBookmark</p>
-</dd>
-<dt class="field-even">Example</dt>
-<dd class="field-even"><p></p></dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
 </dl>
 <p>stream_data_bookmark = api_log.range_bookmark(28)</p>
 </dd></dl>
@@ -319,7 +337,7 @@
 <code class="sig-name descname">scan_for_ranges</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.ApiLog.scan_for_ranges" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the number of api call ranges within the stream.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Rtype</dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>int</p>
 </dd>
 </dl>
@@ -454,16 +472,13 @@
 <dd><p>Returns the resource bindings for a given call index within the range.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>index</strong> – The index of the api call to get the resource bindings from</p>
+<dd class="field-odd"><p><strong>index</strong> (<em>int</em>) – The index of the api call to get the resource bindings from</p>
 </dd>
-<dt class="field-even">Type index</dt>
-<dd class="field-even"><p>int</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#GPA.ResourceBindings" title="GPA.ResourceBindings">ResourceBindings</a></p>
 </dd>
-<dt class="field-odd">Rtype</dt>
-<dd class="field-odd"><p>ResourceBindings</p>
-</dd>
-<dt class="field-even">Example</dt>
-<dd class="field-even"><p></p></dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
 </dl>
 <p>binding = metaDataExtractor.get_resource_bindings_at_index(17)</p>
 </dd></dl>
@@ -480,25 +495,22 @@
 <dd><p>Returns the requested shading language version of a shader, given that the representation is valid for the requested shader.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>shader_request</strong> – ShaderRequest object containing details about which representation to return for which shader.</p>
+<dd class="field-odd"><p><strong>shader_request</strong> (<a class="reference internal" href="#GPA.ShaderRequest" title="GPA.ShaderRequest"><em>ShaderRequest</em></a>) – ShaderRequest object containing details about which representation to return for which shader.</p>
 </dd>
-<dt class="field-even">Type shader_request</dt>
-<dd class="field-even"><p>ShaderRequest</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The source code corresponding to the requested representation, or empty if an invalid request was made.</p>
 </dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The source code corresponding to the requested representation, or empty if an invalid request was made.</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#GPA.ShaderSource" title="GPA.ShaderSource">ShaderSource</a></p>
 </dd>
-<dt class="field-even">Rtype</dt>
-<dd class="field-even"><p>ShaderSource</p>
-</dd>
-<dt class="field-odd">Example</dt>
-<dd class="field-odd"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">shader_request</span> <span class="o">=</span> <span class="n">ShaderRequest</span><span class="p">(</span><span class="n">resourceID</span><span class="p">,</span> <span class="n">ShaderLanguageEnum</span><span class="o">.</span><span class="n">GLSL</span><span class="p">)</span>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">shader_request</span> <span class="o">=</span> <span class="n">ShaderRequest</span><span class="p">(</span><span class="n">resourceID</span><span class="p">,</span> <span class="n">ShaderLanguageEnum</span><span class="o">.</span><span class="n">GLSL</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">shader_source</span> <span class="o">=</span> <span class="n">metaDataExtractor</span><span class="o">.</span><span class="n">get_source_for_shader</span><span class="p">(</span><span class="n">shader_request</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
-<dt class="field-even">Note</dt>
-<dd class="field-even"><p>The shading language must be supported by API shader object; for example, Vulkan shaders (SPIR-V bytecode) can be written in GLSL, HLSL, etc.</p>
+<dt class="field-odd">Note</dt>
+<dd class="field-odd"><p>The shading language must be supported by API shader object; for example, Vulkan shaders (SPIR-V bytecode) can be written in GLSL, HLSL, etc.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -539,10 +551,7 @@
 <dd><p>Skips execution of the API calls at the given indices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>indices</strong> – list of api call indices to disable</p>
-</dd>
-<dt class="field-even">Type indices</dt>
-<dd class="field-even"><p>list[int]</p>
+<dd class="field-odd"><p><strong>indices</strong> (<em>list</em><em>[</em><em>int</em><em>]</em>) – list of api call indices to disable</p>
 </dd>
 </dl>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">callables</span><span class="p">[</span><span class="mi">100</span><span class="p">]</span><span class="o">.</span><span class="n">_category</span> <span class="o">&amp;</span> <span class="n">CallableTypeEnum</span><span class="o">.</span><span class="n">Draw</span> <span class="o">||</span> <span class="n">callables</span><span class="p">[</span><span class="mi">100</span><span class="p">]</span><span class="o">.</span><span class="n">_category</span> <span class="o">&amp;</span> <span class="n">CallableTypeEnum</span><span class="o">.</span><span class="n">Dispatch</span><span class="p">:</span>
@@ -564,13 +573,10 @@ default state whereall API calls are executed.</p>
 <dd><p>Re-enables execution of calls previously disabled by disable_calls().</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>indices</strong> – list of api call indices to enable</p>
+<dd class="field-odd"><p><strong>indices</strong> (<em>list</em><em>[</em><em>int</em><em>]</em>) – list of api call indices to enable</p>
 </dd>
-<dt class="field-even">Type indices</dt>
-<dd class="field-even"><p>list[int]</p>
-</dd>
-<dt class="field-odd">Example</dt>
-<dd class="field-odd"><p></p></dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
 </dl>
 <p>playback_engine.enable_calls([100,200,300])</p>
 </dd></dl>
@@ -632,18 +638,12 @@ default state whereall API calls are executed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>start</strong> – Position in the stream to start (default 0). In range [0.0, 1.0). The stream will always play from the beginning if no keyframes were captured</p></li>
-<li><p><strong>end</strong> – Postion in the stream to end playback (default 1). In range [0.0, 1.0].</p></li>
+<li><p><strong>start</strong> (<em>float</em>) – Position in the stream to start (default 0). In range [0.0, 1.0). The stream will always play from the beginning if no keyframes were captured</p></li>
+<li><p><strong>end</strong> (<em>float</em>) – Postion in the stream to end playback (default 1). In range [0.0, 1.0].</p></li>
 </ul>
 </dd>
-<dt class="field-even">Type start</dt>
-<dd class="field-even"><p>float</p>
-</dd>
-<dt class="field-odd">Type end</dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-<dt class="field-even">Raises valueError</dt>
-<dd class="field-even"><p>If start position is greater than end position</p>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>valueError</strong> – If start position is greater than end position</p>
 </dd>
 <dt class="field-odd">Example</dt>
 <dd class="field-odd"><p></p></dd>
@@ -662,18 +662,12 @@ default state whereall API calls are executed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>start</strong> – Range in the stream to start (default 0). The stream will always play from the beginning if no keyframes were captured</p></li>
-<li><p><strong>end</strong> – Postion in the stream to end playback (default to last range).</p></li>
+<li><p><strong>start</strong> (<em>int</em>) – Range in the stream to start (default 0). The stream will always play from the beginning if no keyframes were captured</p></li>
+<li><p><strong>end</strong> (<em>int</em>) – Postion in the stream to end playback (default to last range).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Type start</dt>
-<dd class="field-even"><p>int</p>
-</dd>
-<dt class="field-odd">Type end</dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-<dt class="field-even">Raises valueError</dt>
-<dd class="field-even"><p>If start range is greater than end range</p>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>valueError</strong> – If start range is greater than end range</p>
 </dd>
 <dt class="field-odd">Example</dt>
 <dd class="field-odd"><p></p></dd>
@@ -728,7 +722,13 @@ default state whereall API calls are executed.</p>
 <dl class="method">
 <dt id="GPA.RangePlayer.prepare_for_metrics_collection">
 <code class="sig-name descname">prepare_for_metrics_collection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.RangePlayer.prepare_for_metrics_collection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Validate a given range for metrics collection and sets internal state. :param range: a tuple specifying (start_index, end_index) of range to validate :type range: (int, int) :raise: GPA.InvalidRangeException if range is not valid :raise: GPA.Error if an error occurred </p>
+<dd><p>Validate a given range for metrics collection and sets internal state.
+:param first: The index to begin preparing for metrics collection
+:type first: int
+:param last: The last prepare for metrics collection
+:type last: int
+:raise: GPA.InvalidRangeException if range is not valid
+:raise: GPA.Error if an error occurred</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -930,19 +930,10 @@ other python threads(due to not using the GIL internally)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>target_name</strong> – path to application to run injected under GPA</p></li>
-<li><p><strong>layer_list</strong> – (optional) list of layers where every element is a layer_name str or a (layer_name, layer_args_list) tuple if passing layer args layers include hud-layer/screenshot/capture/validation(see layers directory/ for others) details about layer arguments can be found by running gpa-help executable passing the layer name or on the gpa README.md</p></li>
-<li><p><strong>target_args</strong> – (optional) arguments to pass to target application</p></li>
+<li><p><strong>target_name</strong> (<em>str</em>) – path to application to run injected under GPA</p></li>
+<li><p><strong>layer_list</strong> (<em>List</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>Tuple</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em><em>]</em>) – (optional) list of layers where every element is a layer_name str or a (layer_name, layer_args_list) tuple if passing layer args layers include hud-layer/screenshot/capture/validation(see layers directory/ for others) details about layer arguments can be found by running gpa-help executable passing the layer name or on the gpa README.md</p></li>
+<li><p><strong>target_args</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – (optional) arguments to pass to target application</p></li>
 </ul>
-</dd>
-<dt class="field-even">Type target_name</dt>
-<dd class="field-even"><p>str</p>
-</dd>
-<dt class="field-odd">Type layer_list</dt>
-<dd class="field-odd"><p>List[Union[str, Tuple[str, List[str]]]]</p>
-</dd>
-<dt class="field-even">Type target_args</dt>
-<dd class="field-even"><p>List[str]</p>
 </dd>
 </dl>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">capture_stream</span><span class="p">(</span><span class="n">path_to_application</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;hud-layer&quot;</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;capture&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;directory=&#39;</span><span class="o">+</span><span class="n">non_defautl_captures_folder</span><span class="p">])])</span>
@@ -1015,10 +1006,7 @@ they will be used for metrics collection (for example, before performing playbac
 <dd><p>This class is used to represent metadata for input resources.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>resource_id</strong> – The Id uniquely identifying the resource.</p>
-</dd>
-<dt class="field-even">Type resource_id</dt>
-<dd class="field-even"><p>int</p>
+<dd class="field-odd"><p><strong>resource_id</strong> (<em>int</em>) – The Id uniquely identifying the resource.</p>
 </dd>
 </dl>
 <dl class="attribute">
@@ -1035,10 +1023,7 @@ they will be used for metrics collection (for example, before performing playbac
 <dd><p>This class is used to represent metadata for output resources.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>resource_id</strong> – The Id uniquely identifying the resource.</p>
-</dd>
-<dt class="field-even">Type resource_id</dt>
-<dd class="field-even"><p>int</p>
+<dd class="field-odd"><p><strong>resource_id</strong> (<em>int</em>) – The Id uniquely identifying the resource.</p>
 </dd>
 </dl>
 <dl class="attribute">

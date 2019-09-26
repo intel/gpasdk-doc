@@ -1,0 +1,500 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Class IntervalTree::Node &mdash; Intel® GPA Framework  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script type="text/javascript" src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Template Class LinearSet" href="classgpa_1_1playback_1_1detail_1_1_linear_set.html" />
+    <link rel="prev" title="Template Class IntervalTree" href="classgpa_1_1playback_1_1detail_1_1_interval_tree.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/intel-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending “Helloworld” Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#how-to-build">How to build</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">‘Helloworld’ Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">‘Helloworld’ Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extractor">Texture Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../src/reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="library_root.html">C++ Interfaces</a> &raquo;</li>
+        
+      <li>Class IntervalTree::Node</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="class-intervaltree-node">
+<span id="exhale-class-classgpa-1-1playback-1-1detail-1-1-interval-tree-1-1-node"></span><h1>Class IntervalTree::Node<a class="headerlink" href="#class-intervaltree-node" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_playback_resource-info_detail_interval-tree.h.html#file-include-playback-resource-info-detail-interval-tree-h"><span class="std std-ref">File interval-tree.h</span></a></p></li>
+</ul>
+<div class="section" id="nested-relationships">
+<h2>Nested Relationships<a class="headerlink" href="#nested-relationships" title="Permalink to this headline">¶</a></h2>
+<p>This class is a nested type of <a class="reference internal" href="classgpa_1_1playback_1_1detail_1_1_interval_tree.html#exhale-class-classgpa-1-1playback-1-1detail-1-1-interval-tree"><span class="std std-ref">Template Class IntervalTree</span></a>.</p>
+</div>
+<div class="section" id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv4N3gpa8playback6detail12IntervalTree4NodeE">
+<span id="_CPPv3N3gpa8playback6detail12IntervalTree4NodeE"></span><span id="_CPPv2N3gpa8playback6detail12IntervalTree4NodeE"></span><span id="gpa::playback::detail::IntervalTree::Node"></span><span class="target" id="classgpa_1_1playback_1_1detail_1_1_interval_tree_1_1_node"></span><em class="property">class </em><code class="sig-name descname">Node</code><a class="headerlink" href="#_CPPv4N3gpa8playback6detail12IntervalTree4NodeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Used to track Interval&lt;&gt;s stored in an IntervalTree&lt;&gt; </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv4IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node4NodeEv">
+<span id="_CPPv3IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node4NodeEv"></span><span id="_CPPv2IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node4NodeEv"></span><span class="target" id="classgpa_1_1playback_1_1detail_1_1_interval_tree_1_1_node_1a33471485bfd56ee9d5c5766eea4d86ea"></span>template&lt;&gt;<br /><code class="sig-name descname">Node</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node4NodeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Construcst an instance of Node. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4NodeD0Ev">
+<span id="_CPPv3IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4NodeD0Ev"></span><span id="_CPPv2IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4NodeD0Ev"></span><span class="target" id="classgpa_1_1playback_1_1detail_1_1_interval_tree_1_1_node_1a45e96c983cdd89a51330aca9ed133777"></span>template&lt;&gt;<br /><code class="sig-name descname">~Node</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4NodeD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Destroys this instance of Node. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="member">
+<dt id="_CPPv4IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node9mIntervalE">
+<span id="_CPPv3IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node9mIntervalE"></span><span id="_CPPv2IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node9mIntervalE"></span>template&lt;&gt;<br /><span class="target" id="classgpa_1_1playback_1_1detail_1_1_interval_tree_1_1_node_1a5d4b72431eeec758752334b200a98704"></span><a class="reference internal" href="typedef_interval-tree_8h_1a89b60425412750bb5b1418304bf26c21.html#_CPPv4N3gpa8playback6detail8IntervalE" title="gpa::playback::detail::Interval">Interval</a>&lt;EndPointType&gt; <code class="sig-name descname">mInterval</code> = {0, }<a class="headerlink" href="#_CPPv4IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node9mIntervalE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This Node’s Interval&lt;&gt; </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node6mValueE">
+<span id="_CPPv3IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node6mValueE"></span><span id="_CPPv2IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node6mValueE"></span>template&lt;&gt;<br /><span class="target" id="classgpa_1_1playback_1_1detail_1_1_interval_tree_1_1_node_1ad40429e2887e070489926dd05a711473"></span>ValueType <code class="sig-name descname">mValue</code> = {}<a class="headerlink" href="#_CPPv4IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node6mValueE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This Node’s ValueType value. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node4mMaxE">
+<span id="_CPPv3IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node4mMaxE"></span><span id="_CPPv2IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node4mMaxE"></span>template&lt;&gt;<br /><span class="target" id="classgpa_1_1playback_1_1detail_1_1_interval_tree_1_1_node_1a1242c0cd02a32296e196b883754f6e34"></span>EndPointType <code class="sig-name descname">mMax</code> = {0}<a class="headerlink" href="#_CPPv4IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node4mMaxE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This Node’s subtree’s maximum end point value. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node5mLeftE">
+<span id="_CPPv3IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node5mLeftE"></span><span id="_CPPv2IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node5mLeftE"></span>template&lt;&gt;<br /><span class="target" id="classgpa_1_1playback_1_1detail_1_1_interval_tree_1_1_node_1a03b51ef062e2e5c4cead25d1a8177fef"></span>Node *<code class="sig-name descname">mLeft</code> = {nullptr}<a class="headerlink" href="#_CPPv4IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node5mLeftE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A pointer to this Node’s left child. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node6mRightE">
+<span id="_CPPv3IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node6mRightE"></span><span id="_CPPv2IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node6mRightE"></span>template&lt;&gt;<br /><span class="target" id="classgpa_1_1playback_1_1detail_1_1_interval_tree_1_1_node_1a82ed38c4c67f4b628ab1932a3e82a26c"></span>Node *<code class="sig-name descname">mRight</code> = {nullptr}<a class="headerlink" href="#_CPPv4IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node6mRightE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A pointer to this Node’s right child. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node8mBalanceE">
+<span id="_CPPv3IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node8mBalanceE"></span><span id="_CPPv2IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node8mBalanceE"></span>template&lt;&gt;<br /><span class="target" id="classgpa_1_1playback_1_1detail_1_1_interval_tree_1_1_node_1a971a4cb4e7c9ef87d0a236d30c3c4a65"></span>int <code class="sig-name descname">mBalance</code> = {0}<a class="headerlink" href="#_CPPv4IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node8mBalanceE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A value indicating this Node’s balance factor. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Static Functions</p>
+<dl class="function">
+<dt id="_CPPv4I0EN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node29EnumerateOverlappingIntervalsEvPK4NodeRK8IntervalI12EndPointTypeE23EnumerationFunctionType">
+<span id="_CPPv3I0EN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node29EnumerateOverlappingIntervalsEPK4NodeRK8IntervalI12EndPointTypeE23EnumerationFunctionType"></span><span id="_CPPv2I0EN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node29EnumerateOverlappingIntervalsEPK4NodeRK8IntervalI12EndPointTypeE23EnumerationFunctionType"></span><span class="target" id="classgpa_1_1playback_1_1detail_1_1_interval_tree_1_1_node_1a89df9e4f5dd2dfc7a62f6e70c33538d6"></span>template&lt;typename <code class="sig-name descname">EnumerationFunctionType</code>&gt;<br /><em class="property">static</em> void <code class="sig-name descname">EnumerateOverlappingIntervals</code><span class="sig-paren">(</span>Node <em class="property">const</em> *<em>node</em>, <a class="reference internal" href="typedef_interval-tree_8h_1a89b60425412750bb5b1418304bf26c21.html#_CPPv4N3gpa8playback6detail8IntervalE" title="gpa::playback::detail::Interval">Interval</a>&lt;EndPointType&gt; <em class="property">const</em> &amp;<em>interval</em>, EnumerationFunctionType <em>enumerationFunction</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node29EnumerateOverlappingIntervalsEvPK4NodeRK8IntervalI12EndPointTypeE23EnumerationFunctionType" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Recursivley enumerates all Interval&lt;&gt;s that overlap a given Interval&lt;&gt; under a given Node, calling a given enumeration function for each. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;EnumerationFunctionType&gt;</span></code>: The type of function to call for each overlapping Interval&lt;&gt; <p> NOTE : This function must have a signature compatible with void(Interval&lt;EndPointType&gt;, ValueType) </p>
+</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">node</span></code>: A pointer to the Node under which to search recursively for overlapping Interval&lt;&gt;s </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">interval</span></code>: The Interval&lt;&gt; to find overlapping Interval&lt;&gt;s for </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">enumerationFunction</span></code>: The function to call for each overlapping Interval&lt;&gt; </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node3AddEP4NodeP4NodeRK8IntervalI12EndPointTypeERbPP4Node">
+<span id="_CPPv3IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node3AddEP4NodeRK8IntervalI12EndPointTypeERbPP4Node"></span><span id="_CPPv2IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node3AddEP4NodeRK8IntervalI12EndPointTypeERbPP4Node"></span><span class="target" id="classgpa_1_1playback_1_1detail_1_1_interval_tree_1_1_node_1a8101b5448cd144f3a8060391438658aa"></span>template&lt;&gt;<br /><em class="property">static</em> Node *<code class="sig-name descname">Add</code><span class="sig-paren">(</span>Node *<em>node</em>, <a class="reference internal" href="typedef_interval-tree_8h_1a89b60425412750bb5b1418304bf26c21.html#_CPPv4N3gpa8playback6detail8IntervalE" title="gpa::playback::detail::Interval">Interval</a>&lt;EndPointType&gt; <em class="property">const</em> &amp;<em>interval</em>, bool &amp;<em>added</em>, Node **<em>itr</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node3AddEP4NodeP4NodeRK8IntervalI12EndPointTypeERbPP4Node" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Adds or finds a given Interval&lt;&gt; under a given Node. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">node</span></code>: The Node to add or find the given Interval&lt;&gt; under </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">interval</span></code>: The Interval&lt;&gt; to add or find </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">added</span></code>: Whether or not a new Node has been added </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[out]</span> <span class="pre">itr</span></code>: A pointer to a pointer to the added or found Node </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node10ComputeMaxEvP4Node">
+<span id="_CPPv3IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node10ComputeMaxEP4Node"></span><span id="_CPPv2IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node10ComputeMaxEP4Node"></span><span class="target" id="classgpa_1_1playback_1_1detail_1_1_interval_tree_1_1_node_1a589cbd38d72ad30f3c5e469881acb591"></span>template&lt;&gt;<br /><em class="property">static</em> void <code class="sig-name descname">ComputeMax</code><span class="sig-paren">(</span>Node *<em>node</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node10ComputeMaxEvP4Node" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Computes the max end point value for the subtree at a given Node. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">node</span></code>: A pointer to the Node to compute the max end point value for </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node10RotateLeftEP4NodeP4Node">
+<span id="_CPPv3IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node10RotateLeftEP4Node"></span><span id="_CPPv2IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node10RotateLeftEP4Node"></span><span class="target" id="classgpa_1_1playback_1_1detail_1_1_interval_tree_1_1_node_1a8e4c04c751f9117f62576cb3ca6192b9"></span>template&lt;&gt;<br /><em class="property">static</em> Node *<code class="sig-name descname">RotateLeft</code><span class="sig-paren">(</span>Node *<em>node</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node10RotateLeftEP4NodeP4Node" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Rotates a given Node and its immediate right and right-&gt;left children to the left. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">node</span></code>: A pointer to the Node to rotate left </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node11RotateRightEP4NodeP4Node">
+<span id="_CPPv3IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node11RotateRightEP4Node"></span><span id="_CPPv2IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node11RotateRightEP4Node"></span><span class="target" id="classgpa_1_1playback_1_1detail_1_1_interval_tree_1_1_node_1afb2df5d2b2ceea1d0290534eeca83bc0"></span>template&lt;&gt;<br /><em class="property">static</em> Node *<code class="sig-name descname">RotateRight</code><span class="sig-paren">(</span>Node *<em>node</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4IEN3gpa8playback6detail12IntervalTreeI12EndPointType9ValueTypeE4Node11RotateRightEP4NodeP4Node" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Rotates a given Node and its immediate left and left-&gt;right children to the right. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">node</span></code>: A pointer to the Node to rotate right </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="classgpa_1_1playback_1_1detail_1_1_linear_set.html" class="btn btn-neutral float-right" title="Template Class LinearSet" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="classgpa_1_1playback_1_1detail_1_1_interval_tree.html" class="btn btn-neutral float-left" title="Template Class IntervalTree" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

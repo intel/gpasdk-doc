@@ -8,37 +8,53 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>File metrics/types.h &mdash; Intel GPA SDK  documentation</title>
+  <title>File metrics/types.h &mdash; Intel® GPA Framework  documentation</title>
   
 
   
   
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
   
   
 
   
-  <script type="text/javascript" src="../static/js/modernizr.min.js"></script>
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
-        <script type="text/javascript" src="../static/jquery.js"></script>
-        <script type="text/javascript" src="../static/underscore.js"></script>
-        <script type="text/javascript" src="../static/doctools.js"></script>
-        <script type="text/javascript" src="../static/language_data.js"></script>
-        <script type="text/javascript" src="../static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
-        <script type="text/javascript" src="../static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script type="text/javascript" src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
     
-    <script type="text/javascript" src="../static/js/theme.js"></script>
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
 
   
-  <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../static/css/gpasdk.css" type="text/css" />
-  <link rel="stylesheet" href="../static/collapsible-lists/css/tree_view.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
 </head>
 
 <body class="wy-body-for-nav">
@@ -51,13 +67,18 @@
         <div class="wy-side-nav-search" >
           
 
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
           
-            <a href="../index.html" class="icon icon-home"> Intel GPA SDK
+            <a href="../index.html">
           
 
           
             
-            <img src="../static/intel-logo.png" class="logo" alt="Logo"/>
+            <img src="../_static/intel-logo.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -76,6 +97,7 @@
 </div>
 
           
+
         </div>
 
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
@@ -89,9 +111,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-system-primer">Layer System Primer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-application">Capture Application</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-captured-stream">Play Back Captured Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
 </ul>
@@ -105,7 +127,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#how-to-build">How to build</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
 </ul>
 </li>
@@ -169,6 +191,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
 </ul>
@@ -185,15 +208,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#id1">Supported Graphics APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#summary">Summary</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
@@ -214,7 +238,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Intel GPA SDK</a>
+          <a href="../index.html">Intel® GPA Framework</a>
         
       </nav>
 
@@ -292,6 +316,7 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">cstring</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">igpa-metrics-config.h</span></code> (<a class="reference internal" href="file_include_igpa-metrics-config.h.html#file-include-igpa-metrics-config-h"><span class="std std-ref">File igpa-metrics-config.h</span></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">limits</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">metrics/utility/enum-mask.h</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">string</span></code> (<a class="reference internal" href="file_include_vk-utilities_vk-to-string.h.html#file-include-vk-utilities-vk-to-string-h"><span class="std std-ref">File vk-to-string.h</span></a>)</p></li>
 </ul>
 </div>
@@ -305,21 +330,21 @@
 <div class="section" id="classes">
 <h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="structgpa_1_1metrics_1_1_metric_data.html#exhale-struct-structgpa-1-1metrics-1-1-metric-data"><span class="std std-ref">Struct MetricData</span></a></p></li>
 <li><p><a class="reference internal" href="structgpa_1_1metrics_1_1_metric_desc.html#exhale-struct-structgpa-1-1metrics-1-1-metric-desc"><span class="std std-ref">Struct MetricDesc</span></a></p></li>
 </ul>
 </div>
 <div class="section" id="enums">
 <h2>Enums<a class="headerlink" href="#enums" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
+<li><p><a class="reference internal" href="enum_metrics_2types_8h_1a1abec82028085208793c42f580d181e7.html#exhale-enum-metrics-2types-8h-1a1abec82028085208793c42f580d181e7"><span class="std std-ref">Enum Category</span></a></p></li>
 <li><p><a class="reference internal" href="enum_metrics_2types_8h_1abd4de8e76b7972a405e2f54be2306721.html#exhale-enum-metrics-2types-8h-1abd4de8e76b7972a405e2f54be2306721"><span class="std std-ref">Enum GraphicsApi</span></a></p></li>
 <li><p><a class="reference internal" href="enum_metrics_2types_8h_1a4d0ae4d7c74d47d463792c91476ef842.html#exhale-enum-metrics-2types-8h-1a4d0ae4d7c74d47d463792c91476ef842"><span class="std std-ref">Enum Result</span></a></p></li>
-<li><p><a class="reference internal" href="enum_metrics_2types_8h_1a5090311b943af2b4f7a66ba881e0760b.html#exhale-enum-metrics-2types-8h-1a5090311b943af2b4f7a66ba881e0760b"><span class="std std-ref">Enum Type</span></a></p></li>
 </ul>
 </div>
 <div class="section" id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
+<li><p><a class="reference internal" href="function_metrics_2types_8h_1a639a77a531fc57449eadb0ed7dbfba90.html#exhale-function-metrics-2types-8h-1a639a77a531fc57449eadb0ed7dbfba90"><span class="std std-ref">Function gpa::metrics::ENUM_AS_BITSET</span></a></p></li>
 <li><p><a class="reference internal" href="function_metrics_2types_8h_1a95de9337e09ef9070e3ee7436f33ca37.html#exhale-function-metrics-2types-8h-1a95de9337e09ef9070e3ee7436f33ca37"><span class="std std-ref">Function gpa::metrics::IsSuccess</span></a></p></li>
 <li><p><a class="reference internal" href="function_metrics_2types_8h_1aa7972a4bbb063444d5ff7d978ef7b847.html#exhale-function-metrics-2types-8h-1aa7972a4bbb063444d5ff7d978ef7b847"><span class="std std-ref">Function gpa::metrics::IsValidMetric</span></a></p></li>
 </ul>
@@ -327,7 +352,6 @@
 <div class="section" id="typedefs">
 <h2>Typedefs<a class="headerlink" href="#typedefs" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="typedef_metrics_2types_8h_1a4ae9c5127b32dacdbbd05e00846844f9.html#exhale-typedef-metrics-2types-8h-1a4ae9c5127b32dacdbbd05e00846844f9"><span class="std std-ref">Typedef gpa::metrics::MetricGroup</span></a></p></li>
 <li><p><a class="reference internal" href="typedef_metrics_2types_8h_1af89197f2f9d1dee9770e299e5aa3388a.html#exhale-typedef-metrics-2types-8h-1af89197f2f9d1dee9770e299e5aa3388a"><span class="std std-ref">Typedef gpa::metrics::MetricId</span></a></p></li>
 <li><p><a class="reference internal" href="typedef_metrics_2types_8h_1a185494c7b8ee5fa2c317424fadbd18bb.html#exhale-typedef-metrics-2types-8h-1a185494c7b8ee5fa2c317424fadbd18bb"><span class="std std-ref">Typedef gpa::metrics::MetricValue</span></a></p></li>
 </ul>
@@ -335,8 +359,6 @@
 <div class="section" id="variables">
 <h2>Variables<a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="variable_metrics_2types_8h_1acdb668c606fcf6d053eed7d7895eff29.html#exhale-variable-metrics-2types-8h-1acdb668c606fcf6d053eed7d7895eff29"><span class="std std-ref">Variable gpa::metrics::kFpsUri</span></a></p></li>
-<li><p><a class="reference internal" href="variable_metrics_2types_8h_1a90d42a5b2b6b714ddadfea967683853a.html#exhale-variable-metrics-2types-8h-1a90d42a5b2b6b714ddadfea967683853a"><span class="std std-ref">Variable gpa::metrics::kFrametimeUri</span></a></p></li>
 <li><p><a class="reference internal" href="variable_metrics_2types_8h_1aa28b971fa753d492a1a763e43c5eda61.html#exhale-variable-metrics-2types-8h-1aa28b971fa753d492a1a763e43c5eda61"><span class="std std-ref">Variable gpa::metrics::kInvalidGroup</span></a></p></li>
 <li><p><a class="reference internal" href="variable_metrics_2types_8h_1a19d33e154f8afb2dd24e6dacc1f09155.html#exhale-variable-metrics-2types-8h-1a19d33e154f8afb2dd24e6dacc1f09155"><span class="std std-ref">Variable gpa::metrics::kInvalidMetricValue</span></a></p></li>
 </ul>

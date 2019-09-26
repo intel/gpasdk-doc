@@ -8,39 +8,55 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Release Notes &mdash; Intel GPA SDK  documentation</title>
+  <title>Release Notes &mdash; Intel® GPA Framework  documentation</title>
   
 
   
   
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
   
   
 
   
-  <script type="text/javascript" src="../static/js/modernizr.min.js"></script>
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../static/documentation_options.js"></script>
-        <script type="text/javascript" src="../static/jquery.js"></script>
-        <script type="text/javascript" src="../static/underscore.js"></script>
-        <script type="text/javascript" src="../static/doctools.js"></script>
-        <script type="text/javascript" src="../static/language_data.js"></script>
-        <script type="text/javascript" src="../static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
-        <script type="text/javascript" src="../static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script type="text/javascript" src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
     
-    <script type="text/javascript" src="../static/js/theme.js"></script>
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
 
   
-  <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../static/css/gpasdk.css" type="text/css" />
-  <link rel="stylesheet" href="../static/collapsible-lists/css/tree_view.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Legal Information" href="licenses.html" />
-    <link rel="prev" title="System Requirements" href="requirements.html" /> 
+    <link rel="next" title="Troubleshooting" href="troubleshooting.html" />
+    <link rel="prev" title="System Requirements" href="requirements.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
 </head>
 
 <body class="wy-body-for-nav">
@@ -53,13 +69,18 @@
         <div class="wy-side-nav-search" >
           
 
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
           
-            <a href="../index.html" class="icon icon-home"> Intel GPA SDK
+            <a href="../index.html">
           
 
           
             
-            <img src="../static/intel-logo.png" class="logo" alt="Logo"/>
+            <img src="../_static/intel-logo.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -78,6 +99,7 @@
 </div>
 
           
+
         </div>
 
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
@@ -91,9 +113,9 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html#introduction">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started.html#layer-system-primer">Layer System Primer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started.html#capture-application">Capture Application</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started.html#play-back-captured-stream">Play Back Captured Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#play-back-stream">Play Back Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html#next-steps">Next Steps</a></li>
 </ul>
@@ -107,7 +129,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="samples.html">Samples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="samples.html#how-to-build">How to build</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="samples.html#windows">Windows*</a></li>
 </ul>
 </li>
@@ -171,6 +193,7 @@
 <li class="toctree-l2"><a class="reference internal" href="features.html#stream-analysis">Stream Analysis</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="features.html#metric-collection">Metric Collection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#metadata-extraction">Metadata Extraction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="features.html#resource-extraction">Resource Extraction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="features.html#api-call-inspection">API Call Inspection</a></li>
 </ul>
@@ -187,15 +210,16 @@
 <li class="toctree-l1"><a class="reference internal" href="requirements.html">System Requirements</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="requirements.html#hardware-requirements">Hardware Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="requirements.html#software-requirements">Software Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="requirements.html#id1">Supported Graphics APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Release Notes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#june-2019">2019.2 (27 June 2019)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#summary">Summary</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#june-2019">2019.2 (27 June 2019)</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="licenses.html">Legal Information</a><ul>
@@ -216,7 +240,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Intel GPA SDK</a>
+          <a href="../index.html">Intel® GPA Framework</a>
         
       </nav>
 
@@ -266,10 +290,24 @@
             
   <div class="section" id="release-notes">
 <span id="id1"></span><h1>Release Notes<a class="headerlink" href="#release-notes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="september-2019">
+<h2>2019.3 (26 September 2019)<a class="headerlink" href="#september-2019" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>The Inte(R) GPA SDK is now called Intel(R) GPA Framework. References to ENV variables and CMake project names have been updated to the new name.</p></li>
+<li><p>Added ability to replay a range of callables for Direct3D12 streams.</p></li>
+<li><p>Added Vulkan* Pipeline Statistics &amp; Timestamp Query Manager support. Can be specified programmatically or default Query Manager will fallback to this mode if Intel metrics aren’t found.</p></li>
+<li><p>Added new event/message dispatch system available for communication between decoupled systems, this enables inter-layer communication.</p></li>
+<li><p>Added support for Vulkan SDK 1.1.114.</p></li>
+<li><p>Added ability to gather screenshots on a time interval via the screenshot layer.</p></li>
+<li><p>Added support for reflection of unions. A new Union class type is available to examine Arguments and Fields of this type.</p></li>
+<li><p>Added support for asynchronous GPU-&gt;CPU image copy. This setting can be toggled with the layer parameter “async=&lt;true/false&gt;”.</p></li>
+<li><p>Added #PROC and #PID wildcards to log file path layer parameter. This will replace the wildcards with the process name or process ID respectively.</p></li>
+<li><p>Changed format of screenshot layer args to accept more flexible range specification.</p></li>
+<li><p>Removed reference to TlsRef parameter from all dispatch-table function types. LAYER_PREAMBLE macro is no longer required to be executed by the layers.</p></li>
+</ul>
+</div>
 <div class="section" id="june-2019">
 <h2>2019.2 (27 June 2019)<a class="headerlink" href="#june-2019" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="summary">
-<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
 <p>Intel(R) GPA SDK is a cross-platform, cross-API suite of tools and APIs that allow users to capture, playback and analyze graphics applications. The heart of the Intel(R) GPA SDK is a robust, scalable and low overhead layering system similar to the Vulkan* layer framework.</p>
 <p>Our initial set of features supported is described below.</p>
 <table class="docutils align-default">
@@ -326,7 +364,10 @@
 <li></li>
 </ul>
 </td>
-<td></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
 </tr>
 <tr class="row-even"><td colspan="4"><p><strong>Stream Analysis</strong></p></td>
 </tr>
@@ -360,7 +401,10 @@
 </ul>
 </td>
 <td></td>
-<td></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
 </tr>
 <tr class="row-odd"><td colspan="4"><p><strong>Layers</strong></p></td>
 </tr>
@@ -422,17 +466,7 @@
 </tr>
 </tbody>
 </table>
-<p>Please visit Intel(R) GPA SDK Documentation page for additional in depth information on the features that have been exposed.</p>
-</div>
-<div class="section" id="known-issues-and-limitations">
-<h3>Known Issues and Limitations<a class="headerlink" href="#known-issues-and-limitations" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>Although the Intel(R) GPA SDK has been released in Vulkan Technical Preview form, there is partial functionality for other graphics APIs that has been exposed and can already be utilized.</p></li>
-<li><p>Intel(R) GPA SDK C++ and Python interfaces are subject to change after technical preview.</p></li>
-<li><p>At present, the Intel(R) GPA SDK contains only Release builds of the libraries.</p></li>
-<li><p>The capture layer supports only 64 bit applications. The injection mechanism will work in 32 bit processes for the purpose of allowing capture on applications that require launchers still in 32 bit.</p></li>
-</ul>
-</div>
+<p>Please visit Intel(R) GPA Framework Documentation page for additional in depth information on the features that have been exposed.</p>
 </div>
 </div>
 
@@ -444,7 +478,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="licenses.html" class="btn btn-neutral float-right" title="Legal Information" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="troubleshooting.html" class="btn btn-neutral float-right" title="Troubleshooting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="requirements.html" class="btn btn-neutral float-left" title="System Requirements" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

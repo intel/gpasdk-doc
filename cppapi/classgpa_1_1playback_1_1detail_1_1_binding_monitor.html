@@ -1,0 +1,418 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Class BindingMonitor &mdash; Intel® GPA Framework  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script type="text/javascript" src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Template Class Convertible" href="classgpa_1_1playback_1_1detail_1_1_convertible.html" />
+    <link rel="prev" title="Class AuxiliaryStorageRegistry" href="classgpa_1_1playback_1_1detail_1_1_auxiliary_storage_registry.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/intel-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending “Helloworld” Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#how-to-build">How to build</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">‘Helloworld’ Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">‘Helloworld’ Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extractor">Texture Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../src/reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="library_root.html">C++ Interfaces</a> &raquo;</li>
+        
+      <li>Class BindingMonitor</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="class-bindingmonitor">
+<span id="exhale-class-classgpa-1-1playback-1-1detail-1-1-binding-monitor"></span><h1>Class BindingMonitor<a class="headerlink" href="#class-bindingmonitor" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_playback_resource-info_detail_binding-monitor.h.html#file-include-playback-resource-info-detail-binding-monitor-h"><span class="std std-ref">File binding-monitor.h</span></a></p></li>
+</ul>
+<div class="section" id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv4N3gpa8playback6detail14BindingMonitorE">
+<span id="_CPPv3N3gpa8playback6detail14BindingMonitorE"></span><span id="_CPPv2N3gpa8playback6detail14BindingMonitorE"></span><span id="gpa::playback::detail::BindingMonitor"></span><span class="target" id="classgpa_1_1playback_1_1detail_1_1_binding_monitor"></span><em class="property">class </em><code class="sig-name descname">BindingMonitor</code><a class="headerlink" href="#_CPPv4N3gpa8playback6detail14BindingMonitorE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Tracks binding durations <p> NOTE : When </p>
+<a class="reference internal" href="#classgpa_1_1playback_1_1detail_1_1_binding_monitor"><span class="std std-ref">BindingMonitor</span></a> goes out of scope the duration of its associated binding will be registered. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback6detail14BindingMonitor14BindingMonitorEv">
+<span id="_CPPv3N3gpa8playback6detail14BindingMonitor14BindingMonitorEv"></span><span id="_CPPv2N3gpa8playback6detail14BindingMonitor14BindingMonitorEv"></span><span id="gpa::playback::detail::BindingMonitor::BindingMonitor"></span><span class="target" id="classgpa_1_1playback_1_1detail_1_1_binding_monitor_1a3d1f4f6ee6d2da2885b3f21291ab6a26"></span><code class="sig-name descname">BindingMonitor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6detail14BindingMonitor14BindingMonitorEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Constructs an instance of <a class="reference internal" href="#classgpa_1_1playback_1_1detail_1_1_binding_monitor"><span class="std std-ref">BindingMonitor</span></a>. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback6detail14BindingMonitor14BindingMonitorERR14BindingMonitor">
+<span id="_CPPv3N3gpa8playback6detail14BindingMonitor14BindingMonitorERR14BindingMonitor"></span><span id="_CPPv2N3gpa8playback6detail14BindingMonitor14BindingMonitorERR14BindingMonitor"></span><span id="gpa::playback::detail::BindingMonitor::BindingMonitor__BindingMonitorRR"></span><span class="target" id="classgpa_1_1playback_1_1detail_1_1_binding_monitor_1a0f28fd1d4af9ae4e4f1c55b3d230e817"></span><code class="sig-name descname">BindingMonitor</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa8playback6detail14BindingMonitor14BindingMonitorEv" title="gpa::playback::detail::BindingMonitor::BindingMonitor">BindingMonitor</a> &amp;&amp;<em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6detail14BindingMonitor14BindingMonitorERR14BindingMonitor" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Moves an instance of <a class="reference internal" href="#classgpa_1_1playback_1_1detail_1_1_binding_monitor"><span class="std std-ref">BindingMonitor</span></a>. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">other</span></code>: The <a class="reference internal" href="#classgpa_1_1playback_1_1detail_1_1_binding_monitor"><span class="std std-ref">BindingMonitor</span></a> to move from </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback6detail14BindingMonitoraSERR14BindingMonitor">
+<span id="_CPPv3N3gpa8playback6detail14BindingMonitoraSERR14BindingMonitor"></span><span id="_CPPv2N3gpa8playback6detail14BindingMonitoraSERR14BindingMonitor"></span><span id="gpa::playback::detail::BindingMonitor::assign-operator__BindingMonitorRR"></span><span class="target" id="classgpa_1_1playback_1_1detail_1_1_binding_monitor_1a83acd021b3c975a6ddd855b4217c2c9f"></span><a class="reference internal" href="#_CPPv4N3gpa8playback6detail14BindingMonitorE" title="gpa::playback::detail::BindingMonitor">BindingMonitor</a> &amp;<code class="sig-name descname">operator=</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa8playback6detail14BindingMonitorE" title="gpa::playback::detail::BindingMonitor">BindingMonitor</a> &amp;&amp;<em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6detail14BindingMonitoraSERR14BindingMonitor" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Moves an instance of <a class="reference internal" href="#classgpa_1_1playback_1_1detail_1_1_binding_monitor"><span class="std std-ref">BindingMonitor</span></a>. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>This <a class="reference internal" href="#classgpa_1_1playback_1_1detail_1_1_binding_monitor"><span class="std std-ref">BindingMonitor</span></a> after being moved tos </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">other</span></code>: The <a class="reference internal" href="#classgpa_1_1playback_1_1detail_1_1_binding_monitor"><span class="std std-ref">BindingMonitor</span></a> to move from </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback6detail14BindingMonitorD0Ev">
+<span id="_CPPv3N3gpa8playback6detail14BindingMonitorD0Ev"></span><span id="_CPPv2N3gpa8playback6detail14BindingMonitorD0Ev"></span><span id="gpa::playback::detail::BindingMonitor::~BindingMonitor"></span><span class="target" id="classgpa_1_1playback_1_1detail_1_1_binding_monitor_1a811d4e30af25a39fcc24559fb20ba2c3"></span><code class="sig-name descname">~BindingMonitor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6detail14BindingMonitorD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Destroys this <a class="reference internal" href="#classgpa_1_1playback_1_1detail_1_1_binding_monitor"><span class="std std-ref">BindingMonitor</span></a> <p> NOTE : The associated binding, if any, will have its duration registered. </p>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback6detail14BindingMonitor5ResetEv">
+<span id="_CPPv3N3gpa8playback6detail14BindingMonitor5ResetEv"></span><span id="_CPPv2N3gpa8playback6detail14BindingMonitor5ResetEv"></span><span id="gpa::playback::detail::BindingMonitor::Reset"></span><span class="target" id="classgpa_1_1playback_1_1detail_1_1_binding_monitor_1a5fea4385e7688291f6f271ac7ef456fa"></span>void <code class="sig-name descname">Reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6detail14BindingMonitor5ResetEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Registers the duration of the associated binding, if any, and resets this <a class="reference internal" href="#classgpa_1_1playback_1_1detail_1_1_binding_monitor"><span class="std std-ref">BindingMonitor</span></a> to the default state. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="classgpa_1_1playback_1_1detail_1_1_convertible.html" class="btn btn-neutral float-right" title="Template Class Convertible" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="classgpa_1_1playback_1_1detail_1_1_auxiliary_storage_registry.html" class="btn btn-neutral float-left" title="Class AuxiliaryStorageRegistry" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

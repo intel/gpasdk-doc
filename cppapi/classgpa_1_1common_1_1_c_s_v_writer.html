@@ -1,0 +1,423 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Class CSVWriter &mdash; Intel® GPA Framework  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script type="text/javascript" src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Template Class Map" href="classgpa_1_1concurrent_1_1_map.html" />
+    <link rel="prev" title="Class CaptureStreamOpenedEvent" href="classgpa_1_1common_1_1_capture_stream_opened_event.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/intel-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending “Helloworld” Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#how-to-build">How to build</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">‘Helloworld’ Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">‘Helloworld’ Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extractor">Texture Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../src/reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="library_root.html">C++ Interfaces</a> &raquo;</li>
+        
+      <li>Class CSVWriter</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="class-csvwriter">
+<span id="exhale-class-classgpa-1-1common-1-1-c-s-v-writer"></span><h1>Class CSVWriter<a class="headerlink" href="#class-csvwriter" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_layer-support_csv-writer.h.html#file-include-layer-support-csv-writer-h"><span class="std std-ref">File csv-writer.h</span></a></p></li>
+</ul>
+<div class="section" id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv4N3gpa6common9CSVWriterE">
+<span id="_CPPv3N3gpa6common9CSVWriterE"></span><span id="_CPPv2N3gpa6common9CSVWriterE"></span><span id="gpa::common::CSVWriter"></span><span class="target" id="classgpa_1_1common_1_1_c_s_v_writer"></span><em class="property">class </em><code class="sig-name descname">CSVWriter</code><a class="headerlink" href="#_CPPv4N3gpa6common9CSVWriterE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv4N3gpa6common9CSVWriter9CSVWriterEPKcc">
+<span id="_CPPv3N3gpa6common9CSVWriter9CSVWriterEPKcc"></span><span id="_CPPv2N3gpa6common9CSVWriter9CSVWriterEPKcc"></span><span id="gpa::common::CSVWriter::CSVWriter__cCP.c"></span><span class="target" id="classgpa_1_1common_1_1_c_s_v_writer_1a7f02ac5a97666b33cd5ea450d1cbccba"></span><code class="sig-name descname">CSVWriter</code><span class="sig-paren">(</span>char <em class="property">const</em> *<em>filepath</em>, char <em>separator</em> = ','<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa6common9CSVWriter9CSVWriterEPKcc" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A path to the desired CSV file to output. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa6common9CSVWriterD0Ev">
+<span id="_CPPv3N3gpa6common9CSVWriterD0Ev"></span><span id="_CPPv2N3gpa6common9CSVWriterD0Ev"></span><span id="gpa::common::CSVWriter::~CSVWriter"></span><span class="target" id="classgpa_1_1common_1_1_c_s_v_writer_1ade674164265fb912b1c353a69ca1b5ea"></span><code class="sig-name descname">~CSVWriter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa6common9CSVWriterD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa6common9CSVWriter5FlushEv">
+<span id="_CPPv3N3gpa6common9CSVWriter5FlushEv"></span><span id="_CPPv2N3gpa6common9CSVWriter5FlushEv"></span><span id="gpa::common::CSVWriter::Flush"></span><span class="target" id="classgpa_1_1common_1_1_c_s_v_writer_1ae6e020b611254d3ed1b2701377c1307e"></span>void <code class="sig-name descname">Flush</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa6common9CSVWriter5FlushEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Flushes all previously written values to the current file handle. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa6common9CSVWriter5CloseEv">
+<span id="_CPPv3N3gpa6common9CSVWriter5CloseEv"></span><span id="_CPPv2N3gpa6common9CSVWriter5CloseEv"></span><span id="gpa::common::CSVWriter::Close"></span><span class="target" id="classgpa_1_1common_1_1_c_s_v_writer_1a8b3e200f939cfa85d4e948fe4b1d0445"></span>void <code class="sig-name descname">Close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa6common9CSVWriter5CloseEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Closes the file handle. </p>
+<p><a class="reference internal" href="#classgpa_1_1common_1_1_c_s_v_writer_1abba994ad85b744bce04198ca82f337ef"><span class="std std-ref">Valid()</span></a> will return false from this point and no more data can be written. Closing will also perform as part of the destructor; this method facilitates user control over when closing happens. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa6common9CSVWriter5ValidEv">
+<span id="_CPPv3NK3gpa6common9CSVWriter5ValidEv"></span><span id="_CPPv2NK3gpa6common9CSVWriter5ValidEv"></span><span id="gpa::common::CSVWriter::ValidC"></span><span class="target" id="classgpa_1_1common_1_1_c_s_v_writer_1abba994ad85b744bce04198ca82f337ef"></span>bool <code class="sig-name descname">Valid</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa6common9CSVWriter5ValidEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns true if the current file handle is valid. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4I0EN3gpa6common9CSVWriter9WriteCellEbRK1T">
+<span id="_CPPv3I0EN3gpa6common9CSVWriter9WriteCellERK1T"></span><span id="_CPPv2I0EN3gpa6common9CSVWriter9WriteCellERK1T"></span><span class="target" id="classgpa_1_1common_1_1_c_s_v_writer_1af7995af19c8acdda39cb98b1322f2db0"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br />bool <code class="sig-name descname">WriteCell</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN3gpa6common9CSVWriter9WriteCellEbRK1T" title="gpa::common::CSVWriter::WriteCell::T">T</a> <em class="property">const</em> &amp;<em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3gpa6common9CSVWriter9WriteCellEbRK1T" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Writes out a “cell” of the CSV file, including the delimiter. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4I0EN3gpa6common9CSVWriter10WriteCellsEbA_1T6size_t">
+<span id="_CPPv3I0EN3gpa6common9CSVWriter10WriteCellsEA_1T6size_t"></span><span id="_CPPv2I0EN3gpa6common9CSVWriter10WriteCellsEA_1T6size_t"></span><span class="target" id="classgpa_1_1common_1_1_c_s_v_writer_1a4186a843825d4f6605d59547b5f46ca1"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br />bool <code class="sig-name descname">WriteCells</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN3gpa6common9CSVWriter10WriteCellsEbA_1T6size_t" title="gpa::common::CSVWriter::WriteCells::T">T</a> <em>values</em>[], size_t <em>count</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3gpa6common9CSVWriter10WriteCellsEbA_1T6size_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Writes out multiple delimited “cells” of the CSV file. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa6common9CSVWriter12WriteNewlineEv">
+<span id="_CPPv3N3gpa6common9CSVWriter12WriteNewlineEv"></span><span id="_CPPv2N3gpa6common9CSVWriter12WriteNewlineEv"></span><span id="gpa::common::CSVWriter::WriteNewline"></span><span class="target" id="classgpa_1_1common_1_1_c_s_v_writer_1a775ef2c7257dab8a8728434d91a3bbba"></span>bool <code class="sig-name descname">WriteNewline</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa6common9CSVWriter12WriteNewlineEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Adds a line break to the CSV, for adding additional rows. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4I0EN3gpa6common9CSVWriter8WriteRowEbA_1T6size_t">
+<span id="_CPPv3I0EN3gpa6common9CSVWriter8WriteRowEA_1T6size_t"></span><span id="_CPPv2I0EN3gpa6common9CSVWriter8WriteRowEA_1T6size_t"></span><span class="target" id="classgpa_1_1common_1_1_c_s_v_writer_1a28821ddfab6b4dfd9777e988c3b56adc"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br />bool <code class="sig-name descname">WriteRow</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN3gpa6common9CSVWriter8WriteRowEbA_1T6size_t" title="gpa::common::CSVWriter::WriteRow::T">T</a> <em>values</em>[], size_t <em>count</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3gpa6common9CSVWriter8WriteRowEbA_1T6size_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Writes out one row of delimited values, including the new line. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="classgpa_1_1concurrent_1_1_map.html" class="btn btn-neutral float-right" title="Template Class Map" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="classgpa_1_1common_1_1_capture_stream_opened_event.html" class="btn btn-neutral float-left" title="Class CaptureStreamOpenedEvent" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,517 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Class SamplerInfo &mdash; Intel® GPA Framework  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script type="text/javascript" src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Class Shader" href="classgpa_1_1playback_1_1_shader.html" />
+    <link rel="prev" title="Class ResourceInfoEx" href="classgpa_1_1playback_1_1_resource_info_ex.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/intel-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending “Helloworld” Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#how-to-build">How to build</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">‘Helloworld’ Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">‘Helloworld’ Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extractor">Texture Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../src/reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="library_root.html">C++ Interfaces</a> &raquo;</li>
+        
+      <li>Class SamplerInfo</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="class-samplerinfo">
+<span id="exhale-class-classgpa-1-1playback-1-1-sampler-info"></span><h1>Class SamplerInfo<a class="headerlink" href="#class-samplerinfo" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_playback_resource-info_sampler-info.h.html#file-include-playback-resource-info-sampler-info-h"><span class="std std-ref">File sampler-info.h</span></a></p></li>
+</ul>
+<div class="section" id="inheritance-relationships">
+<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="base-type">
+<h3>Base Type<a class="headerlink" href="#base-type" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::playback::ResourceInfo</span></code> (<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#exhale-class-classgpa-1-1playback-1-1-resource-info"><span class="std std-ref">Class ResourceInfo</span></a>)</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv4N3gpa8playback11SamplerInfoE">
+<span id="_CPPv3N3gpa8playback11SamplerInfoE"></span><span id="_CPPv2N3gpa8playback11SamplerInfoE"></span><span id="gpa::playback::SamplerInfo"></span><span class="target" id="classgpa_1_1playback_1_1_sampler_info"></span><em class="property">class </em><code class="sig-name descname">SamplerInfo</code> : <em class="property">public</em> gpa::playback::<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#_CPPv4N3gpa8playback12ResourceInfoE" title="gpa::playback::ResourceInfo">ResourceInfo</a><a class="headerlink" href="#_CPPv4N3gpa8playback11SamplerInfoE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Graphics API agnostic information for a sampler object. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback11SamplerInfo11SamplerInfoEv">
+<span id="_CPPv3N3gpa8playback11SamplerInfo11SamplerInfoEv"></span><span id="_CPPv2N3gpa8playback11SamplerInfo11SamplerInfoEv"></span><span id="gpa::playback::SamplerInfo::SamplerInfo"></span><span class="target" id="classgpa_1_1playback_1_1_sampler_info_1a08068cd685eb735f9043465edfa19864"></span><code class="sig-name descname">SamplerInfo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback11SamplerInfo11SamplerInfoEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Constructs an instance of <a class="reference internal" href="#classgpa_1_1playback_1_1_sampler_info"><span class="std std-ref">SamplerInfo</span></a>. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback11SamplerInfo11SamplerInfoERK11SamplerInfo">
+<span id="_CPPv3N3gpa8playback11SamplerInfo11SamplerInfoERK11SamplerInfo"></span><span id="_CPPv2N3gpa8playback11SamplerInfo11SamplerInfoERK11SamplerInfo"></span><span id="gpa::playback::SamplerInfo::SamplerInfo__SamplerInfoCR"></span><span class="target" id="classgpa_1_1playback_1_1_sampler_info_1a521ca7ae5212522d04b11bae4fdbae57"></span><code class="sig-name descname">SamplerInfo</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa8playback11SamplerInfo11SamplerInfoEv" title="gpa::playback::SamplerInfo::SamplerInfo">SamplerInfo</a> <em class="property">const</em> &amp;<em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback11SamplerInfo11SamplerInfoERK11SamplerInfo" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Copies an instance of <a class="reference internal" href="#classgpa_1_1playback_1_1_sampler_info"><span class="std std-ref">SamplerInfo</span></a>. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">other</span></code>: The <a class="reference internal" href="#classgpa_1_1playback_1_1_sampler_info"><span class="std std-ref">SamplerInfo</span></a> to copy from </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback11SamplerInfoaSERK11SamplerInfo">
+<span id="_CPPv3N3gpa8playback11SamplerInfoaSERK11SamplerInfo"></span><span id="_CPPv2N3gpa8playback11SamplerInfoaSERK11SamplerInfo"></span><span id="gpa::playback::SamplerInfo::assign-operator__SamplerInfoCR"></span><span class="target" id="classgpa_1_1playback_1_1_sampler_info_1a5a1c3f0d804758f6aaa037cdbe93ed57"></span><a class="reference internal" href="#_CPPv4N3gpa8playback11SamplerInfoE" title="gpa::playback::SamplerInfo">SamplerInfo</a> &amp;<code class="sig-name descname">operator=</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa8playback11SamplerInfoE" title="gpa::playback::SamplerInfo">SamplerInfo</a> <em class="property">const</em>&amp;<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback11SamplerInfoaSERK11SamplerInfo" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Copies an instance of <a class="reference internal" href="#classgpa_1_1playback_1_1_sampler_info"><span class="std std-ref">SamplerInfo</span></a>. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>This <a class="reference internal" href="#classgpa_1_1playback_1_1_sampler_info"><span class="std std-ref">SamplerInfo</span></a> after being copied to </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">other</span></code>: The <a class="reference internal" href="#classgpa_1_1playback_1_1_sampler_info"><span class="std std-ref">SamplerInfo</span></a> to copy from </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa8playback11SamplerInfo7GetTypeEv">
+<span id="_CPPv3NK3gpa8playback11SamplerInfo7GetTypeEv"></span><span id="_CPPv2NK3gpa8playback11SamplerInfo7GetTypeEv"></span><span id="gpa::playback::SamplerInfo::GetTypeC"></span><span class="target" id="classgpa_1_1playback_1_1_sampler_info_1ac3d8b1cda5bb9031b6dc4f659879325e"></span><a class="reference internal" href="enum_playback_2resource-info_2enumerations_8h_1a0108454662b4613e875076a13c8d2a63.html#_CPPv4N3gpa8playback16ResourceInfoTypeE" title="gpa::playback::ResourceInfoType">ResourceInfoType</a> <code class="sig-name descname">GetType</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa8playback11SamplerInfo7GetTypeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Gets this <a class="reference internal" href="#classgpa_1_1playback_1_1_sampler_info"><span class="std std-ref">SamplerInfo</span></a>’s ResourceInfoType. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>This <a class="reference internal" href="#classgpa_1_1playback_1_1_sampler_info"><span class="std std-ref">SamplerInfo</span></a>’s ResourceInfoType </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback11SamplerInfo9minFilterE">
+<span id="_CPPv3N3gpa8playback11SamplerInfo9minFilterE"></span><span id="_CPPv2N3gpa8playback11SamplerInfo9minFilterE"></span><span id="gpa::playback::SamplerInfo::minFilter__api_types::FilterMode"></span><span class="target" id="classgpa_1_1playback_1_1_sampler_info_1a4c42baa22fd4258bf3165762116ecd5b"></span>api_types::<a class="reference internal" href="enum_api-types_2enumerations_8h_1a5681a7a60ef8f41e71426170df34b273.html#_CPPv4N3gpa9api_types10FilterModeE" title="gpa::api_types::FilterMode">FilterMode</a> <code class="sig-name descname">minFilter</code> = {api_types::<a class="reference internal" href="enum_api-types_2enumerations_8h_1a5681a7a60ef8f41e71426170df34b273.html#_CPPv4N3gpa9api_types23GPA_FILTER_MODE_UNKNOWNE" title="gpa::api_types::GPA_FILTER_MODE_UNKNOWN">GPA_FILTER_MODE_UNKNOWN</a>}<a class="headerlink" href="#_CPPv4N3gpa8playback11SamplerInfo9minFilterE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This <a class="reference internal" href="#classgpa_1_1playback_1_1_sampler_info"><span class="std std-ref">SamplerInfo</span></a>’s min filter. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback11SamplerInfo9magFilterE">
+<span id="_CPPv3N3gpa8playback11SamplerInfo9magFilterE"></span><span id="_CPPv2N3gpa8playback11SamplerInfo9magFilterE"></span><span id="gpa::playback::SamplerInfo::magFilter__api_types::FilterMode"></span><span class="target" id="classgpa_1_1playback_1_1_sampler_info_1ae639ef528f074742e5632963ccde17f2"></span>api_types::<a class="reference internal" href="enum_api-types_2enumerations_8h_1a5681a7a60ef8f41e71426170df34b273.html#_CPPv4N3gpa9api_types10FilterModeE" title="gpa::api_types::FilterMode">FilterMode</a> <code class="sig-name descname">magFilter</code> = {api_types::<a class="reference internal" href="enum_api-types_2enumerations_8h_1a5681a7a60ef8f41e71426170df34b273.html#_CPPv4N3gpa9api_types23GPA_FILTER_MODE_UNKNOWNE" title="gpa::api_types::GPA_FILTER_MODE_UNKNOWN">GPA_FILTER_MODE_UNKNOWN</a>}<a class="headerlink" href="#_CPPv4N3gpa8playback11SamplerInfo9magFilterE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This <a class="reference internal" href="#classgpa_1_1playback_1_1_sampler_info"><span class="std std-ref">SamplerInfo</span></a>’s mag filter. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback11SamplerInfo9mipFilterE">
+<span id="_CPPv3N3gpa8playback11SamplerInfo9mipFilterE"></span><span id="_CPPv2N3gpa8playback11SamplerInfo9mipFilterE"></span><span id="gpa::playback::SamplerInfo::mipFilter__api_types::FilterMode"></span><span class="target" id="classgpa_1_1playback_1_1_sampler_info_1a79f1226149a3794aab7a12e2889308fd"></span>api_types::<a class="reference internal" href="enum_api-types_2enumerations_8h_1a5681a7a60ef8f41e71426170df34b273.html#_CPPv4N3gpa9api_types10FilterModeE" title="gpa::api_types::FilterMode">FilterMode</a> <code class="sig-name descname">mipFilter</code> = {api_types::<a class="reference internal" href="enum_api-types_2enumerations_8h_1a5681a7a60ef8f41e71426170df34b273.html#_CPPv4N3gpa9api_types23GPA_FILTER_MODE_UNKNOWNE" title="gpa::api_types::GPA_FILTER_MODE_UNKNOWN">GPA_FILTER_MODE_UNKNOWN</a>}<a class="headerlink" href="#_CPPv4N3gpa8playback11SamplerInfo9mipFilterE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This <a class="reference internal" href="#classgpa_1_1playback_1_1_sampler_info"><span class="std std-ref">SamplerInfo</span></a>’s mip filter. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback11SamplerInfo12addressModeUE">
+<span id="_CPPv3N3gpa8playback11SamplerInfo12addressModeUE"></span><span id="_CPPv2N3gpa8playback11SamplerInfo12addressModeUE"></span><span id="gpa::playback::SamplerInfo::addressModeU__api_types::AddressMode"></span><span class="target" id="classgpa_1_1playback_1_1_sampler_info_1ac291ffffcf767a2ce6365a5697c04145"></span>api_types::<a class="reference internal" href="enum_api-types_2enumerations_8h_1aa065bf15a15766231c1c6223e5badd9d.html#_CPPv4N3gpa9api_types11AddressModeE" title="gpa::api_types::AddressMode">AddressMode</a> <code class="sig-name descname">addressModeU</code> = {api_types::<a class="reference internal" href="enum_api-types_2enumerations_8h_1aa065bf15a15766231c1c6223e5badd9d.html#_CPPv4N3gpa9api_types24GPA_ADDRESS_MODE_UNKNOWNE" title="gpa::api_types::GPA_ADDRESS_MODE_UNKNOWN">GPA_ADDRESS_MODE_UNKNOWN</a>}<a class="headerlink" href="#_CPPv4N3gpa8playback11SamplerInfo12addressModeUE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This <a class="reference internal" href="#classgpa_1_1playback_1_1_sampler_info"><span class="std std-ref">SamplerInfo</span></a>’s address mode in the u axis. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback11SamplerInfo12addressModeVE">
+<span id="_CPPv3N3gpa8playback11SamplerInfo12addressModeVE"></span><span id="_CPPv2N3gpa8playback11SamplerInfo12addressModeVE"></span><span id="gpa::playback::SamplerInfo::addressModeV__api_types::AddressMode"></span><span class="target" id="classgpa_1_1playback_1_1_sampler_info_1aceaf01c88de09621a05f61fb324739cd"></span>api_types::<a class="reference internal" href="enum_api-types_2enumerations_8h_1aa065bf15a15766231c1c6223e5badd9d.html#_CPPv4N3gpa9api_types11AddressModeE" title="gpa::api_types::AddressMode">AddressMode</a> <code class="sig-name descname">addressModeV</code> = {api_types::<a class="reference internal" href="enum_api-types_2enumerations_8h_1aa065bf15a15766231c1c6223e5badd9d.html#_CPPv4N3gpa9api_types24GPA_ADDRESS_MODE_UNKNOWNE" title="gpa::api_types::GPA_ADDRESS_MODE_UNKNOWN">GPA_ADDRESS_MODE_UNKNOWN</a>}<a class="headerlink" href="#_CPPv4N3gpa8playback11SamplerInfo12addressModeVE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This <a class="reference internal" href="#classgpa_1_1playback_1_1_sampler_info"><span class="std std-ref">SamplerInfo</span></a>’s address mode in the v axis. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback11SamplerInfo12addressModeWE">
+<span id="_CPPv3N3gpa8playback11SamplerInfo12addressModeWE"></span><span id="_CPPv2N3gpa8playback11SamplerInfo12addressModeWE"></span><span id="gpa::playback::SamplerInfo::addressModeW__api_types::AddressMode"></span><span class="target" id="classgpa_1_1playback_1_1_sampler_info_1ae8355aa45e9352868ef479c78179c7ec"></span>api_types::<a class="reference internal" href="enum_api-types_2enumerations_8h_1aa065bf15a15766231c1c6223e5badd9d.html#_CPPv4N3gpa9api_types11AddressModeE" title="gpa::api_types::AddressMode">AddressMode</a> <code class="sig-name descname">addressModeW</code> = {api_types::<a class="reference internal" href="enum_api-types_2enumerations_8h_1aa065bf15a15766231c1c6223e5badd9d.html#_CPPv4N3gpa9api_types24GPA_ADDRESS_MODE_UNKNOWNE" title="gpa::api_types::GPA_ADDRESS_MODE_UNKNOWN">GPA_ADDRESS_MODE_UNKNOWN</a>}<a class="headerlink" href="#_CPPv4N3gpa8playback11SamplerInfo12addressModeWE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This <a class="reference internal" href="#classgpa_1_1playback_1_1_sampler_info"><span class="std std-ref">SamplerInfo</span></a>’s address mode in the w axis. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback11SamplerInfo10mipLodBiasE">
+<span id="_CPPv3N3gpa8playback11SamplerInfo10mipLodBiasE"></span><span id="_CPPv2N3gpa8playback11SamplerInfo10mipLodBiasE"></span><span id="gpa::playback::SamplerInfo::mipLodBias__float"></span><span class="target" id="classgpa_1_1playback_1_1_sampler_info_1acbca9397735fc13dc283479a08b03e0b"></span>float <code class="sig-name descname">mipLodBias</code> = {0}<a class="headerlink" href="#_CPPv4N3gpa8playback11SamplerInfo10mipLodBiasE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This <a class="reference internal" href="#classgpa_1_1playback_1_1_sampler_info"><span class="std std-ref">SamplerInfo</span></a>’s mip LOD bias. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback11SamplerInfo17anisotropyEnabledE">
+<span id="_CPPv3N3gpa8playback11SamplerInfo17anisotropyEnabledE"></span><span id="_CPPv2N3gpa8playback11SamplerInfo17anisotropyEnabledE"></span><span id="gpa::playback::SamplerInfo::anisotropyEnabled__b"></span><span class="target" id="classgpa_1_1playback_1_1_sampler_info_1ac05f05f6fb26893e7ed2d95c732179fc"></span>bool <code class="sig-name descname">anisotropyEnabled</code> = {false}<a class="headerlink" href="#_CPPv4N3gpa8playback11SamplerInfo17anisotropyEnabledE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Whether or not this <a class="reference internal" href="#classgpa_1_1playback_1_1_sampler_info"><span class="std std-ref">SamplerInfo</span></a> has anisotropic filtering enabled. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback11SamplerInfo13maxAnisotropyE">
+<span id="_CPPv3N3gpa8playback11SamplerInfo13maxAnisotropyE"></span><span id="_CPPv2N3gpa8playback11SamplerInfo13maxAnisotropyE"></span><span id="gpa::playback::SamplerInfo::maxAnisotropy__float"></span><span class="target" id="classgpa_1_1playback_1_1_sampler_info_1a1e2bbc2220880e025c4756795926bd7c"></span>float <code class="sig-name descname">maxAnisotropy</code> = {0}<a class="headerlink" href="#_CPPv4N3gpa8playback11SamplerInfo13maxAnisotropyE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This <a class="reference internal" href="#classgpa_1_1playback_1_1_sampler_info"><span class="std std-ref">SamplerInfo</span></a>’s max anisotropic filtering value. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback11SamplerInfo14compareEnabledE">
+<span id="_CPPv3N3gpa8playback11SamplerInfo14compareEnabledE"></span><span id="_CPPv2N3gpa8playback11SamplerInfo14compareEnabledE"></span><span id="gpa::playback::SamplerInfo::compareEnabled__b"></span><span class="target" id="classgpa_1_1playback_1_1_sampler_info_1aec1cd56a8749f8fbcf660847e8ac50c5"></span>bool <code class="sig-name descname">compareEnabled</code> = {false}<a class="headerlink" href="#_CPPv4N3gpa8playback11SamplerInfo14compareEnabledE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Whether or not this <a class="reference internal" href="#classgpa_1_1playback_1_1_sampler_info"><span class="std std-ref">SamplerInfo</span></a> has a comparison function enabled. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback11SamplerInfo18comparisonFunctionE">
+<span id="_CPPv3N3gpa8playback11SamplerInfo18comparisonFunctionE"></span><span id="_CPPv2N3gpa8playback11SamplerInfo18comparisonFunctionE"></span><span id="gpa::playback::SamplerInfo::comparisonFunction__api_types::ComprisonFunction"></span><span class="target" id="classgpa_1_1playback_1_1_sampler_info_1a615d8037fc0345dd9e8a9e98eb8bf709"></span>api_types::<a class="reference internal" href="enum_api-types_2enumerations_8h_1a1c650fab0143e6d4854ebf107565030b.html#_CPPv4N3gpa9api_types17ComprisonFunctionE" title="gpa::api_types::ComprisonFunction">ComprisonFunction</a> <code class="sig-name descname">comparisonFunction</code> = {api_types::<a class="reference internal" href="enum_api-types_2enumerations_8h_1a1c650fab0143e6d4854ebf107565030b.html#_CPPv4N3gpa9api_types31GPA_COMPARISON_FUNCTION_UNKNOWNE" title="gpa::api_types::GPA_COMPARISON_FUNCTION_UNKNOWN">GPA_COMPARISON_FUNCTION_UNKNOWN</a>}<a class="headerlink" href="#_CPPv4N3gpa8playback11SamplerInfo18comparisonFunctionE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This <a class="reference internal" href="#classgpa_1_1playback_1_1_sampler_info"><span class="std std-ref">SamplerInfo</span></a>’s comparison function. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback11SamplerInfo6minLodE">
+<span id="_CPPv3N3gpa8playback11SamplerInfo6minLodE"></span><span id="_CPPv2N3gpa8playback11SamplerInfo6minLodE"></span><span id="gpa::playback::SamplerInfo::minLod__float"></span><span class="target" id="classgpa_1_1playback_1_1_sampler_info_1afaf9fab4761cf2757739f783ab9e7381"></span>float <code class="sig-name descname">minLod</code> = {0}<a class="headerlink" href="#_CPPv4N3gpa8playback11SamplerInfo6minLodE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This <a class="reference internal" href="#classgpa_1_1playback_1_1_sampler_info"><span class="std std-ref">SamplerInfo</span></a>’s min LOD value. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback11SamplerInfo6maxLodE">
+<span id="_CPPv3N3gpa8playback11SamplerInfo6maxLodE"></span><span id="_CPPv2N3gpa8playback11SamplerInfo6maxLodE"></span><span id="gpa::playback::SamplerInfo::maxLod__float"></span><span class="target" id="classgpa_1_1playback_1_1_sampler_info_1ac5294ff970e09fa1c7db6c360b4430a2"></span>float <code class="sig-name descname">maxLod</code> = {0}<a class="headerlink" href="#_CPPv4N3gpa8playback11SamplerInfo6maxLodE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This <a class="reference internal" href="#classgpa_1_1playback_1_1_sampler_info"><span class="std std-ref">SamplerInfo</span></a>’s max LOD value. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback11SamplerInfo23unnormalizedCoordinatesE">
+<span id="_CPPv3N3gpa8playback11SamplerInfo23unnormalizedCoordinatesE"></span><span id="_CPPv2N3gpa8playback11SamplerInfo23unnormalizedCoordinatesE"></span><span id="gpa::playback::SamplerInfo::unnormalizedCoordinates__b"></span><span class="target" id="classgpa_1_1playback_1_1_sampler_info_1ab653bf7bf0b052dc19f95040a8eac5cb"></span>bool <code class="sig-name descname">unnormalizedCoordinates</code> = {false}<a class="headerlink" href="#_CPPv4N3gpa8playback11SamplerInfo23unnormalizedCoordinatesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Whether or not this <a class="reference internal" href="#classgpa_1_1playback_1_1_sampler_info"><span class="std std-ref">SamplerInfo</span></a> utilizes unnormalized coordinates. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback11SamplerInfo11borderColorE">
+<span id="_CPPv3N3gpa8playback11SamplerInfo11borderColorE"></span><span id="_CPPv2N3gpa8playback11SamplerInfo11borderColorE"></span><span id="gpa::playback::SamplerInfo::borderColor__floatA"></span><span class="target" id="classgpa_1_1playback_1_1_sampler_info_1a56a8848390e8f62fcfa30288f7ecb13e"></span>float <code class="sig-name descname">borderColor</code>[4] = {0, , , }<a class="headerlink" href="#_CPPv4N3gpa8playback11SamplerInfo11borderColorE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This <a class="reference internal" href="#classgpa_1_1playback_1_1_sampler_info"><span class="std std-ref">SamplerInfo</span></a>’s border color. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="classgpa_1_1playback_1_1_shader.html" class="btn btn-neutral float-right" title="Class Shader" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="classgpa_1_1playback_1_1_resource_info_ex.html" class="btn btn-neutral float-left" title="Class ResourceInfoEx" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
