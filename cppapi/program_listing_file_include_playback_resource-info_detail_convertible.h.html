@@ -212,6 +212,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
 </ul>
@@ -308,43 +309,65 @@
 
 <span class="cp">#pragma once</span>
 
+<span class="cp">#include</span> <span class="cpf">&quot;playback/resource-info/detail/type-registry.h&quot;</span><span class="cp"></span>
+
 <span class="cp">#include</span> <span class="cpf">&lt;type_traits&gt;</span><span class="cp"></span>
 
 <span class="k">namespace</span> <span class="n">gpa</span> <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">playback</span> <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">detail</span> <span class="p">{</span>
 
-<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">CRT</span><span class="p">,</span> <span class="k">typename</span> <span class="n">TypeEnum</span><span class="o">&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">BaseType</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">DerivedTypes</span><span class="o">&gt;</span>
 <span class="k">class</span> <span class="nc">Convertible</span>
 <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="k">virtual</span> <span class="o">~</span><span class="n">Convertible</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-    <span class="k">virtual</span> <span class="n">TypeEnum</span> <span class="nf">GetType</span><span class="p">()</span> <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kr">inline</span> <span class="k">virtual</span> <span class="n">TypeId</span> <span class="nf">GetTypeId</span><span class="p">()</span> <span class="k">const</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
 
     <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">DerivedType</span><span class="o">&gt;</span>
     <span class="kr">inline</span> <span class="n">DerivedType</span> <span class="k">const</span><span class="o">*</span> <span class="n">As</span><span class="p">()</span> <span class="k">const</span>
     <span class="p">{</span>
         <span class="k">static_assert</span><span class="p">(</span>
-            <span class="n">std</span><span class="o">::</span><span class="n">is_base_of</span><span class="o">&lt;</span><span class="n">CRT</span><span class="p">,</span> <span class="n">DerivedType</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
-            <span class="s">&quot;As&lt;&gt;() may only be used to convert to derived types&quot;</span><span class="p">);</span>
-        <span class="n">DerivedType</span> <span class="n">obj</span><span class="p">{};</span>
-        <span class="k">return</span> <span class="nf">GetType</span><span class="p">()</span> <span class="o">==</span> <span class="n">obj</span><span class="p">.</span><span class="n">GetType</span><span class="p">()</span> <span class="o">?</span> <span class="p">(</span><span class="n">DerivedType</span> <span class="k">const</span><span class="o">*</span><span class="p">)</span><span class="k">this</span> <span class="o">:</span> <span class="k">nullptr</span><span class="p">;</span>
+            <span class="n">std</span><span class="o">::</span><span class="n">is_base_of</span><span class="o">&lt;</span><span class="n">BaseType</span><span class="p">,</span> <span class="n">DerivedType</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
+            <span class="s">&quot;As&lt;&gt;() may only be used with derived types&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nf">GetTypeId</span><span class="p">()</span> <span class="o">==</span> <span class="n">GetTypeId</span><span class="o">&lt;</span><span class="n">DerivedType</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">?</span> <span class="p">(</span><span class="n">DerivedType</span> <span class="k">const</span><span class="o">*</span><span class="p">)</span><span class="k">this</span> <span class="o">:</span> <span class="k">nullptr</span><span class="p">;</span>
     <span class="p">}</span>
 
     <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">DerivedType</span><span class="o">&gt;</span>
     <span class="kr">inline</span> <span class="n">DerivedType</span><span class="o">*</span> <span class="n">As</span><span class="p">()</span>
     <span class="p">{</span>
         <span class="k">static_assert</span><span class="p">(</span>
-            <span class="n">std</span><span class="o">::</span><span class="n">is_base_of</span><span class="o">&lt;</span><span class="n">CRT</span><span class="p">,</span> <span class="n">DerivedType</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
-            <span class="s">&quot;As&lt;&gt;() may only be used to convert to derived types&quot;</span><span class="p">);</span>
-        <span class="n">DerivedType</span> <span class="n">obj</span><span class="p">{};</span>
-        <span class="k">return</span> <span class="nf">GetType</span><span class="p">()</span> <span class="o">==</span> <span class="n">obj</span><span class="p">.</span><span class="n">GetType</span><span class="p">()</span> <span class="o">?</span> <span class="p">(</span><span class="n">DerivedType</span><span class="o">*</span><span class="p">)</span><span class="k">this</span> <span class="o">:</span> <span class="k">nullptr</span><span class="p">;</span>
+            <span class="n">std</span><span class="o">::</span><span class="n">is_base_of</span><span class="o">&lt;</span><span class="n">BaseType</span><span class="p">,</span> <span class="n">DerivedType</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
+            <span class="s">&quot;As&lt;&gt;() may only be used with derived types&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nf">GetTypeId</span><span class="p">()</span> <span class="o">==</span> <span class="n">GetTypeId</span><span class="o">&lt;</span><span class="n">DerivedType</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">?</span> <span class="p">(</span><span class="n">DerivedType</span><span class="o">*</span><span class="p">)</span><span class="k">this</span> <span class="o">:</span> <span class="k">nullptr</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">DerivedType</span><span class="p">,</span> <span class="k">typename</span> <span class="n">ProcessAsFunctionType</span><span class="o">&gt;</span>
+    <span class="kr">inline</span> <span class="kt">bool</span> <span class="n">ProcessAs</span><span class="p">(</span><span class="n">ProcessAsFunctionType</span> <span class="n">processAsFunction</span><span class="p">)</span> <span class="k">const</span>
+    <span class="p">{</span>
+        <span class="k">auto</span> <span class="n">pDerived</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">As</span><span class="o">&lt;</span><span class="n">DerivedType</span><span class="o">&gt;</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">pDerived</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">processAsFunction</span><span class="p">(</span><span class="o">*</span><span class="n">pDerived</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">pDerived</span> <span class="o">!=</span> <span class="k">nullptr</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">DerivedType</span><span class="o">&gt;</span>
+    <span class="kr">inline</span> <span class="k">static</span> <span class="k">constexpr</span> <span class="n">TypeId</span> <span class="n">GetTypeId</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">static_assert</span><span class="p">(</span>
+            <span class="n">std</span><span class="o">::</span><span class="n">is_base_of</span><span class="o">&lt;</span><span class="n">BaseType</span><span class="p">,</span> <span class="n">DerivedType</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
+            <span class="s">&quot;GetTypeId&lt;&gt;() may only be used with derived types&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">detail</span><span class="o">::</span><span class="n">GetTypeId</span><span class="o">&lt;</span><span class="n">DerivedType</span><span class="o">&gt;</span><span class="p">(</span><span class="n">TypeRegistry</span><span class="o">&lt;</span><span class="n">DerivedTypes</span><span class="p">...</span><span class="o">&gt;</span><span class="p">{});</span>
     <span class="p">}</span>
 <span class="p">};</span>
 
-<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">CRT</span><span class="p">,</span> <span class="k">typename</span> <span class="n">TypeEnum</span><span class="o">&gt;</span>
-<span class="kr">inline</span> <span class="n">Convertible</span><span class="o">&lt;</span><span class="n">CRT</span><span class="p">,</span> <span class="n">TypeEnum</span><span class="o">&gt;::~</span><span class="n">Convertible</span><span class="p">()</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">BaseType</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">DerivedTypes</span><span class="o">&gt;</span>
+<span class="kr">inline</span> <span class="n">Convertible</span><span class="o">&lt;</span><span class="n">BaseType</span><span class="p">,</span> <span class="n">DerivedTypes</span><span class="p">...</span><span class="o">&gt;::~</span><span class="n">Convertible</span><span class="p">()</span>
 <span class="p">{</span>
 <span class="p">}</span>
 

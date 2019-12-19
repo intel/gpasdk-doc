@@ -1,1 +1,1 @@
-Intel(R) Graphics Performance Analyzers Framework 2019.3
+Intel(R) Graphics Performance Analyzers Framework 2019.4

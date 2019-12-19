@@ -212,6 +212,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
 </ul>
@@ -325,22 +326,13 @@
     <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="nf">GetClass</span><span class="p">()</span> <span class="k">const</span> <span class="k">override</span><span class="p">;</span>
     <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="nf">GetAPI</span><span class="p">()</span> <span class="k">const</span> <span class="k">override</span><span class="p">;</span>
     <span class="kt">uint32_t</span> <span class="nf">GetParamsCount</span><span class="p">()</span> <span class="k">const</span> <span class="k">override</span><span class="p">;</span>
-    <span class="n">Argument</span> <span class="k">const</span><span class="o">*</span> <span class="nf">GetParam</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">index</span><span class="p">,</span> <span class="kt">void</span> <span class="k">const</span><span class="o">**</span> <span class="n">outValue</span><span class="p">)</span> <span class="k">const</span> <span class="k">override</span><span class="p">;</span>
+    <span class="n">Argument</span> <span class="k">const</span><span class="o">*</span> <span class="nf">GetParam</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">index</span><span class="p">,</span> <span class="kt">void</span> <span class="k">const</span><span class="o">**</span> <span class="n">outValue</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">postExecute</span> <span class="o">=</span> <span class="nb">false</span><span class="p">)</span> <span class="k">const</span> <span class="k">override</span><span class="p">;</span>
     <span class="n">Argument</span> <span class="k">const</span><span class="o">*</span> <span class="nf">GetReturnValue</span><span class="p">(</span><span class="kt">void</span> <span class="k">const</span><span class="o">**</span> <span class="n">outValue</span><span class="p">)</span> <span class="k">const</span> <span class="k">override</span><span class="p">;</span>
     <span class="kt">void</span><span class="o">*</span> <span class="nf">GetApiObjectPtr</span><span class="p">()</span> <span class="k">const</span> <span class="k">override</span><span class="p">;</span>
 
     <span class="kt">void</span> <span class="nf">Read</span><span class="p">(</span><span class="n">ArgsReader</span><span class="o">*</span> <span class="n">reader</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
     <span class="kt">void</span> <span class="nf">PreWrite</span><span class="p">()</span> <span class="k">override</span><span class="p">;</span>
     <span class="kt">void</span> <span class="nf">PostWrite</span><span class="p">()</span> <span class="k">override</span><span class="p">;</span>
-
-    <span class="kt">void</span> <span class="nf">PrePlaybackBeforeRepeat</span><span class="p">(</span><span class="n">GPADispatchTable</span> <span class="k">const</span><span class="o">*&amp;</span> <span class="n">tlsRef</span><span class="p">,</span> <span class="n">Context</span><span class="o">*</span> <span class="n">context</span><span class="p">,</span>
-                                 <span class="n">playback</span><span class="o">::</span><span class="n">Callable</span><span class="o">*</span> <span class="n">callable</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
-    <span class="kt">void</span> <span class="nf">PostPlaybackBeforeRepeat</span><span class="p">(</span><span class="n">GPADispatchTable</span> <span class="k">const</span><span class="o">*&amp;</span> <span class="n">tlsRef</span><span class="p">,</span> <span class="n">Context</span><span class="o">*</span> <span class="n">context</span><span class="p">,</span>
-                                  <span class="n">playback</span><span class="o">::</span><span class="n">Callable</span><span class="o">*</span> <span class="n">callable</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
-    <span class="kt">void</span> <span class="nf">PrePlaybackDuringRepeat</span><span class="p">(</span><span class="n">GPADispatchTable</span> <span class="k">const</span><span class="o">*&amp;</span> <span class="n">tlsRef</span><span class="p">,</span> <span class="n">Context</span><span class="o">*</span> <span class="n">context</span><span class="p">,</span>
-                                 <span class="n">playback</span><span class="o">::</span><span class="n">Callable</span><span class="o">*</span> <span class="n">callable</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
-    <span class="kt">void</span> <span class="nf">PostPlaybackDuringRepeat</span><span class="p">(</span><span class="n">GPADispatchTable</span> <span class="k">const</span><span class="o">*&amp;</span> <span class="n">tlsRef</span><span class="p">,</span> <span class="n">Context</span><span class="o">*</span> <span class="n">context</span><span class="p">,</span>
-                                  <span class="n">playback</span><span class="o">::</span><span class="n">Callable</span><span class="o">*</span> <span class="n">callable</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
 
     <span class="kt">uint8_t</span> <span class="nf">GetApiToken</span><span class="p">()</span> <span class="k">const</span> <span class="k">override</span><span class="p">;</span>
     <span class="kt">uint16_t</span> <span class="nf">GetClassToken</span><span class="p">()</span> <span class="k">const</span> <span class="k">override</span><span class="p">;</span>

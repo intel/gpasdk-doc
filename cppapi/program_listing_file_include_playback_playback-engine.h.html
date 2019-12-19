@@ -212,6 +212,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
 </ul>
@@ -308,27 +309,50 @@
 
 <span class="cp">#pragma once</span>
 
-<span class="cp">#include</span> <span class="cpf">&lt;unordered_set&gt;</span><span class="cp"></span>
-
 <span class="cp">#include</span> <span class="cpf">&quot;igpa-config.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;playback/experiments/experimentor.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;playback/data-collection/metrics-extractor.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;playback/metadata-extraction/metadata-extractor.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;playback/metadata-extraction/metadata-extractor-ex.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;playback/metadata-extraction/metadata-types.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;playback/data-collection/metrics-extractor.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;playback/range-player.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;playback/resource-extraction/resource-extractor.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;playback/shader-profile-extraction/shader-profile-extractor.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;playback/range-player.h&quot;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;unordered_set&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp"></span>
 
 <span class="k">namespace</span> <span class="n">gpa</span> <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">playback</span> <span class="p">{</span>
+
+<span class="k">class</span> <span class="nc">Experimentor</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">MetadataExtractor</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">MetadataExtractorEx</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">MetricsExtractor</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">ResourceExtractor</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">ShaderProfileExtractor</span><span class="p">;</span>
+
+<span class="k">struct</span> <span class="n">Services</span>
+<span class="p">{</span>
+    <span class="n">MetadataExtractor</span><span class="o">*</span> <span class="n">metadataExtractor</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+    <span class="n">MetadataExtractorEx</span><span class="o">*</span> <span class="n">metadataExtractorEx</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+    <span class="n">Experimentor</span><span class="o">*</span> <span class="n">experimentor</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+    <span class="n">ResourceExtractor</span><span class="o">*</span> <span class="n">resourceExtractor</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+    <span class="n">MetricsExtractor</span><span class="o">*</span> <span class="n">metricsExtractor</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+    <span class="n">ShaderProfileExtractor</span><span class="o">*</span> <span class="n">shaderProfileExtractor</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+<span class="p">};</span>
 
 <span class="k">class</span> <span class="nc">PlaybackEngine</span>
 <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="n">PlaybackEngine</span><span class="p">(</span><span class="n">RangePlayer</span><span class="o">*</span> <span class="n">rangePlayer</span><span class="p">);</span>
 
+    <span class="o">~</span><span class="n">PlaybackEngine</span><span class="p">();</span>
+
+    <span class="n">PlaybackEngine</span><span class="p">(</span><span class="n">RangePlayer</span><span class="o">*</span> <span class="n">rangePlayer</span><span class="p">,</span> <span class="n">Services</span><span class="o">*</span> <span class="n">serviceOverrides</span><span class="p">);</span>
+
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">MetadataExtractor</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">GetMetadata</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+    <span class="n">MetadataExtractorEx</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">GetMetadataExtractor</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
 
     <span class="n">Experimentor</span><span class="o">&amp;</span> <span class="n">GetExperimentor</span><span class="p">();</span>
 
@@ -340,6 +364,10 @@
 
     <span class="n">ShaderProfileExtractor</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">GetShaderProfileExtractor</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
 
+    <span class="n">ResourceExtractor</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">GetResourceExtractor</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+
+    <span class="n">ResourceExtractor</span><span class="o">&amp;</span> <span class="n">GetResourceExtractor</span><span class="p">();</span>
+
     <span class="kt">void</span> <span class="nf">DisableCalls</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="k">const</span><span class="o">*</span> <span class="n">callIndices</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">count</span><span class="p">);</span>
 
     <span class="kt">void</span> <span class="nf">EnableCalls</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="k">const</span><span class="o">*</span> <span class="n">callIndices</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">count</span><span class="p">);</span>
@@ -348,23 +376,30 @@
 
     <span class="kt">void</span> <span class="nf">Execute</span><span class="p">();</span>
 
-    <span class="n">ResourceDataResult</span> <span class="nf">Execute</span><span class="p">(</span><span class="n">ResourceDataRequest</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">request</span><span class="p">);</span>
+    <span class="n">ResourceExtractor</span><span class="o">::</span><span class="n">Result</span> <span class="n">Execute</span><span class="p">(</span><span class="n">ResourceExtractor</span><span class="o">::</span><span class="n">Request</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">request</span><span class="p">);</span>
 
     <span class="n">data_collection</span><span class="o">::</span><span class="n">MetricsQueryResult</span> <span class="n">Execute</span><span class="p">(</span><span class="n">data_collection</span><span class="o">::</span><span class="n">MetricsRequest</span> <span class="k">const</span><span class="o">*</span> <span class="n">request</span><span class="p">);</span>
 
     <span class="n">ProfileShaderResult</span> <span class="nf">Execute</span><span class="p">(</span><span class="n">ProfileShaderRequest</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">request</span><span class="p">);</span>
 
-    <span class="kt">bool</span> <span class="nf">ExecuteCallCondition</span><span class="p">(</span><span class="n">Callable</span><span class="o">*</span> <span class="n">callable</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">callIndex</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+    <span class="c1">// [deprecated]</span>
+    <span class="n">MetadataExtractor</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">GetMetadata</span><span class="p">(</span><span class="kt">bool</span> <span class="n">enableCompatibility</span> <span class="o">=</span> <span class="nb">false</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+    <span class="n">ResourceDataResult</span> <span class="nf">Execute</span><span class="p">(</span><span class="n">ResourceDataRequest</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">request</span><span class="p">);</span>
 
 <span class="k">private</span><span class="o">:</span>
+    <span class="kt">bool</span> <span class="n">ExecuteCallCondition</span><span class="p">(</span><span class="n">Callable</span><span class="o">*</span> <span class="n">callable</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">callIndex</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+    <span class="n">ExecutionCallbacks</span> <span class="nf">CreateExecutionCallbacks</span><span class="p">(</span><span class="n">CallableReceiver</span><span class="o">*</span> <span class="n">receiver</span><span class="p">);</span>
+
     <span class="n">RangePlayer</span><span class="o">*</span> <span class="n">mRangePlayer</span><span class="p">{</span><span class="k">nullptr</span><span class="p">};</span>
     <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">MetadataExtractor</span><span class="o">&gt;</span> <span class="n">mMetadataExtractor</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">MetadataExtractorEx</span><span class="o">&gt;</span> <span class="n">mMetadataExtractorEx</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">MetadataExtractor</span><span class="o">&gt;</span> <span class="n">mCompatibilityMetadataExtractor</span><span class="p">;</span>
     <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Experimentor</span><span class="o">&gt;</span> <span class="n">mExperimentor</span><span class="p">;</span>
     <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">ResourceExtractor</span><span class="o">&gt;</span> <span class="n">mResourceExtractor</span><span class="p">;</span>
     <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">MetricsExtractor</span><span class="o">&gt;</span> <span class="n">mMetricsExtractor</span><span class="p">;</span>
     <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">ShaderProfileExtractor</span><span class="o">&gt;</span> <span class="n">mShaderProfileExtractor</span><span class="p">;</span>
     <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="kt">uint64_t</span><span class="o">&gt;</span> <span class="n">mDisabledCalls</span><span class="p">;</span>
-    <span class="kt">bool</span> <span class="n">mAssistedDisable</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">mAssistedDisable</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span>
 <span class="p">};</span>
 
 <span class="p">}</span>  <span class="c1">// namespace playback</span>

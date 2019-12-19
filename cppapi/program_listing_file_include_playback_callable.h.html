@@ -212,6 +212,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
 </ul>
@@ -352,6 +353,9 @@
     <span class="n">CloseCommandList</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">13</span><span class="p">,</span>
     <span class="n">GpuEvent</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">14</span><span class="p">,</span>
     <span class="n">GpuCall</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">15</span><span class="p">,</span>
+
+    <span class="c1">// uninitialized type value</span>
+    <span class="n">Unknown</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">31</span><span class="p">,</span>
 <span class="p">};</span>
 <span class="n">ENUM_AS_BITSET</span><span class="p">(</span><span class="n">CallableType</span><span class="p">)</span>
 
@@ -378,6 +382,8 @@
     <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="nf">API</span><span class="p">();</span>
     <span class="kt">uint32_t</span> <span class="nf">ArgumentCount</span><span class="p">();</span>
     <span class="n">serialization</span><span class="o">::</span><span class="n">Argument</span> <span class="k">const</span><span class="o">*</span> <span class="n">Argument</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">index</span><span class="p">,</span> <span class="kt">void</span> <span class="k">const</span><span class="o">**</span> <span class="n">value</span><span class="p">);</span>
+    <span class="n">serialization</span><span class="o">::</span><span class="n">Argument</span> <span class="k">const</span><span class="o">*</span> <span class="n">Argument</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">index</span><span class="p">,</span> <span class="kt">void</span> <span class="k">const</span><span class="o">**</span> <span class="n">value</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">postExecute</span><span class="p">);</span>
+
     <span class="n">serialization</span><span class="o">::</span><span class="n">Argument</span> <span class="k">const</span><span class="o">*</span> <span class="n">ReturnValue</span><span class="p">(</span><span class="kt">void</span> <span class="k">const</span><span class="o">**</span> <span class="n">value</span><span class="p">);</span>
     <span class="kt">void</span><span class="o">*</span> <span class="nf">ApiObjectPtr</span><span class="p">();</span>
     <span class="n">serialization</span><span class="o">::</span><span class="n">Context</span> <span class="k">const</span><span class="o">*</span> <span class="n">Context</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
@@ -389,12 +395,12 @@
     <span class="kt">bool</span> <span class="nf">IsValid</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
     <span class="kt">bool</span> <span class="nf">IsSuccessful</span><span class="p">(</span><span class="kt">bool</span><span class="o">&amp;</span> <span class="n">success</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 
-    <span class="n">CallableType</span> <span class="nf">GetCategory</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+    <span class="n">CallableType</span> <span class="nf">GetCategory</span><span class="p">();</span>
 
     <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="nf">GetAssociatedText</span><span class="p">();</span>
 
     <span class="c1">// TEMP FOR TESTING ONLY!</span>
-    <span class="kt">bool</span> <span class="nf">IsDelimiter</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="nf">IsDelimiter</span><span class="p">();</span>
 
     <span class="c1">// @brief Prepares this callable for execution.</span>
     <span class="kt">bool</span> <span class="nf">PreExecute</span><span class="p">(</span><span class="n">serialization</span><span class="o">::</span><span class="n">Context</span><span class="o">*</span> <span class="n">context</span><span class="p">);</span>
@@ -427,6 +433,7 @@
     <span class="kt">uint64_t</span> <span class="n">mStorageID</span><span class="p">;</span>
 
     <span class="kt">void</span> <span class="nf">Initialize</span><span class="p">();</span>
+    <span class="kt">bool</span> <span class="nf">IsActualDelimiter</span><span class="p">();</span>
 
 <span class="k">public</span><span class="o">:</span>
     <span class="kt">void</span> <span class="n">Load</span><span class="p">(</span><span class="n">serialization</span><span class="o">::</span><span class="n">MemoryBackedSerializer</span><span class="o">*</span> <span class="n">resourceSerializer</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">force</span> <span class="o">=</span> <span class="nb">false</span><span class="p">);</span>

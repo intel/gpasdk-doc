@@ -212,6 +212,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
 </ul>
@@ -308,44 +309,67 @@
 
 <span class="cp">#pragma once</span>
 
+<span class="cp">#include</span> <span class="cpf">&quot;igpa-config.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;introspection/instance.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;introspection/shader-interface.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;playback/callable-broadcaster.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;playback/callable-receiver.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;playback/resource-info/detail/resource-info-registry.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;playback/resource-info.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;playback/resource-info/enumerator.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;playback/resource-info/resource-info-types.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;reflection/struct-data-manager.h&quot;</span><span class="cp"></span>
 
 <span class="k">namespace</span> <span class="n">gpa</span> <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">playback</span> <span class="p">{</span>
 
 <span class="k">class</span> <span class="nc">MetadataExtractorEx</span>
+    <span class="o">:</span> <span class="k">public</span> <span class="n">CallableBroadcaster</span><span class="p">,</span>
+      <span class="k">public</span> <span class="n">CallableReceiver</span>
 <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="n">MetadataExtractorEx</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
 
-    <span class="k">virtual</span> <span class="o">~</span><span class="n">MetadataExtractorEx</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="o">~</span><span class="n">MetadataExtractorEx</span><span class="p">();</span>
+
+    <span class="c1">// NOTE : MetadataExtractorEx is temporarily a CallableBroadcaster so that</span>
+    <span class="c1">//  both extractors can be fed during one repeat cycle.</span>
+    <span class="kt">void</span> <span class="nf">ConnectExecutionCallbacks</span><span class="p">(</span><span class="n">ExecutionCallbacks</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">callbacks</span><span class="p">)</span> <span class="k">override</span> <span class="k">final</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="nf">DisconnectExecutionCallbacks</span><span class="p">()</span> <span class="k">override</span> <span class="k">final</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">PostSetupRange</span><span class="p">(</span><span class="n">CallableCache</span><span class="o">*</span> <span class="n">range</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">PreExecuteRange</span><span class="p">(</span><span class="n">CallableCache</span><span class="o">*</span> <span class="n">range</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">PreExecuteCall</span><span class="p">(</span><span class="n">Callable</span><span class="o">*</span> <span class="n">callable</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">callIndex</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">PostExecuteRange</span><span class="p">(</span><span class="n">CallableCache</span><span class="o">*</span> <span class="n">range</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
+
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">PostExecuteCall</span><span class="p">(</span>
+        <span class="n">Callable</span><span class="o">*</span> <span class="n">callable</span><span class="p">,</span>
+        <span class="kt">uint64_t</span> <span class="n">callIndex</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
 
     <span class="kt">uint64_t</span> <span class="nf">GetCallCount</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
 
-    <span class="kt">void</span> <span class="nf">GetResourceInfos</span><span class="p">(</span>
-        <span class="n">ResourceInfoUsage</span> <span class="n">usage</span><span class="p">,</span>
-        <span class="kt">uint64_t</span> <span class="n">callIndex</span><span class="p">,</span>
-        <span class="kt">size_t</span><span class="o">*</span> <span class="n">pResourceInfoCount</span><span class="p">,</span>
-        <span class="n">ResourceInfo</span> <span class="k">const</span><span class="o">**</span> <span class="n">ppResourceInfos</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+    <span class="n">ResourceInfo</span> <span class="k">const</span><span class="o">*</span> <span class="nf">GetResourceInfo</span><span class="p">(</span><span class="n">ResourceId</span> <span class="n">resourceId</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+
+    <span class="n">Enumerator</span><span class="o">&lt;</span><span class="n">ResourceInfo</span><span class="o">&gt;</span> <span class="n">GetResourceInfos</span><span class="p">(</span>
+        <span class="n">ResourceInfo</span><span class="o">::</span><span class="n">Usage</span> <span class="n">usage</span><span class="p">,</span>
+        <span class="kt">uint64_t</span> <span class="n">callIndex</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+
+    <span class="n">introspection</span><span class="o">::</span><span class="n">ShaderInterface</span> <span class="n">GetShaderInterface</span><span class="p">(</span><span class="n">ShaderInfo</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">shaderInfo</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+
+    <span class="k">virtual</span> <span class="kt">bool</span> <span class="nf">GetShaderSource</span><span class="p">(</span>
+        <span class="n">ShaderInfo</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">shaderInfo</span><span class="p">,</span>
+        <span class="n">api_types</span><span class="o">::</span><span class="n">ShaderLanguage</span> <span class="n">language</span><span class="p">,</span>
+        <span class="kt">size_t</span><span class="o">*</span> <span class="n">pSourceCodeSize</span><span class="p">,</span>
+        <span class="kt">char</span><span class="o">*</span> <span class="n">pSourceCode</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+
+    <span class="k">virtual</span> <span class="n">serialization</span><span class="o">::</span><span class="n">StructDataManager</span> <span class="n">GetResourceStructDataManager</span><span class="p">(</span><span class="n">ResourceInfo</span> <span class="k">const</span><span class="o">*</span> <span class="n">pResourceInfo</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">GetResourceStructJson</span><span class="p">(</span>
+        <span class="n">ResourceInfo</span> <span class="k">const</span><span class="o">*</span> <span class="n">pResourceInfo</span><span class="p">,</span>
+        <span class="kt">size_t</span><span class="o">*</span> <span class="n">pJsonSize</span><span class="p">,</span>
+        <span class="kt">char</span><span class="o">*</span> <span class="n">pJson</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 
 <span class="k">protected</span><span class="o">:</span>
-    <span class="kt">void</span> <span class="n">RegisterResourceInfo</span><span class="p">(</span>
-        <span class="n">ResourceInfoUsage</span> <span class="n">usage</span><span class="p">,</span>
-        <span class="n">ResourceInfo</span> <span class="k">const</span><span class="o">*</span> <span class="n">pResourceInfo</span><span class="p">,</span>
-        <span class="n">detail</span><span class="o">::</span><span class="n">BindingMonitor</span><span class="o">*</span> <span class="n">pBindingMonitor</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">);</span>
-
-    <span class="kt">void</span> <span class="nf">RegisterResourceInfo</span><span class="p">(</span>
-        <span class="n">ResourceInfoUsage</span> <span class="n">usage</span><span class="p">,</span>
-        <span class="n">ResourceInfo</span> <span class="k">const</span><span class="o">*</span> <span class="n">pResourceInfo</span><span class="p">,</span>
-        <span class="kt">size_t</span> <span class="n">resourceInfoExCount</span><span class="p">,</span>
-        <span class="n">ResourceInfoEx</span> <span class="k">const</span><span class="o">*</span> <span class="k">const</span><span class="o">*</span> <span class="n">ppResourceInfoExs</span><span class="p">,</span>
-        <span class="n">detail</span><span class="o">::</span><span class="n">BindingMonitor</span><span class="o">*</span> <span class="n">pBindingMonitor</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">);</span>
-
-    <span class="kt">void</span> <span class="nf">IncrementCallIndex</span><span class="p">();</span>
-
-<span class="k">private</span><span class="o">:</span>
     <span class="n">detail</span><span class="o">::</span><span class="n">ResourceInfoRegistry</span> <span class="n">mRegistry</span><span class="p">;</span>
+    <span class="n">ExecutionCallbacks</span> <span class="n">mExecutionCallbacks</span><span class="p">;</span>
     <span class="n">MetadataExtractorEx</span><span class="p">(</span><span class="n">MetadataExtractorEx</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
     <span class="n">MetadataExtractorEx</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">MetadataExtractorEx</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
 <span class="p">};</span>

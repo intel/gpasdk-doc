@@ -41,7 +41,7 @@
   <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Template Class InfoObjectRequest" href="classgpa_1_1playback_1_1detail_1_1_info_object_request.html" />
+    <link rel="next" title="Template Class IntervalTree" href="classgpa_1_1playback_1_1detail_1_1_interval_tree.html" />
     <link rel="prev" title="Template Class Convertible" href="classgpa_1_1playback_1_1detail_1_1_convertible.html" />
      
     <script type="text/javascript">
@@ -214,6 +214,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
 </ul>
@@ -304,9 +305,10 @@
 <span id="_CPPv3I0EN3gpa8playback6detail18InfoObjectRegistryE"></span><span id="_CPPv2I0EN3gpa8playback6detail18InfoObjectRegistryE"></span><span class="target" id="classgpa_1_1playback_1_1detail_1_1_info_object_registry"></span>template&lt;typename <code class="sig-name descname">BaseInfoType</code>&gt;<br /><em class="property">class </em><code class="sig-name descname">InfoObjectRegistry</code><a class="headerlink" href="#_CPPv4I0EN3gpa8playback6detail18InfoObjectRegistryE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Provides facilities for registering and retrieving info objects. </p>
 <p><dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>The BaseInfoType must derive from Convertible&lt;&gt; </p>
+</dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">&lt;BaseInfoType&gt;</span></code>: The base type of the info objects this InfoObjectRegistry&lt;&gt; is able to register <p> NOTE : The BaseInfoType must derive from Convertible&lt;&gt; </p>
-</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;BaseInfoType&gt;</span></code>: The base type of the info objects this InfoObjectRegistry&lt;&gt; is able to register </p></li>
 </ul>
 </dd>
 </dl>
@@ -368,10 +370,12 @@
 <span id="_CPPv3NK3gpa8playback6detail18InfoObjectRegistry20GetRegisteredObjectsEP6size_tPPK12BaseInfoType"></span><span id="_CPPv2NK3gpa8playback6detail18InfoObjectRegistry20GetRegisteredObjectsEP6size_tPPK12BaseInfoType"></span><span id="gpa::playback::detail::InfoObjectRegistry::GetRegisteredObjects__sP.BaseInfoTypeCPPC"></span><span class="target" id="classgpa_1_1playback_1_1detail_1_1_info_object_registry_1ade9311ce83b901f570ddc00253137c7e"></span>void <code class="sig-name descname">GetRegisteredObjects</code><span class="sig-paren">(</span>size_t *<em>pInfoObjCount</em>, BaseInfoType <em class="property">const</em> **<em>ppInfoObjs</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa8playback6detail18InfoObjectRegistry20GetRegisteredObjectsEP6size_tPPK12BaseInfoType" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Gets all registered InfoType objects. </p>
 <p><dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>If pInfoObjCount is nullptr this argument will be populated with this <a class="reference internal" href="#classgpa_1_1playback_1_1detail_1_1_info_object_registry"><span class="std std-ref">InfoObjectRegistry</span></a>’s total number of registered InfoType objects </p>
+</dd>
+<dt><strong>Note</strong></dt><dd><p>If pInfoObjCount is not nullptr this argument will be used to determine the number of InfoType object pointers to write to ppInfoObjs </p>
+</dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[inout]</span> <span class="pre">pInfoObjCount</span></code>: A pointer to the number of registered InfoType objects <p> NOTE : If pInfoObjCount is nullptr this argument will be populated with this </p>
-<a class="reference internal" href="#classgpa_1_1playback_1_1detail_1_1_info_object_registry"><span class="std std-ref">InfoObjectRegistry</span></a>’s total number of registered InfoType objects <p> NOTE : If pInfoObjCount is not nullptr this argument will be used to determine the number of InfoType object pointers to write to ppInfoObjs </p>
-</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[inout]</span> <span class="pre">pInfoObjCount</span></code>: A pointer to the number of registered InfoType objects </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">[out]</span> <span class="pre">ppInfoObjs</span></code>: A pointer to an array of InfoType pointers to populate </p></li>
 </ul>
 </dd>
@@ -384,11 +388,13 @@
 <span id="_CPPv3I0ENK3gpa8playback6detail18InfoObjectRegistry26GetRegisteredObjectsOfTypeEP6size_tPPK8InfoType"></span><span id="_CPPv2I0ENK3gpa8playback6detail18InfoObjectRegistry26GetRegisteredObjectsOfTypeEP6size_tPPK8InfoType"></span><span class="target" id="classgpa_1_1playback_1_1detail_1_1_info_object_registry_1a01953cb7816e09c95fed1f4adf68c3bc"></span>template&lt;typename <code class="sig-name descname">InfoType</code>&gt;<br />void <code class="sig-name descname">GetRegisteredObjectsOfType</code><span class="sig-paren">(</span>size_t *<em>pInfoObjCount</em>, <a class="reference internal" href="#_CPPv4I0ENK3gpa8playback6detail18InfoObjectRegistry26GetRegisteredObjectsOfTypeEvP6size_tPPK8InfoType" title="gpa::playback::detail::InfoObjectRegistry::GetRegisteredObjectsOfType::InfoType">InfoType</a> <em class="property">const</em> **<em>ppInfoObjs</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4I0ENK3gpa8playback6detail18InfoObjectRegistry26GetRegisteredObjectsOfTypeEvP6size_tPPK8InfoType" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Gets all of the registered InfoType objects of a given type. </p>
 <p><dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>If ppInfoObjs is nullptr this argument will be populated with this ResourceInfoCollection’s total number of registered InfoType objects of the given type </p>
+</dd>
+<dt><strong>Note</strong></dt><dd><p>If ppInfoObjs is not nullptr this argument will be used to determine the number of InfoType object pointers to write to ppInfoObjs </p>
+</dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">&lt;InfoType&gt;</span></code>: The type of registered InfoType objects to get </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[inout]</span> <span class="pre">pInfoObjCount</span></code>: A pointer to the number of registered InfoType objects of the given type <p> NOTE : If ppInfoObjs is nullptr this argument will be populated with this ResourceInfoCollection’s total number of registered InfoType objects of the given type </p>
-<p> NOTE : If ppInfoObjs is not nullptr this argument will be used to determine the number of InfoType object pointers to write to ppInfoObjs </p>
-</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[inout]</span> <span class="pre">pInfoObjCount</span></code>: A pointer to the number of registered InfoType objects of the given type </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">[out]</span> <span class="pre">ppInfoObjs</span></code>: A pointer to an array of T pointers to populate </p></li>
 </ul>
 </dd>
@@ -410,7 +416,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="classgpa_1_1playback_1_1detail_1_1_info_object_request.html" class="btn btn-neutral float-right" title="Template Class InfoObjectRequest" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="classgpa_1_1playback_1_1detail_1_1_interval_tree.html" class="btn btn-neutral float-right" title="Template Class IntervalTree" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="classgpa_1_1playback_1_1detail_1_1_convertible.html" class="btn btn-neutral float-left" title="Template Class Convertible" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

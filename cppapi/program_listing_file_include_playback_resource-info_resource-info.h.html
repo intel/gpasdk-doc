@@ -212,6 +212,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
 </ul>
@@ -308,9 +309,9 @@
 
 <span class="cp">#pragma once</span>
 
+<span class="cp">#include</span> <span class="cpf">&quot;api-types/api-types.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;playback/resource-info/detail/convertible.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;playback/resource-info/enumerations.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;playback/resource-info/forward-declarations.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;playback/resource-info/enumerator.h&quot;</span><span class="cp"></span>
 
 <span class="cp">#include</span> <span class="cpf">&lt;cstddef&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;cstdint&gt;</span><span class="cp"></span>
@@ -318,36 +319,73 @@
 
 <span class="k">namespace</span> <span class="n">gpa</span> <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">playback</span> <span class="p">{</span>
+<span class="k">namespace</span> <span class="n">detail</span> <span class="p">{</span>
+
+<span class="k">class</span> <span class="nc">ResourceInfoRegistry</span><span class="p">;</span>
+
+<span class="p">}</span>  <span class="c1">// namespace detail</span>
+
+<span class="k">using</span> <span class="n">ResourceId</span> <span class="o">=</span> <span class="kt">uint64_t</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">BufferInfo</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">PipelineInfo</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">SamplerInfo</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">ShaderInfo</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">TextureInfo</span><span class="p">;</span>
 
 <span class="k">class</span> <span class="nc">ResourceInfo</span>
-    <span class="o">:</span> <span class="k">public</span> <span class="n">detail</span><span class="o">::</span><span class="n">Convertible</span><span class="o">&lt;</span><span class="n">ResourceInfo</span><span class="p">,</span> <span class="n">ResourceInfoType</span><span class="o">&gt;</span>
+    <span class="o">:</span> <span class="k">public</span> <span class="n">detail</span><span class="o">::</span><span class="n">Convertible</span><span class="o">&lt;</span>
+          <span class="n">ResourceInfo</span><span class="p">,</span>
+          <span class="n">BufferInfo</span><span class="p">,</span>
+          <span class="n">PipelineInfo</span><span class="p">,</span>
+          <span class="n">SamplerInfo</span><span class="p">,</span>
+          <span class="n">ShaderInfo</span><span class="p">,</span>
+          <span class="n">TextureInfo</span><span class="o">&gt;</span>
 <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
+    <span class="k">class</span> <span class="nc">Ex</span><span class="p">;</span>
+
+    <span class="k">enum</span> <span class="k">class</span> <span class="nc">Usage</span> <span class="p">{</span>
+        <span class="n">UNKNOWN</span><span class="p">,</span>
+        <span class="n">ARGUMENT</span><span class="p">,</span>
+        <span class="n">COMPUTE_DESCRIPTOR</span><span class="p">,</span>
+        <span class="n">COMPUTE_PIPELINE</span><span class="p">,</span>
+        <span class="n">GRAPHICS_DESCRIPTOR</span><span class="p">,</span>
+        <span class="n">GRAPHICS_INPUT_ASSEMBLY</span><span class="p">,</span>
+        <span class="n">GRAPHICS_OUTPUT</span><span class="p">,</span>
+        <span class="n">GRAPHICS_PIPELINE</span><span class="p">,</span>
+        <span class="n">COUNT</span><span class="p">,</span>
+    <span class="p">};</span>
+
     <span class="n">ResourceInfo</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
 
-    <span class="k">virtual</span> <span class="o">~</span><span class="n">ResourceInfo</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="o">~</span><span class="n">ResourceInfo</span><span class="p">();</span>
 
-    <span class="kt">void</span> <span class="nf">GetResourceInfoExs</span><span class="p">(</span>
-        <span class="n">ResourceInfoUsage</span> <span class="n">usage</span><span class="p">,</span>
-        <span class="kt">uint64_t</span> <span class="n">callIndex</span><span class="p">,</span>
-        <span class="kt">size_t</span><span class="o">*</span> <span class="n">pResourceInfoExCount</span><span class="p">,</span>
-        <span class="n">ResourceInfoEx</span> <span class="k">const</span><span class="o">**</span> <span class="n">ppResourceInfoExs</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+    <span class="n">Enumerator</span><span class="o">&lt;</span><span class="n">ResourceInfo</span><span class="o">::</span><span class="n">Ex</span><span class="o">&gt;</span> <span class="n">GetResourceInfoExs</span><span class="p">(</span>
+        <span class="n">ResourceInfo</span><span class="o">::</span><span class="n">Usage</span> <span class="n">usage</span><span class="p">,</span>
+        <span class="kt">uint64_t</span> <span class="n">callIndex</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 
     <span class="n">ResourceId</span> <span class="n">id</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+    <span class="n">ResourceId</span> <span class="n">playbackHandle</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
     <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">pName</span><span class="p">{</span><span class="k">nullptr</span><span class="p">};</span>
 
 <span class="k">protected</span><span class="o">:</span>
-    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">OnRegister</span><span class="p">(</span>
-        <span class="n">detail</span><span class="o">::</span><span class="n">ResourceInfoRegistry</span><span class="o">&amp;</span> <span class="n">resourceInfoRegistry</span><span class="p">,</span>
-        <span class="n">detail</span><span class="o">::</span><span class="n">AuxiliaryStorageRegistry</span><span class="o">&amp;</span> <span class="n">auxiliaryStorageRegistry</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">OnRegister</span><span class="p">();</span>
 
     <span class="n">ResourceInfo</span><span class="p">(</span><span class="n">ResourceInfo</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
     <span class="n">ResourceInfo</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">ResourceInfo</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
 
 <span class="k">private</span><span class="o">:</span>
-    <span class="kt">size_t</span> <span class="n">mBindingRegistryIndex</span><span class="p">{</span><span class="n">api_types</span><span class="o">::</span><span class="n">GPA_WHOLE_SIZE</span><span class="p">};</span>
+    <span class="k">class</span> <span class="nc">Storage</span> <span class="k">final</span>
+    <span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">;</span>
+    <span class="p">}</span> <span class="n">mStorage</span><span class="p">;</span>
+
     <span class="n">detail</span><span class="o">::</span><span class="n">ResourceInfoRegistry</span><span class="o">*</span> <span class="n">mRegistry</span><span class="p">{</span><span class="k">nullptr</span><span class="p">};</span>
     <span class="k">friend</span> <span class="k">class</span> <span class="nc">detail</span><span class="o">::</span><span class="n">ResourceInfoRegistry</span><span class="p">;</span>
+    <span class="k">friend</span> <span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="n">ResourceInfo</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">ResourceInfo</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">);</span>
+    <span class="k">friend</span> <span class="kt">bool</span> <span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="n">ResourceInfo</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">ResourceInfo</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">);</span>
 <span class="p">};</span>
 
 <span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="n">ResourceInfo</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">ResourceInfo</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">);</span>

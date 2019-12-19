@@ -214,6 +214,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
 </ul>
@@ -297,24 +298,131 @@
 <ul class="simple">
 <li><p>Defined in <a class="reference internal" href="file_include_playback_metadata-extraction_metadata-extractor-ex.h.html#file-include-playback-metadata-extraction-metadata-extractor-ex-h"><span class="std std-ref">File metadata-extractor-ex.h</span></a></p></li>
 </ul>
+<div class="section" id="inheritance-relationships">
+<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="base-types">
+<h3>Base Types<a class="headerlink" href="#base-types" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::playback::CallableBroadcaster</span></code> (<a class="reference internal" href="classgpa_1_1playback_1_1_callable_broadcaster.html#exhale-class-classgpa-1-1playback-1-1-callable-broadcaster"><span class="std std-ref">Class CallableBroadcaster</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::playback::CallableReceiver</span></code> (<a class="reference internal" href="classgpa_1_1playback_1_1_callable_receiver.html#exhale-class-classgpa-1-1playback-1-1-callable-receiver"><span class="std std-ref">Class CallableReceiver</span></a>)</p></li>
+</ul>
+</div>
+</div>
 <div class="section" id="class-documentation">
 <h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="_CPPv4N3gpa8playback19MetadataExtractorExE">
-<span id="_CPPv3N3gpa8playback19MetadataExtractorExE"></span><span id="_CPPv2N3gpa8playback19MetadataExtractorExE"></span><span id="gpa::playback::MetadataExtractorEx"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex"></span><em class="property">class </em><code class="sig-name descname">MetadataExtractorEx</code><a class="headerlink" href="#_CPPv4N3gpa8playback19MetadataExtractorExE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Provides access to metadata for a captured range. </p>
+<span id="_CPPv3N3gpa8playback19MetadataExtractorExE"></span><span id="_CPPv2N3gpa8playback19MetadataExtractorExE"></span><span id="gpa::playback::MetadataExtractorEx"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex"></span><em class="property">class </em><code class="sig-name descname">MetadataExtractorEx</code> : <em class="property">public</em> gpa::playback::<a class="reference internal" href="classgpa_1_1playback_1_1_callable_broadcaster.html#_CPPv4N3gpa8playback19CallableBroadcasterE" title="gpa::playback::CallableBroadcaster">CallableBroadcaster</a>, <em class="property">public</em> gpa::playback::<a class="reference internal" href="classgpa_1_1playback_1_1_callable_receiver.html#_CPPv4N3gpa8playback16CallableReceiverE" title="gpa::playback::CallableReceiver">CallableReceiver</a><a class="headerlink" href="#_CPPv4N3gpa8playback19MetadataExtractorExE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Provides access to metadata for a captured range <p> Range metadata is delivered via </p>
+<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> objects. <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> objects can be acquired and enumerated using <a class="reference internal" href="#classgpa_1_1playback_1_1_metadata_extractor_ex_1a44660c7f09378fd3cd68d23ae16ac986"><span class="std std-ref">GetResourceInfos()</span></a>. <a class="reference internal" href="#classgpa_1_1playback_1_1_metadata_extractor_ex_1a44660c7f09378fd3cd68d23ae16ac986"><span class="std std-ref">GetResourceInfos()</span></a> requires two arguments, the desired <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"><span class="std std-ref">ResourceInfo::Usage</span></a> and the call index. <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"><span class="std std-ref">ResourceInfo::Usage</span></a> specifies the usage to inspect and the call index specifies the GPU ordered call index to inspect for <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> objects. <p> In the following example we’re interested in </p>
+<a class="reference internal" href="classgpa_1_1playback_1_1_texture_info.html#classgpa_1_1playback_1_1_texture_info"><span class="std std-ref">TextureInfo</span></a> objects with ResourceInfo::Usage::GRAPHICS_OUTPUT at call index 128. <a class="reference internal" href="#classgpa_1_1playback_1_1_metadata_extractor_ex_1a44660c7f09378fd3cd68d23ae16ac986"><span class="std std-ref">GetResourceInfos()</span></a> will allow us to loop over all of the <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> objects with the specified usage and call index. <p> Since we’re currently only interested in </p>
+<a class="reference internal" href="classgpa_1_1playback_1_1_texture_info.html#classgpa_1_1playback_1_1_texture_info"><span class="std std-ref">TextureInfo</span></a> objects we attempt to convert and process each <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a>. </p>
+<p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">auto</span> <span class="n">usage</span> <span class="o">=</span> <span class="n">ResourceInfo</span><span class="p">::</span><span class="n">Usage</span><span class="p">::</span><span class="n">GRAPHICS_OUTPUT</span><span class="p">;</span>
+<span class="n">auto</span> <span class="n">callIndex</span> <span class="o">=</span> <span class="mi">128</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">auto</span> <span class="n">const</span><span class="o">&amp;</span> <span class="n">resourceInfo</span> <span class="p">:</span> <span class="n">metadataExtractor</span><span class="o">.</span><span class="n">GetResourceInfos</span><span class="p">(</span><span class="n">usage</span><span class="p">,</span> <span class="n">callIndex</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">auto</span> <span class="n">pTextureInfo</span> <span class="o">=</span> <span class="n">resourceInfo</span><span class="o">.</span><span class="n">As</span><span class="o">&lt;</span><span class="n">TextureInfo</span><span class="o">&gt;</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">pTextureInfo</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ProcessTextureInfo</span><span class="p">(</span><span class="o">*</span><span class="n">pTextureInfo</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+ <p> In cases where we’re interested in more than one type of </p>
+<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a>, we can switch() on the <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a>’s TypeId. <p> It’s worth noting that a single </p>
+<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> may be associated with more than one <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"><span class="std std-ref">ResourceInfo::Usage</span></a> for any given call index. <p> In the following example we’re interested in </p>
+<a class="reference internal" href="classgpa_1_1playback_1_1_buffer_info.html#classgpa_1_1playback_1_1_buffer_info"><span class="std std-ref">BufferInfo</span></a> and <a class="reference internal" href="classgpa_1_1playback_1_1_texture_info.html#classgpa_1_1playback_1_1_texture_info"><span class="std std-ref">TextureInfo</span></a> objects. <p> In our loop we’ll switch on the </p>
+<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a>’s TypeId and process our <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> objects as their specific type. <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">auto</span> <span class="n">usage</span> <span class="o">=</span> <span class="n">ResourceInfo</span><span class="p">::</span><span class="n">Usage</span><span class="p">::</span><span class="n">GRAPHICS_DESCRIPTOR</span><span class="p">;</span>
+<span class="n">auto</span> <span class="n">callIndex</span> <span class="o">=</span> <span class="mi">128</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">auto</span> <span class="n">const</span><span class="o">&amp;</span> <span class="n">resourceInfo</span> <span class="p">:</span> <span class="n">metadataExtractor</span><span class="o">.</span><span class="n">GetResourceInfos</span><span class="p">(</span><span class="n">usage</span><span class="p">,</span> <span class="n">callIndex</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">switch</span> <span class="p">(</span><span class="n">resourceInfo</span><span class="o">.</span><span class="n">GetTypeId</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">case</span> <span class="n">ResourceInfo</span><span class="p">::</span><span class="n">GetTypeId</span><span class="o">&lt;</span><span class="n">BufferInfo</span><span class="o">&gt;</span><span class="p">():</span>
+            <span class="n">ProcessBufferDescriptor</span><span class="p">(</span><span class="n">resourceInfo</span><span class="o">.</span><span class="n">As</span><span class="o">&lt;</span><span class="n">BufferInfo</span><span class="o">&gt;</span><span class="p">());</span>
+        <span class="k">break</span><span class="p">;</span>
+        <span class="n">case</span> <span class="n">ResourceInfo</span><span class="p">::</span><span class="n">GetTypeId</span><span class="o">&lt;</span><span class="n">TextureInfo</span><span class="o">&gt;</span><span class="p">():</span>
+            <span class="n">ProcessTextureDescriptor</span><span class="p">(</span><span class="n">resourceInfo</span><span class="o">.</span><span class="n">As</span><span class="o">&lt;</span><span class="n">TextureInfo</span><span class="o">&gt;</span><span class="p">());</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+ <p> In general, for any given </p>
+<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"><span class="std std-ref">ResourceInfo::Usage</span></a> a <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> will have one or more <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info_1_1_ex.html#classgpa_1_1playback_1_1_resource_info_1_1_ex"><span class="std std-ref">ResourceInfo::Ex</span></a> objects associated with it. <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info_1_1_ex.html#classgpa_1_1playback_1_1_resource_info_1_1_ex"><span class="std std-ref">ResourceInfo::Ex</span></a> objects are acquired from <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> objects and converted to their specific types in the same manner as <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> objects. <p> In the following example we’re interested in </p>
+<a class="reference internal" href="classgpa_1_1playback_1_1_index_buffer_info.html#classgpa_1_1playback_1_1_index_buffer_info"><span class="std std-ref">IndexBufferInfo</span></a> and <a class="reference internal" href="classgpa_1_1playback_1_1_vertex_buffer_info.html#classgpa_1_1playback_1_1_vertex_buffer_info"><span class="std std-ref">VertexBufferInfo</span></a> objects. <a class="reference internal" href="classgpa_1_1playback_1_1_index_buffer_info.html#classgpa_1_1playback_1_1_index_buffer_info"><span class="std std-ref">IndexBufferInfo</span></a> and <a class="reference internal" href="classgpa_1_1playback_1_1_vertex_buffer_info.html#classgpa_1_1playback_1_1_vertex_buffer_info"><span class="std std-ref">VertexBufferInfo</span></a> objects are delivered via ResourceInfo::Usage::GRAPHICS_INPUT_ASSEMBLY. <p> As in the previous example we’ll switch() on TypeId, but this time we’ll use the </p>
+<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info_1_1_ex.html#classgpa_1_1playback_1_1_resource_info_1_1_ex"><span class="std std-ref">ResourceInfo::Ex</span></a> TypeId. <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">auto</span> <span class="n">usage</span> <span class="o">=</span> <span class="n">ResourceInfo</span><span class="p">::</span><span class="n">Usage</span><span class="p">::</span><span class="n">GRAPHICS_INPUT_ASSEMBLY</span><span class="p">;</span>
+<span class="n">auto</span> <span class="n">callIndex</span> <span class="o">=</span> <span class="mi">128</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">auto</span> <span class="n">const</span><span class="o">&amp;</span> <span class="n">resourceInfo</span> <span class="p">:</span> <span class="n">metadataExtractor</span><span class="o">.</span><span class="n">GetResourceInfos</span><span class="p">(</span><span class="n">usage</span><span class="p">,</span> <span class="n">callIndex</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">auto</span> <span class="n">const</span><span class="o">&amp;</span> <span class="n">resourceInfoEx</span> <span class="p">:</span> <span class="n">resourceInfo</span><span class="o">.</span><span class="n">GetResourceInfoExs</span><span class="p">(</span><span class="n">usage</span><span class="p">,</span> <span class="n">callIndex</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">switch</span> <span class="p">(</span><span class="n">resourceInfoEx</span><span class="o">.</span><span class="n">GetTypeId</span><span class="p">())</span> <span class="p">{</span>
+            <span class="n">case</span> <span class="n">ResourceInfo</span><span class="p">::</span><span class="n">Ex</span><span class="p">::</span><span class="n">GetTypeId</span><span class="o">&lt;</span><span class="n">IndexBufferInfo</span><span class="o">&gt;</span><span class="p">():</span>
+                <span class="n">ProcessIndexBuffer</span><span class="p">(</span><span class="n">resourceInfoEx</span><span class="o">.</span><span class="n">As</span><span class="o">&lt;</span><span class="n">IndexBufferInfo</span><span class="o">&gt;</span><span class="p">());</span>
+            <span class="k">break</span><span class="p">;</span>
+            <span class="n">case</span> <span class="n">ResourceInfo</span><span class="p">::</span><span class="n">Ex</span><span class="p">::</span><span class="n">GetTypeId</span><span class="o">&lt;</span><span class="n">VertexBufferInfo</span><span class="o">&gt;</span><span class="p">():</span>
+                <span class="n">ProcessVertexBuffer</span><span class="p">(</span><span class="n">resourceInfoEx</span><span class="o">.</span><span class="n">As</span><span class="o">&lt;</span><span class="n">VertexBufferInfo</span><span class="o">&gt;</span><span class="p">());</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+ </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="function">
 <dt id="_CPPv4N3gpa8playback19MetadataExtractorEx19MetadataExtractorExEv">
 <span id="_CPPv3N3gpa8playback19MetadataExtractorEx19MetadataExtractorExEv"></span><span id="_CPPv2N3gpa8playback19MetadataExtractorEx19MetadataExtractorExEv"></span><span id="gpa::playback::MetadataExtractorEx::MetadataExtractorEx"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1a3ee223d4e524cea9461ee37ed33329b6"></span><code class="sig-name descname">MetadataExtractorEx</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback19MetadataExtractorEx19MetadataExtractorExEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Constructs an instance of <a class="reference internal" href="classgpa_1_1playback_1_1_metadata_extractor.html#classgpa_1_1playback_1_1_metadata_extractor"><span class="std std-ref">MetadataExtractor</span></a>. </p>
+<dd><p>Constructs an instance of <a class="reference internal" href="#classgpa_1_1playback_1_1_metadata_extractor_ex"><span class="std std-ref">MetadataExtractorEx</span></a>. </p>
 </dd></dl>
 
 <dl class="function">
 <dt id="_CPPv4N3gpa8playback19MetadataExtractorExD0Ev">
-<span id="_CPPv3N3gpa8playback19MetadataExtractorExD0Ev"></span><span id="_CPPv2N3gpa8playback19MetadataExtractorExD0Ev"></span><span id="gpa::playback::MetadataExtractorEx::~MetadataExtractorEx"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1a9a61d289b3a9a4de1d135a6a5d7147a6"></span><em class="property">virtual</em> <code class="sig-name descname">~MetadataExtractorEx</code><span class="sig-paren">(</span><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N3gpa8playback19MetadataExtractorExD0Ev" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Destroys this instance of <a class="reference internal" href="classgpa_1_1playback_1_1_metadata_extractor.html#classgpa_1_1playback_1_1_metadata_extractor"><span class="std std-ref">MetadataExtractor</span></a>. </p>
+<span id="_CPPv3N3gpa8playback19MetadataExtractorExD0Ev"></span><span id="_CPPv2N3gpa8playback19MetadataExtractorExD0Ev"></span><span id="gpa::playback::MetadataExtractorEx::~MetadataExtractorEx"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1aa96f78f5c84d70c7ab01f658e4fc988a"></span><em class="property">virtual</em> <code class="sig-name descname">~MetadataExtractorEx</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback19MetadataExtractorExD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Destroys this instance of <a class="reference internal" href="#classgpa_1_1playback_1_1_metadata_extractor_ex"><span class="std std-ref">MetadataExtractorEx</span></a> </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback19MetadataExtractorEx25ConnectExecutionCallbacksERK18ExecutionCallbacks">
+<span id="_CPPv3N3gpa8playback19MetadataExtractorEx25ConnectExecutionCallbacksERK18ExecutionCallbacks"></span><span id="_CPPv2N3gpa8playback19MetadataExtractorEx25ConnectExecutionCallbacksERK18ExecutionCallbacks"></span><span id="gpa::playback::MetadataExtractorEx::ConnectExecutionCallbacks__ExecutionCallbacksCR"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1a2d345d458254ee4c17685b0d6e57ccd6"></span>void <code class="sig-name descname">ConnectExecutionCallbacks</code><span class="sig-paren">(</span><a class="reference internal" href="structgpa_1_1playback_1_1_execution_callbacks.html#_CPPv4N3gpa8playback18ExecutionCallbacksE" title="gpa::playback::ExecutionCallbacks">ExecutionCallbacks</a> <em class="property">const</em> &amp;<em>callbacks</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback19MetadataExtractorEx25ConnectExecutionCallbacksERK18ExecutionCallbacks" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback19MetadataExtractorEx28DisconnectExecutionCallbacksEv">
+<span id="_CPPv3N3gpa8playback19MetadataExtractorEx28DisconnectExecutionCallbacksEv"></span><span id="_CPPv2N3gpa8playback19MetadataExtractorEx28DisconnectExecutionCallbacksEv"></span><span id="gpa::playback::MetadataExtractorEx::DisconnectExecutionCallbacks"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1a067cf845944c9f150aa65f440d71cc15"></span>void <code class="sig-name descname">DisconnectExecutionCallbacks</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback19MetadataExtractorEx28DisconnectExecutionCallbacksEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback19MetadataExtractorEx14PostSetupRangeEP13CallableCache">
+<span id="_CPPv3N3gpa8playback19MetadataExtractorEx14PostSetupRangeEP13CallableCache"></span><span id="_CPPv2N3gpa8playback19MetadataExtractorEx14PostSetupRangeEP13CallableCache"></span><span id="gpa::playback::MetadataExtractorEx::PostSetupRange__CallableCacheP"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1ab6eddec34f8deac57e0ff09d10269a4a"></span><em class="property">virtual</em> void <code class="sig-name descname">PostSetupRange</code><span class="sig-paren">(</span><a class="reference internal" href="classgpa_1_1playback_1_1_callable_cache.html#_CPPv4N3gpa8playback13CallableCacheE" title="gpa::playback::CallableCache">CallableCache</a> *<em>range</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback19MetadataExtractorEx14PostSetupRangeEP13CallableCache" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback19MetadataExtractorEx15PreExecuteRangeEP13CallableCache">
+<span id="_CPPv3N3gpa8playback19MetadataExtractorEx15PreExecuteRangeEP13CallableCache"></span><span id="_CPPv2N3gpa8playback19MetadataExtractorEx15PreExecuteRangeEP13CallableCache"></span><span id="gpa::playback::MetadataExtractorEx::PreExecuteRange__CallableCacheP"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1ad9ea6039ae13c5211ecf4936e21ab741"></span><em class="property">virtual</em> void <code class="sig-name descname">PreExecuteRange</code><span class="sig-paren">(</span><a class="reference internal" href="classgpa_1_1playback_1_1_callable_cache.html#_CPPv4N3gpa8playback13CallableCacheE" title="gpa::playback::CallableCache">CallableCache</a> *<em>range</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback19MetadataExtractorEx15PreExecuteRangeEP13CallableCache" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback19MetadataExtractorEx14PreExecuteCallEP8Callable8uint64_t">
+<span id="_CPPv3N3gpa8playback19MetadataExtractorEx14PreExecuteCallEP8Callable8uint64_t"></span><span id="_CPPv2N3gpa8playback19MetadataExtractorEx14PreExecuteCallEP8Callable8uint64_t"></span><span id="gpa::playback::MetadataExtractorEx::PreExecuteCall__CallableP.uint64_t"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1aa13840529bdce775b42d7ee5ba373700"></span><em class="property">virtual</em> void <code class="sig-name descname">PreExecuteCall</code><span class="sig-paren">(</span>Callable *<em>callable</em>, uint64_t <em>callIndex</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback19MetadataExtractorEx14PreExecuteCallEP8Callable8uint64_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback19MetadataExtractorEx16PostExecuteRangeEP13CallableCache">
+<span id="_CPPv3N3gpa8playback19MetadataExtractorEx16PostExecuteRangeEP13CallableCache"></span><span id="_CPPv2N3gpa8playback19MetadataExtractorEx16PostExecuteRangeEP13CallableCache"></span><span id="gpa::playback::MetadataExtractorEx::PostExecuteRange__CallableCacheP"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1a78c206962fb8990b8a99e3ff141a3461"></span><em class="property">virtual</em> void <code class="sig-name descname">PostExecuteRange</code><span class="sig-paren">(</span><a class="reference internal" href="classgpa_1_1playback_1_1_callable_cache.html#_CPPv4N3gpa8playback13CallableCacheE" title="gpa::playback::CallableCache">CallableCache</a> *<em>range</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback19MetadataExtractorEx16PostExecuteRangeEP13CallableCache" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback19MetadataExtractorEx15PostExecuteCallEP8Callable8uint64_t">
+<span id="_CPPv3N3gpa8playback19MetadataExtractorEx15PostExecuteCallEP8Callable8uint64_t"></span><span id="_CPPv2N3gpa8playback19MetadataExtractorEx15PostExecuteCallEP8Callable8uint64_t"></span><span id="gpa::playback::MetadataExtractorEx::PostExecuteCall__CallableP.uint64_t"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1abf8ae55853a302e9941cc72b45338626"></span><em class="property">virtual</em> void <code class="sig-name descname">PostExecuteCall</code><span class="sig-paren">(</span>Callable *<em>callable</em>, uint64_t <em>callIndex</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback19MetadataExtractorEx15PostExecuteCallEP8Callable8uint64_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Override this method to recieve a call after exectuing the given Callable. </p>
+<p><dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>If this method is overriden <a class="reference internal" href="#classgpa_1_1playback_1_1_metadata_extractor_ex_1abf8ae55853a302e9941cc72b45338626"><span class="std std-ref">MetadataExtractorEx::PostExecuteCall()</span></a> must be called </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">callable</span></code>: The Callable being processed for post execution </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">callIndex</span></code>: The call indx of the Callable being processed </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="function">
@@ -329,17 +437,109 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="_CPPv4NK3gpa8playback19MetadataExtractorEx16GetResourceInfosE17ResourceInfoUsage8uint64_tP6size_tPPK12ResourceInfo">
-<span id="_CPPv3NK3gpa8playback19MetadataExtractorEx16GetResourceInfosE17ResourceInfoUsage8uint64_tP6size_tPPK12ResourceInfo"></span><span id="_CPPv2NK3gpa8playback19MetadataExtractorEx16GetResourceInfosE17ResourceInfoUsage8uint64_tP6size_tPPK12ResourceInfo"></span><span id="gpa::playback::MetadataExtractorEx::GetResourceInfos__ResourceInfoUsage.uint64_t.sP.ResourceInfoCPPC"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1ad20f416469b85d91bf4aeac0b96251e4"></span>void <code class="sig-name descname">GetResourceInfos</code><span class="sig-paren">(</span><a class="reference internal" href="enum_playback_2resource-info_2enumerations_8h_1a036f9b3c2ff0275a80d98e716813d407.html#_CPPv4N3gpa8playback17ResourceInfoUsageE" title="gpa::playback::ResourceInfoUsage">ResourceInfoUsage</a> <em>usage</em>, uint64_t <em>callIndex</em>, size_t *<em>pResourceInfoCount</em>, <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#_CPPv4N3gpa8playback12ResourceInfoE" title="gpa::playback::ResourceInfo">ResourceInfo</a> <em class="property">const</em> **<em>ppResourceInfos</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa8playback19MetadataExtractorEx16GetResourceInfosE17ResourceInfoUsage8uint64_tP6size_tPPK12ResourceInfo" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Gets the ResourceInfos registered with a given ResourceInfoUsage at a specified call index. </p>
+<dt id="_CPPv4NK3gpa8playback19MetadataExtractorEx15GetResourceInfoE10ResourceId">
+<span id="_CPPv3NK3gpa8playback19MetadataExtractorEx15GetResourceInfoE10ResourceId"></span><span id="_CPPv2NK3gpa8playback19MetadataExtractorEx15GetResourceInfoE10ResourceId"></span><span id="gpa::playback::MetadataExtractorEx::GetResourceInfo__ResourceIdC"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1ac7e2bb53d34a8c564485419ab706e8d9"></span><a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#_CPPv4N3gpa8playback12ResourceInfoE" title="gpa::playback::ResourceInfo">ResourceInfo</a> <em class="property">const</em> *<code class="sig-name descname">GetResourceInfo</code><span class="sig-paren">(</span><a class="reference internal" href="typedef_resource-info_2resource-info_8h_1ade1452ad31c09ca17cf847e66c939406.html#_CPPv4N3gpa8playback10ResourceIdE" title="gpa::playback::ResourceId">ResourceId</a> <em>resourceId</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa8playback19MetadataExtractorEx15GetResourceInfoE10ResourceId" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Gets a pointer to the <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> associated with a given ResourceId. </p>
 <p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>A pointer to the <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> associated with the given ResourceId </p>
+</dd>
+<dt><strong>Note</strong></dt><dd><p>If there is no registerd <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> with the given ResourceId this method will return nullptr </p>
+</dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">usage</span></code>: The ResourceInfoUsage to get registered ResourceInfos for </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">resourceId</span></code>: The ResourceId to get the associated <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> pointer for </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa8playback19MetadataExtractorEx16GetResourceInfosEN12ResourceInfo5UsageE8uint64_t">
+<span id="_CPPv3NK3gpa8playback19MetadataExtractorEx16GetResourceInfosEN12ResourceInfo5UsageE8uint64_t"></span><span id="_CPPv2NK3gpa8playback19MetadataExtractorEx16GetResourceInfosEN12ResourceInfo5UsageE8uint64_t"></span><span id="gpa::playback::MetadataExtractorEx::GetResourceInfos__ResourceInfo::Usage.uint64_tC"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1a44660c7f09378fd3cd68d23ae16ac986"></span>Enumerator&lt;<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#_CPPv4N3gpa8playback12ResourceInfoE" title="gpa::playback::ResourceInfo">ResourceInfo</a>&gt; <code class="sig-name descname">GetResourceInfos</code><span class="sig-paren">(</span><a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#_CPPv4N3gpa8playback12ResourceInfoE" title="gpa::playback::ResourceInfo">ResourceInfo</a>::<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#_CPPv4N3gpa8playback12ResourceInfo5UsageE" title="gpa::playback::ResourceInfo::Usage">Usage</a> <em>usage</em>, uint64_t <em>callIndex</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa8playback19MetadataExtractorEx16GetResourceInfosEN12ResourceInfo5UsageE8uint64_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Gets an Enumerator&lt;&gt; to all registered ResourceInfos for a specified <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"><span class="std std-ref">ResourceInfo::Usage</span></a> at a specified call index. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>An Enumerator&lt;&gt; to all registered ResourceInfos for the specified <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"><span class="std std-ref">ResourceInfo::Usage</span></a> at the specified call index </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">usage</span></code>: The <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"><span class="std std-ref">ResourceInfo::Usage</span></a> to registered ReseourceInfos for </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">callIndex</span></code>: The call index to get registered ResourceInfos for </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[inout]</span> <span class="pre">pResourceInfoCount</span></code>: The number of registered ResourceInfos <p> NOTE : If ppResourceInfos is nullptr pResourceInfoCount will be populated with the total number of registered ResourceInfos </p>
-<p> NOTE : If ppResourceInfos is not nullptr pResourceInfoCount will be used to determine the number of elements in ppResourceInfos </p>
-</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[out]</span> <span class="pre">ppResourceInfos</span></code>: An array of pointers to ResourceInfos to populate with registered ResourceInfos </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa8playback19MetadataExtractorEx18GetShaderInterfaceERK10ShaderInfo">
+<span id="_CPPv3NK3gpa8playback19MetadataExtractorEx18GetShaderInterfaceERK10ShaderInfo"></span><span id="_CPPv2NK3gpa8playback19MetadataExtractorEx18GetShaderInterfaceERK10ShaderInfo"></span><span id="gpa::playback::MetadataExtractorEx::GetShaderInterface__ShaderInfoCRC"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1a382393f847390d86ad2d159c52649931"></span>introspection::<a class="reference internal" href="classgpa_1_1introspection_1_1_shader_interface.html#_CPPv4N3gpa13introspection15ShaderInterfaceE" title="gpa::introspection::ShaderInterface">ShaderInterface</a> <code class="sig-name descname">GetShaderInterface</code><span class="sig-paren">(</span><a class="reference internal" href="classgpa_1_1playback_1_1_shader_info.html#_CPPv4N3gpa8playback10ShaderInfoE" title="gpa::playback::ShaderInfo">ShaderInfo</a> <em class="property">const</em> &amp;<em>shaderInfo</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa8playback19MetadataExtractorEx18GetShaderInterfaceERK10ShaderInfo" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Gets the introspectino::ShaderInterface for a given <a class="reference internal" href="classgpa_1_1playback_1_1_shader_info.html#classgpa_1_1playback_1_1_shader_info"><span class="std std-ref">ShaderInfo</span></a>. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The <a class="reference internal" href="classgpa_1_1introspection_1_1_shader_interface.html#classgpa_1_1introspection_1_1_shader_interface"><span class="std std-ref">introspection::ShaderInterface</span></a> for the given <a class="reference internal" href="classgpa_1_1playback_1_1_shader_info.html#classgpa_1_1playback_1_1_shader_info"><span class="std std-ref">ShaderInfo</span></a> </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">shaderInfo</span></code>: The <a class="reference internal" href="classgpa_1_1playback_1_1_shader_info.html#classgpa_1_1playback_1_1_shader_info"><span class="std std-ref">ShaderInfo</span></a> to get the <a class="reference internal" href="classgpa_1_1introspection_1_1_shader_interface.html#classgpa_1_1introspection_1_1_shader_interface"><span class="std std-ref">introspection::ShaderInterface</span></a> for </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa8playback19MetadataExtractorEx15GetShaderSourceERK10ShaderInfoN9api_types14ShaderLanguageEP6size_tPc">
+<span id="_CPPv3NK3gpa8playback19MetadataExtractorEx15GetShaderSourceERK10ShaderInfoN9api_types14ShaderLanguageEP6size_tPc"></span><span id="_CPPv2NK3gpa8playback19MetadataExtractorEx15GetShaderSourceERK10ShaderInfoN9api_types14ShaderLanguageEP6size_tPc"></span><span id="gpa::playback::MetadataExtractorEx::GetShaderSource__ShaderInfoCR.api_types::ShaderLanguage.sP.cPC"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1a108d6fbe30dda83190ef45a48cdaff41"></span><em class="property">virtual</em> bool <code class="sig-name descname">GetShaderSource</code><span class="sig-paren">(</span><a class="reference internal" href="classgpa_1_1playback_1_1_shader_info.html#_CPPv4N3gpa8playback10ShaderInfoE" title="gpa::playback::ShaderInfo">ShaderInfo</a> <em class="property">const</em> &amp;<em>shaderInfo</em>, api_types::<a class="reference internal" href="enumerations_8h_1a6421415764b84aa63aa56ba727d7790a.html#_CPPv4N3gpa9api_types14ShaderLanguageE" title="gpa::api_types::ShaderLanguage">ShaderLanguage</a> <em>language</em>, size_t *<em>pSourceCodeSize</em>, char *<em>pSourceCode</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa8playback19MetadataExtractorEx15GetShaderSourceERK10ShaderInfoN9api_types14ShaderLanguageEP6size_tPc" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Gets the source code for a given <a class="reference internal" href="classgpa_1_1playback_1_1_shader_info.html#classgpa_1_1playback_1_1_shader_info"><span class="std std-ref">ShaderInfo</span></a> in a specified api_types::ShaderLanguage. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Whether or not the specified api_types::ShaderLanguage is available for the given <a class="reference internal" href="classgpa_1_1playback_1_1_shader_info.html#classgpa_1_1playback_1_1_shader_info"><span class="std std-ref">ShaderInfo</span></a> </p>
+</dd>
+<dt><strong>Note</strong></dt><dd><p>If pSourceCode is null, pSourceCodeSize will be populated with the size in bytes of the source code including the null terminator </p>
+</dd>
+<dt><strong>Note</strong></dt><dd><p>If pSourceCode is not null, pSourceCodeSize will be used to determine the max number of bytes to write to pSourceCode </p>
+</dd>
+<dt><strong>Note</strong></dt><dd><p>If pSourceCode is not null and pSourceCodeSize is less than the size of the source code, a null terminator will not be appended </p>
+</dd>
+<dt><strong>Note</strong></dt><dd><p>If pSourceCodeSize and pSourceCode are both null, this method will return whether or not the specified api_types::ShaderLanguage is available for the given <a class="reference internal" href="classgpa_1_1playback_1_1_shader_info.html#classgpa_1_1playback_1_1_shader_info"><span class="std std-ref">ShaderInfo</span></a> </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">shaderInfo</span></code>: The <a class="reference internal" href="classgpa_1_1playback_1_1_shader_info.html#classgpa_1_1playback_1_1_shader_info"><span class="std std-ref">ShaderInfo</span></a> to get source code for </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">language</span></code>: The api_types::ShaderLanguage to get source code in </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[inout]</span> <span class="pre">pSourceCodeSize</span></code>: The size in bytes of the source code including the null terminator </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[out]</span> <span class="pre">pSourceCode</span></code>: A C str to populate with the source code of the given <a class="reference internal" href="classgpa_1_1playback_1_1_shader_info.html#classgpa_1_1playback_1_1_shader_info"><span class="std std-ref">ShaderInfo</span></a> in the specified api_types::ShaderLanguage </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa8playback19MetadataExtractorEx28GetResourceStructDataManagerEPK12ResourceInfo">
+<span id="_CPPv3NK3gpa8playback19MetadataExtractorEx28GetResourceStructDataManagerEPK12ResourceInfo"></span><span id="_CPPv2NK3gpa8playback19MetadataExtractorEx28GetResourceStructDataManagerEPK12ResourceInfo"></span><span id="gpa::playback::MetadataExtractorEx::GetResourceStructDataManager__ResourceInfoCPC"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1a98ea03be501acaf14ebbd2878ab20381"></span><em class="property">virtual</em> serialization::<a class="reference internal" href="classgpa_1_1serialization_1_1_struct_data_manager.html#_CPPv4N3gpa13serialization17StructDataManagerE" title="gpa::serialization::StructDataManager">StructDataManager</a> <code class="sig-name descname">GetResourceStructDataManager</code><span class="sig-paren">(</span><a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#_CPPv4N3gpa8playback12ResourceInfoE" title="gpa::playback::ResourceInfo">ResourceInfo</a> <em class="property">const</em> *<em>pResourceInfo</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa8playback19MetadataExtractorEx28GetResourceStructDataManagerEPK12ResourceInfo" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Gets the <a class="reference internal" href="classgpa_1_1serialization_1_1_struct_data_manager.html#classgpa_1_1serialization_1_1_struct_data_manager"><span class="std std-ref">serialization::StructDataManager</span></a> representation of the API specific creation structure for a given <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a>. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The <a class="reference internal" href="classgpa_1_1serialization_1_1_struct_data_manager.html#classgpa_1_1serialization_1_1_struct_data_manager"><span class="std std-ref">serialization::StructDataManager</span></a> representation of the API specific creation structure for the given <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">pResourceInfo</span></code>: A pointer to the <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> to get the <a class="reference internal" href="classgpa_1_1serialization_1_1_struct_data_manager.html#classgpa_1_1serialization_1_1_struct_data_manager"><span class="std std-ref">serialization::StructDataManager</span></a> for </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa8playback19MetadataExtractorEx21GetResourceStructJsonEPK12ResourceInfoP6size_tPc">
+<span id="_CPPv3NK3gpa8playback19MetadataExtractorEx21GetResourceStructJsonEPK12ResourceInfoP6size_tPc"></span><span id="_CPPv2NK3gpa8playback19MetadataExtractorEx21GetResourceStructJsonEPK12ResourceInfoP6size_tPc"></span><span id="gpa::playback::MetadataExtractorEx::GetResourceStructJson__ResourceInfoCP.sP.cPC"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1a511cd594dc871f6cf5218899fc6b47a0"></span><em class="property">virtual</em> void <code class="sig-name descname">GetResourceStructJson</code><span class="sig-paren">(</span><a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#_CPPv4N3gpa8playback12ResourceInfoE" title="gpa::playback::ResourceInfo">ResourceInfo</a> <em class="property">const</em> *<em>pResourceInfo</em>, size_t *<em>pJsonSize</em>, char *<em>pJson</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa8playback19MetadataExtractorEx21GetResourceStructJsonEPK12ResourceInfoP6size_tPc" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Gets the JSON representation of the API specific creation structure for a given <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a>. </p>
+<p><dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>If pJson is null, pJsonSize will be populated with the size in bytes of the JSON including the null terminator </p>
+</dd>
+<dt><strong>Note</strong></dt><dd><p>If pJson is not null, pJsonSize will be used to determine the max number of bytes to write to pJson </p>
+</dd>
+<dt><strong>Note</strong></dt><dd><p>If pJson is not null and pJsonSize is less than the size of the JSON, a null terminator will not be appended </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">pResourceInfo</span></code>: A pointer to the <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> to get the JSON for </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[inout]</span> <span class="pre">pJsonSize</span></code>: The size in bytes of the JSON including the null terminator </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[out]</span> <span class="pre">pJson</span></code>: A C str to populate with the JSON representation of the API specific creation structure for the given <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> </p></li>
 </ul>
 </dd>
 </dl>
@@ -350,44 +550,27 @@
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Protected Functions</p>
 <dl class="function">
-<dt id="_CPPv4N3gpa8playback19MetadataExtractorEx20RegisterResourceInfoE17ResourceInfoUsagePK12ResourceInfoPN6detail14BindingMonitorE">
-<span id="_CPPv3N3gpa8playback19MetadataExtractorEx20RegisterResourceInfoE17ResourceInfoUsagePK12ResourceInfoPN6detail14BindingMonitorE"></span><span id="_CPPv2N3gpa8playback19MetadataExtractorEx20RegisterResourceInfoE17ResourceInfoUsagePK12ResourceInfoPN6detail14BindingMonitorE"></span><span id="gpa::playback::MetadataExtractorEx::RegisterResourceInfo__ResourceInfoUsage.ResourceInfoCP.detail::BindingMonitorP"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1a71d618c7fffa8160ea7653e4ababaaf9"></span>void <code class="sig-name descname">RegisterResourceInfo</code><span class="sig-paren">(</span><a class="reference internal" href="enum_playback_2resource-info_2enumerations_8h_1a036f9b3c2ff0275a80d98e716813d407.html#_CPPv4N3gpa8playback17ResourceInfoUsageE" title="gpa::playback::ResourceInfoUsage">ResourceInfoUsage</a> <em>usage</em>, <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#_CPPv4N3gpa8playback12ResourceInfoE" title="gpa::playback::ResourceInfo">ResourceInfo</a> <em class="property">const</em> *<em>pResourceInfo</em>, detail::<a class="reference internal" href="classgpa_1_1playback_1_1detail_1_1_binding_monitor.html#_CPPv4N3gpa8playback6detail14BindingMonitorE" title="gpa::playback::detail::BindingMonitor">BindingMonitor</a> *<em>pBindingMonitor</em> = nullptr<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback19MetadataExtractorEx20RegisterResourceInfoE17ResourceInfoUsagePK12ResourceInfoPN6detail14BindingMonitorE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Registers a <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a>. </p>
-<p><dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">usage</span></code>: The ResourceInfoUsage to register this <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> with </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">pResourceInfo</span></code>: A pointer to the <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> to register </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[out</span><span class="pre">optional]</span></code>: pBindingMonitor A pointer to a BindingMonitor to track binding duration <p> NOTE : If pBindingMonitor is nullptr or usage is GPA_RESOURCE_USAGE_ARGUMENT the given </p>
-<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> will be registerd for the current call index only </p></li>
-</ul>
-</dd>
-</dl>
-</p>
-</dd></dl>
+<dt id="_CPPv4N3gpa8playback19MetadataExtractorEx19MetadataExtractorExERK19MetadataExtractorEx">
+<span id="_CPPv3N3gpa8playback19MetadataExtractorEx19MetadataExtractorExERK19MetadataExtractorEx"></span><span id="_CPPv2N3gpa8playback19MetadataExtractorEx19MetadataExtractorExERK19MetadataExtractorEx"></span><span id="gpa::playback::MetadataExtractorEx::MetadataExtractorEx__MetadataExtractorExCR"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1a0a1a81477cd262e5463409bd53e6e4df"></span><code class="sig-name descname">MetadataExtractorEx</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa8playback19MetadataExtractorEx19MetadataExtractorExEv" title="gpa::playback::MetadataExtractorEx::MetadataExtractorEx">MetadataExtractorEx</a> <em class="property">const</em>&amp;<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback19MetadataExtractorEx19MetadataExtractorExERK19MetadataExtractorEx" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
 
 <dl class="function">
-<dt id="_CPPv4N3gpa8playback19MetadataExtractorEx20RegisterResourceInfoE17ResourceInfoUsagePK12ResourceInfo6size_tPPCK14ResourceInfoExPN6detail14BindingMonitorE">
-<span id="_CPPv3N3gpa8playback19MetadataExtractorEx20RegisterResourceInfoE17ResourceInfoUsagePK12ResourceInfo6size_tPPCK14ResourceInfoExPN6detail14BindingMonitorE"></span><span id="_CPPv2N3gpa8playback19MetadataExtractorEx20RegisterResourceInfoE17ResourceInfoUsagePK12ResourceInfo6size_tPPCK14ResourceInfoExPN6detail14BindingMonitorE"></span><span id="gpa::playback::MetadataExtractorEx::RegisterResourceInfo__ResourceInfoUsage.ResourceInfoCP.s.ResourceInfoExCPCP.detail::BindingMonitorP"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1a5b2fdbad57be36ecae703cc1e3942ae5"></span>void <code class="sig-name descname">RegisterResourceInfo</code><span class="sig-paren">(</span><a class="reference internal" href="enum_playback_2resource-info_2enumerations_8h_1a036f9b3c2ff0275a80d98e716813d407.html#_CPPv4N3gpa8playback17ResourceInfoUsageE" title="gpa::playback::ResourceInfoUsage">ResourceInfoUsage</a> <em>usage</em>, <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#_CPPv4N3gpa8playback12ResourceInfoE" title="gpa::playback::ResourceInfo">ResourceInfo</a> <em class="property">const</em> *<em>pResourceInfo</em>, size_t <em>resourceInfoExCount</em>, <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info_ex.html#_CPPv4N3gpa8playback14ResourceInfoExE" title="gpa::playback::ResourceInfoEx">ResourceInfoEx</a> <em class="property">const</em> *<em class="property">const</em> *<em>ppResourceInfoExs</em>, detail::<a class="reference internal" href="classgpa_1_1playback_1_1detail_1_1_binding_monitor.html#_CPPv4N3gpa8playback6detail14BindingMonitorE" title="gpa::playback::detail::BindingMonitor">BindingMonitor</a> *<em>pBindingMonitor</em> = nullptr<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback19MetadataExtractorEx20RegisterResourceInfoE17ResourceInfoUsagePK12ResourceInfo6size_tPPCK14ResourceInfoExPN6detail14BindingMonitorE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Registers a <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> and associated ResourceInfoExs. </p>
-<p><dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">usage</span></code>: The ResourceInfoUsage to register this <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> with </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">pResourceInfo</span></code>: A pointer to the <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> to register </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">resourceInfoExCount</span></code>: The number of ResourceInfoExs to associate with the given <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> for this registration </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">ppResourceInfoExs</span></code>: An array of pointers to ResourceInfoExs to associate with the given <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> for this registration </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[out</span><span class="pre">optional]</span></code>: pBindingMonitor A pointer to a BindingMonitor to track binding duration <p> NOTE : If pBindingMonitor is nullptr or usage is GPA_RESOURCE_USAGE_ARGUMENT the given </p>
-<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> and ResourceInfoExs will be registerd for the current call index only </p></li>
-</ul>
-</dd>
-</dl>
-</p>
-</dd></dl>
+<dt id="_CPPv4N3gpa8playback19MetadataExtractorExaSERK19MetadataExtractorEx">
+<span id="_CPPv3N3gpa8playback19MetadataExtractorExaSERK19MetadataExtractorEx"></span><span id="_CPPv2N3gpa8playback19MetadataExtractorExaSERK19MetadataExtractorEx"></span><span id="gpa::playback::MetadataExtractorEx::assign-operator__MetadataExtractorExCR"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1a71f000a0c4af8580e063cda8c9adbd17"></span><a class="reference internal" href="#_CPPv4N3gpa8playback19MetadataExtractorExE" title="gpa::playback::MetadataExtractorEx">MetadataExtractorEx</a> &amp;<code class="sig-name descname">operator=</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa8playback19MetadataExtractorExE" title="gpa::playback::MetadataExtractorEx">MetadataExtractorEx</a> <em class="property">const</em>&amp;<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback19MetadataExtractorExaSERK19MetadataExtractorEx" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
 
-<dl class="function">
-<dt id="_CPPv4N3gpa8playback19MetadataExtractorEx18IncrementCallIndexEv">
-<span id="_CPPv3N3gpa8playback19MetadataExtractorEx18IncrementCallIndexEv"></span><span id="_CPPv2N3gpa8playback19MetadataExtractorEx18IncrementCallIndexEv"></span><span id="gpa::playback::MetadataExtractorEx::IncrementCallIndex"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1aef40b4adcbc71cbc30cf3707c0ec5c4a"></span>void <code class="sig-name descname">IncrementCallIndex</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback19MetadataExtractorEx18IncrementCallIndexEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Increments this <a class="reference internal" href="classgpa_1_1playback_1_1_metadata_extractor.html#classgpa_1_1playback_1_1_metadata_extractor"><span class="std std-ref">MetadataExtractor</span></a>’s call index. </p>
-</dd></dl>
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Protected Attributes</p>
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback19MetadataExtractorEx9mRegistryE">
+<span id="_CPPv3N3gpa8playback19MetadataExtractorEx9mRegistryE"></span><span id="_CPPv2N3gpa8playback19MetadataExtractorEx9mRegistryE"></span><span id="gpa::playback::MetadataExtractorEx::mRegistry__detail::ResourceInfoRegistry"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1a1f0869a8fa41b672633b62e9e41dd47d"></span>detail::<a class="reference internal" href="classgpa_1_1playback_1_1detail_1_1_resource_info_registry.html#_CPPv4N3gpa8playback6detail20ResourceInfoRegistryE" title="gpa::playback::detail::ResourceInfoRegistry">ResourceInfoRegistry</a> <code class="sig-name descname">mRegistry</code><a class="headerlink" href="#_CPPv4N3gpa8playback19MetadataExtractorEx9mRegistryE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback19MetadataExtractorEx19mExecutionCallbacksE">
+<span id="_CPPv3N3gpa8playback19MetadataExtractorEx19mExecutionCallbacksE"></span><span id="_CPPv2N3gpa8playback19MetadataExtractorEx19mExecutionCallbacksE"></span><span id="gpa::playback::MetadataExtractorEx::mExecutionCallbacks__ExecutionCallbacks"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1aa5eda4e29551d18ad6347a5d2c8f3b29"></span><a class="reference internal" href="structgpa_1_1playback_1_1_execution_callbacks.html#_CPPv4N3gpa8playback18ExecutionCallbacksE" title="gpa::playback::ExecutionCallbacks">ExecutionCallbacks</a> <code class="sig-name descname">mExecutionCallbacks</code><a class="headerlink" href="#_CPPv4N3gpa8playback19MetadataExtractorEx19mExecutionCallbacksE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
 
 </div>
 </dd></dl>

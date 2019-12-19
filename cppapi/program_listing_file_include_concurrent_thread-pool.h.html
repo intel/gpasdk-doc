@@ -212,6 +212,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
 </ul>
@@ -354,18 +355,17 @@
     <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">mThread</span><span class="p">;</span>
 <span class="p">};</span>
 
+<span class="k">struct</span> <span class="n">ThreadPoolTask</span>
+<span class="p">{</span>
+    <span class="n">VoidFunction</span> <span class="n">job</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">optional</span><span class="p">;</span>
+<span class="p">};</span>
+
 <span class="k">class</span> <span class="nc">ThreadPool</span>
 <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">ThreadPool</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">threadCount</span><span class="p">,</span> <span class="n">VoidFunction</span> <span class="n">initializer</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">);</span>
-    <span class="o">~</span><span class="n">ThreadPool</span><span class="p">();</span>
-
-    <span class="kt">uint32_t</span> <span class="nf">ThreadCount</span><span class="p">();</span>
-    <span class="kt">uint32_t</span> <span class="nf">ThreadCountWithState</span><span class="p">(</span><span class="n">Thread</span><span class="o">::</span><span class="n">ThreadState</span> <span class="n">state</span><span class="p">);</span>
-    <span class="kt">void</span> <span class="nf">AddThreads</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">threadCount</span><span class="p">,</span> <span class="n">VoidFunction</span> <span class="n">initializer</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">);</span>
-
+<span class="k">private</span><span class="o">:</span>
     <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">Fun</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
-    <span class="k">auto</span> <span class="n">SubmitJob</span><span class="p">(</span><span class="n">Fun</span><span class="o">&amp;&amp;</span> <span class="n">function</span><span class="p">,</span> <span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">std</span><span class="o">::</span><span class="n">future</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">args</span><span class="p">...))</span><span class="o">&gt;</span>
+    <span class="k">auto</span> <span class="n">SubmitJobImpl</span><span class="p">(</span><span class="kt">bool</span> <span class="n">optional</span><span class="p">,</span> <span class="n">Fun</span><span class="o">&amp;&amp;</span> <span class="n">function</span><span class="p">,</span> <span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">std</span><span class="o">::</span><span class="n">future</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">args</span><span class="p">...))</span><span class="o">&gt;</span>
     <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">mAcceptNewJobs</span><span class="p">)</span> <span class="p">{</span>
             <span class="c1">// return invalid future object</span>
@@ -378,10 +378,30 @@
             <span class="p">(</span><span class="o">*</span><span class="n">taskPtr</span><span class="p">)();</span>
             <span class="k">this</span><span class="o">-&gt;</span><span class="n">IncrementFinishedJobsCount</span><span class="p">();</span>
         <span class="p">};</span>
-        <span class="n">mTaskQueue</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="n">wrappedFunction</span><span class="p">);</span>
+        <span class="n">mTaskQueue</span><span class="p">.</span><span class="n">Push</span><span class="p">({</span><span class="n">wrappedFunction</span><span class="p">,</span> <span class="n">optional</span><span class="p">});</span>
         <span class="n">IncrementSubmittedJobsCount</span><span class="p">();</span>
         <span class="n">mJobAvailable</span><span class="p">.</span><span class="n">notify_one</span><span class="p">();</span>
         <span class="k">return</span> <span class="n">taskPtr</span><span class="o">-&gt;</span><span class="n">get_future</span><span class="p">();</span>
+    <span class="p">}</span>
+
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">ThreadPool</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">threadCount</span><span class="p">,</span> <span class="n">VoidFunction</span> <span class="n">initializer</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">);</span>
+    <span class="o">~</span><span class="n">ThreadPool</span><span class="p">();</span>
+
+    <span class="kt">uint32_t</span> <span class="nf">ThreadCount</span><span class="p">();</span>
+    <span class="kt">uint32_t</span> <span class="nf">ThreadCountWithState</span><span class="p">(</span><span class="n">Thread</span><span class="o">::</span><span class="n">ThreadState</span> <span class="n">state</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">AddThreads</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">threadCount</span><span class="p">,</span> <span class="n">VoidFunction</span> <span class="n">initializer</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">);</span>
+
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">Fun</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+    <span class="k">auto</span> <span class="n">SubmitJob</span><span class="p">(</span><span class="n">Fun</span><span class="o">&amp;&amp;</span> <span class="n">function</span><span class="p">,</span> <span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">std</span><span class="o">::</span><span class="n">future</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">args</span><span class="p">...))</span><span class="o">&gt;</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">SubmitJobImpl</span><span class="p">(</span><span class="nb">false</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="n">args</span><span class="p">...);</span>
+    <span class="p">}</span>
+
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">Fun</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+    <span class="k">auto</span> <span class="n">SubmitOptionalJob</span><span class="p">(</span><span class="n">Fun</span><span class="o">&amp;&amp;</span> <span class="n">function</span><span class="p">,</span> <span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">std</span><span class="o">::</span><span class="n">future</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">args</span><span class="p">...))</span><span class="o">&gt;</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">SubmitJobImpl</span><span class="p">(</span><span class="nb">true</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="n">args</span><span class="p">...);</span>
     <span class="p">}</span>
 
     <span class="kt">void</span> <span class="n">WaitTillFinished</span><span class="p">();</span>
@@ -403,17 +423,19 @@
             <span class="p">}</span>
             <span class="p">(</span><span class="o">*</span><span class="n">taskPtr</span><span class="p">)();</span>
         <span class="p">};</span>
-        <span class="n">mTaskQueue</span><span class="p">.</span><span class="n">Push</span><span class="p">(</span><span class="n">wrappedFunction</span><span class="p">);</span>
+        <span class="n">mTaskQueue</span><span class="p">.</span><span class="n">Push</span><span class="p">({</span><span class="n">wrappedFunction</span><span class="p">,</span> <span class="nb">false</span><span class="p">});</span>
         <span class="n">mJobAvailable</span><span class="p">.</span><span class="n">notify_one</span><span class="p">();</span>
         <span class="k">return</span> <span class="n">taskPtr</span><span class="o">-&gt;</span><span class="n">get_future</span><span class="p">();</span>
     <span class="p">}</span>
 
     <span class="kt">void</span> <span class="n">Shutdown</span><span class="p">();</span>
 
+    <span class="kt">void</span> <span class="nf">CancelOptionalJobs</span><span class="p">();</span>
+
 <span class="k">private</span><span class="o">:</span>
     <span class="kt">void</span> <span class="n">KillAllThreads</span><span class="p">();</span>
 
-    <span class="n">SimpleConcurrentQueue</span><span class="o">&lt;</span><span class="n">VoidFunction</span><span class="o">&gt;</span> <span class="n">mTaskQueue</span><span class="p">;</span>
+    <span class="n">SimpleConcurrentQueue</span><span class="o">&lt;</span><span class="n">ThreadPoolTask</span><span class="o">&gt;</span> <span class="n">mTaskQueue</span><span class="p">;</span>
     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Thread</span><span class="o">*&gt;</span> <span class="n">mThreads</span><span class="p">;</span>
     <span class="n">std</span><span class="o">::</span><span class="n">atomic</span><span class="o">&lt;</span><span class="kt">uint64_t</span><span class="o">&gt;</span> <span class="n">mSubmittedJobsCount</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
     <span class="n">std</span><span class="o">::</span><span class="n">atomic</span><span class="o">&lt;</span><span class="kt">uint64_t</span><span class="o">&gt;</span> <span class="n">mFinishedJobsCount</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>

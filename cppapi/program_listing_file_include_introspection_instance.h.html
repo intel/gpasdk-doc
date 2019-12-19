@@ -212,6 +212,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
 </ul>
@@ -346,8 +347,8 @@
     <span class="kt">void</span> <span class="nf">SetBinding</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">location</span><span class="p">);</span>
     <span class="kt">void</span> <span class="nf">SetBinding</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">index</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">binding</span><span class="p">);</span>
 
-    <span class="kt">void</span> <span class="nf">SetVectorSize</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">vectorSize</span><span class="p">);</span>
-    <span class="kt">void</span> <span class="nf">SetColumns</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">columns</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">SetRowCount</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">rows</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">SetColumnCount</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">columns</span><span class="p">);</span>
     <span class="kt">void</span> <span class="nf">SetInputAttachmentIndex</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">inputAttachmentIndex</span><span class="p">);</span>
 
     <span class="kt">void</span> <span class="nf">SetColumnMajorMatrixLayout</span><span class="p">(</span><span class="kt">bool</span> <span class="n">columnMajor</span><span class="p">);</span>
@@ -356,6 +357,7 @@
     <span class="kt">void</span> <span class="nf">SetArraySizes</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">arraySizeCount</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="k">const</span><span class="o">*</span> <span class="n">pArraySizes</span><span class="p">);</span>
 
     <span class="kt">void</span> <span class="nf">SetActivelyUsed</span><span class="p">(</span><span class="kt">bool</span> <span class="n">activelyUsed</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">SetDimension</span><span class="p">(</span><span class="n">introspection</span><span class="o">::</span><span class="n">Dim</span> <span class="k">const</span> <span class="n">dim</span><span class="p">);</span>
 
     <span class="n">introspection</span><span class="o">::</span><span class="n">Type</span> <span class="n">Type</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
     <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="nf">Name</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
@@ -366,15 +368,17 @@
     <span class="kt">uint64_t</span> <span class="nf">BindingWithinIndex</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
     <span class="kt">uint64_t</span> <span class="nf">Location</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
     <span class="kt">uint64_t</span> <span class="nf">Size</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
-    <span class="kt">uint32_t</span> <span class="nf">VectorWidth</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
-    <span class="kt">uint32_t</span> <span class="nf">Columns</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+    <span class="kt">uint32_t</span> <span class="nf">RowCount</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+    <span class="kt">uint32_t</span> <span class="nf">ColumnCount</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
     <span class="kt">uint32_t</span> <span class="nf">InputAttachmentIndex</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+    <span class="n">introspection</span><span class="o">::</span><span class="n">Dim</span> <span class="n">Dimension</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
     <span class="kt">bool</span> <span class="nf">IsStruct</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
     <span class="kt">bool</span> <span class="nf">ColumnMajor</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
     <span class="kt">bool</span> <span class="nf">ActivelyUsed</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
 
 <span class="k">private</span><span class="o">:</span>
     <span class="n">introspection</span><span class="o">::</span><span class="n">Type</span> <span class="n">mType</span><span class="p">;</span>
+    <span class="n">introspection</span><span class="o">::</span><span class="n">Dim</span> <span class="n">mDim</span><span class="p">;</span>
     <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">mName</span><span class="p">;</span>
     <span class="kt">uint64_t</span> <span class="n">mCardinality</span><span class="p">;</span>
     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint32_t</span><span class="o">&gt;</span> <span class="n">mArraySizes</span><span class="p">;</span>
@@ -382,8 +386,8 @@
     <span class="n">introspection</span><span class="o">::</span><span class="n">ShaderBlockModifier</span> <span class="n">mShaderBlockModifier</span><span class="p">;</span>
     <span class="kt">uint64_t</span> <span class="n">mBindingGroupIndex</span><span class="p">;</span>
     <span class="kt">uint64_t</span> <span class="n">mBindingWithinIndex</span><span class="p">;</span>
-    <span class="kt">uint32_t</span> <span class="n">mVectorSize</span><span class="p">;</span>
-    <span class="kt">uint32_t</span> <span class="n">mColumns</span><span class="p">;</span>
+    <span class="kt">uint32_t</span> <span class="n">mRowCount</span><span class="p">;</span>
+    <span class="kt">uint32_t</span> <span class="n">mColumnCount</span><span class="p">;</span>
     <span class="kt">uint32_t</span> <span class="n">mInputAttachmentIndex</span><span class="p">;</span>
     <span class="kt">bool</span> <span class="n">mColumnMajor</span><span class="p">;</span>
     <span class="kt">bool</span> <span class="n">mActivelyUsed</span><span class="p">;</span>

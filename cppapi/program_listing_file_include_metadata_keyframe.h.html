@@ -212,6 +212,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
 </ul>
@@ -323,7 +324,7 @@
 <span class="k">class</span> <span class="nc">Keyframe</span>
 <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">Keyframe</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">timestamp</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">Keyframe</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">timestamp</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">flags</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
     <span class="o">~</span><span class="n">Keyframe</span><span class="p">();</span>
 
     <span class="k">struct</span> <span class="n">ResourceUpdate</span>
@@ -350,6 +351,7 @@
     <span class="kt">void</span> <span class="nf">AddThreadRestart</span><span class="p">(</span><span class="n">ThreadRestart</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">restart</span><span class="p">);</span>
 
     <span class="kt">uint64_t</span> <span class="nf">Timestamp</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="nf">IsDeferredCaptureKeyframe</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
 
     <span class="kt">size_t</span> <span class="nf">ApiCallReferenceCount</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
     <span class="n">ApiCallReference</span> <span class="k">const</span><span class="o">*</span> <span class="nf">GetApiCallReference</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">index</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
@@ -361,6 +363,7 @@
 
 <span class="k">private</span><span class="o">:</span>
     <span class="kt">uint64_t</span> <span class="n">mTimestamp</span><span class="p">;</span>
+    <span class="kt">uint32_t</span> <span class="n">mFlags</span><span class="p">;</span>
     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">ApiCallReference</span><span class="o">&gt;</span> <span class="n">mApiCalls</span><span class="p">;</span>
     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">ResourceUpdate</span><span class="o">&gt;</span> <span class="n">mResourceUpdates</span><span class="p">;</span>
 

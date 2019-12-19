@@ -214,6 +214,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
 </ul>
@@ -312,21 +313,27 @@
 <dl class="function">
 <dt id="_CPPv4NK3gpa7metrics14IMetricsSource11IsAvailableEv">
 <span id="_CPPv3NK3gpa7metrics14IMetricsSource11IsAvailableEv"></span><span id="_CPPv2NK3gpa7metrics14IMetricsSource11IsAvailableEv"></span><span id="gpa::metrics::IMetricsSource::IsAvailableC"></span><span class="target" id="classgpa_1_1metrics_1_1_i_metrics_source_1a9257f823eae053f0ab3f984b6a638ed4"></span><em class="property">virtual</em> bool <code class="sig-name descname">IsAvailable</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK3gpa7metrics14IMetricsSource11IsAvailableEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns true if metrics source is available for usage. </p>
+<dd><p>Returns true if metrics source is available for usage. Otherwise, false. </p>
 </dd></dl>
 
 <dl class="function">
 <dt id="_CPPv4NK3gpa7metrics14IMetricsSource19NumAvailableMetricsEv">
 <span id="_CPPv3NK3gpa7metrics14IMetricsSource19NumAvailableMetricsEv"></span><span id="_CPPv2NK3gpa7metrics14IMetricsSource19NumAvailableMetricsEv"></span><span id="gpa::metrics::IMetricsSource::NumAvailableMetricsC"></span><span class="target" id="classgpa_1_1metrics_1_1_i_metrics_source_1a07661eb90f5ab7cb11643508e3cac80e"></span><em class="property">virtual</em> uint32_t <code class="sig-name descname">NumAvailableMetrics</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK3gpa7metrics14IMetricsSource19NumAvailableMetricsEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>This returned number can used to determine the maximum uint32_t supported: validuint32_tRange = [0..<a class="reference internal" href="#classgpa_1_1metrics_1_1_i_metrics_source_1a07661eb90f5ab7cb11643508e3cac80e"><span class="std std-ref">NumAvailableMetrics()</span></a>-1] </p>
+<dd><p>Returns the total number of available metrics from all of metrics source’s groups. <dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>Use to determine range of valid global metric indices: [0, <a class="reference internal" href="#classgpa_1_1metrics_1_1_i_metrics_source_1a07661eb90f5ab7cb11643508e3cac80e"><span class="std std-ref">IMetricsSource::NumAvailableMetrics</span></a>). </p>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="_CPPv4NK3gpa7metrics14IMetricsSource17MetricDescriptionEK8uint32_t">
 <span id="_CPPv3NK3gpa7metrics14IMetricsSource17MetricDescriptionEK8uint32_t"></span><span id="_CPPv2NK3gpa7metrics14IMetricsSource17MetricDescriptionEK8uint32_t"></span><span id="gpa::metrics::IMetricsSource::MetricDescription__uint32_tCC"></span><span class="target" id="classgpa_1_1metrics_1_1_i_metrics_source_1a96aa5f2a14ff8a474c1cfaa1ab4d37e2"></span><em class="property">virtual</em> <a class="reference internal" href="structgpa_1_1metrics_1_1_metric_desc.html#_CPPv4N3gpa7metrics10MetricDescE" title="gpa::metrics::MetricDesc">MetricDesc</a> <em class="property">const</em> &amp;<code class="sig-name descname">MetricDescription</code><span class="sig-paren">(</span>uint32_t <em class="property">const</em> <em>metricIndex</em><span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK3gpa7metrics14IMetricsSource17MetricDescriptionEK8uint32_t" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Gets the metric description for the specified index <dl class="simple">
+<dd><p>Returns metric description for a metric specified using its global metric index in the metrics source. <dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>If the global metric index is out of range, a metric description initialized with invalid fields is returned. </p>
+</dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">metricIndex</span></code>: ID specified in the range [0..<a class="reference internal" href="#classgpa_1_1metrics_1_1_i_metrics_source_1a07661eb90f5ab7cb11643508e3cac80e"><span class="std std-ref">NumAvailableMetrics()</span></a>] </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">metricIndex</span></code>: Global metric index in range: [0, <a class="reference internal" href="#classgpa_1_1metrics_1_1_i_metrics_source_1a07661eb90f5ab7cb11643508e3cac80e"><span class="std std-ref">IMetricsSource::NumAvailableMetrics</span></a>). </p></li>
 </ul>
 </dd>
 </dl>
@@ -336,30 +343,53 @@
 <dl class="function">
 <dt id="_CPPv4NK3gpa7metrics14IMetricsSource15NumMetricGroupsEv">
 <span id="_CPPv3NK3gpa7metrics14IMetricsSource15NumMetricGroupsEv"></span><span id="_CPPv2NK3gpa7metrics14IMetricsSource15NumMetricGroupsEv"></span><span id="gpa::metrics::IMetricsSource::NumMetricGroupsC"></span><span class="target" id="classgpa_1_1metrics_1_1_i_metrics_source_1a8653896a956c169d286958816e2e70ff"></span><em class="property">virtual</em> uint32_t <code class="sig-name descname">NumMetricGroups</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK3gpa7metrics14IMetricsSource15NumMetricGroupsEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>This returned number can used to determine the maximum MetricGroupId supported: validMetricGroupIdRange = [0..<a class="reference internal" href="#classgpa_1_1metrics_1_1_i_metrics_source_1a8653896a956c169d286958816e2e70ff"><span class="std std-ref">NumMetricGroups()</span></a>-1] </p>
+<dd><p>Returns the number of available metric groups in the metrics source. <dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>Use to determine range of valid metric group indices: [0, <a class="reference internal" href="#classgpa_1_1metrics_1_1_i_metrics_source_1a8653896a956c169d286958816e2e70ff"><span class="std std-ref">IMetricsSource::NumMetricGroups</span></a>). </p>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="_CPPv4NK3gpa7metrics14IMetricsSource17NumMetricsInGroupEK8uint32_t">
 <span id="_CPPv3NK3gpa7metrics14IMetricsSource17NumMetricsInGroupEK8uint32_t"></span><span id="_CPPv2NK3gpa7metrics14IMetricsSource17NumMetricsInGroupEK8uint32_t"></span><span id="gpa::metrics::IMetricsSource::NumMetricsInGroup__uint32_tCC"></span><span class="target" id="classgpa_1_1metrics_1_1_i_metrics_source_1a57c6a8f760d7daca4a92f4f9c284fe3b"></span><em class="property">virtual</em> uint32_t <code class="sig-name descname">NumMetricsInGroup</code><span class="sig-paren">(</span>uint32_t <em class="property">const</em> <em>metricGroup</em><span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK3gpa7metrics14IMetricsSource17NumMetricsInGroupEK8uint32_t" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="_CPPv4NK3gpa7metrics14IMetricsSource25GroupRawSampledReportSizeEK8uint32_t">
-<span id="_CPPv3NK3gpa7metrics14IMetricsSource25GroupRawSampledReportSizeEK8uint32_t"></span><span id="_CPPv2NK3gpa7metrics14IMetricsSource25GroupRawSampledReportSizeEK8uint32_t"></span><span id="gpa::metrics::IMetricsSource::GroupRawSampledReportSize__uint32_tCC"></span><span class="target" id="classgpa_1_1metrics_1_1_i_metrics_source_1a5530e949ca647a3041fc899aa58c4f31"></span><em class="property">virtual</em> uint32_t <code class="sig-name descname">GroupRawSampledReportSize</code><span class="sig-paren">(</span>uint32_t <em class="property">const</em> <em>metricGroup</em><span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK3gpa7metrics14IMetricsSource25GroupRawSampledReportSizeEK8uint32_t" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>gets the sampled metric group raw report size supported: validMetricGroupIdRange = [0..<a class="reference internal" href="#classgpa_1_1metrics_1_1_i_metrics_source_1a8653896a956c169d286958816e2e70ff"><span class="std std-ref">NumMetricGroups()</span></a>-1] </p>
+<dd><p>Returns the number of available metrics for a group specified using its group index in the metrics source. <dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>If the group index is out of range, 0 is returned. </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">metricGroup</span></code>: Group index in range: [0, <a class="reference internal" href="#classgpa_1_1metrics_1_1_i_metrics_source_1a8653896a956c169d286958816e2e70ff"><span class="std std-ref">IMetricsSource::NumMetricGroups</span></a>). </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="_CPPv4NK3gpa7metrics14IMetricsSource21GroupContainingMetricEK8uint32_t">
 <span id="_CPPv3NK3gpa7metrics14IMetricsSource21GroupContainingMetricEK8uint32_t"></span><span id="_CPPv2NK3gpa7metrics14IMetricsSource21GroupContainingMetricEK8uint32_t"></span><span id="gpa::metrics::IMetricsSource::GroupContainingMetric__uint32_tCC"></span><span class="target" id="classgpa_1_1metrics_1_1_i_metrics_source_1a5c75e363bb470603e8ef294158f288fa"></span><em class="property">virtual</em> int32_t <code class="sig-name descname">GroupContainingMetric</code><span class="sig-paren">(</span>uint32_t <em class="property">const</em> <em>metricId</em><span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK3gpa7metrics14IMetricsSource21GroupContainingMetricEK8uint32_t" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns the group id or index containing the specified metric. </p>
+<dd><p>Returns group index for a metric specified using its global metric index in the metrics source. <dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>If the global metric index is out of range, an invalid group index is returned such as -1. </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">metricId</span></code>: Global metric index in range: [0, <a class="reference internal" href="#classgpa_1_1metrics_1_1_i_metrics_source_1a07661eb90f5ab7cb11643508e3cac80e"><span class="std std-ref">IMetricsSource::NumAvailableMetrics</span></a>). </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="_CPPv4NK3gpa7metrics14IMetricsSource11MetricGroupE8uint32_t">
 <span id="_CPPv3NK3gpa7metrics14IMetricsSource11MetricGroupE8uint32_t"></span><span id="_CPPv2NK3gpa7metrics14IMetricsSource11MetricGroupE8uint32_t"></span><span id="gpa::metrics::IMetricsSource::MetricGroup__uint32_tC"></span><span class="target" id="classgpa_1_1metrics_1_1_i_metrics_source_1a83ee162d3d603f4eb3b99b3cad64fee0"></span><em class="property">virtual</em> <a class="reference internal" href="classgpa_1_1metrics_1_1_i_metric_group.html#_CPPv4N3gpa7metrics12IMetricGroupE" title="gpa::metrics::IMetricGroup">IMetricGroup</a> <em class="property">const</em> *<code class="sig-name descname">MetricGroup</code><span class="sig-paren">(</span>uint32_t <em>metricGroupIndex</em><span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK3gpa7metrics14IMetricsSource11MetricGroupE8uint32_t" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Return an <a class="reference internal" href="classgpa_1_1metrics_1_1_i_metric_group.html#classgpa_1_1metrics_1_1_i_metric_group"><span class="std std-ref">IMetricGroup</span></a> interface corresponding to the indicated metric group id or index. </p>
+<dd><p>Returns <a class="reference internal" href="classgpa_1_1metrics_1_1_i_metric_group.html#classgpa_1_1metrics_1_1_i_metric_group"><span class="std std-ref">IMetricGroup</span></a> interface for a group specified using its group index in the metrics source. <dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>If the group index is out of range, nullptr is returned. </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">metricGroupIndex</span></code>: Group index in range: [0, <a class="reference internal" href="#classgpa_1_1metrics_1_1_i_metrics_source_1a8653896a956c169d286958816e2e70ff"><span class="std std-ref">IMetricsSource::NumMetricGroups</span></a>). </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 </div>

@@ -212,6 +212,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
 </ul>
@@ -308,8 +309,7 @@
 
 <span class="cp">#pragma once</span>
 
-<span class="cp">#include</span> <span class="cpf">&quot;playback/resource-info/enumerations.h&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;playback/resource-info/forward-declarations.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;playback/resource-info/resource-info.h&quot;</span><span class="cp"></span>
 
 <span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp"></span>
 
@@ -328,14 +328,18 @@
 
     <span class="o">~</span><span class="n">BindingMonitor</span><span class="p">();</span>
 
+    <span class="n">ResourceInfo</span> <span class="k">const</span><span class="o">*</span> <span class="nf">GetResourceInfo</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+
+    <span class="n">ResourceInfo</span><span class="o">::</span><span class="n">Ex</span> <span class="k">const</span><span class="o">*</span> <span class="n">GetResourceInfoEx</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+
     <span class="kt">void</span> <span class="nf">Reset</span><span class="p">();</span>
 
 <span class="k">private</span><span class="o">:</span>
-    <span class="n">ResourceInfoUsage</span> <span class="n">mUsage</span><span class="p">{</span><span class="n">GPA_RESOURCE_INFO_USAGE_UNKNOWN</span><span class="p">};</span>
+    <span class="n">ResourceInfo</span><span class="o">::</span><span class="n">Usage</span> <span class="n">mUsage</span><span class="p">{</span><span class="n">ResourceInfo</span><span class="o">::</span><span class="n">Usage</span><span class="o">::</span><span class="n">UNKNOWN</span><span class="p">};</span>
     <span class="kt">uint64_t</span> <span class="n">mBeginCallIndex</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
     <span class="kt">uint64_t</span> <span class="n">mEndCallIndex</span><span class="p">{</span><span class="n">api_types</span><span class="o">::</span><span class="n">GPA_WHOLE_SIZE</span><span class="p">};</span>
     <span class="n">ResourceInfo</span> <span class="k">const</span><span class="o">*</span> <span class="n">mResourceInfo</span><span class="p">{</span><span class="k">nullptr</span><span class="p">};</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">ResourceInfoEx</span> <span class="k">const</span><span class="o">*&gt;</span> <span class="n">mResourceInfoExs</span><span class="p">;</span>
+    <span class="n">ResourceInfo</span><span class="o">::</span><span class="n">Ex</span> <span class="k">const</span><span class="o">*</span> <span class="n">mResourceInfoEx</span><span class="p">{</span><span class="k">nullptr</span><span class="p">};</span>
     <span class="n">ResourceInfoRegistry</span><span class="o">*</span> <span class="n">mRegistry</span><span class="p">{</span><span class="k">nullptr</span><span class="p">};</span>
 
     <span class="n">BindingMonitor</span><span class="p">(</span><span class="n">BindingMonitor</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>

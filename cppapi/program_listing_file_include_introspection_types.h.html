@@ -212,6 +212,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
 </ul>
@@ -320,6 +321,7 @@
     <span class="n">kDouble</span><span class="p">,</span>
     <span class="n">kInt8</span><span class="p">,</span>
     <span class="n">kUInt8</span><span class="p">,</span>
+    <span class="n">kBool</span> <span class="o">=</span> <span class="n">kUInt8</span><span class="p">,</span>
     <span class="n">kInt16</span><span class="p">,</span>
     <span class="n">kUInt16</span><span class="p">,</span>
     <span class="n">kInt32</span><span class="p">,</span>
@@ -343,9 +345,15 @@
     <span class="n">kPushConstantBuffer</span> <span class="o">=</span> <span class="mi">9</span><span class="p">,</span>
     <span class="n">kSeparateImage</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
     <span class="n">kSeparateSampler</span> <span class="o">=</span> <span class="mi">11</span><span class="p">,</span>
+    <span class="n">kUnorderedAccessView</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="n">kShaderResourceView</span> <span class="o">=</span> <span class="mi">13</span><span class="p">,</span>
 
-    <span class="n">kShaderBlockModifierCount</span> <span class="o">=</span> <span class="n">kSeparateSampler</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="n">kUniform</span> <span class="o">=</span> <span class="n">kUniformBuffer</span>  <span class="c1">// deprecated</span>
+    <span class="n">kShaderBlockModifierCount</span> <span class="o">=</span> <span class="n">kShaderResourceView</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+
+    <span class="n">kConstantBuffer</span> <span class="o">=</span> <span class="n">kUniformBuffer</span><span class="p">,</span>  <span class="c1">// HLSL</span>
+    <span class="n">kTexture</span> <span class="o">=</span> <span class="n">kSampledImage</span><span class="p">,</span>          <span class="c1">// HLSL</span>
+    <span class="n">kRWTexture2D</span> <span class="o">=</span> <span class="n">kStorageImage</span><span class="p">,</span>      <span class="c1">// HLSL</span>
+    <span class="n">kUniform</span> <span class="o">=</span> <span class="n">kUniformBuffer</span>          <span class="c1">// deprecated</span>
 <span class="p">};</span>
 
 <span class="k">enum</span> <span class="n">SourceType</span> <span class="p">{</span>
@@ -353,6 +361,20 @@
     <span class="n">kGLSL</span><span class="p">,</span>
     <span class="n">kHLSL</span><span class="p">,</span>
     <span class="n">kSourceTypeCount</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="k">enum</span> <span class="n">Dim</span> <span class="p">{</span>
+    <span class="n">kDimUnknown</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">kDimBuffer</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">kDimTexture1D</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">kDimTexture2D</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="n">kDimTexture2DMS</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="n">kDimTexture3D</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="n">kDimTextureCube</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="n">kDimTexture1DArray</span> <span class="o">=</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="n">kDimTexture2DArray</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="n">kDimTexture2DMSArray</span> <span class="o">=</span> <span class="mi">9</span><span class="p">,</span>
+    <span class="n">kDimTextureCubeArray</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
 <span class="p">};</span>
 
 <span class="p">}</span>  <span class="c1">// namespace introspection</span>

@@ -212,6 +212,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
 </ul>
@@ -336,6 +337,12 @@
 
 <span class="k">class</span> <span class="nc">MemoryBackedSerializer</span><span class="p">;</span>
 
+
+<span class="k">enum</span> <span class="nl">StreamPacketHeaderVersion</span> <span class="p">:</span> <span class="kt">uint32_t</span> <span class="p">{</span>
+    <span class="n">VERSION_1</span><span class="p">,</span>
+    <span class="n">VERSION_COUNT</span><span class="p">,</span>
+<span class="p">};</span>
+
 <span class="k">struct</span> <span class="n">StreamPacketHeader</span>
 <span class="p">{</span>
     <span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="n">StreamPacketHeader</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
@@ -345,6 +352,7 @@
 
     <span class="n">GPAToken</span> <span class="n">token</span><span class="p">;</span>
     <span class="n">GPATimestamp</span> <span class="n">timestamp</span><span class="p">;</span>
+    <span class="kt">uint32_t</span> <span class="n">version</span><span class="p">;</span>
 <span class="p">};</span>
 
 <span class="k">using</span> <span class="n">ArgsLenType</span> <span class="o">=</span> <span class="kt">uint64_t</span><span class="p">;</span>
@@ -387,19 +395,6 @@
 <span class="p">};</span>
 
 <span class="p">}</span>  <span class="c1">// namespace serialization</span>
-
-<span class="k">namespace</span> <span class="n">playback</span> <span class="p">{</span>
-
-<span class="k">class</span> <span class="nc">IPlayable</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="k">virtual</span> <span class="o">~</span><span class="n">IPlayable</span><span class="p">(){};</span>
-
-    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">PrePlayback</span><span class="p">(</span><span class="n">GPADispatchTable</span> <span class="k">const</span><span class="o">*&amp;</span> <span class="n">tlsRef</span><span class="p">,</span> <span class="n">serialization</span><span class="o">::</span><span class="n">Context</span><span class="o">*</span> <span class="n">context</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">args</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">PostPlayback</span><span class="p">(</span><span class="n">GPADispatchTable</span> <span class="k">const</span><span class="o">*&amp;</span> <span class="n">tlsRef</span><span class="p">,</span> <span class="n">serialization</span><span class="o">::</span><span class="n">Context</span><span class="o">*</span> <span class="n">context</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">args</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="p">}</span>  <span class="c1">// namespace playback</span>
 
 <span class="k">class</span> <span class="nc">IStreamPacket</span>
 <span class="p">{</span>

@@ -212,6 +212,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
 </ul>
@@ -308,8 +309,10 @@
 
 <span class="cp">#pragma once</span>
 
-<span class="cp">#include</span> <span class="cpf">&quot;api-types/enumerations.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;playback/resource-info/resource-info.h&quot;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp"></span>
 
 <span class="k">namespace</span> <span class="n">gpa</span> <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">playback</span> <span class="p">{</span>
@@ -318,24 +321,26 @@
     <span class="o">:</span> <span class="k">public</span> <span class="n">ResourceInfo</span>
 <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">ShaderInfo</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
-
-    <span class="n">ShaderInfo</span><span class="p">(</span><span class="n">ShaderInfo</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
-
-    <span class="n">ShaderInfo</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">ShaderInfo</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
-
-    <span class="n">ResourceInfoType</span> <span class="nf">GetType</span><span class="p">()</span> <span class="k">const</span> <span class="k">override</span> <span class="k">final</span><span class="p">;</span>
+    <span class="n">TypeId</span> <span class="n">GetTypeId</span><span class="p">()</span> <span class="k">const</span> <span class="k">override</span> <span class="k">final</span><span class="p">;</span>
 
     <span class="n">api_types</span><span class="o">::</span><span class="n">ShaderLanguage</span> <span class="n">language</span><span class="p">{</span><span class="n">api_types</span><span class="o">::</span><span class="n">GPA_SHADER_LANGUAGE_UNKNOWN</span><span class="p">};</span>
     <span class="n">api_types</span><span class="o">::</span><span class="n">ShaderStageFlagBits</span> <span class="n">stage</span><span class="p">{</span><span class="n">api_types</span><span class="o">::</span><span class="n">GPA_SHADER_STAGE_UNKNOWN</span><span class="p">};</span>
+    <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">pEntryPoint</span><span class="p">{</span><span class="k">nullptr</span><span class="p">};</span>
     <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">pSourceCode</span><span class="p">{</span><span class="k">nullptr</span><span class="p">};</span>
     <span class="kt">size_t</span> <span class="n">byteCodeSize</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
     <span class="kt">uint8_t</span> <span class="k">const</span><span class="o">*</span> <span class="n">pByteCode</span><span class="p">{</span><span class="k">nullptr</span><span class="p">};</span>
 
 <span class="k">protected</span><span class="o">:</span>
-    <span class="kt">void</span> <span class="n">OnRegister</span><span class="p">(</span>
-        <span class="n">detail</span><span class="o">::</span><span class="n">ResourceInfoRegistry</span><span class="o">&amp;</span> <span class="n">resourceInfoRegistry</span><span class="p">,</span>
-        <span class="n">detail</span><span class="o">::</span><span class="n">AuxiliaryStorageRegistry</span><span class="o">&amp;</span> <span class="n">auxiliaryStorageRegistry</span><span class="p">)</span> <span class="k">override</span> <span class="k">final</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="n">OnRegister</span><span class="p">()</span> <span class="k">override</span> <span class="k">final</span><span class="p">;</span>
+
+<span class="k">private</span><span class="o">:</span>
+    <span class="k">class</span> <span class="nc">Storage</span> <span class="k">final</span>
+    <span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">entryPoint</span><span class="p">;</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">sourceCode</span><span class="p">;</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="o">&gt;</span> <span class="n">byteCode</span><span class="p">;</span>
+    <span class="p">}</span> <span class="n">mStorage</span><span class="p">;</span>
 <span class="p">};</span>
 
 <span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="n">ShaderInfo</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">ShaderInfo</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">);</span>

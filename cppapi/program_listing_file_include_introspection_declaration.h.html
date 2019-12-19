@@ -212,6 +212,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
 </ul>
@@ -332,6 +333,7 @@
     <span class="n">Declaration</span><span class="p">(</span><span class="n">introspection</span><span class="o">::</span><span class="n">Type</span> <span class="n">type</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">name</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">typeAlias</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">vectorSize</span><span class="p">);</span>
     <span class="n">Declaration</span><span class="p">(</span><span class="n">introspection</span><span class="o">::</span><span class="n">Type</span> <span class="n">type</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">name</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">typeAlias</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">vectorSize</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">columnCount</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">columnMajor</span><span class="p">);</span>
     <span class="n">Declaration</span><span class="p">(</span><span class="n">introspection</span><span class="o">::</span><span class="n">Type</span> <span class="n">type</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">name</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">typeAlias</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">vectorSize</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">columnCount</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">columnMajor</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="k">const</span><span class="o">*</span> <span class="n">arrayDimensions</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">nDimensions</span><span class="p">);</span>
+    <span class="n">Declaration</span><span class="p">(</span><span class="n">introspection</span><span class="o">::</span><span class="n">Type</span> <span class="n">type</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">name</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">typeAlias</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">vectorSize</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">columnCount</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">columnMajor</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="k">const</span><span class="o">*</span> <span class="n">arrayDimensions</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">nDimensions</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">offset</span><span class="p">);</span>
 
     <span class="n">Declaration</span><span class="p">(</span><span class="n">introspection</span><span class="o">::</span><span class="n">Struct</span><span class="o">&amp;&amp;</span> <span class="n">structDef</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">declaredName</span><span class="p">);</span>
     <span class="n">Declaration</span><span class="p">(</span><span class="n">introspection</span><span class="o">::</span><span class="n">Struct</span><span class="o">&amp;&amp;</span> <span class="n">structDef</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">declaredName</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">typeAlias</span><span class="p">);</span>
@@ -342,7 +344,7 @@
     <span class="n">introspection</span><span class="o">::</span><span class="n">Type</span> <span class="n">Type</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
     <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="nf">Name</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
     <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="nf">TypeAlias</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
-    <span class="kt">uint64_t</span> <span class="nf">VectorWidth</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+    <span class="kt">uint64_t</span> <span class="nf">RowCount</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
     <span class="kt">uint64_t</span> <span class="nf">ColumnCount</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
     <span class="kt">bool</span> <span class="nf">ColumnMajor</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
     <span class="kt">uint64_t</span> <span class="nf">ArrayDimensionCount</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
@@ -351,15 +353,18 @@
     <span class="kt">bool</span> <span class="nf">IsStruct</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
     <span class="n">introspection</span><span class="o">::</span><span class="n">Struct</span> <span class="k">const</span><span class="o">*</span> <span class="n">StructDeclaration</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
 
+    <span class="kt">uint64_t</span> <span class="nf">Offset</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+
 <span class="k">private</span><span class="o">:</span>
     <span class="n">introspection</span><span class="o">::</span><span class="n">Type</span> <span class="n">mType</span><span class="p">;</span>
     <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">mName</span><span class="p">;</span>
     <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">mTypeAlias</span><span class="p">;</span>
-    <span class="kt">uint64_t</span> <span class="n">mVectorWidth</span><span class="p">;</span>
+    <span class="kt">uint64_t</span> <span class="n">mRowCount</span><span class="p">;</span>
     <span class="kt">uint64_t</span> <span class="n">mColumnCount</span><span class="p">;</span>
     <span class="kt">bool</span> <span class="n">mColumnMajor</span><span class="p">;</span>
     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint64_t</span><span class="o">&gt;</span> <span class="n">mArrayDimensions</span><span class="p">;</span>
     <span class="kt">uint64_t</span> <span class="n">mSize</span><span class="p">;</span>
+    <span class="kt">uint64_t</span> <span class="n">mOffset</span><span class="p">;</span>
     <span class="n">introspection</span><span class="o">::</span><span class="n">Struct</span> <span class="n">mStruct</span><span class="p">;</span>
 <span class="p">};</span>
 
