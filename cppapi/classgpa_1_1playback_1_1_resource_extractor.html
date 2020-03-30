@@ -41,7 +41,7 @@
   <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Class ResourceExtractor::RequestResultManager" href="classgpa_1_1playback_1_1_resource_extractor_1_1_request_result_manager.html" />
+    <link rel="next" title="Class ResourceInfo" href="classgpa_1_1playback_1_1_resource_info.html" />
     <link rel="prev" title="Class ResourceExperiment::Prefab" href="classgpa_1_1playback_1_1_resource_experiment_1_1_prefab.html" />
      
     <script type="text/javascript">
@@ -156,6 +156,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
@@ -214,6 +216,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
@@ -305,9 +308,7 @@
 <ul class="simple">
 <li><p><a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#exhale-struct-structgpa-1-1playback-1-1-resource-extractor-1-1-request"><span class="std std-ref">Struct ResourceExtractor::Request</span></a></p></li>
 <li><p><a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#exhale-struct-structgpa-1-1playback-1-1-resource-extractor-1-1-request-1-1-info"><span class="std std-ref">Struct Request::Info</span></a></p></li>
-<li><p><a class="reference internal" href="classgpa_1_1playback_1_1_resource_extractor_1_1_request_result_manager.html#exhale-class-classgpa-1-1playback-1-1-resource-extractor-1-1-request-result-manager"><span class="std std-ref">Class ResourceExtractor::RequestResultManager</span></a></p></li>
 <li><p><a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#exhale-struct-structgpa-1-1playback-1-1-resource-extractor-1-1-result"><span class="std std-ref">Struct ResourceExtractor::Result</span></a></p></li>
-<li><p><a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#exhale-struct-structgpa-1-1playback-1-1-resource-extractor-1-1-result-1-1-info"><span class="std std-ref">Struct Result::Info</span></a></p></li>
 </ul>
 </div>
 </div>
@@ -327,26 +328,25 @@
 <dt id="_CPPv4N3gpa8playback17ResourceExtractorE">
 <span id="_CPPv3N3gpa8playback17ResourceExtractorE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractorE"></span><span id="gpa::playback::ResourceExtractor"></span><span class="target" id="classgpa_1_1playback_1_1_resource_extractor"></span><em class="property">class </em><code class="sig-name descname">ResourceExtractor</code> : <em class="property">public</em> gpa::playback::<a class="reference internal" href="classgpa_1_1playback_1_1_callable_receiver.html#_CPPv4N3gpa8playback16CallableReceiverE" title="gpa::playback::CallableReceiver">CallableReceiver</a>, <em class="property">public</em> gpa::playback::<a class="reference internal" href="classgpa_1_1playback_1_1_callable_broadcaster.html#_CPPv4N3gpa8playback19CallableBroadcasterE" title="gpa::playback::CallableBroadcaster">CallableBroadcaster</a><a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractorE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Provides access to resource data for a captured range <p> To extract raw binary resource data for a given </p>
-<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a>, determine <p> which ResourceInfo(s) to extract using the </p>
-<a class="reference internal" href="classgpa_1_1playback_1_1_metadata_extractor.html#classgpa_1_1playback_1_1_metadata_extractor"><span class="std std-ref">MetadataExtractor</span></a>. In this <p> example we’re looking for </p>
+<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a>, determine <p> which ResourceInfo(s) to extract using the MetadataExtractor. In this </p>
+<p> example we’re looking for </p>
 <a class="reference internal" href="classgpa_1_1playback_1_1_render_target_info.html#classgpa_1_1playback_1_1_render_target_info"><span class="std std-ref">RenderTargetInfo</span></a> objects bound at call index <p> 128. To find </p>
 <a class="reference internal" href="classgpa_1_1playback_1_1_render_target_info.html#classgpa_1_1playback_1_1_render_target_info"><span class="std std-ref">RenderTargetInfo</span></a> objects we’ll use GRAPHICS_OUTPUT for our <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"><span class="std std-ref">ResourceInfo::Usage</span></a>. As we encounter <a class="reference internal" href="classgpa_1_1playback_1_1_render_target_info.html#classgpa_1_1playback_1_1_render_target_info"><span class="std std-ref">RenderTargetInfo</span></a> objects we’ll fill <p> out the necessary fields in a std::vector&lt;&gt; of </p>
-<a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a> objects. <p> Note that a single </p>
-<a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">Request</span></a> may have Request::Infos for any number of <p> ResourceInfos, call indices, and ResourceInfo::Usages. Also note that a </p>
-<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"><span class="std std-ref">ResourceInfo::Usage</span></a> of UNKNOWN will result in the <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a> being <p> expanded out to one </p>
-<a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a> for each <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"><span class="std std-ref">ResourceInfo::Usage</span></a>. </p>
-<p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">auto</span> <span class="n">usage</span> <span class="o">=</span> <span class="n">playback</span><span class="p">::</span><span class="n">Resource</span><span class="p">::</span><span class="n">Info</span><span class="p">::</span><span class="n">Usage</span><span class="p">::</span><span class="n">GRAPHICS_OUTPUT</span><span class="p">;</span>
-<span class="n">auto</span> <span class="n">callIndex</span> <span class="o">=</span> <span class="mi">128</span><span class="p">;</span>
-<span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">ResourceExtractor</span><span class="p">::</span><span class="n">Request</span><span class="p">::</span><span class="n">Info</span><span class="o">&gt;</span> <span class="n">requestInfos</span><span class="p">;</span>
-<span class="k">for</span> <span class="p">(</span><span class="n">auto</span> <span class="n">const</span><span class="o">&amp;</span> <span class="n">resourceInfo</span> <span class="p">:</span> <span class="n">playbackEngine</span><span class="o">.</span><span class="n">GetMetadataExtractor</span><span class="p">()</span><span class="o">.</span><span class="n">GetResourceInfos</span><span class="p">(</span><span class="n">usage</span><span class="p">,</span> <span class="n">callIndex</span><span class="p">))</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">auto</span> <span class="n">const</span><span class="o">&amp;</span> <span class="n">resourceInfoEx</span> <span class="p">:</span> <span class="n">resourceInfo</span><span class="o">.</span><span class="n">GetResourceInfoExs</span><span class="p">(</span><span class="n">usage</span><span class="p">,</span> <span class="n">callIndex</span><span class="p">))</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">resourceInfoEx</span><span class="o">.</span><span class="n">GetTypeId</span><span class="p">()</span> <span class="o">==</span> <span class="n">ResourceInfo</span><span class="p">::</span><span class="n">Ex</span><span class="p">::</span><span class="n">GetTypeId</span><span class="o">&lt;</span><span class="n">RenderTargetInfo</span><span class="o">&gt;</span><span class="p">())</span> <span class="p">{</span>
-            <span class="n">ResourceExtractor</span><span class="p">::</span><span class="n">Request</span><span class="p">::</span><span class="n">Info</span> <span class="n">requestInfo</span> <span class="p">{</span> <span class="p">};</span>
-            <span class="n">requestInfo</span><span class="o">.</span><span class="n">usage</span> <span class="o">=</span> <span class="n">usage</span><span class="p">;</span>
-            <span class="n">requestInfo</span><span class="o">.</span><span class="n">callIndex</span> <span class="o">=</span> <span class="n">callIndex</span><span class="p">;</span>
-            <span class="n">requestInfo</span><span class="o">.</span><span class="n">pResourceInfo</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">resourceInfo</span><span class="p">;</span>
-            <span class="n">requestInfos</span><span class="o">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">requestInfo</span><span class="p">);</span>
-        <span class="p">}</span>
+<a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">ResourceExtractor::Request::Info</span></a> objects. <p> Note that a single </p>
+<a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">ResourceExtractor::Request</span></a> may have any number of ResourceExtractor::Request::Infos with <p> different ResourceInfos, call indices, and </p>
+<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info_1_1_ex.html#classgpa_1_1playback_1_1_resource_info_1_1_ex"><span class="std std-ref">ResourceInfo::Ex</span></a> objects. </p>
+<p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">ResourceExtractor</span><span class="p">::</span><span class="n">Request</span><span class="p">::</span><span class="n">Info</span><span class="o">&gt;</span> <span class="n">requestInfos</span><span class="p">;</span>
+<span class="n">auto</span> <span class="n">usage</span> <span class="o">=</span> <span class="n">ResourceInfo</span><span class="p">::</span><span class="n">Usage</span><span class="p">::</span><span class="n">GRAPHICS_OUTPUT</span><span class="p">;</span>
+<span class="n">uint64_t</span> <span class="n">callIndex</span> <span class="o">=</span> <span class="mi">128</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">auto</span> <span class="n">usage</span> <span class="p">:</span> <span class="n">usages</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">auto</span> <span class="n">const</span><span class="o">&amp;</span> <span class="n">resourceInfo</span> <span class="p">:</span> <span class="n">playbackEngine</span><span class="o">.</span><span class="n">GetMetadataExtractor</span><span class="p">()</span><span class="o">.</span><span class="n">GetResourceInfos</span><span class="p">(</span><span class="n">usage</span><span class="p">,</span> <span class="n">callIndex</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">resourceInfo</span><span class="o">.</span><span class="n">ProcessAs</span><span class="o">&lt;</span><span class="n">TextureInfo</span><span class="o">&gt;</span><span class="p">(</span>
+            <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="n">TextureInfo</span> <span class="n">const</span><span class="o">&amp;</span> <span class="n">textureInfo</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">ResourceExtractor</span><span class="p">::</span><span class="n">Request</span><span class="p">::</span><span class="n">Info</span> <span class="n">request</span><span class="p">{};</span>
+                <span class="n">request</span><span class="o">.</span><span class="n">callIndex</span> <span class="o">=</span> <span class="n">callIndex</span><span class="p">;</span>
+                <span class="n">request</span><span class="o">.</span><span class="n">pResourceInfo</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">textureInfo</span><span class="p">;</span>
+                <span class="n">requestInfos</span><span class="o">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
+            <span class="p">});</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -354,34 +354,33 @@
  <p> Once we have all of the </p>
 <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a> objects that we’re interested in we <p> need to fill out the necessary fields in </p>
 <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">ResourceExtractor::Request</span></a>. We <p> start by filling out the number of </p>
-<a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a> objects and a pointer to <p> our collection of Request::Infos. Next we need the storage requirements </p>
-<p> for the </p>
-<a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">Request</span></a>. This can be obtained using <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_extractor_1af20be40014b1bd9805bc7554f9d87801"><span class="std std-ref">GetRequestStorageSize()</span></a>. <p> Then we allocate a buffer large enough to hold the </p>
-<a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">Result</span></a> data that will <p> extracted during execution. We need to fill out the </p>
-<a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">Request</span></a> object’s <p> resultStorageSize and pResultStorage fields. Finally we call Execute() </p>
-<p> on our </p>
-<a class="reference internal" href="classgpa_1_1playback_1_1_playback_engine.html#classgpa_1_1playback_1_1_playback_engine"><span class="std std-ref">PlaybackEngine</span></a> with the <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">Request</span></a> and prepare to process the <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">Result</span></a>. <p> Note that the storage allocated here must persist as long as the </p>
-<a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">Result</span></a> <p> obtained from Execute() is in use. The </p>
-<a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">Result</span></a> object’s pData field will <p> simply be the pointer provided for the </p>
-<a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">Request</span></a> object’s pResultStorage. <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ResourceExtractor</span><span class="p">::</span><span class="n">Request</span> <span class="n">request</span> <span class="p">{</span> <span class="p">};</span>
+<a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">ResourceExtractor::Request::Info</span></a> <p> objects and a pointer to our </p>
+<a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">ResourceExtractor::Request::Info</span></a> objects. <p> Next we get the storage requirements for our </p>
+<a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">ResourceExtractor::Request</span></a> <p> using </p>
+<a class="reference internal" href="#classgpa_1_1playback_1_1_resource_extractor_1af20be40014b1bd9805bc7554f9d87801"><span class="std std-ref">GetRequestStorageSize()</span></a> and allocate a buffer to hold our data. <p> We fill out the </p>
+<a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">ResourceExtractor::Request</span></a> object’s pData field with that <p> buffer and call Execute() on our </p>
+<a class="reference internal" href="classgpa_1_1playback_1_1_playback_engine.html#classgpa_1_1playback_1_1_playback_engine"><span class="std std-ref">PlaybackEngine</span></a>. <p> Note that the call to playbackEngine.Execute() will cause the passed in </p>
+<a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">ResourceExtractor::Request::Info</span></a> objects to be sorted. <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ResourceExtractor</span><span class="p">::</span><span class="n">Request</span> <span class="n">request</span><span class="p">{};</span>
 <span class="n">request</span><span class="o">.</span><span class="n">infoCount</span> <span class="o">=</span> <span class="n">requestInfos</span><span class="o">.</span><span class="n">size</span><span class="p">();</span>
 <span class="n">request</span><span class="o">.</span><span class="n">pInfos</span> <span class="o">=</span> <span class="n">requestInfos</span><span class="o">.</span><span class="n">data</span><span class="p">();</span>
-<span class="n">request</span><span class="o">.</span><span class="n">resultStorageSize</span> <span class="o">=</span> <span class="n">playbackEngine</span><span class="o">.</span><span class="n">GetResourceExtractor</span><span class="p">()</span><span class="o">.</span><span class="n">GetRequestStorageSize</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
-<span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">uint8_t</span><span class="o">&gt;</span> <span class="n">resultStorage</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">storageSize</span><span class="p">);</span>
-<span class="n">request</span><span class="o">.</span><span class="n">pResultStorage</span> <span class="o">=</span> <span class="n">resultStorage</span><span class="o">.</span><span class="n">data</span><span class="p">();</span>
-<span class="n">ResourceExtractor</span><span class="p">::</span><span class="n">Result</span> <span class="n">result</span> <span class="o">=</span> <span class="n">playbackEngine</span><span class="o">.</span><span class="n">Execute</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
+<span class="n">auto</span> <span class="n">storageSize</span> <span class="o">=</span> <span class="n">playbackEngine</span><span class="o">.</span><span class="n">GetResourceExtractor</span><span class="p">()</span><span class="o">.</span><span class="n">GetRequestStorageSize</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
+<span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">uint8_t</span><span class="o">&gt;</span> <span class="n">resultStorage</span><span class="p">(</span><span class="n">storageSize</span><span class="p">);</span>
+<span class="n">request</span><span class="o">.</span><span class="n">pData</span> <span class="o">=</span> <span class="n">resultStorage</span><span class="o">.</span><span class="n">data</span><span class="p">();</span>
+<span class="n">playbackEngine</span><span class="o">.</span><span class="n">Execute</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
 </pre></div>
 </div>
- <p> Once we have the </p>
-<a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">Result</span></a> we process it by looping over its <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"><span class="std std-ref">Result::Info</span></a> <p> array. Note that a single </p>
-<a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a> may generate 0-n Result::Infos. <p> Each </p>
-<a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"><span class="std std-ref">Result::Info</span></a> will have a pointer to the <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> that data was <p> extracted for; this is the same </p>
-<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> present in the associated <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a> (which is also provided as a field in the <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"><span class="std std-ref">Result::Info</span></a>). <p> Additionaly any </p>
-<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info_1_1_ex.html#classgpa_1_1playback_1_1_resource_info_1_1_ex"><span class="std std-ref">ResourceInfo::Ex</span></a> is provided as well. <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">result</span><span class="o">.</span><span class="n">infoCount</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">ResourceExtractor</span><span class="p">::</span><span class="n">Result</span><span class="p">::</span><span class="n">Info</span> <span class="n">const</span><span class="o">&amp;</span> <span class="n">resultInfo</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">pInfos</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">resultInfo</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">ResourceExtractor</span><span class="p">::</span><span class="n">Result</span><span class="p">::</span><span class="n">State</span><span class="p">::</span><span class="n">SUCCESS</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">ProcessResultInfo</span><span class="p">(</span><span class="n">resultInfo</span><span class="o">.</span><span class="n">pResourceInfo</span><span class="p">,</span> <span class="n">resultInfo</span><span class="o">.</span><span class="n">dataSize</span><span class="p">,</span> <span class="n">resultInfo</span><span class="o">.</span><span class="n">pData</span><span class="p">);</span>
-    <span class="p">}</span>
+ <p> Finally we loop over our ResourceExtractor::Requests and process each </p>
+<a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">ResourceExtractor::Result</span></a>. Note that <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">ResourceExtractor::Result</span></a> will <p> evaluate to </p>
+<code class="docutils literal notranslate"><span class="pre">true</span></code> when converted to a <code class="docutils literal notranslate"><span class="pre">bool</span></code> if it was successfully <p> extracted. </p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">request</span><span class="o">.</span><span class="n">infoCount</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">auto</span> <span class="n">const</span><span class="o">&amp;</span> <span class="n">requestInfo</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">pInfos</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+   <span class="n">auto</span> <span class="n">const</span><span class="o">&amp;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">requestInfo</span><span class="o">.</span><span class="n">result</span><span class="p">;</span>
+   <span class="k">if</span> <span class="p">(</span><span class="n">requestInfo</span><span class="o">.</span><span class="n">pResourceInfo</span> <span class="o">&amp;&amp;</span> <span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+       <span class="n">requestInfo</span><span class="o">.</span><span class="n">pResourceInfo</span><span class="o">-&gt;</span><span class="n">ProcessAs</span><span class="o">&lt;</span><span class="n">TextureInfo</span><span class="o">&gt;</span><span class="p">(</span>
+           <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="n">TextureInfo</span> <span class="n">const</span><span class="o">&amp;</span> <span class="n">textureInfo</span><span class="p">)</span> <span class="p">{</span>
+               <span class="n">ProcessExtractedTexture</span><span class="p">(</span><span class="n">textureInfo</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">dataSize</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">pData</span><span class="p">);</span>
+           <span class="p">});</span>
+   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -403,16 +402,16 @@
 <dl class="function">
 <dt id="_CPPv4NK3gpa8playback17ResourceExtractor21GetRequestStorageSizeERK7Request">
 <span id="_CPPv3NK3gpa8playback17ResourceExtractor21GetRequestStorageSizeERK7Request"></span><span id="_CPPv2NK3gpa8playback17ResourceExtractor21GetRequestStorageSizeERK7Request"></span><span id="gpa::playback::ResourceExtractor::GetRequestStorageSize__RequestCRC"></span><span class="target" id="classgpa_1_1playback_1_1_resource_extractor_1af20be40014b1bd9805bc7554f9d87801"></span>size_t <code class="sig-name descname">GetRequestStorageSize</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa8playback17ResourceExtractor7RequestE" title="gpa::playback::ResourceExtractor::Request">Request</a> <em class="property">const</em> &amp;<em>request</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa8playback17ResourceExtractor21GetRequestStorageSizeERK7Request" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Gets the size in bytes required to store the <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">Result</span></a> for a given <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">Request</span></a>. </p>
+<dd><p>Gets the size in bytes required to store the <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">ResourceExtractor::Result</span></a> for a given <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">Request</span></a>. </p>
 <p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>The size in bytes required to store the <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">Result</span></a> for the given <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">Request</span></a> </p>
+<dt><strong>Return</strong></dt><dd><p>The size in bytes required to store the <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">ResourceExtractor::Result</span></a> for the given <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">Request</span></a> </p>
 </dd>
-<dt><strong>Note</strong></dt><dd><p>Use this method to fill in the pResultStorage member of the given <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">Request</span></a> </p>
+<dt><strong>Note</strong></dt><dd><p>Use this method to fill in the pData member of the given <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">Request</span></a> </p>
 </dd>
 <dt><strong>Note</strong></dt><dd><p>If this method is overriden the base implementation must be called </p>
 </dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">request</span></code>: The <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">Request</span></a> to get the <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">Result</span></a> storage requirments for </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">request</span></code>: The <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">Request</span></a> to get the <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">ResourceExtractor::Result</span></a> storage requirments for </p></li>
 </ul>
 </dd>
 </dl>
@@ -420,10 +419,12 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="_CPPv4N3gpa8playback17ResourceExtractor10SetRequestERK7Request">
-<span id="_CPPv3N3gpa8playback17ResourceExtractor10SetRequestERK7Request"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor10SetRequestERK7Request"></span><span id="gpa::playback::ResourceExtractor::SetRequest__RequestCR"></span><span class="target" id="classgpa_1_1playback_1_1_resource_extractor_1ae523f067058ed9e5fac44662ae1c76e1"></span><em class="property">virtual</em> void <code class="sig-name descname">SetRequest</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa8playback17ResourceExtractor7RequestE" title="gpa::playback::ResourceExtractor::Request">Request</a> <em class="property">const</em> &amp;<em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor10SetRequestERK7Request" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4N3gpa8playback17ResourceExtractor10SetRequestER7Request">
+<span id="_CPPv3N3gpa8playback17ResourceExtractor10SetRequestER7Request"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor10SetRequestER7Request"></span><span id="gpa::playback::ResourceExtractor::SetRequest__RequestR"></span><span class="target" id="classgpa_1_1playback_1_1_resource_extractor_1a6e29608e515d4bdb7f2ac00eefb66a8c"></span><em class="property">virtual</em> void <code class="sig-name descname">SetRequest</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa8playback17ResourceExtractor7RequestE" title="gpa::playback::ResourceExtractor::Request">Request</a> &amp;<em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor10SetRequestER7Request" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Sets a <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">Request</span></a> on this <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_extractor"><span class="std std-ref">ResourceExtractor</span></a> that will be processed during its next execution. </p>
 <p><dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>This method will cause the given <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">ResourceExtractor::Result</span></a> object’s ResourceExtractor::Result::Info objects to be sorted </p>
+</dd>
 <dt><strong>Note</strong></dt><dd><p>If this method is overriden the base implementation must be called </p>
 </dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
@@ -435,22 +436,9 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="_CPPv4N3gpa8playback17ResourceExtractor11GetResultExEv">
-<span id="_CPPv3N3gpa8playback17ResourceExtractor11GetResultExEv"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor11GetResultExEv"></span><span id="gpa::playback::ResourceExtractor::GetResultEx"></span><span class="target" id="classgpa_1_1playback_1_1_resource_extractor_1a74b16dfbd936455f516149eaeb24f50e"></span><em class="property">virtual</em> <a class="reference internal" href="#_CPPv4N3gpa8playback17ResourceExtractor6ResultE" title="gpa::playback::ResourceExtractor::Result">Result</a> <code class="sig-name descname">GetResultEx</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor11GetResultExEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Gets the <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">Result</span></a> of this <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_extractor"><span class="std std-ref">ResourceExtractor</span></a> object’s most recent execution. </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>The <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">Result</span></a> of this <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_extractor"><span class="std std-ref">ResourceExtractor</span></a> object’s most recent execution </p>
-</dd>
-<dt><strong>Note</strong></dt><dd><p>If this method is overriden the base implementation must be called </p>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-<dl class="function">
 <dt id="_CPPv4N3gpa8playback17ResourceExtractor5ClearEv">
 <span id="_CPPv3N3gpa8playback17ResourceExtractor5ClearEv"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor5ClearEv"></span><span id="gpa::playback::ResourceExtractor::Clear"></span><span class="target" id="classgpa_1_1playback_1_1_resource_extractor_1a9361f52770881f1ac5b2f1a24f796d23"></span><em class="property">virtual</em> void <code class="sig-name descname">Clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor5ClearEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Clears this <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_extractor"><span class="std std-ref">ResourceExtractor</span></a> object’s <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">Request</span></a> and <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">Result</span></a> objects. </p>
+<dd><p>Clears this <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_extractor"><span class="std std-ref">ResourceExtractor</span></a> object’s <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">Request</span></a> and <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">ResourceExtractor::Result</span></a> objects. </p>
 <p><dl class="simple">
 <dt><strong>Note</strong></dt><dd><p>If this method is overriden the base implementation must be called </p>
 </dd>
@@ -485,12 +473,12 @@
 
 <dl class="function">
 <dt id="_CPPv4N3gpa8playback17ResourceExtractor14PreExecuteCallEP8Callable8uint64_t">
-<span id="_CPPv3N3gpa8playback17ResourceExtractor14PreExecuteCallEP8Callable8uint64_t"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor14PreExecuteCallEP8Callable8uint64_t"></span><span id="gpa::playback::ResourceExtractor::PreExecuteCall__CallableP.uint64_t"></span><span class="target" id="classgpa_1_1playback_1_1_resource_extractor_1a55659349b19e1b07d0c767c38a0214f2"></span><em class="property">virtual</em> void <code class="sig-name descname">PreExecuteCall</code><span class="sig-paren">(</span>Callable *<em>pCallable</em>, uint64_t <em>callIndex</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor14PreExecuteCallEP8Callable8uint64_t" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3gpa8playback17ResourceExtractor14PreExecuteCallEP8Callable8uint64_t"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor14PreExecuteCallEP8Callable8uint64_t"></span><span id="gpa::playback::ResourceExtractor::PreExecuteCall__CallableP.uint64_t"></span><span class="target" id="classgpa_1_1playback_1_1_resource_extractor_1a55659349b19e1b07d0c767c38a0214f2"></span><em class="property">virtual</em> void <code class="sig-name descname">PreExecuteCall</code><span class="sig-paren">(</span><a class="reference internal" href="classgpa_1_1playback_1_1_callable.html#_CPPv4N3gpa8playback8CallableE" title="gpa::playback::Callable">Callable</a> *<em>pCallable</em>, uint64_t <em>callIndex</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor14PreExecuteCallEP8Callable8uint64_t" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="_CPPv4N3gpa8playback17ResourceExtractor15PostExecuteCallEP8Callable8uint64_t">
-<span id="_CPPv3N3gpa8playback17ResourceExtractor15PostExecuteCallEP8Callable8uint64_t"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor15PostExecuteCallEP8Callable8uint64_t"></span><span id="gpa::playback::ResourceExtractor::PostExecuteCall__CallableP.uint64_t"></span><span class="target" id="classgpa_1_1playback_1_1_resource_extractor_1ac78ff4ec6c10bf139852844d1dba808e"></span><em class="property">virtual</em> void <code class="sig-name descname">PostExecuteCall</code><span class="sig-paren">(</span>Callable *<em>pCallable</em>, uint64_t <em>callIndex</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor15PostExecuteCallEP8Callable8uint64_t" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3gpa8playback17ResourceExtractor15PostExecuteCallEP8Callable8uint64_t"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor15PostExecuteCallEP8Callable8uint64_t"></span><span id="gpa::playback::ResourceExtractor::PostExecuteCall__CallableP.uint64_t"></span><span class="target" id="classgpa_1_1playback_1_1_resource_extractor_1ac78ff4ec6c10bf139852844d1dba808e"></span><em class="property">virtual</em> void <code class="sig-name descname">PostExecuteCall</code><span class="sig-paren">(</span><a class="reference internal" href="classgpa_1_1playback_1_1_callable.html#_CPPv4N3gpa8playback8CallableE" title="gpa::playback::Callable">Callable</a> *<em>pCallable</em>, uint64_t <em>callIndex</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor15PostExecuteCallEP8Callable8uint64_t" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -522,9 +510,9 @@
 <dl class="function">
 <dt id="_CPPv4NK3gpa8playback17ResourceExtractor21GetRequestStorageSizeERKN7Request4InfoE">
 <span id="_CPPv3NK3gpa8playback17ResourceExtractor21GetRequestStorageSizeERKN7Request4InfoE"></span><span id="_CPPv2NK3gpa8playback17ResourceExtractor21GetRequestStorageSizeERKN7Request4InfoE"></span><span id="gpa::playback::ResourceExtractor::GetRequestStorageSize__Request::InfoCRC"></span><span class="target" id="classgpa_1_1playback_1_1_resource_extractor_1a99689eda16740e16ac670a2c2dd0bba2"></span><em class="property">virtual</em> size_t <code class="sig-name descname">GetRequestStorageSize</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa8playback17ResourceExtractor7RequestE" title="gpa::playback::ResourceExtractor::Request">Request</a>::<a class="reference internal" href="#_CPPv4N3gpa8playback17ResourceExtractor7Request4InfoE" title="gpa::playback::ResourceExtractor::Request::Info">Info</a> <em class="property">const</em> &amp;<em>requestInfo</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa8playback17ResourceExtractor21GetRequestStorageSizeERKN7Request4InfoE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Gets the size in bytes required to store the Result::Info(s) for a given <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a>  [in] requestInfo The <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a> to get the <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"><span class="std std-ref">Result::Info</span></a> storage requirements for. </p>
+<dd><p>Gets the size in bytes required to store the ResourceExtractor::Result::Info(s) for a given <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a>  [in] requestInfo The <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a> to get the ResourceExtractor::Result::Info storage requirements for. </p>
 <p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>The size in bytes required to store the Result::Info(s) for the given <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a> </p>
+<dt><strong>Return</strong></dt><dd><p>The size in bytes required to store the ResourceExtractor::Result::Info(s) for the given <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a> </p>
 </dd>
 <dt><strong>Note</strong></dt><dd><p>If this method is overriden the base implementation must be called </p>
 </dd>
@@ -533,32 +521,54 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="_CPPv4NK3gpa8playback17ResourceExtractor15GetRequestInfosE8uint64_t">
-<span id="_CPPv3NK3gpa8playback17ResourceExtractor15GetRequestInfosE8uint64_t"></span><span id="_CPPv2NK3gpa8playback17ResourceExtractor15GetRequestInfosE8uint64_t"></span><span id="gpa::playback::ResourceExtractor::GetRequestInfos__uint64_tC"></span><span class="target" id="classgpa_1_1playback_1_1_resource_extractor_1afec2186c12d26ad9169661ff0d2a1d96"></span>detail::Span&lt;<a class="reference internal" href="#_CPPv4N3gpa8playback17ResourceExtractor7RequestE" title="gpa::playback::ResourceExtractor::Request">Request</a>::<a class="reference internal" href="#_CPPv4N3gpa8playback17ResourceExtractor7Request4InfoE" title="gpa::playback::ResourceExtractor::Request::Info">Info</a> <em class="property">const</em>&gt; <code class="sig-name descname">GetRequestInfos</code><span class="sig-paren">(</span>uint64_t <em>callIndex</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa8playback17ResourceExtractor15GetRequestInfosE8uint64_t" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Gets a detail::Span&lt;&gt; of the <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a> object’s for a given call index. </p>
+<dt id="_CPPv4N3gpa8playback17ResourceExtractor15GetRequestInfosEv">
+<span id="_CPPv3N3gpa8playback17ResourceExtractor15GetRequestInfosEv"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor15GetRequestInfosEv"></span><span id="gpa::playback::ResourceExtractor::GetRequestInfos"></span><span class="target" id="classgpa_1_1playback_1_1_resource_extractor_1a1324e472eb5805b9c67261636e73b4e5"></span>detail::Span&lt;<a class="reference internal" href="#_CPPv4N3gpa8playback17ResourceExtractor7RequestE" title="gpa::playback::ResourceExtractor::Request">Request</a>::<a class="reference internal" href="#_CPPv4N3gpa8playback17ResourceExtractor7Request4InfoE" title="gpa::playback::ResourceExtractor::Request::Info">Info</a>&gt; <code class="sig-name descname">GetRequestInfos</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor15GetRequestInfosEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Gets all of the <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a> objects currently set on this <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_extractor"><span class="std std-ref">ResourceExtractor</span></a>. </p>
 <p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>A detail::Span&lt;&gt; of the <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a> object’s for a given call idnex </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">callIndex</span></code>: The call index to get the detail::Span&lt;&gt; of <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a> objects for </p></li>
-</ul>
+<dt><strong>Return</strong></dt><dd><p>All of the <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a> objects currently set on this <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_extractor"><span class="std std-ref">ResourceExtractor</span></a> </p>
 </dd>
 </dl>
 </p>
 </dd></dl>
 
 <dl class="function">
-<dt id="_CPPv4N3gpa8playback17ResourceExtractor12UpdateResultERKN6Result4InfoE">
-<span id="_CPPv3N3gpa8playback17ResourceExtractor12UpdateResultERKN6Result4InfoE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor12UpdateResultERKN6Result4InfoE"></span><span id="gpa::playback::ResourceExtractor::UpdateResult__Result::InfoCR"></span><span class="target" id="classgpa_1_1playback_1_1_resource_extractor_1a3ab24b7c6135371d8003d3c33300813c"></span>void <code class="sig-name descname">UpdateResult</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa8playback17ResourceExtractor6ResultE" title="gpa::playback::ResourceExtractor::Result">Result</a>::<a class="reference internal" href="#_CPPv4N3gpa8playback17ResourceExtractor6Result4InfoE" title="gpa::playback::ResourceExtractor::Result::Info">Info</a> <em class="property">const</em> &amp;<em>resultInfo</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor12UpdateResultERKN6Result4InfoE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Updates the current <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">Result</span></a> with a <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"><span class="std std-ref">Result::Info</span></a>. </p>
+<dt id="_CPPv4N3gpa8playback17ResourceExtractor15GetRequestInfosE8uint64_t">
+<span id="_CPPv3N3gpa8playback17ResourceExtractor15GetRequestInfosE8uint64_t"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor15GetRequestInfosE8uint64_t"></span><span id="gpa::playback::ResourceExtractor::GetRequestInfos__uint64_t"></span><span class="target" id="classgpa_1_1playback_1_1_resource_extractor_1a189db8b9b2acb787490ba8ae735520d3"></span>detail::Span&lt;<a class="reference internal" href="#_CPPv4N3gpa8playback17ResourceExtractor7RequestE" title="gpa::playback::ResourceExtractor::Request">Request</a>::<a class="reference internal" href="#_CPPv4N3gpa8playback17ResourceExtractor7Request4InfoE" title="gpa::playback::ResourceExtractor::Request::Info">Info</a>&gt; <code class="sig-name descname">GetRequestInfos</code><span class="sig-paren">(</span>uint64_t <em>callIndex</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor15GetRequestInfosE8uint64_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Gets all of the <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a> objects currently set on this <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_extractor"><span class="std std-ref">ResourceExtractor</span></a> for a given call index. </p>
 <p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>All of the <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a> objects currently set on this <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_extractor"><span class="std std-ref">ResourceExtractor</span></a> for the given call index </p>
+</dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">resultInfo</span></code>: The <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"><span class="std std-ref">Result::Info</span></a> to update the current <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">Result</span></a> with </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">callIndex</span></code>: The call index to get the <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a> objects for </p></li>
 </ul>
 </dd>
 </dl>
 </p>
 </dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Protected Attributes</p>
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback17ResourceExtractor18mMetadataExtractorE">
+<span id="_CPPv3N3gpa8playback17ResourceExtractor18mMetadataExtractorE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor18mMetadataExtractorE"></span><span id="gpa::playback::ResourceExtractor::mMetadataExtractor__MetadataExtractorExCP"></span><span class="target" id="classgpa_1_1playback_1_1_resource_extractor_1a22aa31fb2c15e006fc48188555a0b9c6"></span><a class="reference internal" href="classgpa_1_1playback_1_1_metadata_extractor_ex.html#_CPPv4N3gpa8playback19MetadataExtractorExE" title="gpa::playback::MetadataExtractorEx">MetadataExtractorEx</a> <em class="property">const</em> *<code class="sig-name descname">mMetadataExtractor</code> = {nullptr}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor18mMetadataExtractorE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A pointer to the MetadataExtractor associated with this <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_extractor"><span class="std std-ref">ResourceExtractor</span></a>. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback17ResourceExtractor21mCompatibilityRequestE">
+<span id="_CPPv3N3gpa8playback17ResourceExtractor21mCompatibilityRequestE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor21mCompatibilityRequestE"></span><span id="gpa::playback::ResourceExtractor::mCompatibilityRequest__Request"></span><span class="target" id="classgpa_1_1playback_1_1_resource_extractor_1a918442e17c3f1382779136c90979b69e"></span><a class="reference internal" href="#_CPPv4N3gpa8playback17ResourceExtractor7RequestE" title="gpa::playback::ResourceExtractor::Request">Request</a> <code class="sig-name descname">mCompatibilityRequest</code> = {}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor21mCompatibilityRequestE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback17ResourceExtractor26mCompatibilityRequestInfosE">
+<span id="_CPPv3N3gpa8playback17ResourceExtractor26mCompatibilityRequestInfosE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor26mCompatibilityRequestInfosE"></span><span id="gpa::playback::ResourceExtractor::mCompatibilityRequestInfos__std::vector:Request::Info:"></span><span class="target" id="classgpa_1_1playback_1_1_resource_extractor_1aadd9be7129dc9a40bb749fe6444fbd44"></span>std::vector&lt;<a class="reference internal" href="#_CPPv4N3gpa8playback17ResourceExtractor7RequestE" title="gpa::playback::ResourceExtractor::Request">Request</a>::<a class="reference internal" href="#_CPPv4N3gpa8playback17ResourceExtractor7Request4InfoE" title="gpa::playback::ResourceExtractor::Request::Info">Info</a>&gt; <code class="sig-name descname">mCompatibilityRequestInfos</code><a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor26mCompatibilityRequestInfosE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback17ResourceExtractor27mCompatibiltyRequestStorageE">
+<span id="_CPPv3N3gpa8playback17ResourceExtractor27mCompatibiltyRequestStorageE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor27mCompatibiltyRequestStorageE"></span><span id="gpa::playback::ResourceExtractor::mCompatibiltyRequestStorage__std::vector:uint8_t:"></span><span class="target" id="classgpa_1_1playback_1_1_resource_extractor_1a23a690e8fc45bd44406b2a489268f7c1"></span>std::vector&lt;uint8_t&gt; <code class="sig-name descname">mCompatibiltyRequestStorage</code><a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor27mCompatibiltyRequestStorageE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
 
 </div>
 <dl class="class">
@@ -566,27 +576,13 @@
 <span id="_CPPv3N3gpa8playback17ResourceExtractor7RequestE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor7RequestE"></span><span id="gpa::playback::ResourceExtractor::Request"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_request"></span><em class="property">struct </em><code class="sig-name descname">Request</code><a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor7RequestE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Parameters for obtaining resource data from a <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_extractor"><span class="std std-ref">ResourceExtractor</span></a>. </p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Members</p>
-<dl class="member">
-<dt id="_CPPv4N3gpa8playback17ResourceExtractor7Request9infoCountE">
-<span id="_CPPv3N3gpa8playback17ResourceExtractor7Request9infoCountE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor7Request9infoCountE"></span><span id="gpa::playback::ResourceExtractor::Request::infoCount__s"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1aab673635c67b899f923ce74dc64e9878"></span>size_t <code class="sig-name descname">infoCount</code> = {0}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor7Request9infoCountE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>This <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">Request</span></a> object’s <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a> count. </p>
-</dd></dl>
-
-<dl class="member">
-<dt id="_CPPv4N3gpa8playback17ResourceExtractor7Request6pInfosE">
-<span id="_CPPv3N3gpa8playback17ResourceExtractor7Request6pInfosE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor7Request6pInfosE"></span><span id="gpa::playback::ResourceExtractor::Request::pInfos__InfoCP"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1a863aab90a4fa1074d38868b889bcf1e7"></span><a class="reference internal" href="#_CPPv4N3gpa8playback17ResourceExtractor7Request4InfoE" title="gpa::playback::ResourceExtractor::Request::Info">Info</a> <em class="property">const</em> *<code class="sig-name descname">pInfos</code> = {nullptr}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor7Request6pInfosE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>This <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">Request</span></a> object’s <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a> objects. </p>
-</dd></dl>
-
-<dl class="member">
-<dt id="_CPPv4N3gpa8playback17ResourceExtractor7Request14pResultStorageE">
-<span id="_CPPv3N3gpa8playback17ResourceExtractor7Request14pResultStorageE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor7Request14pResultStorageE"></span><span id="gpa::playback::ResourceExtractor::Request::pResultStorage__uint8_tP"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1a36061dc75970e41b2437fcedd48a87b4"></span>uint8_t *<code class="sig-name descname">pResultStorage</code> = {nullptr}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor7Request14pResultStorageE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>A pointer to this <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">Request</span></a> object’s result storage. </p>
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv4NK3gpa8playback17ResourceExtractor7RequestcvbEv">
+<span id="_CPPv3NK3gpa8playback17ResourceExtractor7RequestcvbEv"></span><span id="_CPPv2NK3gpa8playback17ResourceExtractor7RequestcvbEv"></span><span id="gpa::playback::ResourceExtractor::Request::castto-b-operatorC"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1a0d8aecc2a6e18c407f5b8a8768c4aa8e"></span><code class="sig-name descname">operator bool</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa8playback17ResourceExtractor7RequestcvbEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Converts this <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">ResourceExtractor::Request</span></a> to a value indicating whether or not it’s valid. </p>
 <p><dl class="simple">
-<dt><strong>Note</strong></dt><dd><p>pResultStorage must point to a buffer at least as large as the value obtained from ResourceExtractor::GetRequestStorageSizeInBytes(request) </p>
-</dd>
-<dt><strong>Note</strong></dt><dd><p>The buffer pointed to by pResultStorage must persist at least as long as the <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">Result</span></a> object obtained from a <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_extractor"><span class="std std-ref">ResourceExtractor</span></a> for a given <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">Request</span></a> </p>
+<dt><strong>Note</strong></dt><dd><p>A valid <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">ResourceExtractor::Request</span></a> has a non zero value for infoCount, a non null pointer for pInfos, and a non null pointer for pData </p>
 </dd>
 </dl>
 </p>
@@ -594,50 +590,25 @@
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Friends</p>
-<dl class="function">
-<dt id="_CPPv4eqRK7RequestRK7Request">
-<span id="_CPPv3eqRK7RequestRK7Request"></span><span id="_CPPv2eqRK7RequestRK7Request"></span><span id="eq-operator__RequestCR.RequestCR"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1a635007d074f9990da578091945ac94ff"></span>bool <code class="sig-name descname">operator==</code><span class="sig-paren">(</span>Request <em class="property">const</em> &amp;<em>lhs</em>, Request <em class="property">const</em> &amp;<em>rhs</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4eqRK7RequestRK7Request" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Gets a value indicating whether or not two <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">ResourceExtractor::Request</span></a> objects are equal. </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>Whether or not the given <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">ResourceExtractor::Request</span></a> objects are equal </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">lhs</span></code>: The left hand side object to compare for equality </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">rhs</span></code>: The right hand side object to compare for equality </p></li>
-</ul>
-</dd>
-</dl>
-</p>
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback17ResourceExtractor7Request9infoCountE">
+<span id="_CPPv3N3gpa8playback17ResourceExtractor7Request9infoCountE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor7Request9infoCountE"></span><span id="gpa::playback::ResourceExtractor::Request::infoCount__s"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1aab673635c67b899f923ce74dc64e9878"></span>size_t <code class="sig-name descname">infoCount</code> = {0}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor7Request9infoCountE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">ResourceExtractor::Request</span></a> object’s <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">ResourceExtractor::Request::Info</span></a> count. </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv4neRK7RequestRK7Request">
-<span id="_CPPv3neRK7RequestRK7Request"></span><span id="_CPPv2neRK7RequestRK7Request"></span><span id="neq-operator__RequestCR.RequestCR"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1ac3d806ee796a278b4f1af65a4d5e0bbc"></span>bool <code class="sig-name descname">operator!=</code><span class="sig-paren">(</span>Request <em class="property">const</em> &amp;<em>lhs</em>, Request <em class="property">const</em> &amp;<em>rhs</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4neRK7RequestRK7Request" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Gets a value indicating whether or not two <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">ResourceExtractor::Request</span></a> objects are inequal. </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>Whether or not the given <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">ResourceExtractor::Request</span></a> objects are inequal </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">lhs</span></code>: The left hand side object to compare for inequality </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">rhs</span></code>: The right hand side object to compare for inequality </p></li>
-</ul>
-</dd>
-</dl>
-</p>
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback17ResourceExtractor7Request6pInfosE">
+<span id="_CPPv3N3gpa8playback17ResourceExtractor7Request6pInfosE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor7Request6pInfosE"></span><span id="gpa::playback::ResourceExtractor::Request::pInfos__InfoP"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1ad7d4f990e0c1096ef150e42a6c677c5a"></span><a class="reference internal" href="#_CPPv4N3gpa8playback17ResourceExtractor7Request4InfoE" title="gpa::playback::ResourceExtractor::Request::Info">Info</a> *<code class="sig-name descname">pInfos</code> = {nullptr}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor7Request6pInfosE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">ResourceExtractor::Request</span></a> object’s <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">ResourceExtractor::Request::Info</span></a> objects. </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv4ltRK7RequestRK7Request">
-<span id="_CPPv3ltRK7RequestRK7Request"></span><span id="_CPPv2ltRK7RequestRK7Request"></span><span id="lt-operator__RequestCR.RequestCR"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1a9c273c0501d8981de3fd9385234cc771"></span>bool <code class="sig-name descname">operator&lt;</code><span class="sig-paren">(</span>Request <em class="property">const</em> &amp;<em>lhs</em>, Request <em class="property">const</em> &amp;<em>rhs</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4ltRK7RequestRK7Request" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Gets a value indicating wheter or not one <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">ResourceExtractor::Request</span></a> evaluates to less than another. </p>
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback17ResourceExtractor7Request5pDataE">
+<span id="_CPPv3N3gpa8playback17ResourceExtractor7Request5pDataE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor7Request5pDataE"></span><span id="gpa::playback::ResourceExtractor::Request::pData__uint8_tP"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1a19f1af31cd4a3b043de8549f9acbb79e"></span>uint8_t *<code class="sig-name descname">pData</code> = {nullptr}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor7Request5pDataE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A pointer to this <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">ResourceExtractor::Request</span></a> object’s result storage. </p>
 <p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>Whether or not the lhs <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">ResourceExtractor::Request</span></a> evaluates to less then the rhs <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">ResourceExtractor::Request</span></a> </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">lhs</span></code>: The left hand side object to compare for less than </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">rhs</span></code>: The right hand side object to compare for less than </p></li>
-</ul>
+<dt><strong>Note</strong></dt><dd><p>pData must point to a buffer at least as large as the value obtained from ResourceExtractor::GetRequestStorageSizeInBytes(request) </p>
 </dd>
 </dl>
 </p>
@@ -651,17 +622,6 @@
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Members</p>
 <dl class="member">
-<dt id="_CPPv4N3gpa8playback17ResourceExtractor7Request4Info5usageE">
-<span id="_CPPv3N3gpa8playback17ResourceExtractor7Request4Info5usageE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor7Request4Info5usageE"></span><span id="gpa::playback::ResourceExtractor::Request::Info::usage__ResourceInfo::Usage"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info_1a824d89b011e8a883e32b3216a2ae2a5f"></span><a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#_CPPv4N3gpa8playback12ResourceInfoE" title="gpa::playback::ResourceInfo">ResourceInfo</a>::<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#_CPPv4N3gpa8playback12ResourceInfo5UsageE" title="gpa::playback::ResourceInfo::Usage">Usage</a> <code class="sig-name descname">usage</code> = {<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#_CPPv4N3gpa8playback12ResourceInfoE" title="gpa::playback::ResourceInfo">ResourceInfo</a>::<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#_CPPv4N3gpa8playback12ResourceInfo5UsageE" title="gpa::playback::ResourceInfo::Usage">Usage</a>::UNKNOWN}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor7Request4Info5usageE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>The <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"><span class="std std-ref">ResourceInfo::Usage</span></a> to obtain. </p>
-<p><dl class="simple">
-<dt><strong>Note</strong></dt><dd><p>If this field is ResourceInfo::Usage::UNKNOWN all ResourceInfo::Usages will be requested </p>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-<dl class="member">
 <dt id="_CPPv4N3gpa8playback17ResourceExtractor7Request4Info9callIndexE">
 <span id="_CPPv3N3gpa8playback17ResourceExtractor7Request4Info9callIndexE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor7Request4Info9callIndexE"></span><span id="gpa::playback::ResourceExtractor::Request::Info::callIndex__uint64_t"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info_1a79e8049f88c0d02b21ec873d8bf89285"></span>uint64_t <code class="sig-name descname">callIndex</code> = {0}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor7Request4Info9callIndexE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>The call index to obtain resource data for. </p>
@@ -673,55 +633,42 @@
 <dd><p>A pointer to the <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> to obtain resource data for. </p>
 </dd></dl>
 
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Friends</p>
-<dl class="function">
-<dt id="_CPPv4eqRKN7Request4InfoERKN7Request4InfoE">
-<span id="_CPPv3eqRKN7Request4InfoERKN7Request4InfoE"></span><span id="_CPPv2eqRKN7Request4InfoERKN7Request4InfoE"></span><span id="eq-operator__Request::InfoCR.Request::InfoCR"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info_1ac78cba46584fb018601bb483c63b084e"></span>bool <code class="sig-name descname">operator==</code><span class="sig-paren">(</span>Request::Info <em class="property">const</em> &amp;<em>lhs</em>, Request::Info <em class="property">const</em> &amp;<em>rhs</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4eqRKN7Request4InfoERKN7Request4InfoE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Gets a value indicating whether or not two <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">ResourceExtractor::Request::Info</span></a> objects are equal. </p>
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback17ResourceExtractor7Request4Info15pResourceInfoExE">
+<span id="_CPPv3N3gpa8playback17ResourceExtractor7Request4Info15pResourceInfoExE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor7Request4Info15pResourceInfoExE"></span><span id="gpa::playback::ResourceExtractor::Request::Info::pResourceInfoEx__ResourceInfo::ExCP"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info_1a4e4ad1a5941b2f1b6d9f64402932644a"></span><a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#_CPPv4N3gpa8playback12ResourceInfoE" title="gpa::playback::ResourceInfo">ResourceInfo</a>::<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#_CPPv4N3gpa8playback12ResourceInfo2ExE" title="gpa::playback::ResourceInfo::Ex">Ex</a> <em class="property">const</em> *<code class="sig-name descname">pResourceInfoEx</code> = {nullptr}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor7Request4Info15pResourceInfoExE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A pointer to the <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info_1_1_ex.html#classgpa_1_1playback_1_1_resource_info_1_1_ex"><span class="std std-ref">ResourceInfo::Ex</span></a> to obtain resource data for. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback17ResourceExtractor7Request4Info12bufferRegionE">
+<span id="_CPPv3N3gpa8playback17ResourceExtractor7Request4Info12bufferRegionE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor7Request4Info12bufferRegionE"></span><span id="gpa::playback::ResourceExtractor::Request::Info::bufferRegion__api_types::BufferRegion"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info_1a3b1782a2e73023cb2d2d65114fe2588d"></span>api_types::<a class="reference internal" href="structgpa_1_1api__types_1_1_buffer_region.html#_CPPv4N3gpa9api_types12BufferRegionE" title="gpa::api_types::BufferRegion">BufferRegion</a> <code class="sig-name descname">bufferRegion</code> = {api_types::<a class="reference internal" href="structgpa_1_1api__types_1_1_buffer_region.html#_CPPv4N3gpa9api_types12BufferRegionE" title="gpa::api_types::BufferRegion">BufferRegion</a>::<a class="reference internal" href="structgpa_1_1api__types_1_1_buffer_region.html#_CPPv4N3gpa9api_types12BufferRegion11WholeRegionE" title="gpa::api_types::BufferRegion::WholeRegion">WholeRegion</a>}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor7Request4Info12bufferRegionE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The region of the buffer to objtain resource data for. </p>
 <p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>Whether or not the given <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">ResourceExtractor::Request::Info</span></a> objects are equal </p>
+<dt><strong>Note</strong></dt><dd><p>This field is only used if pResourceInfo points to a <a class="reference internal" href="classgpa_1_1playback_1_1_buffer_info.html#classgpa_1_1playback_1_1_buffer_info"><span class="std std-ref">BufferInfo</span></a> object </p>
 </dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">lhs</span></code>: The left hand side object to compare for equality </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">rhs</span></code>: The right hand side object to compare for equality </p></li>
-</ul>
+<dt><strong>Note</strong></dt><dd><p>This field is only used if pResourceInfoEx is null </p>
 </dd>
 </dl>
 </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv4neRKN7Request4InfoERKN7Request4InfoE">
-<span id="_CPPv3neRKN7Request4InfoERKN7Request4InfoE"></span><span id="_CPPv2neRKN7Request4InfoERKN7Request4InfoE"></span><span id="neq-operator__Request::InfoCR.Request::InfoCR"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info_1a38f6bad7151824b0fc7e89f432da1244"></span>bool <code class="sig-name descname">operator!=</code><span class="sig-paren">(</span>Request::Info <em class="property">const</em> &amp;<em>lhs</em>, Request::Info <em class="property">const</em> &amp;<em>rhs</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4neRKN7Request4InfoERKN7Request4InfoE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Gets a value indicating whether or not two <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">ResourceExtractor::Request::Info</span></a> objects are inequal. </p>
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback17ResourceExtractor7Request4Info13textureRegionE">
+<span id="_CPPv3N3gpa8playback17ResourceExtractor7Request4Info13textureRegionE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor7Request4Info13textureRegionE"></span><span id="gpa::playback::ResourceExtractor::Request::Info::textureRegion__api_types::TextureRegion"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info_1aaf0520766f140a212e026039991cd993"></span>api_types::<a class="reference internal" href="structgpa_1_1api__types_1_1_texture_region.html#_CPPv4N3gpa9api_types13TextureRegionE" title="gpa::api_types::TextureRegion">TextureRegion</a> <code class="sig-name descname">textureRegion</code> = {api_types::<a class="reference internal" href="structgpa_1_1api__types_1_1_texture_region.html#_CPPv4N3gpa9api_types13TextureRegionE" title="gpa::api_types::TextureRegion">TextureRegion</a>::<a class="reference internal" href="structgpa_1_1api__types_1_1_texture_region.html#_CPPv4N3gpa9api_types13TextureRegion11WholeRegionE" title="gpa::api_types::TextureRegion::WholeRegion">WholeRegion</a>}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor7Request4Info13textureRegionE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The region of the texture to objtain resource data for. </p>
 <p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>Whether or not the given <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">ResourceExtractor::Request::Info</span></a> objects are inequal </p>
+<dt><strong>Note</strong></dt><dd><p>This field is only used if pResourceInfo points to a <a class="reference internal" href="classgpa_1_1playback_1_1_texture_info.html#classgpa_1_1playback_1_1_texture_info"><span class="std std-ref">TextureInfo</span></a> object </p>
 </dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">lhs</span></code>: The left hand side object to compare for inequality </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">rhs</span></code>: The right hand side object to compare for inequality </p></li>
-</ul>
+<dt><strong>Note</strong></dt><dd><p>This field is only used if pResourceInfoEx is null </p>
 </dd>
 </dl>
 </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv4ltRKN7Request4InfoERKN7Request4InfoE">
-<span id="_CPPv3ltRKN7Request4InfoERKN7Request4InfoE"></span><span id="_CPPv2ltRKN7Request4InfoERKN7Request4InfoE"></span><span id="lt-operator__Request::InfoCR.Request::InfoCR"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info_1a13aa32ffc7b855958420128fa4e0a79d"></span>bool <code class="sig-name descname">operator&lt;</code><span class="sig-paren">(</span>Request::Info <em class="property">const</em> &amp;<em>lhs</em>, Request::Info <em class="property">const</em> &amp;<em>rhs</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4ltRKN7Request4InfoERKN7Request4InfoE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Gets a value indicating wheter or not one <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">ResourceExtractor::Request::Info</span></a> evaluates to less than another. </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>Whether or not the lhs <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">ResourceExtractor::Request::Info</span></a> evaluates to less then the rhs ResourceExtractor::Request::Entry </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">lhs</span></code>: The left hand side object to compare for less than </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">rhs</span></code>: The right hand side object to compare for less than </p></li>
-</ul>
-</dd>
-</dl>
-</p>
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback17ResourceExtractor7Request4Info6resultE">
+<span id="_CPPv3N3gpa8playback17ResourceExtractor7Request4Info6resultE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor7Request4Info6resultE"></span><span id="gpa::playback::ResourceExtractor::Request::Info::result__Result"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info_1a00a8c2cb2e345f2b570f9cf6adc2c39a"></span><a class="reference internal" href="#_CPPv4N3gpa8playback17ResourceExtractor6ResultE" title="gpa::playback::ResourceExtractor::Result">Result</a> <code class="sig-name descname">result</code> = {}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor7Request4Info6resultE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">ResourceExtractor::Result</span></a> populated when this <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">ResourceExtractor::Request</span></a> is submitted. </p>
 </dd></dl>
 
 </div>
@@ -741,233 +688,101 @@
 <dd><p>Enumeration of possible states of <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">ResourceExtractor::Result</span></a>. </p>
 <p><em>Values:</em></p>
 <dl class="enumerator">
-<dt id="_CPPv4N3gpa8playback17ResourceExtractor8UNKNONWNE">
-<span id="_CPPv3N3gpa8playback17ResourceExtractor8UNKNONWNE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor8UNKNONWNE"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1a4ec152f0255f4e224a381eefe4e53982a93bd0d6934b55c84de4b85dbf62a1aa4"></span><code class="sig-name descname">UNKNONWN</code><a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor8UNKNONWNE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dt id="_CPPv4N3gpa8playback17ResourceExtractor7PENDINGE">
+<span id="_CPPv3N3gpa8playback17ResourceExtractor7PENDINGE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor7PENDINGE"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1a4ec152f0255f4e224a381eefe4e53982ac69f06e1a9b016d133907b4e5f5864d2"></span><code class="sig-name descname">PENDING</code> = 0<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor7PENDINGE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Indicates that a <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">ResourceExtractor::Request::Info</span></a> has been created but not yet submitted. </p>
+</dd></dl>
 
 <dl class="enumerator">
 <dt id="_CPPv4N3gpa8playback17ResourceExtractor7SUCCESSE">
-<span id="_CPPv3N3gpa8playback17ResourceExtractor7SUCCESSE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor7SUCCESSE"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1a4ec152f0255f4e224a381eefe4e53982ad0749aaba8b833466dfcbb0428e4f89c"></span><code class="sig-name descname">SUCCESS</code><a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor7SUCCESSE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<span id="_CPPv3N3gpa8playback17ResourceExtractor7SUCCESSE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor7SUCCESSE"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1a4ec152f0255f4e224a381eefe4e53982ad0749aaba8b833466dfcbb0428e4f89c"></span><code class="sig-name descname">SUCCESS</code> = 1<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor7SUCCESSE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Indicates that a <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">ResourceExtractor::Request::Info</span></a> has been submitted and the resource was successfully extracted. </p>
+</dd></dl>
 
 <dl class="enumerator">
-<dt id="_CPPv4N3gpa8playback17ResourceExtractor7FAILUREE">
-<span id="_CPPv3N3gpa8playback17ResourceExtractor7FAILUREE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor7FAILUREE"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1a4ec152f0255f4e224a381eefe4e53982a36fc6065a3e970bc3e6b2e59da52bf2a"></span><code class="sig-name descname">FAILURE</code><a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor7FAILUREE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dt id="_CPPv4N3gpa8playback17ResourceExtractor15FAILURE_UNKNOWNE">
+<span id="_CPPv3N3gpa8playback17ResourceExtractor15FAILURE_UNKNOWNE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor15FAILURE_UNKNOWNE"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1a4ec152f0255f4e224a381eefe4e53982a572208e96736fe844d26e5446ed0ff2a"></span><code class="sig-name descname">FAILURE_UNKNOWN</code> = -1<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor15FAILURE_UNKNOWNE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Indicates that a <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">ResourceExtractor::Request::Info</span></a> has been submitted and failed for an unknown reason. </p>
+</dd></dl>
 
 <dl class="enumerator">
-<dt id="_CPPv4N3gpa8playback17ResourceExtractor5COUNTE">
-<span id="_CPPv3N3gpa8playback17ResourceExtractor5COUNTE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor5COUNTE"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1a4ec152f0255f4e224a381eefe4e53982a4905ac9d6a22bdfc1ae096094ce6248d"></span><code class="sig-name descname">COUNT</code><a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor5COUNTE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dt id="_CPPv4N3gpa8playback17ResourceExtractor19FAILURE_UNSUPPORTEDE">
+<span id="_CPPv3N3gpa8playback17ResourceExtractor19FAILURE_UNSUPPORTEDE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor19FAILURE_UNSUPPORTEDE"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1a4ec152f0255f4e224a381eefe4e53982aa3d30d96028613f805007d3316ddb25c"></span><code class="sig-name descname">FAILURE_UNSUPPORTED</code> = -2<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor19FAILURE_UNSUPPORTEDE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Indicates that a <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">ResourceExtractor::Request::Info</span></a> was submitted for a pResourceInfo which does not support extraction. </p>
+</dd></dl>
 
+<dl class="enumerator">
+<dt id="_CPPv4N3gpa8playback17ResourceExtractor34FAILURE_NO_RESOURCE_INFO_SPECIFIEDE">
+<span id="_CPPv3N3gpa8playback17ResourceExtractor34FAILURE_NO_RESOURCE_INFO_SPECIFIEDE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor34FAILURE_NO_RESOURCE_INFO_SPECIFIEDE"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1a4ec152f0255f4e224a381eefe4e53982a8ac31e0123a817db96adbfd93aa2472f"></span><code class="sig-name descname">FAILURE_NO_RESOURCE_INFO_SPECIFIED</code> = -3<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor34FAILURE_NO_RESOURCE_INFO_SPECIFIEDE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Indicates that a <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">ResourceExtractor::Request::Info</span></a> was submitted wihout a pResourceInfo. </p>
+</dd></dl>
+
+<dl class="enumerator">
+<dt id="_CPPv4N3gpa8playback17ResourceExtractor30FAILURE_RESOURCE_INFO_MISMATCHE">
+<span id="_CPPv3N3gpa8playback17ResourceExtractor30FAILURE_RESOURCE_INFO_MISMATCHE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor30FAILURE_RESOURCE_INFO_MISMATCHE"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1a4ec152f0255f4e224a381eefe4e53982ad562c9acc03a618d132a94e42a250043"></span><code class="sig-name descname">FAILURE_RESOURCE_INFO_MISMATCH</code> = -4<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor30FAILURE_RESOURCE_INFO_MISMATCHE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Indicates that a <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">ResourceExtractor::Request::Info</span></a> was submitted with a pResourceInfoEx that does not reference the given pResourceInfo. </p>
+</dd></dl>
+
+<dl class="enumerator">
+<dt id="_CPPv4N3gpa8playback17ResourceExtractor28FAILURE_REGION_OUT_OF_BOUNDSE">
+<span id="_CPPv3N3gpa8playback17ResourceExtractor28FAILURE_REGION_OUT_OF_BOUNDSE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor28FAILURE_REGION_OUT_OF_BOUNDSE"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1a4ec152f0255f4e224a381eefe4e53982a0f01e37aa4622ee2311db76bbc0e3f6e"></span><code class="sig-name descname">FAILURE_REGION_OUT_OF_BOUNDS</code> = -5<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor28FAILURE_REGION_OUT_OF_BOUNDSE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Indicates that a <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">ResourceExtractor::Request::Info</span></a> was submitted with a BufferRegion or TextureRegion outside of the bounds of the given pResourceInfo. </p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv4NK3gpa8playback17ResourceExtractor6ResultcvbEv">
+<span id="_CPPv3NK3gpa8playback17ResourceExtractor6ResultcvbEv"></span><span id="_CPPv2NK3gpa8playback17ResourceExtractor6ResultcvbEv"></span><span id="gpa::playback::ResourceExtractor::Result::castto-b-operatorC"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1a78956911a03d801a05a1460609a00176"></span><code class="sig-name descname">operator bool</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa8playback17ResourceExtractor6ResultcvbEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Converts this <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">ResourceExtractor::Result</span></a> to a value indicating whether or not it’s valid. </p>
+<p><dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>A valid <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">ResourceExtractor::Result</span></a> has a state of <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1a4ec152f0255f4e224a381eefe4e53982ad0749aaba8b833466dfcbb0428e4f89c"><span class="std std-ref">State::SUCCESS</span></a>, a non zero value for dataSize, and a non null pointer for pData </p>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Members</p>
 <dl class="member">
-<dt id="_CPPv4N3gpa8playback17ResourceExtractor6Result9infoCountE">
-<span id="_CPPv3N3gpa8playback17ResourceExtractor6Result9infoCountE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor6Result9infoCountE"></span><span id="gpa::playback::ResourceExtractor::Result::infoCount__s"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1ae5227724547e68bc1fc13a95d1649e38"></span>size_t <code class="sig-name descname">infoCount</code> = {0}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor6Result9infoCountE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>This <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">Result</span></a> object’s <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"><span class="std std-ref">Result::Info</span></a> count. </p>
-</dd></dl>
-
-<dl class="member">
-<dt id="_CPPv4N3gpa8playback17ResourceExtractor6Result6pInfosE">
-<span id="_CPPv3N3gpa8playback17ResourceExtractor6Result6pInfosE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor6Result6pInfosE"></span><span id="gpa::playback::ResourceExtractor::Result::pInfos__InfoCP"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1a858eff8e12c303d7c1a3f9d633013d94"></span><a class="reference internal" href="#_CPPv4N3gpa8playback17ResourceExtractor6Result4InfoE" title="gpa::playback::ResourceExtractor::Result::Info">Info</a> <em class="property">const</em> *<code class="sig-name descname">pInfos</code> = {nullptr}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor6Result6pInfosE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>This <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">Result</span></a> object’s <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"><span class="std std-ref">Result::Info</span></a> objects. </p>
-<p><dl class="simple">
-<dt><strong>Note</strong></dt><dd><p><a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"><span class="std std-ref">Result::Info</span></a> objects are stored in the buffer provided in the pResultStorage member of the corresponding <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">Request</span></a> </p>
-</dd>
-<dt><strong>Note</strong></dt><dd><p>The buffer pointed to by the corresponding <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">Request</span></a> object’s pResultStorage must persist at least as long as this <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">Result</span></a> </p>
-</dd>
-</dl>
-</p>
+<dt id="_CPPv4N3gpa8playback17ResourceExtractor6Result5stateE">
+<span id="_CPPv3N3gpa8playback17ResourceExtractor6Result5stateE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor6Result5stateE"></span><span id="gpa::playback::ResourceExtractor::Result::state__State"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1a9a615773d9fa127e04c66b98040b23db"></span><a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#_CPPv4N3gpa8playback17ResourceExtractor6Result5StateE" title="gpa::playback::ResourceExtractor::Result::State">State</a> <code class="sig-name descname">state</code> = {<a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#_CPPv4N3gpa8playback17ResourceExtractor6Result5StateE" title="gpa::playback::ResourceExtractor::Result::State">State</a>::PENDING}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor6Result5stateE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">ResourceExtractor::Result</span></a> object’s state. </p>
 </dd></dl>
 
 <dl class="member">
 <dt id="_CPPv4N3gpa8playback17ResourceExtractor6Result8dataSizeE">
 <span id="_CPPv3N3gpa8playback17ResourceExtractor6Result8dataSizeE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor6Result8dataSizeE"></span><span id="gpa::playback::ResourceExtractor::Result::dataSize__s"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1ab635a6ecdd50ed98c6138684e8fbe259"></span>size_t <code class="sig-name descname">dataSize</code> = {0}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor6Result8dataSizeE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>The size in bytes of the resource data referenced by this <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"><span class="std std-ref">Result::Info</span></a>. </p>
+<dd><p>The size in bytes of the resource data referenced by this <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">ResourceExtractor::Result</span></a>. </p>
 </dd></dl>
 
 <dl class="member">
 <dt id="_CPPv4N3gpa8playback17ResourceExtractor6Result5pDataE">
-<span id="_CPPv3N3gpa8playback17ResourceExtractor6Result5pDataE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor6Result5pDataE"></span><span id="gpa::playback::ResourceExtractor::Result::pData__uint8_tCP"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1aa9a431a7c2dc9499ce13e05ea3b14c9b"></span>uint8_t <em class="property">const</em> *<code class="sig-name descname">pData</code> = {nullptr}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor6Result5pDataE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>This <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">Result</span></a> object’s <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"><span class="std std-ref">Result::Info</span></a> objects. </p>
-<p><dl class="simple">
-<dt><strong>Note</strong></dt><dd><p>Resource data is stored in the buffer provided in the pResultStorage member of the corresponding <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">Request</span></a> </p>
-</dd>
-<dt><strong>Note</strong></dt><dd><p>The buffer pointed to by the corresponding <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">Request</span></a> object’s pResultStorage must persist at least as long as this <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">Result</span></a> </p>
-</dd>
-</dl>
-</p>
+<span id="_CPPv3N3gpa8playback17ResourceExtractor6Result5pDataE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor6Result5pDataE"></span><span id="gpa::playback::ResourceExtractor::Result::pData__uint8_tP"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1a2b346b294eacfa985a674e773ca0bdd5"></span>uint8_t *<code class="sig-name descname">pData</code> = {nullptr}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor6Result5pDataE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A pointer to the resource data referenced by this <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">ResourceExtractor::Result</span></a>. </p>
 </dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback17ResourceExtractor6Result6formatE">
+<span id="_CPPv3N3gpa8playback17ResourceExtractor6Result6formatE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor6Result6formatE"></span><span id="gpa::playback::ResourceExtractor::Result::format__api_types::Format"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1abf328f77bbe2d5831130f78cee63fb26"></span>api_types::<a class="reference internal" href="enum_format_8h_1af8b1693117251b30b5c8dedc73e428c3.html#_CPPv4N3gpa9api_types6FormatE" title="gpa::api_types::Format">Format</a> <code class="sig-name descname">format</code> = {api_types::<a class="reference internal" href="enum_format_8h_1af8b1693117251b30b5c8dedc73e428c3.html#_CPPv4N3gpa9api_types18GPA_FORMAT_UNKNOWNE" title="gpa::api_types::GPA_FORMAT_UNKNOWN">GPA_FORMAT_UNKNOWN</a>}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor6Result6formatE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Pixel format of the result data. May be different to original texture format (planes) </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback17ResourceExtractor6Result8rowPitchE">
+<span id="_CPPv3N3gpa8playback17ResourceExtractor6Result8rowPitchE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor6Result8rowPitchE"></span><span id="gpa::playback::ResourceExtractor::Result::rowPitch__s"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1a6ecce204cef4a830189f96a3c7e8cf3f"></span>size_t <code class="sig-name descname">rowPitch</code> = {0}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor6Result8rowPitchE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N3gpa8playback17ResourceExtractor6Result10slicePitchE">
+<span id="_CPPv3N3gpa8playback17ResourceExtractor6Result10slicePitchE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor6Result10slicePitchE"></span><span id="gpa::playback::ResourceExtractor::Result::slicePitch__s"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1a1ab2eef8e0355c0a89422e97f5a2e53d"></span>size_t <code class="sig-name descname">slicePitch</code> = {0}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor6Result10slicePitchE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
 
 </div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Friends</p>
-<dl class="function">
-<dt id="_CPPv4eqRK6ResultRK6Result">
-<span id="_CPPv3eqRK6ResultRK6Result"></span><span id="_CPPv2eqRK6ResultRK6Result"></span><span id="eq-operator__ResultCR.ResultCR"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1ab828859fdcb672369183c9257015810e"></span>bool <code class="sig-name descname">operator==</code><span class="sig-paren">(</span>Result <em class="property">const</em> &amp;<em>lhs</em>, Result <em class="property">const</em> &amp;<em>rhs</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4eqRK6ResultRK6Result" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Gets a value indicating whether or not two <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">ResourceExtractor::Result</span></a> objects are equal. </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>Whether or not the given <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">ResourceExtractor::Result</span></a> objects are equal </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">lhs</span></code>: The left hand side object to compare for equality </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">rhs</span></code>: The right hand side object to compare for equality </p></li>
-</ul>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="_CPPv4neRK6ResultRK6Result">
-<span id="_CPPv3neRK6ResultRK6Result"></span><span id="_CPPv2neRK6ResultRK6Result"></span><span id="neq-operator__ResultCR.ResultCR"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1a0bcb8395b0efd0664f19c9e75d1ea1ca"></span>bool <code class="sig-name descname">operator!=</code><span class="sig-paren">(</span>Result <em class="property">const</em> &amp;<em>lhs</em>, Result <em class="property">const</em> &amp;<em>rhs</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4neRK6ResultRK6Result" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Gets a value indicating whether or not two <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">ResourceExtractor::Result</span></a> objects are inequal. </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>Whether or not the given <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">ResourceExtractor::Result</span></a> objects are inequal </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">lhs</span></code>: The left hand side object to compare for inequality </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">rhs</span></code>: The right hand side object to compare for inequality </p></li>
-</ul>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="_CPPv4ltRK6ResultRK6Result">
-<span id="_CPPv3ltRK6ResultRK6Result"></span><span id="_CPPv2ltRK6ResultRK6Result"></span><span id="lt-operator__ResultCR.ResultCR"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1a9e7102d274af595e558f249c539648f0"></span>bool <code class="sig-name descname">operator&lt;</code><span class="sig-paren">(</span>Result <em class="property">const</em> &amp;<em>lhs</em>, Result <em class="property">const</em> &amp;<em>rhs</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4ltRK6ResultRK6Result" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Gets a value indicating wheter or not one <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">ResourceExtractor::Result</span></a> evaluates to less than another. </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>Whether or not the lhs <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">ResourceExtractor::Result</span></a> evaluates to less then the rhs <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">ResourceExtractor::Result</span></a> </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">lhs</span></code>: The left hand side object to compare for less than </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">rhs</span></code>: The right hand side object to compare for less than </p></li>
-</ul>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-</div>
-<dl class="class">
-<dt id="_CPPv4N3gpa8playback17ResourceExtractor6Result4InfoE">
-<span id="_CPPv3N3gpa8playback17ResourceExtractor6Result4InfoE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor6Result4InfoE"></span><span id="gpa::playback::ResourceExtractor::Result::Info"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"></span><em class="property">struct </em><code class="sig-name descname">Info</code><a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor6Result4InfoE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Parameters for a single entry in a <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result"><span class="std std-ref">ResourceExtractor::Result</span></a>. </p>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Members</p>
-<dl class="member">
-<dt id="_CPPv4N3gpa8playback17ResourceExtractor6Result4Info11requestInfoE">
-<span id="_CPPv3N3gpa8playback17ResourceExtractor6Result4Info11requestInfoE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor6Result4Info11requestInfoE"></span><span id="gpa::playback::ResourceExtractor::Result::Info::requestInfo__Request::Info"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info_1a30892ae6f50b0f82df03cda1bb3f239f"></span><a class="reference internal" href="#_CPPv4N3gpa8playback17ResourceExtractor7RequestE" title="gpa::playback::ResourceExtractor::Request">Request</a>::<a class="reference internal" href="#_CPPv4N3gpa8playback17ResourceExtractor7Request4InfoE" title="gpa::playback::ResourceExtractor::Request::Info">Info</a> <code class="sig-name descname">requestInfo</code> = {}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor6Result4Info11requestInfoE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>This <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"><span class="std std-ref">Result::Info</span></a> object’s corresponding <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a>. </p>
-<p><dl class="simple">
-<dt><strong>Note</strong></dt><dd><p>Any given <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a> may generate 0-n <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a> object’s while processing the <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request"><span class="std std-ref">Request</span></a> </p>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-<dl class="member">
-<dt id="_CPPv4N3gpa8playback17ResourceExtractor6Result4Info13pResourceInfoE">
-<span id="_CPPv3N3gpa8playback17ResourceExtractor6Result4Info13pResourceInfoE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor6Result4Info13pResourceInfoE"></span><span id="gpa::playback::ResourceExtractor::Result::Info::pResourceInfo__ResourceInfoCP"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info_1aac410d76b22652409793733b1f23e353"></span><a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#_CPPv4N3gpa8playback12ResourceInfoE" title="gpa::playback::ResourceInfo">ResourceInfo</a> <em class="property">const</em> *<code class="sig-name descname">pResourceInfo</code> = {nullptr}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor6Result4Info13pResourceInfoE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>A pointer to the <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> whose data is referenced by this <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"><span class="std std-ref">Result::Info</span></a>. </p>
-<p><dl class="simple">
-<dt><strong>Note</strong></dt><dd><p>This is the same <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> pointer, provided for convenience, as the one in this <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"><span class="std std-ref">Result::Info</span></a> object’s <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a> </p>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-<dl class="member">
-<dt id="_CPPv4N3gpa8playback17ResourceExtractor6Result4Info15pResourceInfoExE">
-<span id="_CPPv3N3gpa8playback17ResourceExtractor6Result4Info15pResourceInfoExE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor6Result4Info15pResourceInfoExE"></span><span id="gpa::playback::ResourceExtractor::Result::Info::pResourceInfoEx__ResourceInfo::ExCP"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info_1adc2fc22c80defa653b959b3f4626d8e9"></span><a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#_CPPv4N3gpa8playback12ResourceInfoE" title="gpa::playback::ResourceInfo">ResourceInfo</a>::<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#_CPPv4N3gpa8playback12ResourceInfo2ExE" title="gpa::playback::ResourceInfo::Ex">Ex</a> <em class="property">const</em> *<code class="sig-name descname">pResourceInfoEx</code> = {nullptr}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor6Result4Info15pResourceInfoExE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>A pointer to the <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info_1_1_ex.html#classgpa_1_1playback_1_1_resource_info_1_1_ex"><span class="std std-ref">ResourceInfo::Ex</span></a> obtained while processing this <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"><span class="std std-ref">Result::Info</span></a> object’s <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a>. </p>
-<p><dl class="simple">
-<dt><strong>Note</strong></dt><dd><p>pResourceInfoEx will generally correspond to the <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"><span class="std std-ref">ResourceInfo::Usage</span></a> provided in this <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"><span class="std std-ref">Result::Info</span></a> object’s <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_request_1_1_info"><span class="std std-ref">Request::Info</span></a> </p>
-</dd>
-<dt><strong>Note</strong></dt><dd><p>This field may be null </p>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-<dl class="member">
-<dt id="_CPPv4N3gpa8playback17ResourceExtractor6Result4Info5stateE">
-<span id="_CPPv3N3gpa8playback17ResourceExtractor6Result4Info5stateE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor6Result4Info5stateE"></span><span id="gpa::playback::ResourceExtractor::Result::Info::state__State"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info_1a2e1c4756b6f5046780404ed0a42a5d90"></span><a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#_CPPv4N3gpa8playback17ResourceExtractor6Result5StateE" title="gpa::playback::ResourceExtractor::Result::State">State</a> <code class="sig-name descname">state</code> = {<a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result.html#_CPPv4N3gpa8playback17ResourceExtractor6Result5StateE" title="gpa::playback::ResourceExtractor::Result::State">State</a>::UNKNONWN}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor6Result4Info5stateE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>This <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"><span class="std std-ref">Result::Info</span></a> object’s state. </p>
-</dd></dl>
-
-<dl class="member">
-<dt id="_CPPv4N3gpa8playback17ResourceExtractor6Result4Info8dataSizeE">
-<span id="_CPPv3N3gpa8playback17ResourceExtractor6Result4Info8dataSizeE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor6Result4Info8dataSizeE"></span><span id="gpa::playback::ResourceExtractor::Result::Info::dataSize__s"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info_1a59215eb067fcb9153fb907c269954d81"></span>size_t <code class="sig-name descname">dataSize</code> = {0}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor6Result4Info8dataSizeE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>The size in bytes of the resource data referenced by this <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"><span class="std std-ref">Result::Info</span></a>. </p>
-</dd></dl>
-
-<dl class="member">
-<dt id="_CPPv4N3gpa8playback17ResourceExtractor6Result4Info5pDataE">
-<span id="_CPPv3N3gpa8playback17ResourceExtractor6Result4Info5pDataE"></span><span id="_CPPv2N3gpa8playback17ResourceExtractor6Result4Info5pDataE"></span><span id="gpa::playback::ResourceExtractor::Result::Info::pData__uint8_tCP"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info_1afd046cb68d005f3672b600097778c984"></span>uint8_t <em class="property">const</em> *<code class="sig-name descname">pData</code> = {nullptr}<a class="headerlink" href="#_CPPv4N3gpa8playback17ResourceExtractor6Result4Info5pDataE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>A pointer to the resource data referenced by this <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"><span class="std std-ref">Result::Info</span></a>. </p>
-</dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Friends</p>
-<dl class="function">
-<dt id="_CPPv4eqRKN6Result4InfoERKN6Result4InfoE">
-<span id="_CPPv3eqRKN6Result4InfoERKN6Result4InfoE"></span><span id="_CPPv2eqRKN6Result4InfoERKN6Result4InfoE"></span><span id="eq-operator__Result::InfoCR.Result::InfoCR"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info_1a2114bedd53a0fcd3f0dd01e8c3b87312"></span>bool <code class="sig-name descname">operator==</code><span class="sig-paren">(</span>Result::Info <em class="property">const</em> &amp;<em>lhs</em>, Result::Info <em class="property">const</em> &amp;<em>rhs</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4eqRKN6Result4InfoERKN6Result4InfoE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Gets a value indicating whether or not two <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"><span class="std std-ref">ResourceExtractor::Result::Info</span></a> objects are equal. </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>Whether or not the given <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"><span class="std std-ref">ResourceExtractor::Result::Info</span></a> objects are equal </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">lhs</span></code>: The left hand side object to compare for equality </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">rhs</span></code>: The right hand side object to compare for equality </p></li>
-</ul>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="_CPPv4neRKN6Result4InfoERKN6Result4InfoE">
-<span id="_CPPv3neRKN6Result4InfoERKN6Result4InfoE"></span><span id="_CPPv2neRKN6Result4InfoERKN6Result4InfoE"></span><span id="neq-operator__Result::InfoCR.Result::InfoCR"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info_1a6a278297bb7f7fa50c452e4c934e0675"></span>bool <code class="sig-name descname">operator!=</code><span class="sig-paren">(</span>Result::Info <em class="property">const</em> &amp;<em>lhs</em>, Result::Info <em class="property">const</em> &amp;<em>rhs</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4neRKN6Result4InfoERKN6Result4InfoE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Gets a value indicating whether or not two <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"><span class="std std-ref">ResourceExtractor::Result::Info</span></a> objects are inequal. </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>Whether or not the given <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"><span class="std std-ref">ResourceExtractor::Result::Info</span></a> objects are inequal </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">lhs</span></code>: The left hand side object to compare for inequality </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">rhs</span></code>: The right hand side object to compare for inequality </p></li>
-</ul>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="_CPPv4ltRKN6Result4InfoERKN6Result4InfoE">
-<span id="_CPPv3ltRKN6Result4InfoERKN6Result4InfoE"></span><span id="_CPPv2ltRKN6Result4InfoERKN6Result4InfoE"></span><span id="lt-operator__Result::InfoCR.Result::InfoCR"></span><span class="target" id="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info_1ace6ebb8f10c1e6218732024ccc7d8bc2"></span>bool <code class="sig-name descname">operator&lt;</code><span class="sig-paren">(</span>Result::Info <em class="property">const</em> &amp;<em>lhs</em>, Result::Info <em class="property">const</em> &amp;<em>rhs</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4ltRKN6Result4InfoERKN6Result4InfoE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Gets a value indicating wheter or not one <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"><span class="std std-ref">ResourceExtractor::Result::Info</span></a> evaluates to less than another. </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>Whether or not the lhs <a class="reference internal" href="structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info.html#structgpa_1_1playback_1_1_resource_extractor_1_1_result_1_1_info"><span class="std std-ref">ResourceExtractor::Result::Info</span></a> evaluates to less then the rhs ResourceExtractor::Request::Entry </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">lhs</span></code>: The left hand side object to compare for less than </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">rhs</span></code>: The right hand side object to compare for less than </p></li>
-</ul>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-</div>
-</dd></dl>
-
 </dd></dl>
 
 </dd></dl>
@@ -983,7 +798,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="classgpa_1_1playback_1_1_resource_extractor_1_1_request_result_manager.html" class="btn btn-neutral float-right" title="Class ResourceExtractor::RequestResultManager" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="classgpa_1_1playback_1_1_resource_info.html" class="btn btn-neutral float-right" title="Class ResourceInfo" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="classgpa_1_1playback_1_1_resource_experiment_1_1_prefab.html" class="btn btn-neutral float-left" title="Class ResourceExperiment::Prefab" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

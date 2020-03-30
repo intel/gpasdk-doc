@@ -156,6 +156,8 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Utilities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gpa-injector">gpa-injector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="layers.html">Layers</a><ul>
@@ -214,6 +216,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
@@ -301,8 +304,10 @@
      --device-override &lt;int&gt;
                           Force use of a specific graphics device. Use &quot;gpa-help.exe device-override&quot;
 			  to list available devices. This option loads the device-override gpa layer.
+     --disable-key-events If provided, disables publishing of keyboard events (enabled by default).
   -K --enable-keyframes   Enable keyframes (disabled by default)
   -h --help               Print this help information
+     --hook-api &lt;string&gt;  Comma separated list of apis to hook; valid gfx APIs: all, vulkan, d3dall, d3d10, d3d11, d3d12 (default: all)
   -L --layer &lt;string&gt;     Name of layer to insert; layers are inserted in order appearing on
 			  command line (possible layers: api-debug, capture, logging,
 			  hud-layer, screenshot, validation). Default: no layers.
@@ -317,7 +322,6 @@
   -p --page-tracker-mode &lt;int&gt;
                           0 - default, 1 - disabled, 2 - Use shadow buffer approach for 
 			  managed Metal buffers, 3 - Force shadow buffer approach for all 
-			  Metal buffers (disabled by default)
   -t --target-application &lt;string&gt;
                           The workload to capture
   -V --version            Print version and build info to the console, then exit
@@ -359,6 +363,48 @@ Possible return codes:
     1: Execution failed with unspecified error
     2: Execution failed with &#39;File Not Found&#39;
     3: One or more command-line args are missing or invalid
+</pre></div>
+</div>
+</div>
+<div class="section" id="gpa-stream-info">
+<h2>gpa-stream-info<a class="headerlink" href="#gpa-stream-info" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage: gpa-stream-info.exe [options] &lt;stream&gt; 
+
+Displays stream information.
+
+Options:
+     --csv                Display only the header data in comma-separated tabular format
+  -h --help               Print this help information
+  -k --key &lt;string&gt;       Display only the value corresponding to the provided header key
+  -V --version            Print version and build info to the console, then exit
+
+Possible return codes:
+    0: Execution completed successfully and without error
+    1: Execution failed with unspecified error
+    2: Execution failed with &#39;File Not Found&#39;
+    3: One or more command-line args are missing or invalid
+    4: Data was found, but is corrupted or otherwise unreadable
+</pre></div>
+</div>
+</div>
+<div class="section" id="gpa-stream-analyzer">
+<h2>gpa-stream-analyzer<a class="headerlink" href="#gpa-stream-analyzer" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage: gpa-stream-analyzer.exe [options] &lt;stream&gt; 
+
+Displays capture-time performance metrics (i.e. cpu_frame_ms) as a labeled csv data table
+
+Options:
+  -d --duration &lt;int&gt;     Stop after the specified number of frames (disabled by default: 0)
+  -f --frame &lt;int&gt;        Start with the specified frame (default: 1)
+  -h --help               Print this help information
+  -V --version            Print version and build info to the console, then exit
+
+Possible return codes:
+    0: Execution completed successfully and without error
+    1: Execution failed with unspecified error
+    2: Execution failed with &#39;File Not Found&#39;
+    3: One or more command-line args are missing or invalid
+    4: Data was found, but is corrupted or otherwise unreadable
 </pre></div>
 </div>
 </div>

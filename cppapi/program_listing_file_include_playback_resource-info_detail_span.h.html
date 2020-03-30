@@ -154,6 +154,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
@@ -212,6 +214,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
@@ -292,7 +295,7 @@
 <p>↰ <a class="reference internal" href="file_include_playback_resource-info_detail_span.h.html#file-include-playback-resource-info-detail-span-h"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">include/playback/resource-info/detail/span.h</span></code>)</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/******************************************************************************</span>
 
-<span class="cm">        Copyright 2019 Intel Corporation.</span>
+<span class="cm">        Copyright 2019 - 2020 Intel Corporation.</span>
 
 <span class="cm">This software and the related documents are Intel copyrighted materials,</span>
 <span class="cm">and your use of them is governed by the express license under which they</span>
@@ -470,12 +473,23 @@
 <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 <span class="kr">inline</span> <span class="n">Span</span><span class="o">&lt;</span><span class="n">T</span> <span class="k">const</span><span class="o">&gt;</span> <span class="n">MakeSpan</span><span class="p">(</span><span class="n">T</span> <span class="k">const</span><span class="o">*</span> <span class="n">pData</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">count</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="k">return</span> <span class="n">Span</span><span class="o">&lt;</span><span class="n">T</span> <span class="k">const</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pData</span><span class="p">,</span> <span class="n">count</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">pData</span> <span class="o">&amp;&amp;</span> <span class="n">count</span> <span class="o">?</span> <span class="n">Span</span><span class="o">&lt;</span><span class="n">T</span> <span class="k">const</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pData</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span> <span class="o">:</span> <span class="n">Span</span><span class="o">&lt;</span><span class="n">T</span> <span class="k">const</span><span class="o">&gt;</span><span class="p">{};</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kr">inline</span> <span class="n">Span</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">MakeSpan</span><span class="p">(</span><span class="n">T</span><span class="o">*</span> <span class="n">pData</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">count</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">pData</span> <span class="o">&amp;&amp;</span> <span class="n">count</span> <span class="o">?</span> <span class="n">Span</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pData</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span> <span class="o">:</span> <span class="n">Span</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">{};</span>
 <span class="p">}</span>
 
 <span class="kr">inline</span> <span class="n">Span</span><span class="o">&lt;</span><span class="kt">char</span> <span class="k">const</span><span class="o">&gt;</span> <span class="n">MakeSpan</span><span class="p">(</span><span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">cStr</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">return</span> <span class="n">cStr</span> <span class="o">?</span> <span class="n">Span</span><span class="o">&lt;</span><span class="kt">char</span> <span class="k">const</span><span class="o">&gt;</span><span class="p">(</span><span class="n">cStr</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">cStr</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">:</span> <span class="n">Span</span><span class="o">&lt;</span><span class="kt">char</span> <span class="k">const</span><span class="o">&gt;</span><span class="p">{};</span>
+<span class="p">}</span>
+
+<span class="kr">inline</span> <span class="n">Span</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span> <span class="n">MakeSpan</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">cStr</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">cStr</span> <span class="o">?</span> <span class="n">Span</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="n">cStr</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">cStr</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">:</span> <span class="n">Span</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="p">{};</span>
 <span class="p">}</span>
 
 <span class="p">}</span>  <span class="c1">// namespace detail</span>

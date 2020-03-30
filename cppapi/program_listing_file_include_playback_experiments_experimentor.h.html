@@ -154,6 +154,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
@@ -212,6 +214,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
@@ -291,7 +294,7 @@
 <span id="program-listing-file-include-playback-experiments-experimentor-h"></span><h1>Program Listing for File experimentor.h<a class="headerlink" href="#program-listing-for-file-experimentor-h" title="Permalink to this headline">¶</a></h1>
 <p>↰ <a class="reference internal" href="file_include_playback_experiments_experimentor.h.html#file-include-playback-experiments-experimentor-h"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">include/playback/experiments/experimentor.h</span></code>)</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/******************************************************************************</span>
-<span class="cm">        Copyright 2019 Intel Corporation.</span>
+<span class="cm">        Copyright 2019 - 2020 Intel Corporation.</span>
 
 <span class="cm">This software and the related documents are Intel copyrighted materials,</span>
 <span class="cm">and your use of them is governed by the express license under which they</span>
@@ -324,6 +327,8 @@
       <span class="k">public</span> <span class="n">CallableBroadcaster</span>
 <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
+    <span class="n">Experimentor</span><span class="p">();</span>
+
     <span class="k">virtual</span> <span class="o">~</span><span class="n">Experimentor</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
     <span class="k">virtual</span> <span class="n">Shader</span><span class="o">::</span><span class="n">Compiler</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">GetShaderCompiler</span><span class="p">()</span> <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -366,6 +371,8 @@
 
     <span class="kt">void</span> <span class="nf">IsEnabled</span><span class="p">(</span><span class="kt">bool</span> <span class="n">enabled</span><span class="p">);</span>
 
+    <span class="kt">void</span> <span class="nf">GetMessages</span><span class="p">(</span><span class="kt">size_t</span><span class="o">*</span> <span class="n">pMessageCount</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">**</span> <span class="n">pMessages</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+
 <span class="k">protected</span><span class="o">:</span>
     <span class="k">virtual</span> <span class="kt">void</span> <span class="n">ApplyPrefabs</span><span class="p">(</span>
         <span class="kt">uint64_t</span> <span class="n">startIndex</span><span class="p">,</span>
@@ -383,9 +390,14 @@
 
     <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">OnPostExecuteRange</span><span class="p">(</span><span class="n">CallableCache</span><span class="o">*</span> <span class="n">range</span><span class="p">);</span>
 
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">PushMessage</span><span class="p">(</span><span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">msg</span><span class="p">);</span>
+
+    <span class="k">struct</span> <span class="n">Messages</span><span class="p">;</span>
+
     <span class="n">Collection</span><span class="o">&lt;</span><span class="n">PipelineExperiment</span><span class="o">&gt;</span> <span class="n">mGraphicsPipelineExperiments</span><span class="p">;</span>
     <span class="n">Collection</span><span class="o">&lt;</span><span class="n">PipelineExperiment</span><span class="o">&gt;</span> <span class="n">mComputePipelineExperiments</span><span class="p">;</span>
     <span class="n">Collection</span><span class="o">&lt;</span><span class="n">ResourceExperiment</span><span class="o">&gt;</span> <span class="n">mResourceExperiments</span><span class="p">;</span>
+    <span class="n">Messages</span><span class="o">*</span> <span class="n">mMessages</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
 
 <span class="k">private</span><span class="o">:</span>
     <span class="kt">void</span> <span class="n">PostSetupRange</span><span class="p">(</span><span class="n">CallableCache</span><span class="o">*</span> <span class="n">range</span><span class="p">)</span> <span class="k">override</span> <span class="k">final</span><span class="p">;</span>

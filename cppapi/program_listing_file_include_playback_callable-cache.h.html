@@ -154,6 +154,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
@@ -212,6 +214,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
@@ -291,7 +294,7 @@
 <span id="program-listing-file-include-playback-callable-cache-h"></span><h1>Program Listing for File callable-cache.h<a class="headerlink" href="#program-listing-for-file-callable-cache-h" title="Permalink to this headline">¶</a></h1>
 <p>↰ <a class="reference internal" href="file_include_playback_callable-cache.h.html#file-include-playback-callable-cache-h"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">include/playback/callable-cache.h</span></code>)</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/******************************************************************************</span>
-<span class="cm">        Copyright 2019 Intel Corporation.</span>
+<span class="cm">        Copyright 2019 - 2020 Intel Corporation.</span>
 
 <span class="cm">This software and the related documents are Intel copyrighted materials,</span>
 <span class="cm">and your use of them is governed by the express license under which they</span>
@@ -326,10 +329,39 @@
 <span class="k">typedef</span> <span class="kt">uint64_t</span> <span class="n">SecondaryCommandBufferKeyT</span><span class="p">;</span>
 <span class="k">typedef</span> <span class="kt">uint64_t</span> <span class="n">PrimaryCommandBufferKeyT</span><span class="p">;</span>
 
+<span class="k">struct</span> <span class="n">SecondaryCommandBufferCallRange</span>
+<span class="p">{</span>
+    <span class="kt">uint64_t</span> <span class="n">rangeStart</span><span class="p">;</span>
+    <span class="kt">uint64_t</span> <span class="n">rangeEnd</span><span class="p">;</span>
+    <span class="n">PrimaryCommandBufferKeyT</span> <span class="n">primaryCommandBufferKey</span><span class="p">;</span>
+
+    <span class="n">SecondaryCommandBufferCallRange</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">startIndex</span><span class="p">,</span> <span class="n">PrimaryCommandBufferKeyT</span> <span class="n">key</span><span class="p">)</span>
+        <span class="o">:</span> <span class="n">rangeStart</span><span class="p">(</span><span class="n">startIndex</span><span class="p">)</span>
+        <span class="p">,</span> <span class="n">rangeEnd</span><span class="p">(</span><span class="n">UINT64_MAX</span><span class="p">)</span>
+        <span class="p">,</span> <span class="n">primaryCommandBufferKey</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
 <span class="k">struct</span> <span class="n">SecondaryCommandBufferMetadata</span>
 <span class="p">{</span>
-    <span class="kt">uint32_t</span> <span class="n">primaryIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">PrimaryCommandBufferKeyT</span><span class="o">&gt;</span> <span class="n">primaryCommandBufferKeys</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">uint64_t</span><span class="p">,</span> <span class="n">SecondaryCommandBufferCallRange</span><span class="o">&gt;</span> <span class="n">primaryCommandBufferOverrides</span><span class="p">;</span>
+    <span class="kt">void</span><span class="o">*</span> <span class="n">originalSecondaryCommandBufferHandle</span><span class="p">;</span>
+
+    <span class="kt">uint64_t</span> <span class="nf">GetOverrideForIndex</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">callableIndex</span><span class="p">)</span> <span class="k">const</span>
+    <span class="p">{</span>
+        <span class="k">auto</span> <span class="n">itr</span> <span class="o">=</span> <span class="n">primaryCommandBufferOverrides</span><span class="p">.</span><span class="n">upper_bound</span><span class="p">(</span><span class="n">callableIndex</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">itr</span> <span class="o">==</span> <span class="n">primaryCommandBufferOverrides</span><span class="p">.</span><span class="n">begin</span><span class="p">())</span> <span class="p">{</span>
+            <span class="c1">// No entries found itr == end == begin</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="o">--</span><span class="n">itr</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">callableIndex</span> <span class="o">&gt;</span> <span class="n">itr</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">.</span><span class="n">rangeEnd</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// index beyond last range</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">itr</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">.</span><span class="n">primaryCommandBufferKey</span><span class="p">;</span>
+    <span class="p">}</span>
 <span class="p">};</span>
 
 <span class="k">class</span> <span class="nc">CallableCache</span>

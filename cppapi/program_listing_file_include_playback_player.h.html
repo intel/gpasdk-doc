@@ -154,6 +154,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
@@ -212,6 +214,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
@@ -291,7 +294,7 @@
 <span id="program-listing-file-include-playback-player-h"></span><h1>Program Listing for File player.h<a class="headerlink" href="#program-listing-for-file-player-h" title="Permalink to this headline">¶</a></h1>
 <p>↰ <a class="reference internal" href="file_include_playback_player.h.html#file-include-playback-player-h"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">include/playback/player.h</span></code>)</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/******************************************************************************</span>
-<span class="cm">        Copyright 2019 Intel Corporation.</span>
+<span class="cm">        Copyright 2019 - 2020 Intel Corporation.</span>
 
 <span class="cm">This software and the related documents are Intel copyrighted materials,</span>
 <span class="cm">and your use of them is governed by the express license under which they</span>
@@ -311,11 +314,13 @@
 
 <span class="cp">#include</span> <span class="cpf">&quot;serialization/apicallcontext.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;layer-system/layer-system.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;serialization/playback-listener.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;memory&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;cstdint&gt;</span><span class="cp"></span>
 
 <span class="k">namespace</span> <span class="n">gpa</span> <span class="p">{</span>
+<span class="k">struct</span> <span class="n">Surface</span><span class="p">;</span>
 <span class="k">namespace</span> <span class="n">serialization</span> <span class="p">{</span>
 <span class="k">struct</span> <span class="n">Context</span><span class="p">;</span>
 <span class="k">class</span> <span class="nc">Storage</span><span class="p">;</span>
@@ -339,6 +344,12 @@
 
     <span class="kt">bool</span> <span class="nf">Play</span><span class="p">(</span><span class="n">Callable</span><span class="o">*</span> <span class="n">callable</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">isRepeating</span> <span class="o">=</span> <span class="nb">false</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">isRepeated</span> <span class="o">=</span> <span class="nb">false</span><span class="p">,</span>
               <span class="kt">uint64_t</span> <span class="n">repeatPass</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">releaseCallableResources</span> <span class="o">=</span> <span class="nb">true</span><span class="p">);</span>
+
+    <span class="n">gpa</span><span class="o">::</span><span class="n">Surface</span><span class="o">*</span> <span class="n">RequestSurface</span><span class="p">(</span><span class="n">SurfaceCreateInfo</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">surfaceCreateInfo</span><span class="p">);</span>
+
+    <span class="kt">bool</span> <span class="nf">Ingress</span><span class="p">(</span><span class="n">Callable</span><span class="o">*</span> <span class="n">callable</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span><span class="o">**</span> <span class="n">params</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">paramCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
+
+    <span class="kt">bool</span> <span class="nf">Egress</span><span class="p">(</span><span class="n">Callable</span><span class="o">*</span> <span class="n">callable</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">releaseResources</span> <span class="o">=</span> <span class="nb">false</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">returnValue</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
 
 <span class="k">private</span><span class="o">:</span>
     <span class="n">serialization</span><span class="o">::</span><span class="n">Context</span> <span class="n">mContext</span><span class="p">;</span>

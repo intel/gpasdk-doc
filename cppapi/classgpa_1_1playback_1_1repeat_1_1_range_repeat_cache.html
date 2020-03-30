@@ -156,6 +156,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
@@ -214,6 +216,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
@@ -333,7 +336,7 @@
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="function">
 <dt id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache16RangeRepeatCacheEPN13serialization7ContextEPN8playback8CallableE">
-<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache16RangeRepeatCacheEPN13serialization7ContextEPN8playback8CallableE"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache16RangeRepeatCacheEPN13serialization7ContextEPN8playback8CallableE"></span><span id="gpa::playback::repeat::RangeRepeatCache::RangeRepeatCache__serialization::ContextP.playback::CallableP"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1aae93de96963dbef378f3474f3464761b"></span><code class="sig-name descname">RangeRepeatCache</code><span class="sig-paren">(</span>serialization::<a class="reference internal" href="structgpa_1_1serialization_1_1_context.html#_CPPv4N3gpa13serialization7ContextE" title="gpa::serialization::Context">Context</a> *<em>context</em>, playback::Callable *<em>creationCallable</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache16RangeRepeatCacheEPN13serialization7ContextEPN8playback8CallableE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache16RangeRepeatCacheEPN13serialization7ContextEPN8playback8CallableE"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache16RangeRepeatCacheEPN13serialization7ContextEPN8playback8CallableE"></span><span id="gpa::playback::repeat::RangeRepeatCache::RangeRepeatCache__serialization::ContextP.playback::CallableP"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1aae93de96963dbef378f3474f3464761b"></span><code class="sig-name descname">RangeRepeatCache</code><span class="sig-paren">(</span>serialization::<a class="reference internal" href="structgpa_1_1serialization_1_1_context.html#_CPPv4N3gpa13serialization7ContextE" title="gpa::serialization::Context">Context</a> *<em>context</em>, playback::<a class="reference internal" href="classgpa_1_1playback_1_1_callable.html#_CPPv4N3gpa8playback8CallableE" title="gpa::playback::Callable">Callable</a> *<em>creationCallable</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache16RangeRepeatCacheEPN13serialization7ContextEPN8playback8CallableE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -364,6 +367,12 @@
 <span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache12OnRangeEnterERPK16GPADispatchTable"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache12OnRangeEnterERPK16GPADispatchTable"></span><span id="gpa::playback::repeat::RangeRepeatCache::OnRangeEnter__GPADispatchTableCPR"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1a5a3149da6d2ddcfeadc56814c94b7fe5"></span><em class="property">virtual</em> void <code class="sig-name descname">OnRangeEnter</code><span class="sig-paren">(</span>GPADispatchTable <em class="property">const</em> *&amp;<em>table</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache12OnRangeEnterERPK16GPADispatchTable" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>This should be called when we reach the range of interest for the first time. </p>
 <p>This could be where some state of an object is snapshotted, resource data is copied, or any other special handling that should be done up front that will be needed while we are repeating the range. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache16OnRangeCollectedERPK16GPADispatchTable">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache16OnRangeCollectedERPK16GPADispatchTable"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache16OnRangeCollectedERPK16GPADispatchTable"></span><span id="gpa::playback::repeat::RangeRepeatCache::OnRangeCollected__GPADispatchTableCPR"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1a99cb98b73a4b65e7155b8f093e7153da"></span><em class="property">virtual</em> void <code class="sig-name descname">OnRangeCollected</code><span class="sig-paren">(</span>GPADispatchTable <em class="property">const</em> *&amp;<em>table</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache16OnRangeCollectedERPK16GPADispatchTable" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This is called after we finish collecting / processing the range of interest the first time it’s seen, but before any replays are executed. </p>
 </dd></dl>
 
 <dl class="function">

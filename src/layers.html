@@ -156,6 +156,8 @@
 <li class="toctree-l2"><a class="reference internal" href="utilities.html">Utilities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="utilities.html#gpa-injector">gpa-injector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Layers</a><ul>
@@ -214,6 +216,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
@@ -301,9 +304,11 @@ Usage : Use to capture a stream of a workload
 
 Arguments:
 	directory	Specifies the path to the directory where stream files should be written to.
+	name	Specifies the name of the stream directory; default is &lt;process name&gt;-&lt;timestamp&gt;-&lt;process id&gt;. If the stream directory already exists, a suffix in the format &#39;-&lt;num&gt;&#39; is appended to the stream name.
 	keyframe-trigger-type	Sets what kind of condition triggers capturing a keyframe. Options: time, keypress.  Can be repeated to specify multiple triggers.  Default: time
 	time-interval	Set how many seconds should elapse between each keyframe if time is enabled for the keyframe-trigger-type.  Default: 4.0
 	deferred	Indicate that the user wishes to start capture at arbitrary time. Default: false (normal capture to disk)
+	captured-frames	If deferred capture is enabled, specifies the range of frames that should be captured.  Format: [start..end] or (start..end) or a mix of parantheses types, where [ is inclusive and ( is exclusive.Multiple ranges can be specified by seperating them with a semicolon.  For example: (start...end);(start..end)
 
 
 Supported key strings:
@@ -329,6 +334,8 @@ Arguments:
 	path	Override default output directory for screenshots, must be an absolute path, /must/end/in/slash/; 
 
 	time-interval	Specify number of seconds (wall-clock time) between screenshots. On non-Windows platforms, the timer begins running when the application begins, not when the first API call is made. On Windows platforms, the timer begins when the first &#39;present&#39; call happens. Interval is in units of milliseconds, so &#39;4 seconds&#39; would be 4000 milliseconds.
+	immediate	Whether or not the layer should wait for screenshot requests from other layers. This option will not allow the layer to unload even if other conditions for capture are not specifiedThe default is &quot;false&quot;. 
+
 	async	Whether or not screenshot capture should be asynchronous. The default is &quot;true&quot;. 
 
 	wait-on-shutdown	Whether or not screenshot capture should wait for remaining asynchronous screenshots on shutdown. 

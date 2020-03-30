@@ -156,6 +156,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
@@ -214,6 +216,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
@@ -303,7 +306,8 @@
 <dl class="class">
 <dt id="_CPPv4N3gpa7metrics14IMetricsSourceE">
 <span id="_CPPv3N3gpa7metrics14IMetricsSourceE"></span><span id="_CPPv2N3gpa7metrics14IMetricsSourceE"></span><span id="gpa::metrics::IMetricsSource"></span><span class="target" id="classgpa_1_1metrics_1_1_i_metrics_source"></span><em class="property">class </em><code class="sig-name descname">IMetricsSource</code><a class="headerlink" href="#_CPPv4N3gpa7metrics14IMetricsSourceE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><div class="breathe-sectiondef docutils container">
+<dd><p>Interface used to get consistent details about the various metrics provided by a MetricsSource object. </p>
+<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="function">
 <dt id="_CPPv4N3gpa7metrics14IMetricsSourceD0Ev">
@@ -311,9 +315,34 @@
 <dd></dd></dl>
 
 <dl class="function">
+<dt id="_CPPv4N3gpa7metrics14IMetricsSource10InitializeEP17MetricsSourceDataPc8uint32_t">
+<span id="_CPPv3N3gpa7metrics14IMetricsSource10InitializeEP17MetricsSourceDataPc8uint32_t"></span><span id="_CPPv2N3gpa7metrics14IMetricsSource10InitializeEP17MetricsSourceDataPc8uint32_t"></span><span id="gpa::metrics::IMetricsSource::Initialize__MetricsSourceDataP.cP.uint32_t"></span><span class="target" id="classgpa_1_1metrics_1_1_i_metrics_source_1af1618122a36138660d8ce24c8fd75290"></span><em class="property">virtual</em> <a class="reference internal" href="enum_metrics_2types_8h_1a4d0ae4d7c74d47d463792c91476ef842.html#_CPPv4N3gpa7metrics6ResultE" title="gpa::metrics::Result">Result</a> <code class="sig-name descname">Initialize</code><span class="sig-paren">(</span><a class="reference internal" href="structgpa_1_1metrics_1_1_metrics_source_data.html#_CPPv4N3gpa7metrics17MetricsSourceDataE" title="gpa::metrics::MetricsSourceData">MetricsSourceData</a> *<em>pMetricsSourceData</em>, char *<em>pErrorMessage</em>, uint32_t <em>errorSize</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N3gpa7metrics14IMetricsSource10InitializeEP17MetricsSourceDataPc8uint32_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Prepares the MetricsSource for usage.</p>
+<p>Must be called first, and is automatically called by CreateMetricsSource. <dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Upon success, returns Result::kSuccess. Otherwise, another enumerator is returned and if pErrorMessage in non-null, it will contain the cause of the failure. </p>
+</dd>
+<dt><strong>Note</strong></dt><dd><p>If the MetricsSourceType of the MetricsSource implementation is kQueryBased_IntelMD or kTimeBased_IntelMD (in other words, Intel MD library based), the LinkAndPrepareForMdApiSourceUsage function must have been previously called. If unsure and using kQueryBased_Unspecified, call LinkAndPrepareForMdApiSourceUsage in advance if the desired ideal is to use the Intel MD library based implementation. </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">pMetricsSourceData</span></code>: Pointer to struct describing the specific type of metrics source that was created and data needed to perform initialization. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[inout]</span> <span class="pre">pErrorMessage</span></code>: Optional pointer to char buffer that will be initialized upon failure to the reason it occurred. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">errorSize</span></code>: Size of provided char buffer in bytes. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="_CPPv4NK3gpa7metrics14IMetricsSource11IsAvailableEv">
 <span id="_CPPv3NK3gpa7metrics14IMetricsSource11IsAvailableEv"></span><span id="_CPPv2NK3gpa7metrics14IMetricsSource11IsAvailableEv"></span><span id="gpa::metrics::IMetricsSource::IsAvailableC"></span><span class="target" id="classgpa_1_1metrics_1_1_i_metrics_source_1a9257f823eae053f0ab3f984b6a638ed4"></span><em class="property">virtual</em> bool <code class="sig-name descname">IsAvailable</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK3gpa7metrics14IMetricsSource11IsAvailableEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns true if metrics source is available for usage. Otherwise, false. </p>
+<dd><p>Returns true if metrics source is available for usage. Otherwise, it returns false. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK3gpa7metrics14IMetricsSource4TypeEP17MetricsSourceData">
+<span id="_CPPv3NK3gpa7metrics14IMetricsSource4TypeEP17MetricsSourceData"></span><span id="_CPPv2NK3gpa7metrics14IMetricsSource4TypeEP17MetricsSourceData"></span><span id="gpa::metrics::IMetricsSource::Type__MetricsSourceDataPC"></span><span class="target" id="classgpa_1_1metrics_1_1_i_metrics_source_1a9663e9f92f2eaed5c58a18d0a8e53384"></span><em class="property">virtual</em> <a class="reference internal" href="enum_metrics-source_8h_1a631655705aeb21bf0b8ba1bd68a5a310.html#_CPPv4N3gpa7metrics17MetricsSourceTypeE" title="gpa::metrics::MetricsSourceType">MetricsSourceType</a> <code class="sig-name descname">Type</code><span class="sig-paren">(</span><a class="reference internal" href="structgpa_1_1metrics_1_1_metrics_source_data.html#_CPPv4N3gpa7metrics17MetricsSourceDataE" title="gpa::metrics::MetricsSourceData">MetricsSourceData</a> *<em>pMetricsSourceData</em> = nullptr<span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK3gpa7metrics14IMetricsSource4TypeEP17MetricsSourceData" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns the type of MetricsSource instantiated if ready for usage and optionally provides additional data about the metrics it provides. Otherwise, it returns kInvalid. </p>
 </dd></dl>
 
 <dl class="function">

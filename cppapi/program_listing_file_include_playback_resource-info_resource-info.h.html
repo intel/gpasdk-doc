@@ -154,6 +154,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
@@ -212,6 +214,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
@@ -292,7 +295,7 @@
 <p>↰ <a class="reference internal" href="file_include_playback_resource-info_resource-info.h.html#file-include-playback-resource-info-resource-info-h"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">include/playback/resource-info/resource-info.h</span></code>)</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/******************************************************************************</span>
 
-<span class="cm">        Copyright 2019 Intel Corporation.</span>
+<span class="cm">        Copyright 2019 - 2020 Intel Corporation.</span>
 
 <span class="cm">This software and the related documents are Intel copyrighted materials,</span>
 <span class="cm">and your use of them is governed by the express license under which they</span>
@@ -312,6 +315,7 @@
 <span class="cp">#include</span> <span class="cpf">&quot;api-types/api-types.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;playback/resource-info/detail/convertible.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;playback/resource-info/enumerator.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;utility/enum-class-operators.h&quot;</span><span class="cp"></span>
 
 <span class="cp">#include</span> <span class="cpf">&lt;cstddef&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;cstdint&gt;</span><span class="cp"></span>
@@ -329,15 +333,19 @@
 
 <span class="k">class</span> <span class="nc">BufferInfo</span><span class="p">;</span>
 <span class="k">class</span> <span class="nc">PipelineInfo</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">PipelineSignatureInfo</span><span class="p">;</span>
 <span class="k">class</span> <span class="nc">SamplerInfo</span><span class="p">;</span>
 <span class="k">class</span> <span class="nc">ShaderInfo</span><span class="p">;</span>
 <span class="k">class</span> <span class="nc">TextureInfo</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">PipelineDescriptorSet</span><span class="p">;</span>
 
 <span class="k">class</span> <span class="nc">ResourceInfo</span>
     <span class="o">:</span> <span class="k">public</span> <span class="n">detail</span><span class="o">::</span><span class="n">Convertible</span><span class="o">&lt;</span>
           <span class="n">ResourceInfo</span><span class="p">,</span>
           <span class="n">BufferInfo</span><span class="p">,</span>
           <span class="n">PipelineInfo</span><span class="p">,</span>
+          <span class="n">PipelineSignatureInfo</span><span class="p">,</span>
+          <span class="n">PipelineDescriptorSet</span><span class="p">,</span>
           <span class="n">SamplerInfo</span><span class="p">,</span>
           <span class="n">ShaderInfo</span><span class="p">,</span>
           <span class="n">TextureInfo</span><span class="o">&gt;</span>
@@ -355,6 +363,7 @@
         <span class="n">GRAPHICS_OUTPUT</span><span class="p">,</span>
         <span class="n">GRAPHICS_PIPELINE</span><span class="p">,</span>
         <span class="n">COUNT</span><span class="p">,</span>
+        <span class="n">BEGIN</span> <span class="o">=</span> <span class="n">UNKNOWN</span><span class="p">,</span>
     <span class="p">};</span>
 
     <span class="n">ResourceInfo</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
@@ -387,6 +396,9 @@
     <span class="k">friend</span> <span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="n">ResourceInfo</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">ResourceInfo</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">);</span>
     <span class="k">friend</span> <span class="kt">bool</span> <span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="n">ResourceInfo</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">ResourceInfo</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">);</span>
 <span class="p">};</span>
+
+<span class="n">GPA_DEFINE_ENUM_CLASS_OPERATORS</span><span class="p">(</span><span class="n">ResourceInfo</span><span class="o">::</span><span class="n">Usage</span><span class="p">)</span>
+
 
 <span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="n">ResourceInfo</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">ResourceInfo</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">);</span>
 

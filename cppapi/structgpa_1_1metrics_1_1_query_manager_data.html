@@ -42,7 +42,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Struct QueryManagerGraphicsApiExtraBuffers" href="structgpa_1_1metrics_1_1_query_manager_graphics_api_extra_buffers.html" />
-    <link rel="prev" title="Struct MetricDesc" href="structgpa_1_1metrics_1_1_metric_desc.html" />
+    <link rel="prev" title="Struct MetricsSourceData" href="structgpa_1_1metrics_1_1_metrics_source_data.html" />
      
     <script type="text/javascript">
         //configure tms    
@@ -156,6 +156,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
@@ -214,6 +216,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
@@ -303,9 +306,19 @@
 <dl class="class">
 <dt id="_CPPv4N3gpa7metrics16QueryManagerDataE">
 <span id="_CPPv3N3gpa7metrics16QueryManagerDataE"></span><span id="_CPPv2N3gpa7metrics16QueryManagerDataE"></span><span id="gpa::metrics::QueryManagerData"></span><span class="target" id="structgpa_1_1metrics_1_1_query_manager_data"></span><em class="property">struct </em><code class="sig-name descname">QueryManagerData</code><a class="headerlink" href="#_CPPv4N3gpa7metrics16QueryManagerDataE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Data required by the CreateQueryManager function and the <a class="reference internal" href="classgpa_1_1metrics_1_1_i_query_manager.html#classgpa_1_1metrics_1_1_i_query_manager"><span class="std std-ref">IQueryManager</span></a> interface’s Initialize function that identify graphics API specific resources to use and needed configuration details. </p>
+<dd><p>Data required by the CreateQueryManager function and the <a class="reference internal" href="classgpa_1_1metrics_1_1_i_query_manager.html#classgpa_1_1metrics_1_1_i_query_manager"><span class="std std-ref">IQueryManager</span></a> interface’s Initialize function that identify graphics API specific resources to use and needed configuration details. <dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>If providing the MetricsSource object, it must match the following criteria (based on the QueryManagerType): kD3d12StatisticsAndTimeStamp Metrics source type must be kQueryBased_GraphicsApi, graphics API must be kD3d12 and metrics category must match. kMetalStatistics Metrics source type must be kQueryBased_GraphicsApi, graphics API must be kMetal and metrics category must match. kMetricsDiscoveryApi: Metrics source type must be kQueryBased_IntelMD, graphics API must be the same and metrics category must match. kVulkanStatisticsAndTimeStamp Metrics source type must be kQueryBased_GraphicsApi, graphics API must be kVulkan and metrics category must match. kUnspecified: Since this is a convenience type provided to create a QueryManager using platform specific runtime logic. Thus, the MetricsSource object provided must have been created using the kQueryBased_Unspecified logic. Graphics API must be the same. Metrics category must match. </p>
+</dd>
+</dl>
+</p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="member">
+<dt id="_CPPv4N3gpa7metrics16QueryManagerData14pMetricsSourceE">
+<span id="_CPPv3N3gpa7metrics16QueryManagerData14pMetricsSourceE"></span><span id="_CPPv2N3gpa7metrics16QueryManagerData14pMetricsSourceE"></span><span id="gpa::metrics::QueryManagerData::pMetricsSource__IMetricsSourceP"></span><span class="target" id="structgpa_1_1metrics_1_1_query_manager_data_1adbd0a5830353ad1422eeab021c29d1b8"></span><a class="reference internal" href="classgpa_1_1metrics_1_1_i_metrics_source.html#_CPPv4N3gpa7metrics14IMetricsSourceE" title="gpa::metrics::IMetricsSource">IMetricsSource</a> *<code class="sig-name descname">pMetricsSource</code> = nullptr<a class="headerlink" href="#_CPPv4N3gpa7metrics16QueryManagerData14pMetricsSourceE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>[in] Specifies a matching MetricsSource object the QueryManager will be setup to use. If not provided, an appropriate one will be automatically created. </p>
+</dd></dl>
+
 <dl class="member">
 <dt id="_CPPv4N3gpa7metrics16QueryManagerData16graphicsInstanceE">
 <span id="_CPPv3N3gpa7metrics16QueryManagerData16graphicsInstanceE"></span><span id="_CPPv2N3gpa7metrics16QueryManagerData16graphicsInstanceE"></span><span id="gpa::metrics::QueryManagerData::graphicsInstance__voidP"></span><span class="target" id="structgpa_1_1metrics_1_1_query_manager_data_1a7d5b342bd1e944b5bd6bbd9877305964"></span>void *<code class="sig-name descname">graphicsInstance</code> = nullptr<a class="headerlink" href="#_CPPv4N3gpa7metrics16QueryManagerData16graphicsInstanceE" title="Permalink to this definition">¶</a><br /></dt>
@@ -315,13 +328,13 @@
 <dl class="member">
 <dt id="_CPPv4N3gpa7metrics16QueryManagerData22graphicsPhysicalDeviceE">
 <span id="_CPPv3N3gpa7metrics16QueryManagerData22graphicsPhysicalDeviceE"></span><span id="_CPPv2N3gpa7metrics16QueryManagerData22graphicsPhysicalDeviceE"></span><span id="gpa::metrics::QueryManagerData::graphicsPhysicalDevice__voidP"></span><span class="target" id="structgpa_1_1metrics_1_1_query_manager_data_1a575bb893dcfd3a49ff2e0742cef3ce3c"></span>void *<code class="sig-name descname">graphicsPhysicalDevice</code> = nullptr<a class="headerlink" href="#_CPPv4N3gpa7metrics16QueryManagerData22graphicsPhysicalDeviceE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>[in] Specifies a graphics physical device. For Vulkan must be a VkPhysicalDevice obtained using the provided VkInstance. For Metal must be a nullptr. For D3D12 must be a nullptr. </p>
+<dd><p>[in] Specifies a graphics physical device. For Vulkan must be a VkPhysicalDevice obtained using the provided VkInstance. For Metal must be a nullptr. For D3D12 must be an IDXGIAdapter1 pointer. </p>
 </dd></dl>
 
 <dl class="member">
 <dt id="_CPPv4N3gpa7metrics16QueryManagerData14graphicsDeviceE">
 <span id="_CPPv3N3gpa7metrics16QueryManagerData14graphicsDeviceE"></span><span id="_CPPv2N3gpa7metrics16QueryManagerData14graphicsDeviceE"></span><span id="gpa::metrics::QueryManagerData::graphicsDevice__voidP"></span><span class="target" id="structgpa_1_1metrics_1_1_query_manager_data_1ad0ed7447bec73c6f8fad4e6684461b1c"></span>void *<code class="sig-name descname">graphicsDevice</code> = nullptr<a class="headerlink" href="#_CPPv4N3gpa7metrics16QueryManagerData14graphicsDeviceE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>[in] Specifies a prepared graphics device that has the required extensions as identified by GetQueryManagerRequiredGraphicsApiExtensions. For Vulkan must be a VkDevice created using the provided VkPhysicalDevice. For Metal must be a MTLDevice. For D3D12 must be an ID3D12Device pointer. </p>
+<dd><p>[in] Specifies a prepared graphics device that has the required extensions as identified by GetQueryManagerRequiredGraphicsApiExtensions. For Vulkan must be a VkDevice created using the provided VkPhysicalDevice. For Metal must be a MTLDevice. For D3D12 must be a pointer to an ID3D12Device created using the provided adapter. </p>
 </dd></dl>
 
 <dl class="member">
@@ -359,7 +372,7 @@
         <a href="structgpa_1_1metrics_1_1_query_manager_graphics_api_extra_buffers.html" class="btn btn-neutral float-right" title="Struct QueryManagerGraphicsApiExtraBuffers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="structgpa_1_1metrics_1_1_metric_desc.html" class="btn btn-neutral float-left" title="Struct MetricDesc" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="structgpa_1_1metrics_1_1_metrics_source_data.html" class="btn btn-neutral float-left" title="Struct MetricsSourceData" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
