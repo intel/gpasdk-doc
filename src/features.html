@@ -1,503 +1,154 @@
-
-
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Features &mdash; Intel® GPA Framework  documentation</title>
-  
-
-  
-  
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script type="text/javascript" src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
-        <script type="text/javascript" src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="System Requirements" href="requirements.html" />
-    <link rel="prev" title="Typedef UTF8String" href="../cppapi/typedef_keymap_8h_1ac3b9dc0b31585c6bf1469b7510c8db64.html" />
-     
-    <script type="text/javascript">
-        //configure tms    
-        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
-        var wapSection = "gpa-sdk";
-        //load tms
-        (function() {
-            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
-            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
-            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-        })();
-    </script>
-
-</head>
-
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
-        <button class="download-button" type="submit">Free Download</button>
-    </form>
-    
-
-          
-            <a href="../index.html">
-          
-
-          
-            
-            <img src="../_static/intel-logo.png" class="logo" alt="Logo"/>
-          
-          </a>
-
-          
-            
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Table of Contents</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="getting_started.html#introduction">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started.html#capture-a-stream">Capture a Stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started.html#play-back-stream">Play Back Stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started.html#next-steps">Next Steps</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="guides/extending_test_layer.html">Extending “Helloworld” Simple Layer</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="samples.html">Samples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="samples.html#how-to-build">How to build</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="samples.html#windows">Windows*</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="samples.html#available-samples">Available Samples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="samples.html#print-api-log">Print API Log</a></li>
-<li class="toctree-l3"><a class="reference internal" href="samples.html#helloworld-simple-layer">‘Helloworld’ Simple Layer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="samples.html#helloworld-generated-layer">‘Helloworld’ Generated Layer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="samples.html#range-player">Range Player</a></li>
-<li class="toctree-l3"><a class="reference internal" href="samples.html#buffer-extractor">Buffer Extractor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="samples.html#texture-extractor">Texture Extractor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="samples.html#sampler-extractor">Sampler Extractor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="samples.html#shader-extractor">Shader Extractor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="samples.html#disable-call-in-range">Disable Call in Range</a></li>
-<li class="toctree-l3"><a class="reference internal" href="samples.html#metrics-collection">Metrics Collection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="samples.html#highlighting-experiment">Highlighting Experiment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="samples.html#pipeline-experiment">Pipeline Experiment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
-<li class="toctree-l3"><a class="reference internal" href="samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="utilities.html">Utilities</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="utilities.html#gpa-injector">gpa-injector</a></li>
-<li class="toctree-l3"><a class="reference internal" href="utilities.html#gpa-player">gpa-player</a></li>
-<li class="toctree-l3"><a class="reference internal" href="utilities.html#gpa-stream-info">gpa-stream-info</a></li>
-<li class="toctree-l3"><a class="reference internal" href="utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="layers.html">Layers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="layers.html#capture">Capture</a></li>
-<li class="toctree-l3"><a class="reference internal" href="layers.html#screenshot">Screenshot</a></li>
-<li class="toctree-l3"><a class="reference internal" href="layers.html#hud-layer">HUD-Layer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="layers.html#logging">Logging</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="python.html">Python Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cppapi/library_root.html">C++ Interfaces</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../cppapi/library_root.html#class-hierarchy">Class Hierarchy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../cppapi/library_root.html#file-hierarchy">File Hierarchy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../cppapi/library_root.html#full-api">Full API</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#namespaces">Namespaces</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#classes-and-structs">Classes and Structs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#enums">Enums</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#functions">Functions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#variables">Variables</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#defines">Defines</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#typedefs">Typedefs</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Features</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#capture-and-playback">Capture and Playback</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#basic-capture-and-playback">Basic Capture and Playback</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#keyframing-capture">Keyframing Capture</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#range-repeat">Range Repeat</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#stream-analysis">Stream Analysis</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#metric-collection">Metric Collection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#experiments">Experiments</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#metadata-extraction">Metadata Extraction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#resource-extraction">Resource Extraction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#api-call-inspection">API Call Inspection</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#layers">Layers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#screenshot-layer">Screenshot Layer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#logging-layer">Logging Layer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#custom-user-layers">Custom (User) Layers</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="requirements.html">System Requirements</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="requirements.html#hardware-requirements">Hardware Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="requirements.html#software-requirements">Software Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="release_notes.html">Release Notes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="licenses.html">Legal Information</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="licenses.html#third-party-content">Third Party Content</a></li>
-</ul>
-</li>
-</ul>
-
-            
-          
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Intel® GPA Framework</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html">Docs</a> &raquo;</li>
-        
-      <li>Features</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-        
-      </li>
-    
-  </ul>
-
-  
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-            
-  <div class="section" id="features">
-<span id="id1"></span><h1>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h1>
-<p>Intel<sup>®</sup> GPA Framework provides a varying level of feature support based on the used graphics APIs and platforms. This table describes major functionalities.</p>
-<table class="docutils align-default">
+<h1 id="features">Features</h1>
+<p>provides a varying level of feature support based on the used graphics APIs and platforms. This table describes major functionalities.</p>
+<table>
 <colgroup>
-<col style="width: 51%" />
+<col style="width: 50%" />
 <col style="width: 13%" />
 <col style="width: 18%" />
 <col style="width: 18%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"></th>
-<th class="head"><p>Vulkan*</p></th>
-<th class="head"><p>DirectX 11*</p></th>
-<th class="head"><p>DirectX 12*</p></th>
+<tr class="header">
+<th></th>
+<th>Vulkan*</th>
+<th>DirectX 11*</th>
+<th>DirectX 12*</th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td colspan="4"><p><strong>Capture and playback</strong></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#features-basic-c-and-p"><span class="std std-ref">Basic Capture and Playback</span></a></p></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#features-keyframing"><span class="std std-ref">Keyframing Capture</span></a></p></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#features-range-repeat"><span class="std std-ref">Range Repeat</span></a></p></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
-</tr>
-<tr class="row-even"><td colspan="4"><p><strong>Stream Analysis</strong></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#features-metrics"><span class="std std-ref">Metric Collection</span></a></p></td>
-<td><p>✓</p></td>
+<tr class="odd">
+<td><strong>Capture and playback</strong></td>
 <td></td>
-<td><p>✓</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#features-experiments"><span class="std std-ref">Experiments</span></a></p></td>
-<td><p>✓</p></td>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#features-metadata-extraction"><span class="std std-ref">Metadata Extraction</span></a></p></td>
-<td><p>✓</p></td>
+<tr class="even">
+<td><code class="interpreted-text" data-role="ref">features_basic_c_and_p</code></td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr class="odd">
+<td><code class="interpreted-text" data-role="ref">features_keyframing</code></td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<td><code class="interpreted-text" data-role="ref">features_range_repeat</code></td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr class="odd">
+<td><code class="interpreted-text" data-role="ref">features_deferred_capture</code></td>
+<td>✓</td>
 <td></td>
-<td><p>✓</p></td>
+<td>✓</td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#features-resource-extraction"><span class="std std-ref">Resource Extraction</span></a></p></td>
-<td><p>✓</p></td>
+<tr class="even">
+<td><strong>Stream Analysis</strong></td>
 <td></td>
 <td></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#features-api-inspection"><span class="std std-ref">API Call Inspection</span></a></p></td>
-<td><p>✓</p></td>
 <td></td>
-<td><p>✓</p></td>
 </tr>
-<tr class="row-even"><td colspan="4"><p><strong>Layers</strong></p></td>
+<tr class="odd">
+<td><code class="interpreted-text" data-role="ref">features_metrics</code></td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#features-custom-layers"><span class="std std-ref">Custom (User) Layers</span></a></p></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
+<tr class="even">
+<td><code class="interpreted-text" data-role="ref">features_experiments</code></td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#features-hud-layer"><span class="std std-ref">Heads-Up Display(HUD) Layer</span></a></p></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
+<tr class="odd">
+<td><code class="interpreted-text" data-role="ref">features_metadata_extraction</code></td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#features-screenshot-layer"><span class="std std-ref">Screenshot Layer</span></a></p></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
+<tr class="even">
+<td><code class="interpreted-text" data-role="ref">features_resource_extraction</code></td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#features-logging-layer"><span class="std std-ref">Logging Layer</span></a></p></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
+<tr class="odd">
+<td><code class="interpreted-text" data-role="ref">features_api_inspection</code></td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<td><strong>Layers</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code class="interpreted-text" data-role="ref">features_custom_layers</code></td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<td><code class="interpreted-text" data-role="ref">features_hud_layer</code></td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr class="odd">
+<td><code class="interpreted-text" data-role="ref">features_screenshot_layer</code></td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<td><code class="interpreted-text" data-role="ref">features_logging_layer</code></td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
 </tr>
 </tbody>
 </table>
-<div class="section" id="capture-and-playback">
-<h2>Capture and Playback<a class="headerlink" href="#capture-and-playback" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="basic-capture-and-playback">
-<span id="features-basic-c-and-p"></span><h3>Basic Capture and Playback<a class="headerlink" href="#basic-capture-and-playback" title="Permalink to this headline">¶</a></h3>
-<p>Capture a stream with gpa-injector, and play it back with gpa-player. Streams are captured through the duration of the application’s lifetime. Basic stream capture requires playback from the beginning of the stream.</p>
+<h2 id="capture-and-playback">Capture and Playback</h2>
+<h3 id="features_basic_c_and_p">Basic Capture and Playback</h3>
+<p>Capture a stream with gpa-injector, and play it back with gpa-player. Streams are captured through the duration of the application's lifetime. Basic stream capture requires playback from the beginning of the stream.</p>
+<h3 id="features_keyframing">Keyframing Capture</h3>
+<p>Capture a stream with gpa-injector, and play it back with gpa-player having the ability to insert keyframes. Streams are captured through the duration of the application's lifetime. Keyframed stream capture can be played back from the beginning of the stream or from a given keyframe.</p>
+<div id="features_deferred_capture">
+<p>Deferred Capture (Experimental) -------------------</p>
 </div>
-<div class="section" id="keyframing-capture">
-<span id="features-keyframing"></span><h3>Keyframing Capture<a class="headerlink" href="#keyframing-capture" title="Permalink to this headline">¶</a></h3>
-<p>Capture a stream with gpa-injector, and play it back with gpa-player having the ability to insert keyframes. Streams are captured through the duration of the application’s lifetime. Keyframed stream capture can be played back from the beginning of the stream or from a given keyframe.</p>
-</div>
-<div class="section" id="range-repeat">
-<span id="features-range-repeat"></span><h3>Range Repeat<a class="headerlink" href="#range-repeat" title="Permalink to this headline">¶</a></h3>
+<p>Deferred Capture, as the name suggests allows stream capture to begin at any point time after a workload is launched via gpa-injector with a keypress (default is L key). The same keybinding can start and stop capture while a workload is injected. Note, after capture has stopped, a second capture cannot be initiated in the same session and requires a relaunch for now.</p>
+<h3 id="features_range_repeat">Range Repeat</h3>
 <p>Select a range in stream and replay continuously (loop N times).</p>
-</div>
-</div>
-<div class="section" id="stream-analysis">
-<h2>Stream Analysis<a class="headerlink" href="#stream-analysis" title="Permalink to this headline">¶</a></h2>
+<h2 id="stream-analysis">Stream Analysis</h2>
 <p>Features exposed through the programmatic interfaces.</p>
-<div class="section" id="metric-collection">
-<span id="features-metrics"></span><h3>Metric Collection<a class="headerlink" href="#metric-collection" title="Permalink to this headline">¶</a></h3>
+<h3 id="features_metrics">Metric Collection</h3>
 <p>Collect hardware metrics for a given range within a stream. Metric collection is requested at playback time through the C++ and Python interfaces.</p>
-</div>
-<div class="section" id="experiments">
-<span id="features-experiments"></span><h3>Experiments<a class="headerlink" href="#experiments" title="Permalink to this headline">¶</a></h3>
+<h3 id="features_experiments">Experiments</h3>
 <p>Apply experiments and replay a range with the experiment applied within a stream. Experiments are applied at playback time through the C++ and Python interfaces.</p>
-</div>
-<div class="section" id="metadata-extraction">
-<span id="features-metadata-extraction"></span><h3>Metadata Extraction<a class="headerlink" href="#metadata-extraction" title="Permalink to this headline">¶</a></h3>
+<h3 id="features_metadata_extraction">Metadata Extraction</h3>
 <p>Access metadata information associated with resources. For example, textures can expose format, dimensions, etc.</p>
-</div>
-<div class="section" id="resource-extraction">
-<span id="features-resource-extraction"></span><h3>Resource Extraction<a class="headerlink" href="#resource-extraction" title="Permalink to this headline">¶</a></h3>
+<h3 id="features_resource_extraction">Resource Extraction</h3>
 <p>Extract resources from C++ and Python interfaces, including:</p>
-<ul class="simple">
-<li><p>Buffers</p></li>
-<li><p>Textures</p></li>
-<li><p>Shaders</p></li>
-<li><p>among other resource types</p></li>
+<ul>
+<li>Buffers</li>
+<li>Textures</li>
+<li>Shaders</li>
+<li>among other resource types</li>
 </ul>
-</div>
-<div class="section" id="api-call-inspection">
-<span id="features-api-inspection"></span><h3>API Call Inspection<a class="headerlink" href="#api-call-inspection" title="Permalink to this headline">¶</a></h3>
+<h3 id="features_api_inspection">API Call Inspection</h3>
 <p>Analyze a stream with the C++ and Python interfaces without requiring playback.</p>
-</div>
-</div>
-<div class="section" id="layers">
-<h2>Layers<a class="headerlink" href="#layers" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="heads-up-display-hud-layer">
-<span id="features-hud-layer"></span><h3>Heads-Up Display(HUD) Layer<a class="headerlink" href="#heads-up-display-hud-layer" title="Permalink to this headline">¶</a></h3>
+<h2 id="layers">Layers</h2>
+<h3 id="features_hud_layer">Heads-Up Display(HUD) Layer</h3>
 <p>Displays HUD with FPS</p>
-</div>
-<div class="section" id="screenshot-layer">
-<span id="features-screenshot-layer"></span><h3>Screenshot Layer<a class="headerlink" href="#screenshot-layer" title="Permalink to this headline">¶</a></h3>
+<h3 id="features_screenshot_layer">Screenshot Layer</h3>
 <p>Grabs screenshots from the injected application</p>
-</div>
-<div class="section" id="logging-layer">
-<span id="features-logging-layer"></span><h3>Logging Layer<a class="headerlink" href="#logging-layer" title="Permalink to this headline">¶</a></h3>
+<h3 id="features_logging_layer">Logging Layer</h3>
 <p>Logs API commands from the injected application</p>
-</div>
-<div class="section" id="custom-user-layers">
-<span id="features-custom-layers"></span><h3>Custom (User) Layers<a class="headerlink" href="#custom-user-layers" title="Permalink to this headline">¶</a></h3>
+<h3 id="features_custom_layers">Custom (User) Layers</h3>
 <p>Creates custom layers and intercepts API calls</p>
-</div>
-</div>
-</div>
-
-
-           </div>
-           
-          </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="requirements.html" class="btn btn-neutral float-right" title="System Requirements" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../cppapi/typedef_keymap_8h_1ac3b9dc0b31585c6bf1469b7510c8db64.html" class="btn btn-neutral float-left" title="Typedef UTF8String" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2019 Intel Corporation.
-This software and the related documents are Intel copyrighted materials, and your
-use of them is governed by the express license under which they were provided to
-you (License). Unless the License provides otherwise, you may not use, modify, copy,
-publish, distribute, disclose or transmit this software or the related documents
-without Intel&#39;s prior written permission.
-This software and the related documents are provided as is, with no express or implied
-warranties, other than those that are expressly stated in the License.
-
-    </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-  
-
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
-    
-   
-
-</body>
-</html>
