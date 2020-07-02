@@ -218,12 +218,7 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Release Notes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#june-2020">2020.2 (25 June 2020)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#new">NEW:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#changed">CHANGED:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#fixed">FIXED:</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#june-2020">2020.2 (25 June 2020)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#march-2020">2020.1 (26 March 2020)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#september-2019">2019.3 (26 September 2019)</a></li>
@@ -305,8 +300,7 @@
 <span id="id1"></span><h1>Release Notes<a class="headerlink" href="#release-notes" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="june-2020">
 <h2>2020.2 (25 June 2020)<a class="headerlink" href="#june-2020" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="new">
-<h3>NEW:<a class="headerlink" href="#new" title="Permalink to this headline">¶</a></h3>
+<p>NEW:</p>
 <ul class="simple">
 <li><p>Added support for Vulkan SDK 1.2.135 and Windows SDK 10.0.18362.1. These are now requirements to build the framework and samples.</p></li>
 <li><p>A new event is triggered when capture layer detects unavailability of disk space and stops serialization to disk on all threads. An out-of-disk-space error is shown on the HUD.</p></li>
@@ -319,9 +313,7 @@
 <li><p>Added SwapchainInfo to D3D12 and Vulkan MetadataExtractors.  TextureInfo now has a pointer to SwapchainInfo that can be used to determine if the TextureInfo belongs to a SwapchainInfo.</p></li>
 <li><p>Added ability to retrieve <cite>RenderPassInfo</cite> for Vulkan workloads via <cite>MetadataExtractor</cite>.</p></li>
 </ul>
-</div>
-<div class="section" id="changed">
-<h3>CHANGED:<a class="headerlink" href="#changed" title="Permalink to this headline">¶</a></h3>
+<p>CHANGED:</p>
 <ul class="simple">
 <li><p>Added GetBindingInterval() to <cite>ResourceInfo</cite>. <cite>ResourceInfo::GetBindingInterval()</cite> can be used to determine the begin and end indices of a ResourceInfo binding.</p></li>
 <li><p><cite>MetricsExtractor</cite> creates and manages a secondary Pipeline Statistics and Timestamp Query Manager if the primary Query Manager was Intel GPU MD-library based.</p></li>
@@ -343,15 +335,12 @@
 </dl>
 </li>
 </ul>
-</div>
-<div class="section" id="fixed">
-<h3>FIXED:<a class="headerlink" href="#fixed" title="Permalink to this headline">¶</a></h3>
+<p>FIXED:</p>
 <ul class="simple">
 <li><p>MetricsExtractor will perform a GPU flush (if needed), then a query manager unsubscribe, and a new query manager subscribe on the start of every collection range when the queue changes. Previously, the assumption was made that only a single queue was used for all collection ranges that led to a IQueryManager::BeginQueue unsupported failure. This was causing metrics to not be collected for some Unreal based D3D12 workloads.</p></li>
 <li><p>CreateMetricsSource using MetricsSourceType::kUnspecified for D3D12 when MD library support is not available will fallback to the D3D12 Pipeline Statistics and Timestamp MetricsSource. Previously, this was not occurring.</p></li>
 <li><p>Unsupported QueryManager metrics subscription is now handled so that MD library based metrics can be collected from workloads that use a copy queue, such as with some Unreal samples.</p></li>
 </ul>
-</div>
 </div>
 <div class="section" id="march-2020">
 <h2>2020.1 (26 March 2020)<a class="headerlink" href="#march-2020" title="Permalink to this headline">¶</a></h2>
