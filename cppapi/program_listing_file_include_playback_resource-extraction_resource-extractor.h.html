@@ -216,7 +216,18 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">CHANGED:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">FIXED:</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
@@ -346,6 +357,7 @@
             <span class="n">FAILURE_NO_RESOURCE_INFO_SPECIFIED</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span>
             <span class="n">FAILURE_RESOURCE_INFO_MISMATCH</span>     <span class="o">=</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span>
             <span class="n">FAILURE_REGION_OUT_OF_BOUNDS</span>       <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span>
+            <span class="n">FAILURE_INTERNAL</span>                   <span class="o">=</span> <span class="o">-</span><span class="mi">6</span><span class="p">,</span>
             <span class="c1">// clang-format on</span>
         <span class="p">};</span>
 
@@ -354,7 +366,6 @@
         <span class="n">State</span> <span class="n">state</span><span class="p">{</span><span class="n">State</span><span class="o">::</span><span class="n">PENDING</span><span class="p">};</span>
         <span class="kt">size_t</span> <span class="n">dataSize</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
         <span class="kt">uint8_t</span><span class="o">*</span> <span class="n">pData</span><span class="p">{</span><span class="k">nullptr</span><span class="p">};</span>
-
         <span class="n">api_types</span><span class="o">::</span><span class="n">Format</span> <span class="n">format</span><span class="p">{</span><span class="n">api_types</span><span class="o">::</span><span class="n">GPA_FORMAT_UNKNOWN</span><span class="p">};</span>
         <span class="kt">size_t</span> <span class="n">rowPitch</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
         <span class="kt">size_t</span> <span class="n">slicePitch</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
@@ -362,9 +373,15 @@
 
     <span class="k">struct</span> <span class="n">Request</span> <span class="k">final</span>
     <span class="p">{</span>
+        <span class="k">enum</span> <span class="k">class</span> <span class="nc">Execution</span> <span class="p">{</span>
+            <span class="n">PreCall</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="n">PostCall</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="p">};</span>
+
         <span class="k">struct</span> <span class="n">Info</span> <span class="k">final</span>
         <span class="p">{</span>
             <span class="kt">uint64_t</span> <span class="n">callIndex</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+            <span class="n">Execution</span> <span class="n">stage</span><span class="p">{</span><span class="n">Execution</span><span class="o">::</span><span class="n">PostCall</span><span class="p">};</span>
             <span class="n">ResourceInfo</span> <span class="k">const</span><span class="o">*</span> <span class="n">pResourceInfo</span><span class="p">{</span><span class="k">nullptr</span><span class="p">};</span>
             <span class="n">ResourceInfo</span><span class="o">::</span><span class="n">Ex</span> <span class="k">const</span><span class="o">*</span> <span class="n">pResourceInfoEx</span><span class="p">{</span><span class="k">nullptr</span><span class="p">};</span>
 
@@ -412,9 +429,9 @@
 
     <span class="n">detail</span><span class="o">::</span><span class="n">Span</span><span class="o">&lt;</span><span class="n">Request</span><span class="o">::</span><span class="n">Info</span><span class="o">&gt;</span> <span class="n">GetRequestInfos</span><span class="p">();</span>
 
-    <span class="n">detail</span><span class="o">::</span><span class="n">Span</span><span class="o">&lt;</span><span class="n">Request</span><span class="o">::</span><span class="n">Info</span><span class="o">&gt;</span> <span class="n">GetRequestInfos</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">callIndex</span><span class="p">);</span>
+    <span class="n">detail</span><span class="o">::</span><span class="n">Span</span><span class="o">&lt;</span><span class="n">Request</span><span class="o">::</span><span class="n">Info</span><span class="o">&gt;</span> <span class="n">GetRequestInfos</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">callIndex</span><span class="p">,</span> <span class="n">Request</span><span class="o">::</span><span class="n">Execution</span> <span class="n">stage</span><span class="p">);</span>
 
-    <span class="kt">void</span> <span class="nf">WriteRequestResult</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">dataSize</span><span class="p">,</span> <span class="kt">uint8_t</span> <span class="k">const</span><span class="o">*</span> <span class="n">pData</span><span class="p">,</span> <span class="n">Result</span><span class="o">&amp;</span> <span class="n">result</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">WriteRequestResultData</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">dataSize</span><span class="p">,</span> <span class="kt">uint8_t</span> <span class="k">const</span><span class="o">*</span> <span class="n">pData</span><span class="p">,</span> <span class="n">Result</span><span class="o">&amp;</span> <span class="n">result</span><span class="p">);</span>
 
     <span class="n">MetadataExtractorEx</span> <span class="k">const</span><span class="o">*</span> <span class="n">mMetadataExtractor</span><span class="p">{</span><span class="k">nullptr</span><span class="p">};</span>
 
@@ -426,7 +443,7 @@
 
 <span class="k">private</span><span class="o">:</span>
     <span class="n">Request</span><span class="o">*</span> <span class="n">mRequest</span><span class="p">{</span><span class="k">nullptr</span><span class="p">};</span>
-    <span class="kt">size_t</span> <span class="n">mRequestResultDataOffset</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+    <span class="kt">uint8_t</span><span class="o">*</span> <span class="n">mRequestResultData</span><span class="p">{</span><span class="k">nullptr</span><span class="p">};</span>
     <span class="n">ResourceExtractor</span><span class="p">(</span><span class="n">ResourceExtractor</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
     <span class="n">ResourceExtractor</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">ResourceExtractor</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
 <span class="p">};</span>

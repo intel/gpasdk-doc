@@ -216,7 +216,18 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">CHANGED:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">FIXED:</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
@@ -330,6 +341,7 @@
 <span class="p">{</span>
     <span class="kt">uint64_t</span> <span class="n">offset</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
     <span class="kt">uint64_t</span> <span class="n">size</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+    <span class="kt">uint64_t</span> <span class="n">stride</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
     <span class="k">static</span> <span class="k">const</span> <span class="n">BufferRegion</span> <span class="n">WholeRegion</span><span class="p">;</span>
 <span class="p">};</span>
 
@@ -496,6 +508,32 @@
 <span class="kt">bool</span> <span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="n">Viewport</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Viewport</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">);</span>
 
 <span class="kt">bool</span> <span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="n">Viewport</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Viewport</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">);</span>
+
+<span class="c1">// SourceFile</span>
+<span class="k">struct</span> <span class="n">SourceFile</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">pContent</span><span class="p">{</span><span class="k">nullptr</span><span class="p">};</span>
+    <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">pFilename</span><span class="p">{</span><span class="k">nullptr</span><span class="p">};</span>
+<span class="p">};</span>
+
+<span class="c1">// ShaderMacro</span>
+<span class="k">struct</span> <span class="n">ShaderMacro</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">pName</span><span class="p">{</span><span class="k">nullptr</span><span class="p">};</span>
+    <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">pDefinition</span><span class="p">{</span><span class="k">nullptr</span><span class="p">};</span>
+<span class="p">};</span>
+
+<span class="c1">// ShaderSources</span>
+<span class="k">struct</span> <span class="n">ShaderSource</span>
+<span class="p">{</span>
+    <span class="n">api_types</span><span class="o">::</span><span class="n">ShaderLanguage</span> <span class="n">language</span><span class="p">{</span><span class="n">GPA_SHADER_LANGUAGE_UNKNOWN</span><span class="p">};</span>
+    <span class="kt">size_t</span> <span class="n">fileCount</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+    <span class="n">SourceFile</span> <span class="k">const</span><span class="o">*</span> <span class="n">pFiles</span><span class="p">{</span><span class="k">nullptr</span><span class="p">};</span>
+    <span class="kt">size_t</span> <span class="n">macroCount</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+    <span class="n">ShaderMacro</span> <span class="k">const</span><span class="o">*</span> <span class="n">pMacros</span><span class="p">{</span><span class="k">nullptr</span><span class="p">};</span>
+    <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">pEntryPoint</span><span class="p">{</span><span class="s">&quot;main&quot;</span><span class="p">};</span>
+    <span class="kt">uint32_t</span> <span class="n">flags</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+<span class="p">};</span>
 
 <span class="p">}</span>  <span class="c1">// namespace api_types</span>
 <span class="p">}</span>  <span class="c1">// namespace gpa</span>

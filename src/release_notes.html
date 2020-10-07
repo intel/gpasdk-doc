@@ -218,7 +218,18 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Release Notes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#june-2020">2020.2 (25 June 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#new">NEW:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#changed">CHANGED:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fixed">FIXED:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">NEW:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">CHANGED:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">FIXED:</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#march-2020">2020.1 (26 March 2020)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#september-2019">2019.3 (26 September 2019)</a></li>
@@ -298,22 +309,93 @@
             
   <div class="section" id="release-notes">
 <span id="id1"></span><h1>Release Notes<a class="headerlink" href="#release-notes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="september-2020">
+<h2>2020.3 (24 September 2020)<a class="headerlink" href="#september-2020" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="new">
+<h3>NEW:<a class="headerlink" href="#new" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Added support for Vulkan SDK 1.2.141.2</p></li>
+<li><p>Deferred capture support for Vulkan has been extended to cover more Unreal and Unity engines based workloads.</p></li>
+<li><p>Enabled proper handling of vkCreateRenderPass2 API call</p></li>
+<li><p>Enabled capture and playback of Sponza D3D12RaytracingMiniEngineSample workload in DXR (ray-tracing) mode</p></li>
+<li><p>Added support for Vulkan and D3D12 view-info structs in resource metadata</p></li>
+<li><p>Adds initial support for compute queues to the D3D12 Pipeline Statistics and Timestamp QueryManager. Previously, when a compute queue was used invalid queries would be performed</p></li>
+<li><p>Added support for extracting text from D3D12 debug events in captured stream</p></li>
+<li><p>Added support for DirectX12 Variable Rate Shading Tier 2</p></li>
+<li><p>Added support for Raytracing for DirectX applications (Alpha)</p></li>
+<li><p>Added initial support for Multi-GPU applications</p></li>
+<li><p>Added support for DirectX12 Execute Indirect</p></li>
+</ul>
+</div>
+<div class="section" id="changed">
+<h3>CHANGED:<a class="headerlink" href="#changed" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Added MSVC runtime redistributable installation to installer</p></li>
+<li><p>Parameters passed to IQueryManager interface function Subscribe and Unsubscribe were simplified to directly provide a command queue, instead of a pointer to a CommandBufferData structure.</p></li>
+<li><p>Reduced the number of GPU flushes performed by the MetricsExtractor when collecting metrics.</p></li>
+</ul>
+</div>
+<div class="section" id="fixed">
+<h3>FIXED:<a class="headerlink" href="#fixed" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>All metrics source objects now ensure consecutive ordering of metric IDs that are reported per IMetricGroup, for all GPUs.</p></li>
+<li><p>Crash during capture in certain situations involving VkWriteDescriptorSet in push descriptors</p></li>
+<li><p>Enabled Diligent framework ShadowsSample (fixes hang during playback of Vulkan stream)</p></li>
+<li><p>Occasional crash during playback of D3D12 Unity VikingVillage stream, captured with keyframes or deferred capture enabled</p></li>
+<li><p>Crash in Doom Eternal Vulkan capture when HUD layer enabled</p></li>
+<li><p>Crash during capture in 3DMark NightRaid benchmark</p></li>
+<li><p>Incorrect metric data collected in D3D12 shader profiler</p></li>
+<li><p>Corrupt data during playback of D3D12 streams incorporating bundles or dynamic indexing</p></li>
+<li><p>Stream from Steel Division 2 (DX11) has no frames</p></li>
+<li><p>Incorrect D3D12 resource extraction</p></li>
+<li><p>Shadow of the Tomb Raider hangs in D3D12</p></li>
+<li><p>Playback hangs on metrics collection or provides incorrect metrics</p></li>
+<li><p>Crash when handling negative number input for gpa-player options</p></li>
+<li><p>Incorrect swapchain image reported by metadata extractor</p></li>
+<li><p>F1 2019 captures immediately hang and occasionally crash (D3D12)</p></li>
+<li><p>Vulkan streams have the same code for HLSL and GLSL</p></li>
+<li><p>Non-human-readable installer name displayed in UAC prompt during Framework installation</p></li>
+<li><p>Checking Open Getting Started box on final Framework installer dialog fails to open Getting Started</p></li>
+<li><p>Borderlands 3 doesn’t replay (D3D11, D3D12)</p></li>
+<li><p>Depth-stencil textures can’t be loaded with new extraction interface</p></li>
+<li><p>Incorrect reporting of D3D12 bindings</p></li>
+<li><p>Streams not properly cleaning up on exit (file sizes not truncating correctly, leading to excessive disk usage)</p></li>
+<li><p>After resizing window in any SaschaWillems demo, all render target and output textures display black</p></li>
+<li><p>Broken backward stream compatibility for D3D11 Final Fantasy XV captures</p></li>
+<li><p>Incorrect handling of defines and conditional compilation of shaders in D3D12 prevents display of some bindings defined in the shader</p></li>
+<li><p>Strange Brigade playback crash (Vulkan)</p></li>
+<li><p>DSVs were not loading in the new resourcee extractor on VkCmdBeginRenderPass calls.</p></li>
+<li><p>Unreal Engine Infiltrator demo crash during repeat of multiple frames (D3D12)</p></li>
+<li><p>Enabling HUD layer crashes Battlefield: V capture (D3D12)</p></li>
+<li><p>Unsupported QueryManager metrics subscription is now handled so that MD library based metrics can be collected from workloads that use a copy queue, such as with some Unreal samples.</p></li>
+<li><p>Vulkan stream repeat playback regression. Previously, calling PlayToBookmark would crash.</p></li>
+<li><p>Metrics collection from 3rd-party GPUs when an Intel GPU is also enabled on the platform. Previously, no metrics collection (such as pipeline statistics) would occur to be displayed in FA and the metrics-collection-sample would crash.</p></li>
+<li><p>SaschaWillems Deferred sample fails to play back when captured with deferred capture enabled</p></li>
+<li><p>Hang/crash when disk storage is exhausted during capture (message now displayed in HUD in this case, and capture gracefully suspends)</p></li>
+<li><p>GRID 2019 crash on startup during capture</p></li>
+<li><p>Final render target missing in playback of streams from Unreal Engine samples</p></li>
+</ul>
+</div>
+</div>
 <div class="section" id="june-2020">
 <h2>2020.2 (25 June 2020)<a class="headerlink" href="#june-2020" title="Permalink to this headline">¶</a></h2>
-<p>NEW:</p>
+<div class="section" id="id2">
+<h3>NEW:<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Added support for Vulkan SDK 1.2.135 and Windows SDK 10.0.18362.1. These are now requirements to build the framework and samples.</p></li>
 <li><p>A new event is triggered when capture layer detects unavailability of disk space and stops serialization to disk on all threads. An out-of-disk-space error is shown on the HUD.</p></li>
 <li><p>Added the ability to modify scissor rects in a range to the <cite>Experimentor</cite>.</p></li>
 <li><p>Added a new prefab, <cite>OneByOneScissorRectExperiment</cite>, which will automatically set up a 1x1 scissor rect modification at the origin for all viewports.</p></li>
-<li><p>Exposed <cite>ScissorRectInfo</cite> and <cite>ViewportInfo</cite> objects as <a href="#id2"><span class="problematic" id="id3">`</span></a>ResourceInfoEx`s from the MetadataExtractorEx interface.</p></li>
+<li><p>Exposed <cite>ScissorRectInfo</cite> and <cite>ViewportInfo</cite> objects as <a href="#id3"><span class="problematic" id="id4">`</span></a>ResourceInfoEx`s from the MetadataExtractorEx interface.</p></li>
 <li><p>Texture replacement available via <cite>ResourceExperiment</cite> interface for D3D12 applications.</p></li>
 <li><p>2X2 texture replacement experiment prefab available for D3D12 applications.</p></li>
 <li><p>Added ability to obtain creation info for buffers and textures. This covers both DX12 and Vulkan. See the metadata-extraction sample for how to use this. Create info for more structures will come in the future.</p></li>
 <li><p>Added SwapchainInfo to D3D12 and Vulkan MetadataExtractors.  TextureInfo now has a pointer to SwapchainInfo that can be used to determine if the TextureInfo belongs to a SwapchainInfo.</p></li>
 <li><p>Added ability to retrieve <cite>RenderPassInfo</cite> for Vulkan workloads via <cite>MetadataExtractor</cite>.</p></li>
 </ul>
-<p>CHANGED:</p>
+</div>
+<div class="section" id="id5">
+<h3>CHANGED:<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Added GetBindingInterval() to <cite>ResourceInfo</cite>. <cite>ResourceInfo::GetBindingInterval()</cite> can be used to determine the begin and end indices of a ResourceInfo binding.</p></li>
 <li><p><cite>MetricsExtractor</cite> creates and manages a secondary Pipeline Statistics and Timestamp Query Manager if the primary Query Manager was Intel GPU MD-library based.</p></li>
@@ -335,12 +417,15 @@
 </dl>
 </li>
 </ul>
-<p>FIXED:</p>
+</div>
+<div class="section" id="id6">
+<h3>FIXED:<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>MetricsExtractor will perform a GPU flush (if needed), then a query manager unsubscribe, and a new query manager subscribe on the start of every collection range when the queue changes. Previously, the assumption was made that only a single queue was used for all collection ranges that led to a IQueryManager::BeginQueue unsupported failure. This was causing metrics to not be collected for some Unreal based D3D12 workloads.</p></li>
 <li><p>CreateMetricsSource using MetricsSourceType::kUnspecified for D3D12 when MD library support is not available will fallback to the D3D12 Pipeline Statistics and Timestamp MetricsSource. Previously, this was not occurring.</p></li>
 <li><p>Unsupported QueryManager metrics subscription is now handled so that MD library based metrics can be collected from workloads that use a copy queue, such as with some Unreal samples.</p></li>
 </ul>
+</div>
 </div>
 <div class="section" id="march-2020">
 <h2>2020.1 (26 March 2020)<a class="headerlink" href="#march-2020" title="Permalink to this headline">¶</a></h2>
@@ -555,6 +640,12 @@
 </tbody>
 </table>
 <p>Please visit Intel(R) GPA Framework Documentation page for additional in depth information on the features that have been exposed.</p>
+<p>Intel technologies may require enabled hardware, software or service activation.</p>
+<p>No product or component can be absolutely secure.</p>
+<p>Your costs and results may vary.</p>
+<p>(c) Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of
+Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the
+property of others.</p>
 </div>
 </div>
 

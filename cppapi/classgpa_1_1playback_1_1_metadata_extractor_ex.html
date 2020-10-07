@@ -41,7 +41,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Class MetricsExtractor" href="classgpa_1_1playback_1_1_metrics_extractor.html" />
-    <link rel="prev" title="Class MetadataExtractor" href="classgpa_1_1playback_1_1_metadata_extractor.html" />
+    <link rel="prev" title="Class MemoryBarrierInfo" href="classgpa_1_1playback_1_1_memory_barrier_info.html" />
      
     <script type="text/javascript">
         //configure tms    
@@ -218,7 +218,18 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">CHANGED:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">FIXED:</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
@@ -321,8 +332,8 @@
 <dt id="_CPPv4N3gpa8playback19MetadataExtractorExE">
 <span id="_CPPv3N3gpa8playback19MetadataExtractorExE"></span><span id="_CPPv2N3gpa8playback19MetadataExtractorExE"></span><span id="gpa::playback::MetadataExtractorEx"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex"></span><em class="property">class </em><code class="sig-prename descclassname">gpa::playback<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">MetadataExtractorEx</code> : <em class="property">public</em> gpa::playback::<a class="reference internal" href="classgpa_1_1playback_1_1_callable_broadcaster.html#_CPPv4N3gpa8playback19CallableBroadcasterE" title="gpa::playback::CallableBroadcaster">CallableBroadcaster</a>, <em class="property">public</em> gpa::playback::<a class="reference internal" href="classgpa_1_1playback_1_1_callable_receiver.html#_CPPv4N3gpa8playback16CallableReceiverE" title="gpa::playback::CallableReceiver">CallableReceiver</a><a class="headerlink" href="#_CPPv4N3gpa8playback19MetadataExtractorExE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Provides access to metadata for a captured range <p> Range metadata is delivered via </p>
-<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> objects. <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> objects can be acquired and enumerated using <a class="reference internal" href="#classgpa_1_1playback_1_1_metadata_extractor_ex_1a44660c7f09378fd3cd68d23ae16ac986"><span class="std std-ref">GetResourceInfos()</span></a>. <a class="reference internal" href="#classgpa_1_1playback_1_1_metadata_extractor_ex_1a44660c7f09378fd3cd68d23ae16ac986"><span class="std std-ref">GetResourceInfos()</span></a> requires two arguments, the desired <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"><span class="std std-ref">ResourceInfo::Usage</span></a> and the call index. <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"><span class="std std-ref">ResourceInfo::Usage</span></a> specifies the usage to inspect and the call index specifies the GPU ordered call index to inspect for <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> objects. <p> In the following example we’re interested in </p>
-<a class="reference internal" href="classgpa_1_1playback_1_1_texture_info.html#classgpa_1_1playback_1_1_texture_info"><span class="std std-ref">TextureInfo</span></a> objects with ResourceInfo::Usage::GRAPHICS_OUTPUT at call index 128. <a class="reference internal" href="#classgpa_1_1playback_1_1_metadata_extractor_ex_1a44660c7f09378fd3cd68d23ae16ac986"><span class="std std-ref">GetResourceInfos()</span></a> will allow us to loop over all of the <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> objects with the specified usage and call index. <p> Since we’re currently only interested in </p>
+<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> objects. <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> objects can be acquired and enumerated using <a class="reference internal" href="#classgpa_1_1playback_1_1_metadata_extractor_ex_1ae153321d57f415ceba7cccc54d31658e"><span class="std std-ref">GetResourceInfos()</span></a>. <a class="reference internal" href="#classgpa_1_1playback_1_1_metadata_extractor_ex_1ae153321d57f415ceba7cccc54d31658e"><span class="std std-ref">GetResourceInfos()</span></a> requires two arguments, the desired <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"><span class="std std-ref">ResourceInfo::Usage</span></a> and the call index. <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"><span class="std std-ref">ResourceInfo::Usage</span></a> specifies the usage to inspect and the call index specifies the GPU ordered call index to inspect for <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> objects. <p> In the following example we’re interested in </p>
+<a class="reference internal" href="classgpa_1_1playback_1_1_texture_info.html#classgpa_1_1playback_1_1_texture_info"><span class="std std-ref">TextureInfo</span></a> objects with ResourceInfo::Usage::GRAPHICS_OUTPUT at call index 128. <a class="reference internal" href="#classgpa_1_1playback_1_1_metadata_extractor_ex_1ae153321d57f415ceba7cccc54d31658e"><span class="std std-ref">GetResourceInfos()</span></a> will allow us to loop over all of the <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> objects with the specified usage and call index. <p> Since we’re currently only interested in </p>
 <a class="reference internal" href="classgpa_1_1playback_1_1_texture_info.html#classgpa_1_1playback_1_1_texture_info"><span class="std std-ref">TextureInfo</span></a> objects we attempt to convert and process each <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a>. </p>
 <p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">auto</span> <span class="n">usage</span> <span class="o">=</span> <span class="n">ResourceInfo</span><span class="p">::</span><span class="n">Usage</span><span class="p">::</span><span class="n">GRAPHICS_OUTPUT</span><span class="p">;</span>
 <span class="n">auto</span> <span class="n">callIndex</span> <span class="o">=</span> <span class="mi">128</span><span class="p">;</span>
@@ -342,12 +353,12 @@
 <span class="n">auto</span> <span class="n">callIndex</span> <span class="o">=</span> <span class="mi">128</span><span class="p">;</span>
 <span class="k">for</span> <span class="p">(</span><span class="n">auto</span> <span class="n">const</span><span class="o">&amp;</span> <span class="n">resourceInfo</span> <span class="p">:</span> <span class="n">metadataExtractor</span><span class="o">.</span><span class="n">GetResourceInfos</span><span class="p">(</span><span class="n">usage</span><span class="p">,</span> <span class="n">callIndex</span><span class="p">))</span> <span class="p">{</span>
     <span class="n">switch</span> <span class="p">(</span><span class="n">resourceInfo</span><span class="o">.</span><span class="n">GetTypeId</span><span class="p">())</span> <span class="p">{</span>
-        <span class="n">case</span> <span class="n">ResourceInfo</span><span class="p">::</span><span class="n">GetTypeId</span><span class="o">&lt;</span><span class="n">BufferInfo</span><span class="o">&gt;</span><span class="p">():</span>
+        <span class="n">case</span> <span class="n">ResourceInfo</span><span class="p">::</span><span class="n">GetTypeId</span><span class="o">&lt;</span><span class="n">BufferInfo</span><span class="o">&gt;</span><span class="p">():</span> <span class="p">{</span>
             <span class="n">ProcessBufferDescriptor</span><span class="p">(</span><span class="n">resourceInfo</span><span class="o">.</span><span class="n">As</span><span class="o">&lt;</span><span class="n">BufferInfo</span><span class="o">&gt;</span><span class="p">());</span>
-        <span class="k">break</span><span class="p">;</span>
-        <span class="n">case</span> <span class="n">ResourceInfo</span><span class="p">::</span><span class="n">GetTypeId</span><span class="o">&lt;</span><span class="n">TextureInfo</span><span class="o">&gt;</span><span class="p">():</span>
+        <span class="p">}</span> <span class="k">break</span><span class="p">;</span>
+        <span class="n">case</span> <span class="n">ResourceInfo</span><span class="p">::</span><span class="n">GetTypeId</span><span class="o">&lt;</span><span class="n">TextureInfo</span><span class="o">&gt;</span><span class="p">():</span> <span class="p">{</span>
             <span class="n">ProcessTextureDescriptor</span><span class="p">(</span><span class="n">resourceInfo</span><span class="o">.</span><span class="n">As</span><span class="o">&lt;</span><span class="n">TextureInfo</span><span class="o">&gt;</span><span class="p">());</span>
-        <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">break</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -360,12 +371,12 @@
 <span class="k">for</span> <span class="p">(</span><span class="n">auto</span> <span class="n">const</span><span class="o">&amp;</span> <span class="n">resourceInfo</span> <span class="p">:</span> <span class="n">metadataExtractor</span><span class="o">.</span><span class="n">GetResourceInfos</span><span class="p">(</span><span class="n">usage</span><span class="p">,</span> <span class="n">callIndex</span><span class="p">))</span> <span class="p">{</span>
     <span class="k">for</span> <span class="p">(</span><span class="n">auto</span> <span class="n">const</span><span class="o">&amp;</span> <span class="n">resourceInfoEx</span> <span class="p">:</span> <span class="n">resourceInfo</span><span class="o">.</span><span class="n">GetResourceInfoExs</span><span class="p">(</span><span class="n">usage</span><span class="p">,</span> <span class="n">callIndex</span><span class="p">))</span> <span class="p">{</span>
         <span class="n">switch</span> <span class="p">(</span><span class="n">resourceInfoEx</span><span class="o">.</span><span class="n">GetTypeId</span><span class="p">())</span> <span class="p">{</span>
-            <span class="n">case</span> <span class="n">ResourceInfo</span><span class="p">::</span><span class="n">Ex</span><span class="p">::</span><span class="n">GetTypeId</span><span class="o">&lt;</span><span class="n">IndexBufferInfo</span><span class="o">&gt;</span><span class="p">():</span>
+            <span class="n">case</span> <span class="n">ResourceInfo</span><span class="p">::</span><span class="n">Ex</span><span class="p">::</span><span class="n">GetTypeId</span><span class="o">&lt;</span><span class="n">IndexBufferInfo</span><span class="o">&gt;</span><span class="p">():</span> <span class="p">{</span>
                 <span class="n">ProcessIndexBuffer</span><span class="p">(</span><span class="n">resourceInfoEx</span><span class="o">.</span><span class="n">As</span><span class="o">&lt;</span><span class="n">IndexBufferInfo</span><span class="o">&gt;</span><span class="p">());</span>
-            <span class="k">break</span><span class="p">;</span>
-            <span class="n">case</span> <span class="n">ResourceInfo</span><span class="p">::</span><span class="n">Ex</span><span class="p">::</span><span class="n">GetTypeId</span><span class="o">&lt;</span><span class="n">VertexBufferInfo</span><span class="o">&gt;</span><span class="p">():</span>
+            <span class="p">}</span> <span class="k">break</span><span class="p">;</span>
+            <span class="n">case</span> <span class="n">ResourceInfo</span><span class="p">::</span><span class="n">Ex</span><span class="p">::</span><span class="n">GetTypeId</span><span class="o">&lt;</span><span class="n">VertexBufferInfo</span><span class="o">&gt;</span><span class="p">():</span> <span class="p">{</span>
                 <span class="n">ProcessVertexBuffer</span><span class="p">(</span><span class="n">resourceInfoEx</span><span class="o">.</span><span class="n">As</span><span class="o">&lt;</span><span class="n">VertexBufferInfo</span><span class="o">&gt;</span><span class="p">());</span>
-            <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">break</span><span class="p">;</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -461,11 +472,26 @@
 </dd></dl>
 
 <dl class="cpp function">
+<dt id="_CPPv4NK3gpa8playback19MetadataExtractorEx16GetResourceInfosEv">
+<span id="_CPPv3NK3gpa8playback19MetadataExtractorEx16GetResourceInfosEv"></span><span id="_CPPv2NK3gpa8playback19MetadataExtractorEx16GetResourceInfosEv"></span><span id="gpa::playback::MetadataExtractorEx::GetResourceInfosC"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1ae153321d57f415ceba7cccc54d31658e"></span><a class="reference internal" href="classgpa_1_1playback_1_1_enumerator.html#_CPPv4I0EN3gpa8playback10EnumeratorE" title="gpa::playback::Enumerator">Enumerator</a>&lt;<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#_CPPv4N3gpa8playback12ResourceInfoE" title="gpa::playback::ResourceInfo">ResourceInfo</a>&gt; <code class="sig-name descname">GetResourceInfos</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa8playback19MetadataExtractorEx16GetResourceInfosEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Gets an Enumerator&lt;&gt; to all registered ResourceInfos. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>An Enumerator&lt;&gt; to all registered ResourceInfos </p>
+</dd>
+<dt><strong>Note</strong></dt><dd><p>Subsequent calls to this method invalidate outstanding Enumerator&lt;&gt; objects and Enumerator&lt;&gt;::Iterator objects </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
 <dt id="_CPPv4NK3gpa8playback19MetadataExtractorEx16GetResourceInfosEN12ResourceInfo5UsageE8uint64_t">
 <span id="_CPPv3NK3gpa8playback19MetadataExtractorEx16GetResourceInfosEN12ResourceInfo5UsageE8uint64_t"></span><span id="_CPPv2NK3gpa8playback19MetadataExtractorEx16GetResourceInfosEN12ResourceInfo5UsageE8uint64_t"></span><span id="gpa::playback::MetadataExtractorEx::GetResourceInfos__ResourceInfo::Usage.uint64_tC"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1a44660c7f09378fd3cd68d23ae16ac986"></span><a class="reference internal" href="classgpa_1_1playback_1_1_enumerator.html#_CPPv4I0EN3gpa8playback10EnumeratorE" title="gpa::playback::Enumerator">Enumerator</a>&lt;<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#_CPPv4N3gpa8playback12ResourceInfoE" title="gpa::playback::ResourceInfo">ResourceInfo</a>&gt; <code class="sig-name descname">GetResourceInfos</code><span class="sig-paren">(</span><a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#_CPPv4N3gpa8playback12ResourceInfoE" title="gpa::playback::ResourceInfo">ResourceInfo</a>::<a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#_CPPv4N3gpa8playback12ResourceInfo5UsageE" title="gpa::playback::ResourceInfo::Usage">Usage</a> <em>usage</em>, uint64_t <em>callIndex</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa8playback19MetadataExtractorEx16GetResourceInfosEN12ResourceInfo5UsageE8uint64_t" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Gets an Enumerator&lt;&gt; to all registered ResourceInfos for a specified <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"><span class="std std-ref">ResourceInfo::Usage</span></a> at a specified call index. </p>
 <p><dl class="simple">
 <dt><strong>Return</strong></dt><dd><p>An Enumerator&lt;&gt; to all registered ResourceInfos for the specified <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"><span class="std std-ref">ResourceInfo::Usage</span></a> at the specified call index </p>
+</dd>
+<dt><strong>Note</strong></dt><dd><p>Subsequent calls to this method invalidate outstanding Enumerator&lt;&gt; objects and Enumerator&lt;&gt;::Iterator objects </p>
 </dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">usage</span></code>: The <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info.html#classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"><span class="std std-ref">ResourceInfo::Usage</span></a> to registered ReseourceInfos for </p></li>
@@ -492,8 +518,8 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK3gpa8playback19MetadataExtractorEx15GetShaderSourceERK10ShaderInfoN9api_types14ShaderLanguageEP6size_tPc">
-<span id="_CPPv3NK3gpa8playback19MetadataExtractorEx15GetShaderSourceERK10ShaderInfoN9api_types14ShaderLanguageEP6size_tPc"></span><span id="_CPPv2NK3gpa8playback19MetadataExtractorEx15GetShaderSourceERK10ShaderInfoN9api_types14ShaderLanguageEP6size_tPc"></span><span id="gpa::playback::MetadataExtractorEx::GetShaderSource__ShaderInfoCR.api_types::ShaderLanguage.sP.cPC"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1a108d6fbe30dda83190ef45a48cdaff41"></span>bool <code class="sig-name descname">GetShaderSource</code><span class="sig-paren">(</span><a class="reference internal" href="classgpa_1_1playback_1_1_shader_info.html#_CPPv4N3gpa8playback10ShaderInfoE" title="gpa::playback::ShaderInfo">ShaderInfo</a> <em class="property">const</em> &amp;<em>shaderInfo</em>, api_types::<a class="reference internal" href="enumerations_8h_1a6421415764b84aa63aa56ba727d7790a.html#_CPPv4N3gpa9api_types14ShaderLanguageE" title="gpa::api_types::ShaderLanguage">ShaderLanguage</a> <em>language</em>, size_t *<em>pSourceCodeSize</em>, char *<em>pSourceCode</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa8playback19MetadataExtractorEx15GetShaderSourceERK10ShaderInfoN9api_types14ShaderLanguageEP6size_tPc" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4NK3gpa8playback19MetadataExtractorEx15GetShaderSourceERK10ShaderInfoN9api_types14ShaderLanguageERN3gpa9api_types12ShaderSourceE">
+<span id="_CPPv3NK3gpa8playback19MetadataExtractorEx15GetShaderSourceERK10ShaderInfoN9api_types14ShaderLanguageERN3gpa9api_types12ShaderSourceE"></span><span id="_CPPv2NK3gpa8playback19MetadataExtractorEx15GetShaderSourceERK10ShaderInfoN9api_types14ShaderLanguageERN3gpa9api_types12ShaderSourceE"></span><span id="gpa::playback::MetadataExtractorEx::GetShaderSource__ShaderInfoCR.api_types::ShaderLanguage.gpa::api_types::ShaderSourceRC"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1a300f0704fa2b4385bc35755af5793a75"></span>bool <code class="sig-name descname">GetShaderSource</code><span class="sig-paren">(</span><a class="reference internal" href="classgpa_1_1playback_1_1_shader_info.html#_CPPv4N3gpa8playback10ShaderInfoE" title="gpa::playback::ShaderInfo">ShaderInfo</a> <em class="property">const</em> &amp;<em>shaderInfo</em>, api_types::<a class="reference internal" href="enumerations_8h_1a6421415764b84aa63aa56ba727d7790a.html#_CPPv4N3gpa9api_types14ShaderLanguageE" title="gpa::api_types::ShaderLanguage">ShaderLanguage</a> <em>language</em>, gpa::api_types::<a class="reference internal" href="structgpa_1_1api__types_1_1_shader_source.html#_CPPv4N3gpa9api_types12ShaderSourceE" title="gpa::api_types::ShaderSource">ShaderSource</a> &amp;<em>source</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK3gpa8playback19MetadataExtractorEx15GetShaderSourceERK10ShaderInfoN9api_types14ShaderLanguageERN3gpa9api_types12ShaderSourceE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Gets the source code for a given <a class="reference internal" href="classgpa_1_1playback_1_1_shader_info.html#classgpa_1_1playback_1_1_shader_info"><span class="std std-ref">ShaderInfo</span></a> in a specified api_types::ShaderLanguage. </p>
 <p><dl class="simple">
 <dt><strong>Return</strong></dt><dd><p>Whether or not the specified api_types::ShaderLanguage is available for the given <a class="reference internal" href="classgpa_1_1playback_1_1_shader_info.html#classgpa_1_1playback_1_1_shader_info"><span class="std std-ref">ShaderInfo</span></a> </p>
@@ -575,6 +601,11 @@
 <dd></dd></dl>
 
 <dl class="cpp var">
+<dt id="_CPPv4N3gpa8playback19MetadataExtractorEx14mShaderSourcesE">
+<span id="_CPPv3N3gpa8playback19MetadataExtractorEx14mShaderSourcesE"></span><span id="_CPPv2N3gpa8playback19MetadataExtractorEx14mShaderSourcesE"></span><span id="gpa::playback::MetadataExtractorEx::mShaderSources__std::vector:api_types::ManagedShaderSource:"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1a322edf313f597346ba6bad0ae1ca4a4e"></span>std::vector&lt;api_types::<a class="reference internal" href="structgpa_1_1api__types_1_1_managed_shader_source.html#_CPPv4N3gpa9api_types19ManagedShaderSourceE" title="gpa::api_types::ManagedShaderSource">ManagedShaderSource</a>&gt; <code class="sig-name descname">mShaderSources</code><a class="headerlink" href="#_CPPv4N3gpa8playback19MetadataExtractorEx14mShaderSourcesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
 <dt id="_CPPv4N3gpa8playback19MetadataExtractorEx19mExecutionCallbacksE">
 <span id="_CPPv3N3gpa8playback19MetadataExtractorEx19mExecutionCallbacksE"></span><span id="_CPPv2N3gpa8playback19MetadataExtractorEx19mExecutionCallbacksE"></span><span id="gpa::playback::MetadataExtractorEx::mExecutionCallbacks__ExecutionCallbacks"></span><span class="target" id="classgpa_1_1playback_1_1_metadata_extractor_ex_1aa5eda4e29551d18ad6347a5d2c8f3b29"></span><a class="reference internal" href="structgpa_1_1playback_1_1_execution_callbacks.html#_CPPv4N3gpa8playback18ExecutionCallbacksE" title="gpa::playback::ExecutionCallbacks">ExecutionCallbacks</a> <code class="sig-name descname">mExecutionCallbacks</code><a class="headerlink" href="#_CPPv4N3gpa8playback19MetadataExtractorEx19mExecutionCallbacksE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
@@ -596,7 +627,7 @@
         <a href="classgpa_1_1playback_1_1_metrics_extractor.html" class="btn btn-neutral float-right" title="Class MetricsExtractor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="classgpa_1_1playback_1_1_metadata_extractor.html" class="btn btn-neutral float-left" title="Class MetadataExtractor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="classgpa_1_1playback_1_1_memory_barrier_info.html" class="btn btn-neutral float-left" title="Class MemoryBarrierInfo" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
