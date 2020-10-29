@@ -313,25 +313,114 @@
 <span id="id1"></span><h1>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="gpa-injector">
 <span id="id2"></span><h2>gpa-injector<a class="headerlink" href="#gpa-injector" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/bin/sh: 1: gpaframework/bin/Release/gpa-injector: Permission denied
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage:
+    gpa-injector [--target-application,-t] &lt;target app&gt; [--layer &lt;layer name&gt;][--working-directory,-w &lt;working directory&gt;] [-- &lt;target argument&gt;...]
+
+     --device-override &lt;int&gt;
+                          Force use of a specific graphics device. Use &quot;gpa-help.exe device-override&quot;
+			  to list available devices. This option loads the device-override gpa layer.
+     --disable-key-events If provided, disables publishing of keyboard events (enabled by default).
+  -K --enable-keyframes   Enable keyframes (disabled by default)
+  -h --help               Print this help information
+     --hook-api &lt;string&gt;  Comma separated list of apis to hook; valid gfx APIs: all, vulkan, d3dall, d3d10, d3d11, d3d12 (default: all)
+  -L --layer &lt;string&gt;     Name of layer to insert; layers are inserted in order appearing on
+			  command line (possible layers: api-debug, capture, logging,
+			  hud-layer, screenshot, validation). Default: no layers.
+			  Optional key value pairs can be provided to the layer
+			  --layer name[:key=value, ...]. Maximum length of args to any single
+			  layer is 512 characters.
+  -l --log-file &lt;string&gt;  Direct logging output to the specified file instead 
+			  of console (default: console-only)
+  -v --log-level &lt;string&gt; Set log output severity level; valid values are: trace, debug,
+
+			  info, warn, error, fatal (default: info)
+  -m --log-mask &lt;string&gt;  Comma separated list of modules to filter in: generic, page-tracker
+  -p --page-tracker-mode &lt;int&gt;
+                          0 - default, 1 - disabled, 2 - Use shadow buffer approach for 
+			  managed Metal buffers, 3 - Force shadow buffer approach for all 
+  -t --target-application &lt;string&gt;
+                          The workload to capture
+  -V --version            Print version and build info to the console, then exit
+     --waitfordebugger    Waits for user input after injecting to a process
+  -w --working-directory &lt;string&gt;
+                          Path to the working directory for the target application.
+
+Possible return codes:
+    0: Execution completed successfully and without error
+    1: Execution failed with unspecified error
+    2: Execution failed with &#39;File Not Found&#39;
+    3: One or more command-line args are missing or invalid
 </pre></div>
 </div>
 </div>
 <div class="section" id="gpa-player">
 <span id="id3"></span><h2>gpa-player<a class="headerlink" href="#gpa-player" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/bin/sh: 1: gpaframework/bin/Release/gpa-player: Permission denied
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage: gpa-player [options] &lt;stream filename&gt; 
+Options:
+  -d --delimiters &lt;string&gt;
+                          Set the list of range delimiter(s) in the format &#39;api:class::function&#39;. The list of tokens are delimited by commas.  Example: Metal:MTLCommandBuffer::presentDrawable,Vulkan:vkQueuePresentKHR (default: null)
+     --device-override &lt;int&gt;
+                          Force use of a specific graphics device. Use &quot;gpa-help.exe device-override&quot; to list available devices. This option loads the device-override gpa layer.
+  -f --frame &lt;int&gt;        Play only this frame, the number of times specified in repeat-count
+  -h --help               Print this help information
+  -F --last-frame &lt;int&gt;   Ignored if &#39;frame&#39; option is not present; if set and valid, this option defines the last &#39;frame&#39; in a multi-frame range to be played (and potentially repeated if &#39;repeat-count&#39; is set). &#39;last-frame&#39; must be strictly greater than &#39;frame&#39;.
+  -l --log-file &lt;string&gt;  Direct logging output to the specified file instead of console (default: console-only)
+  -v --log-level &lt;string&gt; Set log output severity level; valid values are: trace, debug, info, warn, error, fatal (default: info)
+  -o --offscreen          Playback without visible window
+  -s --play-from &lt;int&gt;    Start at this percentage into the stream
+     --post-layer &lt;string&gt;
+     --pre-layer &lt;string&gt;
+  -r --repeat-count &lt;int&gt; Repeat playback of the selected frame this many times; only valid if &#39;frame&#39; is specified
+  -V --version            Print version and build info to the console, then exit
+     --waitfordebugger    Waits for user input before start of playback
+
+Possible return codes:
+    0: Execution completed successfully and without error
+    1: Execution failed with unspecified error
+    2: Execution failed with &#39;File Not Found&#39;
+    3: One or more command-line args are missing or invalid
 </pre></div>
 </div>
 </div>
 <div class="section" id="gpa-stream-info">
 <h2>gpa-stream-info<a class="headerlink" href="#gpa-stream-info" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/bin/sh: 1: gpaframework/bin/Release/gpa-stream-info: Permission denied
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage: gpa-stream-info.exe [options] &lt;stream&gt; 
+
+Displays stream information.
+
+Options:
+     --csv                Display only the header data in comma-separated tabular format
+  -h --help               Print this help information
+  -k --key &lt;string&gt;       Display only the value corresponding to the provided header key
+  -V --version            Print version and build info to the console, then exit
+
+Possible return codes:
+    0: Execution completed successfully and without error
+    1: Execution failed with unspecified error
+    2: Execution failed with &#39;File Not Found&#39;
+    3: One or more command-line args are missing or invalid
+    4: Data was found, but is corrupted or otherwise unreadable
 </pre></div>
 </div>
 </div>
 <div class="section" id="gpa-stream-analyzer">
 <h2>gpa-stream-analyzer<a class="headerlink" href="#gpa-stream-analyzer" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/bin/sh: 1: gpaframework/bin/Release/gpa-stream-analyzer: Permission denied
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage: gpa-stream-analyzer.exe [options] &lt;stream&gt; 
+
+Displays capture-time performance metrics (i.e. cpu_frame_ms) as a labeled csv data table
+
+Options:
+  -d --duration &lt;int&gt;     Stop after the specified number of frames (disabled by default: 0)
+  -f --frame &lt;int&gt;        Start with the specified frame (default: 1)
+  -h --help               Print this help information
+  -V --version            Print version and build info to the console, then exit
+
+Possible return codes:
+    0: Execution completed successfully and without error
+    1: Execution failed with unspecified error
+    2: Execution failed with &#39;File Not Found&#39;
+    3: One or more command-line args are missing or invalid
+    4: Data was found, but is corrupted or otherwise unreadable
 </pre></div>
 </div>
 </div>

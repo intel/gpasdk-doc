@@ -313,25 +313,75 @@
 <span id="id1"></span><h1>Layers<a class="headerlink" href="#layers" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="capture">
 <span id="capture-layer"></span><h2>Capture<a class="headerlink" href="#capture" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/bin/sh: 1: gpaframework/bin/Release/gpa-help: Permission denied
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Capture Layer
+
+Usage : Use to capture a stream of a workload
+
+Arguments:
+	directory	Specifies the path to the directory where stream files should be written to.
+	name	Specifies the name of the stream directory; default is &lt;process name&gt;-&lt;timestamp&gt;-&lt;process id&gt;. If the stream directory already exists, a suffix in the format &#39;-&lt;num&gt;&#39; is appended to the stream name.
+	keyframe-trigger-type	Sets what kind of condition triggers capturing a keyframe. Options: time, keypress.  Can be repeated to specify multiple triggers.  Default: time
+	time-interval	Set how many seconds should elapse between each keyframe if time is enabled for the keyframe-trigger-type.  Default: 4.0
+	deferred	Indicate that the user wishes to start capture at arbitrary time. Default: false (normal capture to disk)
+	captured-frames	If deferred capture is enabled, specifies the range of frames that should be captured.  Format: [start..end] or (start..end) or a mix of parantheses types, where [ is inclusive and ( is exclusive.Multiple ranges can be specified by seperating them with a semicolon.  For example: (start...end);(start..end)
+
+
+Supported key strings:
 </pre></div>
 </div>
 </div>
 <div class="section" id="screenshot">
 <span id="screenshot-layer"></span><h2>Screenshot<a class="headerlink" href="#screenshot" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/bin/sh: 1: gpaframework/bin/Release/gpa-help: Permission denied
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Screenshot Layer
+
+Usage : Use to capture a screenshot of a workload during capture or playback
+
+Arguments:
+	frames	Specify frames to capture in screenshots. Frame numbers begin at 1. All values must be positive. 
+		Interval capture can be specified using standard &#39;range&#39; notation, where ( and ) indicate &#39;open&#39; 
+		range endpoints, and [ and ] indicate &#39;closed&#39; range endpoints. Ranges may include an optional 
+		step value, appended to the end of the range, for example: (10..100]:10, to indicate every tenth frame 
+		in the range 10 to 100 (not including 10). The default step value is 1.
+		Individual frames are specified as integers separated by semicolons, for example: 1;10;100. Individual 
+		frames and range specifications can be mixed in any order, for example: 1;(50..70]:5;10;100.
+		when using the open range endpoints ( and ), remember to wrap the entire argument in quotes to prevent		certain shells from treating the symbol as a subshell. For example frames=&quot;(10..199):10)&quot;
+
+	path	Override default output directory for screenshots, must be an absolute path, /must/end/in/slash/; 
+
+	time-interval	Specify number of seconds (wall-clock time) between screenshots. On non-Windows platforms, the timer begins running when the application begins, not when the first API call is made. On Windows platforms, the timer begins when the first &#39;present&#39; call happens. Interval is in units of milliseconds, so &#39;4 seconds&#39; would be 4000 milliseconds.
+	immediate	Whether or not the layer should wait for screenshot requests from other layers. This option will not allow the layer to unload even if other conditions for capture are not specifiedThe default is &quot;false&quot;. 
+
+	async	Whether or not screenshot capture should be asynchronous. The default is &quot;true&quot;. 
+
+	wait-on-shutdown	Whether or not screenshot capture should wait for remaining asynchronous screenshots on shutdown. 
+		The default is &quot;true&quot;. 
+
+	file-format	Override default screenshot file format (png). Avaliable formats are [jpg,png,bmp]
+
+
+Implemented for Vulkan and DirectX
 </pre></div>
 </div>
 </div>
 <div class="section" id="hud-layer">
 <span id="id2"></span><h2>HUD-Layer<a class="headerlink" href="#hud-layer" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/bin/sh: 1: gpaframework/bin/Release/gpa-help: Permission denied
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Hud Layer
+
+Usage : Use to display certain information during capture or playback 
+
+Arguments:
+	none
 </pre></div>
 </div>
 </div>
 <div class="section" id="logging">
 <span id="logging-layer"></span><h2>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/bin/sh: 1: gpaframework/bin/Release/gpa-help: Permission denied
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Logging Layer
+
+Usage : Use to dump out a log of every graphics API call your target application makes
+
+Arguments:
+	verbose	set verbose=1 to enable more detailed logging, certain structs or arrays may be represented by (embedded)
 </pre></div>
 </div>
 </div>
