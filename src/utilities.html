@@ -218,16 +218,22 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="release_notes.html#new">NEW:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="release_notes.html#changed">CHANGED:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="release_notes.html#fixed">FIXED:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id2">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id3">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id4">FIXED</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id2">NEW:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id5">CHANGED:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id6">FIXED:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id5">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id8">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id9">FIXED</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
@@ -325,6 +331,8 @@
   -K --enable-keyframes   Enable keyframes (disabled by default)
   -h --help               Print this help information
      --hook-api &lt;string&gt;  Comma separated list of apis to hook; valid gfx APIs: all, vulkan, d3dall, d3d10, d3d11, d3d12 (default: all)
+     --injection-mode &lt;int&gt;
+                          0 - SetThreadContext, 1 - CreateRemoteThread (default: SetThreadContext)
   -L --layer &lt;string&gt;     Name of layer to insert; layers are inserted in order appearing on
 			  command line (possible layers: api-debug, capture, logging,
 			  hud-layer, screenshot, validation). Default: no layers.
@@ -332,7 +340,9 @@
 			  --layer name[:key=value, ...]. Maximum length of args to any single
 			  layer is 512 characters.
   -l --log-file &lt;string&gt;  Direct logging output to the specified file instead 
-			  of console (default: console-only)
+			  of console (default: console-only). 
+			  &quot;#PROC&quot; replaced by attached process name 
+			  &quot;#PID&quot; replaced by attached process PID number
   -v --log-level &lt;string&gt; Set log output severity level; valid values are: trace, debug,
 
 			  info, warn, error, fatal (default: info)
@@ -343,7 +353,9 @@
   -t --target-application &lt;string&gt;
                           The workload to capture
   -V --version            Print version and build info to the console, then exit
-     --waitfordebugger    Waits for user input after injecting to a process
+     --waitfordebugger &lt;string&gt;
+                          Waits for user input after injecting to a process of specified name.
+			  Use &quot;all&quot; to wait on every new process. Provide process name without extension.
   -w --working-directory &lt;string&gt;
                           Path to the working directory for the target application.
 

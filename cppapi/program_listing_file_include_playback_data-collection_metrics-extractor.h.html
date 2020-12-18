@@ -216,16 +216,22 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">FIXED</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">CHANGED:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">FIXED:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">FIXED</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
@@ -337,23 +343,32 @@
 <span class="cp">#include</span> <span class="cpf">&quot;runtime/event-publisher.h&quot;</span><span class="cp"></span>
 
 <span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;utility&gt;</span><span class="cp"></span>
 
 <span class="k">namespace</span> <span class="n">gpa</span> <span class="p">{</span>
 
 <span class="k">namespace</span> <span class="n">data_collection</span> <span class="p">{</span>
-<span class="k">class</span> <span class="nc">MetricsRequest</span><span class="p">;</span>
 <span class="k">class</span> <span class="nc">CollectionRange</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">MetricsRequest</span><span class="p">;</span>
 <span class="p">}</span>  <span class="c1">// namespace data_collection</span>
 
 <span class="k">namespace</span> <span class="n">metrics</span> <span class="p">{</span>
+<span class="k">enum</span> <span class="k">class</span> <span class="nc">GraphicsApi</span><span class="p">;</span>
+<span class="k">enum</span> <span class="k">class</span> <span class="nc">QueryManagerType</span><span class="p">;</span>
+
 <span class="k">struct</span> <span class="n">CommandBufferData</span><span class="p">;</span>
-<span class="k">class</span> <span class="nc">IQueryManager</span><span class="p">;</span>
+
 <span class="k">class</span> <span class="nc">IMetric</span><span class="p">;</span>
 <span class="k">class</span> <span class="nc">IMetricsSource</span><span class="p">;</span>
 <span class="k">class</span> <span class="nc">IMetricsSourceComposite</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">IQueryManager</span><span class="p">;</span>
 <span class="p">}</span>  <span class="c1">// namespace metrics</span>
 
 <span class="k">namespace</span> <span class="n">playback</span> <span class="p">{</span>
+
+<span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">metrics</span><span class="o">::</span><span class="n">IQueryManager</span><span class="o">*&gt;</span> <span class="n">QueryManagerVector</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">*</span><span class="p">,</span> <span class="n">QueryManagerVector</span><span class="o">&gt;</span> <span class="n">DeviceQueryManagerVectorPair</span><span class="p">;</span>
 
 <span class="k">class</span> <span class="nc">RangeObjectAccessor</span><span class="p">;</span>
 
@@ -384,22 +399,46 @@
     <span class="n">metrics</span><span class="o">::</span><span class="n">IMetricsSource</span> <span class="k">const</span><span class="o">*</span> <span class="n">GetMetricsSource</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
 
 <span class="k">private</span><span class="o">:</span>
-    <span class="n">data_collection</span><span class="o">::</span><span class="n">MetricsRequest</span> <span class="k">const</span><span class="o">*</span> <span class="n">mRequest</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">data_collection</span><span class="o">::</span><span class="n">MetricsQueryResult</span><span class="o">&gt;</span> <span class="n">mResult</span><span class="p">;</span>
-    <span class="n">metrics</span><span class="o">::</span><span class="n">IMetricsSourceComposite</span><span class="o">*</span> <span class="n">mMetricsSourceComposite</span><span class="p">;</span>
-    <span class="n">metrics</span><span class="o">::</span><span class="n">CommandBufferData</span><span class="o">*</span> <span class="n">mCommandBufferData</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">metrics</span><span class="o">::</span><span class="n">IQueryManager</span><span class="o">*&gt;</span> <span class="n">mQueryManagerVector</span><span class="p">;</span>
-    <span class="kt">void</span><span class="o">*</span> <span class="n">mQueryManagerDevice</span><span class="p">;</span>
-    <span class="n">metrics</span><span class="o">::</span><span class="n">IQueryManager</span><span class="o">*</span> <span class="n">mSubscribedQueryManager</span><span class="p">;</span>
-    <span class="kt">uint32_t</span> <span class="n">mSubscriptionStartingMetricIndex</span><span class="p">;</span>
-    <span class="n">CallableCache</span><span class="o">*</span> <span class="n">mRange</span><span class="p">;</span>
-    <span class="kt">uint32_t</span> <span class="n">mCollectionRangeVisitCount</span><span class="p">;</span>
-    <span class="kt">bool</span> <span class="n">mCollectionRangeVisited</span><span class="p">;</span>
-    <span class="kt">bool</span> <span class="n">mLastCollectionRangeVisited</span><span class="p">;</span>
-    <span class="kt">bool</span> <span class="n">mCollectionRangeCommandsExecutedAndMayNotBeComplete</span><span class="p">;</span>
+    <span class="n">metrics</span><span class="o">::</span><span class="n">IMetricsSourceComposite</span><span class="o">*</span> <span class="n">mMetricsSourceComposite</span><span class="p">;</span>                      <span class="c1">// Pointer to the composite metrics source used by all query managers for all devices created. It owns the lifetime of the metrics sources. Valid if non-null.</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">DeviceQueryManagerVectorPair</span><span class="o">&gt;</span> <span class="n">mDeviceQueryManagerVectorPairVector</span><span class="p">;</span>  <span class="c1">// Vector of logical device and QueryManagerVector pairs, sorted from lowest device handle/pointer to highest. If mMetricsSourceComposite is non-null, its size is positive. Otherwise, its size is zero.</span>
+    <span class="n">data_collection</span><span class="o">::</span><span class="n">MetricsRequest</span> <span class="k">const</span><span class="o">*</span> <span class="n">mRequest</span><span class="p">;</span>                                <span class="c1">// Pointer to a single metrics collection request (has a metrics group and callable ranges to begin and end queries on) created by an earlier call to GetRequestForMetrics. Always testable, can be set after mMetricsSourceComposite is valid, and expected to be non-null before PostSetupRange is called.</span>
+    <span class="n">CallableCache</span><span class="o">*</span> <span class="n">mRange</span><span class="p">;</span>                                                          <span class="c1">// Pointer to a range of callables that will be used for a new metrics collection pass (defined by a prior call to SetRequest). Valid after both mMetricsSourceComposite and mRequest are non-null.</span>
+    <span class="n">metrics</span><span class="o">::</span><span class="n">CommandBufferData</span><span class="o">*</span> <span class="n">mCommandBufferData</span><span class="p">;</span>                                 <span class="c1">// Pointer to a command buffer data struct that maintains data gathered and needed for query manager subscription. If mMetricsSourceComposite is non-null and PostSetupRange was called (no current way exists to validate this), it will be non-null.</span>
+    <span class="kt">bool</span> <span class="n">mCommandBufferDataQueueStrongReference</span><span class="p">;</span>                                    <span class="c1">// Indicates when true that the command queue pointer pointed to by mCommandBufferData contains a strong reference in the commandQueue field. Only used currently for D3D11, in which it is an ID3D11DeviceContext reference. Otherwise, it is false.</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">data_collection</span><span class="o">::</span><span class="n">MetricsQueryResult</span><span class="o">&gt;</span> <span class="n">mResult</span><span class="p">;</span>                   <span class="c1">// Holds results of a metrics collection pass. It is sized and reset based on the metrics request when PostSetupRange is called. Actual values are placed when PostExecuteRange is called, and mSubscribedQueryManager is valid and the query manager unsubscribe is performed. Valid if mCommandBufferData is non-null.</span>
+    <span class="n">metrics</span><span class="o">::</span><span class="n">IQueryManager</span><span class="o">*</span> <span class="n">mSubscribedQueryManager</span><span class="p">;</span>                                <span class="c1">// Pointer to subscribed query manager use by a metrics collection pass. Setup in PreExecuteCall based on the callable at the start of a metrics collection range. Set to null after unsubscribing in PostExecuteRange, or an unrecoverable error occurs. Will not be non-null if mCommandBufferData is non-null.</span>
+    <span class="kt">uint32_t</span> <span class="n">mSubscriptionStartingMetricIndex</span><span class="p">;</span>                                      <span class="c1">// Subscribed query manager&#39;s associated metric source&#39;s starting composite metric index. Used to properly store metric values in mResult by the results callback that is registered with the query managers. Valid after mSubscribedQueryManager is non-null.</span>
+    <span class="kt">bool</span> <span class="n">mBeganQuery</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>                                                       <span class="c1">// Indicates when true that a begin query was performed at the start of the collection range. Used to determine if a matching end query is needed at the end of the collection range. May be tested after mSubscribedQueryManager is non-null.</span>
+    <span class="kt">uint32_t</span> <span class="n">mCollectionRangeVisitCount</span><span class="p">;</span>                                            <span class="c1">// Count of collection ranges that have had all their callables executed (PostExecuteCall was called for each of them). Used by PreExecuteCall during a collection range change when there is a new queue, to help determine if waiting for GPU work to be completed is needed before calling IQueryManager::Unsubscribe.</span>
+    <span class="kt">bool</span> <span class="n">mCollectionRangeVisited</span><span class="p">;</span>                                                   <span class="c1">// Indicates when true that all callables in a collection range were executed. Used by PreExecuteCall to know IQueryManager::OnExecuteCommandPrior must be called before executing a command buffer/list.</span>
+    <span class="kt">bool</span> <span class="n">mLastCollectionRangeVisited</span><span class="p">;</span>                                               <span class="c1">// Indicates when true that all callables in mRequest&#39;s last collection range were executed. Used by PostExecuteCall after submitting a command buffer/list, to help determine if it needs to waiting for associated GPU work to be completed.</span>
+    <span class="n">Callable</span><span class="o">*</span> <span class="n">mCollectionRangeEndCallable</span><span class="p">;</span>                                          <span class="c1">// Ending callable pointer from the prior collection range (its last callable). Used by PreExecuteCall during a collection range change and there is a new queue, to wait for the associated GPU work to be completed.</span>
+    <span class="kt">bool</span> <span class="n">mCollectionRangeCommandsExecutedAndMayNotBeComplete</span><span class="p">;</span>                       <span class="c1">// Indicates when true that callables/commands were executed that the GPU may not have completed yet. Used by PreExecuteCall as part of a re-subscribe, and by PostExecuteCall after submitting a command buffer/list, to help decide if waiting on those to complete will be performed.</span>
 
-    <span class="kt">bool</span> <span class="nf">CreateQueryManagers</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">instance</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">physicalDevice</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">device</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">api</span><span class="p">);</span>
-    <span class="kt">void</span> <span class="nf">DestroyQueryManagers</span><span class="p">();</span>
+    <span class="n">QueryManagerVector</span><span class="o">*</span> <span class="nf">CreateMetricsResources</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">api</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">instance</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">physicalDevice</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">device</span><span class="p">);</span>
+
+    <span class="kt">bool</span> <span class="nf">CreateMatchedMetricsSourceAndQueryManager</span><span class="p">(</span>
+        <span class="n">metrics</span><span class="o">::</span><span class="n">QueryManagerType</span> <span class="n">queryManagerType</span><span class="p">,</span>
+        <span class="n">metrics</span><span class="o">::</span><span class="n">GraphicsApi</span> <span class="n">graphicsApi</span><span class="p">,</span>
+        <span class="n">metrics</span><span class="o">::</span><span class="n">Category</span> <span class="n">categoryFlags</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">includeExtraGroups</span><span class="p">,</span>
+        <span class="kt">void</span><span class="o">*</span> <span class="n">instance</span><span class="p">,</span>
+        <span class="kt">void</span><span class="o">*</span> <span class="n">physicalDevice</span><span class="p">,</span>
+        <span class="kt">void</span><span class="o">*</span> <span class="n">device</span><span class="p">,</span>
+        <span class="n">metrics</span><span class="o">::</span><span class="n">IMetricsSource</span><span class="o">**</span> <span class="n">ppMetricsSource</span><span class="p">,</span>
+        <span class="n">metrics</span><span class="o">::</span><span class="n">IQueryManager</span><span class="o">**</span> <span class="n">ppQueryManager</span><span class="p">);</span>
+
+    <span class="kt">bool</span> <span class="nf">DestroyMetricsResources</span><span class="p">(</span><span class="n">QueryManagerVector</span><span class="o">*</span> <span class="n">queryManagerVector</span><span class="p">);</span>
+
+    <span class="kt">bool</span> <span class="nf">DestroyMetricsResources</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">device</span><span class="p">);</span>
+
+    <span class="kt">void</span> <span class="nf">DestroyAllMetricsResources</span><span class="p">();</span>
+
+    <span class="kt">void</span><span class="o">*</span> <span class="nf">GetDeviceForCallable</span><span class="p">(</span><span class="n">Callable</span><span class="o">&amp;</span> <span class="n">callable</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">callIndex</span><span class="p">);</span>
+
+    <span class="n">QueryManagerVector</span><span class="o">*</span> <span class="nf">GetQueryManagerVectorForDevice</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">device</span><span class="p">);</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">DeviceQueryManagerVectorPair</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">GetLowerBoundFromDeviceQueryManagerVectorPairVector</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">device</span><span class="p">);</span>
 <span class="p">};</span>
 
 <span class="p">}</span>  <span class="c1">// namespace playback</span>

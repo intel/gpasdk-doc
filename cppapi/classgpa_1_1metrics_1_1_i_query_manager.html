@@ -218,16 +218,22 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">FIXED</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">CHANGED:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">FIXED:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">FIXED</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
@@ -410,14 +416,40 @@
 </dd></dl>
 
 <dl class="cpp function">
+<dt id="_CPPv4NK3gpa7metrics13IQueryManager26GetMaximumQueriesSupportedE8uint32_tP8uint32_t">
+<span id="_CPPv3NK3gpa7metrics13IQueryManager26GetMaximumQueriesSupportedE8uint32_tP8uint32_t"></span><span id="_CPPv2NK3gpa7metrics13IQueryManager26GetMaximumQueriesSupportedE8uint32_tP8uint32_t"></span><span id="gpa::metrics::IQueryManager::GetMaximumQueriesSupported__uint32_t.uint32_tPC"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager_1a45d842a9389bb4794d2a1d531962c801"></span><a class="reference internal" href="enum_metrics_2types_8h_1a4d0ae4d7c74d47d463792c91476ef842.html#_CPPv4N3gpa7metrics6ResultE" title="gpa::metrics::Result">Result</a> <code class="sig-name descname">GetMaximumQueriesSupported</code><span class="sig-paren">(</span>uint32_t <em>metricGroup</em>, uint32_t *<em>pMaximumQueries</em><span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK3gpa7metrics13IQueryManager26GetMaximumQueriesSupportedE8uint32_tP8uint32_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Obtain the maximum number of queries that can collected per metrics collection pass or Subscribe call, that are supported for a specific group by the query provider. <dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>As of 2020-10-24, the currently known query provider maximums supported are: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>//!         kD3d12StatisticsAndTimeStamp    UINT32_MAX, or UINT32_MAX / 2 if
+//!                                         timestamp metrics are included
+//!         kMetalStatistics                &lt;unsupported&gt;
+//!         kMetricsDiscoveryApi
+//!             D3D11                       50000
+//!             D3D12, Metal &amp; Vulkan       UINT32_MAX / group report size
+//!         kVulkanStatisticsAndTimeStamp   UINT32_MAX, or UINT32_MAX / 2 if
+//!                                         timestamp metrics are included
+//!
+</pre></div>
+</div>
+ </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">metricGroup</span></code>: Metric group index to obtain the maximum queries supported for. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[inout]</span> <span class="pre">pMaximumQueries</span></code>: Pointer to a value that upon success will be initialized with the maximum number of queries that can be requested in a call to Subscribe. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
 <dt id="_CPPv4N3gpa7metrics13IQueryManager9SubscribeEPv8uint32_t8uint32_t">
 <span id="_CPPv3N3gpa7metrics13IQueryManager9SubscribeEPv8uint32_t8uint32_t"></span><span id="_CPPv2N3gpa7metrics13IQueryManager9SubscribeEPv8uint32_t8uint32_t"></span><span id="gpa::metrics::IQueryManager::Subscribe__voidP.uint32_t.uint32_t"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager_1a33df8772cd6005c31ed3a59d00db0a84"></span><a class="reference internal" href="enum_metrics_2types_8h_1a4d0ae4d7c74d47d463792c91476ef842.html#_CPPv4N3gpa7metrics6ResultE" title="gpa::metrics::Result">Result</a> <code class="sig-name descname">Subscribe</code><span class="sig-paren">(</span>void *<em>commandQueue</em>, uint32_t <em>metricGroup</em>, uint32_t <em>numQueries</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N3gpa7metrics13IQueryManager9SubscribeEPv8uint32_t8uint32_t" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Subscribe to a group of metrics to be measured for a queue and the maximum number of query measurements that will be performed.</p>
+<dd><p>Subscribe to a group of metrics to be measured for a queue and the maximum number of query measurements that will be performed (for D3D11 an immediate context is used instead of a queue).</p>
 <p>Allocates numQueries number of queries indexed in range [0,numQueries). The indices are to be used in BeginQuery and EndQuery. <dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">commandQueue</span></code>: Command queue to collect metrics from. The OnCreateCommandQueue function must have been previously called for the queue. For D3D12, provide a ID3D12CommandQueue pointer. For Metal, provide a MTLCommandQueue. For Vulkan, provide a VkQueue. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">commandQueue</span></code>: Command queue to collect metrics from. The OnCreateCommandQueue function must have been previously called for the queue. For D3D12, provide a ID3D12CommandQueue pointer. For Metal, provide a MTLCommandQueue. For Vulkan, provide a VkQueue. In the case of D3D11, provide an immediate ID3D11DeviceContext pointer since there is no queue. </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">metricGroup</span></code>: Metric group index to use in range [0, NumMetricGroups()). </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">numQueries</span></code>: Maximum number of queries desired. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">numQueries</span></code>: Maximum number of queries desired. Must be in range [0, <a class="reference internal" href="#classgpa_1_1metrics_1_1_i_query_manager_1a45d842a9389bb4794d2a1d531962c801"><span class="std std-ref">GetMaximumQueriesSupported()</span></a>]. </p></li>
 </ul>
 </dd>
 </dl>
@@ -448,7 +480,7 @@
 <dt><strong>Note</strong></dt><dd><p>Currently, only one query is allowed to be open/active at a time thus nested queries within the same command buffer are not supported. After calling BeginQuery, EndQuery must be called before BeginQuery is called again. </p>
 </dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">bufferData</span></code>: Graphics command queue and command buffer state to begin the query with. The Subscribe function must have been previously called for the queue. For Vulkan, the VkCommandBuffer must be in the recording state. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">bufferData</span></code>: Graphics command queue (or immediate context for D3D11) and command buffer (ignored for D3D11) state to begin the query with. The Subscribe function must have been previously called for the queue (or in the case of D3D11, for the immediate context). For Vulkan, the VkCommandBuffer must be in the recording state. </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">queryId</span></code>: Query index to associate the query with [0, numQueries) where numQueries was specified earlier in Subscribe. Query indices are not required to be used sequentially. </p></li>
 </ul>
 </dd>
@@ -462,7 +494,7 @@
 <dd><p>End a query.</p>
 <p>Identifies the end of a query using the specified command buffer data for the specified query index. <dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">bufferData</span></code>: Graphics command queue and command buffer state to end the query with. The queue must match the one provided in the prior Subscribe and BeginQuery calls. For Vulkan, the VkCommandBuffer must be in the recording state. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">bufferData</span></code>: Graphics command queue (or immediate context for D3D11) and command buffer (ignored for D3D11) state to end the query with. The queue must match the one provided in the prior Subscribe and BeginQuery calls. For Vulkan, the VkCommandBuffer must be in the recording state. </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">queryId</span></code>: Index of query to end that must match the one provided in the prior BeginQuery call. </p></li>
 </ul>
 </dd>
@@ -473,12 +505,12 @@
 <dl class="cpp function">
 <dt id="_CPPv4N3gpa7metrics13IQueryManager20OnCreateCommandQueueEPKv">
 <span id="_CPPv3N3gpa7metrics13IQueryManager20OnCreateCommandQueueEPKv"></span><span id="_CPPv2N3gpa7metrics13IQueryManager20OnCreateCommandQueueEPKv"></span><span id="gpa::metrics::IQueryManager::OnCreateCommandQueue__voidCP"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager_1a5f60dbf45188a71404f98d374c64d2ba"></span><a class="reference internal" href="enum_metrics_2types_8h_1a4d0ae4d7c74d47d463792c91476ef842.html#_CPPv4N3gpa7metrics6ResultE" title="gpa::metrics::Result">Result</a> <code class="sig-name descname">OnCreateCommandQueue</code><span class="sig-paren">(</span>void <em class="property">const</em> *<em>commandQueue</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N3gpa7metrics13IQueryManager20OnCreateCommandQueueEPKv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Creates graphics command queue based resources needed by the QueryManager.</p>
+<dd><p>Creates graphics command queue based resources needed by the QueryManager (for D3D11 an immediate context is used instead of a queue).</p>
 <p>Must be called after creating any graphics command queue and before calling Subscribe. <dl class="simple">
 <dt><strong>Note</strong></dt><dd><p>Resources created by calling this function are automatically released when the QueryManager implementation is destroyed. </p>
 </dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">commandQueue</span></code>: Graphics command queue that will be used to collect metrics from. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">commandQueue</span></code>: Graphics command queue that will be used to collect metrics from (or an immediate ID3D11DeviceContext pointer for D3D11). </p></li>
 </ul>
 </dd>
 </dl>
@@ -491,6 +523,8 @@
 <dd><p>Creates graphics command buffer based resources needed by the QueryManager.</p>
 <p>Must be called after creating any graphics command buffer (and encoder if the graphics API is Metal) and before calling OnExecuteCommandLists. <dl class="simple">
 <dt><strong>Note</strong></dt><dd><p>Resources created by calling this function are automatically released when the QueryManager implementation is destroyed. </p>
+</dd>
+<dt><strong>Note</strong></dt><dd><p>Command lists are not currently supported for D3D11, thus calling it is essentially a NOP. </p>
 </dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">commandList</span></code>: Graphics command queue and command buffer (as well as the command encoder if the graphics API is Metal). The OnCreateCommandQueue function must have been previously called for the queue. </p></li>
@@ -505,6 +539,8 @@
 <span id="_CPPv3N3gpa7metrics13IQueryManager21OnExecuteCommandListsEPKv"></span><span id="_CPPv2N3gpa7metrics13IQueryManager21OnExecuteCommandListsEPKv"></span><span id="gpa::metrics::IQueryManager::OnExecuteCommandLists__voidCP"></span><span class="target" id="classgpa_1_1metrics_1_1_i_query_manager_1a060a2166bd241ea51d9a2fcda0038f75"></span><a class="reference internal" href="enum_metrics_2types_8h_1a4d0ae4d7c74d47d463792c91476ef842.html#_CPPv4N3gpa7metrics6ResultE" title="gpa::metrics::Result">Result</a> <code class="sig-name descname">OnExecuteCommandLists</code><span class="sig-paren">(</span>void <em class="property">const</em> *<em>commandQueue</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N3gpa7metrics13IQueryManager21OnExecuteCommandListsEPKv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Perform implementation specific logic, such as setting the metric group/list configuration metrics will be collected for.</p>
 <p>Must be called right before executing/submitting/committing the queue or command buffer(s) to the GPU to be rendered. <dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>Command lists are not currently supported for D3D11, thus calling it with an immediate ID3D11DeviceContext pointer is essentially a NOP. </p>
+</dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">commandQueue</span></code>: Graphics command queue associated with the work about to be submitted to the GPU. An earlier call to the OnCreateCommandList function must have included the specified queue, as well as a prior call to the Subscribe function. </p></li>
 </ul>

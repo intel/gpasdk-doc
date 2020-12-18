@@ -218,16 +218,22 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fixed">FIXED</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#september-2020">2020.3 (24 September 2020)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#new">NEW:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#changed">CHANGED:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#fixed">FIXED:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">FIXED</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#june-2020">2020.2 (25 June 2020)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">NEW:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">CHANGED:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">FIXED:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">FIXED</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#march-2020">2020.1 (26 March 2020)</a></li>
@@ -311,10 +317,47 @@
             
   <div class="section" id="release-notes">
 <span id="id1"></span><h1>Release Notes<a class="headerlink" href="#release-notes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="december-2020">
+<h2>2020.4 (14 December 2020)<a class="headerlink" href="#december-2020" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="new">
+<h3>NEW<a class="headerlink" href="#new" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Support for extracting D3D11 object names in metadata</p></li>
+<li><p>Support for D3D11 RenderTarget resource extraction.</p></li>
+<li><p>D3D11 Metadata Extractor with RenderTarget bindings information.</p></li>
+<li><p>Configurable number of frames to capture for deferred capture</p></li>
+<li><p>Support for D3D11 Intel GPU HW query-based metrics collection support.</p></li>
+<li><p>Support for Vulkan SDK 1.2.148. Please update Vulkan SDK to build against GPA Framework.</p></li>
+<li><p>Support for Windows SDK 19041. Maintains backward compatibility with older SDK.</p></li>
+<li><p>Vulkan and D3D12 deferred multiple stream capture now possible during a single capture session.</p></li>
+</ul>
+</div>
+<div class="section" id="changed">
+<h3>CHANGED<a class="headerlink" href="#changed" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Vulkan resource extractor supports extraction based on call stage flags (pre/post call execution).</p></li>
+<li><p><cite>gpa-injector</cite> uses MS ‘child processes debugging’. Fixes launch times on IT laptops.</p></li>
+</ul>
+</div>
+<div class="section" id="fixed">
+<h3>FIXED<a class="headerlink" href="#fixed" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Crash in DoomEternal when HUD layer is enabled.</p></li>
+<li><p>Unreal Editor crash in DX12 mode with HUD layer.</p></li>
+<li><p>Unreal Editor crash with Niagara plugin.</p></li>
+<li><p>Playback windows not being resized properly.</p></li>
+<li><p>Crash on process exit.</p></li>
+<li><p>Callables are not reloaded each time they are hit in range object accessor.</p></li>
+<li><p>GPU memory leak in range repeat.</p></li>
+<li><p>GRiD crash on keyframe or deferred keypress.</p></li>
+<li><p>Deliver us the Moon (DXR) crashes in Stream startup mode.</p></li>
+</ul>
+</div>
+</div>
 <div class="section" id="september-2020">
 <h2>2020.3 (24 September 2020)<a class="headerlink" href="#september-2020" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="new">
-<h3>NEW:<a class="headerlink" href="#new" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id2">
+<h3>NEW<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Added support for Vulkan SDK 1.2.141.2</p></li>
 <li><p>Deferred capture support for Vulkan has been extended to cover more Unreal and Unity engines based workloads.</p></li>
@@ -329,16 +372,16 @@
 <li><p>Added support for DirectX12 Execute Indirect</p></li>
 </ul>
 </div>
-<div class="section" id="changed">
-<h3>CHANGED:<a class="headerlink" href="#changed" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>CHANGED<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Added MSVC runtime redistributable installation to installer</p></li>
 <li><p>Parameters passed to IQueryManager interface function Subscribe and Unsubscribe were simplified to directly provide a command queue, instead of a pointer to a CommandBufferData structure.</p></li>
 <li><p>Reduced the number of GPU flushes performed by the MetricsExtractor when collecting metrics.</p></li>
 </ul>
 </div>
-<div class="section" id="fixed">
-<h3>FIXED:<a class="headerlink" href="#fixed" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3>FIXED<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>All metrics source objects now ensure consecutive ordering of metric IDs that are reported per IMetricGroup, for all GPUs.</p></li>
 <li><p>Crash during capture in certain situations involving VkWriteDescriptorSet in push descriptors</p></li>
@@ -381,14 +424,14 @@
 </div>
 <div class="section" id="june-2020">
 <h2>2020.2 (25 June 2020)<a class="headerlink" href="#june-2020" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id2">
-<h3>NEW:<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3>NEW<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Added support for Vulkan SDK 1.2.135 and Windows SDK 10.0.18362.1. These are now requirements to build the framework and samples.</p></li>
 <li><p>A new event is triggered when capture layer detects unavailability of disk space and stops serialization to disk on all threads. An out-of-disk-space error is shown on the HUD.</p></li>
 <li><p>Added the ability to modify scissor rects in a range to the <cite>Experimentor</cite>.</p></li>
 <li><p>Added a new prefab, <cite>OneByOneScissorRectExperiment</cite>, which will automatically set up a 1x1 scissor rect modification at the origin for all viewports.</p></li>
-<li><p>Exposed <cite>ScissorRectInfo</cite> and <cite>ViewportInfo</cite> objects as <a href="#id3"><span class="problematic" id="id4">`</span></a>ResourceInfoEx`s from the MetadataExtractorEx interface.</p></li>
+<li><p>Exposed <cite>ScissorRectInfo</cite> and <cite>ViewportInfo</cite> objects as <a href="#id6"><span class="problematic" id="id7">`</span></a>ResourceInfoEx`s from the MetadataExtractorEx interface.</p></li>
 <li><p>Texture replacement available via <cite>ResourceExperiment</cite> interface for D3D12 applications.</p></li>
 <li><p>2X2 texture replacement experiment prefab available for D3D12 applications.</p></li>
 <li><p>Added ability to obtain creation info for buffers and textures. This covers both DX12 and Vulkan. See the metadata-extraction sample for how to use this. Create info for more structures will come in the future.</p></li>
@@ -396,8 +439,8 @@
 <li><p>Added ability to retrieve <cite>RenderPassInfo</cite> for Vulkan workloads via <cite>MetadataExtractor</cite>.</p></li>
 </ul>
 </div>
-<div class="section" id="id5">
-<h3>CHANGED:<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h3>CHANGED<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Added GetBindingInterval() to <cite>ResourceInfo</cite>. <cite>ResourceInfo::GetBindingInterval()</cite> can be used to determine the begin and end indices of a ResourceInfo binding.</p></li>
 <li><p><cite>MetricsExtractor</cite> creates and manages a secondary Pipeline Statistics and Timestamp Query Manager if the primary Query Manager was Intel GPU MD-library based.</p></li>
@@ -420,8 +463,8 @@
 </li>
 </ul>
 </div>
-<div class="section" id="id6">
-<h3>FIXED:<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id9">
+<h3>FIXED<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>MetricsExtractor will perform a GPU flush (if needed), then a query manager unsubscribe, and a new query manager subscribe on the start of every collection range when the queue changes. Previously, the assumption was made that only a single queue was used for all collection ranges that led to a IQueryManager::BeginQueue unsupported failure. This was causing metrics to not be collected for some Unreal based D3D12 workloads.</p></li>
 <li><p>CreateMetricsSource using MetricsSourceType::kUnspecified for D3D12 when MD library support is not available will fallback to the D3D12 Pipeline Statistics and Timestamp MetricsSource. Previously, this was not occurring.</p></li>

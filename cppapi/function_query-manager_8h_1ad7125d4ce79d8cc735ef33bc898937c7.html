@@ -218,16 +218,22 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">FIXED</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">CHANGED:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">FIXED:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">FIXED</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
@@ -326,13 +332,13 @@
 <dd><p>For the specified graphics API and type of extension object, used to perform required changes to the creation data provided to the graphics API when creating it. <dl class="simple">
 <dt><strong>Return</strong></dt><dd><p>Upon return, the contents of the base create data is updated and the extra create buffers will be setup/linked with the base create data if they are needed. They base create data is expected to be used subsequently by the create function (for example, with vkCreateDevice or vkCreateInstance). </p>
 </dd>
-<dt><strong>Note</strong></dt><dd><p>This function is essentially a NOP for D3D12 and Metal because no creation data is provided to those APIs for a device. </p>
+<dt><strong>Note</strong></dt><dd><p>This function is essentially a NOP for D3D11, D3D12 and Metal because no creation data is provided to those APIs for a device. </p>
 </dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">graphicsApi</span></code>: The graphics API to update and prepare creation data for. </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">extensionType</span></code>: The type of graphics API extension object to update and prepare creation data for. All graphics APIs support kDevice. Only Vulkan supports kInstance. </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[inout]</span> <span class="pre">pCreateData</span></code>: Pointer to the workload’s create info structure ready to be passed to the associated create function. For Vulkan, with kDevice must be a VkDeviceCreateInfo and with kInstance must be a must be a VkInstanceCreateInfo. For Metal, must be a nullptr. For D3D12, must be a nullptr. </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[inout]</span> <span class="pre">pExtraBuffers</span></code>: Pointer to structure that holds extra graphics API specific creation related data buffers that may be used and linked upon successful return with the provided create data. Only used by Vulkan. For Metal must be nullptr. For D3D12, must be a nullptr. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[inout]</span> <span class="pre">pCreateData</span></code>: Pointer to the workload’s create info structure ready to be passed to the associated create function. For Vulkan, with kDevice must be a VkDeviceCreateInfo and with kInstance must be a must be a VkInstanceCreateInfo. For Metal, must be a nullptr. For D3D12 and D3D11, must be a nullptr. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[inout]</span> <span class="pre">pExtraBuffers</span></code>: Pointer to structure that holds extra graphics API specific creation related data buffers that may be used and linked upon successful return with the provided create data. Only used by Vulkan. For Metal must be nullptr. For D3D12 and D3D11, must be a nullptr. </p></li>
 </ul>
 </dd>
 </dl>
