@@ -1,0 +1,626 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Program Listing for File directx-range-repeat-cache.h &mdash; Intel® GPA Framework  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/intel-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending “Helloworld” Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#how-to-build">How to build</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">‘Helloworld’ Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">‘Helloworld’ Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extractor">Texture Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/reference.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#unions">Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture-experimental">Deferred Capture (Experimental)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id3">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id4">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Program Listing for File directx-range-repeat-cache.h</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="program-listing-for-file-directx-range-repeat-cache-h">
+<span id="program-listing-file-include-playback-directx-range-repeat-cache-h"></span><h1>Program Listing for File directx-range-repeat-cache.h<a class="headerlink" href="#program-listing-for-file-directx-range-repeat-cache-h" title="Permalink to this headline">¶</a></h1>
+<p>↰ <a class="reference internal" href="file_include_playback_directx-range-repeat-cache.h.html#file-include-playback-directx-range-repeat-cache-h"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">include/playback/directx-range-repeat-cache.h</span></code>)</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/******************************************************************************</span>
+<span class="cm">© Intel Corporation.</span>
+
+<span class="cm">This software and the related documents are Intel copyrighted materials,</span>
+<span class="cm">and your use of them is governed by the express license under which they</span>
+<span class="cm">were provided to you (&quot;License&quot;). Unless the License provides otherwise,</span>
+<span class="cm">you may not use, modify, copy, publish, distribute, disclose or transmit</span>
+<span class="cm">this software or the related documents without Intel&#39;s prior written</span>
+<span class="cm">permission.</span>
+
+
+<span class="cm"> This software and the related documents are provided as is, with no express</span>
+<span class="cm">or implied warranties, other than those that are expressly stated in the</span>
+<span class="cm">License.</span>
+
+<span class="cm">******************************************************************************/</span>
+
+<span class="cp">#pragma once</span>
+
+<span class="cp">#include</span> <span class="cpf">&quot;playback/range-repeat-cache.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;serialization/apicallcontext.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;object-map/object-map.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;logger/logger.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;utility/directx11-utilities.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;playback-support/playback-support.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;dispatch-table/dispatch-table.h&quot;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;d3d11_4.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;map&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;array&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;assert.h&gt;</span><span class="cp"></span>
+
+<span class="k">namespace</span> <span class="p">{</span>
+<span class="kt">void</span> <span class="n">AdjustRefCount</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">object</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">refCount</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">object</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">assert</span><span class="p">(</span><span class="nb">false</span> <span class="o">&amp;&amp;</span> <span class="s">&quot;Argument required&quot;</span><span class="p">);</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">IUnknown</span><span class="o">*</span> <span class="n">unknown</span> <span class="o">=</span> <span class="p">(</span><span class="n">IUnknown</span><span class="o">*</span><span class="p">)</span><span class="n">object</span><span class="p">;</span>
+    <span class="n">unknown</span><span class="o">-&gt;</span><span class="n">AddRef</span><span class="p">();</span>
+    <span class="n">DWORD</span> <span class="n">currentRefCount</span> <span class="o">=</span> <span class="n">unknown</span><span class="o">-&gt;</span><span class="n">Release</span><span class="p">();</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">currentRefCount</span> <span class="o">&lt;</span> <span class="n">refCount</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">currentRefCount</span> <span class="o">=</span> <span class="n">unknown</span><span class="o">-&gt;</span><span class="n">AddRef</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="c1">// TODO : investigate very high reference counts ( 0xc0000001 )</span>
+    <span class="cm">/*while (currentRefCount &gt; refCount) {</span>
+<span class="cm">        currentRefCount = unknown-&gt;Release();</span>
+<span class="cm">    }*/</span>
+<span class="p">}</span>
+<span class="p">}</span>  <span class="c1">// namespace</span>
+
+<span class="k">namespace</span> <span class="n">gpa</span> <span class="p">{</span>
+<span class="k">namespace</span> <span class="n">playback</span> <span class="p">{</span>
+
+<span class="k">class</span> <span class="nc">Callable</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="n">repeat</span> <span class="p">{</span>
+<span class="k">namespace</span> <span class="n">directx</span> <span class="p">{</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">BaseClass</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">RangeRepeatCacheCOMInternal</span> <span class="o">:</span> <span class="k">public</span> <span class="n">BaseClass</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">RangeRepeatCacheCOMInternal</span><span class="o">&lt;</span><span class="n">BaseClass</span><span class="o">&gt;&gt;</span> <span class="n">Ptr</span><span class="p">;</span>
+    <span class="n">RangeRepeatCacheCOMInternal</span><span class="p">(</span><span class="n">playback</span><span class="o">::</span><span class="n">Context</span><span class="o">*</span> <span class="n">context</span><span class="p">,</span> <span class="n">playback</span><span class="o">::</span><span class="n">Callable</span><span class="o">*</span> <span class="n">callable</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">clearObjectMappingOnRelease</span> <span class="o">=</span> <span class="nb">true</span><span class="p">)</span>
+        <span class="o">:</span> <span class="n">BaseClass</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">callable</span><span class="p">)</span>
+        <span class="p">,</span> <span class="n">mCreationCallable</span><span class="p">(</span><span class="o">*</span><span class="n">callable</span><span class="p">)</span>
+        <span class="p">,</span> <span class="n">mClearObjectMappingOnRelease</span><span class="p">(</span><span class="n">clearObjectMappingOnRelease</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="p">}</span>
+
+    <span class="k">virtual</span> <span class="o">~</span><span class="n">RangeRepeatCacheCOMInternal</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">GPA_LOG_TRACE</span><span class="p">(</span><span class="s">&quot;RangeRepeatCacheCOM::dtor - obj %llx&quot;</span><span class="p">,</span> <span class="n">mObjectKey</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">mClearObjectMappingOnRelease</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">mContext</span><span class="o">-&gt;</span><span class="n">objMap</span><span class="o">-&gt;</span><span class="n">AcquireObject</span><span class="p">(</span><span class="n">mObjectKey</span><span class="p">)</span> <span class="o">==</span> <span class="n">mObject</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">mContext</span><span class="o">-&gt;</span><span class="n">objMap</span><span class="o">-&gt;</span><span class="n">SetObjectMapping</span><span class="p">(</span><span class="n">mObjectKey</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">OnRangeEnter</span><span class="p">(</span><span class="n">GPADispatchTable</span> <span class="k">const</span><span class="o">*&amp;</span> <span class="n">table</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">IUnknown</span><span class="o">*</span> <span class="n">unknown</span> <span class="o">=</span> <span class="p">(</span><span class="n">IUnknown</span><span class="o">*</span><span class="p">)</span><span class="n">mObject</span><span class="p">;</span>
+        <span class="n">unknown</span><span class="o">-&gt;</span><span class="n">AddRef</span><span class="p">();</span>
+        <span class="n">mRefCount</span> <span class="o">=</span> <span class="n">unknown</span><span class="o">-&gt;</span><span class="n">Release</span><span class="p">();</span>
+
+        <span class="n">BaseClass</span><span class="o">::</span><span class="n">OnRangeEnter</span><span class="p">(</span><span class="n">table</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">OnRangeRepeatDestroyObject</span><span class="p">(</span><span class="n">GPADispatchTable</span> <span class="k">const</span><span class="o">*&amp;</span> <span class="n">table</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">repeatPass</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">table</span><span class="p">;</span>
+        <span class="n">mDestroyingObjectCreatedInRange</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">DirectX</span><span class="p">.</span><span class="n">ID3D12ResourceTable</span><span class="p">.</span><span class="n">Release</span><span class="p">((</span><span class="n">IUnknown</span><span class="o">*</span><span class="p">)</span><span class="n">mObject</span><span class="p">))</span> <span class="p">{</span>
+        <span class="p">}</span>
+        <span class="n">mDestroyingObjectCreatedInRange</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="n">BaseClass</span><span class="o">::</span><span class="n">OnRangeRepeatDestroyObject</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">repeatPass</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">OnRangeRepeatRecreateObject</span><span class="p">(</span><span class="n">GPADispatchTable</span> <span class="k">const</span><span class="o">*&amp;</span> <span class="n">table</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">repeatPass</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// Disable repeating flag to prevent from flagging the cache for mirror object as created during range</span>
+        <span class="kt">bool</span> <span class="k">const</span> <span class="n">isRepeating</span> <span class="o">=</span> <span class="n">mContext</span><span class="o">-&gt;</span><span class="n">repeating</span><span class="p">;</span>
+        <span class="n">mContext</span><span class="o">-&gt;</span><span class="n">repeating</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="n">mCreationCallable</span><span class="p">.</span><span class="n">PreExecute</span><span class="p">(</span><span class="n">mContext</span><span class="p">);</span>
+        <span class="n">mCreationCallable</span><span class="p">.</span><span class="n">Execute</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+        <span class="n">mContext</span><span class="o">-&gt;</span><span class="n">repeating</span> <span class="o">=</span> <span class="n">isRepeating</span><span class="p">;</span>
+        <span class="n">mObject</span> <span class="o">=</span> <span class="n">mContext</span><span class="o">-&gt;</span><span class="n">objMap</span><span class="o">-&gt;</span><span class="n">AcquireObject</span><span class="p">(</span><span class="n">mObjectKey</span><span class="p">);</span>
+        <span class="n">assert</span><span class="p">(</span><span class="n">mObject</span> <span class="o">&amp;&amp;</span> <span class="s">&quot;Could not obtain object from object map&quot;</span><span class="p">);</span>
+
+        <span class="n">GPA_LOG_TRACE</span><span class="p">(</span><span class="s">&quot;OnRangeRepeatRecreateObject - recreated obj %llx key %llx with call %s&quot;</span><span class="p">,</span> <span class="n">mObject</span><span class="p">,</span> <span class="n">mObjectKey</span><span class="p">,</span>
+                      <span class="n">mCreationCallable</span><span class="p">.</span><span class="n">Name</span><span class="p">());</span>
+
+        <span class="n">BaseClass</span><span class="o">::</span><span class="n">OnRangeRepeatRecreateObject</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">repeatPass</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">OnRangeRepeatRestoreState</span><span class="p">(</span><span class="n">GPADispatchTable</span> <span class="k">const</span><span class="o">*&amp;</span> <span class="n">table</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">repeatPass</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">GPA_LOG_TRACE</span><span class="p">(</span><span class="s">&quot;OnRangeRepeatRestoreState - obj %llx&quot;</span><span class="p">,</span> <span class="n">mObjectKey</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">CreatedDuringRange</span><span class="p">())</span> <span class="p">{</span>
+            <span class="n">AdjustRefCount</span><span class="p">(</span><span class="n">mObject</span><span class="p">,</span> <span class="n">mRefCount</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">BaseClass</span><span class="o">::</span><span class="n">OnRangeRepeatRestoreState</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">repeatPass</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">OnRangeExit</span><span class="p">(</span><span class="n">GPADispatchTable</span> <span class="k">const</span><span class="o">*&amp;</span> <span class="n">table</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">GPA_LOG_TRACE</span><span class="p">(</span><span class="s">&quot;OnRangeExit - obj %llx&quot;</span><span class="p">,</span> <span class="n">mObjectKey</span><span class="p">);</span>
+
+        <span class="c1">// We used to adjust ref count here</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">ReleasedDuringRange</span><span class="p">())</span> <span class="p">{</span>
+            <span class="c1">// This never happens, but will keep the code for now</span>
+            <span class="c1">// All the objects should be removed from the data manager when they die</span>
+            <span class="n">repeat</span><span class="o">::</span><span class="n">RangeRepeatCache</span><span class="o">::</span><span class="n">Ptr</span> <span class="n">existingCache</span> <span class="o">=</span>
+                <span class="n">std</span><span class="o">::</span><span class="n">static_pointer_cast</span><span class="o">&lt;</span><span class="n">repeat</span><span class="o">::</span><span class="n">RangeRepeatCache</span><span class="o">&gt;</span><span class="p">(</span><span class="n">mContext</span><span class="o">-&gt;</span><span class="n">dataManager</span><span class="o">-&gt;</span><span class="n">GetAssociatedDataRef</span><span class="p">((</span><span class="n">capture_support</span><span class="o">::</span><span class="n">DataManager</span><span class="o">::</span><span class="n">ObjectRef</span><span class="p">)</span><span class="n">mObject</span><span class="p">,</span> <span class="n">playback</span><span class="o">::</span><span class="n">repeat</span><span class="o">::</span><span class="n">GetRangeRepeatCacheKey</span><span class="p">()));</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">existingCache</span> <span class="o">&amp;&amp;</span> <span class="n">existingCache</span><span class="o">-&gt;</span><span class="n">CreationTimestamp</span><span class="p">()</span> <span class="o">==</span> <span class="n">CreationTimestamp</span><span class="p">())</span> <span class="p">{</span>
+                <span class="n">GPA_LOG_TRACE</span><span class="p">(</span><span class="s">&quot;OnRangeExit - removing from DataMngr - obj %llx&quot;</span><span class="p">,</span> <span class="n">mObjectKey</span><span class="p">);</span>
+                <span class="n">mContext</span><span class="o">-&gt;</span><span class="n">dataManager</span><span class="o">-&gt;</span><span class="n">AssociateDataRefForObject</span><span class="p">((</span><span class="kt">uint64_t</span><span class="p">)</span><span class="n">mObject</span><span class="p">,</span> <span class="n">gpa</span><span class="o">::</span><span class="n">playback</span><span class="o">::</span><span class="n">repeat</span><span class="o">::</span><span class="n">GetRangeRepeatCacheKey</span><span class="p">(),</span> <span class="k">nullptr</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">BaseClass</span><span class="o">::</span><span class="n">OnRangeExit</span><span class="p">(</span><span class="n">table</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">OnReleaseDuringRange</span><span class="p">(</span><span class="n">GPADispatchTable</span> <span class="k">const</span><span class="o">*&amp;</span> <span class="n">table</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">GPA_LOG_TRACE</span><span class="p">(</span><span class="s">&quot;OnReleaseDuringRange - obj %llx&quot;</span><span class="p">,</span> <span class="n">mObjectKey</span><span class="p">);</span>
+        <span class="n">RangeRepeatCache</span><span class="o">::</span><span class="n">OnReleaseDuringRange</span><span class="p">(</span><span class="n">table</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">uint32_t</span> <span class="n">mRefCount</span><span class="p">;</span>
+    <span class="n">playback</span><span class="o">::</span><span class="n">Callable</span> <span class="n">mCreationCallable</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">mClearObjectMappingOnRelease</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">using</span> <span class="n">RangeRepeatCacheCOM</span> <span class="o">=</span> <span class="n">RangeRepeatCacheCOMInternal</span><span class="o">&lt;</span><span class="n">gpa</span><span class="o">::</span><span class="n">playback</span><span class="o">::</span><span class="n">repeat</span><span class="o">::</span><span class="n">RangeRepeatCache</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="k">using</span> <span class="n">RangeRepeatCacheForCommandBuffersCOM</span> <span class="o">=</span> <span class="n">RangeRepeatCacheCOMInternal</span><span class="o">&lt;</span><span class="n">gpa</span><span class="o">::</span><span class="n">playback</span><span class="o">::</span><span class="n">repeat</span><span class="o">::</span><span class="n">RangeRepeatCacheForCommandBuffers</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">ResourceType</span><span class="p">,</span> <span class="k">typename</span> <span class="n">ResourceDescType</span><span class="p">,</span> <span class="k">typename</span> <span class="n">CreateMethod</span><span class="o">&gt;</span>
+<span class="n">ID3D11Resource</span><span class="o">*</span> <span class="n">CreateResourceCopy</span><span class="p">(</span><span class="n">ID3D11Device</span><span class="o">*</span> <span class="n">device</span><span class="p">,</span> <span class="n">ID3D11DeviceContext</span><span class="o">*</span> <span class="n">immediateContext</span><span class="p">,</span>
+                                   <span class="n">CreateMethod</span> <span class="n">createMethod</span><span class="p">,</span> <span class="n">ID3D11Resource</span><span class="o">*</span> <span class="n">resource</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">ResourceDescType</span> <span class="n">desc</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="p">((</span><span class="n">ResourceType</span><span class="o">*</span><span class="p">)</span><span class="n">resource</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">GetDesc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">desc</span><span class="p">);</span>
+    <span class="n">ResourceType</span><span class="o">*</span> <span class="n">copy</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+    <span class="p">(</span><span class="n">device</span><span class="o">-&gt;*</span><span class="n">createMethod</span><span class="p">)(</span><span class="o">&amp;</span><span class="n">desc</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">copy</span><span class="p">);</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">copy</span> <span class="o">&amp;&amp;</span> <span class="s">&quot;Could not create resource copy&quot;</span><span class="p">);</span>
+    <span class="n">immediateContext</span><span class="o">-&gt;</span><span class="n">CopyResource</span><span class="p">(</span><span class="n">copy</span><span class="p">,</span> <span class="n">resource</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">copy</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">ID3D11ViewRangeRepeatCache</span> <span class="o">:</span> <span class="k">public</span> <span class="n">RangeRepeatCacheCOM</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">ID3D11ViewRangeRepeatCache</span><span class="o">&gt;</span> <span class="n">Ptr</span><span class="p">;</span>
+    <span class="n">ID3D11ViewRangeRepeatCache</span><span class="p">(</span><span class="n">playback</span><span class="o">::</span><span class="n">Context</span><span class="o">*</span> <span class="n">context</span><span class="p">,</span> <span class="n">playback</span><span class="o">::</span><span class="n">Callable</span><span class="o">*</span> <span class="n">callable</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="o">~</span><span class="n">ID3D11ViewRangeRepeatCache</span><span class="p">();</span>
+
+    <span class="kt">void</span> <span class="nf">OnRangeEnter</span><span class="p">(</span><span class="n">GPADispatchTable</span> <span class="k">const</span><span class="o">*&amp;</span> <span class="n">table</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="nf">OnRangeRepeatRecreateObject</span><span class="p">(</span><span class="n">GPADispatchTable</span> <span class="k">const</span><span class="o">*&amp;</span> <span class="n">table</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">repeatPass</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">ID3D11ResourceRangeRepeatCache</span> <span class="o">:</span> <span class="k">public</span> <span class="n">RangeRepeatCacheCOM</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">ID3D11ResourceRangeRepeatCache</span><span class="o">&gt;</span> <span class="n">Ptr</span><span class="p">;</span>
+    <span class="n">ID3D11ResourceRangeRepeatCache</span><span class="p">(</span><span class="n">playback</span><span class="o">::</span><span class="n">Context</span><span class="o">*</span> <span class="n">context</span><span class="p">,</span> <span class="n">playback</span><span class="o">::</span><span class="n">Callable</span><span class="o">*</span> <span class="n">callable</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="o">~</span><span class="n">ID3D11ResourceRangeRepeatCache</span><span class="p">();</span>
+
+    <span class="kt">void</span> <span class="nf">OnRangeEnter</span><span class="p">(</span><span class="n">GPADispatchTable</span> <span class="k">const</span><span class="o">*&amp;</span> <span class="n">table</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="nf">OnRangeRepeatRestoreState</span><span class="p">(</span><span class="n">GPADispatchTable</span> <span class="k">const</span><span class="o">*&amp;</span> <span class="n">table</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">repeatPass</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="nf">OnRangeExit</span><span class="p">(</span><span class="n">GPADispatchTable</span> <span class="k">const</span><span class="o">*&amp;</span> <span class="n">table</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
+
+    <span class="kt">void</span> <span class="nf">OnMapBeforeRepeatRange</span><span class="p">(</span><span class="n">ID3D11DeviceContext</span><span class="o">*</span> <span class="n">context</span><span class="p">,</span> <span class="n">UINT</span> <span class="n">subresource</span><span class="p">,</span> <span class="n">D3D11_MAP</span> <span class="n">mapType</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">OnUnmapBeforeRepeatRange</span><span class="p">(</span><span class="n">ID3D11DeviceContext</span><span class="o">*</span> <span class="n">context</span><span class="p">,</span> <span class="n">UINT</span> <span class="n">subresource</span><span class="p">);</span>
+
+    <span class="n">IDXGISwapChain</span><span class="o">*</span> <span class="nf">GetSwapChain</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+
+<span class="k">private</span><span class="o">:</span>
+    <span class="k">struct</span> <span class="n">SubresourceState</span>
+    <span class="p">{</span>
+        <span class="kt">bool</span> <span class="n">isMappedBeforeRepeat</span><span class="p">;</span>
+        <span class="n">D3D11_MAP</span> <span class="n">mapType</span><span class="p">;</span>
+    <span class="p">};</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">uint32_t</span> <span class="cm">/*subresource index*/</span><span class="p">,</span> <span class="n">SubresourceState</span><span class="o">&gt;</span> <span class="n">mSubresourceState</span><span class="p">;</span>
+    <span class="n">ID3D11Resource</span><span class="o">*</span> <span class="n">mCopy</span><span class="p">;</span>
+    <span class="n">IDXGISwapChain</span><span class="o">*</span> <span class="n">mSwapChain</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">mIsBackBuffer</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">ID3D11ImmediateDeviceContextRangeRepeatCache</span> <span class="o">:</span> <span class="k">public</span> <span class="n">RangeRepeatCacheCOM</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">utility</span><span class="o">::</span><span class="n">directx</span><span class="o">::</span><span class="n">D3D11StateBlock</span><span class="o">&gt;</span> <span class="n">mStateBlock</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+    <span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">ID3D11ImmediateDeviceContextRangeRepeatCache</span><span class="o">&gt;</span> <span class="n">Ptr</span><span class="p">;</span>
+
+    <span class="n">ID3D11ImmediateDeviceContextRangeRepeatCache</span><span class="p">(</span><span class="n">playback</span><span class="o">::</span><span class="n">Context</span><span class="o">*</span> <span class="n">context</span><span class="p">,</span>
+                                                 <span class="n">playback</span><span class="o">::</span><span class="n">Callable</span><span class="o">*</span> <span class="n">callable</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="o">~</span><span class="n">ID3D11ImmediateDeviceContextRangeRepeatCache</span><span class="p">();</span>
+
+    <span class="kt">void</span> <span class="nf">OnRangeEnter</span><span class="p">(</span><span class="n">GPADispatchTable</span> <span class="k">const</span><span class="o">*&amp;</span> <span class="n">table</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="nf">OnRangeRepeatRecreateObject</span><span class="p">(</span><span class="n">GPADispatchTable</span> <span class="k">const</span><span class="o">*&amp;</span> <span class="n">table</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">repeatPass</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="nf">OnRangeRepeatRestoreState</span><span class="p">(</span><span class="n">GPADispatchTable</span> <span class="k">const</span><span class="o">*&amp;</span> <span class="n">table</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">repeatPass</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="nf">OnRangeExit</span><span class="p">(</span><span class="n">GPADispatchTable</span> <span class="k">const</span><span class="o">*&amp;</span> <span class="n">table</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="p">}</span>  <span class="c1">// namespace directx</span>
+<span class="p">}</span>  <span class="c1">// namespace repeat</span>
+<span class="p">}</span>  <span class="c1">// namespace playback</span>
+<span class="p">}</span>  <span class="c1">// namespace gpa</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2019 - 2021 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
