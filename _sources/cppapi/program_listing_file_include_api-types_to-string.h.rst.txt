@@ -1,0 +1,794 @@
+
+.. _program_listing_file_include_api-types_to-string.h:
+
+Program Listing for File api-types/to-string.h
+==============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_api-types_to-string.h>` (``include/api-types/to-string.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "api-types/color.h"
+   #include "api-types/enumerations.h"
+   #include "api-types/format.h"
+   #include "api-types/structures.h"
+   
+   #include <string>
+   #include <sstream>
+   
+   namespace gpa {
+   
+   enum StrFmtFlagBits {
+       // clang-format off
+       GPA_STR_FMT_NONE             = 0,
+       GPA_STR_FMT_FORMATTED        = 1,
+       GPA_STR_FMT_ENUM_IDENTIFIER  = 1 << 1,
+       GPA_STR_FMT_ENUM_VALUE       = 1 << 2,
+       GPA_STR_FMT_BINARY_DATA      = 1 << 3,
+       GPA_STR_FMT_EXPAND_PTR       = 1 << 4,
+       GPA_STR_FMT_SKIP_LEADING_TAB = 1 << 5,
+       GPA_STR_FMT_DEFAULT         = GPA_STR_FMT_FORMATTED | GPA_STR_FMT_ENUM_IDENTIFIER | GPA_STR_FMT_EXPAND_PTR,
+       // clang-format on
+   };
+   
+   using StrFmtFlags = uint32_t;
+   
+   template<typename T>
+   inline std::string ToString(
+       T const& obj,
+       StrFmtFlags strFmtFlags = GPA_STR_FMT_DEFAULT,
+       uint32_t tabCount = 0,
+       uint32_t tabSize = 4)
+   {
+       (void)strFmtFlags;
+       (void)tabCount;
+       (void)tabSize;
+       return std::to_string(obj);
+   }
+   
+   template<typename FlagBitsType>
+   inline std::string ToString(
+       uint32_t flags,
+       StrFmtFlags strFmtFlags = GPA_STR_FMT_DEFAULT,
+       uint32_t tabCount = 0,
+       uint32_t tabSize = 4)
+   {
+       (void)strFmtFlags;
+       (void)tabCount;
+       (void)tabSize;
+       return std::to_string(flags);
+   }
+   
+   namespace detail {
+   
+   inline std::string TabStr(StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       return (strFmtFlags & GPA_STR_FMT_FORMATTED) ? std::string((size_t)tabCount * tabSize, ' ') : std::string();
+   }
+   
+   inline std::string NewLineStr(StrFmtFlags strFmtFlags)
+   {
+       return (strFmtFlags & GPA_STR_FMT_FORMATTED) ? std::string("\n") : std::string();
+   }
+   
+   template<typename EnumType>
+   inline std::string WriteEnumStr(
+       StrFmtFlags strFmtFlags,
+       uint32_t tabCount,
+       uint32_t tabSize,
+       char const* identifier,
+       EnumType value)
+   {
+       if (!(strFmtFlags & GPA_STR_FMT_ENUM_VALUE)) {
+           strFmtFlags |= GPA_STR_FMT_ENUM_IDENTIFIER;
+       }
+       std::string identifierStr = identifier && (strFmtFlags & GPA_STR_FMT_ENUM_IDENTIFIER) ? std::string(identifier) : std::string();
+       std::string valueStr = (strFmtFlags & GPA_STR_FMT_ENUM_VALUE) ? std::to_string((uint64_t)value) : std::string();
+       if (!identifierStr.empty() && !valueStr.empty()) {
+           std::stringstream strStr;
+           strStr << NewLineStr(strFmtFlags) << TabStr(strFmtFlags, ++tabCount, tabSize);
+           strStr << "\"identifier\":\"" << identifierStr << "\"";
+           strStr << "," << NewLineStr(strFmtFlags) << TabStr(strFmtFlags, tabCount, tabSize);
+           strStr << "\"value\":" << valueStr;
+           strStr << NewLineStr(strFmtFlags) << TabStr(strFmtFlags, --tabCount, tabSize);
+           return "{" + strStr.str() + "}";
+       }
+       if (identifierStr.empty() && valueStr.empty()) {
+           return "0";
+       }
+       return !identifierStr.empty() ? ("\"" + identifierStr + "\"") : valueStr;
+   }
+   
+   inline std::stringstream BeginStructureStr(
+       StrFmtFlags strFmtFlags,
+       uint32_t& tabCount,
+       uint32_t tabSize)
+   {
+       std::stringstream strStr;
+       strStr << (strFmtFlags & GPA_STR_FMT_SKIP_LEADING_TAB ? " " : TabStr(strFmtFlags, tabCount, tabSize));
+       strStr << "{" << detail::NewLineStr(strFmtFlags);
+       ++tabCount;
+       return strStr;
+   }
+   
+   template<typename T>
+   inline std::stringstream& WriteStructureFieldStr(
+       std::stringstream& strStr,
+       StrFmtFlags strFmtFlags,
+       uint32_t tabCount,
+       uint32_t tabSize,
+       char const* fieldName,
+       T const& obj)
+   {
+       strStr << TabStr(strFmtFlags, tabCount, tabSize) << "\"" << (fieldName ? fieldName : "unknown") << "\":";
+       strStr << ToString<T>(obj, strFmtFlags | GPA_STR_FMT_SKIP_LEADING_TAB, tabCount, tabSize);
+       return strStr;
+   }
+   
+   inline std::string EndStructureStr(
+       std::stringstream& strStr,
+       StrFmtFlags strFmtFlags,
+       uint32_t tabCount,
+       uint32_t tabSize)
+   {
+       strStr << NewLineStr(strFmtFlags) << TabStr(strFmtFlags, --tabCount, tabSize) << "}";
+       return strStr.str();
+   }
+   
+   }  // namespace detail
+   
+   template<>
+   inline std::string ToString<void*>(void* const& ptr, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       (void)strFmtFlags;
+       (void)tabCount;
+       (void)tabSize;
+       std::stringstream strStr;
+       strStr << std::hex << "\"0x" << ptr << "\"";
+       return strStr.str();
+   }
+   
+   template<>
+   inline std::string ToString<char const*>(char const* const& str, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       (void)strFmtFlags;
+       (void)tabCount;
+       (void)tabSize;
+       return str ? ('"' + std::string(str) + '"') : "null";
+   }
+   
+   template<>
+   inline std::string ToString<bool>(bool const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       (void)strFmtFlags;
+       (void)tabCount;
+       (void)tabSize;
+       return value ? "true" : "false";
+   }
+   
+   template<>
+   inline std::string ToString<api_types::AddressMode>(api_types::AddressMode const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace api_types;
+       switch (value) {
+       case GPA_ADDRESS_MODE_WRAP:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_ADDRESS_MODE_WRAP", value);
+       case GPA_ADDRESS_MODE_MIRROR:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_ADDRESS_MODE_MIRROR", value);
+       case GPA_ADDRESS_MODE_CLAMP:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_ADDRESS_MODE_CLAMP", value);
+       case GPA_ADDRESS_MODE_BORDER:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_ADDRESS_MODE_BORDER", value);
+       case GPA_ADDRESS_MODE_MIRROR_ONCE:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_ADDRESS_MODE_MIRROR_ONCE", value);
+       case GPA_ADDRESS_MODE_COUNT:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_ADDRESS_MODE_COUNT", value);
+       default:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_ADDRESS_MODE_UNKNOWN", value);
+       }
+   }
+   
+   template<>
+   inline std::string ToString<api_types::ComprisonFunction>(api_types::ComprisonFunction const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace api_types;
+       switch (value) {
+       case GPA_COMPARISON_FUNCTION_NEVER:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_COMPARISON_FUNCTION_NEVER", value);
+       case GPA_COMPARISON_FUNCTION_LESS:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_COMPARISON_FUNCTION_LESS", value);
+       case GPA_COMPRAISON_FUNCTION_EQUAL:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_COMPRAISON_FUNCTION_EQUAL", value);
+       case GPA_COMPARISON_FUNCTION_LESS_EQUAL:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_COMPARISON_FUNCTION_LESS_EQUAL", value);
+       case GPA_COMPARISON_FUNCTION_GREATER:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_COMPARISON_FUNCTION_GREATER", value);
+       case GPA_COMPARISON_FUNCTION_NOT_EQUAL:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_COMPARISON_FUNCTION_NOT_EQUAL", value);
+       case GPA_COMPARISON_FUNCTION_GREATER_EQUAL:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_COMPARISON_FUNCTION_GREATER_EQUAL", value);
+       case GPA_COMPARISON_FUNCTION_ALWAYS:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_COMPARISON_FUNCTION_ALWAYS", value);
+       case GPA_COMPARISON_FUNCTION_COUNT:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_COMPARISON_FUNCTION_COUNT", value);
+       default:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_COMPARISON_FUNCTION_UNKNOWN", value);
+       }
+   }
+   
+   template<>
+   inline std::string ToString<api_types::BindPoint>(api_types::BindPoint const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace api_types;
+       switch (value) {
+       case GPA_BIND_POINT_COMPUTE:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_BIND_POINT_COMPUTE", value);
+       case GPA_BIND_POINT_GRAPHICS:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_BIND_POINT_GRAPHICS", value);
+       case GPA_BIND_POINT_RAY_TRACING:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_BIND_POINT_RAY_TRACING", value);
+       case GPA_BIND_POINT_COUNT:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_BIND_POINT_COUNT", value);
+       default:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_BIND_POINT_UNKNOWN", value);
+       }
+   }
+   
+   template<>
+   inline std::string ToString<api_types::FilterMode>(api_types::FilterMode const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace api_types;
+       switch (value) {
+       case GPA_FILTER_MODE_NEAREST:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_FILTER_MODE_NEAREST", value);
+       case GPA_FILTER_MODE_LINEAR:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_FILTER_MODE_LINEAR", value);
+       case GPA_FILTER_MODE_CUBIC:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_FILTER_MODE_CUBIC", value);
+       case GPA_FILTER_MODE_COUNT:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_FILTER_MODE_COUNT", value);
+       default:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_FILTER_MODE_UNKNOWN", value);
+       }
+   }
+   
+   template<>
+   inline std::string ToString<api_types::IndexType>(api_types::IndexType const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace api_types;
+       switch (value) {
+       case GPA_INDEX_TYPE_NONE:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_INDEX_TYPE_NONE", value);
+       case GPA_INDEX_TYPE_UINT8:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_INDEX_TYPE_UINT8", value);
+       case GPA_INDEX_TYPE_UINT16:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_INDEX_TYPE_UINT16", value);
+       case GPA_INDEX_TYPE_UINT32:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_INDEX_TYPE_UINT32", value);
+       case GPA_INDEX_TYPE_COUNT:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_INDEX_TYPE_COUNT", value);
+       default:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_INDEX_TYPE_UNKNOWN", value);
+       }
+   }
+   
+   template<>
+   inline std::string ToString<api_types::PrimitiveTopology>(api_types::PrimitiveTopology const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace api_types;
+       switch (value) {
+       case GPA_PRIMITIVE_TOPOLOGY_POINT_LIST:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_PRIMITIVE_TOPOLOGY_POINT_LIST", value);
+       case GPA_PRIMITIVE_TOPOLOGY_LINE_LIST:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_PRIMITIVE_TOPOLOGY_LINE_LIST", value);
+       case GPA_PRIMITIVE_TOPOLOGY_LINE_STRIP:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_PRIMITIVE_TOPOLOGY_LINE_STRIP", value);
+       case GPA_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST", value);
+       case GPA_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP", value);
+       case GPA_PRIMITIVE_TOPOLOGY_TRIANGLE_FAN:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_PRIMITIVE_TOPOLOGY_TRIANGLE_FAN", value);
+       case GPA_PRIMITIVE_TOPOLOGY_LINE_LIST_WITH_ADJACENCY:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_PRIMITIVE_TOPOLOGY_LINE_LIST_WITH_ADJACENCY", value);
+       case GPA_PRIMITIVE_TOPOLOGY_LINE_STRIP_WITH_ADJACENCY:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_PRIMITIVE_TOPOLOGY_LINE_STRIP_WITH_ADJACENCY", value);
+       case GPA_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST_WITH_ADJACENCY:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST_WITH_ADJACENCY", value);
+       case GPA_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_WITH_ADJACENCY:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_WITH_ADJACENCY", value);
+       case GPA_PRIMITIVE_TOPOLOGY_PATCH_LIST:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_PRIMITIVE_TOPOLOGY_PATCH_LIST", value);
+       case GPA_PRIMITIVE_TOPOLOGY_COUNT:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_PRIMITIVE_TOPOLOGY_COUNT", value);
+       default:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_PRIMITIVE_TOPOLOGY_UNKNOWN", value);
+       }
+   }
+   
+   template<>
+   inline std::string ToString<api_types::ShaderLanguage>(api_types::ShaderLanguage const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace api_types;
+       switch (value) {
+       case GPA_SHADER_LANGUAGE_DXBC:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_SHADER_LANGUAGE_DXBC", value);
+       case GPA_SHADER_LANGUAGE_DXIL:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_SHADER_LANGUAGE_DXIL", value);
+       case GPA_SHADER_LANGUAGE_GLSL:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_SHADER_LANGUAGE_GLSL", value);
+       case GPA_SHADER_LANGUAGE_HLSL:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_SHADER_LANGUAGE_HLSL", value);
+       case GPA_SHADER_LANGUAGE_SPIRV:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_SHADER_LANGUAGE_SPIRV", value);
+       case GPA_SHADER_LANGUAGE_ISA:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_SHADER_LANGUAGE_ISA", value);
+       case GPA_SHADER_LANGUAGE_COUNT:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_SHADER_LANGUAGE_COUNT", value);
+       default:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_SHADER_LANGUAGE_UNKNOWN", value);
+       }
+   }
+   
+   template<>
+   inline std::string ToString<api_types::ShaderStageFlagBits>(api_types::ShaderStageFlagBits const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace api_types;
+       switch (value) {
+       case GPA_SHADER_STAGE_VERTEX:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_SHADER_STAGE_VERTEX", value);
+       case GPA_SHADER_STAGE_TESSELLATION_CONTROL:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_SHADER_STAGE_TESSELLATION_CONTROL", value);
+       case GPA_SHADER_STAGE_TESSELLATION_EVALUATION:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_SHADER_STAGE_TESSELLATION_EVALUATION", value);
+       case GPA_SHADER_STAGE_GEOMETRY:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_SHADER_STAGE_GEOMETRY", value);
+       case GPA_SHADER_STAGE_FRAGMENT:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_SHADER_STAGE_FRAGMENT", value);
+       case GPA_SHADER_STAGE_COMPUTE:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_SHADER_STAGE_COMPUTE", value);
+       case GPA_SHADER_STAGE_ALL_GRAPHICS:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_SHADER_STAGE_ALL_GRAPHICS", value);
+       case GPA_SHADER_STAGE_RAYGEN:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_SHADER_STAGE_RAYGEN", value);
+       case GPA_SHADER_STAGE_ANY_HIT:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_SHADER_STAGE_ANY_HIT", value);
+       case GPA_SHADER_STAGE_CLOSEST_HIT:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_SHADER_STAGE_CLOSEST_HIT", value);
+       case GPA_SHADER_STAGE_MISS:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_SHADER_STAGE_MISS", value);
+       case GPA_SHADER_STAGE_INTERSECTION:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_SHADER_STAGE_INTERSECTION", value);
+       case GPA_SHADER_STAGE_CALLABLE:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_SHADER_STAGE_CALLABLE", value);
+       default:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_SHADER_STAGE_UNKNOWN", value);
+       }
+   }
+   
+   template<>
+   inline std::string ToString<api_types::ShaderStageFlagBits>(uint32_t flags, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace api_types;
+       if (!(strFmtFlags & GPA_STR_FMT_ENUM_VALUE)) {
+           strFmtFlags |= GPA_STR_FMT_ENUM_IDENTIFIER;
+       }
+       std::string identifierStr;
+       if (strFmtFlags & GPA_STR_FMT_ENUM_IDENTIFIER) {
+           std::stringstream identifierStrStr;
+           if (flags & GPA_SHADER_STAGE_VERTEX) {
+               identifierStrStr << "GPA_SHADER_STAGE_VERTEX|";
+           }
+           if (flags & GPA_SHADER_STAGE_TESSELLATION_CONTROL) {
+               identifierStrStr << "GPA_SHADER_STAGE_TESSELLATION_CONTROL|";
+           }
+           if (flags & GPA_SHADER_STAGE_TESSELLATION_EVALUATION) {
+               identifierStrStr << "GPA_SHADER_STAGE_TESSELLATION_EVALUATION|";
+           }
+           if (flags & GPA_SHADER_STAGE_GEOMETRY) {
+               identifierStrStr << "GPA_SHADER_STAGE_GEOMETRY|";
+           }
+           if (flags & GPA_SHADER_STAGE_FRAGMENT) {
+               identifierStrStr << "GPA_SHADER_STAGE_FRAGMENT|";
+           }
+           if (flags & GPA_SHADER_STAGE_COMPUTE) {
+               identifierStrStr << "GPA_SHADER_STAGE_COMPUTE|";
+           }
+           if (flags & GPA_SHADER_STAGE_RAYGEN) {
+               identifierStrStr << "GPA_SHADER_STAGE_RAYGEN|";
+           }
+           if (flags & GPA_SHADER_STAGE_ANY_HIT) {
+               identifierStrStr << "GPA_SHADER_STAGE_ANY_HIT|";
+           }
+           if (flags & GPA_SHADER_STAGE_CLOSEST_HIT) {
+               identifierStrStr << "GPA_SHADER_STAGE_CLOSEST_HIT|";
+           }
+           if (flags & GPA_SHADER_STAGE_MISS) {
+               identifierStrStr << "GPA_SHADER_STAGE_MISS|";
+           }
+           if (flags & GPA_SHADER_STAGE_INTERSECTION) {
+               identifierStrStr << "GPA_SHADER_STAGE_INTERSECTION|";
+           }
+           if (flags & GPA_SHADER_STAGE_CALLABLE) {
+               identifierStrStr << "GPA_SHADER_STAGE_CALLABLE|";
+           }
+           identifierStr = identifierStrStr.str();
+           if (!identifierStr.empty()) {
+               identifierStr = identifierStr.substr(0, identifierStr.size() - 1);
+           }
+       }
+       if (identifierStr.empty()) {
+           identifierStr = "GPA_SHADER_STAGE_UNKNOWN";
+       }
+       return WriteEnumStr(strFmtFlags, tabCount, tabSize, identifierStr.c_str(), (ShaderStageFlagBits)flags);
+   }
+   
+   template<>
+   inline std::string ToString<api_types::TextureType>(api_types::TextureType const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace api_types;
+       switch (value) {
+       case GPA_TEXTURE_TYPE_1D:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_TEXTURE_TYPE_1D", value);
+       case GPA_TEXTURE_TYPE_2D:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_TEXTURE_TYPE_2D", value);
+       case GPA_TEXTURE_TYPE_3D:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_TEXTURE_TYPE_3D", value);
+       case GPA_TEXTURE_TYPE_CUBE:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_TEXTURE_TYPE_CUBE", value);
+       case GPA_TEXTURE_TYPE_1D_ARRAY:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_TEXTURE_TYPE_1D_ARRAY", value);
+       case GPA_TEXTURE_TYPE_2D_ARRAY:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_TEXTURE_TYPE_2D_ARRAY", value);
+       case GPA_TEXTURE_TYPE_CUBE_ARRAY:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_TEXTURE_TYPE_CUBE_ARRAY", value);
+       case GPA_TEXTURE_TYPE_COUNT:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_TEXTURE_TYPE_COUNT", value);
+       default:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_TEXTURE_TYPE_UNKNOWN", value);
+       }
+   }
+   
+   template<>
+   inline std::string ToString<api_types::TextureAspectFlagBits>(api_types::TextureAspectFlagBits const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace api_types;
+       switch (value) {
+       case GPA_TEXTURE_ASPECT_COLOR:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_TEXTURE_ASPECT_COLOR", value);
+       case GPA_TEXTURE_ASPECT_DEPTH:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_TEXTURE_ASPECT_DEPTH", value);
+       case GPA_TEXTURE_ASPECT_STENCIL:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_TEXTURE_ASPECT_STENCIL", value);
+       case GPA_TEXTURE_ASPECT_METADATA:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_TEXTURE_ASPECT_METADATA", value);
+       case GPA_TEXTURE_ASPECT_PLANE_0:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_TEXTURE_ASPECT_PLANE_0", value);
+       case GPA_TEXTURE_ASPECT_PLANE_1:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_TEXTURE_ASPECT_PLANE_1", value);
+       case GPA_TEXTURE_ASPECT_PLANE_2:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_TEXTURE_ASPECT_PLANE_2", value);
+       case GPA_TEXTURE_ASPECT_MEMORY_PLANE_0:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_TEXTURE_ASPECT_MEMORY_PLANE_0", value);
+       case GPA_TEXTURE_ASPECT_MEMORY_PLANE_1:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_TEXTURE_ASPECT_MEMORY_PLANE_1", value);
+       case GPA_TEXTURE_ASPECT_MEMORY_PLANE_2:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_TEXTURE_ASPECT_MEMORY_PLANE_2", value);
+       default:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_TEXTURE_ASPECT_UNKNOWN", value);
+       }
+   }
+   
+   template<>
+   inline std::string ToString<api_types::TextureAspectFlagBits>(uint32_t flags, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace api_types;
+       if (!(strFmtFlags & GPA_STR_FMT_ENUM_VALUE)) {
+           strFmtFlags |= GPA_STR_FMT_ENUM_IDENTIFIER;
+       }
+       std::string identifierStr;
+       if (strFmtFlags & GPA_STR_FMT_ENUM_IDENTIFIER) {
+           std::stringstream identifierStrStrm;
+           if (flags & GPA_TEXTURE_ASPECT_COLOR) {
+               identifierStrStrm << "GPA_TEXTURE_ASPECT_COLOR|";
+           }
+           if (flags & GPA_TEXTURE_ASPECT_DEPTH) {
+               identifierStrStrm << "GPA_TEXTURE_ASPECT_DEPTH|";
+           }
+           if (flags & GPA_TEXTURE_ASPECT_STENCIL) {
+               identifierStrStrm << "GPA_TEXTURE_ASPECT_STENCIL|";
+           }
+           if (flags & GPA_TEXTURE_ASPECT_METADATA) {
+               identifierStrStrm << "GPA_TEXTURE_ASPECT_METADATA|";
+           }
+           if (flags & GPA_TEXTURE_ASPECT_PLANE_0) {
+               identifierStrStrm << "GPA_TEXTURE_ASPECT_PLANE_0|";
+           }
+           if (flags & GPA_TEXTURE_ASPECT_PLANE_1) {
+               identifierStrStrm << "GPA_TEXTURE_ASPECT_PLANE_1|";
+           }
+           if (flags & GPA_TEXTURE_ASPECT_PLANE_2) {
+               identifierStrStrm << "GPA_TEXTURE_ASPECT_PLANE_2|";
+           }
+           if (flags & GPA_TEXTURE_ASPECT_MEMORY_PLANE_0) {
+               identifierStrStrm << "GPA_TEXTURE_ASPECT_MEMORY_PLANE_0|";
+           }
+           if (flags & GPA_TEXTURE_ASPECT_MEMORY_PLANE_1) {
+               identifierStrStrm << "GPA_TEXTURE_ASPECT_MEMORY_PLANE_1|";
+           }
+           if (flags & GPA_TEXTURE_ASPECT_MEMORY_PLANE_2) {
+               identifierStrStrm << "GPA_TEXTURE_ASPECT_MEMORY_PLANE_2|";
+           }
+           identifierStr = identifierStrStrm.str();
+       }
+       if (identifierStr.empty()) {
+           identifierStr = "GPA_TEXTURE_ASPECT_UNKNOWN";
+       }
+       return WriteEnumStr(strFmtFlags, tabCount, tabSize, identifierStr.c_str(), (TextureAspectFlagBits)flags);
+   }
+   
+   template<>
+   inline std::string ToString<api_types::VertexInputRate>(api_types::VertexInputRate const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace api_types;
+       switch (value) {
+       case GPA_VERTEX_INPUT_RATE_PER_VERTEX:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_VERTEX_INPUT_RATE_PER_VERTEX", value);
+       case GPA_VERTEX_INPUT_RATE_PER_INSTANCE:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_VERTEX_INPUT_RATE_PER_INSTANCE", value);
+       case GPA_VERTEX_INPUT_RATE_COUNT:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_VERTEX_INPUT_RATE_COUNT", value);
+       default:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_VERTEX_INPUT_RATE_UNKNOWN", value);
+       }
+   }
+   
+   template<>
+   inline std::string ToString<api_types::Color>(api_types::Color const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "r", obj.r) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "g", obj.g) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "b", obj.b) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "a", obj.a);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<api_types::Color32>(api_types::Color32 const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "r", obj.r) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "g", obj.g) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "b", obj.b) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "a", obj.a);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<api_types::BufferRegion>(api_types::BufferRegion const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "offset", obj.offset) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "size", obj.size);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<api_types::Extent2D>(api_types::Extent2D const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "width", obj.width) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "height", obj.height);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<api_types::Extent3D>(api_types::Extent3D const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "width", obj.width) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "height", obj.height) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "depth", obj.depth);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<api_types::Offset2D>(api_types::Offset2D const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "x", obj.x) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "y", obj.y);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<api_types::Offset3D>(api_types::Offset3D const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "x", obj.x) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "y", obj.y) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "z", obj.z);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<api_types::Rect2D>(api_types::Rect2D const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "offset", obj.offset) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "extent", obj.extent);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<api_types::TextureSubresource>(api_types::TextureSubresource const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "baseMipLevel", obj.baseMipLevel) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "mipLevelCount", obj.mipLevelCount) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "baseArrayLayer", obj.baseArrayLayer) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "arrayLayerCount", obj.arrayLayerCount) << "," << NewLineStr(strFmtFlags);
+       // TODO : WriteStructureFlagsFieldStr()
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "aspect", (api_types::TextureAspectFlagBits)obj.aspect);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<api_types::TextureRegion>(api_types::TextureRegion const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "subresource", obj.subresource) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "offset", obj.offset) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "extent", obj.extent);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<api_types::VertexInputAttribute>(api_types::VertexInputAttribute const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "binding", obj.binding) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "location", obj.location) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "format", obj.format) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "offset", obj.offset);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<api_types::VertexInputBinding>(api_types::VertexInputBinding const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "binding", obj.binding) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "stride", obj.stride) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "inputRate", obj.inputRate);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<api_types::VertexInputElement>(api_types::VertexInputElement const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "location", obj.location) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "format", obj.format) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "offset", obj.offset);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<api_types::VertexInputElementExtended>(api_types::VertexInputElementExtended const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "location", obj.location) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "format", obj.format) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "offset", obj.offset) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "semanticName", obj.semanticName) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "binding", obj.binding) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "inputRate", obj.inputRate) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "instanceDataStepRate", obj.instanceDataStepRate);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<api_types::Viewport>(api_types::Viewport const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "x", obj.x) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "y", obj.y) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "width", obj.width) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "height", obj.height) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "minDepth", obj.minDepth) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "maxDepth", obj.maxDepth);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<api_types::BlendStateAttachment>(api_types::BlendStateAttachment const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "blendEnable", obj.blendEnable) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "srcBlend", obj.srcBlend) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "destBlend", obj.destBlend) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "blendOp", obj.blendOp) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "srcBlendAlpha", obj.srcBlendAlpha) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "destBlendAlpha", obj.destBlendAlpha) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "blendOpAlpha", obj.blendOpAlpha) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "colorWriteMask", obj.colorWriteMask);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<api_types::DepthStencilOp>(api_types::DepthStencilOp const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "stencilFailOp", obj.stencilFailOp) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "stencilDepthFailOp", obj.stencilDepthFailOp) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "stencilPassOp", obj.stencilPassOp) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "stencilFunc", obj.stencilFunc);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<api_types::EntryPoint>(api_types::EntryPoint const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pName", obj.pName) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "kind", obj.kind);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   }  // namespace gpa
+   
+   #include "api-types/format-to-string.inl"

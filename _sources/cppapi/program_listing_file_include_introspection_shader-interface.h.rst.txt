@@ -1,0 +1,83 @@
+
+.. _program_listing_file_include_introspection_shader-interface.h:
+
+Program Listing for File shader-interface.h
+===========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_introspection_shader-interface.h>` (``include/introspection/shader-interface.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "introspection/types.h"
+   #include "api-types/api-types.h"
+   
+   #include <cstdint>
+   #include <array>
+   #include <vector>
+   
+   namespace gpa {
+   namespace introspection {
+   
+   class Instance;
+   
+   class ShaderInterface
+   {
+   public:
+       ShaderInterface();
+       ShaderInterface(ShaderInterface&& other);
+       ShaderInterface(ShaderInterface const& other);
+       ~ShaderInterface();
+   
+       ShaderInterface& operator=(ShaderInterface&& other);
+       ShaderInterface& operator=(ShaderInterface const& other);
+   
+       void AppendMissingInstances(ShaderInterface& other);
+   
+       void AddInstance(ShaderBlockModifier category, Instance&& instance);
+   
+       uint64_t InstanceCount(ShaderBlockModifier category) const;
+   
+       introspection::Instance const* GetInstance(ShaderBlockModifier category, uint64_t index) const;
+   
+       SourceType GetOriginalSourceType() const;
+   
+       void SetOriginalSourceType(SourceType const& type);
+   
+       ShaderVersion GetVersion() const;
+   
+       void SetVersion(ShaderVersion const& version);
+   
+       api_types::PrimitiveTopology GetGeometryShaderOutputTopology() const;
+   
+       void SetGeometryShaderOutputTopology(api_types::PrimitiveTopology gsOutputTopology);
+   
+   private:
+       std::array<std::vector<introspection::Instance>, kShaderBlockModifierCount> mInstances;
+       SourceType mOriginalSourceType;
+       ShaderVersion mVersion = {};
+       api_types::PrimitiveTopology mGeometryShaderOutputTopology = api_types::GPA_PRIMITIVE_TOPOLOGY_UNKNOWN;
+   };
+   
+   }  // namespace introspection
+   }  // namespace gpa

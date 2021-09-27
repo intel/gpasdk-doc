@@ -1,0 +1,54 @@
+
+.. _program_listing_file_include_metadata_keyframe-context.h:
+
+Program Listing for File keyframe-context.h
+===========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_metadata_keyframe-context.h>` (``include/metadata/keyframe-context.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include <cstdint>
+   
+   namespace gpa {
+   
+   struct DataChangeDesc;
+   
+   namespace serialization {
+   namespace metadata {
+   
+   struct KeyframeContext
+   {
+       virtual ~KeyframeContext();
+   
+       virtual uint64_t GetTimeStampForApiCall(uint64_t threadId, uint64_t callOffset) = 0;
+       virtual bool ExecuteCallAtOffset(uint64_t threadId, uint64_t offset,
+                                        void* userData = nullptr) = 0;
+       virtual void UpdateThreadStreamOffset(uint64_t threadId, uint64_t offset) = 0;
+       virtual void UpdateResourceData(uint64_t streamOffset, void* userData) = 0;
+   };
+   
+   }  // namespace metadata
+   }  // namespace serialization
+   }  // namespace gpa

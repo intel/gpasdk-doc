@@ -1,0 +1,77 @@
+
+.. _program_listing_file_include_runtime_thread-control.h:
+
+Program Listing for File thread-control.h
+=========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_runtime_thread-control.h>` (``include/runtime/thread-control.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "runtime/runtime-common.h"
+   
+   #include "concurrent/lock.h"
+   
+   #include <cstddef>
+   
+   namespace gpa {
+   
+   namespace concurrent {
+   class Semaphore;
+   }
+   
+   namespace runtime {
+   
+   void GPA_RUNTIME_EXPORT InitializeThreadControl();
+   
+   bool GPA_RUNTIME_EXPORT IsBlacklistedThread();
+   
+   void GPA_RUNTIME_EXPORT UnblacklistCurrentThread();
+   
+   void GPA_RUNTIME_EXPORT BlacklistCurrentThread();
+   
+   void GPA_RUNTIME_EXPORT BlacklistThread(uint32_t threadId);
+   
+   struct GPA_RUNTIME_EXPORT ScopedBlackListCurrentThread
+   {
+       ScopedBlackListCurrentThread();
+       ~ScopedBlackListCurrentThread();
+   };
+   
+   GPA_RUNTIME_EXPORT concurrent::Semaphore* CreateThreadLockSemaphore();
+   GPA_RUNTIME_EXPORT concurrent::Semaphore* GetThreadLockSemaphore();
+   
+   class GPA_RUNTIME_EXPORT ThreadLock
+   {
+   public:
+       ThreadLock();
+       ThreadLock(concurrent::Semaphore* semaphore);
+       ~ThreadLock();
+   
+   private:
+       concurrent::Semaphore* mSemaphore;
+   };
+   
+   }  // namespace runtime
+   }  // namespace gpa

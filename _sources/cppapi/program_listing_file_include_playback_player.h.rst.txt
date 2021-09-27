@@ -1,0 +1,80 @@
+
+.. _program_listing_file_include_playback_player.h:
+
+Program Listing for File player.h
+=================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_player.h>` (``include/playback/player.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "serialization/apicallcontext.h"
+   #include "layer-system/layer-system.h"
+   #include "playback-support/playback-listener.h"
+   #include "playback-support/playback-support.h"
+   
+   #include <vector>
+   #include <memory>
+   #include <cstdint>
+   
+   namespace gpa {
+   struct Surface;
+   namespace serialization {
+   class Storage;
+   class RandomAccessSerializer;
+   }  // namespace serialization
+   
+   namespace playback {
+   
+   struct Context;
+   class Callable;
+   
+   class Player
+   {
+   public:
+       Player(TCHAR const* const* prePlaybackLayers, TCHAR const* const* postPlaybackLayers,
+              serialization::Storage* resourceStorage, playback::IPlaybackListener* playbackListener,
+              LayerArgLookup const* argLookup = nullptr);
+   
+       ~Player();
+   
+       bool UpdateContext(Callable* callable, bool isRepeating = false, uint64_t repeatPass = 0);
+   
+       bool Play(Callable* callable, bool isRepeating = false, bool isRepeated = false,
+                 uint64_t repeatPass = 0, bool releaseCallableResources = true, bool shouldExecute = true);
+   
+       gpa::Surface* RequestSurface(SurfaceCreateInfo const& surfaceCreateInfo);
+   
+       bool Ingress(Callable* callable, const void** params = nullptr, size_t paramCount = 0);
+   
+       bool Egress(Callable* callable, bool releaseResources = false, uint64_t returnValue = 0);
+   
+   private:
+       playback::Context mContext;
+       bool mContextUpdated = false;
+       std::unique_ptr<serialization::RandomAccessSerializer> mResourceSerializer;
+   };
+   
+   }  // namespace playback
+   }  // namespace gpa

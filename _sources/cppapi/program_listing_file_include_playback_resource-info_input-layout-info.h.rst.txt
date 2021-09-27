@@ -1,0 +1,69 @@
+
+.. _program_listing_file_include_playback_resource-info_input-layout-info.h:
+
+Program Listing for File input-layout-info.h
+============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_resource-info_input-layout-info.h>` (``include/playback/resource-info/input-layout-info.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   #include "detail/span.h"
+   #include "playback/resource-info/detail/utilities.h"
+   #include "playback/resource-info/resource-info.h"
+   
+   namespace gpa {
+   namespace playback {
+   
+   class InputLayoutInfo final
+       : public ResourceInfo
+   {
+   public:
+       TypeId GetTypeId() const override final;
+   
+       size_t inputElementCount{0};                                           
+       api_types::VertexInputElementExtended const* pInputElements{nullptr};  
+   
+   private:
+       void OnRegister() override final;
+   
+   private:
+       class Storage final
+       {
+       public:
+           std::vector<api_types::VertexInputElementExtended> inputElements;
+           std::vector<std::string> inputElementsSemanticNames;
+       } mStorage;
+   };
+   
+   namespace detail {
+   
+   template<>
+   inline auto MakeTuple<InputLayoutInfo>(const InputLayoutInfo& InputLayoutInfo)
+   {
+       return std::make_tuple(MakeSpan(InputLayoutInfo.pInputElements, InputLayoutInfo.inputElementCount));
+   }
+   
+   }  // namespace detail
+   }  // namespace playback
+   }  // namespace gpa

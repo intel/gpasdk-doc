@@ -1,0 +1,66 @@
+
+.. _program_listing_file_include_playback_directx12-range-repeat-cache-queue.h:
+
+Program Listing for File directx12-range-repeat-cache-queue.h
+=============================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_directx12-range-repeat-cache-queue.h>` (``include/playback/directx12-range-repeat-cache-queue.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   ******************************************************************************/
+   #pragma once
+   
+   #include "playback/directx-range-repeat-cache.h"
+   #include <d3d12.h>
+   
+   #include <memory>
+   
+   namespace gpa {
+   namespace playback {
+   
+   class Callable;
+   
+   namespace repeat {
+   namespace directx {
+   
+   class ID3D12CommandQueueRangeRepeatCache : public RangeRepeatCacheCOM
+   {
+       ID3D12Fence* mFence = nullptr;
+       uint64_t mLastFenceValue = 0;
+       HANDLE mEvent = 0;
+   
+   public:
+       typedef std::shared_ptr<ID3D12CommandQueueRangeRepeatCache> Ptr;
+   
+       ID3D12CommandQueueRangeRepeatCache(playback::Context* context, playback::Callable* callable);
+   
+       void OnQueueSynchronizationRequired(GPADispatchTable const*& table) override;
+       void OnRangeEnter(GPADispatchTable const*& table) override;
+       void OnRangeRepeatRecreateObject(GPADispatchTable const*& table, uint64_t repeatPass) override;
+       void OnRangeRepeatRestoreState(GPADispatchTable const*& table, uint64_t repeatPass) override;
+       void OnRangeExit(GPADispatchTable const*& table) override;
+   
+   private:
+       void InitializeSynchronizationObjects(GPADispatchTable const*& table);
+       void FlushQueue(GPADispatchTable const*& table);
+   };
+   
+   }  // namespace directx
+   }  // namespace repeat
+   }  // namespace playback
+   }  // namespace gpa

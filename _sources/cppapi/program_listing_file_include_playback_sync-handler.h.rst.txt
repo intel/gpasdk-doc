@@ -1,0 +1,63 @@
+
+.. _program_listing_file_include_playback_sync-handler.h:
+
+Program Listing for File sync-handler.h
+=======================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_sync-handler.h>` (``include/playback/sync-handler.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   #pragma once
+   
+   #include <playback/stream-preprocessor.h>
+   
+   #include <functional>
+   #include <memory>
+   
+   namespace gpa {
+   namespace playback {
+   
+   class Callable;
+   
+   namespace sync_handler {
+   
+   class SyncHandler : public IStreamProcesssor
+   {
+   public:
+       SyncHandler();
+       ~SyncHandler();
+       SyncHandler(const SyncHandler& other);
+       using EnumerateCallback = std::function<void(Callable& callable)>;
+       void EnumerateUnlockedCalls(Callable& originalCall, EnumerateCallback callback, bool isInRange);
+       // IStreamProcesssor
+       void Process(Callable& callable) override;
+       void OnTargetRangeBegin() override;
+       void OnTargetRangeEnd() override;
+   
+   private:
+       class SyncHandlerImpl;
+       std::unique_ptr<SyncHandlerImpl> mImpl;
+   };
+   
+   }  // namespace sync_handler
+   }  // namespace playback
+   }  // namespace gpa

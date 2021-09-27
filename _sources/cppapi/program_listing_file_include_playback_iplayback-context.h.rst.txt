@@ -1,0 +1,58 @@
+
+.. _program_listing_file_include_playback_iplayback-context.h:
+
+Program Listing for File iplayback-context.h
+============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_iplayback-context.h>` (``include/playback/iplayback-context.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   namespace gpa {
+   
+   struct Surface;
+   struct SurfaceCreateInfo;
+   
+   namespace capture_support {
+   class DataManager;
+   }
+   
+   namespace playback {
+   
+   class ObjectMap;
+   
+   class IPlaybackContext
+   {
+   public:
+       virtual gpa::playback::ObjectMap* GetObjectMap() = 0;
+       virtual gpa::capture_support::DataManager* GetDataManager() = 0;
+       virtual Surface* GetSurfaceDescription(uint64_t key,
+                                              SurfaceCreateInfo const* createInfo = nullptr) = 0;
+       virtual Surface* CreateSurface(uint64_t key, SurfaceCreateInfo const* createInfo) = 0;
+       virtual void ResizeSurface(uint64_t key, int width, int height) = 0;
+       virtual void OnPresent() = 0;
+   };
+   
+   }  // namespace playback
+   }  // namespace gpa

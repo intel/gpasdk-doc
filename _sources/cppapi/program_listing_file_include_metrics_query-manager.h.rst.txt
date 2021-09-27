@@ -1,0 +1,212 @@
+
+.. _program_listing_file_include_metrics_query-manager.h:
+
+Program Listing for File query-manager.h
+========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_metrics_query-manager.h>` (``include/metrics/query-manager.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /*
+       © Intel Corporation.
+   
+       This software and the related documents are Intel copyrighted materials,
+       and your use of them is governed by the express license under which they
+       were provided to you ("License"). Unless the License provides otherwise,
+       you may not use, modify, copy, publish, distribute, disclose or transmit
+       this software or the related documents without Intel's prior written
+       permission.
+   
+       This software and the related documents are provided as is, with no express
+       or implied warranties, other than those that are expressly stated in the
+       License.
+   */
+   
+   #pragma once
+   
+   #include "metrics/metrics-config.h"
+   #include "metrics/types.h"
+   
+   #include <cstdint>
+   
+   namespace gpa {
+   namespace metrics {
+   
+   class IMetricsSource;
+   
+   enum class GraphicsApiExtensionType {
+       kInvalid,  
+   
+       kDevice,    
+       kInstance,  
+   
+       kDefault = GraphicsApiExtensionType::kDevice
+   };
+   
+   const uint32_t kGraphicsApiExtensionNameLengthMax = 256;
+   const uint32_t kDeviceExtensionNameLengthMax = kGraphicsApiExtensionNameLengthMax;
+   
+   struct GraphicsApiExtension
+   {
+       char pName[kGraphicsApiExtensionNameLengthMax];  
+   };
+   typedef struct GraphicsApiExtension DeviceExtension;  
+   
+   GPA_METRICS_EXPORT
+   Result GetQueryManagerRequiredGraphicsApiExtensions(gpa::metrics::GraphicsApi const graphicsApi,
+                                                       GraphicsApiExtensionType const extensionType,
+                                                       uint32_t* pExtensionCount,
+                                                       GraphicsApiExtension* pExtensions);
+   
+   GPA_METRICS_EXPORT
+   Result GetQueryManagerRequiredDeviceExtensions(gpa::metrics::GraphicsApi const graphicsApi,
+                                                  uint32_t* pDeviceExtensionCount,
+                                                  DeviceExtension* pDeviceExtensions);
+   
+   enum class QueryManagerGraphicsApiExtraBufferSize {
+       kVulkanStructureTypePhysicalDeviceFeatures2 = 240,                
+       kVulkanStructureTypePhysicalDeviceHostQueryResetFeaturesExt = 24  
+   };
+   
+   struct QueryManagerGraphicsApiExtraBuffersVulkanDevice
+   {
+       uint8_t pPhysicalDeviceFeatures2[static_cast<size_t>(QueryManagerGraphicsApiExtraBufferSize::kVulkanStructureTypePhysicalDeviceFeatures2)];                               
+       uint8_t pPhysicalDeviceHostQueryResetFeatures[static_cast<size_t>(QueryManagerGraphicsApiExtraBufferSize::kVulkanStructureTypePhysicalDeviceHostQueryResetFeaturesExt)];  
+   };
+   
+   struct QueryManagerGraphicsApiExtraBuffers
+   {
+       union
+       {
+           QueryManagerGraphicsApiExtraBuffersVulkanDevice vulkanDevice = {};  
+       } data;
+   };
+   
+   GPA_METRICS_EXPORT
+   Result PrepareQueryManagerRequiredGraphicsApiCreationNeeds(gpa::metrics::GraphicsApi const graphicsApi,
+                                                              gpa::metrics::GraphicsApiExtensionType extensionType,
+                                                              void* pCreateData,
+                                                              gpa::metrics::QueryManagerGraphicsApiExtraBuffers* pExtraBuffers);
+   
+   struct QueryManagerData
+   {
+       IMetricsSource* pMetricsSource = nullptr;  
+   #if defined(__ANDROID__)
+       GraphicsApi graphicsApi = GraphicsApi::kNone;  
+   #elif defined(__APPLE__)
+       GraphicsApi graphicsApi = GraphicsApi::kMetal;  
+   #elif defined(__linux__)
+       GraphicsApi graphicsApi = GraphicsApi::kVulkan;  
+   #elif defined(_WIN32)
+       GraphicsApi graphicsApi = GraphicsApi::kVulkan;  
+   #else
+   #error "No supported graphics APIs on this platform"
+   #endif
+       void* graphicsInstance = nullptr;                    
+       void* graphicsPhysicalDevice = nullptr;              
+       void* graphicsDevice = nullptr;                      
+       Category metricsCategoryFlags = Category::kDefault;  
+       char* errMessage = nullptr;                          
+       int errSize = 0;                                     
+   };
+   
+   enum class QueryManagerType {
+       kInvalid,      
+       kUnspecified,  
+   
+       // Specific IQueryManager implementations.
+       /* TODO: Add D3D11 support.
+       kD3d11StatisticsAndTimeStamp,   //!< D3D11 API pipeline statistics & timestamp query based IQueryManager implementation (available only on Windows for D3D11).
+       */
+       kD3d12StatisticsAndTimeStamp,   
+       kMetalStatistics,               
+       kMetricsDiscoveryApi,           
+       kVulkanStatisticsAndTimeStamp,  
+   
+       kLast = QueryManagerType::kVulkanStatisticsAndTimeStamp,  
+       kDefault = QueryManagerType::kUnspecified                 
+   };
+   
+   struct QueryMetricValue
+   {
+       MetricValue value;
+       uint64_t queryIndex;
+   };
+   
+   const uint64_t kInvalidQueryIndex = UINT64_MAX;
+   const QueryMetricValue kInvalidQueryMetricValue = {metrics::kInvalidMetricValue, metrics::kInvalidQueryIndex};
+   
+   typedef void(QueryResultAvailableCallback)(void* userData,
+                                              uint32_t const metricIndex,
+                                              QueryMetricValue const* pResultElements,
+                                              uint64_t const resultElementCount);
+   
+   struct CommandBufferData
+   {
+       void* commandQueue = nullptr;         
+       void* commandBuffer = nullptr;        
+       void* commandEncoder = nullptr;       
+       bool sampleEncoderLoadStore = false;  
+   };
+   
+   class GPA_METRICS_CLASS_EXPORT IQueryManager
+   {
+   public:
+       virtual char const* GetInformation() = 0;
+   
+       virtual QueryManagerType Type() const = 0;
+   
+       virtual IMetricsSource const* MetricsSource() const = 0;
+   
+       virtual uint32_t DefaultMetricId() const = 0;
+   
+       virtual Result RegisterCallback(QueryResultAvailableCallback callback, void* userData) = 0;
+   
+       virtual Result GetMaximumQueriesSupported(uint32_t metricGroup,
+                                                 uint32_t* pMaximumQueries) const = 0;
+   
+       virtual Result Subscribe(void* commandQueue,
+                                uint32_t metricGroup,
+                                uint32_t numQueries) = 0;
+   
+       virtual Result Unsubscribe(void* commandQueue) = 0;
+   
+       virtual Result BeginQuery(CommandBufferData const& bufferData, uint32_t queryId) = 0;
+   
+       virtual Result EndQuery(CommandBufferData const& bufferData, uint32_t queryId) = 0;
+   
+       virtual Result OnCreateCommandQueue(void const* commandQueue) = 0;
+   
+       // TODO: Add perhaps OnPreCreateSecondaryCommandList function for VulkanStatisticsQueryManager to set VkQueryPipelineStatisticFlagBits in VkCommandBufferInheritanceInfo.pipelineStatistics.
+   
+       virtual Result OnCreateCommandList(CommandBufferData const& bufferData) = 0;
+   
+       virtual Result OnExecuteCommandLists(void const* commandQueue) = 0;
+   
+       virtual Result OnBeginRenderPass(CommandBufferData const& bufferData) = 0;
+   
+       virtual Result OnEndRenderPass(CommandBufferData const& bufferData) = 0;
+   
+       virtual bool AreRangeQueriesSupported() = 0;
+   
+       virtual bool AreRangeQueriesAcrossCommandBuffersSupported() = 0;
+   
+       virtual bool AreMultipleSubscribesSupported() const = 0;
+   
+       virtual bool AreQueriesWithDifferentQueuesSupported() const = 0;
+   
+       virtual ~IQueryManager();
+   };
+   
+   GPA_METRICS_EXPORT
+   IQueryManager* CreateQueryManager(QueryManagerType type,
+                                     QueryManagerData* pData);
+   
+   GPA_METRICS_EXPORT
+   void DestroyQueryManager(IQueryManager* pQueryManager);
+   
+   }  // namespace metrics
+   }  // namespace gpa

@@ -1,0 +1,149 @@
+
+.. _program_listing_file_include_runtime_event-data.h:
+
+Program Listing for File event-data.h
+=====================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_runtime_event-data.h>` (``include/runtime/event-data.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "utility/uuid.h"
+   
+   #include <cstddef>
+   #include <cstdint>
+   
+   namespace gpa {
+   
+   namespace serialization {
+   class Serializer;
+   }
+   
+   namespace runtime {
+   
+   class EventData
+   {
+   public:
+       virtual ~EventData();
+       virtual utility::UUID const& GetID() const = 0;
+       virtual char const* GetName() const = 0;
+   
+       size_t Serialize(serialization::Serializer*) const;
+       size_t Deserialize(serialization::Serializer*);
+   
+       virtual void Init();
+   
+       static size_t ReadAndCreateEventData(serialization::Serializer* serializer, EventData** ppEventData);
+   
+       class Class
+       {
+       public:
+           Class(utility::UUID const& eventId, char const* eventName);
+           virtual ~Class();
+   
+           utility::UUID const& ID() const;
+   
+           char const* Name() const;
+   
+           virtual EventData* Create() const = 0;
+   
+           static Class const* Find(utility::UUID const& eventId);
+   
+           static Class const* Classes();
+   
+           Class* mNext;
+   
+       private:
+           utility::UUID const& mEventId;
+           char const* mEventName;
+       };
+   
+       template<typename T>
+       class ClassDef : public Class
+       {
+       public:
+           ClassDef(utility::UUID const& eventId, const char* name)
+               : Class(eventId, name)
+           {
+           }
+   
+           EventData* Create() const
+           {
+               EventData* event = new T;
+               return event;
+           }
+       };
+   
+       virtual Class* GetClassDef() const = 0;
+   
+   protected:
+       virtual size_t Write(serialization::Serializer*) const;
+       virtual size_t Read(serialization::Serializer*);
+       virtual uint64_t CalculatePayloadSize() const;
+   };
+   
+   #define GPA_EVENT_CLASS(c)                                        \
+   public:                                                           \
+       static gpa::utility::UUID const& ID;                          \
+                                                                     \
+       c();                                                          \
+       ~c();                                                         \
+       static gpa::runtime::EventData::Class* GetClass();            \
+       gpa::runtime::EventData::Class* GetClassDef() const override; \
+       struct MessageClassInitializer                                \
+       {                                                             \
+           MessageClassInitializer();                                \
+       };                                                            \
+       static MessageClassInitializer sMessageClassInit;             \
+       gpa::utility::UUID const& GetID() const override;             \
+       char const* GetName() const override;
+   
+   #define GPA_EVENT_CLASS_IMPL(c, eventId)                                       \
+       static gpa::utility::UUID s##c##ClassID(#eventId);                         \
+       gpa::utility::UUID const& c::ID = s##c##ClassID;                           \
+                                                                                  \
+       c::c() { Init(); }                                                         \
+       c::~c() {}                                                                 \
+                                                                                  \
+       gpa::runtime::EventData::Class* c::GetClass()                              \
+       {                                                                          \
+           static gpa::runtime::EventData::ClassDef<c> sClass(s##c##ClassID, #c); \
+           return &sClass;                                                        \
+       }                                                                          \
+                                                                                  \
+       gpa::runtime::EventData::Class* c::GetClassDef() const                     \
+       {                                                                          \
+           return GetClass();                                                     \
+       }                                                                          \
+       c::MessageClassInitializer::MessageClassInitializer()                      \
+       {                                                                          \
+           GetClass();                                                            \
+           c _c;                                                                  \
+       }                                                                          \
+       c::MessageClassInitializer c::sMessageClassInit;                           \
+       gpa::utility::UUID const& c::GetID() const { return ID; }                  \
+       char const* c::GetName() const { return #c; }
+   
+   }  // namespace runtime
+   }  // namespace gpa

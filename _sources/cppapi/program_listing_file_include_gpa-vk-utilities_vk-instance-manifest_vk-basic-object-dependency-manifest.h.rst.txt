@@ -1,0 +1,507 @@
+
+.. _program_listing_file_include_gpa-vk-utilities_vk-instance-manifest_vk-basic-object-dependency-manifest.h:
+
+Program Listing for File vk-basic-object-dependency-manifest.h
+==============================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_gpa-vk-utilities_vk-instance-manifest_vk-basic-object-dependency-manifest.h>` (``include/gpa-vk-utilities/vk-instance-manifest/vk-basic-object-dependency-manifest.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "vk-state-tracker/VkLayer_state_tracker.h"
+   #include "vk-utilities/vk-managed-handles/vk-managed-command-buffer.h"
+   #include "vk-utilities/vk-managed-handles/vk-managed-command-pool.h"
+   #include "vk-utilities/vk-copy-engine.h"
+   #include "vk-utilities/vk-entry-points.h"
+   #include "vk-utilities/vk-structure-serialization.h"
+   #include "vk-utilities/vk-to-string.h"
+   #include "vk-instance-manifest/vk-device-memory-serializer.h"
+   #include "vk-instance-manifest/vk-object-restore-infos.h"
+   #include "vk-utilities/detail/log.h"
+   #include "vk-utilities/vk-structure-serialization.h"
+   
+   #include <array>
+   #include <cassert>
+   #include <istream>
+   #define _SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING
+   #include <experimental/filesystem>
+   #include <fstream>
+   #include <functional>
+   #include <map>
+   #include <ostream>
+   #include <set>
+   #include <string>
+   #include <unordered_map>
+   #include <unordered_set>
+   #include <utility>
+   #include <vector>
+   
+   #define gpa_vk_instance_manifest_assert()
+   
+   struct LogHandle
+   {
+       template <typename HandleType>
+       inline LogHandle(const HandleType& h)
+           : handle { (uint64_t)h }
+       {
+       }
+   
+       uint64_t handle { 0 }; 
+   };
+   
+   template <typename ArchiveType>
+   void serialize(ArchiveType& archive, VkStateTrackedObjectStatusINTEL& stateTrackedObjectStatus)
+   {
+       archive(
+           stateTrackedObjectStatus.flags,
+           stateTrackedObjectStatus.refCount
+       );
+   }
+   
+   template <typename ArchiveType>
+   void serialize(ArchiveType& archive, VkStateTrackedObjectINTEL& stateTrackedObject)
+   {
+       archive(
+           stateTrackedObject.objectType,
+           stateTrackedObject.objectHandle,
+           stateTrackedObject.status
+       );
+   }
+   
+   namespace gpa {
+   namespace vulkan {
+   
+   class BasicObjectDependencyManifest
+   {
+   public:
+       using CapturedVkHandle = uint64_t;
+   
+       using RestoredVkHandle = uint64_t;
+   
+       class Entry final
+       {
+       public:
+           template <typename VkCreateInfoType>
+           inline Auto<VkCreateInfoType> GetCreateInfo() const
+           {
+               std::stringstream strStrm;
+               strStrm.write((const char*)createInfo.data(), createInfo.size());
+               return DeserializeStructure<VkCreateInfoType>(strStrm);
+           }
+   
+           template <typename VkCreateInfoType>
+           inline void SetCreateInfo(const VkCreateInfoType& createInfoObj)
+           {
+               std::stringstream strStrm;
+               SerializeStructure(createInfoObj, strStrm);
+               strStrm.seekg(0, std::ios::end);
+               createInfo.resize(strStrm.tellg());
+               strStrm.seekg(0, std::ios::beg);
+               strStrm.read((char*)createInfo.data(), createInfo.size());
+           }
+   
+           template <typename RestoreInfoType>
+           inline RestoreInfoType GetRestoreInfo() const
+           {
+               // NOTE : Serialization is disabled if we're not on Windows...deferred only has
+               //  support for Windows currently anyway...when we're enabling this for Linux
+               //  we'll need to move these serialization functions to source files as well.
+               RestoreInfoType restoreInfoObj{};
+               #ifdef VK_USE_PLATFORM_WIN32_KHR
+               std::stringstream strStrm;
+               strStrm.write((const char*)restoreInfo.data(), restoreInfo.size());
+               cereal::BinaryInputArchive archive(strStrm);
+               archive(restoreInfoObj);
+               #endif // VK_USE_PLATFORM_WIN32_KHR
+               return restoreInfoObj;
+           }
+   
+           template <typename RestoreInfoType>
+           inline void SetRestoreInfo(const RestoreInfoType& restoreInfoObj)
+           {
+               // NOTE : Serialization is disabled if we're not on Windows...deferred only has
+               //  support for Windows currently anyway...when we're enabling this for Linux
+               //  we'll need to move these serialization functions to source files as well.
+               (void)restoreInfoObj;
+               #ifdef VK_USE_PLATFORM_WIN32_KHR
+               std::stringstream strStrm;
+               cereal::BinaryOutputArchive archive(strStrm);
+               archive(restoreInfoObj);
+               strStrm.seekg(0, std::ios::end);
+               restoreInfo.resize(strStrm.tellg());
+               strStrm.seekg(0, std::ios::beg);
+               strStrm.read((char*)restoreInfo.data(), restoreInfo.size());
+               #endif // VK_USE_PLATFORM_WIN32_KHR
+           }
+   
+           template <typename ArchiveType>
+           inline void serialize(ArchiveType& archive)
+           {
+               // NOTE : Serialization is disabled if we're not on Windows...deferred only has
+               //  support for Windows currently anyway...when we're enabling this for Linux
+               //  we'll need to move these serialization functions to source files as well.
+               (void)archive;
+               #ifdef VK_USE_PLATFORM_WIN32_KHR
+               archive(
+                   stateTrackedObject,
+                   createInfo,
+                   dependencies,
+                   restoreInfo,
+                   name
+               );
+               #endif // VK_USE_PLATFORM_WIN32_KHR
+           }
+   
+           VkStateTrackedObjectINTEL stateTrackedObject { }; 
+           std::vector<uint8_t> createInfo;                  
+           std::vector<uint64_t> dependencies;               
+           std::vector<uint8_t> restoreInfo;                 
+           std::string name;                                 
+       };
+   
+       BasicObjectDependencyManifest();
+   
+       virtual ~BasicObjectDependencyManifest() = 0;
+   
+       const VkStateTrackedObjectINTEL& GetCurrentStateTrackedObject() const;
+   
+       const std::vector<VkStateTrackedObjectINTEL>& GetCurrentStateTrackedObjects() const;
+   
+       const EntryPoints& GetEntryPoints() const;
+   
+       void SetEntryPoints(const EntryPoints& entryPoints);
+   
+       virtual bool ApplyEntryRestorePoint(const Entry& entry);
+   
+       virtual void ApplyDestroyEntryRestorePoint(const Entry& entry);
+   
+       const std::unordered_map<CapturedVkHandle, RestoredVkHandle>& GetRestoredVkHandles() const;
+   
+       RestoredVkHandle GetRestoredVkHandle(const Entry& entry);
+   
+       RestoredVkHandle GetRestoredVkHandle(VkObjectType vkObjectType, CapturedVkHandle capturedVkHandle) const;
+   
+       RestoredVkHandle GetRestoredVkHandle(CapturedVkHandle capturedVkHandle) const;
+   
+       CapturedVkHandle GetCapturedVkHandle(RestoredVkHandle restoredVkHandle) const;
+   
+       std::function<void(CapturedVkHandle, RestoredVkHandle)> OnRegisterRestoredVkHandle;
+   
+       #ifdef VK_USE_PLATFORM_WIN32_KHR
+   
+       std::function<void(VkWin32SurfaceCreateInfoKHR&, uint32_t width, uint32_t height)> OnVkCreateWin32SurfaceKHR;
+       #endif // VK_USE_PLATFORM_WIN32_KHR
+   
+       template <typename RestoreInfoType>
+       inline RestoreInfoType GetRestoredHandleRestoreInfo(RestoredVkHandle restoredVkHandle) const
+       {
+           auto capturedVkHandle = GetCapturedVkHandle(restoredVkHandle);
+           if (capturedVkHandle) {
+               auto itr = mEntries.find(capturedVkHandle);
+               if (itr != mEntries.end()) {
+                   return itr->second.GetRestoreInfo<RestoreInfoType>();
+               }
+           }
+           assert(false && "Failed to retrieve RestoreInfo for restored VkHandle");
+           #if VK_USE_PLATFORM_WIN32_KHR
+           mApplyRestorePointLog << "Failed to retrieve RestoreInfo for restored VkHandle" << std::endl;
+           #endif
+           return { };
+       }
+   
+       template <typename CreateInfoType>
+       inline Auto<CreateInfoType> GetRestoredHandleCreateInfo(RestoredVkHandle restoredVkHandle) const
+       {
+           auto capturedVkHandle = GetCapturedVkHandle(restoredVkHandle);
+           if (capturedVkHandle) {
+               auto itr = mEntries.find(capturedVkHandle);
+               if (itr != mEntries.end()) {
+                   return itr->second.GetCreateInfo<CreateInfoType>();
+               }
+           }
+           assert(false && "Failed to retrieve CreateInfo for restored VkHandle");
+           #if VK_USE_PLATFORM_WIN32_KHR
+           mApplyRestorePointLog << "Failed to retrieve CreateInfo for restored VkHandle" << std::endl;
+           #endif
+           return { };
+       }
+   
+       template <typename VkHandleType, typename CallbackType>
+       inline void EnumerateRestoredHandleDependencies(
+           VkHandleType restoredVkHandle,
+           CallbackType callback
+       ) const
+       {
+           // NOTE : It's becoming necessary to get create info and dependency information
+           //  for several objects during restoration.  Doing all these lookups is getting
+           //  annoying.  This stuff can be processed as objects are restored so that
+           //  retrieving them is more straightforward.  This will be addressed after more
+           //  features that require these lookups come online to make sure the final
+           //  abstractions address the needs of every use case.
+           auto capturedVkHandle = GetCapturedVkHandle((uint64_t)restoredVkHandle);
+           if (capturedVkHandle) {
+               auto itr = mEntries.find(capturedVkHandle);
+               if (itr != mEntries.end()) {
+                   for (auto const& dependnecy : itr->second.dependencies) {
+                       auto dependencyItr = mEntries.find(dependnecy);
+                       if (dependencyItr != mEntries.end()) {
+                           auto dependencyRestoredVkHandle = GetRestoredVkHandle(dependnecy);
+                           if (dependencyRestoredVkHandle) {
+                               callback(dependencyItr->second.stateTrackedObject.objectType, dependencyRestoredVkHandle);
+                           } else {
+                               assert(false && "Failed to retrieve restored VkHandle for dependency");
+                               #if VK_USE_PLATFORM_WIN32_KHR
+                               mApplyRestorePointLog << "Failed to retrieve restored VkHandle for dependency" << std::endl;
+                               #endif
+                           }
+                       }
+                   }
+               }
+           }
+       }
+   
+       template <typename VkHandleType, typename CallbackType>
+       inline void EnumerateRestoredHandleDependenciesOfType(
+           VkHandleType restoredVkHandle,
+           VkObjectType dependencyObjectType,
+           CallbackType callback
+       ) const
+       {
+           EnumerateRestoredHandleDependencies(
+               restoredVkHandle,
+               [&](VkObjectType objectType, RestoredVkHandle restoredHandle)
+               {
+                   if (objectType == dependencyObjectType) {
+                       callback(restoredHandle);
+                   }
+               }
+           );
+       }
+   
+       std::function<void()> OnThreadInitialization;
+   
+   protected:
+       void WriteBinaryFile(std::experimental::filesystem::path filePath, size_t dataSize, const uint8_t* pData);
+   
+       void ReadBinaryFile(std::experimental::filesystem::path filePath, std::vector<uint8_t>& data);
+   
+       inline static const std::map<VkObjectType, VkObjectType>& GetCircularDependencies()
+       {
+           static const std::map<VkObjectType, VkObjectType> sCircularDependencies {
+               { VK_OBJECT_TYPE_BUFFER, VK_OBJECT_TYPE_DEVICE_MEMORY },
+               { VK_OBJECT_TYPE_IMAGE, VK_OBJECT_TYPE_DEVICE_MEMORY },
+           };
+           return sCircularDependencies;
+       }
+   
+       template <typename ProcessParentHandlesFunctionType>
+       inline bool RestoreDependencies(const Entry& entry, ProcessParentHandlesFunctionType processParentHandles)
+       {
+           bool success = true;
+           if (!entry.dependencies.empty()) {
+               #if VK_USE_PLATFORM_WIN32_KHR
+               mApplyRestorePointLog << "Dependencies for " << entry << std::endl;
+               mApplyRestorePointLog << "{" << std::endl;
+               #endif
+               ++mApplyRestorePointLog.tabCount;
+               auto circularDependencyItr = GetCircularDependencies().find(entry.stateTrackedObject.objectType);
+               for (auto dependency : entry.dependencies) {
+                   auto entryItr = mEntries.find(dependency);
+                   if (entryItr != mEntries.end()) {
+                       const auto& dependencyEntry = entryItr->second;
+                       if (circularDependencyItr == GetCircularDependencies().end() || circularDependencyItr->second != dependencyEntry.stateTrackedObject.objectType) {
+                           #if VK_USE_PLATFORM_WIN32_KHR
+                           mApplyRestorePointLog << "Processing " << dependencyEntry << std::endl;
+                           #endif
+                           if (ApplyEntryRestorePoint(dependencyEntry)) {
+                               processParentHandles(dependencyEntry);
+                           } else {
+                               #if VK_USE_PLATFORM_WIN32_KHR
+                               mApplyRestorePointLog << "Failed to restore " << dependencyEntry << std::endl;
+                               #endif
+                               assert(false && "TODO : Documentation");
+                               success = false;
+                           }
+                       }
+                   } else {
+                       #if VK_USE_PLATFORM_WIN32_KHR
+                       mApplyRestorePointLog << entry << " has unregistered dependency " << LogHandle(dependency) << std::endl;
+                       #endif
+                       assert(false && "TODO : Documentation");
+                       success = false;
+                   }
+                   if (!success) {
+                       break;
+                   }
+               }
+               --mApplyRestorePointLog.tabCount;
+               #if VK_USE_PLATFORM_WIN32_KHR
+               mApplyRestorePointLog << "}" << std::endl;
+               #endif
+           }
+           return success;
+       }
+   
+       template <typename VkHandleType>
+       inline VkHandleType GetRestoredParentHandle(VkObjectType vkObjectType, const Entry& entry)
+       {
+           for (auto dependency : entry.dependencies) {
+               auto itr = mEntries.find(dependency);
+               assert(itr != mEntries.end() && "TODO : Documentation");
+               if (itr != mEntries.end()) {
+                   const auto& entryToRestore = itr->second;
+                   if (entryToRestore.stateTrackedObject.objectType == vkObjectType) {
+                       return (VkHandleType)GetRestoredVkHandle(entryToRestore);
+                   }
+               }
+           }
+           return VK_NULL_HANDLE;
+       }
+   
+       const Managed<VkCommandBuffer>& GetCommandBuffer(VkDevice vkDevice);
+   
+       bool ExecuteImageMemoryBarriers(
+           VkDevice vkDevice,
+           size_t imageMemoryBarrierCount,
+           const VkImageMemoryBarrier* pImageMemoryBarriers
+       );
+   
+       void DestroyVkResources();
+   
+       template <typename VkStructureType>
+       inline void UpdateHandles(VkStructureType& vkStructure)
+       {
+           EnumerateHandles(
+               vkStructure,
+               [this](VkObjectType vkObjectType, const uint64_t& vkHandle)
+               {
+                   (void)vkObjectType;
+                   if (vkHandle) {
+                       auto pMutableVkHandle = const_cast<uint64_t*>(&vkHandle);
+                       *pMutableVkHandle = GetRestoredVkHandle(vkHandle);
+                       assert(vkHandle && "TODO : Documentation");
+                   }
+               }
+           );
+       }
+   
+       template <typename VkHandleType>
+       inline void RegisterRestoredVkHandle(const Entry& entry, VkHandleType vkHandle)
+       {
+           #if VK_USE_PLATFORM_WIN32_KHR
+           mApplyRestorePointLog << "Registering restored VkHandle " << entry << " -> " << LogHandle(vkHandle) << std::endl;
+           #endif
+           RegisterRestoredVkHandle(entry.stateTrackedObject.objectHandle, vkHandle, false);
+       }
+   
+       template <typename VkHandleType>
+       inline void RegisterRestoredVkHandle(VkObjectType vkObjectType, uint64_t objectHandle, VkHandleType vkHandle)
+       {
+           #if VK_USE_PLATFORM_WIN32_KHR
+           mApplyRestorePointLog << "Registering restored VkHandle " << ToString(vkObjectType) << " : " << LogHandle(objectHandle) << " -> " << LogHandle(vkHandle) << std::endl;
+           #endif
+           RegisterRestoredVkHandle(objectHandle, vkHandle, false);
+       }
+   
+       EntryPoints mEntryPoints;
+       bool mCustomEntryPointsSet { false };
+       std::unordered_map<uint64_t, Entry> mEntries;
+       std::unordered_set<uint64_t> mProcessedEntries;
+       std::vector<const Entry*> mDestroyedEntries;
+       std::unordered_map<const Entry*, VkDevice> mRestoredMemoryBoundVkBuffers;
+       std::unordered_map<const Entry*, VkDevice> mRestoredMemoryBoundVkImages;
+       std::unordered_map<const Entry*, std::pair<VkPhysicalDevice, VkDevice>> mRestoredVkDeviceMemories;
+       std::unordered_map<const Entry*, VkDevice> mRestoredVkDescriptorSets;
+       std::unordered_map<const Entry*, std::pair<VkDevice, VkCommandPool>> mUnrestoredVkCommandBuffers;
+       size_t mRestoredByteCount{0};
+       std::vector<VkImageMemoryBarrier> mImageMemoryBarriers;
+       std::unordered_map<RestoredVkHandle, CapturedVkHandle> mCapturedVkHandles;
+       std::unordered_map<CapturedVkHandle, RestoredVkHandle> mRestoredVkHandles;
+       VkQueue mVkQueue{VK_NULL_HANDLE};
+       uint32_t mQueueFamilyIndex{0};
+       const Entry* mCurrentEntry { nullptr };
+       std::vector<VkStateTrackedObjectINTEL> mCurrentStateTrackedObjects;
+       std::experimental::filesystem::directory_entry mVkInstanceRestorePointPath;
+       std::unique_ptr<VkDeviceMemorySerializer> mupDeviceMemorySerializer;
+       mutable LogEx mCreateRestorePointLog;
+       mutable LogEx mApplyRestorePointLog;
+   
+   private:
+       template <typename VkHandleType>
+       inline void RegisterRestoredVkHandle(uint64_t objectHandle, VkHandleType vkHandle, bool log = true)
+       {
+           if (OnRegisterRestoredVkHandle) {
+               OnRegisterRestoredVkHandle(objectHandle, (uint64_t)vkHandle);
+           }
+           auto itr = mRestoredVkHandles.insert({ objectHandle, (uint64_t)vkHandle });
+           if (itr.second) {
+               #if VK_USE_PLATFORM_WIN32_KHR
+               if (log) {
+                   mApplyRestorePointLog << "Registered restored VkHandle " << LogHandle(objectHandle) << " -> " << LogHandle(vkHandle) << std::endl;
+               }
+               #endif
+               mCapturedVkHandles.insert({ (uint64_t)vkHandle, objectHandle });
+           } else {
+               #if VK_USE_PLATFORM_WIN32_KHR
+               mApplyRestorePointLog << "Failed to register restored VkHandle " << LogHandle(objectHandle) << " -> " << LogHandle(vkHandle) << std::endl;
+               #endif
+               assert(false && "TODO : Documentation");
+           }
+       }
+   
+       class CommandBufferPackage final
+       {
+       public:
+           CommandBufferPackage() = default;
+           CommandBufferPackage(VkDevice vkDevice);
+           CommandBufferPackage(CommandBufferPackage&& other);
+           CommandBufferPackage& operator=(CommandBufferPackage&& other);
+           ~CommandBufferPackage();
+           Managed<VkCommandPool> commandPool;
+           Managed<VkCommandBuffer> commandBuffer;
+   
+       private:
+           CommandBufferPackage(const CommandBufferPackage&) = delete;
+           CommandBufferPackage& operator=(const CommandBufferPackage&) = delete;
+       };
+       std::unordered_map<VkDevice, CommandBufferPackage> mCommandBufferPackages;
+   };
+   
+   } // namespace vulkan
+   } // namespace gpa
+   
+   std::ostream& operator<<(
+       std::ostream& ostream,
+       const LogHandle& logHandle
+   );
+   
+   std::ostream& operator<<(
+       std::ostream& ostream,
+       const VkStateTrackedObjectINTEL& stateTrackedObject
+   );
+   
+   std::ostream& operator<<(
+       std::ostream& ostream,
+       const gpa::vulkan::BasicObjectDependencyManifest::Entry& entry
+   );

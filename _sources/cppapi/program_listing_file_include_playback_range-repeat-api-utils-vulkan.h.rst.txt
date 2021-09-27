@@ -1,0 +1,78 @@
+
+.. _program_listing_file_include_playback_range-repeat-api-utils-vulkan.h:
+
+Program Listing for File range-repeat-api-utils-vulkan.h
+========================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_range-repeat-api-utils-vulkan.h>` (``include/playback/range-repeat-api-utils-vulkan.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include <vector>
+   #include "playback/range-repeat-cache.h"
+   
+   namespace gpa {
+   
+   namespace serialization {
+   struct Context;
+   }  // namespace serialization
+   
+   namespace playback {
+   
+   class Callable;
+   class CallableCache;
+   
+   namespace repeat {
+   class StreamBuilder;
+   }  // namespace repeat
+   
+   namespace sync_handler {
+   struct SyncCommand;
+   }  // namespace sync_handler
+   
+   namespace utils {
+   namespace vulkan {
+   
+   void ParseSyncCommand(Callable* callable, sync_handler::SyncCommand* output);
+   bool IsValidRepeatCall(Callable* callable);
+   bool IsCommandBufferSubmissionCall(Callable* callable);
+   bool IsCommandBufferCall(Callable* callable);
+   bool IsCommandBufferCallMarker(Callable* callable);
+   bool IsSecondaryBufferExecutionCall(Callable* callable);
+   bool IsCommandBufferBoundaryCall(Callable* callable);
+   bool IsBeginRenderPassCall(Callable* callable);
+   bool IsEndRenderPassCall(Callable* callable);
+   bool IsRenderPassBoundaryCall(Callable* callable);
+   bool IsSubPassBoundaryCall(Callable* callable);
+   bool WaitUntilQueuedSubmissionsAreCompleted(void* commandQueue);
+   void WaitUntilSubmissionIsCompleted(Callable* callable);
+   void EnumerateCommandBufferObjectsApiCache(Callable* jobSubmissionCall, CallableCache* cache, repeat::StreamBuilder* streamBuilder);
+   void EnumerateSecondaryBuffersExecutedOnCall(Callable* callable, void* callbackUserData,
+                                                void (*callback)(void* secondaryCmdBuffer,
+                                                                 void* userData));
+   
+   }  // namespace vulkan
+   }  // namespace utils
+   }  // namespace playback
+   }  // namespace gpa

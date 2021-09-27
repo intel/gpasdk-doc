@@ -1,0 +1,67 @@
+
+.. _program_listing_file_include_playback_resource-info_resource-info-ex_index-buffer-info.h:
+
+Program Listing for File index-buffer-info.h
+============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_resource-info_resource-info-ex_index-buffer-info.h>` (``include/playback/resource-info/resource-info-ex/index-buffer-info.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "playback/resource-info/resource-info-ex.h"
+   
+   namespace gpa {
+   namespace playback {
+   
+   class BufferInfo;
+   
+   class IndexBufferInfo final
+       : public ResourceInfo::Ex
+   {
+   public:
+       TypeId GetTypeId() const override final;
+   
+       BufferInfo const* pBufferInfo{nullptr};                             
+       ViewInfo const* pViewInfo{nullptr};                                 
+       uint64_t offset{0};                                                 
+       uint64_t size{0};                                                   
+       api_types::IndexType indexType{api_types::GPA_INDEX_TYPE_UNKNOWN};  
+   };
+   
+   namespace detail {
+   
+   template<>
+   inline auto MakeTuple<IndexBufferInfo>(const IndexBufferInfo& indexBufferInfo)
+   {
+       return std::make_tuple(
+           indexBufferInfo.pBufferInfo,
+           indexBufferInfo.pViewInfo,
+           indexBufferInfo.offset,
+           indexBufferInfo.size,
+           indexBufferInfo.indexType);
+   }
+   
+   }  // namespace detail
+   }  // namespace playback
+   }  // namespace gpa

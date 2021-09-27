@@ -1,0 +1,97 @@
+
+.. _program_listing_file_include_playback_resource-info_resource-info-ex_input-binding-info.h:
+
+Program Listing for File input-binding-info.h
+=============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_resource-info_resource-info-ex_input-binding-info.h>` (``include/playback/resource-info/resource-info-ex/input-binding-info.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "playback/resource-info/resource-info-ex.h"
+   
+   #include <vector>
+   
+   namespace gpa {
+   namespace playback {
+   
+   class InputBindingInfo final
+       : public ResourceInfo::Ex
+   {
+   public:
+       TypeId GetTypeId() const override final;
+   
+       ResourceInfo const* pResourceInfo{nullptr};  
+       ViewInfo const* pViewInfo{nullptr};          
+       uint32_t setIndex{0};                        
+       uint32_t bindIndex{0};                       
+       uint32_t arrayIndex{0};                      
+   
+       struct ShaderBinding
+       {
+           uint32_t registerIndex{0};  
+           uint32_t registerType{0};   
+           uint32_t spaceIndex{0};     
+           uint32_t arrayIndex{0};     
+       } shader;
+   
+       api_types::ShaderStageFlags shaderStages{api_types::GPA_SHADER_STAGE_UNKNOWN};  
+       api_types::Format format{api_types::GPA_FORMAT_UNKNOWN};                        
+       api_types::BufferRegion buffer{};                                               
+       struct TextureInputBindingInfo
+       {
+           api_types::TextureType type{api_types::GPA_TEXTURE_TYPE_UNKNOWN};  
+           api_types::TextureSubresource subresource{};                       
+           SamplerInfo const* pSamplerInfo{nullptr};                          
+           bool immutableSampler{false};                                      
+       } texture;                                                             
+   };
+   
+   namespace detail {
+   
+   template<>
+   inline auto MakeTuple<InputBindingInfo>(const InputBindingInfo& inputBindingInfo)
+   {
+       return std::make_tuple(
+           inputBindingInfo.pResourceInfo,
+           inputBindingInfo.pViewInfo,
+           inputBindingInfo.setIndex,
+           inputBindingInfo.bindIndex,
+           inputBindingInfo.arrayIndex,
+           inputBindingInfo.shader.registerIndex,
+           inputBindingInfo.shader.registerType,
+           inputBindingInfo.shader.spaceIndex,
+           inputBindingInfo.shader.arrayIndex,
+           inputBindingInfo.shaderStages,
+           inputBindingInfo.format,
+           inputBindingInfo.buffer,
+           inputBindingInfo.texture.type,
+           inputBindingInfo.texture.subresource,
+           inputBindingInfo.texture.pSamplerInfo,
+           inputBindingInfo.texture.immutableSampler);
+   }
+   
+   }  // namespace detail
+   }  // namespace playback
+   }  // namespace gpa

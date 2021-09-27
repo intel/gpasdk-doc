@@ -1,0 +1,96 @@
+
+.. _program_listing_file_include_serialization_buffer-serializer.h:
+
+Program Listing for File buffer-serializer.h
+============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_serialization_buffer-serializer.h>` (``include/serialization/buffer-serializer.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "serialization/memorybacked-serializer.h"
+   
+   #include <cstdint>
+   #include <functional>
+   #include <vector>
+   
+   namespace gpa {
+   namespace serialization {
+   
+   class BufferSerializer : public MemoryBackedSerializer
+   {
+   public:
+       enum {
+           kDefaultCapacity = 1024 * 1024,  // 1 MiB
+       };
+       typedef std::function<bool(uint8_t*& userBuffer, size_t& capacity, size_t const minSize)> OnReallocateCallback;
+   
+       BufferSerializer(size_t const initialCapacity = kDefaultCapacity);
+   
+       BufferSerializer(uint8_t* buffer, size_t const capacity, OnReallocateCallback const& callback, size_t const storageOffset = 0);
+   
+       virtual ~BufferSerializer();
+   
+       size_t WriteRawData(void const* src, size_t size) override final;
+   
+       size_t ReadRawData(void* dst, size_t size) override final;
+   
+       bool EnsureWriteCapacity(size_t const size) override final;
+   
+       bool CheckAvailableData(size_t const size) const override final;
+   
+       void Clear() override final;
+   
+       size_t GetSize(void) const;
+   
+       size_t GetCapacity() const;
+   
+       void Resize(size_t newSize);
+   
+       bool Seek(int64_t offset, SeekOrigin origin = SeekOrigin::kBegin) override final;
+   
+       size_t GetPosition() const override final;
+   
+       uint64_t GetAbsolutePosition() const override final;
+   
+       void* Get(uint64_t offset) const override final;
+   
+       uint8_t const* GetBuffer() const;
+   
+   private:
+       uint8_t* mUserBuffer = nullptr;
+       uint8_t* mDynamic = nullptr;
+       uint8_t* mBuffer = nullptr;
+       size_t mInitialCapacity = 0;
+       size_t mBufferCapacity = 0;
+       size_t mStorageOffset = 0;
+   
+       uint8_t* mEnd = nullptr;
+       OnReallocateCallback mCallback = nullptr;
+   
+       bool Reserve(size_t const nextPacketSize);
+   };
+   
+   }  // namespace serialization
+   }  // namespace gpa

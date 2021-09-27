@@ -1,0 +1,84 @@
+
+.. _program_listing_file_include_playback_range-player.h:
+
+Program Listing for File range-player.h
+=======================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_range-player.h>` (``include/playback/range-player.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "playback/callable-broadcaster.h"
+   #include "playback/callable-cache.h"
+   #include "playback/range-repeat-cache.h"
+   
+   namespace gpa {
+   namespace playback {
+   
+   namespace sync_handler {
+   class SyncHandler;
+   }  // namespace sync_handler
+   
+   namespace repeat {
+   class StreamBuilder;
+   }  // namespace repeat
+   
+   class Player;
+   class StreamData;
+   
+   class RangePlayer : public CallableBroadcaster
+   {
+   public:
+       RangePlayer(Player* player, CallableCache const& range, bool flattenSecondaryCommandBuffers, sync_handler::SyncHandler* syncHandler = nullptr);
+       ~RangePlayer();
+   
+       void ConnectExecutionCallbacks(ExecutionCallbacks const& callbacks) override;
+       void DisconnectExecutionCallbacks() override;
+       void Execute();
+   
+       void InitializeRangePlayback();
+   
+       bool PlayRange(ExecutionCallbacks const* callbacks);
+   
+       void FinalizeRangePlayback();
+   
+       CallableCache* GetRangeCache();
+   
+   private:
+       Player* mPlayer = nullptr;
+       sync_handler::SyncHandler* mSyncHandler;
+       typedef std::vector<gpa::playback::repeat::RangeRepeatCache::Ptr> Snapshot;
+       Snapshot mPreSnapshot;  
+       uint64_t mPassIndex = 0;
+       repeat::StreamBuilder* mStreamBuilder = nullptr;
+   
+       void SynchronizeQueues(QueuesRequiringGpuSynchronization const& queues = {});
+       void PerformSnapshot(CallableCache range, bool flattenSecondaryCommandBuffers);
+       void Shutdown();
+   
+       ExecutionCallbacks mCallbacks{};
+   };
+   
+   }  // namespace playback
+   }  // namespace gpa

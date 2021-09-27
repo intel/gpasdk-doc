@@ -1,0 +1,173 @@
+
+.. _program_listing_file_include_playback_resource-extraction_resource-extractor.h:
+
+Program Listing for File resource-extractor.h
+=============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_resource-extraction_resource-extractor.h>` (``include/playback/resource-extraction/resource-extractor.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "playback/resource-info/resource-info-types.h"
+   #include "playback/callable-broadcaster.h"
+   #include "playback/callable-receiver.h"
+   #include "playback/metadata-extraction/metadata-types.h"
+   #include "playback/resource-info/detail/span.h"
+   
+   #include <map>
+   #include <vector>
+   
+   namespace gpa {
+   namespace playback {
+   
+   class MetadataExtractorEx;
+   
+   class ResourceExtractor
+       : public CallableReceiver,
+         public CallableBroadcaster,
+         public CallableCallbacks
+   {
+   public:
+       struct Result final
+       {
+           enum class State {
+               // clang-format off
+               PENDING                            =  0, 
+               SUCCESS                            =  1, 
+               FAILURE_UNKNOWN                    = -1, 
+               FAILURE_UNSUPPORTED                = -2, 
+               FAILURE_NO_RESOURCE_INFO_SPECIFIED = -3, 
+               FAILURE_RESOURCE_INFO_MISMATCH     = -4, 
+               FAILURE_REGION_OUT_OF_BOUNDS       = -5, 
+               FAILURE_INTERNAL                   = -6, 
+               // clang-format on
+           };
+   
+           operator bool() const;
+   
+           State state{State::PENDING};                              
+           size_t dataSize{0};                                       
+           uint8_t* pData{nullptr};                                  
+           api_types::Format format{api_types::GPA_FORMAT_UNKNOWN};  
+           size_t rowPitch{0};                                       
+           size_t slicePitch{0};                                     
+       };
+   
+       struct Request final
+       {
+           enum class Execution {
+               PreCall = 0,   
+               PostCall = 1,  
+           };
+   
+           struct Info final
+           {
+               uint64_t callIndex{0};  
+               Execution stage{Execution::PostCall};
+               ResourceInfo const* pResourceInfo{nullptr};        
+               ResourceInfo::Ex const* pResourceInfoEx{nullptr};  
+   
+               api_types::BufferRegion bufferRegion{api_types::BufferRegion::WholeRegion};
+   
+               api_types::TextureRegion textureRegion{api_types::TextureRegion::WholeRegion};
+   
+               Result result{};
+           };
+   
+           operator bool() const;
+   
+           size_t infoCount{0};    
+           Info* pInfos{nullptr};  
+   
+           uint8_t* pData{nullptr};
+       };
+   
+       ResourceExtractor() = default;
+   
+       virtual ~ResourceExtractor();
+   
+       size_t GetRequestStorageSize(Request const& request) const;
+   
+       virtual void SetRequest(Request& request);
+   
+       virtual void Clear();
+   
+       // [deprecated]
+       // NOTE : These members are to support resource extraction compatibility...
+       ResourceExtractor(MetadataExtractorEx const& metadataExtractor);
+       virtual void SetRequest(ResourceDataRequest const& request);
+       virtual ResourceDataResult GetResult();
+       virtual void PostSetupRange(CallableCache* pCallableCache) override;
+       virtual void PreExecuteRange(CallableCache* pCallableCache) override;
+       virtual void PreExecuteCall(Callable* pCallable, uint64_t callIndex) override;
+       virtual void PostExecuteCall(Callable* pCallable, uint64_t callIndex) override;
+       virtual void PostExecuteRange(CallableCache* pCallableCache) override;
+       void ConnectExecutionCallbacks(ExecutionCallbacks const& executionCallbacks) override final;
+       void DisconnectExecutionCallbacks() override final;
+       ExecutionCallbacks mExecutionCallbacks{};
+   
+   protected:
+       virtual size_t GetRequestStorageSize(Request::Info const& requestInfo) const;
+   
+       detail::Span<Request::Info> GetRequestInfos();
+   
+       detail::Span<Request::Info> GetRequestInfos(uint64_t callIndex, Request::Execution stage);
+   
+       void WriteRequestResultData(size_t dataSize, uint8_t const* pData, Result& result);
+   
+       MetadataExtractorEx const* mMetadataExtractor{nullptr};  
+   
+       // [deprecated]
+       // NOTE : These members are to support resource extraction compatibility...
+       Request mCompatibilityRequest{};
+       std::vector<Request::Info> mCompatibilityRequestInfos;
+       std::vector<uint8_t> mCompatibiltyRequestStorage;
+   
+   private:
+       Request* mRequest{nullptr};
+       uint8_t* mRequestResultData{nullptr};
+       ResourceExtractor(ResourceExtractor const&) = delete;
+       ResourceExtractor& operator=(ResourceExtractor const&) = delete;
+   };
+   
+   bool operator==(ResourceExtractor::Request::Info const& lhs, ResourceExtractor::Request::Info const& rhs);
+   
+   bool operator!=(ResourceExtractor::Request::Info const& lhs, ResourceExtractor::Request::Info const& rhs);
+   
+   bool operator<(ResourceExtractor::Request::Info const& lhs, ResourceExtractor::Request::Info const& rhs);
+   
+   bool operator==(ResourceExtractor::Result const& lhs, ResourceExtractor::Result const& rhs);
+   
+   bool operator!=(ResourceExtractor::Result const& lhs, ResourceExtractor::Result const& rhs);
+   
+   bool operator<(ResourceExtractor::Result const& lhs, ResourceExtractor::Result const& rhs);
+   
+   bool operator==(ResourceExtractor::Request const& lhs, ResourceExtractor::Request const& rhs);
+   
+   bool operator!=(ResourceExtractor::Request const& lhs, ResourceExtractor::Request const& rhs);
+   
+   bool operator<(ResourceExtractor::Request const& lhs, ResourceExtractor::Request const& rhs);
+   
+   }  // namespace playback
+   }  // namespace gpa

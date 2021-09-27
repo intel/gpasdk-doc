@@ -1,0 +1,132 @@
+
+.. _program_listing_file_include_playback_playback-engine.h:
+
+Program Listing for File playback-engine.h
+==========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_playback-engine.h>` (``include/playback/playback-engine.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "igpa-config.h"
+   #include "playback/experiments/experimentor.h"
+   #include "playback/metadata-extraction/metadata-extractor-ex.h"
+   #include "playback/metadata-extraction/metadata-types.h"
+   #include "playback/data-collection/metrics-extractor.h"
+   #include "playback/range-player.h"
+   #include "playback/resource-extraction/resource-extractor.h"
+   #include "playback/geometry-extraction/geometry-extractor.h"
+   #include "playback/shader-profile-extraction/shader-profile-extractor.h"
+   
+   #include <unordered_set>
+   #include <vector>
+   
+   namespace gpa {
+   namespace playback {
+   
+   class Experimentor;
+   class GeometryExtractor;
+   class MetadataExtractor;
+   class MetadataExtractorEx;
+   class MetricsExtractor;
+   class ResourceExtractor;
+   class ShaderProfileExtractor;
+   
+   struct Services
+   {
+       GeometryExtractor* geometryExtractor = nullptr;
+       MetadataExtractor* metadataExtractor = nullptr;
+       MetadataExtractorEx* metadataExtractorEx = nullptr;
+       Experimentor* experimentor = nullptr;
+       ResourceExtractor* resourceExtractor = nullptr;
+       ResourceExtractor* resourceExtractorEx = nullptr;
+       MetricsExtractor* metricsExtractor = nullptr;
+       ShaderProfileExtractor* shaderProfileExtractor = nullptr;
+   };
+   
+   class PlaybackEngine
+   {
+   public:
+       PlaybackEngine(RangePlayer* rangePlayer);
+   
+       ~PlaybackEngine();
+   
+       PlaybackEngine(RangePlayer* rangePlayer, Services* serviceOverrides);
+   
+   public:
+       MetadataExtractorEx const& GetMetadataExtractor() const;
+   
+       Experimentor& GetExperimentor();
+   
+       Experimentor const& GetExperimentor() const;
+   
+       MetricsExtractor& GetMetricsExtractor();
+   
+       MetricsExtractor const& GetMetricsExtractor() const;
+   
+       ShaderProfileExtractor const& GetShaderProfileExtractor() const;
+   
+       ResourceExtractor const& GetResourceExtractor(bool getUpdatedResourceExtractor = true) const;
+   
+       ResourceExtractor& GetResourceExtractor(bool getUpdatedResourceExtractor = true);
+   
+       GeometryExtractor& GetGeometryExtractor();
+   
+       GeometryExtractor const& GetGeometryExtractor() const;
+   
+       void DisableCalls(uint64_t const* callIndices, uint64_t count);
+   
+       void EnableCalls(uint64_t const* callIndices, uint64_t count);
+   
+       void EnableAllCalls();
+   
+       void Execute();
+   
+       void Execute(ResourceExtractor::Request& request);
+   
+       data_collection::MetricsQueryResult Execute(data_collection::MetricsRequest const* request);
+   
+       ProfileShaderResult Execute(ProfileShaderRequest const& request);
+   
+       void Execute(GeometryExtractor::Request& request);
+   
+   private:
+       bool ExecuteCallCondition(Callable* callable, uint64_t callIndex) const;
+       ExecutionCallbacks CreateExecutionCallbacks(CallableReceiver* receiver, CallableCallbacks* callbacks = nullptr);
+   
+       RangePlayer* mRangePlayer{nullptr};
+       std::unique_ptr<MetadataExtractor> mMetadataExtractor;
+       std::unique_ptr<MetadataExtractorEx> mMetadataExtractorEx;
+       std::unique_ptr<Experimentor> mExperimentor;
+       std::unique_ptr<ResourceExtractor> mResourceExtractor;
+       std::unique_ptr<ResourceExtractor> mResourceExtractorEx;
+       std::unique_ptr<MetricsExtractor> mMetricsExtractor;
+       std::unique_ptr<ShaderProfileExtractor> mShaderProfileExtractor;
+       std::unique_ptr<GeometryExtractor> mGeometryExtractor;
+       std::unordered_set<uint64_t> mDisabledCalls;
+       bool mAssistedDisable{false};
+   };
+   
+   }  // namespace playback
+   }  // namespace gpa

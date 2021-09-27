@@ -1,0 +1,142 @@
+
+.. _program_listing_file_include_playback_range-repeat-cache.h:
+
+Program Listing for File range-repeat-cache.h
+=============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_range-repeat-cache.h>` (``include/playback/range-repeat-cache.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "igpa-config.h"
+   
+   #include "data-manager/data-manager.h"
+   #include "playback/callable-cache.h"
+   #include "utility/rdtsc.h"
+   #include "serialization/token.h"
+   
+   #include <cstdint>
+   
+   struct GPADispatchTable;
+   
+   namespace gpa {
+   
+   namespace serialization {
+   struct Context;
+   }  // namespace serialization
+   
+   namespace playback {
+   
+   namespace repeat {
+   
+   char* GetRangeRepeatCacheKey();
+   
+   class RangeRepeatCache : public gpa::capture_support::ObjectData
+   {
+   public:
+       typedef std::shared_ptr<RangeRepeatCache> Ptr;
+   
+       RangeRepeatCache(playback::Context* context, playback::Callable* creationCallable);
+       virtual ~RangeRepeatCache();
+   
+       void SetObject(uint64_t captureKey, void* liveObject);
+   
+       uint64_t GetObjectKey() const;
+   
+       void* Object() const;
+   
+       virtual void OnQueueSynchronizationRequired(GPADispatchTable const*& table);
+   
+       virtual void OnRangeEnter(GPADispatchTable const*& table);
+   
+       virtual void OnRangeCollected(GPADispatchTable const*& table);
+   
+       virtual void OnRangeRepeatRecreateObject(GPADispatchTable const*& table, uint64_t repeatPass);
+   
+       virtual void OnRangeRepeatDestroyObject(GPADispatchTable const*& table, uint64_t repeatPass);
+   
+       virtual void OnRangeRepeatRestoreState(GPADispatchTable const*& table, uint64_t repeatPass);
+   
+       virtual void OnRangeExit(GPADispatchTable const*& table);
+   
+       virtual void OnReleaseDuringRange(GPADispatchTable const*& table);
+   
+       bool ReleasedDuringRange();
+   
+       bool CreatedDuringRange();
+   
+       uint64_t CreatedOnRepeatPass();
+   
+       uint64_t CreationTimestamp();
+   
+       virtual void SetUsedInRange(bool value) { mUsedInRange = value; }
+   
+       bool UsedInRange() { return mUsedInRange; }
+   
+       bool IsDestroyingObjectCreatedInRange() { return mDestroyingObjectCreatedInRange; }
+   
+       serialization::PacketType GetCallApi();
+   
+   protected:
+       void* mObject = nullptr;
+       uint64_t mObjectKey = 0;
+       bool mReleasedDuringRange = false;
+       bool mCreatedDuringRange = false;
+       uint64_t mCreatedOnRepeatPass = UINT64_MAX;
+       playback::Context* mContext = nullptr;
+       uint64_t mCreationTimestamp = RDTSC();
+       bool mUsedInRange = false;
+       bool mDestroyingObjectCreatedInRange = false;
+       serialization::PacketType mCallApi;
+   };
+   
+   class RangeRepeatCacheForCommandBuffers : public RangeRepeatCache
+   {
+   protected:
+       struct CmdBufferIncarnation
+       {
+           uint64_t creationTimestamp;
+       };
+   
+   public:
+       typedef std::shared_ptr<RangeRepeatCacheForCommandBuffers> Ptr;
+   
+       RangeRepeatCacheForCommandBuffers(playback::Context* context,
+                                         playback::Callable* creationCallable);
+       virtual ~RangeRepeatCacheForCommandBuffers();
+   
+       virtual CallableCache* Callables();
+   
+       virtual void AddCall(Callable* callable);
+       virtual void EnumerateCallablesForRepeat(CallableCache::EnumerateCallablesCallback callback,
+                                                void* userData);
+       virtual void ClearCallables();
+   
+   protected:
+       playback::CallableCache mCallables;
+   };
+   
+   }  // namespace repeat
+   }  // namespace playback
+   }  // namespace gpa

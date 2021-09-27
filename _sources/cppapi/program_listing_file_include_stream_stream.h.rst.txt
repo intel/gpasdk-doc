@@ -1,0 +1,104 @@
+
+.. _program_listing_file_include_stream_stream.h:
+
+Program Listing for File stream.h
+=================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_stream_stream.h>` (``include/stream/stream.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "igpa-config.h"
+   
+   #include <cstdint>
+   #include <vector>
+   
+   namespace gpa {
+   
+   namespace stream {
+   class StorageViewManager;
+   }  // namespace stream
+   
+   namespace serialization {
+   
+   class StorageManager;
+   class Storage;
+   
+   class Stream
+   {
+   public:
+       Stream();
+       // version of ctor that delegates to InitDataStore()
+       Stream(TCHAR const* directoryName);
+       ~Stream();
+   
+       enum StorageFlags {
+           STORAGE_VIRTUAL = 0x00000001,
+           STORAGE_PERSISTENT = 0x00000002,
+           STORAGE_SEQUENTIAL = 0x00000004,
+           STORAGE_RANDOM_ACCESS = 0x00000008,
+       };
+   
+       // default storage type is disk-based, random-access
+       static uint32_t const STORAGE_DEFAULT = STORAGE_PERSISTENT | STORAGE_RANDOM_ACCESS;
+   
+       bool OpenDataSource(TCHAR const* directoryName);
+   
+       bool InitDataStore(TCHAR const* directoryName);
+   
+       Storage* GetOrCreateThreadStorage(uint32_t storageFlags = STORAGE_DEFAULT);
+   
+       uint64_t GetThreadStorageID();
+   
+       uint32_t GetStorageCount() const;
+   
+       Storage* GetStorage(uint32_t index) const;
+   
+       Storage* GetStorageById(uint64_t storageId) const;
+   
+       void OnThreadExit();
+   
+       Storage* GetResourceStorage(uint32_t storageFlags = STORAGE_DEFAULT);
+   
+       Storage* GetKeyframeStorage(uint32_t storageFlags = STORAGE_DEFAULT);
+   
+       stream::StorageViewManager* GetStorageViewManager();
+   
+       TCHAR const* GetStorageDirectory();
+   
+   private:
+       StorageManager* mStorageManager;
+       stream::StorageViewManager* mStorageViewManager;
+   
+       // we track and handle these separately as they are shared, not per-thread, storage
+       Storage* mResourceStorage;
+       Storage* mKeyframeStorage;
+   
+       bool InitPersistentDataStore(TCHAR const* directoryName);
+       bool InitVirtualDataStore();
+       void DeinitDataStore();
+   };
+   
+   }  // namespace serialization
+   }  // namespace gpa

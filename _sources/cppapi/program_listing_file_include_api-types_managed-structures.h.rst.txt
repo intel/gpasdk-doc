@@ -1,0 +1,204 @@
+
+.. _program_listing_file_include_api-types_managed-structures.h:
+
+Program Listing for File managed-structures.h
+=============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_api-types_managed-structures.h>` (``include/api-types/managed-structures.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "api-types/enumerations.h"
+   #include "api-types/structures.h"
+   
+   #include <cstdint>
+   #include <vector>
+   #include <string>
+   
+   namespace gpa {
+   namespace api_types {
+   
+   struct ManagedSourceFile
+   {
+       std::string content;
+       std::string filename;
+   
+       ManagedSourceFile(const std::string& _content = "", const std::string& _filename = "")
+           : content(_content)
+           , filename(_filename)
+       {
+       }
+   
+       ManagedSourceFile(SourceFile file)
+           : content(file.pContent)
+           , filename(file.pFilename)
+       {
+       }
+   
+       ~ManagedSourceFile() noexcept
+       {
+       }
+   
+       ManagedSourceFile(const ManagedSourceFile&) = default;
+       ManagedSourceFile(ManagedSourceFile&&) = default;
+       ManagedSourceFile& operator=(const ManagedSourceFile&) = default;
+       ManagedSourceFile& operator=(ManagedSourceFile&&) = default;
+   
+       operator SourceFile() const
+       {
+           SourceFile file{content.c_str(), filename.c_str()};
+           return file;
+       }
+   };
+   
+   struct ManagedShaderMacro
+   {
+       std::string name;
+       std::string definition;
+   
+       ManagedShaderMacro(const std::string& _name = "", const std::string& _definition = "")
+           : name(_name)
+           , definition(_definition)
+       {
+       }
+   
+       ManagedShaderMacro(const ShaderMacro& macro)
+           : name(macro.pName)
+           , definition(macro.pDefinition)
+       {
+       }
+   
+       ~ManagedShaderMacro() noexcept
+       {
+       }
+   
+       ManagedShaderMacro(const ManagedShaderMacro&) = default;
+       ManagedShaderMacro(ManagedShaderMacro&&) = default;
+       ManagedShaderMacro& operator=(const ManagedShaderMacro&) = default;
+       ManagedShaderMacro& operator=(ManagedShaderMacro&&) = default;
+   
+       operator ShaderMacro() const
+       {
+           ShaderMacro macro{name.c_str(), definition.c_str()};
+           return macro;
+       }
+   };
+   
+   struct ManagedEntryPoint
+   {
+       std::string name;
+       ShaderStageFlagBits kind = GPA_SHADER_STAGE_UNKNOWN;
+   
+       ManagedEntryPoint(const std::string& _name, ShaderStageFlagBits _kind = GPA_SHADER_STAGE_UNKNOWN)
+           : name(_name)
+           , kind(_kind)
+       {
+       }
+   
+       ManagedEntryPoint(const EntryPoint& entryPoint)
+           : name(entryPoint.pName)
+           , kind(entryPoint.kind)
+       {
+       }
+   
+       ~ManagedEntryPoint() noexcept = default;
+       ManagedEntryPoint(const ManagedEntryPoint&) = default;
+       ManagedEntryPoint(ManagedEntryPoint&&) = default;
+       ManagedEntryPoint& operator=(const ManagedEntryPoint&) = default;
+       ManagedEntryPoint& operator=(ManagedEntryPoint&&) = default;
+   
+       operator EntryPoint() const
+       {
+           EntryPoint entryPoint{name.c_str(), kind};
+           return entryPoint;
+       }
+   };
+   
+   struct ManagedShaderSource
+   {
+       ManagedShaderSource(const ShaderSource& source)
+           : language(source.language)
+           , flags(source.flags)
+       {
+           for (size_t i = 0; i < source.fileCount; ++i) {
+               files.push_back(source.pFiles[i]);
+           }
+           for (size_t i = 0; i < source.macroCount; ++i) {
+               macros.push_back(source.pMacros[i]);
+           }
+           for (size_t i = 0; i < source.entryPointCount; ++i) {
+               entryPoints.push_back(source.pEntryPoints[i]);
+           }
+       }
+   
+       ~ManagedShaderSource() noexcept = default;
+       ManagedShaderSource() = default;
+       ManagedShaderSource(const ManagedShaderSource&) = default;
+       ManagedShaderSource(ManagedShaderSource&&) = default;
+       ManagedShaderSource& operator=(const ManagedShaderSource&) = default;
+       ManagedShaderSource& operator=(ManagedShaderSource&&) = default;
+   
+       operator ShaderSource()
+       {
+           filesStorage.clear();
+           for (auto& file : files) {
+               filesStorage.push_back(file);
+           }
+   
+           macrosStorage.clear();
+           for (auto& macro : macros) {
+               macrosStorage.push_back(macro);
+           }
+   
+           entryPointStorage.clear();
+           for (auto& entryPoint : entryPoints) {
+               entryPointStorage.push_back(entryPoint);
+           }
+   
+           ShaderSource source;
+           source.language = language;
+           source.pMacros = macrosStorage.data();
+           source.macroCount = macrosStorage.size();
+           source.pFiles = filesStorage.data();
+           source.fileCount = filesStorage.size();
+           source.pEntryPoints = entryPointStorage.data();
+           source.entryPointCount = entryPointStorage.size();
+           source.flags = flags;
+           return source;
+       }
+   
+       api_types::ShaderLanguage language = GPA_SHADER_LANGUAGE_UNKNOWN;
+       std::vector<ManagedSourceFile> files;
+       std::vector<ManagedShaderMacro> macros;
+       std::vector<ManagedEntryPoint> entryPoints;
+       uint32_t flags = 0;
+   
+   private:
+       std::vector<SourceFile> filesStorage;
+       std::vector<ShaderMacro> macrosStorage;
+       std::vector<EntryPoint> entryPointStorage;
+   };
+   
+   }  //  namespace api_types
+   }  //  namespace gpa

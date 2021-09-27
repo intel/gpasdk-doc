@@ -1,0 +1,93 @@
+
+.. _program_listing_file_include_serialization_functioncall.h:
+
+Program Listing for File functioncall.h
+=======================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_serialization_functioncall.h>` (``include/serialization/functioncall.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include <cstdint>
+   
+   #include "ifunctioncall.h"
+   #include "serialization/apicallcontext.h"
+   
+   namespace gpa {
+   
+   namespace playback {
+   class IPlaybackContext;
+   }  // namespace playback
+   
+   namespace serialization {
+   
+   class ArgsWriter;
+   
+   using GPATimestamp = uint64_t;
+   using GPADataSizeType = uint64_t;
+   
+   class IUserData;
+   
+   struct FunctionCall : public IFunctionCall
+   {
+       StreamPacketHeader mContext;
+       ArgsReader* mArgsReader;
+       ArgsWriter* mArgsWriter;
+       IUserData* mUserData = nullptr;
+       IUserData* mAllocatedUserData = nullptr;
+       size_t mDependencyCount = 0;
+       uint64_t* mDependencies = nullptr;
+   
+       // Allow custom code to attach arbitrary data to the args (outside of the
+       // IUserData structure above). This pointer is not managed, any code that
+       // sets it to a heap-allocated object must also free that object.
+       void* opaque;
+   
+       FunctionCall(StreamPacketHeader const& context, ArgsReader* argsReader);
+   
+       FunctionCall(StreamPacketHeader const& context, ArgsWriter* argsWriter,
+                    IUserData* userData = nullptr);
+   
+       ~FunctionCall();
+   
+       size_t DependencyCount();
+       uint64_t* Dependencies();
+   
+       // IFunctionCall implementation
+       StreamPacketHeader const& GetContext() const override;
+       void Read(ArgsReader* reader = nullptr) override;
+       char const* GetClass() const override;
+       char const* GetAPI() const override;
+       Argument const* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+       void* GetApiObjectPtr() const override;
+       void PreWrite() override;
+       void PostWrite() override;
+       bool IsSuccessful() override;
+   
+       virtual void InitDependencies();
+       virtual void InitDependencyCount();
+   };
+   
+   }  // namespace serialization
+   }  // namespace gpa

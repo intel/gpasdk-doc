@@ -1,0 +1,239 @@
+
+.. _program_listing_file_include_playback_experiments_experiment.h:
+
+Program Listing for File experiment.h
+=====================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_experiments_experiment.h>` (``include/playback/experiments/experiment.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "igpa-config.h"
+   #include "playback/experiments/shader-compiler.h"
+   #include "reflection/struct-data-manager.h"
+   #include "api-types/structures.h"
+   
+   #include <array>
+   #include <cstdint>
+   #include <string>
+   #include <vector>
+   
+   namespace gpa {
+   namespace playback {
+   
+   class PlaybackEngine;
+   
+   class BaseExperiment
+   {
+   public:
+       enum class Type {
+           kUnknown,
+           kPipelineExperiment,
+           kResourceExperiment,
+       };
+   
+       class Prefab
+       {
+       public:
+           class Impl;
+   
+           virtual ~Prefab() = 0;
+   
+           virtual Impl const& GetImpl() const = 0;
+       };
+   
+       BaseExperiment() = default;
+   
+       virtual ~BaseExperiment();
+   
+       uint32_t GetHash() const;
+   
+       BaseExperiment::Type GetType() const;
+   
+   protected:
+       uint32_t mHash{0};
+       Type mType{BaseExperiment::Type::kUnknown};
+   };
+   
+   class PipelineExperiment : public BaseExperiment
+   {
+   public:
+       class Prefab : public BaseExperiment::Prefab
+       {
+       public:
+           class Impl;
+       };
+   
+       PipelineExperiment();
+   
+       PipelineExperiment(PipelineExperiment const& other);
+   
+       PipelineExperiment& operator=(PipelineExperiment const& other);
+   
+       PipelineExperiment(PipelineExperiment&& other);
+   
+       PipelineExperiment& operator=(PipelineExperiment&& other);
+   
+       bool operator==(PipelineExperiment const& other) const;
+   
+       bool operator!=(PipelineExperiment const& other) const;
+   
+       bool operator<(PipelineExperiment const& other) const;
+   
+       Shader const* GetShader(Shader::Stage stage) const;
+   
+       void AddShader(Shader const& shader);
+   
+       void RemoveShader(Shader::Stage stage);
+   
+       void GetPipelineJson(size_t* pSizeBytes, char* pPipelineJson) const;
+   
+       void SetPipelineJson(char const* pPipelineJson);
+   
+       serialization::StructDataManager const& GetPipelineDataManager() const;
+   
+       void SetPipelineDataManager(serialization::StructDataManager const& pipelineDataManager);
+   
+       void GetScissorRects(size_t* pNumRects, api_types::Rect2D* pRects) const;
+   
+       void SetScissorRects(size_t numRects, api_types::Rect2D const* pRects);
+   
+   protected:
+       std::array<Shader, (size_t)Shader::Stage::kCount> mShaders;
+       serialization::StructDataManager mPipelineDataManager;
+       std::string mPipelineJson;
+       std::vector<api_types::Rect2D> mScissorRects;
+   };
+   
+   class ResourceExperiment : public BaseExperiment
+   {
+   public:
+       class Prefab : public BaseExperiment::Prefab
+       {
+       public:
+           class Impl;
+       };
+   
+       typedef uint64_t UserResourceID;
+   
+       struct ImageMetadata
+       {
+           uint32_t totalSize;
+           uint32_t width;
+           uint32_t height;
+           uint32_t depth;
+           uint32_t slices;
+           uint32_t mips;
+           uint64_t format;
+   
+           bool operator==(ImageMetadata const& other) const;
+       };
+   
+       struct ImageData
+       {
+           UserResourceID handle;      
+           std::vector<uint8_t> data;  
+           ImageMetadata metadata;     
+   
+           bool operator==(ImageData const& other) const;
+       };
+   
+       struct ImageBinding
+       {
+           UserResourceID handle;  
+           uint64_t binding;       
+           uint64_t set;           
+           uint64_t arrayIndex;    
+   
+           bool operator==(ImageBinding const& other) const;
+       };
+   
+       ResourceExperiment();
+   
+       ResourceExperiment(ResourceExperiment const& other);
+   
+       ResourceExperiment& operator=(ResourceExperiment const& other);
+   
+       ResourceExperiment(ResourceExperiment&& other);
+   
+       ResourceExperiment& operator=(ResourceExperiment&& other);
+   
+       bool operator==(ResourceExperiment const& other) const;
+   
+       bool operator!=(ResourceExperiment const& other) const;
+   
+       void SetImageData(UserResourceID id, void const* pixels, ImageMetadata const& metadata);
+   
+       void SetImageAtBinding(UserResourceID id, uint64_t set, uint64_t binding, uint64_t arrayIndex = 0);
+   
+       void RemoveImageData(UserResourceID id);
+   
+       void RemoveImageBinding(uint64_t set, uint64_t binding, uint64_t arrayIndex = 0);
+   
+       void ClearAllImageBindings();
+   
+       void GetImageList(UserResourceID* ids, size_t* count) const;
+   
+       void GetImageBindings(ImageBinding* bindings, size_t* count) const;
+   
+       ImageData const* GetImageData(UserResourceID id) const;
+   
+   protected:
+       std::vector<ImageBinding> mImageBindings;
+       std::vector<ImageData> mImageData;
+   };
+   
+   }  // namespace playback
+   }  // namespace gpa
+   
+   namespace std {
+   
+   template<>
+   struct hash<gpa::playback::BaseExperiment>
+   {
+       inline size_t operator()(gpa::playback::BaseExperiment const& experiment) const
+       {
+           return (size_t)experiment.GetHash();
+       }
+   };
+   
+   template<>
+   struct hash<gpa::playback::PipelineExperiment>
+   {
+       inline size_t operator()(gpa::playback::PipelineExperiment const& experiment) const
+       {
+           return (size_t)experiment.GetHash();
+       }
+   };
+   
+   template<>
+   struct hash<gpa::playback::ResourceExperiment>
+   {
+       inline size_t operator()(gpa::playback::ResourceExperiment const& experiment) const
+       {
+           return (size_t)experiment.GetHash();
+       }
+   };
+   
+   }  // namespace std

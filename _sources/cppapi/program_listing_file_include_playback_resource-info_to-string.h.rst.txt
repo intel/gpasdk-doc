@@ -1,0 +1,1007 @@
+
+.. _program_listing_file_include_playback_resource-info_to-string.h:
+
+Program Listing for File playback/resource-info/to-string.h
+===========================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_resource-info_to-string.h>` (``include/playback/resource-info/to-string.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "api-types/to-string.h"
+   #include "playback/resource-info/resource-info-ex/index-buffer-info.h"
+   #include "playback/resource-info/resource-info-ex/indirect-buffer-info.h"
+   #include "playback/resource-info/resource-info-ex/input-binding-info.h"
+   #include "playback/resource-info/resource-info-ex/memory-barrier-info.h"
+   #include "playback/resource-info/resource-info-ex/pipeline-constant-info.h"
+   #include "playback/resource-info/resource-info-ex/render-target-info.h"
+   #include "playback/resource-info/resource-info-ex/resource-transfer-info.h"
+   #include "playback/resource-info/resource-info-ex/scissor-rect-info.h"
+   #include "playback/resource-info/resource-info-ex/shading-rate-image-info.h"
+   #include "playback/resource-info/resource-info-ex/vertex-buffer-info.h"
+   #include "playback/resource-info/resource-info-ex/viewport-info.h"
+   #include "playback/resource-info/buffer-info.h"
+   #include "playback/resource-info/embedded-pipeline-info.h"
+   #include "playback/resource-info/input-layout-info.h"
+   #include "playback/resource-info/pipeline-descriptor-set-info.h"
+   #include "playback/resource-info/pipeline-info.h"
+   #include "playback/resource-info/pipeline-signature-info.h"
+   #include "playback/resource-info/render-pass-info.h"
+   #include "playback/resource-info/resource-info.h"
+   #include "playback/resource-info/resource-info-ex.h"
+   #include "playback/resource-info/sampler-info.h"
+   #include "playback/resource-info/shader-info.h"
+   #include "playback/resource-info/swapchain-info.h"
+   #include "playback/resource-info/texture-info.h"
+   #include "playback/resource-info/view-info.h"
+   
+   namespace gpa {
+   namespace detail {
+   
+   template<typename T>
+   inline std::stringstream& WritePtrFieldStr(
+       std::stringstream& strStr,
+       StrFmtFlags strFmtFlags,
+       uint32_t tabCount,
+       uint32_t tabSize,
+       char const* fieldName,
+       T const* ptr)
+   {
+       if (ptr) {
+           if (strFmtFlags & GPA_STR_FMT_EXPAND_PTR) {
+               WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, fieldName, *ptr);
+           } else {
+               WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, fieldName, (void*)ptr);
+           }
+       } else {
+           WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, fieldName, (char const*)"null");
+       }
+       return strStr;
+   }
+   
+   template<typename T>
+   inline std::stringstream& WriteArrayFieldStr(
+       std::stringstream& strStr,
+       StrFmtFlags strFmtFlags,
+       uint32_t tabCount,
+       uint32_t tabSize,
+       char const* fieldName,
+       size_t count,
+       T const* pArray)
+   {
+       fieldName = fieldName ? fieldName : "unknown";
+       strStr << TabStr(strFmtFlags, tabCount++, tabSize) << "\"" << fieldName << "\":";
+       if (count && pArray) {
+           strStr << "[";
+           for (size_t i = 0; i < count; ++i) {
+               auto arrayElementStrFmtFlags = strFmtFlags;
+               if (i) {
+                   strStr << "," << NewLineStr(strFmtFlags);
+                   arrayElementStrFmtFlags &= ~((uint32_t)GPA_STR_FMT_SKIP_LEADING_TAB);
+               } else {
+                   arrayElementStrFmtFlags |= GPA_STR_FMT_SKIP_LEADING_TAB;
+               }
+               strStr << ToString(pArray[i], arrayElementStrFmtFlags, tabCount, tabSize);
+           }
+           strStr << NewLineStr(strFmtFlags) << TabStr(strFmtFlags, --tabCount, tabSize) << "]";
+       } else {
+           strStr << "null";
+       }
+       return strStr;
+   }
+   
+   template<typename T>
+   inline std::stringstream& WritePtrArrayFieldStr(
+       std::stringstream& strStr,
+       StrFmtFlags strFmtFlags,
+       uint32_t tabCount,
+       uint32_t tabSize,
+       char const* fieldName,
+       size_t count,
+       T const* pArray)
+   {
+       fieldName = fieldName ? fieldName : "unknown";
+       strStr << TabStr(strFmtFlags, tabCount++, tabSize) << "\"" << fieldName << "\":";
+       if (count && pArray) {
+           strStr << "[";
+           for (size_t i = 0; i < count; ++i) {
+               auto arrayElementStrFmtFlags = strFmtFlags;
+               if (i) {
+                   strStr << "," << NewLineStr(strFmtFlags);
+                   arrayElementStrFmtFlags &= ~((uint32_t)GPA_STR_FMT_SKIP_LEADING_TAB);
+               } else {
+                   arrayElementStrFmtFlags |= GPA_STR_FMT_SKIP_LEADING_TAB;
+               }
+               strStr << (pArray[i] ? ToString(*pArray[i], arrayElementStrFmtFlags, tabCount, tabSize) : "null");
+           }
+           strStr << NewLineStr(strFmtFlags) << TabStr(strFmtFlags, --tabCount, tabSize) << "]";
+       } else {
+           strStr << "null";
+       }
+       return strStr;
+   }
+   
+   inline std::stringstream& WriteBinaryDataFieldStr(
+       std::stringstream& strStr,
+       StrFmtFlags strFmtFlags,
+       uint32_t tabCount,
+       uint32_t tabSize,
+       char const* fieldName,
+       size_t size,
+       uint8_t const* pData)
+   {
+       if (strFmtFlags & GPA_STR_FMT_BINARY_DATA) {
+           WriteArrayFieldStr(strStr, strFmtFlags, tabCount, tabSize, fieldName, size, pData);
+       } else {
+           fieldName = fieldName ? fieldName : "unknown";
+           if (size && pData) {
+               WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, fieldName, (char const*)"\"binary\"");
+           } else {
+               WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, fieldName, (char const*)"null");
+           }
+       }
+       return strStr;
+   }
+   
+   }  // namespace detail
+   
+   template<>
+   inline std::string ToString<playback::ResourceInfo::Usage>(playback::ResourceInfo::Usage const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       switch (value) {
+       case ResourceInfo::Usage::ARGUMENT:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ResourceInfo::Usage::ARGUMENT", value);
+       case ResourceInfo::Usage::COMPUTE_DESCRIPTOR:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ResourceInfo::Usage::COMPUTE_DESCRIPTOR", value);
+       case ResourceInfo::Usage::COMPUTE_PIPELINE:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ResourceInfo::Usage::COMPUTE_PIPELINE", value);
+       case ResourceInfo::Usage::GRAPHICS_DESCRIPTOR:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ResourceInfo::Usage::GRAPHICS_DESCRIPTOR", value);
+       case ResourceInfo::Usage::GRAPHICS_INPUT_ASSEMBLY:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ResourceInfo::Usage::GRAPHICS_INPUT_ASSEMBLY", value);
+       case ResourceInfo::Usage::GRAPHICS_OUTPUT:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ResourceInfo::Usage::GRAPHICS_OUTPUT", value);
+       case ResourceInfo::Usage::GRAPHICS_PIPELINE:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ResourceInfo::Usage::GRAPHICS_PIPELINE", value);
+       case ResourceInfo::Usage::COUNT:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ResourceInfo::Usage::COUNT", value);
+       default:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ResourceInfo::Usage::UNKNOWN", value);
+       }
+   }
+   
+   template<>
+   inline std::string ToString<playback::BufferInfo>(playback::BufferInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "id", (void*)obj.id) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "playbackHandle", (void*)obj.playbackHandle) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pName", obj.pName) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "size", obj.size);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::ShaderInfo>(playback::ShaderInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "id", (void*)obj.id) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "playbackHandle", (void*)obj.playbackHandle) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pName", obj.pName) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "language", obj.language) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "stage", obj.stage) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "entryPointCount", obj.entryPointCount) << "," << NewLineStr(strFmtFlags);
+       WriteArrayFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pEntryPoints", obj.entryPointCount, obj.pEntryPoints) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pSourceCode", obj.pSourceCode) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "byteCodeSize", obj.byteCodeSize) << "," << NewLineStr(strFmtFlags);
+       WriteBinaryDataFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pByteCode", obj.byteCodeSize, obj.pByteCode);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::PipelineInfo>(playback::PipelineInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "id", (void*)obj.id) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "playbackHandle", (void*)obj.playbackHandle) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pName", obj.pName) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "bindPoint", obj.bindPoint) << "," << NewLineStr(strFmtFlags);
+       WritePtrFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pPipelineSignatureInfo", obj.pPipelineSignatureInfo) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "shaderInfoCount", obj.shaderInfoCount) << "," << NewLineStr(strFmtFlags);
+       WritePtrArrayFieldStr(strStr, strFmtFlags, tabCount, tabSize, "ppShaderInfos", obj.shaderInfoCount, obj.ppShaderInfos) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "shaderGroupInfoCount", obj.shaderGroupInfoCount) << "," << NewLineStr(strFmtFlags);
+       WritePtrArrayFieldStr(strStr, strFmtFlags, tabCount, tabSize, "ppShaderGroupInfos", obj.shaderGroupInfoCount, obj.ppShaderGroupInfos);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::SamplerInfo>(playback::SamplerInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "id", (void*)obj.id) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "playbackHandle", (void*)obj.playbackHandle) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pName", obj.pName) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "minFilter", obj.minFilter) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "magFilter", obj.magFilter) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "mipFilter", obj.mipFilter) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "addressModeU", obj.addressModeU) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "addressModeV", obj.addressModeV) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "addressModeW", obj.addressModeW) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "mipLodBias", obj.mipLodBias) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "anisotropyEnabled", obj.anisotropyEnabled) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "maxAnisotropy", obj.maxAnisotropy) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "compareEnabled", obj.compareEnabled) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "comparisonFunction", obj.comparisonFunction) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "minLod", obj.minLod) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "maxLod", obj.maxLod) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "unnormalizedCoordinates", obj.unnormalizedCoordinates) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "borderColor[0]", obj.borderColor[0]) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "borderColor[1]", obj.borderColor[1]) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "borderColor[2]", obj.borderColor[2]) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "borderColor[3]", obj.borderColor[3]);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::SwapchainInfo>(playback::SwapchainInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "id", (void*)obj.id) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "playbackHandle", (void*)obj.playbackHandle) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pName", obj.pName) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "textureInfoCount", obj.textureInfoCount) << "," << NewLineStr(strFmtFlags);
+       WritePtrArrayFieldStr(strStr, strFmtFlags, tabCount, tabSize, "ppTextureInfos", obj.textureInfoCount, obj.ppTextureInfos);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::TextureInfo>(playback::TextureInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "id", (void*)obj.id) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "playbackHandle", (void*)obj.playbackHandle) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pName", obj.pName) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "type", obj.type) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "format", obj.format) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "width", obj.width) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "height", obj.height) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "depth", obj.depth) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "arrayLayerCount", obj.arrayLayerCount) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "mipLevelCount", obj.mipLevelCount) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "sampleCount", obj.sampleCount) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "sampleQuality", obj.sampleQuality) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pSwapchainInfo", obj.pSwapchainInfo ? (void*)obj.pSwapchainInfo->id : (void*)nullptr);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::ViewInfo::Type>(playback::ViewInfo::Type const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       switch (value) {
+       case ViewInfo::Type::Buffer:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ViewInfo::Type::Buffer", value);
+       case ViewInfo::Type::Texture:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ViewInfo::Type::Texture", value);
+       default:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ViewInfo::Type::Unknown", value);
+       }
+   }
+   
+   template<>
+   inline std::string ToString<playback::ViewInfo>(playback::ViewInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "id", (void*)obj.id) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "playbackHandle", (void*)obj.playbackHandle) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pName", obj.pName) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "type", obj.type) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "format", obj.format) << "," << NewLineStr(strFmtFlags);
+       WritePtrFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pResourceInfo", obj.pResourceInfo) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "bufferRegion", obj.bufferRegion) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "textureRegion", obj.textureRegion);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::IndexBufferInfo>(playback::IndexBufferInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WritePtrFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pBufferInfo", obj.pBufferInfo) << "," << NewLineStr(strFmtFlags);
+       WritePtrFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pViewInfo", obj.pViewInfo) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "offset", obj.offset) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "size", obj.size) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "indexType", obj.indexType);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::IndirectBufferInfo>(playback::IndirectBufferInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WritePtrFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pArgumentBuffer", obj.pArgumentBuffer) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "argumentBufferOffset", obj.argumentBufferOffset) << "," << NewLineStr(strFmtFlags);
+       WritePtrFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pCountBuffer", obj.pCountBuffer) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "countBufferOffset", obj.countBufferOffset) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "count", obj.count) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "stride", obj.stride);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::InputBindingInfo::ShaderBinding>(playback::InputBindingInfo::ShaderBinding const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "registerIndex", obj.registerIndex) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "registerType", obj.registerType) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "spaceIndex", obj.spaceIndex) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "arrayIndex", obj.arrayIndex) << "," << NewLineStr(strFmtFlags);
+       ;
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::InputBindingInfo::TextureInputBindingInfo>(playback::InputBindingInfo::TextureInputBindingInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "type", obj.type) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "subresource", obj.subresource) << "," << NewLineStr(strFmtFlags);
+       WritePtrFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pSamplerInfo", obj.pSamplerInfo) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "immutableSampler", obj.immutableSampler) << "," << NewLineStr(strFmtFlags);
+       ;
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::InputBindingInfo>(playback::InputBindingInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WritePtrFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pResourceInfo", obj.pResourceInfo) << "," << NewLineStr(strFmtFlags);
+       WritePtrFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pViewInfo", obj.pViewInfo) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "setIndex", obj.setIndex) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "bindIndex", obj.bindIndex) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "arrayIndex", obj.arrayIndex) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "shaderStages", obj.shaderStages) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "format", obj.format) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "shader", obj.shader);
+       if (obj.pResourceInfo) {
+           switch (obj.pResourceInfo->GetTypeId()) {
+           case ResourceInfo::GetTypeId<BufferInfo>():
+               strStr << "," << NewLineStr(strFmtFlags);
+               WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "buffer", obj.buffer);
+               break;
+           case ResourceInfo::GetTypeId<SamplerInfo>():
+           case ResourceInfo::GetTypeId<TextureInfo>():
+               strStr << "," << NewLineStr(strFmtFlags);
+               WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "texture", obj.texture);
+               break;
+           }
+       }
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::MemoryBarrierInfo>(playback::MemoryBarrierInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WritePtrFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pResourceInfo", obj.pResourceInfo);
+       if (obj.pResourceInfo) {
+           switch (obj.pResourceInfo->GetTypeId()) {
+           case ResourceInfo::GetTypeId<BufferInfo>():
+               strStr << "," << NewLineStr(strFmtFlags);
+               WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "buffer", obj.buffer);
+               break;
+           case ResourceInfo::GetTypeId<TextureInfo>():
+               strStr << "," << NewLineStr(strFmtFlags);
+               WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "texture", obj.texture);
+               break;
+           }
+       }
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::RenderTargetInfo::BufferInfo>(playback::RenderTargetInfo::BufferInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "offset", obj.offset) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "count", obj.count);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::RenderTargetInfo::TextureInfo>(playback::RenderTargetInfo::TextureInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "type", obj.type) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "subresource", obj.subresource);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::RenderTargetInfo>(playback::RenderTargetInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WritePtrFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pResourceInfo", obj.pResourceInfo) << "," << NewLineStr(strFmtFlags);
+       WritePtrFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pViewInfo", obj.pViewInfo) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "format", obj.format);
+       switch (obj.pResourceInfo->GetTypeId()) {
+       case ResourceInfo::GetTypeId<BufferInfo>():
+           strStr << "," << NewLineStr(strFmtFlags);
+           WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "buffer", obj.buffer);
+           break;
+       case ResourceInfo::GetTypeId<TextureInfo>():
+           strStr << "," << NewLineStr(strFmtFlags);
+           WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "texture", obj.texture);
+           break;
+       }
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::ResourceTransferInfo::Type>(playback::ResourceTransferInfo::Type const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       switch (value) {
+       case ResourceTransferInfo::Type::CLEAR:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ResourceTransferInfo::Type::CLEAR", value);
+       case ResourceTransferInfo::Type::COPY:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ResourceTransferInfo::Type::COPY", value);
+       case ResourceTransferInfo::Type::FILL:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ResourceTransferInfo::Type::FILL", value);
+       case ResourceTransferInfo::Type::LOAD:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ResourceTransferInfo::Type::LOAD", value);
+       case ResourceTransferInfo::Type::RESOLVE:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ResourceTransferInfo::Type::RESOLVE", value);
+       case ResourceTransferInfo::Type::UPDATE:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ResourceTransferInfo::Type::UPDATE", value);
+       case ResourceTransferInfo::Type::COUNT:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ResourceTransferInfo::Type::COUNT", value);
+       default:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ResourceTransferInfo::Type::UNKNOWN", value);
+       }
+   }
+   
+   template<>
+   inline std::string ToString<playback::ResourceTransferInfo::Region::Info>(playback::ResourceTransferInfo::Region::Info const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       bool printBufferInfo = obj.buffer.offset || obj.buffer.size;
+       bool printTextureInfo =
+           obj.textureType != api_types::GPA_TEXTURE_TYPE_UNKNOWN ||
+           obj.texture.offset.x ||
+           obj.texture.offset.y ||
+           obj.texture.offset.z ||
+           obj.texture.extent.width ||
+           obj.texture.extent.height ||
+           obj.texture.extent.depth ||
+           obj.texture.subresource.baseMipLevel ||
+           obj.texture.subresource.mipLevelCount ||
+           obj.texture.subresource.baseArrayLayer ||
+           obj.texture.subresource.arrayLayerCount;
+       if (printBufferInfo) {
+           WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "buffer", obj.buffer);
+       }
+       if (printBufferInfo && printTextureInfo) {
+           strStr << "," << NewLineStr(strFmtFlags);
+       }
+       if (printTextureInfo) {
+           WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "textureType", obj.textureType) << "," << NewLineStr(strFmtFlags);
+           WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "texture", obj.texture);
+       }
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::ResourceTransferInfo::Region>(playback::ResourceTransferInfo::Region const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "src", obj.src) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "dst", obj.dst);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::ResourceTransferInfo>(playback::ResourceTransferInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "type", obj.type) << "," << NewLineStr(strFmtFlags);
+       WritePtrFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pSrc", obj.pSrc) << "," << NewLineStr(strFmtFlags);
+       WritePtrFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pDst", obj.pDst) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "regionCount", obj.regionCount) << "," << NewLineStr(strFmtFlags);
+       WriteArrayFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pRegions", obj.regionCount, obj.pRegions) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "srcDataSize", obj.srcDataSize) << "," << NewLineStr(strFmtFlags);
+       WriteBinaryDataFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pSrcData", obj.srcDataSize, obj.pSrcData);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::ScissorRectInfo>(playback::ScissorRectInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "scissorRectCount", obj.scissorRectCount) << "," << NewLineStr(strFmtFlags);
+       WriteArrayFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pScissorRects", obj.scissorRectCount, obj.pScissorRects);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::ShaderTableInfo>(playback::ShaderTableInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WritePtrFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pBufferInfo", obj.pBufferInfo) << "," << NewLineStr(strFmtFlags);
+       WritePtrFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pViewInfo", obj.pViewInfo) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "offset", obj.offset) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "size", obj.size) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "stride", obj.stride);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::ShadingRateImageInfo>(playback::ShadingRateImageInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WritePtrFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pResourceInfo", obj.pResourceInfo);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::VertexBufferInfo>(playback::VertexBufferInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WritePtrFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pBufferInfo", obj.pBufferInfo) << "," << NewLineStr(strFmtFlags);
+       WritePtrFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pViewInfo", obj.pViewInfo) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "offset", obj.offset) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "size", obj.size) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "binding", obj.binding) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "stride", obj.stride) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "inputRate", obj.inputRate) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "inputElementCount", obj.inputElementCount) << "," << NewLineStr(strFmtFlags);
+       WriteArrayFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pInputElements", obj.inputElementCount, obj.pInputElements);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::InputLayoutInfo>(playback::InputLayoutInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "inputElementCount", obj.inputElementCount) << "," << NewLineStr(strFmtFlags);
+       WriteArrayFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pInputElements", obj.inputElementCount, obj.pInputElements);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::PipelineConstantInfo>(playback::PipelineConstantInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WritePtrFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pPipelineInfo", obj.pPipelineInfo) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "index", obj.index) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "offset", obj.offset) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "dataSize", obj.dataSize) << "," << NewLineStr(strFmtFlags);
+       WriteBinaryDataFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pData", obj.dataSize, obj.pData);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::PipelineConstantRange>(playback::PipelineConstantRange const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "size", obj.size) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "offset", obj.offset) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "shaderRegister", obj.shaderRegister) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "registerSpace", obj.registerSpace);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::PipelineDescriptorBinding>(playback::PipelineDescriptorBinding const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "shaderStageVisibility", obj.shaderStageVisibility) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "descriptorCount", obj.descriptorCount) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "shaderBinding", obj.shaderBinding) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "shaderSpace", obj.shaderSpace) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "type", obj.type);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::PipelineDescriptorSet>(playback::PipelineDescriptorSet const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "bindingCount", obj.bindingCount) << "," << NewLineStr(strFmtFlags);
+       WriteArrayFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pBindings", obj.bindingCount, obj.pBindings);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::PipelineSignatureInfo>(playback::PipelineSignatureInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pipelineConstantRangeCount", obj.pipelineConstantRangeCount) << "," << NewLineStr(strFmtFlags);
+       WriteArrayFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pPiplineConstantRanges", obj.pipelineConstantRangeCount, obj.pPiplineConstantRanges) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pipelineDescriptorSetCount", obj.pipelineDescriptorSetCount) << "," << NewLineStr(strFmtFlags);
+       WritePtrArrayFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pPiplineDescriptorSets", obj.pipelineDescriptorSetCount, obj.pPiplineDescriptorSets);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::RaytracingShaderGroupInfo::ShaderLink>(playback::RaytracingShaderGroupInfo::ShaderLink const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "libraryId", (void*)obj.libraryId) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "entryPointIndex", obj.entryPointIndex) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pGlobalName", obj.pGlobalName);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::RaytracingShaderGroupInfo::Type>(playback::RaytracingShaderGroupInfo::Type const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       switch (value) {
+       case RaytracingShaderGroupInfo::Type::kGeneral:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "RaytracingShaderGroupInfo::Type::kGeneral", value);
+       case RaytracingShaderGroupInfo::Type::kTrianglesHitGroup:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "RaytracingShaderGroupInfo::Type::kTrianglesHitGroup", value);
+       case RaytracingShaderGroupInfo::Type::kProceduralHitGroup:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "RaytracingShaderGroupInfo::Type::kProceduralHitGroup", value);
+       default:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "RaytracingShaderGroupInfo::Type::kUnknown", value);
+       }
+   }
+   
+   template<>
+   inline std::string ToString<playback::RaytracingShaderGroupInfo>(playback::RaytracingShaderGroupInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pName", obj.pName) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "type", obj.type) << "," << NewLineStr(strFmtFlags);
+       if (obj.type == RaytracingShaderGroupInfo::Type::kGeneral) {
+           WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "generalShader", obj.generalShader) << "," << NewLineStr(strFmtFlags);
+       }
+       if (obj.type == RaytracingShaderGroupInfo::Type::kTrianglesHitGroup || obj.type == RaytracingShaderGroupInfo::Type::kProceduralHitGroup) {
+           WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "closestHitShader", obj.closestHitShader) << "," << NewLineStr(strFmtFlags);
+           WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "anyHitShader", obj.anyHitShader) << "," << NewLineStr(strFmtFlags);
+       }
+       if (obj.type == RaytracingShaderGroupInfo::Type::kProceduralHitGroup) {
+           WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "intersectionShader", obj.intersectionShader) << "," << NewLineStr(strFmtFlags);
+       }
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "captureIdSize", obj.captureIdSize) << "," << NewLineStr(strFmtFlags);
+       WriteBinaryDataFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pCaptureId", obj.captureIdSize, obj.pCaptureId) << "," << NewLineStr(strFmtFlags);
+       WritePtrFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pLocalSignatureInfo", obj.pLocalSignatureInfo);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::RenderPassInfo>(playback::RenderPassInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       (void)obj;
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       // NOOP : RenderPassInfo doesn't have any members yet, so nothing to ToString()
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::DescriptorType>(playback::DescriptorType const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       switch (value) {
+       case DescriptorType::BUFFER:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "DescriptorType::BUFFER", value);
+       case DescriptorType::TEXTURE:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "DescriptorType::TEXTURE", value);
+       case DescriptorType::SAMPLER:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "DescriptorType::SAMPLER", value);
+       case DescriptorType::COMBINED_IMAGE_SAMPLER:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "DescriptorType::COMBINED_IMAGE_SAMPLER", value);
+       case DescriptorType::ACCELERATION_STRUCTURE:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "DescriptorType::ACCELERATION_STRUCTURE", value);
+       default:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "DescriptorType::UNKNOWN", value);
+       }
+   }
+   
+   template<>
+   inline std::string ToString<playback::ViewportInfo>(playback::ViewportInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "viewportCount", obj.viewportCount) << "," << NewLineStr(strFmtFlags);
+       WriteArrayFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pInputElements", obj.viewportCount, obj.pViewports);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::BlendState>(playback::BlendState const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "alphaToCoverageEnable", obj.alphaToCoverageEnable) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "independentBlendEnable", obj.independentBlendEnable) << "," << NewLineStr(strFmtFlags);
+       WriteArrayFieldStr(strStr, strFmtFlags, tabCount, tabSize, "blendConstants", 4, obj.blendConstants) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "attachmentCount", obj.attachmentCount) << "," << NewLineStr(strFmtFlags);
+       WriteArrayFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pAttachments", obj.attachmentCount, obj.pAttachments);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::RasterizerState>(playback::RasterizerState const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "fillMode", obj.fillMode) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "cullMode", obj.cullMode) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "frontCounterClockwise", obj.frontCounterClockwise) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "depthBias", obj.depthBias) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "depthBiasClamp", obj.depthBiasClamp) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "slopeScaledDepthBias", obj.slopeScaledDepthBias) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "depthClipEnable", obj.depthClipEnable) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "scissorEnable", obj.scissorEnable) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "multisampleEnable", obj.multisampleEnable) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "antialiasedLineEnable", obj.antialiasedLineEnable);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::DepthStencilState>(playback::DepthStencilState const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "depthEnable", obj.depthEnable) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "depthWriteMask", obj.depthWriteMask) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "depthFunc", obj.depthFunc) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "stencilEnable", obj.stencilEnable) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "stencilReadMask", obj.stencilReadMask) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "stencilWriteMask", obj.stencilWriteMask) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "frontFace", obj.frontFace) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "backFace", obj.backFace) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "stencilRefValue", obj.stencilRefValue);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::ViewportState>(playback::ViewportState const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "viewportCount", obj.viewportCount) << "," << NewLineStr(strFmtFlags);
+       WriteArrayFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pViewports", obj.viewportCount, obj.pViewports);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::ScissorRectState>(playback::ScissorRectState const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "scissorRectCount", obj.scissorRectCount) << "," << NewLineStr(strFmtFlags);
+       WriteArrayFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pScissorRects", obj.scissorRectCount, obj.pScissorRects);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::EmbeddedPipelineInfo>(playback::EmbeddedPipelineInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+   
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "blendState", obj.blendState) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "rasterizerState", obj.rasterizerState) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "depthStencilState", obj.depthStencilState) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "viewportState", obj.viewportState) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "scissorRectState", obj.scissorRectState) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "primitiveTopology", obj.primitiveTopology) << "," << NewLineStr(strFmtFlags);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<playback::ResourceInfo>(playback::ResourceInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace playback;
+       switch (obj.GetTypeId()) {
+       case ResourceInfo::GetTypeId<BufferInfo>(): {
+           auto pBufferInfo = obj.As<BufferInfo>();
+           return pBufferInfo ? ToString(*pBufferInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       case ResourceInfo::GetTypeId<EmbeddedPipelineInfo>(): {
+           auto pEmbeddedPipelineInfo = obj.As<EmbeddedPipelineInfo>();
+           return pEmbeddedPipelineInfo ? ToString(*pEmbeddedPipelineInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       case ResourceInfo::GetTypeId<PipelineDescriptorSet>(): {
+           auto pPipelineDescriptorSet = obj.As<PipelineDescriptorSet>();
+           return pPipelineDescriptorSet ? ToString(*pPipelineDescriptorSet, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       case ResourceInfo::GetTypeId<PipelineInfo>(): {
+           auto pPipelineInfo = obj.As<PipelineInfo>();
+           return pPipelineInfo ? ToString(*pPipelineInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       case ResourceInfo::GetTypeId<PipelineSignatureInfo>(): {
+           auto pPipelineSignatureInfo = obj.As<PipelineSignatureInfo>();
+           return pPipelineSignatureInfo ? ToString(*pPipelineSignatureInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       case ResourceInfo::GetTypeId<RaytracingShaderGroupInfo>(): {
+           auto pRaytracingShaderGroupInfo = obj.As<RaytracingShaderGroupInfo>();
+           return pRaytracingShaderGroupInfo ? ToString(*pRaytracingShaderGroupInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       case ResourceInfo::GetTypeId<RenderPassInfo>(): {
+           auto pRenderPassInfo = obj.As<RenderPassInfo>();
+           return pRenderPassInfo ? ToString(*pRenderPassInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       case ResourceInfo::GetTypeId<SamplerInfo>(): {
+           auto pSamplerInfo = obj.As<SamplerInfo>();
+           return pSamplerInfo ? ToString(*pSamplerInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       case ResourceInfo::GetTypeId<ShaderInfo>(): {
+           auto pShaderInfo = obj.As<ShaderInfo>();
+           return pShaderInfo ? ToString(*pShaderInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       case ResourceInfo::GetTypeId<SwapchainInfo>(): {
+           auto pSwapchainInfo = obj.As<SwapchainInfo>();
+           return pSwapchainInfo ? ToString(*pSwapchainInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       case ResourceInfo::GetTypeId<TextureInfo>(): {
+           auto pTextureInfo = obj.As<TextureInfo>();
+           return pTextureInfo ? ToString(*pTextureInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       }
+       return "{ }";
+   }
+   
+   template<>
+   inline std::string ToString<playback::ResourceInfo::Ex>(playback::ResourceInfo::Ex const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace playback;
+       switch (obj.GetTypeId()) {
+       case ResourceInfo::Ex::GetTypeId<IndexBufferInfo>(): {
+           auto pIndexBufferInfo = obj.As<IndexBufferInfo>();
+           return pIndexBufferInfo ? ToString(*pIndexBufferInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       case ResourceInfo::Ex::GetTypeId<IndirectBufferInfo>(): {
+           auto pIndirectBufferInfo = obj.As<IndirectBufferInfo>();
+           return pIndirectBufferInfo ? ToString(*pIndirectBufferInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       case ResourceInfo::Ex::GetTypeId<InputBindingInfo>(): {
+           auto pInputBindingInfo = obj.As<InputBindingInfo>();
+           return pInputBindingInfo ? ToString(*pInputBindingInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       case ResourceInfo::Ex::GetTypeId<MemoryBarrierInfo>(): {
+           auto pMemoryBarrierInfo = obj.As<MemoryBarrierInfo>();
+           return pMemoryBarrierInfo ? ToString(*pMemoryBarrierInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       case ResourceInfo::Ex::GetTypeId<PipelineConstantInfo>(): {
+           auto pPipelineConstantInfo = obj.As<PipelineConstantInfo>();
+           return pPipelineConstantInfo ? ToString(*pPipelineConstantInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       case ResourceInfo::Ex::GetTypeId<RenderTargetInfo>(): {
+           auto pRenderTargetInfo = obj.As<RenderTargetInfo>();
+           return pRenderTargetInfo ? ToString(*pRenderTargetInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       case ResourceInfo::Ex::GetTypeId<ResourceTransferInfo>(): {
+           auto pResourceTransferInfo = obj.As<ResourceTransferInfo>();
+           return pResourceTransferInfo ? ToString(*pResourceTransferInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       case ResourceInfo::Ex::GetTypeId<ScissorRectInfo>(): {
+           auto pScissorRectInfo = obj.As<ScissorRectInfo>();
+           return pScissorRectInfo ? ToString(*pScissorRectInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       case ResourceInfo::Ex::GetTypeId<ShadingRateImageInfo>(): {
+           auto pShadingRateImageInfo = obj.As<ShadingRateImageInfo>();
+           return pShadingRateImageInfo ? ToString(*pShadingRateImageInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       case ResourceInfo::Ex::GetTypeId<VertexBufferInfo>(): {
+           auto pVertexBufferInfo = obj.As<VertexBufferInfo>();
+           return pVertexBufferInfo ? ToString(*pVertexBufferInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       case ResourceInfo::Ex::GetTypeId<ViewportInfo>(): {
+           auto pViewportInfo = obj.As<ViewportInfo>();
+           return pViewportInfo ? ToString(*pViewportInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       case ResourceInfo::Ex::GetTypeId<RaygenShaderTableInfo>(): {
+           auto pShaderTableInfo = obj.As<ShaderTableInfo>();
+           return pShaderTableInfo ? ToString(*pShaderTableInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       case ResourceInfo::Ex::GetTypeId<MissShaderTableInfo>(): {
+           auto pShaderTableInfo = obj.As<ShaderTableInfo>();
+           return pShaderTableInfo ? ToString(*pShaderTableInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       case ResourceInfo::Ex::GetTypeId<HitShaderTableInfo>(): {
+           auto pShaderTableInfo = obj.As<ShaderTableInfo>();
+           return pShaderTableInfo ? ToString(*pShaderTableInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       case ResourceInfo::Ex::GetTypeId<CallableShaderTableInfo>(): {
+           auto pShaderTableInfo = obj.As<ShaderTableInfo>();
+           return pShaderTableInfo ? ToString(*pShaderTableInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       }
+       return "{ }";
+   }
+   
+   }  // namespace gpa
