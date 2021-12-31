@@ -42,7 +42,7 @@ Program Listing for File stream-preprocessor.h
    struct IStreamProcesssor
    {
        virtual void OnTargetRangeBegin() = 0;
-       virtual void OnTargetRangeEnd() = 0;
+       virtual void OnProcessingEnd() = 0;
        virtual void Process(Callable& callable) = 0;
        virtual ~IStreamProcesssor() = default;
    };
@@ -50,12 +50,14 @@ Program Listing for File stream-preprocessor.h
    class StreamPreprocessor
    {
    public:
-       StreamPreprocessor(StreamData& streamData, CallableCache* range = nullptr, StreamDataBookmark* rangeStartBookmark = nullptr);
+       StreamPreprocessor(StreamData& streamData, StreamDataBookmark const* rangeBegin = nullptr,
+                          StreamDataBookmark const* rangeEnd = nullptr, uint64_t targetQueueId = 0);
        StreamPreprocessor(StreamPreprocessor&& other) noexcept;
        ~StreamPreprocessor();
    
        void AddPreprocessor(IStreamProcesssor& preprocessor);
        void Process();
+       const CallableCache& GetRangeCache() const;
    
    private:
        class StreamPreprocessorImpl;

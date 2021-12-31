@@ -36,21 +36,18 @@ Program Listing for File range-player.h
    namespace gpa {
    namespace playback {
    
-   namespace sync_handler {
-   class SyncHandler;
-   }  // namespace sync_handler
-   
    namespace repeat {
    class StreamBuilder;
    }  // namespace repeat
    
    class Player;
    class StreamData;
+   class PlaybackPreprocessor;
    
    class RangePlayer : public CallableBroadcaster
    {
    public:
-       RangePlayer(Player* player, CallableCache const& range, bool flattenSecondaryCommandBuffers, sync_handler::SyncHandler* syncHandler = nullptr);
+       RangePlayer(Player* player, PlaybackPreprocessor* playbackPreprocessor, bool flattenSecondaryCommandBuffers);
        ~RangePlayer();
    
        void ConnectExecutionCallbacks(ExecutionCallbacks const& callbacks) override;
@@ -67,7 +64,7 @@ Program Listing for File range-player.h
    
    private:
        Player* mPlayer = nullptr;
-       sync_handler::SyncHandler* mSyncHandler;
+       PlaybackPreprocessor* mPlaybackPreprocessor = nullptr;
        typedef std::vector<gpa::playback::repeat::RangeRepeatCache::Ptr> Snapshot;
        Snapshot mPreSnapshot;  
        uint64_t mPassIndex = 0;

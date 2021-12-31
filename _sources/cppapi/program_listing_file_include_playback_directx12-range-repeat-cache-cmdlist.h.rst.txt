@@ -58,9 +58,10 @@ Program Listing for File directx12-range-repeat-cache-cmdlist.h
        void SetUsedInRange(bool value) override;
        void ClearCallables() override;
    
-       void OnReincarnation(playback::Context* context, playback::Callable* callable);
+       void OnReincarnation(playback::Callable* callable);
        void EnumerateCallablesFromIncarnation(uint64_t timestamp, CallableCache::EnumerateCallablesCallback callback, void* userData);
-   
+       void SetRecordedBeforeRange();
+       bool IsRecordedBeforeRange() const;
        ID3D12CommandAllocator* GetReplacementAllocator(GPADispatchTable const*& table);
    
    private:
@@ -72,6 +73,7 @@ Program Listing for File directx12-range-repeat-cache-cmdlist.h
    
        std::vector<CmdBufferIncarnation> mIncarnations;
        bool mArtificiallyClosed = false;
+       bool mIsRecordedBeforeRange = false;
    
        UINT mNodeMask = 0;
        ID3D12GraphicsCommandList* mReplacementCmdList = nullptr;

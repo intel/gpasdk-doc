@@ -28,6 +28,8 @@ Program Listing for File sync-handler-common.h
    ******************************************************************************/
    #pragma once
    
+   #include <memory>
+   
    namespace gpa {
    namespace playback {
    namespace sync_handler {
@@ -67,14 +69,40 @@ Program Listing for File sync-handler-common.h
    
    struct SyncCommand
    {
-       SyncCommandType type;
+       SyncCommand(){};
+   
+       SyncCommand(SyncQueueOther arg)
+           : type(SyncCommandType::kQueueOther)
+       {
+           data.queueOther = arg;
+       }
+   
+       SyncCommand(SyncQueueSignal arg)
+           : type(SyncCommandType::kQueueSignal)
+       {
+           data.queueSignal = arg;
+       }
+   
+       SyncCommand(SyncImmidiateSignal arg)
+           : type(SyncCommandType::kImmidiateSignal)
+       {
+           data.immidiateSignal = arg;
+       }
+   
+       SyncCommand(SyncQueueWait arg)
+           : type(SyncCommandType::kQueueWait)
+       {
+           data.queueWait = arg;
+       }
+   
+       SyncCommandType type = SyncCommandType::kOther;
        union
        {
            SyncQueueWait queueWait;
            SyncQueueSignal queueSignal;
            SyncImmidiateSignal immidiateSignal;
            SyncQueueOther queueOther;
-       } data;
+       } data{};
    };
    
    }  // namespace sync_handler

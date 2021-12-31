@@ -1,1 +1,1 @@
-Intel(R) Graphics Performance Analyzers Framework 2021.2 Release
+Intel(R) Graphics Performance Analyzers Framework 2021.4 Release
