@@ -12,7 +12,7 @@ Program Listing for File environment.h
 
    /******************************************************************************
    © Intel Corporation.
-    
+   
    This software and the related documents are Intel copyrighted materials,
    and your use of them is governed by the express license under which they
    were provided to you ("License"). Unless the License provides otherwise,
@@ -40,8 +40,11 @@ Program Listing for File environment.h
    {
    public:
        Environment();
+   
        Environment(char const* const* envp);
+   
        Environment(Environment const& other);
+   
        ~Environment();
    
        Environment& operator=(Environment const& other);
@@ -49,16 +52,33 @@ Program Listing for File environment.h
        bool operator!=(Environment const& other) const;
    
        int GetKeyCount() const;
+   
+       bool Empty() const;
+   
        char const* Get(char const* key) const;
+   
        void GetAllKeysValues(char const** keys, char const** values, int* count) const;
+   
        void Set(char const* key, char const* newValue);
+   
        void Remove(char const* key);
+   
        void AppendToPathValue(char const* key, char const* additionalPath);
+   
        void PrependToPathValue(char const* key, char const* additionalPath);
+   
        void RemoveFromPathValue(char const* key, char const* pathToRemove);
+   
        void RemovePathValueContaining(char const* key, char const* stringToFind);
+   
        void InitializeFromCurrentProcess();
+   
        void ApplyToCurrentProcess(bool replaceWholeEnvironment = false);
+   
+       void MergeFrom(Environment const& other);
+   
+       typedef void (*KeyValuePairEnumerateFn)(char const* key, char const* value, int index, void* context);
+       void EnumerateKeyValuePairs(KeyValuePairEnumerateFn callback, void* context) const;
    
    private:
        internal::Map* mEnv;

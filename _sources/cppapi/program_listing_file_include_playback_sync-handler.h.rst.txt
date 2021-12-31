@@ -47,11 +47,12 @@ Program Listing for File sync-handler.h
        ~SyncHandler();
        SyncHandler(const SyncHandler& other);
        using EnumerateCallback = std::function<void(Callable& callable)>;
-       void EnumerateUnlockedCalls(Callable& originalCall, EnumerateCallback callback, bool isInRange);
+       void EnumerateUnlockedCalls(Callable& originalCall, EnumerateCallback callback);
+       void EnumerateAdditionalRangeCalls(SyncHandler::EnumerateCallback callback);
        // IStreamProcesssor
        void Process(Callable& callable) override;
        void OnTargetRangeBegin() override;
-       void OnTargetRangeEnd() override;
+       void OnProcessingEnd() override;
    
    private:
        class SyncHandlerImpl;

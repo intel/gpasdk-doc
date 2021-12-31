@@ -69,17 +69,18 @@ Program Listing for File api-log.h
    
        StreamDataBookmark RangeBookmark(uint64_t index) const;
    
+       StreamDataBookmark RangeBookmarkEnd(uint64_t index) const;
+   
    private:
        StreamData* mStreamData = nullptr;
        StreamData* mAllocatedData = nullptr;
        memory::Allocator* mAllocator;
        memory::Allocator* mDefaultAllocator;
        std::vector<serialization::GPAToken> mDelimiters;
-       std::vector<StreamDataBookmark> mBookmarks;
-       StreamDataBookmark mDefaultBookmark;
-   
+       std::vector<StreamDataBookmark> mRangeStartBookmarks;
+       std::vector<StreamDataBookmark> mRangeEndBookmarks;
+       CallableCache CollectRange(const StreamDataBookmark& begin, const StreamDataBookmark& end) const;
        void InitializeDelimiters(serialization::GPAToken const* delimiters);
-       void AppendRangeToCache(CallableCache* cache, uint64_t index) const;
    };
    
    }  // namespace playback

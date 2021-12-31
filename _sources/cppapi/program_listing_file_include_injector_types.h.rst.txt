@@ -1,0 +1,92 @@
+
+.. _program_listing_file_include_injector_types.h:
+
+Program Listing for File injector/types.h
+=========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_injector_types.h>` (``include/injector/types.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+           Copyright 2019 - 2020 Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "logger/logger.h"
+   #include "system/environment.h"
+   #include "utility/common.h"
+   
+   namespace gpa {
+   namespace injector {
+   
+   enum class InjectionResult {
+       kSuccess,
+       kInvalidParameter,  
+       kTargetNotFound,    
+       kInvalidDirectory,  
+       kInjectionFailed,   
+       kUnsupported,       
+   };
+   
+   enum class InjectionStatus {
+       NONE,     
+       STARTED,  
+       RUNNING,  
+       EXITED,   
+   };
+   
+   struct InjectionProperties
+   {
+       char logLevel[utility::kLogLevelLength]{};                                                
+       TCHAR ipcName[kMaxPathLength]{};                                                          
+       TCHAR logFilename[utility::kLogFilenameLength]{};                                         
+       TCHAR layerNames[utility::kMaxLayers][utility::kLayerNameLength]{};                       
+       uint64_t layerKeyValueCount[utility::kMaxLayerArgs]{};                                    
+       uint32_t numLayers = 0;                                                                   
+       uint32_t enableKeyframing = 0;                                                            
+       uint32_t pageTrackerMode = 0;                                                             
+       gpa::logger::Options logOptions;                                                          
+       volatile uint32_t processCounter = 0;                                                     
+       volatile int32_t pids[utility::kMaxProcesses]{};                                          
+       utility::KeyValPair keyValuePairsForLayers[utility::kMaxLayers][utility::kMaxLayerArgs];  
+       TCHAR waitForDebugger[utility::kLogFilenameLength]{};                                     
+       uint32_t disableKeyboardEvents = 1;                                                       
+       uint32_t hookApiFlags = utility::HookApiFlagBits::kHookAll;                               
+       uint32_t hookD3D11On12 = 0;                                                               
+       uint32_t injectionMode = utility::InjectionMode::kSetThreadContext;
+       uint32_t sizeOfThis = sizeof(InjectionProperties);
+   };
+   
+   struct TargetLaunchProperties
+   {
+       char const* imagePath = nullptr;          
+       char const* workingDirectory = nullptr;   
+       int argc = 0;                             
+       char const* const* argv = nullptr;        
+       system::Environment environment;          
+       InjectionProperties injectionProperties;  
+       bool ioRedirectEnabled = true;            
+   };
+   
+   // (internal) name of the environment variable that contains the name of the shared memory object that holds InjectionProperties data
+   constexpr char kSharedMemoryEnvVar[] = "GPA_SHARED_MEMORY";
+   
+   }  // namespace injector
+   }  // namespace gpa

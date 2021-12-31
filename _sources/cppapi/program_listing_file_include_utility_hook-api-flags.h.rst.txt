@@ -1,0 +1,42 @@
+
+.. _program_listing_file_include_utility_hook-api-flags.h:
+
+Program Listing for File hook-api-flags.h
+=========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_utility_hook-api-flags.h>` (``include/utility/hook-api-flags.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   (c) Intel Corporation
+   
+   SPDX-License-Identifier: MIT
+   
+   ******************************************************************************/
+   #pragma once
+   
+   #include <cstdint>
+   
+   namespace gpa {
+   namespace utility {
+   
+   enum HookApiFlagBits : uint32_t {
+       kHookD3D10 = 1,
+       kHookD3D11 = 1 << 1,
+       kHookD3D12 = 1 << 2,
+       kHookVulkan = 1 << 3,
+       kHookMetal = 1 << 4,
+       kHookOpenGL = 1 << 5,
+       kHookOpenCL = 1 << 6,
+       kHookWin32 = 1 << 10,
+       kHookD3D = kHookD3D10 | kHookD3D11 | kHookD3D12,
+       kHookAll = UINT32_MAX
+   };
+   
+   typedef uint32_t HookApiFlags;
+   
+   }  // namespace utility
+   }  // namespace gpa

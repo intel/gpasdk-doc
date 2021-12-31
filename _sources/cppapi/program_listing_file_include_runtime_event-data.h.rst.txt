@@ -54,6 +54,8 @@ Program Listing for File event-data.h
    
        virtual void Init();
    
+       virtual void Destroy();
+   
        static size_t ReadAndCreateEventData(serialization::Serializer* serializer, EventData** ppEventData);
    
        class Class
@@ -124,7 +126,7 @@ Program Listing for File event-data.h
        gpa::utility::UUID const& c::ID = s##c##ClassID;                           \
                                                                                   \
        c::c() { Init(); }                                                         \
-       c::~c() {}                                                                 \
+       c::~c() { Destroy(); }                                                     \
                                                                                   \
        gpa::runtime::EventData::Class* c::GetClass()                              \
        {                                                                          \
