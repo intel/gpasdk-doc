@@ -65,7 +65,7 @@ Program Listing for File callable-cache.h
        std::map<uint64_t, SecondaryCommandBufferCallRange> primaryCommandBufferOverrides;  
        void* originalSecondaryCommandBufferHandle;                                         
    
-       uint64_t GetOverrideForIndex(uint64_t callableIndex) const
+       PrimaryCommandBufferKeyT GetOverrideForIndex(uint64_t callableIndex) const
        {
            auto itr = primaryCommandBufferOverrides.upper_bound(callableIndex);
            if (itr == primaryCommandBufferOverrides.begin()) {
@@ -120,6 +120,10 @@ Program Listing for File callable-cache.h
    
        void SetProcessedInGPUOrder(bool val);
        bool IsProcessedInGPUOrder() const;
+   
+       // @brief Return override command buffer key for secondary command buffer at the callableIndex
+       PrimaryCommandBufferKeyT GetOverrideCommandBufferKeyForSecondaryBuffer(SecondaryCommandBufferKeyT secondaryCommandBufferKey,
+                                                                              uint64_t callableIndex);
    
        // @brief Returns mObjectMapKeyOverrides
        std::map<SecondaryCommandBufferKeyT, SecondaryCommandBufferMetadata>* ObjectMapKeyOverrides();

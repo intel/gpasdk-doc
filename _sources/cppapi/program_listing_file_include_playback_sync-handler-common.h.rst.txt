@@ -39,6 +39,8 @@ Program Listing for File sync-handler-common.h
        kQueueWait,
        kQueueOther,
        kImmidiateSignal,
+       kCreateSharedHandle,
+       kOpenSharedHandle,
        kOther
    };
    
@@ -67,6 +69,19 @@ Program Listing for File sync-handler-common.h
        uint64_t signalValue;
    };
    
+   struct CreateSharedHandle
+   {
+       uint64_t objectUid;
+       wchar_t const* name;
+       uint64_t outHandle;
+   };
+   
+   struct OpenSharedHandle
+   {
+       uint64_t handle;
+       uint64_t outObjectUid;
+   };
+   
    struct SyncCommand
    {
        SyncCommand(){};
@@ -89,6 +104,18 @@ Program Listing for File sync-handler-common.h
            data.immidiateSignal = arg;
        }
    
+       SyncCommand(CreateSharedHandle arg)
+           : type(SyncCommandType::kCreateSharedHandle)
+       {
+           data.createSharedHandle = arg;
+       }
+   
+       SyncCommand(OpenSharedHandle arg)
+           : type(SyncCommandType::kOpenSharedHandle)
+       {
+           data.openSharedHandle = arg;
+       }
+   
        SyncCommand(SyncQueueWait arg)
            : type(SyncCommandType::kQueueWait)
        {
@@ -101,6 +128,8 @@ Program Listing for File sync-handler-common.h
            SyncQueueWait queueWait;
            SyncQueueSignal queueSignal;
            SyncImmidiateSignal immidiateSignal;
+           CreateSharedHandle createSharedHandle;
+           OpenSharedHandle openSharedHandle;
            SyncQueueOther queueOther;
        } data{};
    };

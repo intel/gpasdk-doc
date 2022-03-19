@@ -105,6 +105,77 @@ Program Listing for File managed-structures.h
        }
    };
    
+   struct ManagedRuntimeDataSubobjectInfo
+   {
+       enum class SubobjectKind : uint32_t {
+           StateObjectConfig = 0,
+           GlobalRootSignature = 1,
+           LocalRootSignature = 2,
+           // 3-7 are reserved (not supported in Dxil)
+           SubobjectToExportsAssociation = 8,
+           RaytracingShaderConfig = 9,
+           RaytracingPipelineConfig = 10,
+           HitGroup = 11,
+           RaytracingPipelineConfig1 = 12,
+           NumKinds  // aka D3D12_STATE_SUBOBJECT_TYPE_MAX_VALID
+       };
+   
+       SubobjectKind kind;
+       std::string name;
+   
+       ManagedRuntimeDataSubobjectInfo(SubobjectKind _kind, const char* _name)
+           : kind(_kind)
+           , name(_name)
+       {
+       }
+   
+       struct StateObjectConfig_t
+       {
+           uint32_t flags{0};
+       };
+       struct RaytracingShaderConfig_t
+       {
+           uint32_t maxPayloadSizeInBytes{0};
+           uint32_t maxAttributeSizeInBytes{0};
+       };
+       struct RaytracingPipelineConfig_t
+       {
+           uint32_t maxTraceRecursionDepth{0};
+       };
+       struct HitGroup_t
+       {
+           uint32_t type{0};  // DXIL::HitGroupType / D3D12_HIT_GROUP_TYPE
+           const char* anyHit{nullptr};
+           const char* closestHit{nullptr};
+           const char* intersection{nullptr};
+       };
+       struct RaytracingPipelineConfig1_t
+       {
+           uint32_t maxTraceRecursionDepth{0};
+           uint32_t flags{0};
+       };
+   
+       union
+       {
+           StateObjectConfig_t stateObjectConfig;
+           RaytracingShaderConfig_t raytracingShaderConfig;
+           RaytracingPipelineConfig_t raytracingPipelineConfig;
+           RaytracingPipelineConfig1_t raytracingPipelineConfig1;
+           HitGroup_t hitGroup;
+       };
+   
+       const char* storeString(const char* str)
+       {
+           if (!str || !*str)
+               return nullptr;
+           mStringTable.push_back(str);
+           return mStringTable.back().c_str();
+       }
+   
+   private:
+       std::vector<std::string> mStringTable;
+   };
+   
    struct ManagedEntryPoint
    {
        std::string name;
@@ -192,6 +263,7 @@ Program Listing for File managed-structures.h
        std::vector<ManagedSourceFile> files;
        std::vector<ManagedShaderMacro> macros;
        std::vector<ManagedEntryPoint> entryPoints;
+       std::vector<ManagedRuntimeDataSubobjectInfo> subobjectInfos;
        uint32_t flags = 0;
    
    private:

@@ -445,11 +445,18 @@ Program Listing for File metadata-types.h
        api_types::ShaderLanguage language;  
    };
    
-   enum ShaderProfilingType {
-       Overview,            // latency for shader
-       BasicBlocksLatency,  // latency for basic blocks
-       MemoryLatency,       // latency for send instructions
-       Disabled
+   struct ShaderMetrics
+   {
+       ResourceID shaderId;
+       ShaderStage shaderStage;
+       std::string shaderName;
+       bool isPrimary;
+   
+       uint32_t simdWidth;
+       uint64_t totalCycles;
+       uint64_t invocationsCount;
+       uint64_t simdActiveChannels;
+       double simdOccupancy;
    };
    
    struct ShaderInstruction
@@ -464,17 +471,12 @@ Program Listing for File metadata-types.h
    
    using ShaderAssembly = std::vector<ShaderInstruction>;
    
-   struct ProfiledShader
+   struct ProfiledShader : ShaderMetrics
    {
-       ResourceID shaderId;
-       ShaderStage shaderStage;
-       std::string name;
-   
-       uint64_t totalCycles;
-       uint64_t invocationsCount;
-   
+       uint32_t kernelVersion;
        std::string errorMessage;
-       std::vector<ShaderInstruction> shaderAssembly;
+   
+       ShaderAssembly shaderAssembly;
        std::vector<std::string> sourceFileNames;
        api_types::ShaderLanguage mappingTarget;
    };
@@ -485,6 +487,7 @@ Program Listing for File metadata-types.h
    };
    
    using ProfileShaderResult = std::vector<ProfiledShader>;
+   using ShaderMetricsResult = std::vector<ShaderMetrics>;
    
    struct RequestedResource
    {

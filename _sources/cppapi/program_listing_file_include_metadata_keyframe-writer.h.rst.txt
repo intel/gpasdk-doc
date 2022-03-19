@@ -30,6 +30,7 @@ Program Listing for File keyframe-writer.h
    #pragma once
    
    #include "serialization/common.h"
+   #include "keyframe-header.h"
    
    #include <cstdint>
    
@@ -59,8 +60,11 @@ Program Listing for File keyframe-writer.h
        void WriteSubcaptureData();
        void Commit(int64_t frameNumber = -1);
        void UpdateKeyframeFlags(uint32_t flags);
+       void UpdateTimestamp(uint64_t timestamp);
    
    private:
+       KeyframeHeader* ObtainHeaderPointer();
+   
        RandomAccessSerializer* mSerializer;
        uint64_t mHeaderOffset;
    };

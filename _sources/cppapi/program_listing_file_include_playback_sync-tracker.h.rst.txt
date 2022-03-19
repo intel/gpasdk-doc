@@ -33,6 +33,7 @@ Program Listing for File sync-tracker.h
    #include <functional>
    #include <memory>
    #include <vector>
+   #include <string>
    #include <deque>
    #include <cassert>
    #include <map>
@@ -40,6 +41,26 @@ Program Listing for File sync-tracker.h
    namespace gpa {
    namespace playback {
    namespace sync_handler {
+   
+   class FenceTracker
+   {
+   public:
+       struct FenceState
+       {
+           uint64_t value = 0;
+       };
+   
+       FenceState& GetState(uint64_t fence);
+       void CreateSharedHandle(uint64_t object, wchar_t const* name, uint64_t handle);
+       void CreateSharedHandleByName(wchar_t const* name, uint64_t handle);
+       void OpenSharedHandle(uint64_t handle, uint64_t object);
+   
+   private:
+       std::deque<FenceState> mStates;
+       std::map<uint64_t, FenceState*> mFenceToState;
+       std::map<uint64_t, FenceState*> mHandleToState;
+       std::map<std::wstring, FenceState*> mNameToState;
+   };
    
    template<typename CallableType>
    class SyncTracker
@@ -60,11 +81,6 @@ Program Listing for File sync-tracker.h
        struct QueueState
        {
            std::deque<QueueWaitState> waits;
-       };
-   
-       struct FenceState
-       {
-           uint64_t fenceValue;
        };
    
        struct SyncStateUpdate
@@ -127,12 +143,8 @@ Program Listing for File sync-tracker.h
                        continue;
                    }
                    auto& firstWait = waits.front();
-                   auto it = mFenceStates.find(firstWait.fenceUid);
-                   if (it == mFenceStates.end()) {
-                       assert(false);
-                   }
-                   decltype(auto) state = *it;
-                   if (state.second.fenceValue >= firstWait.fenceWaitValue) {
+                   auto const& fenceState = mFenceTracker.GetState(firstWait.fenceUid);
+                   if (fenceState.value >= firstWait.fenceWaitValue) {
                        output.insert(output.end(), firstWait.pendingCalls.begin(), firstWait.pendingCalls.end());
                        waits.pop_front();
                    }
@@ -143,7 +155,8 @@ Program Listing for File sync-tracker.h
            switch (syncCommand.type) {
            case SyncCommandType::kImmidiateSignal: {
                SyncImmidiateSignal& data = syncCommand.data.immidiateSignal;
-               mFenceStates[data.fenceUid].fenceValue = data.signalValue;
+               auto& fenceState = mFenceTracker.GetState(data.fenceUid);
+               fenceState.value = data.signalValue;
                updateQueues(result.unlockedCallables);
                break;
            }
@@ -151,7 +164,8 @@ Program Listing for File sync-tracker.h
                SyncQueueSignal signal = syncCommand.data.queueSignal;
                QueueState& queueState = mQueueStates[signal.queueUid];
                if (queueState.waits.empty()) {
-                   mFenceStates[signal.fenceUid].fenceValue = signal.signalValue;
+                   auto& fenceState = mFenceTracker.GetState(signal.fenceUid);
+                   fenceState.value = signal.signalValue;
                    updateQueues(result.unlockedCallables);
                } else {
                    queueState.waits.back().pendingCalls.push_back({call, syncCommand});
@@ -166,12 +180,26 @@ Program Listing for File sync-tracker.h
                    queueState.waits.back().pendingCalls.push_back({call, syncCommand});
                    result.shouldPlay = false;
                } else {
-                   FenceState& mFenceState = mFenceStates[data.fenceUid];
-                   if (mFenceState.fenceValue < data.waitValue) {
+                   auto const& fenceState = mFenceTracker.GetState(data.fenceUid);
+                   if (fenceState.value < data.waitValue) {
                        queueState.waits.push_back(QueueWaitState{data.fenceUid, data.waitValue, {{call, syncCommand}}});
                        result.shouldPlay = false;
                    }
                }
+               break;
+           }
+           case SyncCommandType::kCreateSharedHandle: {
+               CreateSharedHandle const& data = syncCommand.data.createSharedHandle;
+               if (data.objectUid == 0) {
+                   mFenceTracker.CreateSharedHandleByName(data.name, data.outHandle);
+               } else {
+                   mFenceTracker.CreateSharedHandle(data.objectUid, data.name, data.outHandle);
+               }
+               break;
+           }
+           case SyncCommandType::kOpenSharedHandle: {
+               auto const& data = syncCommand.data.openSharedHandle;
+               mFenceTracker.OpenSharedHandle(data.handle, data.outObjectUid);
                break;
            }
            case SyncCommandType::kQueueOther: {
@@ -190,7 +218,7 @@ Program Listing for File sync-tracker.h
        }
    
    private:
-       std::map<uint64_t, FenceState> mFenceStates;
+       FenceTracker mFenceTracker;
        std::map<uint64_t, QueueState> mQueueStates;
    };
    

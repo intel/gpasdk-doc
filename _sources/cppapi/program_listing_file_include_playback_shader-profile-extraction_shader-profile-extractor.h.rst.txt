@@ -31,13 +31,14 @@ Program Listing for File shader-profile-extractor.h
    
    #include "playback/callable-receiver.h"
    #include "playback/metadata-extraction/metadata-types.h"
+   #include "shader-profiler/types.h"
    
    namespace gpa {
    namespace playback {
    
    struct ProfileShaderRequestWithType : ProfileShaderRequest
    {
-       ShaderProfilingType profilingType{ShaderProfilingType::Overview};
+       gpa::shader_profiler::ProfilingMode profilingType{gpa::shader_profiler::ProfilingMode::kOverview};
    };
    
    class ShaderProfileExtractor
@@ -50,11 +51,57 @@ Program Listing for File shader-profile-extractor.h
    
        inline virtual void SetRequest(ProfileShaderRequestWithType const& request) = 0;
    
-       virtual ProfileShaderResult GetResult() const = 0;
+       virtual gpa::shader_profiler::ProfiledShaders GetResult() const = 0;
    };
    
    inline ShaderProfileExtractor::~ShaderProfileExtractor()
    {
+   }
+   
+   inline ShaderStage ResolveShaderStage(gpa::shader_profiler::ShaderStage type)
+   {
+       switch (type) {
+       case gpa::shader_profiler::ShaderStage::kVertex:
+           return ShaderStage::kVertex;
+       case gpa::shader_profiler::ShaderStage::kHull:
+           return ShaderStage::kHull;
+       case gpa::shader_profiler::ShaderStage::kDomain:
+           return ShaderStage::kDomain;
+       case gpa::shader_profiler::ShaderStage::kGeometry:
+           return ShaderStage::kGeometry;
+       case gpa::shader_profiler::ShaderStage::kMesh:
+           return ShaderStage::kMesh;
+       case gpa::shader_profiler::ShaderStage::kFragment:
+           return ShaderStage::kFragment;
+       case gpa::shader_profiler::ShaderStage::kCompute:
+           return ShaderStage::kCompute;
+       case gpa::shader_profiler::ShaderStage::kLibrary:
+           return ShaderStage::kLibrary;
+       case gpa::shader_profiler::ShaderStage::kAmplification:
+           return ShaderStage::kAmplification;
+       default:
+           return ShaderStage::kShaderStageInvalid;
+       }
+   }
+   
+   inline api_types::ShaderLanguage ResolveShaderLanguage(gpa::shader_profiler::ShaderLanguage type)
+   {
+       switch (type) {
+       case gpa::shader_profiler::ShaderLanguage::kDXBC:
+           return api_types::ShaderLanguage::GPA_SHADER_LANGUAGE_DXBC;
+       case gpa::shader_profiler::ShaderLanguage::kDXIL:
+           return api_types::ShaderLanguage::GPA_SHADER_LANGUAGE_DXIL;
+       case gpa::shader_profiler::ShaderLanguage::kGLSL:
+           return api_types::ShaderLanguage::GPA_SHADER_LANGUAGE_GLSL;
+       case gpa::shader_profiler::ShaderLanguage::kHLSL:
+           return api_types::ShaderLanguage::GPA_SHADER_LANGUAGE_HLSL;
+       case gpa::shader_profiler::ShaderLanguage::kISA:
+           return api_types::ShaderLanguage::GPA_SHADER_LANGUAGE_ISA;
+       case gpa::shader_profiler::ShaderLanguage::kSPIRV:
+           return api_types::ShaderLanguage::GPA_SHADER_LANGUAGE_SPIRV;
+       default:
+           return api_types::ShaderLanguage::GPA_SHADER_LANGUAGE_UNKNOWN;
+       }
    }
    
    }  // namespace playback

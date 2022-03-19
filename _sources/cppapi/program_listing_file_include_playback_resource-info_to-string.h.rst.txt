@@ -348,10 +348,30 @@ Program Listing for File playback/resource-info/to-string.h
    }
    
    template<>
+   inline std::string ToString<playback::IndirectBufferInfo::Type>(playback::IndirectBufferInfo::Type const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       switch (value) {
+       case playback::IndirectBufferInfo::Type::kDraw:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "IndirectBufferInfo::Type::kDraw", value);
+       case playback::IndirectBufferInfo::Type::kDispatch:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "IndirectBufferInfo::Type::kDispatch", value);
+       case playback::IndirectBufferInfo::Type::kDispatchRays:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "IndirectBufferInfo::Type::kDispatchRays", value);
+       case playback::IndirectBufferInfo::Type::kDispatchMesh:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "IndirectBufferInfo::Type::kDispatchMesh", value);
+       default:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "IndirectBufferInfo::Type::kUnknown", value);
+       }
+   }
+   
+   template<>
    inline std::string ToString<playback::IndirectBufferInfo>(playback::IndirectBufferInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
    {
        using namespace detail;
        auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "type", obj.type) << "," << NewLineStr(strFmtFlags);
        WritePtrFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pArgumentBuffer", obj.pArgumentBuffer) << "," << NewLineStr(strFmtFlags);
        WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "argumentBufferOffset", obj.argumentBufferOffset) << "," << NewLineStr(strFmtFlags);
        WritePtrFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pCountBuffer", obj.pCountBuffer) << "," << NewLineStr(strFmtFlags);

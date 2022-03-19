@@ -6,9 +6,30 @@ Troubleshooting
 
 Known Issues and Limitations
 =============================
+
+2022.1
+=======
+- Subcapture functionality only supports D3D12 at this time.
+- GPA CPP Generator does not support source-level generation of calls beyond the last frame delimiter in a stream.
+- User input for keyframes and deferred stream capture may not be registered in certain applications. Please use time-interval keyframes and capture layer parameters for deferred stream capture.  
+- When using the AMD* RX Vega card to capture a stream on a Hades Canyon machine the argument "--page-tracker-mode 2" must be added to any ./gpa-injector command in order to properly capture the stream. Note that this does not apply to the iGFX card.  
+- Intel® GPA Framework has been released for Vulkan and D3D12, but D3D11 support is released as Beta (for example, there is no metrics collection support on non-Intel GPUs yet), and is subject to change.
+- At present, the Intel® GPA Framework contains only Release builds (no debug builds of libraries).  
+- The capture layer supports only 64-bit applications. However, the injection mechanism will work with 32-bit processes for the purpose of allowing the capture of applications that require 32-bit launchers.  
+- A modification of shaders in HLSL representation can cause the gpa-player to crash if the original shader representation was different from HLSL (Vulkan).  
+- Support is not provided yet for collecting query-based metrics from Vulkan transfer queues. When used, they are ignored by the MetricsExtractor when the graphics API pipeline statistics based query managers are used, but are accepted by the Intel HW MD library query manager which may return metrics results. No validation of such results have occurred.
+
+
 2021.4
 =======
 - GPA CPP Generator does not support source-level generation of calls beyond the last frame delimiter in a stream.
+- User input for keyframes and deferred stream capture may not be registered in certain applications. Please use time-interval keyframes and capture layer parameters for deferred stream capture.  
+- When using the AMD* RX Vega card to capture a stream on a Hades Canyon machine the argument "--page-tracker-mode 2" must be added to any ./gpa-injector command in order to properly capture the stream. Note that this does not apply to the iGFX card.  
+- Intel® GPA Framework has been released for Vulkan and D3D12, but D3D11 support is released in Beta, and subject to change.  
+- At present, the Intel® GPA Framework contains only Release builds (no debug builds of libraries).  
+- The capture layer supports only 64-bit applications. However, the injection mechanism will work with 32-bit processes for the purpose of allowing the capture of applications that require 32-bit launchers.  
+- A modification of shaders in HLSL representation can cause the gpa-player to crash if the original shader representation was different from HLSL (Vulkan).  
+- Support is not provided yet for collecting query-based metrics from Vulkan transfer queues. When used, they are ignored by the MetricsExtractor when the graphics API pipeline statistics based query managers are used, but are accepted by the Intel HW MD library query manager which may return metrics results. No validation of such results have occurred.
 
 2021.2 
 =======

@@ -75,12 +75,35 @@ Program Listing for File shader-table-info.h
        TypeId GetTypeId() const override final;
    };
    
+   inline auto MakeShaderTableInfoTuple(const ShaderTableInfo& shaderTableInfo)
+   {
+       return std::make_tuple(shaderTableInfo.pBufferInfo, shaderTableInfo.pViewInfo, shaderTableInfo.offset, shaderTableInfo.size, shaderTableInfo.stride);
+   }
+   
    namespace detail {
    
    template<>
-   inline auto MakeTuple<ShaderTableInfo>(const ShaderTableInfo& shaderTableInfo)
+   inline auto MakeTuple<RaygenShaderTableInfo>(const RaygenShaderTableInfo& shaderTableInfo)
    {
-       return std::make_tuple(shaderTableInfo.pBufferInfo, shaderTableInfo.pViewInfo, shaderTableInfo.offset, shaderTableInfo.size, shaderTableInfo.stride);
+       return MakeShaderTableInfoTuple(shaderTableInfo);
+   }
+   
+   template<>
+   inline auto MakeTuple<MissShaderTableInfo>(const MissShaderTableInfo& shaderTableInfo)
+   {
+       return MakeShaderTableInfoTuple(shaderTableInfo);
+   }
+   
+   template<>
+   inline auto MakeTuple<CallableShaderTableInfo>(const CallableShaderTableInfo& shaderTableInfo)
+   {
+       return MakeShaderTableInfoTuple(shaderTableInfo);
+   }
+   
+   template<>
+   inline auto MakeTuple<HitShaderTableInfo>(const HitShaderTableInfo& shaderTableInfo)
+   {
+       return MakeShaderTableInfoTuple(shaderTableInfo);
    }
    
    }  // namespace detail

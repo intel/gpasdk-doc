@@ -37,7 +37,6 @@ Program Listing for File playback-engine.h
    #include "playback/range-player.h"
    #include "playback/resource-extraction/resource-extractor.h"
    #include "playback/geometry-extraction/geometry-extractor.h"
-   #include "playback/shader-profile-extraction/shader-profile-extractor.h"
    
    #include <unordered_set>
    #include <vector>
@@ -85,7 +84,7 @@ Program Listing for File playback-engine.h
    
        MetricsExtractor const& GetMetricsExtractor() const;
    
-       ShaderProfileExtractor const& GetShaderProfileExtractor() const;
+       bool IsShaderProfilerAvailable() const;
    
        ResourceExtractor const& GetResourceExtractor(bool getUpdatedResourceExtractor = true) const;
    
@@ -107,7 +106,9 @@ Program Listing for File playback-engine.h
    
        data_collection::MetricsQueryResult Execute(data_collection::MetricsRequest const* request);
    
-       ProfileShaderResult Execute(ProfileShaderRequest const& request);
+       void Execute(ProfileShaderRequest const& request, ProfileShaderResult& result);
+   
+       void Execute(ProfileShaderRequest const& request, ShaderMetricsResult& result);
    
        void Execute(GeometryExtractor::Request& request);
    

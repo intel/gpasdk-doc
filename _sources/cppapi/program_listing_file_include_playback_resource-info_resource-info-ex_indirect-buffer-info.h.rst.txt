@@ -40,8 +40,17 @@ Program Listing for File indirect-buffer-info.h
        : public ResourceInfo::Ex
    {
    public:
+       enum class Type {
+           kUnknown,
+           kDraw,
+           kDispatch,
+           kDispatchRays,
+           kDispatchMesh
+       };
+   
        TypeId GetTypeId() const override final;
    
+       Type type{Type::kUnknown};
        BufferInfo const* pArgumentBuffer{nullptr};  
        uint64_t argumentBufferOffset{0};            
        BufferInfo const* pCountBuffer{nullptr};     
@@ -62,6 +71,7 @@ Program Listing for File indirect-buffer-info.h
    inline auto MakeTuple<IndirectBufferInfo>(const IndirectBufferInfo& indirectBufferInfo)
    {
        return std::make_tuple(
+           indirectBufferInfo.type,
            indirectBufferInfo.pArgumentBuffer,
            indirectBufferInfo.argumentBufferOffset,
            indirectBufferInfo.pCountBuffer,
