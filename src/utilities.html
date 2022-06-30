@@ -476,9 +476,150 @@ Possible return codes:
 </pre></div>
 </div>
 </div>
+
+
 <div class="section" id="gpa-metrics-collector">
 <h2>gpa-metrics-collector<a class="headerlink" href="#gpa-metrics-collector" title="Permalink to this headline"></a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Error: No GPUs are available
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>
+Usage: gpa-metrics-collector.exe &lt;stream path&gt; --frame-index &lt;index of frame in stream&gt; [options]
+
+            Note: The required parameters &lt;stream path&gt; and --frame-index can be placed in any
+            order relative to any options that are specified.
+            
+-f|--frame-index      &lt;int&gt;    Frame index to collect metrics from. The first frame (index
+                               zero) is not supported. Must be in the range
+                               [1, number of frames in stream).
+
+Options:
+
+-a|--api-debug-layer           Enables the API debug layer during metrics collection.
+
+-c|--csv              &lt;string&gt; Output collected metrics to a CSV file rather than to the console
+                               that is saved to the directory where the tool is located.
+                               &lt;string&gt; can be one of the following:
+                                 -  File name of the CSV file to create/overwrite. Note: Absolute
+                                    paths are not currently supported, only relative ones are.
+                                 -  A period character (".") to indicate that a default file
+                                    name should be generated for the CSV file based on the name
+                                    of the specified workload's stream with a date and time stamp
+                                    appended to it.
+
+-g|--gpu-index        &lt;int&gt;    Index of GPU to use for metrics collection. Note that the GPU
+                               indices below may be different than those used by the
+                               device-override layer.
+                                 GPU 0: Intel(R) UHD Graphics (LUID high 0x0 low 0x2B981)
+
+-h|--help                      Show only help info and exit app.
+
+-m|--metrics-list     &lt;string&gt; Explicit listing of metrics groups and/or individual metrics to
+                               collect. If this option is not provided, the default is for all
+                               metrics to be collected. The supported syntax is:
+
+                               &lt;string&gt;                &lt;collection&gt;(;&lt;collection&gt;)*
+                               &lt;collection&gt;            &lt;group-name-metrics&gt;|
+                                                       &lt;group-symbol-metrics&gt;|
+                                                       &lt;group-names&gt;|&lt;group-symbols&gt;|
+                                                       &lt;metrics-names&gt;|&lt;metrics-symbols&gt;
+
+                               &lt;group-name-metrics&gt;    group:"&lt;group-name&gt;"((#(&lt;metric-names&gt;|&lt;metric-symbols&gt;))|(#!))+
+                               &lt;group-symbol-metrics&gt;  groupSymbol:"&lt;group-symbol"((#(&lt;metric-names&gt;|&lt;metric-symbols&gt;))|(#!))+
+
+                               &lt;group-names&gt;           group:"&lt;group-name&gt;"(,"&lt;group-name&gt;")*
+                               &lt;group-name&gt;            An individual metric group name from the
+                                                       current list of those available.
+
+                               &lt;group-symbols&gt;         groupSymbol:"&lt;group-symbol&gt;"(,"&lt;group-symbol&gt;")*
+                               &lt;group-symbol&gt;          An individual metric group symbol from the
+                                                       current list of those available.
+
+                               &lt;metric-names&gt;          name:"&lt;metric-name&gt;"(,"&lt;metric-name&gt;")*
+                               &lt;metric-name&gt;           An individual metric name from the current
+                                                       list of those available.
+
+                               &lt;metric-symbols&gt;        symbol:"&lt;metric-symbol&gt;"(,"&lt;metric-symbol&gt;")*
+                               &lt;metric-symbol&gt;         An individual metric symbol from the
+                                                       current list of those available.
+
+                               Notes:
+
+                               - The --show-metrics option can be used to determine all of the
+                                 available metric groups (symbols and names) and their associated
+                                 metrics (symbols and names) that can be can be specified, for a
+                                 specific GPU, graphics API and the current graphics driver
+                                 version. All of them are case sensitive.
+
+                               - For &lt;group-names&gt; and &lt;group-symbols&gt;, all of the individual
+                                 metrics contained in all of the metric groups listed will be
+                                 collected. If only a sub-grouping of metrics is desired, use
+                                 the &lt;group-name-metrics&gt; or &lt;group-symbol-metrics&gt; syntax.
+
+                               - For &lt;metrics-names&gt; and &lt;metric-symbols&gt;, all of the individual
+                                 metrics listed will be collected in all of the metric groups
+                                 that contain them. If only a single instance of a metric is
+                                 desired, use the &lt;group-name-metrics&gt; or &lt;group-symbol-metrics&gt;
+                                 syntax.
+
+                               - For &lt;group-name-metrics&gt; and &lt;group-symbol-metrics&gt;, specifying
+                                 a pound/hash sign then an exclamation mark ("#!") will exclude
+                                 all of the metrics names and/or metric symbols listed from those
+                                 collected in the specified metric group. Otherwise, only those
+                                 listed are collected.
+
+                               - It is possible for any &lt;group-name&gt;, &lt;group-symbol&gt;,
+                                 &lt;metric-name&gt; or &lt;metrics-symbol&gt; to contain space characters.
+                                 hence the syntax having enclosing quotes. If there are no
+                                 spaces, the enclosing quotes do not need to be provided. There
+                                 is no known &lt;group-symbol&gt; or &lt;metric-symbol&gt; with spaces.
+
+                               - Only the first metrics list option (-m|--metrics-list) is
+                                 recognized when multiple are specified on the command line.
+
+                               Examples:
+
+                               -m name:"GPU Core Clocks"
+                               -m name:"GPU Core Clocks","GPU Time Elapsed"
+                               -m symbol:GpuTime
+                               -m symbol:GpuCoreClocks,GpuTime;name:"EU Stall"
+                               -m group:"Render Metrics Basic set"
+                               -m group:"Render Metrics Basic set","Compute Metrics Basic set"
+                               -m group:"Compute Metrics Basic set";symbol:PixelsRendered;group:"Render Metrics Basic set"
+                               -m group:"Compute Metrics Basic set"#symbol:GpuBusy,GpuCoreClocks#name:"GPU Time Elapsed"
+                                    Note: In the example above, only listed metrics are included.
+                               -m group:"Compute Metrics Basic set"#!#symbol:GpuBusy,GpuCoreClocks#name:"GPU Time Elapsed"
+                                    Note: In the example above, all listed metrics are excluded.
+                               -m groupSymbol:RenderBasic
+                               -m groupSymbol:RenderBasic,ComputeBasic
+                               -m groupSymbol:ComputeBasic;symbol:PixelsRendered;groupSymbol:RenderBasic
+                               -m groupSymbol:Sampler#symbol:GpuTime,AvgGpuCoreFrequencyMHz#name:"GPU Core Clocks"
+                                    Note: In the example above, only listed metrics are included.
+                               -m groupSymbol:Sampler#symbol:GpuTime,AvgGpuCoreFrequencyMHz#name:"GPU Core Clocks"#!
+                                    Note: In the example above, all listed metrics are excluded.
+                               -m groupSymbol:Sampler#symbol:SamplesWritten,SamplesBlended;symbol:PixelsRendered
+                                    Note: In the example above, all instances of the
+                                    PixelsRendered metric are included (although only one exists)
+                                    and only listed metrics in the Sampler group are included.
+
+-r|--range-aggregation-for-frame-results         
+                               Aggregates the metric values for all of the ranges queried and
+                               reports a single "frame" result value for each metric collected.
+
+-s|--show-metrics              Show only a list of the available metrics to collect, for a given
+                               input stream on a specific GPU. Primarly for usage with metrics
+                               filtering (-m|--metrics-list). If the logging level is info, debug
+                               or trace, the metric description and units are also included.
+
+-u|--include-units             Include column with the type of units for each metric row. The
+                               default is for no units column.
+
+-v|--log-level        &lt;string&gt; Set logging output severity level. Valid values from most severe to
+                               least (and most verbose) are: "fatal", "error", "warn", "info",
+                               "debug", "trace". Trace level is only available on debug builds.
+                               Default value: "warn".
+
+-w|--wait-for-debugger         When process starts, pause and prompt the user to attach a
+                               debugger before continuing.
+
+
 </pre></div>
 </div>
 <hr class="docutils" />
