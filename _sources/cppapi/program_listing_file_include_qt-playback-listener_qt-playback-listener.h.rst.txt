@@ -29,17 +29,16 @@ Program Listing for File qt-playback-listener.h
    
    #pragma once
    
+   #include "qt-playback-listener-exports.h"
    #include "yield-handler.h"
    #include "playback-support/playback-listener.h"
-   
-   #include <map>
    
    namespace gpa {
    namespace playback {
    
    class MainWindow;
    
-   class QtPlaybackListener : public YieldHandler, public playback::IPlaybackListener
+   class GPA_QTPL_EXPORT QtPlaybackListener : public YieldHandler, public playback::IPlaybackListener
    {
    public:
        QtPlaybackListener();
@@ -64,10 +63,6 @@ Program Listing for File qt-playback-listener.h
    
    private:
        Impl* mImpl;
-   
-       std::map<uint64_t, MainWindow*> mWindows;
-       uint64_t mFrameNumber = 0;
-       bool mShutdownRequested = false;
    };
    
    }  // namespace playback

@@ -119,11 +119,16 @@ Program Listing for File experiment.h
    
        void SetScissorRects(size_t numRects, api_types::Rect2D const* pRects);
    
+       void GetFillMode(api_types::FillMode* fillMode) const;
+   
+       void SetFillMode(api_types::FillMode fillMode);
+   
    protected:
        std::array<Shader, (size_t)Shader::Stage::kCount> mShaders;
        serialization::StructDataManager mPipelineDataManager;
        std::string mPipelineJson;
        std::vector<api_types::Rect2D> mScissorRects;
+       api_types::FillMode mFillMode;
    };
    
    class ResourceExperiment : public BaseExperiment
