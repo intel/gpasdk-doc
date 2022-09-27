@@ -56,11 +56,11 @@ Program Listing for File range-validator.h
        RangeValidator(CallableCache* cache);
        ~RangeValidator();
    
-       bool IsValidRangeForMeasurements(uint64_t first, uint64_t last, uint32_t* reason = nullptr);
+       bool IsValidRangeForMeasurements(uint64_t first, uint64_t last, uint32_t* reason = nullptr, bool checkForNativeCalls = true, bool checkForSingleCmdBuf = true);
+       void* GetNativeCommandBufferKeyFromCall(uint64_t index);
    
    private:
        bool IsSinglePrimaryCommandBufferUsedInRange(uint64_t first, uint64_t last);
-       void* GetNativeCommandBufferKeyFromCall(uint64_t index);
        void UpdateSecondaryCommandBufferOverrideMapping(uint64_t index, uint16_t* markerCount);
    
        RangeObjectAccessor mObjectAccessor;
