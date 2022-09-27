@@ -76,9 +76,18 @@ Program Listing for File stream-info-header.h
        uint32_t gpaBuildNumber;
    };
    
-   struct StreamInfoHeader : public StreamInfoHeaderOriginal
+   struct StreamInfoHeaderVer1 : public StreamInfoHeaderOriginal
    {
        uint64_t tscHz;
+   };
+   
+   struct StreamInfoHeader : public StreamInfoHeaderVer1
+   {
+       uint64_t streamFlags;
+   };
+   
+   enum StreamFlagBits : uint64_t {
+       D3D12_EXECUTE_INDIRECT_ARGS_DOWNLOADED_BIT = 0x1,  // Specifies that d3d12 indirect arguments are downloaded into resource file, if present
    };
    
    void DisplayStreamInfoContents(StreamInfoHeader const* header);

@@ -35,6 +35,14 @@ Program Listing for File critical-section.h
    #include <mutex>
    using SynchronizationPrimitive = std::mutex;
    #endif
+   #include <memory>
+   #include "instrumentation/gpa_itt_notify.hpp"
+   
+   #ifndef INTEL_NO_ITTNOTIFY_API
+   namespace itt_notify {
+   class Overlapped;
+   }
+   #endif
    
    namespace gpa {
    namespace concurrent {
@@ -44,9 +52,13 @@ Program Listing for File critical-section.h
    struct CriticalSectionScopedLock
    {
        CriticalSection& mCriticalSection;
-       bool mDontEnter;
+       bool mEntered = false;
    
        CriticalSectionScopedLock(CriticalSection& criticalSection, bool dontEnter = false);
+   
+       void Enter();
+       void Leave();
+   
        ~CriticalSectionScopedLock();
    };
    
@@ -60,6 +72,9 @@ Program Listing for File critical-section.h
        void Leave();
    
        CriticalSectionScopedLock ObtainScopedLock(bool dontEnter = false);
+   #if !defined(INTEL_NO_ITTNOTIFY_API) && !defined(__linux__)
+       std::unique_ptr<itt_notify::Overlapped> m_itt;
+   #endif
    };
    
    }  // namespace concurrent

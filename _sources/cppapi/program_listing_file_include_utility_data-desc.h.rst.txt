@@ -42,8 +42,9 @@ Program Listing for File data-desc.h
        kD3D11VideoDecoderData
    };
    
-   enum ResourceDataDescriptorVersion : uint32_t {
+   enum class ResourceDataDescriptorVersion : uint32_t {
        VERSION_1,
+       VERSION_2,  // Data blob contains CompressionHeader
        VERSION_COUNT,
    };
    
@@ -67,6 +68,18 @@ Program Listing for File data-desc.h
        DataChangeDesc dataChangeDesc;
        int64_t dataOffset = kInvalidOffset;
        uint32_t version;
+   };
+   
+   enum class CompressionHeaderVersion : uint32_t {
+       VERSION_1,
+       VERSION_COUNT,
+   };
+   
+   struct CompressionHeader
+   {
+       uint32_t version;
+       uint32_t compressionType;
+       uint64_t compressedSize;
    };
    
    }  // namespace gpa
