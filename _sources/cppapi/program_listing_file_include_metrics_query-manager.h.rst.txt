@@ -96,8 +96,6 @@ Program Listing for File query-manager.h
        IMetricsSource* pMetricsSource = nullptr;  
    #if defined(__ANDROID__)
        GraphicsApi graphicsApi = GraphicsApi::kNone;  
-   #elif defined(__APPLE__)
-       GraphicsApi graphicsApi = GraphicsApi::kMetal;  
    #elif defined(__linux__)
        GraphicsApi graphicsApi = GraphicsApi::kVulkan;  
    #elif defined(_WIN32)
@@ -118,11 +116,8 @@ Program Listing for File query-manager.h
        kUnspecified,  
    
        // Specific IQueryManager implementations.
-       /* TODO: Add D3D11 support.
-       kD3d11StatisticsAndTimeStamp,   //!< D3D11 API pipeline statistics & timestamp query based IQueryManager implementation (available only on Windows for D3D11).
-       */
+       kD3d11StatisticsAndTimeStamp,   
        kD3d12StatisticsAndTimeStamp,   
-       kMetalStatistics,               
        kMetricsDiscoveryApi,           
        kVulkanStatisticsAndTimeStamp,  
    
@@ -161,8 +156,6 @@ Program Listing for File query-manager.h
    
        virtual IMetricsSource const* MetricsSource() const = 0;
    
-       virtual uint32_t DefaultMetricId() const = 0;
-   
        virtual Result RegisterCallback(QueryResultAvailableCallback callback, void* userData) = 0;
    
        virtual Result GetMaximumQueriesSupported(uint32_t metricGroup,
@@ -180,7 +173,7 @@ Program Listing for File query-manager.h
    
        virtual Result OnCreateCommandQueue(void const* commandQueue) = 0;
    
-       // TODO: Add perhaps OnPreCreateSecondaryCommandList function for VulkanStatisticsQueryManager to set VkQueryPipelineStatisticFlagBits in VkCommandBufferInheritanceInfo.pipelineStatistics.
+       // TODO: Add OnPreCreateSecondaryCommandList function for VulkanStatisticsQueryManager to set VkQueryPipelineStatisticFlagBits in VkCommandBufferInheritanceInfo.pipelineStatistics.
    
        virtual Result OnCreateCommandList(CommandBufferData const& bufferData) = 0;
    

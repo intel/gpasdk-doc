@@ -71,6 +71,8 @@ Program Listing for File api-log.h
    
        StreamDataBookmark RangeBookmarkEnd(uint64_t index) const;
    
+       StreamDataBookmark RangeBookmarkEndWithDelimiter(uint64_t index) const;
+   
    private:
        StreamData* mStreamData = nullptr;
        StreamData* mAllocatedData = nullptr;
@@ -79,6 +81,7 @@ Program Listing for File api-log.h
        std::vector<serialization::GPAToken> mDelimiters;
        std::vector<StreamDataBookmark> mRangeStartBookmarks;
        std::vector<StreamDataBookmark> mRangeEndBookmarks;
+       std::vector<StreamDataBookmark> mRangeEndDelimeterBookmarks;
        CallableCache CollectRange(const StreamDataBookmark& begin, const StreamDataBookmark& end) const;
        void InitializeDelimiters(serialization::GPAToken const* delimiters);
    };

@@ -30,6 +30,7 @@ Program Listing for File callable.h
    #pragma once
    
    #include "utility/enum-mask.h"
+   #include "utility/playback-common.h"
    
    #include <cstdint>
    #include <functional>
@@ -56,51 +57,10 @@ Program Listing for File callable.h
    struct Context;
    class IPlayable;
    
-   enum CallableType {
-       Other = 0,
-       Clear = 1 << 1,
-       Draw = 1 << 2,
-       Dispatch = 1 << 3,
-       ExecuteIndirect = 1 << 4,
-       CopyResource = 1 << 5,
-       BlitWrite = 1 << 6,
-       GpuSync = 1 << 7,
-       Present = 1 << 8,
-       ExecuteCommandList = 1 << 9,
-       Marker = 1 << 10,
-       BeginUserRegion = 1 << 11,
-       EndUserRegion = 1 << 12,
-       CloseCommandList = 1 << 13,
-       GpuEvent = 1 << 14,
-       GpuCall = 1 << 15,
-       DispatchRays = 1 << 16,
-       AccelerationStructureCall = 1 << 17,
-       DebugMarker = 1 << 18,
-   
-       // uninitialized type value
-       Unknown = 1 << 31,
-   
-       AllTypes =
-           Other | Clear | Draw | Dispatch | ExecuteIndirect | CopyResource | BlitWrite | GpuSync | Present | ExecuteCommandList | Marker | BeginUserRegion | EndUserRegion | CloseCommandList | GpuEvent | GpuCall | DispatchRays | AccelerationStructureCall | DebugMarker | Unknown,
-   };
-   ENUM_AS_BITSET(CallableType)
-   
    extern const char* const sCallableTypes[];
    extern const size_t sNumCallableTypes;
    
-   struct CallableKey
-   {
-       CallableKey();
-       CallableKey(uint64_t storageId, uint64_t storageOffset);
-       uint64_t storageId;
-       uint64_t storageOffset;
-       bool operator<(const CallableKey other) const;
-       bool operator!=(const CallableKey other) const;
-       bool operator==(const CallableKey other) const;
-       static const CallableKey sNullKey;
-   };
-   
-   class Callable
+   class Callable : public playback_common::ICallable
    {
    public:
        Callable();
@@ -114,7 +74,7 @@ Program Listing for File callable.h
        Callable(Callable&& other);
        Callable& operator=(Callable&& other);
    
-       CallableKey UniqueKey() const;
+       gpa::playback_common::CallableKey UniqueKey() const;
    
        // Informational methods; some are non-const as their invocation may cause
        // deferred initialization of the Callable
@@ -149,7 +109,7 @@ Program Listing for File callable.h
    
        bool IsSuccessful(bool& success) const;
    
-       CallableType GetCategory();
+       gpa::playback_common::CallableType GetCategory();
    
        char const* GetAssociatedText();
    
@@ -172,6 +132,12 @@ Program Listing for File callable.h
        uint64_t StorageOffset() const;
    
        serialization::IFunctionCall* GetIFunctionCall();
+   
+       serialization::StreamPacketHeaderEx const* GetMappedStorageHeader();
+   
+       gpa::playback_common::CallableType GetCallableType() override;
+       gpa::playback_common::CallableKey GetCallableKey() override;
+       void* GetFunctionCallPointer() override;
    
        class AssociatedDataHelper
        {
@@ -208,7 +174,7 @@ Program Listing for File callable.h
        // flag indicating whether arguments have been deserialized. Used to delay reading of arguments
        // until needed at execution and to only read once.
        bool mArgsDeserialized;
-       CallableType mCategory;
+       gpa::playback_common::CallableType mCategory;
        uint64_t mStorageID;
        uint64_t mStorageOffset;
    
@@ -222,7 +188,7 @@ Program Listing for File callable.h
        void ReleaseResources();
    };
    
-   char const* CallableTypeToString(CallableType type);
+   char const* CallableTypeToString(gpa::playback_common::CallableType type);
    
    }  // namespace playback
    }  // namespace gpa
