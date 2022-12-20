@@ -43,7 +43,7 @@ Program Listing for File range-collector.h
    public:
        using CallableParser = std::function<sync_handler::SyncCommand(Callable&)>;
    
-       RangeCollector(CallableKey rangeBegin, CallableKey rangeEnd, CallableParser callableParser, uint64_t targetQueueID = 0);
+       RangeCollector(gpa::playback_common::CallableKey rangeBegin, gpa::playback_common::CallableKey rangeEnd, CallableParser callableParser, uint64_t targetQueueID = 0);
        const CallableCache& GetCallableCache() const;
    
        bool IsRangeStarted() const;
@@ -53,8 +53,8 @@ Program Listing for File range-collector.h
    
    private:
        CallableCache mRangeCache;
-       CallableKey mRangeBegin;
-       CallableKey mRangeEnd;
+       gpa::playback_common::CallableKey mRangeBegin;
+       gpa::playback_common::CallableKey mRangeEnd;
        uint64_t mTargetQueueID;
        bool mIsRangeStarted = false;
        bool mIsRangeExtensionStarted = false;

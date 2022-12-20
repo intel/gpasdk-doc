@@ -133,6 +133,11 @@ Program Listing for File managed-structures.h
        {
            uint32_t flags{0};
        };
+       struct RootSignature_t
+       {
+           const void* serializedRootSignatureData{nullptr};
+           size_t sizeInBytes{0};
+       };
        struct RaytracingShaderConfig_t
        {
            uint32_t maxPayloadSizeInBytes{0};
@@ -158,6 +163,7 @@ Program Listing for File managed-structures.h
        union
        {
            StateObjectConfig_t stateObjectConfig;
+           RootSignature_t rootSignature;
            RaytracingShaderConfig_t raytracingShaderConfig;
            RaytracingPipelineConfig_t raytracingPipelineConfig;
            RaytracingPipelineConfig1_t raytracingPipelineConfig1;
@@ -172,8 +178,18 @@ Program Listing for File managed-structures.h
            return mStringTable.back().c_str();
        }
    
+       void const* storeDataBlob(void* pData, size_t dataSize)
+       {
+           if (!pData || !dataSize)
+               return nullptr;
+   
+           mDataBlobTable.emplace_back((uint8_t*)pData, ((uint8_t*)pData) + dataSize);
+           return (void*)mDataBlobTable.back().data();
+       }
+   
    private:
        std::vector<std::string> mStringTable;
+       std::vector<std::vector<uint8_t>> mDataBlobTable;
    };
    
    struct ManagedEntryPoint

@@ -53,9 +53,6 @@ Program Listing for File object-dependency-manifest-generated.h
        virtual void CreateVkAccelerationStructureKHRRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry);
        virtual void CreateVkAccelerationStructureNVRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry);
        virtual void CreateVkBufferRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry);
-       #ifdef VK_USE_PLATFORM_FUCHSIA
-       virtual void CreateVkBufferCollectionFUCHSIARestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry);
-       #endif // VK_USE_PLATFORM_FUCHSIA
        virtual void CreateVkBufferViewRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry);
        virtual void CreateVkCommandBufferRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry);
        virtual void CreateVkCommandPoolRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry);
@@ -79,12 +76,13 @@ Program Listing for File object-dependency-manifest-generated.h
        virtual void CreateVkImageViewRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry);
        virtual void CreateVkIndirectCommandsLayoutNVRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry);
        virtual void CreateVkInstanceRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry);
+       virtual void CreateVkMicromapEXTRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry);
+       virtual void CreateVkOpticalFlowSessionNVRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry);
        virtual void CreateVkPerformanceConfigurationINTELRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry) = 0;
        virtual void CreateVkPhysicalDeviceRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry) = 0;
        virtual void CreateVkPipelineRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry) = 0;
        virtual void CreateVkPipelineCacheRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry);
        virtual void CreateVkPipelineLayoutRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry);
-       virtual void CreateVkPrivateDataSlotRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry);
        virtual void CreateVkQueryPoolRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry);
        virtual void CreateVkQueueRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry) = 0;
        virtual void CreateVkRenderPassRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry) = 0;
@@ -95,20 +93,11 @@ Program Listing for File object-dependency-manifest-generated.h
        virtual void CreateVkSurfaceKHRRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry) = 0;
        virtual void CreateVkSwapchainKHRRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry);
        virtual void CreateVkValidationCacheEXTRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry);
-       #ifdef VK_ENABLE_BETA_EXTENSIONS
-       virtual void CreateVkVideoSessionKHRRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry);
-       #endif // VK_ENABLE_BETA_EXTENSIONS
-       #ifdef VK_ENABLE_BETA_EXTENSIONS
-       virtual void CreateVkVideoSessionParametersKHRRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry);
-       #endif // VK_ENABLE_BETA_EXTENSIONS
    
        // Apply restore point methods
        virtual bool ApplyVkAccelerationStructureKHRRestorePoint(VkDevice vkDevice, const Entry& entry);
        virtual bool ApplyVkAccelerationStructureNVRestorePoint(VkDevice vkDevice, const Entry& entry);
        virtual bool ApplyVkBufferRestorePoint(VkDevice vkDevice, const Entry& entry);
-       #ifdef VK_USE_PLATFORM_FUCHSIA
-       virtual bool ApplyVkBufferCollectionFUCHSIARestorePoint(VkDevice vkDevice, const Entry& entry);
-       #endif // VK_USE_PLATFORM_FUCHSIA
        virtual bool ApplyVkBufferViewRestorePoint(VkDevice vkDevice, const Entry& entry);
        virtual bool ApplyVkCommandBufferRestorePoint(VkDevice vkDevice, VkCommandPool vkCommandPool, const Entry& entry) = 0;
        virtual bool ApplyVkCommandPoolRestorePoint(VkDevice vkDevice, const Entry& entry);
@@ -132,12 +121,13 @@ Program Listing for File object-dependency-manifest-generated.h
        virtual bool ApplyVkImageViewRestorePoint(VkDevice vkDevice, const Entry& entry);
        virtual bool ApplyVkIndirectCommandsLayoutNVRestorePoint(VkDevice vkDevice, const Entry& entry);
        virtual bool ApplyVkInstanceRestorePoint(const Entry& entry) = 0;
+       virtual bool ApplyVkMicromapEXTRestorePoint(VkDevice vkDevice, const Entry& entry);
+       virtual bool ApplyVkOpticalFlowSessionNVRestorePoint(VkDevice vkDevice, const Entry& entry);
        virtual bool ApplyVkPerformanceConfigurationINTELRestorePoint(VkDevice vkDevice, const Entry& entry) = 0;
        virtual bool ApplyVkPhysicalDeviceRestorePoint(VkInstance vkInstance, const Entry& entry) = 0;
        virtual bool ApplyVkPipelineRestorePoint(VkDevice vkDevice, const Entry& entry) = 0;
        virtual bool ApplyVkPipelineCacheRestorePoint(VkDevice vkDevice, const Entry& entry);
        virtual bool ApplyVkPipelineLayoutRestorePoint(VkDevice vkDevice, const Entry& entry);
-       virtual bool ApplyVkPrivateDataSlotRestorePoint(VkDevice vkDevice, const Entry& entry);
        virtual bool ApplyVkQueryPoolRestorePoint(VkDevice vkDevice, const Entry& entry);
        virtual bool ApplyVkQueueRestorePoint(VkDevice vkDevice, const Entry& entry) = 0;
        virtual bool ApplyVkRenderPassRestorePoint(VkDevice vkDevice, const Entry& entry) = 0;
@@ -148,20 +138,11 @@ Program Listing for File object-dependency-manifest-generated.h
        virtual bool ApplyVkSurfaceKHRRestorePoint(VkInstance vkInstance, const Entry& entry) = 0;
        virtual bool ApplyVkSwapchainKHRRestorePoint(VkDevice vkDevice, VkSurfaceKHR vkSurfaceKHR, const Entry& entry) = 0;
        virtual bool ApplyVkValidationCacheEXTRestorePoint(VkDevice vkDevice, const Entry& entry);
-       #ifdef VK_ENABLE_BETA_EXTENSIONS
-       virtual bool ApplyVkVideoSessionKHRRestorePoint(VkDevice vkDevice, const Entry& entry);
-       #endif // VK_ENABLE_BETA_EXTENSIONS
-       #ifdef VK_ENABLE_BETA_EXTENSIONS
-       virtual bool ApplyVkVideoSessionParametersKHRRestorePoint(VkDevice vkDevice, VkVideoSessionKHR vkVideoSessionKHR, const Entry& entry) = 0;
-       #endif // VK_ENABLE_BETA_EXTENSIONS
    
        // Apply destroy restore point methods
        virtual void ApplyDestroyVkAccelerationStructureKHRRestorePoint(VkDevice vkDevice, const Entry& entry);
        virtual void ApplyDestroyVkAccelerationStructureNVRestorePoint(VkDevice vkDevice, const Entry& entry);
        virtual void ApplyDestroyVkBufferRestorePoint(VkDevice vkDevice, const Entry& entry);
-       #ifdef VK_USE_PLATFORM_FUCHSIA
-       virtual void ApplyDestroyVkBufferCollectionFUCHSIARestorePoint(VkDevice vkDevice, const Entry& entry);
-       #endif // VK_USE_PLATFORM_FUCHSIA
        virtual void ApplyDestroyVkBufferViewRestorePoint(VkDevice vkDevice, const Entry& entry);
        virtual void ApplyDestroyVkCommandBufferRestorePoint(VkDevice vkDevice, VkCommandPool vkCommandPool, const Entry& entry) = 0;
        virtual void ApplyDestroyVkCommandPoolRestorePoint(VkDevice vkDevice, const Entry& entry);
@@ -185,12 +166,13 @@ Program Listing for File object-dependency-manifest-generated.h
        virtual void ApplyDestroyVkImageViewRestorePoint(VkDevice vkDevice, const Entry& entry);
        virtual void ApplyDestroyVkIndirectCommandsLayoutNVRestorePoint(VkDevice vkDevice, const Entry& entry);
        virtual void ApplyDestroyVkInstanceRestorePoint(const Entry& entry) = 0;
+       virtual void ApplyDestroyVkMicromapEXTRestorePoint(VkDevice vkDevice, const Entry& entry);
+       virtual void ApplyDestroyVkOpticalFlowSessionNVRestorePoint(VkDevice vkDevice, const Entry& entry);
        virtual void ApplyDestroyVkPerformanceConfigurationINTELRestorePoint(VkDevice vkDevice, const Entry& entry) = 0;
        virtual void ApplyDestroyVkPhysicalDeviceRestorePoint(VkInstance vkInstance, const Entry& entry) = 0;
        virtual void ApplyDestroyVkPipelineRestorePoint(VkDevice vkDevice, const Entry& entry);
        virtual void ApplyDestroyVkPipelineCacheRestorePoint(VkDevice vkDevice, const Entry& entry);
        virtual void ApplyDestroyVkPipelineLayoutRestorePoint(VkDevice vkDevice, const Entry& entry);
-       virtual void ApplyDestroyVkPrivateDataSlotRestorePoint(VkDevice vkDevice, const Entry& entry);
        virtual void ApplyDestroyVkQueryPoolRestorePoint(VkDevice vkDevice, const Entry& entry);
        virtual void ApplyDestroyVkQueueRestorePoint(VkDevice vkDevice, const Entry& entry) = 0;
        virtual void ApplyDestroyVkRenderPassRestorePoint(VkDevice vkDevice, const Entry& entry);
@@ -201,12 +183,6 @@ Program Listing for File object-dependency-manifest-generated.h
        virtual void ApplyDestroyVkSurfaceKHRRestorePoint(VkInstance vkInstance, const Entry& entry);
        virtual void ApplyDestroyVkSwapchainKHRRestorePoint(VkDevice vkDevice, VkSurfaceKHR vkSurfaceKHR, const Entry& entry);
        virtual void ApplyDestroyVkValidationCacheEXTRestorePoint(VkDevice vkDevice, const Entry& entry);
-       #ifdef VK_ENABLE_BETA_EXTENSIONS
-       virtual void ApplyDestroyVkVideoSessionKHRRestorePoint(VkDevice vkDevice, const Entry& entry);
-       #endif // VK_ENABLE_BETA_EXTENSIONS
-       #ifdef VK_ENABLE_BETA_EXTENSIONS
-       virtual void ApplyDestroyVkVideoSessionParametersKHRRestorePoint(VkDevice vkDevice, VkVideoSessionKHR vkVideoSessionKHR, const Entry& entry);
-       #endif // VK_ENABLE_BETA_EXTENSIONS
    };
    
    } // vulkan
