@@ -1,0 +1,147 @@
+
+.. _program_listing_file_include_gpa-vk-utilities_vk-instance-manifest_vk-object-dependency-manifest.h:
+
+Program Listing for File vk-object-dependency-manifest.h
+========================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_gpa-vk-utilities_vk-instance-manifest_vk-object-dependency-manifest.h>` (``include/gpa-vk-utilities/vk-instance-manifest/vk-object-dependency-manifest.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "vk-state-tracker/VkLayer_state_tracker.h"
+   #include "vk-instance-manifest/object-dependency-manifest-generated.h"
+   
+   namespace gpa {
+   namespace vulkan {
+   
+   class ObjectDependencyManifest final
+       : public ObjectDependencyManifestGenerated
+   {
+   public:
+       class InstanceInfo final
+       {
+       public:
+           std::vector<VkPhysicalDevice> vkPhysicalDevices; 
+       };
+   
+       ObjectDependencyManifest() = default;
+   
+       ~ObjectDependencyManifest() override final;
+   
+       bool CreateRestorePoint(const std::string& restorePointPath);
+   
+       #ifdef VK_USE_PLATFORM_WIN32_KHR
+   
+       bool CreateRestorePoint(const std::wstring& restorePointPath);
+       #endif // VK_USE_PLATFORM_WIN32_KHR
+   
+       bool ApplyRestorePoint(const std::string& restorePointPath);
+   
+       #ifdef VK_USE_PLATFORM_WIN32_KHR
+   
+       bool ApplyRestorePoint(const std::wstring& restorePointPath);
+       #endif // VK_USE_PLATFORM_WIN32_KHR
+   
+   private:
+       bool CreateRestorePoint();
+       bool ApplyRestorePoint();
+       bool ApplyObjectRestoration();
+       bool ApplyResourceMemoryBindingRestoration();
+       bool ApplyVkDeviceMemoryDataRestoration();
+       bool ApplyVkDescriptorSetBindingRestoration();
+       bool ApplyVkCommandBufferCmdRestoration();
+       bool ApplyObjectDestruction();
+   
+       // These methods are implemented in object specific restore info files
+       bool RestoreVkBufferMemoryBinding(VkDevice vkDevice, const Entry& entry);
+       bool RestoreVkImageMemoryBinding(VkDevice vkDevice, const Entry& entry);
+       bool RestoreVkDeviceMemoryData(VkPhysicalDevice vkPhysicalDevice, VkDevice vkDevice, const Entry& entry);
+       bool RestoreVkDeviceMemoryMapping(VkDevice vkDevice, const Entry& entry);
+       bool RestoreVkDescriptorSetBindings(VkDevice vkDevice, const Entry& entry);
+       bool RestoreVkCommandBufferCmds(VkDevice vkDevice, const Entry& entry);
+   
+       // Create restore point methods
+       void CreateVkBufferRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry) override final;
+       void CreateVkCommandBufferRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry) override final;
+       #ifdef VK_ENABLE_BETA_EXTENSIONS
+       virtual void CreateVkDeferredOperationKHRRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry) override final;
+       #endif // VK_ENABLE_BETA_EXTENSIONS
+       void CreateVkDescriptorSetRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry) override final;
+       void CreateVkDeviceMemoryRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry) override final;
+       void CreateVkDeviceRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry) override final;
+       void CreateVkDisplayKHRRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry) override final;
+       void CreateVkEventRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry) override final;
+       void CreateVkFenceRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry) override final;
+       void CreateVkImageRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry) override final;
+       void CreateVkInstanceRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry) override final;
+       void CreateVkPerformanceConfigurationINTELRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry) override final;
+       void CreateVkPhysicalDeviceRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry) override final;
+       void CreateVkPipelineRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry) override final;
+       void CreateVkQueueRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry) override final;
+       void CreateVkRenderPassRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry) override final;
+       void CreateVkSemaphoreRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry) override final;
+       void CreateVkSurfaceKHRRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry) override final;
+       void CreateVkSwapchainKHRRestorePoint(const VkStateTrackedObjectINTEL& stateTrackedObject, Entry& entry) override final;
+   
+       // Apply restore point methods
+       #ifdef VK_ENABLE_BETA_EXTENSIONS
+       bool ApplyVkAccelerationStructureKHRRestorePoint(VkDevice vkDevice, const Entry& entry) override final;
+       #endif // VK_ENABLE_BETA_EXTENSIONS
+       bool ApplyVkBufferRestorePoint(VkDevice vkDevice, const Entry& entry) override final;
+       bool ApplyVkCommandBufferRestorePoint(VkDevice vkDevice, VkCommandPool vkCommandPool, const Entry& entry) override final;
+       #ifdef VK_ENABLE_BETA_EXTENSIONS
+       bool ApplyVkDeferredOperationKHRRestorePoint(VkDevice vkDevice, const Entry& entry) override final;
+       #endif // VK_ENABLE_BETA_EXTENSIONS
+       bool ApplyVkDescriptorSetRestorePoint(VkDevice vkDevice, VkDescriptorPool vkDescriptorPool, const Entry& entry) override final;
+       bool ApplyVkDeviceMemoryRestorePoint(VkPhysicalDevice vkPhysicalDevice, VkDevice vkDevice, const Entry& entry) override final;
+       bool ApplyVkDeviceRestorePoint(VkPhysicalDevice vkPhysicalDevice, const Entry& entry) override final;
+       bool ApplyVkDisplayKHRRestorePoint(VkPhysicalDevice vkPhysicalDevice, const Entry& entry) override final;
+       bool ApplyVkDisplayModeKHRRestorePoint(VkDisplayKHR vkDisplayKHR, const Entry& entry) override final;
+       bool ApplyVkEventRestorePoint(VkDevice vkDevice, const Entry& entry) override final;
+       bool ApplyVkFenceRestorePoint(VkDevice vkDevice, const Entry& entry) override final;
+       bool ApplyVkImageRestorePoint(VkDevice vkDevice, const Entry& entry) override final;
+       bool ApplyVkInstanceRestorePoint(const Entry& entry) override final;
+       bool ApplyVkPerformanceConfigurationINTELRestorePoint(VkDevice vkDevice, const Entry& entry) override final;
+       bool ApplyVkPhysicalDeviceRestorePoint(VkInstance vkInstance, const Entry& entry) override final;
+       bool ApplyVkPipelineRestorePoint(VkDevice vkDevice, const Entry& entry) override final;
+       bool ApplyVkQueueRestorePoint(VkDevice vkDevice, const Entry& entry) override final;
+       bool ApplyVkRenderPassRestorePoint(VkDevice vkDevice, const Entry& entry) override final;
+       bool ApplyVkSemaphoreRestorePoint(VkDevice vkDevice, const Entry& entry) override final;
+       bool ApplyVkSurfaceKHRRestorePoint(VkInstance vkInstance, const Entry& entry) override final;
+       bool ApplyVkSwapchainKHRRestorePoint(VkDevice vkDevice, VkSurfaceKHR vkSurfaceKHR, const Entry& entry) override final;
+   
+       // Apply destroy restore point methods
+       void ApplyDestroyVkCommandBufferRestorePoint(VkDevice vkDevice, VkCommandPool vkCommandPool, const Entry& entry) override final;
+       void ApplyDestroyVkDescriptorSetRestorePoint(VkDevice vkDevice, VkDescriptorPool vkDescriptorPool, const Entry& entry) override final;
+       void ApplyDestroyVkDeviceRestorePoint(VkPhysicalDevice vkPhysicalDevice, const Entry& entry) override final;
+       void ApplyDestroyVkDisplayKHRRestorePoint(VkPhysicalDevice vkPhysicalDevice, const Entry& entry) override final;
+       void ApplyDestroyVkDisplayModeKHRRestorePoint(VkDisplayKHR vkDisplayKHR, const Entry& entry) override final;
+       void ApplyDestroyVkInstanceRestorePoint(const Entry& entry) override final;
+       void ApplyDestroyVkPerformanceConfigurationINTELRestorePoint(VkDevice vkDevice, const Entry& entry) override final;
+       void ApplyDestroyVkPhysicalDeviceRestorePoint(VkInstance vkInstance, const Entry& entry) override final;
+       void ApplyDestroyVkQueueRestorePoint(VkDevice vkDevice, const Entry& entry) override final;
+   };
+   
+   } // namespace vulkan
+   } // namespace gpa

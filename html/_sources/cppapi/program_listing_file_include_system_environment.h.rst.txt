@@ -1,0 +1,90 @@
+
+.. _program_listing_file_include_system_environment.h:
+
+Program Listing for File environment.h
+======================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_system_environment.h>` (``include/system/environment.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   namespace gpa {
+   namespace system {
+   
+   namespace internal {
+   class Map;
+   }
+   
+   class Environment
+   {
+   public:
+       Environment();
+   
+       Environment(char const* const* envp);
+   
+       Environment(Environment const& other);
+   
+       ~Environment();
+   
+       Environment& operator=(Environment const& other);
+       bool operator==(Environment const& other) const;
+       bool operator!=(Environment const& other) const;
+   
+       int GetKeyCount() const;
+   
+       bool Empty() const;
+   
+       char const* Get(char const* key) const;
+   
+       void GetAllKeysValues(char const** keys, char const** values, int* count) const;
+   
+       void Set(char const* key, char const* newValue);
+   
+       void Remove(char const* key);
+   
+       void AppendToPathValue(char const* key, char const* additionalPath);
+   
+       void PrependToPathValue(char const* key, char const* additionalPath);
+   
+       void RemoveFromPathValue(char const* key, char const* pathToRemove);
+   
+       void RemovePathValueContaining(char const* key, char const* stringToFind);
+   
+       void InitializeFromCurrentProcess();
+   
+       void ApplyToCurrentProcess(bool replaceWholeEnvironment = false);
+   
+       void MergeFrom(Environment const& other);
+   
+       typedef void (*KeyValuePairEnumerateFn)(char const* key, char const* value, int index, void* context);
+       void EnumerateKeyValuePairs(KeyValuePairEnumerateFn callback, void* context) const;
+   
+   private:
+       internal::Map* mEnv;
+   
+       char PathSep() const;
+   };
+   
+   }  // namespace system
+   }  // namespace gpa

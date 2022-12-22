@@ -1,0 +1,42 @@
+
+.. _program_listing_file_include_runtime_runtime-common.h:
+
+Program Listing for File runtime-common.h
+=========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_runtime_runtime-common.h>` (``include/runtime/runtime-common.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   // clang-format off
+   #if defined(WIN32) || defined(_WIN32)
+       #if defined(GPA_RUNTIME_EXPORTS)
+           #define GPA_RUNTIME_EXPORT __declspec(dllexport)
+       #else // GPA_RUNTIME_EXPORTS
+           #define GPA_RUNTIME_EXPORT __declspec(dllimport)
+       #endif // GPA_RUNTIME_EXPORTS
+   #else  // WIN32
+       #define GPA_RUNTIME_EXPORT
+   #endif  // WIN32
+   // clang-format on

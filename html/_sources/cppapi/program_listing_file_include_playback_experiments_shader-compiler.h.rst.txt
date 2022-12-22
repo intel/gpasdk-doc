@@ -1,0 +1,62 @@
+
+.. _program_listing_file_include_playback_experiments_shader-compiler.h:
+
+Program Listing for File shader-compiler.h
+==========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_experiments_shader-compiler.h>` (``include/playback/experiments/shader-compiler.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "igpa-config.h"
+   #include "playback/experiments/shader.h"
+   
+   #include <vector>
+   
+   namespace gpa {
+   namespace playback {
+   
+   class Shader::Compiler
+   {
+   public:
+       Compiler() = default;
+   
+       virtual ~Compiler() = 0;
+   
+       void GetMessages(size_t* pMessageCount, char const** pMessages) const;
+   
+       virtual bool Compile(Shader::CompileInfo& compileInfo, Shader* pShader) const = 0;
+   
+   protected:
+       void CreateShader(
+           Shader::Stage stage,
+           const api_types::ShaderSource& source,
+           const std::vector<uint8_t>& byteCode,
+           Shader* pShader) const;
+   
+       mutable std::vector<std::string> mMessages;
+   };
+   
+   }  // namespace playback
+   }  // namespace gpa

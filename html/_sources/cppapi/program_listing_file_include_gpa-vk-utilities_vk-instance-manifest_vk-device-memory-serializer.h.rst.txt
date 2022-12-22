@@ -1,0 +1,123 @@
+
+.. _program_listing_file_include_gpa-vk-utilities_vk-instance-manifest_vk-device-memory-serializer.h:
+
+Program Listing for File vk-device-memory-serializer.h
+======================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_gpa-vk-utilities_vk-instance-manifest_vk-device-memory-serializer.h>` (``include/gpa-vk-utilities/vk-instance-manifest/vk-device-memory-serializer.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "vk-utilities/vk-include.h"
+   #include "vk-utilities/detail/thread-pool.h"
+   #include "vk-utilities/vk-entry-points.h"
+   #include "vk-utilities/vk-managed-handles.h"
+   
+   #define _SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING
+   #include <experimental/filesystem>
+   #include <fstream>
+   #include <functional>
+   #include <string>
+   #include <thread>
+   #include <unordered_map>
+   #include <vector>
+   
+   namespace gpa {
+   namespace vulkan {
+   
+   class VkDeviceMemorySerializer final
+   {
+   public:
+       VkDeviceMemorySerializer(
+           const std::experimental::filesystem::path& instanceManifestPath,
+           VkPhysicalDevice vkPhysicalDevice,
+           VkDevice vkDevice,
+           VkQueue vkQueue,
+           uint32_t queueFamilyIndex,
+           std::function<void()> setupThread = {}
+       );
+   
+       ~VkDeviceMemorySerializer();
+   
+       void Serialize(std::experimental::filesystem::path filePath, VkDeviceMemory vkDeviceMemory, VkDeviceSize deviceMemorySize);
+   
+       void Deserialize(std::experimental::filesystem::path filePath, VkDeviceMemory vkDeviceMemory, VkDeviceSize deviceMemorySize);
+   
+       void Wait();
+   
+   private:
+       class Context final
+       {
+       public:
+           Context() = default;
+           Context(
+               VkPhysicalDevice vkPhysicalDevice,
+               VkDevice vkDevice,
+               VkQueue vkQueue,
+               uint32_t queueFamilyIndex,
+               std::mutex& queueMutex
+           );
+           Context(Context&& other);
+           Context& operator=(Context&& other);
+           bool Serialize(const std::experimental::filesystem::path& filePath, VkDeviceMemory vkDeviceMemory, VkDeviceSize deviceMemorySize);
+           bool Deserialize(const std::experimental::filesystem::path& filePath, VkDeviceMemory vkDeviceMemory, VkDeviceSize deviceMemorySize);
+   
+       private:
+           bool ValidateCommandSubmissionResources();
+           bool ValidateDownloadBuffers(VkDeviceMemory vkDeviceMemory, VkDeviceSize deviceMemorySize);
+           bool ValidateUploadBuffers(VkDeviceMemory vkDeviceMemory, VkDeviceSize deviceMemorySize, const uint8_t* pData);
+           bool RecordCopyCmds(VkDeviceSize deviceMemorySize);
+           bool SubmitCommandBuffer();
+           bool CommitExtractedData(const std::experimental::filesystem::path& filePath, VkDeviceMemory vkDeviceMemory, VkDeviceSize deviceMemorySize);
+   
+           VkPhysicalDevice mVkPhysicalDevice{VK_NULL_HANDLE};
+           VkDevice mVkDevice{VK_NULL_HANDLE};
+           VkQueue mVkQueue{VK_NULL_HANDLE};
+           uint32_t mQueueFamilyIndex{0};
+           Managed<VkCommandPool> mCommandPool;
+           Managed<VkCommandBuffer> mCommandBuffer;
+           Managed<VkBuffer> mSrcBuffer;
+           Managed<VkBuffer> mDstBuffer;
+           Managed<VkFence> mFence;
+           std::mutex* mpQueueMutex{nullptr};
+   
+           Context(const Context&) = delete;
+           Context& operator=(const Context&) = delete;
+       };
+   
+       static std::experimental::filesystem::path smPreviousInstanceManifestPath;
+       std::experimental::filesystem::path mInstanceManifestPath;
+       VkDevice mVkDevice{VK_NULL_HANDLE};
+       std::mutex mQueueMutex;
+       std::unordered_map<std::thread::id, Context> mContexts;
+       std::mutex mLogMutex;
+       std::ofstream mLog;
+       detail::ThreadPool mThreadPool;
+   
+       VkDeviceMemorySerializer(const VkDeviceMemorySerializer&) = delete;
+       VkDeviceMemorySerializer& operator=(const VkDeviceMemorySerializer&) = delete;
+   };
+   
+   }  // namespace vulkan
+   }  // namespace gpa

@@ -1,0 +1,65 @@
+
+.. _program_listing_file_include_metadata_dictionary-serializer.h:
+
+Program Listing for File dictionary-serializer.h
+================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_metadata_dictionary-serializer.h>` (``include/metadata/dictionary-serializer.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   (c) Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "metadata/dictionary.h"
+   
+   namespace gpa {
+   namespace serialization {
+   
+   class MemoryBackedSerializer;
+   
+   namespace metadata {
+   
+   class Dictionary;
+   
+   class DictionarySerializer : public gpa::serialization::metadata::DictionaryVisitor
+   {
+   public:
+       DictionarySerializer(MemoryBackedSerializer* serializer);
+   
+       size_t Serialize(Dictionary const* dictionary);
+       size_t Deserialize(Dictionary* dictionary);
+   
+       // DictionaryVisitor implementation
+       void OnStringEntry(char const* key, char const* value) override;
+       void OnIntegerEntry(char const* key, int64_t value) override;
+       void OnBoolEntry(char const* key, bool value) override;
+   
+   private:
+       MemoryBackedSerializer* mSerializer;
+       size_t mBytesWritten;
+   
+       size_t WriteString(char const* str);
+   };
+   
+   }  // namespace metadata
+   }  // namespace serialization
+   }  // namespace gpa

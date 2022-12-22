@@ -1,0 +1,229 @@
+
+.. _program_listing_file_include_concurrent_lock.h:
+
+Program Listing for File lock.h
+===============================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_concurrent_lock.h>` (``include/concurrent/lock.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   /******************************************************************************
+   @file lock.h
+   
+   Reader-writer lock: Sync primitive that allows concurrent access for read-only
+   operations, while write operations require exclusive access. This means that
+   multiple threads can read the data in parallel but an exclusive lock is needed
+   for writing or modifying data. When a writer is writing the data, all other
+   writers or readers will be blocked until the writer is finished writing.
+   
+   A common use might be to control access to a data structure in memory that
+   cannot be updated atomically and is invalid (and should not be read by another
+   thread) until the update is complete.
+   
+   Also known as: shared-exclusive lock, multiple readers/single-writer lock
+   
+   Reference: https://en.wikipedia.org/wiki/Readers%E2%80%93writer_lock
+   
+   Depends on int32_t (e.g. stdint.h)
+   
+   ******************************************************************************/
+   #pragma once
+   #include <cstdint>
+   #include <atomic>
+   #include <immintrin.h>
+   
+   namespace gpa {
+   
+   constexpr size_t kCacheLineBytes = 64;
+   
+   class RWLock;
+   typedef RWLock SharedExclusiveLock;
+   class RWLock
+   {
+       std::atomic<int32_t> mNumWriters;
+   
+       // Separate the two counts into separate cache lines using padding
+       int8_t _unused[(2 * kCacheLineBytes) - (2 * sizeof(int32_t))];
+   
+       std::atomic<int32_t> mNumReaders;
+   
+   public:
+       RWLock()
+           : mNumWriters(0)
+           , mNumReaders(0)
+       {
+           (void)_unused;
+       }
+   
+       // Override standard new and delete to force cache line alignment
+       void* operator new(size_t size)
+       {
+           void* const addr = _mm_malloc(size, kCacheLineBytes);
+           return addr;
+       }
+       void operator delete(void* addr) { _mm_free(addr); }
+       // Single writer...
+       inline void LockExclusive() { LockWrite(); }
+       inline void LockWrite()
+       {
+           // First, wait for the write lock to be released
+           while (mNumWriters) {
+               _mm_pause();
+           }
+   
+           // Then, acquire the write lock
+           while (mNumWriters.exchange(1)) {
+               _mm_pause();
+           }
+           // Then, wait until all of the reader locks are released
+           while (mNumReaders) {
+               _mm_pause();
+           }
+       }
+       inline bool TryLockExclusive() { return TryLockWrite(); }
+       inline bool TryLockWrite()
+       {
+           // Fail if a writer has the lock
+           if (mNumWriters) {
+               return false;
+           }
+           // Acquire the write lock or fail
+           if (mNumWriters.exchange(1)) {
+               return false;
+           }
+           // If a reader has a lock, back out and fail
+           if (mNumReaders) {
+               mNumWriters = 0;
+               return false;
+           }
+           // If we get this far, we have the write lock
+           return true;
+       }
+       inline void UnlockExclusive() { UnlockWrite(); }
+       inline void UnlockWrite() { mNumWriters = 0; }
+       // ...or multiple readers
+       inline void LockShared() { LockRead(); }
+       inline void LockRead()
+       {
+           while (1) {
+               // First, wait until the write lock has been released
+               while (mNumWriters) {
+                   _mm_pause();
+               }
+               // Acquire a reader lock
+               mNumReaders.fetch_add(1);
+   
+               // If no writers acquired a lock, we are done...
+               if (mNumWriters == 0) {
+                   break;
+               }
+   
+               // ...otherwise, back out the reader lock and try again
+               mNumReaders.fetch_add(-1);
+           }
+       }
+       inline bool TryLockShared() { return TryLockRead(); }
+       inline bool TryLockRead()
+       {
+           // Fail if a writer has the lock
+           if (mNumWriters) {
+               return false;
+           }
+           // Try to acquire the reader lock
+           mNumReaders.fetch_add(1);
+   
+           // If a writer has the lock, back out and fail
+           if (mNumWriters) {
+               mNumReaders.fetch_add(-1);
+               return false;
+           }
+           // If we got this far, we got the read lock
+           return true;
+       }
+       inline void UnlockShared() { UnlockRead(); }
+       inline void UnlockRead() { mNumReaders.fetch_add(-1); }
+   };
+   
+   struct ScopedReadLock
+   {
+       ScopedReadLock(RWLock* const lock)
+           : mLock(lock)
+       {
+           mLock->LockRead();
+       }
+       ~ScopedReadLock() { mLock->UnlockRead(); }
+   
+       RWLock* const mLock;
+   };
+   
+   struct ScopedWriteLock
+   {
+       ScopedWriteLock(RWLock* const lock)
+           : mLock(lock)
+       {
+           mLock->LockWrite();
+       }
+       ~ScopedWriteLock() { mLock->UnlockWrite(); }
+   
+       RWLock* const mLock;
+   };
+   using ScopedExclusiveLock = ScopedWriteLock;
+   
+   struct OptionalScopedReadLock
+   {
+       OptionalScopedReadLock(RWLock* const lock)
+           : mLock(lock)
+       {
+           if (mLock) {
+               mLock->LockRead();
+           }
+       }
+       ~OptionalScopedReadLock()
+       {
+           if (mLock) {
+               mLock->UnlockRead();
+           }
+       }
+   
+       RWLock* const mLock;
+   };
+   
+   struct OptionalScopedWriteLock
+   {
+       OptionalScopedWriteLock(RWLock* const lock)
+           : mLock(lock)
+       {
+           if (mLock) {
+               mLock->LockWrite();
+           }
+       }
+       ~OptionalScopedWriteLock()
+       {
+           if (mLock) {
+               mLock->UnlockWrite();
+           }
+       }
+   
+       RWLock* const mLock;
+   };
+   
+   }  // namespace gpa

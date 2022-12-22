@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Utilities &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Layers" href="layers.html" />
+    <link rel="prev" title="Reference" href="reference.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+            <a href="../index.html">
+            <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="guides/extending_test_layer.html">Extending “Helloworld” Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#helloworld-simple-layer">‘Helloworld’ Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#helloworld-generated-layer">‘Helloworld’ Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="reference.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="layers.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="layers.html#api-debug-layer">API-Debug-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="layers.html#device-override">Device-Override</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="python.html">Python Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cppapi/library_root.html">C++ Interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cppapi/library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cppapi/library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cppapi/library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cppapi/library_root.html#full-api">Full API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#unions">Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#new">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#changed">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#fixed">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id2">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id3">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id4">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id5">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id6">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id7">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id8">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id9">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id10">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id11">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id12">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id13">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id14">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id15">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id16">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id17">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id18">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id19">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id20">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id21">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id22">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id23">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id24">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id25">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id26">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id27">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id28">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id31">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id32">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#id2">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#id3">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#id4">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#id5">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#id6">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#id7">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#id8">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#id9">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#id10">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="reference.html">Reference</a></li>
+      <li class="breadcrumb-item active">Utilities</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="utilities">
+<span id="id1"></span><h1>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline"></a></h1>
+<div class="section" id="gpa-injector">
+<h2>gpa-injector<a class="headerlink" href="#gpa-injector" title="Permalink to this headline"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage:
+    gpa-injector [--target-application,-t] &lt;target app&gt; [--layer &lt;layer name&gt;][--working-directory,-w &lt;working directory&gt;] [-- &lt;target argument&gt;...]
+
+     --device-override &lt;int&gt;
+                          Force use of a specific graphics device. Use &quot;gpa-help --layer device-override&quot;
+			  to list available devices. This option loads the device-override gpa layer.
+     --disable-ac-detector
+                          If provided, disables anti-cheat detector module (enabled by default).
+     --disable-io-redirect
+                          If provided, disables standard input output redirection (enabled by default).
+     --disable-key-events If provided, disables publishing of keyboard events (enabled by default).
+  -K --enable-keyframes   Enable keyframes (disabled by default). This feature is deprecated and will be removed in the 2023.1 release. Use deferred capture and gpa-subcapture-recorder.exe instead.
+  -e --exit-after-frame &lt;int&gt;
+                          Exit process after reaching target frame index.
+  -h --help               Print this help information
+     --hook-api &lt;string&gt;  Comma separated list of apis to hook; valid gfx APIs: all, vulkan, opengl, opencl, d3dall, d3d10, d3d11, d3d12 (default: all)
+     --injection-mode &lt;int&gt;
+                          0 - SetThreadContext, 1 - CreateRemoteThread (default: SetThreadContext)
+  -L --layer &lt;string&gt;     Name of layer to insert; layers are inserted in order appearing on
+			  command line (possible layers: api-debug, capture, logging,
+			  hud-layer, screenshot, validation). Default: no layers.
+			  Optional key value pairs can be provided to the layer
+			  --layer name[:key=value,...]. Maximum length of args to any single
+			  layer is 512 characters. Example: gpa-injector --layer capture:directory=\my-streams,name=my-stream
+  -l --log-file &lt;string&gt;  Direct logging output to the specified file instead 
+			  of console (default: console-only). 
+			  &quot;#PROC&quot; replaced by attached process name 
+			  &quot;#PID&quot; replaced by attached process PID number
+  -v --log-level &lt;string&gt; Set log output severity level; valid values are: trace, debug,
+
+			  info, warn, error, fatal (default: info)
+  -m --log-mask &lt;string&gt;  Comma separated list of modules to filter in: generic, page-tracker
+  -p --page-tracker-mode &lt;int&gt;
+                          0 - default, 1 - disabled, 2 - Use shadow buffer approach for 
+			  managed Metal buffers, 3 - Force shadow buffer approach for all 
+     --skiplist-file &lt;string&gt;
+                          A path to the skip-list txt file that 
+			  stores process names to skip during the injection. 
+  -t --target-application &lt;string&gt;
+                          The workload to capture
+  -V --version            Print version and build info to the console, then exit
+     --waitfordebugger &lt;string&gt;
+                          Waits for user input after injecting to a process of specified name.
+			  Use &quot;all&quot; to wait on every new process. Provide process name without extension.
+  -w --working-directory &lt;string&gt;
+                          Path to the working directory for the target application.
+
+To use custom layers, set GPA_LAYER_PATH in your environment 
+to point to the location where the layers are installed.
+This must be a properly formatted absolute path
+
+Possible return codes:
+    0: Execution completed successfully and without error
+    1: Execution failed with unspecified error
+    2: Execution failed with &#39;File Not Found&#39;
+    3: One or more command-line args are missing or invalid
+</pre></div>
+</div>
+</div>
+<div class="section" id="gpa-player">
+<h2>gpa-player<a class="headerlink" href="#gpa-player" title="Permalink to this headline"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage: gpa-player [options] &lt;stream filename&gt; 
+Options:
+  -d --delimiters &lt;string&gt;
+                          Set the list of range delimiter(s) in the format &#39;api:class::function&#39;. The list of tokens are delimited by commas.  Example: Metal:MTLCommandBuffer::presentDrawable,Vulkan:vkQueuePresentKHR (default: null)
+     --device-override &lt;int&gt;
+                          Force use of a specific graphics device. Use &quot;gpa-help --layer device-override&quot; to list available devices. This option loads the device-override gpa layer.
+     --disable-pso-filtering
+                          Create all pipeline state objects captured in stream. Pipeline state objects filtering is enabled by default.
+     --disable-sync-resolving
+                          Disable command queue deadlocks resolving during playback.
+     --enable-cross-gpu   Run player in cross GPU compatibility mode, this option requires additional time for pre-processing and not 100% guaranteed valid playback on another hardware.
+  -e --exit-after-frame &lt;int&gt;
+                          Exit process after reaching target frame index.
+  -f --first-frame &lt;int&gt;  Play only this frame, the number of times specified in repeat-count
+  -h --help               Print this help information
+  -F --last-frame &lt;int&gt;   Ignored if &#39;frame&#39; option is not present; if set and valid, this option defines the last &#39;frame&#39; in a multi-frame range to be played (and potentially repeated if &#39;repeat-count&#39; is set). &#39;last-frame&#39; must be strictly greater than &#39;frame&#39;.
+  -l --log-file &lt;string&gt;  Direct logging output to the specified file instead of console (default: console-only)
+  -v --log-level &lt;string&gt; Set log output severity level; valid values are: trace, debug, info, warn, error, fatal (default: info)
+  -o --offscreen          Playback without visible window
+     --old-rtx-patching   Forces old raytracing patching code path.
+  -p --parallel           Switches the default Sequential mode into parallel producer-&gt;consumer with 100k API_Calls in the ring buffer.
+  -c --parallel_count &lt;int&gt;
+                          Defines how many API_Calls to keep in the ring buffers. 100k if not set.
+  -s --play-from &lt;int&gt;    Start at this percentage into the stream
+     --post-layer &lt;string&gt;
+                          Name of layer to insert; post-layers are inserted after the implicit playback layer.
+			  Default: no layers. See gpa-injector --layer argument description (--help) for more detail.
+     --pre-layer &lt;string&gt; Name of layer to insert; pre-layers are inserted before the implicit playback layer.
+			  Default: no layers. See gpa-injector --layer argument description (--help) for more detail.
+  -r --repeat-count &lt;int&gt; Repeat playback of the selected frame this many times; only valid if &#39;frame&#39; is specified
+  -V --version            Print version and build info to the console, then exit
+     --waitfordebugger    Waits for user input before start of playback
+
+To use custom layers, set GPA_LAYER_PATH in your environment 
+to point to the location where the layers are installed.
+This must be a properly formatted absolute path
+
+Possible return codes:
+    0: Execution completed successfully and without error
+    1: Execution failed with unspecified error
+    2: Execution failed with &#39;File Not Found&#39;
+    3: One or more command-line args are missing or invalid
+</pre></div>
+</div>
+</div>
+<div class="section" id="gpa-subcapture-recorder">
+<h2>gpa-subcapture-recorder<a class="headerlink" href="#gpa-subcapture-recorder" title="Permalink to this headline"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage: subcapture-recorder [options] &lt;stream filename&gt; 
+Options:
+  -d --delimiters &lt;string&gt;
+                          Set the list of range delimiter(s) in the format &#39;api:class::function&#39;. The list of tokens are delimited by commas.  Example: Metal:MTLCommandBuffer::presentDrawable,Vulkan:vkQueuePresentKHR (default: null)
+     --device-override &lt;int&gt;
+                          Force use of a specific graphics device. Use &quot;gpa-help --layer device-override&quot; to list available devices. This option loads the device-override gpa layer.
+     --directory &lt;string&gt;
+     --disable-filtering  Records restoration data for all the objects live at subcapture range start. Only objects actively used in the subcapture range are recorded by default
+     --enable-compression Stream data compression with LZ4 algorithm
+     --enable-cross-gpu   Run player in cross GPU compatibility mode, this option requires additional time for pre-processing and not 100% guaranteed valid playback on another hardware.
+  -h --help               Print this help information
+     --insert-virtual-present
+                          Inserts artificial &#39;Present&#39; call to mark state restoration as frame 0 in deferred and subcaptured stream. Default: false.
+			  NOTE: This option offsets counting by 1 frame during playback. For example, frame 2 during capture will be referenced as frame 3.
+  -l --log-file &lt;string&gt;  Direct logging output to the specified file instead of console (default: console-only)
+  -v --log-level &lt;string&gt; Set log output severity level; valid values are: trace, debug, info, warn, error, fatal (default: info)
+     --name &lt;string&gt;
+  -f --object-filtering   [obsolete - enabled by default] Records restoration data for only for objects used in the subcapture range
+  -o --offscreen          Playback without visible window
+     --old-rtx-patching   Forces old raytracing patching code path. Option works only with disabled object filtering. Disabled by default for object filtering.
+     --post-layer &lt;string&gt;
+                          Name of layer to insert; post-layers are inserted after the implicit playback layer.
+			  Default: no layers. See gpa-injector --layer argument description (--help) for more detail.
+     --pre-layer &lt;string&gt; Name of layer to insert; pre-layers are inserted before the implicit playback layer.
+			  Default: no layers. See gpa-injector --layer argument description (--help) for more detail.
+  -s --subcapture-range &lt;string&gt;
+  -V --version            Print version and build info to the console, then exit
+     --waitfordebugger    Waits for user input before start of playback
+
+To use custom layers, set GPA_LAYER_PATH in your environment 
+to point to the location where the layers are installed.
+This must be a properly formatted absolute path
+
+Possible return codes:
+    0: Execution completed successfully and without error
+    1: Execution failed with unspecified error
+    2: Execution failed with &#39;File Not Found&#39;
+    3: One or more command-line args are missing or invalid
+
+EOF
+</pre></div>
+</div>
+</div>
+<div class="section" id="gpa-stream-info">
+<h2>gpa-stream-info<a class="headerlink" href="#gpa-stream-info" title="Permalink to this headline"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage: gpa-stream-info.exe [options] &lt;stream&gt; 
+
+Displays stream information.
+
+Options:
+     --csv                Display only the header data in comma-separated tabular format
+  -h --help               Print this help information
+  -k --key &lt;string&gt;       Display only the value corresponding to the provided header key
+  -V --version            Print version and build info to the console, then exit
+
+Possible return codes:
+    0: Execution completed successfully and without error
+    1: Execution failed with unspecified error
+    2: Execution failed with &#39;File Not Found&#39;
+    3: One or more command-line args are missing or invalid
+    4: Data was found, but is corrupted or otherwise unreadable
+</pre></div>
+</div>
+</div>
+<div class="section" id="gpa-stream-analyzer">
+<h2>gpa-stream-analyzer<a class="headerlink" href="#gpa-stream-analyzer" title="Permalink to this headline"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage: gpa-stream-analyzer.exe [options] &lt;stream&gt; 
+
+Displays capture-time performance metrics (i.e. cpu_frame_ms) as a labeled csv data table
+
+Options:
+  -d --duration &lt;int&gt;     Stop after the specified number of frames (disabled by default: 0)
+  -f --frame &lt;int&gt;        Start with the specified frame (default: 1)
+  -h --help               Print this help information
+  -V --version            Print version and build info to the console, then exit
+
+Possible return codes:
+    0: Execution completed successfully and without error
+    1: Execution failed with unspecified error
+    2: Execution failed with &#39;File Not Found&#39;
+    3: One or more command-line args are missing or invalid
+    4: Data was found, but is corrupted or otherwise unreadable
+</pre></div>
+</div>
+</div>
+<div class="section" id="gpa-cpp-generator">
+<h2>gpa-cpp-generator<a class="headerlink" href="#gpa-cpp-generator" title="Permalink to this headline"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage: gpa-cpp-generator.exe &lt;stream&gt; [options] 
+
+Generates C++ source/project files for Stream playback using explicit API calls.
+
+Options:
+     --directory &lt;string&gt; Generate output files into the specified directory (default: &lt;stream&gt;)
+     --disable-argument-literals
+                          Setup call arguments using state buffers instead of literal values
+  -d --duration &lt;int&gt;     Limit the generated C++ API calls to a specified number of frames (defaults to remaining frames: 0)
+  -f --frame &lt;int&gt;        Generate explicit C++ API calls, starting with the specified frame ordinal (defaults to the first frame: 1)
+  -h --help               Print this help information, then exit
+  -l --log-level &lt;string&gt; Set log output severity level; valid values are: trace, debug, info, warn, error, fatal (default: info)
+  -m --max-callables-per-file &lt;int&gt;
+                          Split frames that contain more than the specified number of callables into separate source files. (default: 1000)
+     --offscreen          Disable generation of source to needed to display visible window of final frame(s)
+  -V --version            Print version and build info to the console, then exit
+
+Possible return codes:
+    0: Execution completed successfully and without error
+    1: Execution failed with unspecified error
+    2: Execution failed with &#39;File Not Found&#39;
+    3: One or more command-line arguments are missing or invalid
+    4: Data was found, but is corrupted or otherwise unreadable
+</pre></div>
+</div>
+</div>
+<div class="section" id="gpa-help">
+<h2>gpa-help<a class="headerlink" href="#gpa-help" title="Permalink to this headline"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage: gpaframework/bin/Release/gpa-help [options]
+
+Display help information related to the GPA Framework.
+
+Options:
+  -H --help               Print this help information, then exit
+     --layer &lt;string&gt;     Display help for the named layer (see --layers)
+     --layers             Display a list of layer names, then exit
+     --markdown           Display layer help in markdown format
+  -V --version            Print version and build info to the console, then exit
+
+Possible return codes:
+    0: Execution completed successfully and without error
+    1: Execution failed with unspecified error
+    3: One or more command-line args are missing or invalid
+</pre></div>
+</div>
+</div>
+<div class="section" id="gpa-metrics-collector">
+<h2>gpa-metrics-collector<a class="headerlink" href="#gpa-metrics-collector" title="Permalink to this headline"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage: gpa-metrics-collector.exe &lt;stream path&gt; --frame-index &lt;index of frame in stream&gt; [options]
+
+Tool used to collect performance metrics from graphics calls in a frame of interest of a
+previously captured stream. By default, it determines the minimal set of collection ranges that
+span as many graphics calls in the frame as possible, and then collects and prints out the
+available metrics for all of those ranges.
+
+Note: The required parameters &lt;stream path&gt; and --frame-index can be placed in any order relative
+to any options that are specified.
+            
+-f|--frame-index      &lt;int&gt;    Frame index to collect metrics from. The first frame (index
+                               zero) is not supported. Must be in the range
+                               [1, number of frames in stream).
+Options:
+
+-a|--api-debug-layer           Enables the API debug layer during metrics collection.
+
+-c|--csv              &lt;string&gt; Output collected metrics to a CSV file rather than to the console
+                               that is saved to the directory where the tool is located.
+                               &lt;string&gt; can be one of the following:
+                                 -  Path and file name of the CSV file to create/overwrite.
+                                 -  A period character (&quot;.&quot;) to indicate that a default file name
+                                    should be generated for the CSV file based on the name of the
+                                    stream with a date and timestamp appended to it.
+                                 -  A dash character (&quot;-&quot;) to indicate that instead of a file, the
+                                    normal CSV output should be written to STDOUT.
+                                Also generates a metadata file with the same basename as the CSV file
+                                and a suffix/extension of .meta.txt, unless suppressed by the
+                                --no-metadata option or the CSV output is written to STDOUT.
+
+-e|--per-event                 Delimit graphics call collection ranges, that are used to measure
+                               metrics, at GPU event boundaries (such as draw, dispatch, copy, resolve,
+                               clear, ...). This option takes precedence over --per-pass.
+
+-g|--gpu-index        &lt;int&gt;    Index of GPU to use for metrics collection. Note that the GPU
+                               indices below may be different than those used by the
+                               device-override layer.
+                                 &lt;GPU indices will be displayed here on the platform used&gt;
+
+-h|--help                      Show only help info and exit app.
+
+-m|--metrics-list     &lt;string&gt; Explicit listing of metrics groups and/or individual metrics to
+                               collect. If this option is not provided, the default is for all
+                               metrics to be collected. The supported syntax is:
+
+                               &lt;string&gt;                &lt;collection&gt;(;&lt;collection&gt;)*
+                               &lt;collection&gt;            &lt;group-name-metrics&gt;|
+                                                       &lt;group-symbol-metrics&gt;|
+                                                       &lt;group-names&gt;|&lt;group-symbols&gt;|
+                                                       &lt;metrics-names&gt;|&lt;metrics-symbols&gt;
+
+                               &lt;group-name-metrics&gt;    group:&quot;&lt;group-name&gt;&quot;((#(&lt;metric-names&gt;|&lt;metric-symbols&gt;))|(#!))+
+                               &lt;group-symbol-metrics&gt;  groupSymbol:&quot;&lt;group-symbol&quot;((#(&lt;metric-names&gt;|&lt;metric-symbols&gt;))|(#!))+
+
+                               &lt;group-names&gt;           group:&quot;&lt;group-name&gt;&quot;(,&quot;&lt;group-name&gt;&quot;)*
+                               &lt;group-name&gt;            An individual metric group name from the
+                                                       current list of those available.
+
+                               &lt;group-symbols&gt;         groupSymbol:&quot;&lt;group-symbol&gt;&quot;(,&quot;&lt;group-symbol&gt;&quot;)*
+                               &lt;group-symbol&gt;          An individual metric group symbol from the
+                                                       current list of those available.
+
+                               &lt;metric-names&gt;          name:&quot;&lt;metric-name&gt;&quot;(,&quot;&lt;metric-name&gt;&quot;)*
+                               &lt;metric-name&gt;           An individual metric name from the current
+                                                       list of those available.
+
+                               &lt;metric-symbols&gt;        symbol:&quot;&lt;metric-symbol&gt;&quot;(,&quot;&lt;metric-symbol&gt;&quot;)*
+                               &lt;metric-symbol&gt;         An individual metric symbol from the
+                                                       current list of those available.
+
+                               Notes:
+
+                               - The --show-metrics option can be used to determine all of the
+                                 available metric groups (symbols and names) and their associated
+                                 metrics (symbols and names) that can be can be specified, for a
+                                 specific GPU, graphics API and the current graphics driver
+                                 version. All of them are case sensitive.
+
+                               - For &lt;group-names&gt; and &lt;group-symbols&gt;, all of the individual
+                                 metrics contained in all of the metric groups listed will be
+                                 collected. If only a sub-grouping of metrics is desired, use
+                                 the &lt;group-name-metrics&gt; or &lt;group-symbol-metrics&gt; syntax.
+
+                               - For &lt;metrics-names&gt; and &lt;metric-symbols&gt;, all of the individual
+                                 metrics listed will be collected in all of the metric groups
+                                 that contain them. If only a single instance of a metric is
+                                 desired, use the &lt;group-name-metrics&gt; or &lt;group-symbol-metrics&gt;
+                                 syntax.
+
+                               - For &lt;group-name-metrics&gt; and &lt;group-symbol-metrics&gt;, specifying
+                                 a pound/hash sign then an exclamation mark (&quot;#!&quot;) will exclude
+                                 all of the metrics names and/or metric symbols listed from those
+                                 collected in the specified metric group. Otherwise, only those
+                                 listed are collected.
+
+                               - It is possible for any &lt;group-name&gt;, &lt;group-symbol&gt;,
+                                 &lt;metric-name&gt; or &lt;metrics-symbol&gt; to contain space characters.
+                                 hence the syntax having enclosing quotes. If there are no
+                                 spaces, the enclosing quotes do not need to be provided. There
+                                 is no known &lt;group-symbol&gt; or &lt;metric-symbol&gt; with spaces.
+
+                               - Only the first metrics list option (-m|--metrics-list) is
+                                 recognized when multiple are specified on the command line.
+
+                               Examples:
+
+                               -m name:&quot;GPU Core Clocks&quot;
+                               -m name:&quot;GPU Core Clocks&quot;,&quot;GPU Time Elapsed&quot;
+                               -m symbol:GpuTime
+                               -m symbol:GpuCoreClocks,GpuTime;name:&quot;EU Stall&quot;
+                               -m group:&quot;Render Metrics Basic set&quot;
+                               -m group:&quot;Render Metrics Basic set&quot;,&quot;Compute Metrics Basic set&quot;
+                               -m group:&quot;Compute Metrics Basic set&quot;;symbol:PixelsRendered;group:&quot;Render Metrics Basic set&quot;
+                               -m group:&quot;Compute Metrics Basic set&quot;#symbol:GpuBusy,GpuCoreClocks#name:&quot;GPU Time Elapsed&quot;
+                                    Note: In the example above, only listed metrics are included.
+                               -m group:&quot;Compute Metrics Basic set&quot;#!#symbol:GpuBusy,GpuCoreClocks#name:&quot;GPU Time Elapsed&quot;
+                                    Note: In the example above, all listed metrics are excluded.
+                               -m groupSymbol:RenderBasic
+                               -m groupSymbol:RenderBasic,ComputeBasic
+                               -m groupSymbol:ComputeBasic;symbol:PixelsRendered;groupSymbol:RenderBasic
+                               -m groupSymbol:Sampler#symbol:GpuTime,AvgGpuCoreFrequencyMHz#name:&quot;GPU Core Clocks&quot;
+                                    Note: In the example above, only listed metrics are included.
+                               -m groupSymbol:Sampler#symbol:GpuTime,AvgGpuCoreFrequencyMHz#name:&quot;GPU Core Clocks&quot;#!
+                                    Note: In the example above, all listed metrics are excluded.
+                               -m groupSymbol:Sampler#symbol:SamplesWritten,SamplesBlended;symbol:PixelsRendered
+                                    Note: In the example above, all instances of the
+                                    PixelsRendered metric are included (although only one exists)
+                                    and only listed metrics in the Sampler group are included.
+
+-n|--frame-count      &lt;int&gt;    Number of frames to collect metrics from, beginning with the frame
+                               identified by the --frame-index option. Must be in the range [1, number
+                               of frames in stream - index of frame in stream). Default value: &quot;1&quot;.
+
+   --no-metadata               Suppresses output of the metadata file, that is normally generated
+                               alongside the CSV file.
+
+-p|--per-pass                  Delimit graphics call collection ranges, that are used to measure
+                               metrics at pass boundaries.
+
+-r|--range-aggregation-for-frame-results         
+                               Aggregates the metric values for all of the ranges queried and
+                               reports a single &quot;frame&quot; result value for each metric collected.
+
+-s|--show-metrics              Show only a list of the available metrics to collect, for a given
+                               input stream on a specific GPU. Primarly for usage with metrics
+                               filtering (-m|--metrics-list). If the logging level is info, debug
+                               or trace, the metric description and units are also included.
+
+-t|--transpose                 Transpose the output results such that graphics call collection
+                               ranges (or frame indices when performing aggregation) are shown one per
+                               row, and the metrics collected are shown one per column.
+
+-u|--include-units             Include column with the type of units for each metric row. The
+                               default is for no units column.
+
+-v|--log-level        &lt;string&gt; Set logging output severity level. Valid values from most severe to
+                               least (and most verbose) are: &quot;fatal&quot;, &quot;error&quot;, &quot;warn&quot;, &quot;info&quot;,
+                               &quot;debug&quot;, &quot;trace&quot;. Trace level is only available on debug builds.
+                               Default value: &quot;warn&quot;.
+
+-w|--wait-for-debugger         When process starts, pause and prompt the user to attach a
+                               debugger before continuing.
+</pre></div>
+</div>
+</div>
+<div class="section" id="gpa-system-info">
+<h2>gpa-system-info<a class="headerlink" href="#gpa-system-info" title="Permalink to this headline"></a></h2>
+<p>This utility simply prints out information about the system it is run on, there are no command line options.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="reference.html" class="btn btn-neutral float-left" title="Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="layers.html" class="btn btn-neutral float-right" title="Layers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2022 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

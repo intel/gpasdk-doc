@@ -1,0 +1,98 @@
+
+.. _program_listing_file_include_metadata_stream-info-header.h:
+
+Program Listing for File stream-info-header.h
+=============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_metadata_stream-info-header.h>` (``include/metadata/stream-info-header.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include <cstdint>
+   #include <inttypes.h>
+   
+   #include "metadata/metadata-header.h"
+   #include "serialization/common.h"
+   #include "logger/logger.h"
+   
+   namespace gpa {
+   namespace serialization {
+   namespace metadata {
+   
+   constexpr char kGPAWatermark[] = "GPA";
+   
+   struct StreamInfoHeaderOriginal : public Header
+   {
+       char watermark[8];            
+       uint32_t fileVersion;         
+       uint32_t resolutionWidth;     
+       uint32_t resolutionHeight;    
+       uint64_t numApiCalls;         
+       uint32_t numFrames;           
+       uint64_t dramMemory = 0;      
+       char hostName[128];           
+       char gpuName[128];            
+       char gpuVendor[128];          
+       char gpuDriverDate[16];       
+       char gpuDriverVersion[16];    
+       char osVersion[16];           
+       char architecture[16];        
+       char graphicsAPIVersion[16];  
+       PacketType graphicsAPI;       
+       char locale[16];
+       bool developerModeEnabled;
+       bool secureBootEnabled;
+       uint64_t coresCount;
+       char biosVersion[16];
+       char biosDate[16];
+       uint32_t gpuProductId;
+       uint32_t gpuVendorId;
+       uint32_t gpuStepping;
+       uint32_t colorDepth;
+       uint32_t gpaReleaseYear;
+       uint32_t gpaReleaseQuarter;
+       uint32_t gpaReleaseSprint;
+       uint32_t gpaBuildNumber;
+   };
+   
+   struct StreamInfoHeaderVer1 : public StreamInfoHeaderOriginal
+   {
+       uint64_t tscHz;
+   };
+   
+   struct StreamInfoHeader : public StreamInfoHeaderVer1
+   {
+       uint64_t streamFlags;
+   };
+   
+   enum StreamFlagBits : uint64_t {
+       D3D12_EXECUTE_INDIRECT_ARGS_DOWNLOADED_BIT = 0x1,  // Specifies that d3d12 indirect arguments are downloaded into resource file, if present
+   };
+   
+   void DisplayStreamInfoContents(StreamInfoHeader const* header);
+   void StreamInfoToCString(StreamInfoHeader const* header, char* cString, size_t bufferSize);
+   
+   }  // namespace metadata
+   }  // namespace serialization
+   }  // namespace gpa

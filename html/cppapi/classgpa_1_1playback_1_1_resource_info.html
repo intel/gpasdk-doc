@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class ResourceInfo &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Class ResourceInfo::Ex" href="classgpa_1_1playback_1_1_resource_info_1_1_ex.html" />
+    <link rel="prev" title="Class ResourceExtractor" href="classgpa_1_1playback_1_1_resource_extractor.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+            <a href="../index.html">
+            <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending “Helloworld” Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">‘Helloworld’ Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">‘Helloworld’ Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">API-Debug-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">Device-Override</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#unions">Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id3">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id4">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id5">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id6">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id7">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id8">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id9">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id10">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../src/reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">C++ Interfaces</a></li>
+      <li class="breadcrumb-item active">Class ResourceInfo</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="class-resourceinfo">
+<span id="exhale-class-classgpa-1-1playback-1-1-resource-info"></span><h1>Class ResourceInfo<a class="headerlink" href="#class-resourceinfo" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_playback_resource-info_resource-info.h.html#file-include-playback-resource-info-resource-info-h"><span class="std std-ref">File resource-info/resource-info.h</span></a></p></li>
+</ul>
+<div class="section" id="nested-relationships">
+<h2>Nested Relationships<a class="headerlink" href="#nested-relationships" title="Permalink to this headline"></a></h2>
+<div class="section" id="nested-types">
+<h3>Nested Types<a class="headerlink" href="#nested-types" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="classgpa_1_1playback_1_1_resource_info_1_1_ex.html#exhale-class-classgpa-1-1playback-1-1-resource-info-1-1-ex"><span class="std std-ref">Class ResourceInfo::Ex</span></a></p></li>
+<li><p><a class="reference internal" href="classgpa_1_1playback_1_1_resource_info_1_1_storage.html#exhale-class-classgpa-1-1playback-1-1-resource-info-1-1-storage"><span class="std std-ref">Class ResourceInfo::Storage</span></a></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="inheritance-relationships">
+<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline"></a></h2>
+<div class="section" id="base-type">
+<h3>Base Type<a class="headerlink" href="#base-type" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::playback::detail::Convertible&lt;</span> <span class="pre">ResourceInfo,</span> <span class="pre">BufferInfo,</span> <span class="pre">EmbeddedPipelineInfo,</span> <span class="pre">InputLayoutInfo,</span> <span class="pre">PipelineDescriptorSet,</span> <span class="pre">PipelineInfo,</span> <span class="pre">PipelineSignatureInfo,</span> <span class="pre">RaytracingShaderGroupInfo,</span> <span class="pre">RenderPassInfo,</span> <span class="pre">SamplerInfo,</span> <span class="pre">ShaderInfo,</span> <span class="pre">SwapchainInfo,</span> <span class="pre">TextureInfo,</span> <span class="pre">ViewInfo</span> <span class="pre">&gt;</span></code> (<a class="reference internal" href="classgpa_1_1playback_1_1detail_1_1_convertible.html#exhale-class-classgpa-1-1playback-1-1detail-1-1-convertible"><span class="std std-ref">Template Class Convertible</span></a>)</p></li>
+</ul>
+</div>
+<div class="section" id="derived-types">
+<h3>Derived Types<a class="headerlink" href="#derived-types" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::playback::BufferInfo</span></code> (<a class="reference internal" href="classgpa_1_1playback_1_1_buffer_info.html#exhale-class-classgpa-1-1playback-1-1-buffer-info"><span class="std std-ref">Class BufferInfo</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::playback::EmbeddedPipelineInfo</span></code> (<a class="reference internal" href="classgpa_1_1playback_1_1_embedded_pipeline_info.html#exhale-class-classgpa-1-1playback-1-1-embedded-pipeline-info"><span class="std std-ref">Class EmbeddedPipelineInfo</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::playback::InputLayoutInfo</span></code> (<a class="reference internal" href="classgpa_1_1playback_1_1_input_layout_info.html#exhale-class-classgpa-1-1playback-1-1-input-layout-info"><span class="std std-ref">Class InputLayoutInfo</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::playback::PipelineDescriptorSet</span></code> (<a class="reference internal" href="classgpa_1_1playback_1_1_pipeline_descriptor_set.html#exhale-class-classgpa-1-1playback-1-1-pipeline-descriptor-set"><span class="std std-ref">Class PipelineDescriptorSet</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::playback::PipelineInfo</span></code> (<a class="reference internal" href="classgpa_1_1playback_1_1_pipeline_info.html#exhale-class-classgpa-1-1playback-1-1-pipeline-info"><span class="std std-ref">Class PipelineInfo</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::playback::PipelineSignatureInfo</span></code> (<a class="reference internal" href="classgpa_1_1playback_1_1_pipeline_signature_info.html#exhale-class-classgpa-1-1playback-1-1-pipeline-signature-info"><span class="std std-ref">Class PipelineSignatureInfo</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::playback::RaytracingShaderGroupInfo</span></code> (<a class="reference internal" href="classgpa_1_1playback_1_1_raytracing_shader_group_info.html#exhale-class-classgpa-1-1playback-1-1-raytracing-shader-group-info"><span class="std std-ref">Class RaytracingShaderGroupInfo</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::playback::RenderPassInfo</span></code> (<a class="reference internal" href="classgpa_1_1playback_1_1_render_pass_info.html#exhale-class-classgpa-1-1playback-1-1-render-pass-info"><span class="std std-ref">Class RenderPassInfo</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::playback::SamplerInfo</span></code> (<a class="reference internal" href="classgpa_1_1playback_1_1_sampler_info.html#exhale-class-classgpa-1-1playback-1-1-sampler-info"><span class="std std-ref">Class SamplerInfo</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::playback::ShaderInfo</span></code> (<a class="reference internal" href="classgpa_1_1playback_1_1_shader_info.html#exhale-class-classgpa-1-1playback-1-1-shader-info"><span class="std std-ref">Class ShaderInfo</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::playback::SwapchainInfo</span></code> (<a class="reference internal" href="classgpa_1_1playback_1_1_swapchain_info.html#exhale-class-classgpa-1-1playback-1-1-swapchain-info"><span class="std std-ref">Class SwapchainInfo</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::playback::TextureInfo</span></code> (<a class="reference internal" href="classgpa_1_1playback_1_1_texture_info.html#exhale-class-classgpa-1-1playback-1-1-texture-info"><span class="std std-ref">Class TextureInfo</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::playback::ViewInfo</span></code> (<a class="reference internal" href="classgpa_1_1playback_1_1_view_info.html#exhale-class-classgpa-1-1playback-1-1-view-info"><span class="std std-ref">Class ViewInfo</span></a>)</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfoE">
+<span id="_CPPv3N3gpa8playback12ResourceInfoE"></span><span id="_CPPv2N3gpa8playback12ResourceInfoE"></span><span id="gpa::playback::ResourceInfo"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ResourceInfo</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">gpa</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">playback</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">detail</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classgpa_1_1playback_1_1detail_1_1_convertible.html#_CPPv4I0DpEN3gpa8playback6detail11ConvertibleE" title="gpa::playback::detail::Convertible"><span class="n"><span class="pre">Convertible</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3gpa8playback12ResourceInfoE" title="gpa::playback::ResourceInfo"><span class="n"><span class="pre">ResourceInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_buffer_info.html#_CPPv4N3gpa8playback10BufferInfoE" title="gpa::playback::BufferInfo"><span class="n"><span class="pre">BufferInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_embedded_pipeline_info.html#_CPPv4N3gpa8playback20EmbeddedPipelineInfoE" title="gpa::playback::EmbeddedPipelineInfo"><span class="n"><span class="pre">EmbeddedPipelineInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_input_layout_info.html#_CPPv4N3gpa8playback15InputLayoutInfoE" title="gpa::playback::InputLayoutInfo"><span class="n"><span class="pre">InputLayoutInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_pipeline_descriptor_set.html#_CPPv4N3gpa8playback21PipelineDescriptorSetE" title="gpa::playback::PipelineDescriptorSet"><span class="n"><span class="pre">PipelineDescriptorSet</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_pipeline_info.html#_CPPv4N3gpa8playback12PipelineInfoE" title="gpa::playback::PipelineInfo"><span class="n"><span class="pre">PipelineInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_pipeline_signature_info.html#_CPPv4N3gpa8playback21PipelineSignatureInfoE" title="gpa::playback::PipelineSignatureInfo"><span class="n"><span class="pre">PipelineSignatureInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_raytracing_shader_group_info.html#_CPPv4N3gpa8playback25RaytracingShaderGroupInfoE" title="gpa::playback::RaytracingShaderGroupInfo"><span class="n"><span class="pre">RaytracingShaderGroupInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_render_pass_info.html#_CPPv4N3gpa8playback14RenderPassInfoE" title="gpa::playback::RenderPassInfo"><span class="n"><span class="pre">RenderPassInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_sampler_info.html#_CPPv4N3gpa8playback11SamplerInfoE" title="gpa::playback::SamplerInfo"><span class="n"><span class="pre">SamplerInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_shader_info.html#_CPPv4N3gpa8playback10ShaderInfoE" title="gpa::playback::ShaderInfo"><span class="n"><span class="pre">ShaderInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_swapchain_info.html#_CPPv4N3gpa8playback13SwapchainInfoE" title="gpa::playback::SwapchainInfo"><span class="n"><span class="pre">SwapchainInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_texture_info.html#_CPPv4N3gpa8playback11TextureInfoE" title="gpa::playback::TextureInfo"><span class="n"><span class="pre">TextureInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_view_info.html#_CPPv4N3gpa8playback8ViewInfoE" title="gpa::playback::ViewInfo"><span class="n"><span class="pre">ViewInfo</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfoE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Base type for metadata info objects. </p>
+<p>Subclassed by <a class="reference internal" href="classgpa_1_1playback_1_1_buffer_info.html#classgpa_1_1playback_1_1_buffer_info"><span class="std std-ref">gpa::playback::BufferInfo</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1_embedded_pipeline_info.html#classgpa_1_1playback_1_1_embedded_pipeline_info"><span class="std std-ref">gpa::playback::EmbeddedPipelineInfo</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1_input_layout_info.html#classgpa_1_1playback_1_1_input_layout_info"><span class="std std-ref">gpa::playback::InputLayoutInfo</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1_pipeline_descriptor_set.html#classgpa_1_1playback_1_1_pipeline_descriptor_set"><span class="std std-ref">gpa::playback::PipelineDescriptorSet</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1_pipeline_info.html#classgpa_1_1playback_1_1_pipeline_info"><span class="std std-ref">gpa::playback::PipelineInfo</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1_pipeline_signature_info.html#classgpa_1_1playback_1_1_pipeline_signature_info"><span class="std std-ref">gpa::playback::PipelineSignatureInfo</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1_raytracing_shader_group_info.html#classgpa_1_1playback_1_1_raytracing_shader_group_info"><span class="std std-ref">gpa::playback::RaytracingShaderGroupInfo</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1_render_pass_info.html#classgpa_1_1playback_1_1_render_pass_info"><span class="std std-ref">gpa::playback::RenderPassInfo</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1_sampler_info.html#classgpa_1_1playback_1_1_sampler_info"><span class="std std-ref">gpa::playback::SamplerInfo</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1_shader_info.html#classgpa_1_1playback_1_1_shader_info"><span class="std std-ref">gpa::playback::ShaderInfo</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1_swapchain_info.html#classgpa_1_1playback_1_1_swapchain_info"><span class="std std-ref">gpa::playback::SwapchainInfo</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1_texture_info.html#classgpa_1_1playback_1_1_texture_info"><span class="std std-ref">gpa::playback::TextureInfo</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1_view_info.html#classgpa_1_1playback_1_1_view_info"><span class="std std-ref">gpa::playback::ViewInfo</span></a></p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp enum-class">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo5UsageE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo5UsageE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo5UsageE"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Usage</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo5UsageE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Enumerates <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> usages. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo5Usage7UNKNOWNE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo5Usage7UNKNOWNE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo5Usage7UNKNOWNE"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deba696b031073e74bf2cb98e5ef201d4aa3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UNKNOWN</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo5Usage7UNKNOWNE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo5Usage8ARGUMENTE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo5Usage8ARGUMENTE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo5Usage8ARGUMENTE"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deba8dda46c0fff4137b6f660f56255d967e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ARGUMENT</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo5Usage8ARGUMENTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo5Usage18COMPUTE_DESCRIPTORE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo5Usage18COMPUTE_DESCRIPTORE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo5Usage18COMPUTE_DESCRIPTORE"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deba922d09b4b8c72c29c14168c9b38170a0"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">COMPUTE_DESCRIPTOR</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo5Usage18COMPUTE_DESCRIPTORE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo5Usage16COMPUTE_PIPELINEE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo5Usage16COMPUTE_PIPELINEE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo5Usage16COMPUTE_PIPELINEE"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deba06905bb1434df95a3794d96e3cecc31d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">COMPUTE_PIPELINE</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo5Usage16COMPUTE_PIPELINEE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo5Usage19GRAPHICS_DESCRIPTORE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo5Usage19GRAPHICS_DESCRIPTORE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo5Usage19GRAPHICS_DESCRIPTORE"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deba335258eb581878f57460c8798c2fad9d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GRAPHICS_DESCRIPTOR</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo5Usage19GRAPHICS_DESCRIPTORE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo5Usage23GRAPHICS_INPUT_ASSEMBLYE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo5Usage23GRAPHICS_INPUT_ASSEMBLYE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo5Usage23GRAPHICS_INPUT_ASSEMBLYE"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deba6178742be215112a289c90bf0dd16207"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GRAPHICS_INPUT_ASSEMBLY</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo5Usage23GRAPHICS_INPUT_ASSEMBLYE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo5Usage15GRAPHICS_OUTPUTE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo5Usage15GRAPHICS_OUTPUTE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo5Usage15GRAPHICS_OUTPUTE"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455debaea56bc49a7969d00418d4373701e8bcb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GRAPHICS_OUTPUT</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo5Usage15GRAPHICS_OUTPUTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo5Usage17GRAPHICS_PIPELINEE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo5Usage17GRAPHICS_PIPELINEE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo5Usage17GRAPHICS_PIPELINEE"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deba0da1c24d490589180cf743b0827cc331"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GRAPHICS_PIPELINE</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo5Usage17GRAPHICS_PIPELINEE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo5Usage28GRAPHICS_RASTERIZATION_STATEE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo5Usage28GRAPHICS_RASTERIZATION_STATEE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo5Usage28GRAPHICS_RASTERIZATION_STATEE"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deba37d995854e78b8e69bf1700c10fc2c2e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GRAPHICS_RASTERIZATION_STATE</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo5Usage28GRAPHICS_RASTERIZATION_STATEE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo5Usage21RAYTRACING_DESCRIPTORE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo5Usage21RAYTRACING_DESCRIPTORE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo5Usage21RAYTRACING_DESCRIPTORE"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deba683bfdd23606e6121af9f292831cea45"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RAYTRACING_DESCRIPTOR</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo5Usage21RAYTRACING_DESCRIPTORE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo5Usage19RAYTRACING_PIPELINEE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo5Usage19RAYTRACING_PIPELINEE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo5Usage19RAYTRACING_PIPELINEE"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deba04adb4dfb045a2b7cebb5f2112d1e65e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RAYTRACING_PIPELINE</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo5Usage19RAYTRACING_PIPELINEE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo5Usage5COUNTE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo5Usage5COUNTE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo5Usage5COUNTE"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deba4905ac9d6a22bdfc1ae096094ce6248d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">COUNT</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo5Usage5COUNTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo5Usage5BEGINE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo5Usage5BEGINE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo5Usage5BEGINE"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deba19aad9f2fe3ce0023298ab83f7e75775"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BEGIN</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo5Usage5BEGINE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo5Usage3ENDE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo5Usage3ENDE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo5Usage3ENDE"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455debab1a326c06d88bf042f73d70f50197905"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">END</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo5Usage3ENDE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo5Usage3ALLE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo5Usage3ALLE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo5Usage3ALLE"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deba5fb1f955b45e38e31789286a1790398d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ALL</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo5Usage3ALLE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo12ResourceInfoEv">
+<span id="_CPPv3N3gpa8playback12ResourceInfo12ResourceInfoEv"></span><span id="_CPPv2N3gpa8playback12ResourceInfo12ResourceInfoEv"></span><span id="gpa::playback::ResourceInfo::ResourceInfo"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1a61e362dce2fe4e9bcee588f6b3a6c300"></span><span class="sig-name descname"><span class="n"><span class="pre">ResourceInfo</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo12ResourceInfoEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Constructs an instance of <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfoD0Ev">
+<span id="_CPPv3N3gpa8playback12ResourceInfoD0Ev"></span><span id="_CPPv2N3gpa8playback12ResourceInfoD0Ev"></span><span id="gpa::playback::ResourceInfo::~ResourceInfo"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1a2451f6bf65a741e2c1575883ab6b6882"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~ResourceInfo</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfoD0Ev" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Destroys this instance of <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback12ResourceInfo18GetResourceInfoExsEN12ResourceInfo5UsageE8uint64_t">
+<span id="_CPPv3NK3gpa8playback12ResourceInfo18GetResourceInfoExsEN12ResourceInfo5UsageE8uint64_t"></span><span id="_CPPv2NK3gpa8playback12ResourceInfo18GetResourceInfoExsEN12ResourceInfo5UsageE8uint64_t"></span><span id="gpa::playback::ResourceInfo::GetResourceInfoExs__ResourceInfo::Usage.uint64_tC"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1a0c2cceeaf944b1a1e1310b13c5dcf242"></span><a class="reference internal" href="classgpa_1_1playback_1_1_enumerator.html#_CPPv4I0EN3gpa8playback10EnumeratorE" title="gpa::playback::Enumerator"><span class="n"><span class="pre">Enumerator</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3gpa8playback12ResourceInfoE" title="gpa::playback::ResourceInfo"><span class="n"><span class="pre">ResourceInfo</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3gpa8playback12ResourceInfo2ExE" title="gpa::playback::ResourceInfo::Ex"><span class="n"><span class="pre">Ex</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetResourceInfoExs</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa8playback12ResourceInfoE" title="gpa::playback::ResourceInfo"><span class="n"><span class="pre">ResourceInfo</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3gpa8playback12ResourceInfo5UsageE" title="gpa::playback::ResourceInfo::Usage"><span class="n"><span class="pre">Usage</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">usage</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">callIndex</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback12ResourceInfo18GetResourceInfoExsEN12ResourceInfo5UsageE8uint64_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Gets an Enumerator&lt;&gt; to all of this <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a>’s registered ResourceInfo::Exs for a specified <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"><span class="std std-ref">ResourceInfo::Usage</span></a> at a specified call index. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Subsequent calls to this method invalidate outstanding Enumerator&lt;&gt; objects and Enumerator&lt;&gt;::Iterator objects </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>usage</strong> – <strong>[in]</strong> The <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"><span class="std std-ref">ResourceInfo::Usage</span></a> to get registered ReseourceInfo::Ex objects for </p></li>
+<li><p><strong>callIndex</strong> – <strong>[in]</strong> The call index to get get registered <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info_1_1_ex.html#classgpa_1_1playback_1_1_resource_info_1_1_ex"><span class="std std-ref">ResourceInfo::Ex</span></a> objects for </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An Enumerator&lt;&gt; to all of this <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a>’s registered ResourceInfo::Exs for the specified <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"><span class="std std-ref">ResourceInfo::Usage</span></a> at the specified call index </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback12ResourceInfo18GetBindingIntervalEN12ResourceInfo5UsageE8uint64_t">
+<span id="_CPPv3NK3gpa8playback12ResourceInfo18GetBindingIntervalEN12ResourceInfo5UsageE8uint64_t"></span><span id="_CPPv2NK3gpa8playback12ResourceInfo18GetBindingIntervalEN12ResourceInfo5UsageE8uint64_t"></span><span id="gpa::playback::ResourceInfo::GetBindingInterval__ResourceInfo::Usage.uint64_tC"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1a9e405e40db497fdfbe8ba08465b683c3"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">uint64_t</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">uint64_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetBindingInterval</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa8playback12ResourceInfoE" title="gpa::playback::ResourceInfo"><span class="n"><span class="pre">ResourceInfo</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3gpa8playback12ResourceInfo5UsageE" title="gpa::playback::ResourceInfo::Usage"><span class="n"><span class="pre">Usage</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">usage</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">callIndex</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback12ResourceInfo18GetBindingIntervalEN12ResourceInfo5UsageE8uint64_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Gets this <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> object’s binding interval for a specificed <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"><span class="std std-ref">ResourceInfo::Usage</span></a> at a specified call index. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>usage</strong> – <strong>[in]</strong> The <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"><span class="std std-ref">ResourceInfo::Usage</span></a> to get a binding interval for </p></li>
+<li><p><strong>callIndex</strong> – <strong>[in]</strong> The call index to get a binding interval for </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A std::pair&lt;uint64_t, uint64_t&gt; consisting of the first and last call indices at which this <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> was bound for the specified <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_info_1af498a3fbd81ac3067b78acae97455deb"><span class="std std-ref">ResourceInfo::Usage</span></a> and call index </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo2idE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo2idE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo2idE"></span><span id="gpa::playback::ResourceInfo::id__ResourceId"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1a0ee587a72e93cc0d64588956a56d1464"></span><a class="reference internal" href="typedef_resource-info_2resource-info_8h_1ade1452ad31c09ca17cf847e66c939406.html#_CPPv4N3gpa8playback10ResourceIdE" title="gpa::playback::ResourceId"><span class="n"><span class="pre">ResourceId</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">id</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo2idE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a>’s ResourceId, in general this is the API handle of the resource at capture time. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo14playbackHandleE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo14playbackHandleE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo14playbackHandleE"></span><span id="gpa::playback::ResourceInfo::playbackHandle__ResourceId"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1adc0bdad9da17ee3c1e10db967b1f3bd8"></span><a class="reference internal" href="typedef_resource-info_2resource-info_8h_1ade1452ad31c09ca17cf847e66c939406.html#_CPPv4N3gpa8playback10ResourceIdE" title="gpa::playback::ResourceId"><span class="n"><span class="pre">ResourceId</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">playbackHandle</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo14playbackHandleE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a>’s playback ResourceId, in general this is the API handle of the resource at playback time. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo5pNameE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo5pNameE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo5pNameE"></span><span id="gpa::playback::ResourceInfo::pName__cCP"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1ad02c44471d29b9594031593325e871ca"></span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">pName</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="k"><span class="pre">nullptr</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo5pNameE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a>’s name. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo10createInfoE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo10createInfoE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo10createInfoE"></span><span id="gpa::playback::ResourceInfo::createInfo__CreateInfo"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1af29d36244f9d74befeb71a4ed028a3bb"></span><a class="reference internal" href="structgpa_1_1playback_1_1_create_info.html#_CPPv4N3gpa8playback10CreateInfoE" title="gpa::playback::CreateInfo"><span class="n"><span class="pre">CreateInfo</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">createInfo</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo10createInfoE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a>’s creation info. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-functions">Protected Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo10OnRegisterEv">
+<span id="_CPPv3N3gpa8playback12ResourceInfo10OnRegisterEv"></span><span id="_CPPv2N3gpa8playback12ResourceInfo10OnRegisterEv"></span><span id="gpa::playback::ResourceInfo::OnRegister"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1a3fe5dd4f995e9f3c8ca89970ef35317f"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnRegister</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo10OnRegisterEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This method will be called when this <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_info"><span class="std std-ref">ResourceInfo</span></a> is registered for the first time. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If this method is overriden <a class="reference internal" href="#classgpa_1_1playback_1_1_resource_info_1a3fe5dd4f995e9f3c8ca89970ef35317f"><span class="std std-ref">ResourceInfo::OnRegister()</span></a> must be called </p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo12ResourceInfoERK12ResourceInfo">
+<span id="_CPPv3N3gpa8playback12ResourceInfo12ResourceInfoERK12ResourceInfo"></span><span id="_CPPv2N3gpa8playback12ResourceInfo12ResourceInfoERK12ResourceInfo"></span><span id="gpa::playback::ResourceInfo::ResourceInfo__ResourceInfoCR"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1a0621dcd5c68b6d83355d221337ea8672"></span><span class="sig-name descname"><span class="n"><span class="pre">ResourceInfo</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa8playback12ResourceInfo12ResourceInfoERK12ResourceInfo" title="gpa::playback::ResourceInfo::ResourceInfo"><span class="n"><span class="pre">ResourceInfo</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo12ResourceInfoERK12ResourceInfo" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfoaSERK12ResourceInfo">
+<span id="_CPPv3N3gpa8playback12ResourceInfoaSERK12ResourceInfo"></span><span id="_CPPv2N3gpa8playback12ResourceInfoaSERK12ResourceInfo"></span><span id="gpa::playback::ResourceInfo::assign-operator__ResourceInfoCR"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1adc7fc1e0298e1ffced4a24eeafe11c46"></span><a class="reference internal" href="#_CPPv4N3gpa8playback12ResourceInfoE" title="gpa::playback::ResourceInfo"><span class="n"><span class="pre">ResourceInfo</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa8playback12ResourceInfoE" title="gpa::playback::ResourceInfo"><span class="n"><span class="pre">ResourceInfo</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfoaSERK12ResourceInfo" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-attributes">Protected Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo8mStorageE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo8mStorageE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo8mStorageE"></span><span id="gpa::playback::ResourceInfo::mStorage__gpa::playback::ResourceInfo::Storage"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1a4abfcb9bf5ead9f11704795d1e4022dd"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="n"><span class="pre">gpa</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">playback</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3gpa8playback12ResourceInfoE" title="gpa::playback::ResourceInfo"><span class="n"><span class="pre">ResourceInfo</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3gpa8playback12ResourceInfo7StorageE" title="gpa::playback::ResourceInfo::Storage"><span class="n"><span class="pre">Storage</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mStorage</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo8mStorageE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
+<dl>
+<dt class="sig sig-object cpp">
+<em class="property"><span class="pre">friend</span> <span class="pre">class</span></em> <span class="pre">detail::ResourceInfoRegistry</span></dt>
+</dl>
+
+</div>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo2ExE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo2ExE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo2ExE"></span><span id="gpa::playback::ResourceInfo::Ex"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1_1_ex"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Ex</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">gpa</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">playback</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">detail</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classgpa_1_1playback_1_1detail_1_1_convertible.html#_CPPv4I0DpEN3gpa8playback6detail11ConvertibleE" title="gpa::playback::detail::Convertible"><span class="n"><span class="pre">Convertible</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3gpa8playback12ResourceInfo2ExE" title="gpa::playback::ResourceInfo::Ex"><span class="n"><span class="pre">Ex</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_callable_shader_table_info.html#_CPPv4N3gpa8playback23CallableShaderTableInfoE" title="gpa::playback::CallableShaderTableInfo"><span class="n"><span class="pre">CallableShaderTableInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_hit_shader_table_info.html#_CPPv4N3gpa8playback18HitShaderTableInfoE" title="gpa::playback::HitShaderTableInfo"><span class="n"><span class="pre">HitShaderTableInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_index_buffer_info.html#_CPPv4N3gpa8playback15IndexBufferInfoE" title="gpa::playback::IndexBufferInfo"><span class="n"><span class="pre">IndexBufferInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_indirect_buffer_info.html#_CPPv4N3gpa8playback18IndirectBufferInfoE" title="gpa::playback::IndirectBufferInfo"><span class="n"><span class="pre">IndirectBufferInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_input_binding_info.html#_CPPv4N3gpa8playback16InputBindingInfoE" title="gpa::playback::InputBindingInfo"><span class="n"><span class="pre">InputBindingInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_memory_barrier_info.html#_CPPv4N3gpa8playback17MemoryBarrierInfoE" title="gpa::playback::MemoryBarrierInfo"><span class="n"><span class="pre">MemoryBarrierInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_miss_shader_table_info.html#_CPPv4N3gpa8playback19MissShaderTableInfoE" title="gpa::playback::MissShaderTableInfo"><span class="n"><span class="pre">MissShaderTableInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_pipeline_constant_info.html#_CPPv4N3gpa8playback20PipelineConstantInfoE" title="gpa::playback::PipelineConstantInfo"><span class="n"><span class="pre">PipelineConstantInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_raygen_shader_table_info.html#_CPPv4N3gpa8playback21RaygenShaderTableInfoE" title="gpa::playback::RaygenShaderTableInfo"><span class="n"><span class="pre">RaygenShaderTableInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_render_target_info.html#_CPPv4N3gpa8playback16RenderTargetInfoE" title="gpa::playback::RenderTargetInfo"><span class="n"><span class="pre">RenderTargetInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_resource_transfer_info.html#_CPPv4N3gpa8playback20ResourceTransferInfoE" title="gpa::playback::ResourceTransferInfo"><span class="n"><span class="pre">ResourceTransferInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_scissor_rect_info.html#_CPPv4N3gpa8playback15ScissorRectInfoE" title="gpa::playback::ScissorRectInfo"><span class="n"><span class="pre">ScissorRectInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_shading_rate_image_info.html#_CPPv4N3gpa8playback20ShadingRateImageInfoE" title="gpa::playback::ShadingRateImageInfo"><span class="n"><span class="pre">ShadingRateImageInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_vertex_buffer_info.html#_CPPv4N3gpa8playback16VertexBufferInfoE" title="gpa::playback::VertexBufferInfo"><span class="n"><span class="pre">VertexBufferInfo</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classgpa_1_1playback_1_1_viewport_info.html#_CPPv4N3gpa8playback12ViewportInfoE" title="gpa::playback::ViewportInfo"><span class="n"><span class="pre">ViewportInfo</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo2ExE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Subclassed by <a class="reference internal" href="classgpa_1_1playback_1_1_index_buffer_info.html#classgpa_1_1playback_1_1_index_buffer_info"><span class="std std-ref">gpa::playback::IndexBufferInfo</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1_indirect_buffer_info.html#classgpa_1_1playback_1_1_indirect_buffer_info"><span class="std std-ref">gpa::playback::IndirectBufferInfo</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1_input_binding_info.html#classgpa_1_1playback_1_1_input_binding_info"><span class="std std-ref">gpa::playback::InputBindingInfo</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1_memory_barrier_info.html#classgpa_1_1playback_1_1_memory_barrier_info"><span class="std std-ref">gpa::playback::MemoryBarrierInfo</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1_pipeline_constant_info.html#classgpa_1_1playback_1_1_pipeline_constant_info"><span class="std std-ref">gpa::playback::PipelineConstantInfo</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1_render_target_info.html#classgpa_1_1playback_1_1_render_target_info"><span class="std std-ref">gpa::playback::RenderTargetInfo</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1_resource_transfer_info.html#classgpa_1_1playback_1_1_resource_transfer_info"><span class="std std-ref">gpa::playback::ResourceTransferInfo</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1_scissor_rect_info.html#classgpa_1_1playback_1_1_scissor_rect_info"><span class="std std-ref">gpa::playback::ScissorRectInfo</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1_shader_table_info.html#classgpa_1_1playback_1_1_shader_table_info"><span class="std std-ref">gpa::playback::ShaderTableInfo</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1_shading_rate_image_info.html#classgpa_1_1playback_1_1_shading_rate_image_info"><span class="std std-ref">gpa::playback::ShadingRateImageInfo</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1_vertex_buffer_info.html#classgpa_1_1playback_1_1_vertex_buffer_info"><span class="std std-ref">gpa::playback::VertexBufferInfo</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1_viewport_info.html#classgpa_1_1playback_1_1_viewport_info"><span class="std std-ref">gpa::playback::ViewportInfo</span></a></p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo2Ex2ExEv">
+<span id="_CPPv3N3gpa8playback12ResourceInfo2Ex2ExEv"></span><span id="_CPPv2N3gpa8playback12ResourceInfo2Ex2ExEv"></span><span id="gpa::playback::ResourceInfo::Ex::Ex"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1_1_ex_1aa907b8edb96ae200d87de9922161354f"></span><span class="sig-name descname"><span class="n"><span class="pre">Ex</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo2Ex2ExEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Constructs an instance of <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info_1_1_ex.html#classgpa_1_1playback_1_1_resource_info_1_1_ex"><span class="std std-ref">ResourceInfo::Ex</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo2ExD0Ev">
+<span id="_CPPv3N3gpa8playback12ResourceInfo2ExD0Ev"></span><span id="_CPPv2N3gpa8playback12ResourceInfo2ExD0Ev"></span><span id="gpa::playback::ResourceInfo::Ex::~Ex"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1_1_ex_1a8bd0e925749cceb6ce50dcaf430c0270"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~Ex</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo2ExD0Ev" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Destroys this instance of <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info_1_1_ex.html#classgpa_1_1playback_1_1_resource_info_1_1_ex"><span class="std std-ref">ResourceInfo::Ex</span></a>. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-functions">Protected Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo2Ex10OnRegisterEv">
+<span id="_CPPv3N3gpa8playback12ResourceInfo2Ex10OnRegisterEv"></span><span id="_CPPv2N3gpa8playback12ResourceInfo2Ex10OnRegisterEv"></span><span id="gpa::playback::ResourceInfo::Ex::OnRegister"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1_1_ex_1a197bf6051f781fcbe74bc6f208c566d9"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnRegister</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo2Ex10OnRegisterEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This method will be called when this <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info_1_1_ex.html#classgpa_1_1playback_1_1_resource_info_1_1_ex"><span class="std std-ref">ResourceInfo::Ex</span></a> is registered for the first time. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If this method is overriden <a class="reference internal" href="classgpa_1_1playback_1_1_resource_info_1_1_ex.html#classgpa_1_1playback_1_1_resource_info_1_1_ex_1a197bf6051f781fcbe74bc6f208c566d9"><span class="std std-ref">ResourceInfo::Ex::OnRegister()</span></a> must be called </p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo2Ex2ExERK2Ex">
+<span id="_CPPv3N3gpa8playback12ResourceInfo2Ex2ExERK2Ex"></span><span id="_CPPv2N3gpa8playback12ResourceInfo2Ex2ExERK2Ex"></span><span id="gpa::playback::ResourceInfo::Ex::Ex__ExCR"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1_1_ex_1adc371133789f2e6b21f71d6fe001a5dd"></span><span class="sig-name descname"><span class="n"><span class="pre">Ex</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa8playback12ResourceInfo2Ex2ExERK2Ex" title="gpa::playback::ResourceInfo::Ex::Ex"><span class="n"><span class="pre">Ex</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo2Ex2ExERK2Ex" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo2ExaSERK2Ex">
+<span id="_CPPv3N3gpa8playback12ResourceInfo2ExaSERK2Ex"></span><span id="_CPPv2N3gpa8playback12ResourceInfo2ExaSERK2Ex"></span><span id="gpa::playback::ResourceInfo::Ex::assign-operator__ExCR"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1_1_ex_1ab6b9c4a2fce60d518e5a341b9612af29"></span><a class="reference internal" href="#_CPPv4N3gpa8playback12ResourceInfo2ExE" title="gpa::playback::ResourceInfo::Ex"><span class="n"><span class="pre">Ex</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa8playback12ResourceInfo2ExE" title="gpa::playback::ResourceInfo::Ex"><span class="n"><span class="pre">Ex</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo2ExaSERK2Ex" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
+<dl>
+<dt class="sig sig-object cpp">
+<em class="property"><span class="pre">friend</span> <span class="pre">class</span></em> <span class="pre">detail::ResourceInfoRegistry</span></dt>
+</dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo7StorageE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo7StorageE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo7StorageE"></span><span id="gpa::playback::ResourceInfo::Storage"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1_1_storage"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Storage</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo7StorageE" title="Permalink to this definition"></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo7Storage17CreateInfoDeleterE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo7Storage17CreateInfoDeleterE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo7Storage17CreateInfoDeleterE"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1_1_storage_1a892d2ebc827c0462009dbb29bcb7abe5"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CreateInfoDeleter</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo7Storage17CreateInfoDeleterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo7Storage7deleterE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo7Storage7deleterE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo7Storage7deleterE"></span><span id="gpa::playback::ResourceInfo::Storage::deleter__CreateInfoDeleter"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1_1_storage_1a2a5432efd3de67fef7dd1365e709ca5a"></span><a class="reference internal" href="#_CPPv4N3gpa8playback12ResourceInfo7Storage17CreateInfoDeleterE" title="gpa::playback::ResourceInfo::Storage::CreateInfoDeleter"><span class="n"><span class="pre">CreateInfoDeleter</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">deleter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo7Storage7deleterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback12ResourceInfo7Storage4nameE">
+<span id="_CPPv3N3gpa8playback12ResourceInfo7Storage4nameE"></span><span id="_CPPv2N3gpa8playback12ResourceInfo7Storage4nameE"></span><span id="gpa::playback::ResourceInfo::Storage::name__ss"></span><span class="target" id="classgpa_1_1playback_1_1_resource_info_1_1_storage_1a66d1eb5c4703dbaf6195a093718af34c"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">name</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback12ResourceInfo7Storage4nameE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="classgpa_1_1playback_1_1_resource_extractor.html" class="btn btn-neutral float-left" title="Class ResourceExtractor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="classgpa_1_1playback_1_1_resource_info_1_1_ex.html" class="btn btn-neutral float-right" title="Class ResourceInfo::Ex" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2022 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+
+.. _program_listing_file_include_introspection_declaration.h:
+
+Program Listing for File declaration.h
+======================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_introspection_declaration.h>` (``include/introspection/declaration.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "introspection/types.h"
+   #include "introspection/struct.h"
+   
+   #include <cstdint>
+   #include <string>
+   #include <vector>
+   
+   namespace gpa {
+   namespace introspection {
+   
+   
+   class Declaration
+   {
+   public:
+       Declaration();
+       Declaration(Declaration const& other);
+       Declaration(Declaration&& other);
+       Declaration& operator=(Declaration const& other);
+   
+       Declaration(introspection::Type type, char const* name);
+       Declaration(introspection::Type type, char const* name, char const* typeAlias);
+       Declaration(introspection::Type type, char const* name, char const* typeAlias, uint64_t vectorSize);
+       Declaration(introspection::Type type, char const* name, char const* typeAlias, uint64_t vectorSize, uint64_t columnCount, bool columnMajor);
+       Declaration(introspection::Type type, char const* name, char const* typeAlias, uint64_t vectorSize, uint64_t columnCount, bool columnMajor, uint64_t const* arrayDimensions, uint64_t nDimensions);
+       Declaration(introspection::Type type, char const* name, char const* typeAlias, uint64_t vectorSize, uint64_t columnCount, bool columnMajor, uint64_t const* arrayDimensions, uint64_t nDimensions, uint64_t offset);
+   
+       Declaration(introspection::Struct&& structDef, char const* declaredName);
+       Declaration(introspection::Struct&& structDef, char const* declaredName, char const* typeAlias);
+       Declaration(introspection::Struct&& structDef, char const* declaredName, char const* typeAlias, uint64_t const* arrayDimensions, uint64_t nArrayDimensions);
+       Declaration(introspection::Struct&& structDef, char const* declaredName, char const* typeAlias, uint64_t const* arrayDimensions, uint64_t nArrayDimensions, uint64_t offset);
+   
+       ~Declaration();
+   
+       introspection::Type Type() const;
+       char const* Name() const;
+       char const* TypeAlias() const;
+       uint64_t RowCount() const;
+       uint64_t ColumnCount() const;
+       bool ColumnMajor() const;
+       uint64_t ArrayDimensionCount() const;
+       uint64_t ArrayDimension(uint64_t index) const;
+       uint64_t StorageSize() const;
+       bool IsStruct() const;
+       introspection::Struct const* StructDeclaration() const;
+   
+       uint64_t Offset() const;
+   
+   private:
+       introspection::Type mType;
+       std::string mName;
+       std::string mTypeAlias;
+       uint64_t mRowCount;
+       uint64_t mColumnCount;
+       bool mColumnMajor;
+       std::vector<uint64_t> mArrayDimensions;
+       uint64_t mSize;
+       uint64_t mOffset;
+       introspection::Struct mStruct;
+   };
+   
+   }  // namespace introspection
+   }  // namespace gpa

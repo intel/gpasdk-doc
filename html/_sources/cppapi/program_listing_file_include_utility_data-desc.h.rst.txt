@@ -1,0 +1,85 @@
+
+.. _program_listing_file_include_utility_data-desc.h:
+
+Program Listing for File data-desc.h
+====================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_utility_data-desc.h>` (``include/utility/data-desc.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include <cstdint>
+   #include <cstddef>
+   
+   namespace gpa {
+   
+   enum DataChangeType {
+       kDefaultUpdate,
+       kD3D11TextureUpdate,
+       kD3D12TextureUpdate,
+       kD3D11ResourceInitialData,
+       kD3D11VideoDecoderData
+   };
+   
+   enum class ResourceDataDescriptorVersion : uint32_t {
+       VERSION_1,
+       VERSION_2,  // Data blob contains CompressionHeader
+       VERSION_COUNT,
+   };
+   
+   struct DataChangeDesc
+   {
+       DataChangeType type;
+       uint32_t subresource;
+       uint32_t depthPitch;
+       uint32_t rowPitch;
+       uint64_t offset;
+       uint64_t size;
+   };
+   
+   struct ResourceDataDescriptor
+   {
+       enum : int64_t {
+           kInvalidOffset = INT64_MAX,
+       };
+       uint64_t key;
+       uint64_t secondaryKey;
+       DataChangeDesc dataChangeDesc;
+       int64_t dataOffset = kInvalidOffset;
+       uint32_t version;
+   };
+   
+   enum class CompressionHeaderVersion : uint32_t {
+       VERSION_1,
+       VERSION_COUNT,
+   };
+   
+   struct CompressionHeader
+   {
+       uint32_t version;
+       uint32_t compressionType;
+       uint64_t compressedSize;
+   };
+   
+   }  // namespace gpa

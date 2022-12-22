@@ -1,0 +1,152 @@
+
+.. _program_listing_file_include_playback_vulkan-range-repeat-cache.h:
+
+Program Listing for File vulkan-range-repeat-cache.h
+====================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_vulkan-range-repeat-cache.h>` (``include/playback/vulkan-range-repeat-cache.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "logger/logger.h"
+   #include "object-map/object-map.h"
+   #include "playback/range-repeat-cache.h"
+   #include "playback-support/playback-support.h"
+   #include "reflection/argument.h"
+   #include "serialization/apicallcontext.h"
+   
+   #include <cassert>
+   #include <cinttypes>
+   #include <vector>
+   
+   #define VK_NO_PROTOTYPES
+   #include <vulkan/vulkan.h>
+   #undef VK_NO_PROTOTYPES
+   
+   #define VALIDATE_VKRESULT(result, file, line)                                                   \
+       if (result != VK_SUCCESS) {                                                                 \
+           GPA_LOG_ERROR("Vulkan error %" PRIi32 " at file %s line %" PRIi32, result, file, line); \
+           assert(false && "Vulkan execution error");                                              \
+       }
+   
+   namespace gpa {
+   namespace playback {
+   
+   class Callable;
+   
+   namespace repeat {
+   namespace vulkan {
+   // =============================== RangeRepeatCacheVK ==============================
+   template<class BaseClass>
+   class RangeRepeatCacheVKInternal : public BaseClass
+   {
+   public:
+       typedef std::shared_ptr<RangeRepeatCacheVKInternal<BaseClass>> Ptr;
+       RangeRepeatCacheVKInternal(void* object, uint64_t captureKey, playback::Context* context,
+                                  playback::Callable* callable)
+           : BaseClass(context, callable)
+           , mCreationCallable(*callable)
+       {
+           BaseClass::SetObject(captureKey, object);
+   
+           uint64_t* parentHandlePtr = nullptr;
+           serialization::Argument const* possiblyParentHandleArgument = callable->Argument(0, (const void**)&parentHandlePtr);
+           if (possiblyParentHandleArgument->Type() == serialization::BasicType::kHandle && parentHandlePtr) {
+               mParentHandle = *parentHandlePtr;
+           }
+       }
+   
+       virtual ~RangeRepeatCacheVKInternal() {}
+   
+       virtual void OnRangeEnter(GPADispatchTable const*& /*table*/) { mRangeEntered = true; }
+   
+       virtual void OnRangeRepeatRecreateObject(GPADispatchTable const*& table, uint64_t repeatPass)
+       {
+           if (mLastRecreateObjectPass == repeatPass) {
+               return;
+           }
+   
+           if (!BaseClass::mContext->repeating) {
+               assert(false &&
+                      "Calling range repeat cache creation callable outside of repeat scope - state "
+                      "tracker will not notice the call");
+               GPA_LOG_ERROR("Calling range repeat cache creation callable outside of repeat scope");
+           }
+           mCreationCallable.PreExecute(BaseClass::mContext);
+           mCreationCallable.Execute(table, BaseClass::mContext, true);
+           bool success = false;
+           if (mCreationCallable.IsSuccessful(success)) {
+               if (!success) {
+                   GPA_LOG_ERROR("Creation call %s failed", mCreationCallable.Name());
+               }
+           }
+           BaseClass::mObject = BaseClass::mContext->objMap->AcquireObject(BaseClass::mObjectKey);
+   
+           mLastRecreateObjectPass = repeatPass;
+   
+           assert(BaseClass::mObject && "Could not obtain object from object map");
+       }
+   
+       virtual void OnRangeRepeatRestoreState(GPADispatchTable const*& /*table*/, uint64_t repeatPass)
+       {
+           mLastRestoreStatePass = repeatPass;
+       }
+   
+       virtual void OnRangeExit(GPADispatchTable const*& /*table*/)
+       {
+           mRangeEntered = false;
+           BaseClass::mUsedInRange = false;
+       }
+   
+       uint32_t GetCreationCallFunToken() const { return mCreationCallable.Token()._function; }
+   
+       playback::Callable const& GetCreationCallable() const { return mCreationCallable; }
+   
+       uint64_t GetParentHandle() { return mParentHandle; }
+   
+   protected:
+       bool RangeEntered() { return mRangeEntered; }
+   
+       bool ObjectRecreatedInThisPass(uint64_t pass) { return (pass == mLastRecreateObjectPass); }
+       bool StateRestoredInThisPass(uint64_t pass) { return (pass == mLastRestoreStatePass); }
+   
+   private:
+       playback::Callable mCreationCallable;
+       bool mRangeEntered = false;
+   
+   protected:
+       uint64_t mLastRecreateObjectPass = UINT64_MAX;
+       uint64_t mLastRestoreStatePass = UINT64_MAX;
+   
+       uint64_t mParentHandle = 0;
+   };
+   
+   using RangeRepeatCacheVK = RangeRepeatCacheVKInternal<gpa::playback::repeat::RangeRepeatCache>;
+   using RangeRepeatCacheVKForCommandBufers =
+       RangeRepeatCacheVKInternal<gpa::playback::repeat::RangeRepeatCacheForCommandBuffers>;
+   
+   }  // namespace vulkan
+   }  // namespace repeat
+   }  // namespace playback
+   }  // namespace gpa

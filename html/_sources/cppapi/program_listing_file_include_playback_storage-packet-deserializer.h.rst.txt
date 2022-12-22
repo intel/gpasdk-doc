@@ -1,0 +1,73 @@
+
+.. _program_listing_file_include_playback_storage-packet-deserializer.h:
+
+Program Listing for File storage-packet-deserializer.h
+======================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_storage-packet-deserializer.h>` (``include/playback/storage-packet-deserializer.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include <cstdint>
+   #include <list>
+   #include <vector>
+   
+   namespace gpa {
+   
+   namespace serialization {
+   struct StreamPacketHeaderEx;
+   }  // namespace serialization
+   
+   namespace playback {
+   
+   class StoragePacketReader;
+   
+   struct PacketReaderLess
+   {
+       bool operator()(StoragePacketReader const* lhs, StoragePacketReader const* rhs) const;
+   };
+   
+   class StoragePacketDeserializer
+   {
+   public:
+       StoragePacketDeserializer();
+       ~StoragePacketDeserializer();
+   
+       void Reset();
+       void Clear();
+       void SetThreadOffset(uint64_t threadId, uint64_t offset);
+       void AddThreadPacketReader(StoragePacketReader* reader);
+       serialization::StreamPacketHeaderEx const* Current(uint64_t* storageID = nullptr, uint64_t* offset = nullptr) const;
+       bool MoveNext();
+       gpa::serialization::StreamPacketHeaderEx const* Next(uint64_t* storageID = nullptr, uint64_t* offset = nullptr);
+   
+   private:
+       void ReevaluateFirstReader(std::list<StoragePacketReader*>& readers);
+   
+       std::list<StoragePacketReader*> mActiveReaders;
+       std::vector<StoragePacketReader*> mAllReaders;
+   };
+   
+   }  // namespace playback
+   }  // namespace gpa

@@ -1,0 +1,79 @@
+
+.. _program_listing_file_include_serialization_random-access-async-storage.h:
+
+Program Listing for File random-access-async-storage.h
+======================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_serialization_random-access-async-storage.h>` (``include/serialization/random-access-async-storage.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "serialization/memorybacked-serializer.h"
+   #include "serialization/random-access-serializer.h"
+   #include "stream/types.h"
+   #include "stream/storage.h"
+   #include "concurrent/lock.h"
+   
+   #include <memory>
+   #include <functional>
+   #include <mutex>
+   
+   namespace gpa {
+   
+   namespace stream {
+   class RandomAccessStorage;
+   class View;
+   }  // namespace stream
+   
+   namespace serialization {
+   
+   using UnlockDeleter = std::function<void(MemoryBackedSerializer*)>;
+   using SerializerUniquePointer = std::unique_ptr<MemoryBackedSerializer, UnlockDeleter>;
+   
+   class RandomAccessAsyncStorage
+   {
+   public:
+       enum : int64_t {
+           kInvalidOffset = INT64_MAX,
+       };
+   
+       RandomAccessAsyncStorage(stream::RandomAccessStorage* storage);
+       ~RandomAccessAsyncStorage();
+   
+       std::unique_ptr<RandomAccessSerializer, UnlockDeleter> GetRandomSerializerAndLock();
+   
+       std::unique_ptr<MemoryBackedSerializer, UnlockDeleter> GetSerializerForReservedSpace(size_t size, uint64_t* absoluteOffset = nullptr);
+   
+       std::unique_ptr<MemoryBackedSerializer, UnlockDeleter> GetSerializerForExistingSpace(uint64_t absoluteOffset, size_t size);
+   
+   private:
+       RandomAccessSerializer mStorageSerializer;
+   
+       RWLock mSerializersAccessLock;
+   
+       std::mutex mMutex;
+   };
+   
+   }  // namespace serialization
+   }  // namespace gpa

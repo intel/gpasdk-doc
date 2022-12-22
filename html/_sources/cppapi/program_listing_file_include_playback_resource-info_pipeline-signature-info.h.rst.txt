@@ -1,0 +1,102 @@
+
+.. _program_listing_file_include_playback_resource-info_pipeline-signature-info.h:
+
+Program Listing for File pipeline-signature-info.h
+==================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_resource-info_pipeline-signature-info.h>` (``include/playback/resource-info/pipeline-signature-info.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   #pragma once
+   
+   #include "playback/resource-info/detail/span.h"
+   #include "playback/resource-info/pipeline-descriptor-set-info.h"
+   #include "playback/resource-info/resource-info.h"
+   #include "api-types/api-types.h"
+   
+   #include <vector>
+   
+   namespace gpa {
+   namespace playback {
+   
+   struct PipelineConstantRange
+   {
+       uint32_t size{0};  
+   
+       uint32_t offset{0};
+   
+       uint32_t shaderRegister{0};
+   
+       uint32_t registerSpace{0};
+   
+       uint32_t parameterIndex{0};
+   
+       api_types::ShaderStageFlags shaderStageVisibility{api_types::GPA_SHADER_STAGE_UNKNOWN};
+   };
+   
+   bool operator==(PipelineConstantRange const& lhs, PipelineConstantRange const& rhs);
+   
+   bool operator!=(PipelineConstantRange const& lhs, PipelineConstantRange const& rhs);
+   
+   bool operator<(PipelineConstantRange const& lhs, PipelineConstantRange const& rhs);
+   
+   class PipelineSignatureInfo final
+       : public ResourceInfo
+   {
+   public:
+       TypeId GetTypeId() const override final;
+   
+       uint64_t pipelineConstantRangeCount{0};                                       
+       PipelineConstantRange const* pPiplineConstantRanges{nullptr};                 
+       uint64_t pipelineDescriptorSetCount{0};                                       
+       PipelineDescriptorSet const* const* pPiplineDescriptorSets{nullptr};          
+       uint64_t inlinePipelineDescriptorBindingCount{0};                             
+       PipelineDescriptorBinding const* pInlinePipelineDescriptorBindings{nullptr};  
+   
+   protected:
+       void OnRegister() override final;
+   
+   private:
+       class Storage final
+       {
+       public:
+           std::vector<PipelineConstantRange> pipelineConstantRanges;
+           std::vector<PipelineDescriptorSet const*> pipelineDescriptorSets;
+           std::vector<PipelineDescriptorBinding> inlinePipelineDescriptorBindings;
+       } mStorage;
+   };
+   
+   namespace detail {
+   
+   template<>
+   inline auto MakeTuple<PipelineSignatureInfo>(const PipelineSignatureInfo& pipelineSignatureInfo)
+   {
+       return std::make_tuple(
+           pipelineSignatureInfo.pipelineConstantRangeCount,
+           pipelineSignatureInfo.pipelineDescriptorSetCount,
+           MakeSpan(pipelineSignatureInfo.pPiplineConstantRanges, pipelineSignatureInfo.pipelineConstantRangeCount),
+           MakeSpan(pipelineSignatureInfo.pPiplineDescriptorSets, pipelineSignatureInfo.pipelineDescriptorSetCount));
+   }
+   
+   }  // namespace detail
+   }  // namespace playback
+   }  // namespace gpa
