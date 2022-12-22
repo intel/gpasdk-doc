@@ -1,0 +1,77 @@
+
+.. _program_listing_file_include_metadata_keyframe-reader.h:
+
+Program Listing for File keyframe-reader.h
+==========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_metadata_keyframe-reader.h>` (``include/metadata/keyframe-reader.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "serialization/apicallcontext.h"
+   #include "serialization/random-access-serializer.h"
+   #include "stream/storage-ids.h"
+   #include "metadata/keyframe.h"
+   
+   #include <memory>
+   
+   namespace gpa {
+   namespace serialization {
+   
+   class RandomAccessSerializer;
+   
+   namespace metadata {
+   
+   class Keyframe;
+   
+   class KeyframeReader
+   {
+   public:
+       KeyframeReader(RandomAccessSerializer* serializer);
+       ~KeyframeReader();
+   
+       std::unique_ptr<Keyframe> Read();
+   
+   private:
+       RandomAccessSerializer* mSerializer;
+   
+       template<typename T>
+       void AddOperationReference(Keyframe* keyframe, uint64_t currentOffset)
+       {
+           T op = {};
+           StreamPacketHeaderEx packetHeader;
+           mSerializer->Read(packetHeader);
+           op.Deserialize(mSerializer);
+   
+           metadata::Keyframe::ApiCallReference apiCallRef;
+           apiCallRef.offset = currentOffset;
+           apiCallRef.threadId = kKeyframeStorageID;
+           apiCallRef.timestamp = op.packetHeader.timestamp;
+           keyframe->AddApiCallReference(apiCallRef);
+       }
+   };
+   
+   }  // namespace metadata
+   }  // namespace serialization
+   }  // namespace gpa

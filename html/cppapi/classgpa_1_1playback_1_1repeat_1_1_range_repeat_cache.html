@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class RangeRepeatCache &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Class RangeRepeatCacheForCommandBuffers" href="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_for_command_buffers.html" />
+    <link rel="prev" title="Class DrawableRangeRepeatCache" href="classgpa_1_1playback_1_1repeat_1_1metal_1_1_drawable_range_repeat_cache.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+            <a href="../index.html">
+            <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending “Helloworld” Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">‘Helloworld’ Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">‘Helloworld’ Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">API-Debug-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">Device-Override</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#unions">Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id3">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id4">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id5">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id6">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id7">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id8">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id9">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id10">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../src/reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">C++ Interfaces</a></li>
+      <li class="breadcrumb-item active">Class RangeRepeatCache</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="class-rangerepeatcache">
+<span id="exhale-class-classgpa-1-1playback-1-1repeat-1-1-range-repeat-cache"></span><h1>Class RangeRepeatCache<a class="headerlink" href="#class-rangerepeatcache" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_playback_range-repeat-cache.h.html#file-include-playback-range-repeat-cache-h"><span class="std std-ref">File range-repeat-cache.h</span></a></p></li>
+</ul>
+<div class="section" id="inheritance-relationships">
+<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline"></a></h2>
+<div class="section" id="base-type">
+<h3>Base Type<a class="headerlink" href="#base-type" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::capture_support::ObjectData</span></code> (<a class="reference internal" href="classgpa_1_1capture__support_1_1_object_data.html#exhale-class-classgpa-1-1capture-support-1-1-object-data"><span class="std std-ref">Class ObjectData</span></a>)</p></li>
+</ul>
+</div>
+<div class="section" id="derived-types">
+<h3>Derived Types<a class="headerlink" href="#derived-types" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::playback::repeat::metal::CommandQueueRangeRepeatCache</span></code> (<a class="reference internal" href="classgpa_1_1playback_1_1repeat_1_1metal_1_1_command_queue_range_repeat_cache.html#exhale-class-classgpa-1-1playback-1-1repeat-1-1metal-1-1-command-queue-range-repeat-cache"><span class="std std-ref">Class CommandQueueRangeRepeatCache</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::playback::repeat::metal::DescriptorArrayRangeRepeatCache</span></code> (<a class="reference internal" href="classgpa_1_1playback_1_1repeat_1_1metal_1_1_descriptor_array_range_repeat_cache.html#exhale-class-classgpa-1-1playback-1-1repeat-1-1metal-1-1-descriptor-array-range-repeat-cache"><span class="std std-ref">Class DescriptorArrayRangeRepeatCache</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::playback::repeat::metal::DescriptorRangeRepeatCache</span></code> (<a class="reference internal" href="classgpa_1_1playback_1_1repeat_1_1metal_1_1_descriptor_range_repeat_cache.html#exhale-class-classgpa-1-1playback-1-1repeat-1-1metal-1-1-descriptor-range-repeat-cache"><span class="std std-ref">Class DescriptorRangeRepeatCache</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::playback::repeat::metal::DrawableRangeRepeatCache</span></code> (<a class="reference internal" href="classgpa_1_1playback_1_1repeat_1_1metal_1_1_drawable_range_repeat_cache.html#exhale-class-classgpa-1-1playback-1-1repeat-1-1metal-1-1-drawable-range-repeat-cache"><span class="std std-ref">Class DrawableRangeRepeatCache</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::playback::repeat::RangeRepeatCacheForCommandBuffers</span></code> (<a class="reference internal" href="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_for_command_buffers.html#exhale-class-classgpa-1-1playback-1-1repeat-1-1-range-repeat-cache-for-command-buffers"><span class="std std-ref">Class RangeRepeatCacheForCommandBuffers</span></a>)</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCacheE">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCacheE"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCacheE"></span><span id="gpa::playback::repeat::RangeRepeatCache"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RangeRepeatCache</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">gpa</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">capture_support</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classgpa_1_1capture__support_1_1_object_data.html#_CPPv4N3gpa15capture_support10ObjectDataE" title="gpa::capture_support::ObjectData"><span class="n"><span class="pre">ObjectData</span></span></a><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCacheE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Used to collect and track state of objects during playback for range repeat. </p>
+<p>These caches are created during invocation of FunctionCall::Pre/PostPlaybackBeforeRepeat as new objects are created during playback. Subclasses of this class have unique state that can be updated over time as the FunctionCall::Pre/PostPlaybackBefore/DuringRepeat methods are called during playback. </p>
+<p>Subclassed by <a class="reference internal" href="classgpa_1_1playback_1_1repeat_1_1metal_1_1_command_queue_range_repeat_cache.html#classgpa_1_1playback_1_1repeat_1_1metal_1_1_command_queue_range_repeat_cache"><span class="std std-ref">gpa::playback::repeat::metal::CommandQueueRangeRepeatCache</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1repeat_1_1metal_1_1_descriptor_array_range_repeat_cache.html#classgpa_1_1playback_1_1repeat_1_1metal_1_1_descriptor_array_range_repeat_cache"><span class="std std-ref">gpa::playback::repeat::metal::DescriptorArrayRangeRepeatCache</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1repeat_1_1metal_1_1_descriptor_range_repeat_cache.html#classgpa_1_1playback_1_1repeat_1_1metal_1_1_descriptor_range_repeat_cache"><span class="std std-ref">gpa::playback::repeat::metal::DescriptorRangeRepeatCache</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1repeat_1_1metal_1_1_drawable_range_repeat_cache.html#classgpa_1_1playback_1_1repeat_1_1metal_1_1_drawable_range_repeat_cache"><span class="std std-ref">gpa::playback::repeat::metal::DrawableRangeRepeatCache</span></a>, <a class="reference internal" href="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_for_command_buffers.html#classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_for_command_buffers"><span class="std std-ref">gpa::playback::repeat::RangeRepeatCacheForCommandBuffers</span></a></p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache3PtrE">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache3PtrE"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache3PtrE"></span><span id="gpa::playback::repeat::RangeRepeatCache::Ptr"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1affd2f3f4645b81d1fa0e52908ae2e484"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCacheE" title="gpa::playback::repeat::RangeRepeatCache"><span class="n"><span class="pre">RangeRepeatCache</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Ptr</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache3PtrE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache16RangeRepeatCacheEPN8playback7ContextEPN8playback8CallableE">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache16RangeRepeatCacheEPN8playback7ContextEPN8playback8CallableE"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache16RangeRepeatCacheEPN8playback7ContextEPN8playback8CallableE"></span><span id="gpa::playback::repeat::RangeRepeatCache::RangeRepeatCache__playback::ContextP.playback::CallableP"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1a592540cdd319e1f2d1a2aa2423e9334e"></span><span class="sig-name descname"><span class="n"><span class="pre">RangeRepeatCache</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">playback</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structgpa_1_1playback_1_1_context.html#_CPPv4N3gpa8playback7ContextE" title="gpa::playback::Context"><span class="n"><span class="pre">Context</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">context</span></span>, <span class="n"><span class="pre">playback</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classgpa_1_1playback_1_1_callable.html#_CPPv4N3gpa8playback8CallableE" title="gpa::playback::Callable"><span class="n"><span class="pre">Callable</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">creationCallable</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache16RangeRepeatCacheEPN8playback7ContextEPN8playback8CallableE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCacheD0Ev">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCacheD0Ev"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCacheD0Ev"></span><span id="gpa::playback::repeat::RangeRepeatCache::~RangeRepeatCache"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1a25bea7e9f62978dce391e6027dcbfca8"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~RangeRepeatCache</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCacheD0Ev" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache9SetObjectE8uint64_tPv">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache9SetObjectE8uint64_tPv"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache9SetObjectE8uint64_tPv"></span><span id="gpa::playback::repeat::RangeRepeatCache::SetObject__uint64_t.voidP"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1aaa0f2c3ce7357947047c195e22b2b60d"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetObject</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">captureKey</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">liveObject</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache9SetObjectE8uint64_tPv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Sets the live object associated with this cache and its capture time key. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback6repeat16RangeRepeatCache12GetObjectKeyEv">
+<span id="_CPPv3NK3gpa8playback6repeat16RangeRepeatCache12GetObjectKeyEv"></span><span id="_CPPv2NK3gpa8playback6repeat16RangeRepeatCache12GetObjectKeyEv"></span><span id="gpa::playback::repeat::RangeRepeatCache::GetObjectKeyC"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1a5ff4349ce44c2523bdaf974323068f97"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetObjectKey</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback6repeat16RangeRepeatCache12GetObjectKeyEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Returns the capture key of the object associated with this cache. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback6repeat16RangeRepeatCache6ObjectEv">
+<span id="_CPPv3NK3gpa8playback6repeat16RangeRepeatCache6ObjectEv"></span><span id="_CPPv2NK3gpa8playback6repeat16RangeRepeatCache6ObjectEv"></span><span id="gpa::playback::repeat::RangeRepeatCache::ObjectC"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1af04384ec282577498d45739e7627c869"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">Object</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback6repeat16RangeRepeatCache6ObjectEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Returns the live object pointer associated with this cache. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache30OnQueueSynchronizationRequiredERPK16GPADispatchTable">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache30OnQueueSynchronizationRequiredERPK16GPADispatchTable"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache30OnQueueSynchronizationRequiredERPK16GPADispatchTable"></span><span id="gpa::playback::repeat::RangeRepeatCache::OnQueueSynchronizationRequired__GPADispatchTableCPR"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1ac2b12b9ebd155a3c96a6e1c4a756e27a"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnQueueSynchronizationRequired</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">GPADispatchTable</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">table</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache30OnQueueSynchronizationRequiredERPK16GPADispatchTable" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This should be called when queues need to be synchronized. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache12OnRangeEnterERPK16GPADispatchTable">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache12OnRangeEnterERPK16GPADispatchTable"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache12OnRangeEnterERPK16GPADispatchTable"></span><span id="gpa::playback::repeat::RangeRepeatCache::OnRangeEnter__GPADispatchTableCPR"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1a5a3149da6d2ddcfeadc56814c94b7fe5"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnRangeEnter</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">GPADispatchTable</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">table</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache12OnRangeEnterERPK16GPADispatchTable" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This should be called when we reach the range of interest for the first time. </p>
+<p>This could be where some state of an object is snapshotted, resource data is copied, or any other special handling that should be done up front that will be needed while we are repeating the range. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache16OnRangeCollectedERPK16GPADispatchTable">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache16OnRangeCollectedERPK16GPADispatchTable"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache16OnRangeCollectedERPK16GPADispatchTable"></span><span id="gpa::playback::repeat::RangeRepeatCache::OnRangeCollected__GPADispatchTableCPR"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1a99cb98b73a4b65e7155b8f093e7153da"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnRangeCollected</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">GPADispatchTable</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">table</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache16OnRangeCollectedERPK16GPADispatchTable" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This is called after we finish collecting / processing the range of interest the first time it’s seen, but before any replays are executed. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache27OnRangeRepeatRecreateObjectERPK16GPADispatchTable8uint64_t">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache27OnRangeRepeatRecreateObjectERPK16GPADispatchTable8uint64_t"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache27OnRangeRepeatRecreateObjectERPK16GPADispatchTable8uint64_t"></span><span id="gpa::playback::repeat::RangeRepeatCache::OnRangeRepeatRecreateObject__GPADispatchTableCPR.uint64_t"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1a4410fd9797162c8bebf96c2a9e671ea4"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnRangeRepeatRecreateObject</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">GPADispatchTable</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">table</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">repeatPass</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache27OnRangeRepeatRecreateObjectERPK16GPADispatchTable8uint64_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This should be called when we repeat the range of interest before state restoration. </p>
+<p>This could be where the object is recreated if it was destroyed during repeat in order to replay the range again. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache26OnRangeRepeatDestroyObjectERPK16GPADispatchTable8uint64_t">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache26OnRangeRepeatDestroyObjectERPK16GPADispatchTable8uint64_t"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache26OnRangeRepeatDestroyObjectERPK16GPADispatchTable8uint64_t"></span><span id="gpa::playback::repeat::RangeRepeatCache::OnRangeRepeatDestroyObject__GPADispatchTableCPR.uint64_t"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1a2aadd2832bf1c73c40a10269a3eef0fa"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnRangeRepeatDestroyObject</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">GPADispatchTable</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">table</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">repeatPass</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache26OnRangeRepeatDestroyObjectERPK16GPADispatchTable8uint64_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This should be called when we repeat the range of interest before state restoration. </p>
+<p>This could be where the object is destroyed if it was created during repeat in order to replay the range again. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache25OnRangeRepeatRestoreStateERPK16GPADispatchTable8uint64_t">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache25OnRangeRepeatRestoreStateERPK16GPADispatchTable8uint64_t"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache25OnRangeRepeatRestoreStateERPK16GPADispatchTable8uint64_t"></span><span id="gpa::playback::repeat::RangeRepeatCache::OnRangeRepeatRestoreState__GPADispatchTableCPR.uint64_t"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1a7ff29ac4c2738beb4ec3206b624795ff"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnRangeRepeatRestoreState</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">GPADispatchTable</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">table</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">repeatPass</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache25OnRangeRepeatRestoreStateERPK16GPADispatchTable8uint64_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This should be called when we repeat the range of interest after object recreation. </p>
+<p>This could be where the state of an object is restored in order to replay the range again. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache11OnRangeExitERPK16GPADispatchTable">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache11OnRangeExitERPK16GPADispatchTable"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache11OnRangeExitERPK16GPADispatchTable"></span><span id="gpa::playback::repeat::RangeRepeatCache::OnRangeExit__GPADispatchTableCPR"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1afb6569fe792fb036f3824b6b42483e2a"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnRangeExit</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">GPADispatchTable</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">table</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache11OnRangeExitERPK16GPADispatchTable" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This should be called when we go to play back the range of interest for the final time. </p>
+<p>This could be where cleanup logic is added. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache20OnReleaseDuringRangeERPK16GPADispatchTable">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache20OnReleaseDuringRangeERPK16GPADispatchTable"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache20OnReleaseDuringRangeERPK16GPADispatchTable"></span><span id="gpa::playback::repeat::RangeRepeatCache::OnReleaseDuringRange__GPADispatchTableCPR"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1a5a289acae31430e9221cf3ce653ee1c6"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnReleaseDuringRange</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">GPADispatchTable</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">table</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache20OnReleaseDuringRangeERPK16GPADispatchTable" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This should be called if the corresponding live object is deleted during the range. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache19ReleasedDuringRangeEv">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache19ReleasedDuringRangeEv"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache19ReleasedDuringRangeEv"></span><span id="gpa::playback::repeat::RangeRepeatCache::ReleasedDuringRange"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1a70fbe03510cb0a8b4da0d70f5ce32901"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ReleasedDuringRange</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache19ReleasedDuringRangeEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Tells if the object was released during repeat range. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache18CreatedDuringRangeEv">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache18CreatedDuringRangeEv"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache18CreatedDuringRangeEv"></span><span id="gpa::playback::repeat::RangeRepeatCache::CreatedDuringRange"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1a306a57223d59b0abfc3bff5a32b5683d"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CreatedDuringRange</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache18CreatedDuringRangeEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Tells if the object was created during repeat range. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache19CreatedOnRepeatPassEv">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache19CreatedOnRepeatPassEv"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache19CreatedOnRepeatPassEv"></span><span id="gpa::playback::repeat::RangeRepeatCache::CreatedOnRepeatPass"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1a8dc4340bb80867edbee0d9a1cb40d107"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CreatedOnRepeatPass</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache19CreatedOnRepeatPassEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Tells what repeat pass the object was created. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache17CreationTimestampEv">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache17CreationTimestampEv"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache17CreationTimestampEv"></span><span id="gpa::playback::repeat::RangeRepeatCache::CreationTimestamp"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1a8c9ef130ca72b37117bbd0fb714c3c57"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CreationTimestamp</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache17CreationTimestampEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Returns rdtsc timestamp taken when the cache object was created. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache14SetUsedInRangeEb">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache14SetUsedInRangeEb"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache14SetUsedInRangeEb"></span><span id="gpa::playback::repeat::RangeRepeatCache::SetUsedInRange__b"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1a4846f97a6cd5e1384f261c47b16b5235"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetUsedInRange</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache14SetUsedInRangeEb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Flags the object as used in the repeat range. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache11UsedInRangeEv">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache11UsedInRangeEv"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache11UsedInRangeEv"></span><span id="gpa::playback::repeat::RangeRepeatCache::UsedInRange"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1ad6fc82fa69d382c7eecc96fc4b856501"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UsedInRange</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache11UsedInRangeEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Tells if the object is used in the repeat range. </p>
+<p>Not all objects are marked as used in range </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache32IsDestroyingObjectCreatedInRangeEv">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache32IsDestroyingObjectCreatedInRangeEv"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache32IsDestroyingObjectCreatedInRangeEv"></span><span id="gpa::playback::repeat::RangeRepeatCache::IsDestroyingObjectCreatedInRange"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1a13c6b2e45cc30ab97c8d64adb3b5d1ff"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsDestroyingObjectCreatedInRange</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache32IsDestroyingObjectCreatedInRangeEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache10GetCallApiEv">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache10GetCallApiEv"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache10GetCallApiEv"></span><span id="gpa::playback::repeat::RangeRepeatCache::GetCallApi"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1aa6eece14410e02f38047e4a9d29beaf6"></span><span class="n"><span class="pre">serialization</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="enum_common_8h_1a44883bcf26e010d1b21ba0454035acf4.html#_CPPv4N3gpa13serialization10PacketTypeE" title="gpa::serialization::PacketType"><span class="n"><span class="pre">PacketType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetCallApi</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache10GetCallApiEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-attributes">Protected Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache7mObjectE">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache7mObjectE"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache7mObjectE"></span><span id="gpa::playback::repeat::RangeRepeatCache::mObject__voidP"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1aa3880c7ef928456060c53f53109787a4"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mObject</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache7mObjectE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache10mObjectKeyE">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache10mObjectKeyE"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache10mObjectKeyE"></span><span id="gpa::playback::repeat::RangeRepeatCache::mObjectKey__uint64_t"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1adfba713f9ebb5800b8d70f9be7fc0111"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mObjectKey</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache10mObjectKeyE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache20mReleasedDuringRangeE">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache20mReleasedDuringRangeE"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache20mReleasedDuringRangeE"></span><span id="gpa::playback::repeat::RangeRepeatCache::mReleasedDuringRange__b"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1ac35378e1493cac68c25a424537c7b295"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mReleasedDuringRange</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache20mReleasedDuringRangeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache19mCreatedDuringRangeE">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache19mCreatedDuringRangeE"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache19mCreatedDuringRangeE"></span><span id="gpa::playback::repeat::RangeRepeatCache::mCreatedDuringRange__b"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1aa34f7a63a21574e2a3c222f0e0fa4ca6"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mCreatedDuringRange</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache19mCreatedDuringRangeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache20mCreatedOnRepeatPassE">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache20mCreatedOnRepeatPassE"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache20mCreatedOnRepeatPassE"></span><span id="gpa::playback::repeat::RangeRepeatCache::mCreatedOnRepeatPass__uint64_t"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1ac2ff178555cd16cdc006cdc4ae353ece"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mCreatedOnRepeatPass</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">UINT64_MAX</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache20mCreatedOnRepeatPassE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache8mContextE">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache8mContextE"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache8mContextE"></span><span id="gpa::playback::repeat::RangeRepeatCache::mContext__playback::ContextP"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1ac2ac98aa6399bc380da79e2667143fb8"></span><span class="n"><span class="pre">playback</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structgpa_1_1playback_1_1_context.html#_CPPv4N3gpa8playback7ContextE" title="gpa::playback::Context"><span class="n"><span class="pre">Context</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mContext</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache8mContextE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache18mCreationTimestampE">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache18mCreationTimestampE"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache18mCreationTimestampE"></span><span id="gpa::playback::repeat::RangeRepeatCache::mCreationTimestamp__uint64_t"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1a6e34ea7b597ac3b51c1e9883f7644e56"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mCreationTimestamp</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">RDTSC</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache18mCreationTimestampE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache12mUsedInRangeE">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache12mUsedInRangeE"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache12mUsedInRangeE"></span><span id="gpa::playback::repeat::RangeRepeatCache::mUsedInRange__b"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1a362d13b03e7018253046cc7d8d9abba2"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mUsedInRange</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache12mUsedInRangeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache31mDestroyingObjectCreatedInRangeE">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache31mDestroyingObjectCreatedInRangeE"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache31mDestroyingObjectCreatedInRangeE"></span><span id="gpa::playback::repeat::RangeRepeatCache::mDestroyingObjectCreatedInRange__b"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1a5b7e09f8cd14e53b78239da0416131ab"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mDestroyingObjectCreatedInRange</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache31mDestroyingObjectCreatedInRangeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback6repeat16RangeRepeatCache8mCallApiE">
+<span id="_CPPv3N3gpa8playback6repeat16RangeRepeatCache8mCallApiE"></span><span id="_CPPv2N3gpa8playback6repeat16RangeRepeatCache8mCallApiE"></span><span id="gpa::playback::repeat::RangeRepeatCache::mCallApi__serialization::PacketType"></span><span class="target" id="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_1afc62d49f8efad91b00a4f9d64334537b"></span><span class="n"><span class="pre">serialization</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="enum_common_8h_1a44883bcf26e010d1b21ba0454035acf4.html#_CPPv4N3gpa13serialization10PacketTypeE" title="gpa::serialization::PacketType"><span class="n"><span class="pre">PacketType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mCallApi</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback6repeat16RangeRepeatCache8mCallApiE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="classgpa_1_1playback_1_1repeat_1_1metal_1_1_drawable_range_repeat_cache.html" class="btn btn-neutral float-left" title="Class DrawableRangeRepeatCache" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="classgpa_1_1playback_1_1repeat_1_1_range_repeat_cache_for_command_buffers.html" class="btn btn-neutral float-right" title="Class RangeRepeatCacheForCommandBuffers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2022 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

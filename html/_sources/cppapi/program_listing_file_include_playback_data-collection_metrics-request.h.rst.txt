@@ -1,0 +1,80 @@
+
+.. _program_listing_file_include_playback_data-collection_metrics-request.h:
+
+Program Listing for File metrics-request.h
+==========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_data-collection_metrics-request.h>` (``include/playback/data-collection/metrics-request.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "metrics/types.h"
+   
+   #include <cstdint>
+   #include <memory>
+   #include <vector>
+   
+   namespace gpa {
+   
+   namespace metrics {
+   class IMetricGroup;
+   }
+   
+   namespace data_collection {
+   
+   class CollectionRange;
+   
+   class MetricsRequest
+   {
+   public:
+       typedef std::shared_ptr<MetricsRequest> Ptr;
+   
+       MetricsRequest(uint32_t groupIndex, metrics::IMetricGroup const* group,
+                      CollectionRange const* ranges, uint64_t nRanges);
+       ~MetricsRequest();
+   
+       uint32_t GroupIndex() const;
+       metrics::IMetricGroup const* Group() const;
+       CollectionRange const* CollectionRanges() const;
+       uint64_t CollectionRangeCount() const;
+       uint64_t GetRequestMetricCount() const;
+       metrics::MetricId GetRequestMetric(uint64_t index) const;
+   
+       void AddRequestMetric(metrics::MetricId metricId, bool insertAtStart = false);
+   
+       void MoveRequestMetric(metrics::MetricId metricId, uint64_t currIndex, uint64_t newIndex);
+   
+   private:
+       uint32_t mGroupIndex;
+       metrics::IMetricGroup const* mMetricsGroup;
+       CollectionRange const* mRanges;
+       uint64_t mRangeCount;
+       std::vector<metrics::MetricId> mMetricIDs;
+   
+       MetricsRequest(MetricsRequest const& other) = delete;
+       MetricsRequest& operator=(MetricsRequest const& other) = delete;
+   };
+   
+   }  // namespace data_collection
+   }  // namespace gpa

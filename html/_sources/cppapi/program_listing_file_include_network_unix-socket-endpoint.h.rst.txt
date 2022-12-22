@@ -1,0 +1,63 @@
+
+.. _program_listing_file_include_network_unix-socket-endpoint.h:
+
+Program Listing for File unix-socket-endpoint.h
+===============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_network_unix-socket-endpoint.h>` (``include/network/unix-socket-endpoint.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "network/endpoint.h"
+   
+   #include "utility/string.h"
+   
+   namespace gpa {
+   namespace network {
+   
+   class UnixSocketEndpoint : public Endpoint
+   {
+   public:
+       UnixSocketEndpoint();
+       virtual ~UnixSocketEndpoint();
+   
+       void Listen(char const* socketPathname);
+   
+       void Connect(char const* socketPathname);
+   
+       // Endpoint implementation
+       uint64_t Read(void* destBuffer, uint64_t readLengthInBytes) override;
+       uint64_t Write(void const* srcBuffer, uint64_t writeLengthInBytes) override;
+       Endpoint* Accept(uint64_t timeoutMS) override;
+       void Shutdown() override;
+       uint64_t Handle() const override;
+   
+   private:
+       utility::String mIpcName;
+       int mSocket;
+       bool mListening;
+   };
+   
+   }  // namespace network
+   }  // namespace gpa

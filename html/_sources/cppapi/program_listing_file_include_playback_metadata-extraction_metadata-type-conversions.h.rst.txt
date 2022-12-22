@@ -1,0 +1,64 @@
+
+.. _program_listing_file_include_playback_metadata-extraction_metadata-type-conversions.h:
+
+Program Listing for File metadata-type-conversions.h
+====================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_metadata-extraction_metadata-type-conversions.h>` (``include/playback/metadata-extraction/metadata-type-conversions.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "metadata-types.h"
+   
+   #if HAVE_VULKAN
+   #include "vulkan/vulkan.h"
+   #endif
+   
+   namespace gpa {
+   namespace playback {
+   
+   #if HAVE_VULKAN
+   namespace vulkan {
+   
+   BufferTypeFlags VkBufferUsageFlagsToGenericBufferFlags(VkBufferUsageFlags flags);
+   
+   SamplerAddressMode VkToGPASamplerAddressMode(VkSamplerAddressMode vkMode);
+   
+   CompareOp VkToGPACompareOp(VkCompareOp vkOp);
+   
+   Filter VkToGPAFilter(VkFilter vkFilter);
+   
+   Filter VkSamplerMipmapModeToGPAFilter(VkSamplerMipmapMode vkMipmapMode);
+   
+   BorderColor VkToGPABorderColor(VkBorderColor vkColor);
+   
+   TextureType VkToGPATextureType(VkImageType vkImageType);
+   
+   TextureType VkToGPATextureType(VkImageViewType vkImageViewType);
+   
+   }  // namespace vulkan
+   #endif
+   
+   }  // namespace playback
+   }  // namespace gpa

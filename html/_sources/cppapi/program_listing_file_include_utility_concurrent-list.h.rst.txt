@@ -1,0 +1,84 @@
+
+.. _program_listing_file_include_utility_concurrent-list.h:
+
+Program Listing for File concurrent-list.h
+==========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_utility_concurrent-list.h>` (``include/utility/concurrent-list.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include <list>
+   #include <functional>
+   
+   #include "concurrent/lock.h"
+   
+   namespace gpa {
+   namespace utility {
+   
+   template<typename Element>
+   class ConcurrentList
+   {
+   public:
+       ConcurrentList(){};
+   
+       void PushBack(Element const& element)
+       {
+           ScopedWriteLock lock(&mRWLock);
+           mList.push_back(element);
+       }
+   
+       void Remove(Element const& element)
+       {
+           ScopedWriteLock lock(&mRWLock);
+           mList.remove(element);
+       }
+   
+       void Iterate(std::function<void(Element)> const& callback)
+       {
+           ScopedReadLock lock(&mRWLock);
+           for (auto& element : mList) {
+               callback(element);
+           }
+       }
+   
+       size_t Size()
+       {
+           ScopedReadLock lock(&mRWLock);
+           return mList.size();
+       }
+   
+       void Clear()
+       {
+           ScopedWriteLock lock(&mRWLock);
+           mList.clear();
+       }
+   
+   private:
+       RWLock mRWLock;
+       std::list<Element> mList;
+   };
+   
+   }  // namespace utility
+   }  // namespace gpa

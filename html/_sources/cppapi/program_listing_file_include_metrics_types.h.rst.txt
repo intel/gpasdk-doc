@@ -1,0 +1,146 @@
+
+.. _program_listing_file_include_metrics_types.h:
+
+Program Listing for File metrics/types.h
+========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_metrics_types.h>` (``include/metrics/types.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /*
+       © Intel Corporation.
+   
+       This software and the related documents are Intel copyrighted materials,
+       and your use of them is governed by the express license under which they
+       were provided to you ("License"). Unless the License provides otherwise,
+       you may not use, modify, copy, publish, distribute, disclose or transmit
+       this software or the related documents without Intel's prior written
+       permission.
+   
+       This software and the related documents are provided as is, with no express
+       or implied warranties, other than those that are expressly stated in the
+       License.
+   */
+   
+   #pragma once
+   
+   #include "metrics/metrics-config.h"
+   #include "metrics/utility/enum-mask.h"
+   
+   #include <cstdint>
+   #include <cstring>
+   #include <limits>
+   #include <string>
+   
+   namespace gpa {
+   namespace metrics {
+   
+   using MetricId = uint64_t;
+   using MetricValue = double;
+   
+   GPA_METRICS_EXPORT
+   bool IsValidMetric(MetricValue v);
+   
+   const MetricValue kInvalidMetricValue = std::numeric_limits<MetricValue>::quiet_NaN();
+   
+   int32_t const kInvalidGroup = INT32_MAX;
+   
+   enum class Result {
+       kSuccess,
+       kFailed,
+       kIncomplete,
+       kInvalidOperation,
+       kInvalidParameter,
+       kNoMetricsAvailable,
+       kUnsupported,
+   };
+   
+   inline bool IsSuccess(Result const res)
+   {
+       return (res == Result::kSuccess);
+   }
+   
+   enum Category {
+       kNone = 0,  
+   
+       kCompute = 1 << 0,    
+       kGraphics = 1 << 1,   
+       kTimeStamp = 1 << 2,  
+       kUndefined = 1 << 3,  
+   
+       kAll = kCompute | kGraphics | kTimeStamp | kUndefined,  
+       kAllDefined = kCompute | kGraphics | kTimeStamp,        
+       kDefault = kAll                                         
+   };
+   ENUM_AS_BITSET(Category)
+   
+   enum class Type {
+       Unknown = 0,
+   
+       Percent,
+   
+       Time,
+   
+       Value,
+   
+       Count,
+   
+       Number
+   };
+   
+   struct GPA_METRICS_CLASS_EXPORT MetricDesc
+   {
+       enum MetricLengths : uint16_t {
+           kUriLength = 256,
+           kNameLength = 128,
+           kDescriptionLength = 256,
+           kUnitsLength = 32,
+           kGroupLength = 64
+       };
+   
+       uint32_t index;    
+       uint32_t groupId;  
+       Type type;         
+   
+       char uri[MetricLengths::kUriLength];    
+       char name[MetricLengths::kNameLength];  
+       char description[MetricLengths::kDescriptionLength];
+       char units[MetricLengths::kUnitsLength];  
+   
+       char symbolicName[MetricLengths::kNameLength];  //<! Metric name in the driver
+       char group[MetricLengths::kGroupLength];        
+   
+       Category category;  
+   
+       bool operator==(MetricDesc const& rhs) const
+       {
+           if (strncmp(this->uri, rhs.uri, MetricLengths::kUriLength) == 0)
+               return true;
+           else
+               return false;
+       }
+   
+       bool IsNormalizedUnits() const
+       {
+           return type == Type::Percent;
+       }
+   };
+   
+   enum class GraphicsApi {
+       kNone,
+       kD3d11,
+       kD3d12,
+       kMetal,
+       kVulkan,
+   
+       kGraphicsApiCount = kVulkan
+   };
+   
+   GPA_METRICS_EXPORT
+   char const* GraphicsApiToString(GraphicsApi graphicsApi);
+   
+   }  // namespace metrics
+   }  // namespace gpa

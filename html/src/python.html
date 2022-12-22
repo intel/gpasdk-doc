@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python Interface &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="C++ Interfaces" href="../cppapi/library_root.html" />
+    <link rel="prev" title="Layers" href="layers.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+            <a href="../index.html">
+            <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="guides/extending_test_layer.html">Extending “Helloworld” Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#helloworld-simple-layer">‘Helloworld’ Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#helloworld-generated-layer">‘Helloworld’ Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="layers.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="layers.html#api-debug-layer">API-Debug-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="layers.html#device-override">Device-Override</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Python Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cppapi/library_root.html">C++ Interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cppapi/library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cppapi/library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cppapi/library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cppapi/library_root.html#full-api">Full API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#unions">Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cppapi/library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#new">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#changed">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#fixed">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id2">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id3">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id4">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id5">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id6">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id7">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id8">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id9">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id10">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id11">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id12">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id13">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id14">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id15">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id16">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id17">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id18">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id19">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id20">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id21">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id22">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id23">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id24">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id25">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id26">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id27">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id28">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id31">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="release_notes.html#id32">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#id2">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#id3">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#id4">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#id5">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#id6">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#id7">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#id8">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#id9">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#id10">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="reference.html">Reference</a></li>
+      <li class="breadcrumb-item active">Python Interface</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="module-GPA">
+<span id="python-interface"></span><span id="python"></span><h1>Python Interface<a class="headerlink" href="#module-GPA" title="Permalink to this headline"></a></h1>
+<p>GPA Python Module</p>
+<p>Lets you script GPA capture, playback, metrics etc.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.ApiLog">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">ApiLog</span></span><a class="headerlink" href="#GPA.ApiLog" title="Permalink to this definition"></a></dt>
+<dd><p>Stores a list of the api calls used in the original workload.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.BufferMetadata">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">BufferMetadata</span></span><a class="headerlink" href="#GPA.BufferMetadata" title="Permalink to this definition"></a></dt>
+<dd><p>Represents the metadata such as: length and type of a buffer</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.BufferMetadata.buffer_type">
+<span class="sig-name descname"><span class="pre">buffer_type</span></span><a class="headerlink" href="#GPA.BufferMetadata.buffer_type" title="Permalink to this definition"></a></dt>
+<dd><p>The type of buffer.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.BufferMetadata.length">
+<span class="sig-name descname"><span class="pre">length</span></span><a class="headerlink" href="#GPA.BufferMetadata.length" title="Permalink to this definition"></a></dt>
+<dd><p>The length of the buffer.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.BufferRange">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">BufferRange</span></span><a class="headerlink" href="#GPA.BufferRange" title="Permalink to this definition"></a></dt>
+<dd><p>Represents the offset and range of a buffer.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.BufferRange.offset">
+<span class="sig-name descname"><span class="pre">offset</span></span><a class="headerlink" href="#GPA.BufferRange.offset" title="Permalink to this definition"></a></dt>
+<dd><p>The offset into the buffer in bytes where the bound range begins.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.BufferRange.range">
+<span class="sig-name descname"><span class="pre">range</span></span><a class="headerlink" href="#GPA.BufferRange.range" title="Permalink to this definition"></a></dt>
+<dd><p>The length of the bound range.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.Experiment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">Experiment</span></span><a class="headerlink" href="#GPA.Experiment" title="Permalink to this definition"></a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="GPA.Experiment.add_shader">
+<span class="sig-name descname"><span class="pre">add_shader</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.Experiment.add_shader" title="Permalink to this definition"></a></dt>
+<dd><p>Add a shader to the experiment object. Shader stage is inferred from object and replaces existing shader set for that stage if any.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.Experiment.pipeline_as_json">
+<span class="sig-name descname"><span class="pre">pipeline_as_json</span></span><a class="headerlink" href="#GPA.Experiment.pipeline_as_json" title="Permalink to this definition"></a></dt>
+<dd><p>Pipeline state as a json string representation</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.Experiment.remove_shader">
+<span class="sig-name descname"><span class="pre">remove_shader</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.Experiment.remove_shader" title="Permalink to this definition"></a></dt>
+<dd><p>Takes a shader stage string as input and removes shader object set for that stage from the Experiment</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.ImageBinding">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">ImageBinding</span></span><a class="headerlink" href="#GPA.ImageBinding" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ImageBinding.array_index">
+<span class="sig-name descname"><span class="pre">array_index</span></span><a class="headerlink" href="#GPA.ImageBinding.array_index" title="Permalink to this definition"></a></dt>
+<dd><p>The array index within a descriptor binding, if applicable.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ImageBinding.binding">
+<span class="sig-name descname"><span class="pre">binding</span></span><a class="headerlink" href="#GPA.ImageBinding.binding" title="Permalink to this definition"></a></dt>
+<dd><p>Descriptor binding.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ImageBinding.descriptor_set">
+<span class="sig-name descname"><span class="pre">descriptor_set</span></span><a class="headerlink" href="#GPA.ImageBinding.descriptor_set" title="Permalink to this definition"></a></dt>
+<dd><p>Descriptor set.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ImageBinding.handle">
+<span class="sig-name descname"><span class="pre">handle</span></span><a class="headerlink" href="#GPA.ImageBinding.handle" title="Permalink to this definition"></a></dt>
+<dd><p>Texture handle.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.ImageData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">ImageData</span></span><a class="headerlink" href="#GPA.ImageData" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ImageData.data">
+<span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#GPA.ImageData.data" title="Permalink to this definition"></a></dt>
+<dd><p>Raw texture data.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ImageData.handle">
+<span class="sig-name descname"><span class="pre">handle</span></span><a class="headerlink" href="#GPA.ImageData.handle" title="Permalink to this definition"></a></dt>
+<dd><p>Texture handle.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ImageData.metadata">
+<span class="sig-name descname"><span class="pre">metadata</span></span><a class="headerlink" href="#GPA.ImageData.metadata" title="Permalink to this definition"></a></dt>
+<dd><p>Texture metadata</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.ImageMetadata">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">ImageMetadata</span></span><a class="headerlink" href="#GPA.ImageMetadata" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ImageMetadata.depth">
+<span class="sig-name descname"><span class="pre">depth</span></span><a class="headerlink" href="#GPA.ImageMetadata.depth" title="Permalink to this definition"></a></dt>
+<dd><p>Depth of the texture</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ImageMetadata.format">
+<span class="sig-name descname"><span class="pre">format</span></span><a class="headerlink" href="#GPA.ImageMetadata.format" title="Permalink to this definition"></a></dt>
+<dd><p>Format of the texture</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ImageMetadata.height">
+<span class="sig-name descname"><span class="pre">height</span></span><a class="headerlink" href="#GPA.ImageMetadata.height" title="Permalink to this definition"></a></dt>
+<dd><p>Height of the texture</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ImageMetadata.mips">
+<span class="sig-name descname"><span class="pre">mips</span></span><a class="headerlink" href="#GPA.ImageMetadata.mips" title="Permalink to this definition"></a></dt>
+<dd><p>Number of mip levels within the texture</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ImageMetadata.slices">
+<span class="sig-name descname"><span class="pre">slices</span></span><a class="headerlink" href="#GPA.ImageMetadata.slices" title="Permalink to this definition"></a></dt>
+<dd><p>Number of textures within the texture array</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ImageMetadata.total_size">
+<span class="sig-name descname"><span class="pre">total_size</span></span><a class="headerlink" href="#GPA.ImageMetadata.total_size" title="Permalink to this definition"></a></dt>
+<dd><p>Total size in bytes of the texture</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ImageMetadata.width">
+<span class="sig-name descname"><span class="pre">width</span></span><a class="headerlink" href="#GPA.ImageMetadata.width" title="Permalink to this definition"></a></dt>
+<dd><p>width of the texture</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.InputResource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">InputResource</span></span><a class="headerlink" href="#GPA.InputResource" title="Permalink to this definition"></a></dt>
+<dd><p>This class is used to represent metadata for input resources.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>resource_id</strong> (<em>int</em>) – The Id uniquely identifying the resource.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.InputResource.resource_id">
+<span class="sig-name descname"><span class="pre">resource_id</span></span><a class="headerlink" href="#GPA.InputResource.resource_id" title="Permalink to this definition"></a></dt>
+<dd><p>The resource id.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.MetadataExtractor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">MetadataExtractor</span></span><a class="headerlink" href="#GPA.MetadataExtractor" title="Permalink to this definition"></a></dt>
+<dd><p>This class is used to extract metadata API calls.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.MetadataExtractor.get_all_bound_resources">
+<span class="sig-name descname"><span class="pre">get_all_bound_resources</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.MetadataExtractor.get_all_bound_resources" title="Permalink to this definition"></a></dt>
+<dd><p>Returns all unique resources IDs that are used (bound) within the range of interest</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.MetadataExtractor.get_all_resource_bindings">
+<span class="sig-name descname"><span class="pre">get_all_resource_bindings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.MetadataExtractor.get_all_resource_bindings" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the resource bindings for all api calls as a list</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.MetadataExtractor.get_metadata_for_resource">
+<span class="sig-name descname"><span class="pre">get_metadata_for_resource</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.MetadataExtractor.get_metadata_for_resource" title="Permalink to this definition"></a></dt>
+<dd><p>Returns true if a resource exists in the range with the given resource ID</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.MetadataExtractor.get_resource_bindings_at_index">
+<span class="sig-name descname"><span class="pre">get_resource_bindings_at_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.MetadataExtractor.get_resource_bindings_at_index" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the resource bindings for a given call index within the range.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>int</em>) – The index of the api call to get the resource bindings from</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#GPA.ResourceBindings" title="GPA.ResourceBindings">ResourceBindings</a></p>
+</dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>binding = metaDataExtractor.get_resource_bindings_at_index(17)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.MetadataExtractor.get_sampler_json">
+<span class="sig-name descname"><span class="pre">get_sampler_json</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.MetadataExtractor.get_sampler_json" title="Permalink to this definition"></a></dt>
+<dd><p>Get a sampler’s create info as a json string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.MetadataExtractor.get_source_for_shader">
+<span class="sig-name descname"><span class="pre">get_source_for_shader</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.MetadataExtractor.get_source_for_shader" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the requested shading language version of a shader, given that the representation is valid for the requested shader.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>shader_request</strong> (<a class="reference internal" href="#GPA.ShaderRequest" title="GPA.ShaderRequest"><em>ShaderRequest</em></a>) – ShaderRequest object containing details about which representation to return for which shader.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The source code corresponding to the requested representation, or empty if an invalid request was made.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#GPA.ShaderSource" title="GPA.ShaderSource">ShaderSource</a></p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">shader_request</span> <span class="o">=</span> <span class="n">ShaderRequest</span><span class="p">(</span><span class="n">resourceID</span><span class="p">,</span> <span class="n">ShaderLanguageEnum</span><span class="o">.</span><span class="n">GLSL</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shader_source</span> <span class="o">=</span> <span class="n">metaDataExtractor</span><span class="o">.</span><span class="n">get_source_for_shader</span><span class="p">(</span><span class="n">shader_request</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt class="field-odd">Note</dt>
+<dd class="field-odd"><p>The shading language must be supported by API shader object; for example, Vulkan shaders (SPIR-V bytecode) can be written in GLSL, HLSL, etc.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.MetadataExtractor.is_valid_resource">
+<span class="sig-name descname"><span class="pre">is_valid_resource</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.MetadataExtractor.is_valid_resource" title="Permalink to this definition"></a></dt>
+<dd><p>Returns true if a resource exists in the range with the given resource ID</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.MetadataExtractor.pipeline_json_at_erg">
+<span class="sig-name descname"><span class="pre">pipeline_json_at_erg</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.MetadataExtractor.pipeline_json_at_erg" title="Permalink to this definition"></a></dt>
+<dd><p>Get the pipeline state as a json string.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.MetadataExtractor.resource_count">
+<span class="sig-name descname"><span class="pre">resource_count</span></span><a class="headerlink" href="#GPA.MetadataExtractor.resource_count" title="Permalink to this definition"></a></dt>
+<dd><p>The number of unique resources used within in the range</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.OutputResource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">OutputResource</span></span><a class="headerlink" href="#GPA.OutputResource" title="Permalink to this definition"></a></dt>
+<dd><p>This class is used to represent metadata for output resources.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>resource_id</strong> (<em>int</em>) – The Id uniquely identifying the resource.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.OutputResource.resource_id">
+<span class="sig-name descname"><span class="pre">resource_id</span></span><a class="headerlink" href="#GPA.OutputResource.resource_id" title="Permalink to this definition"></a></dt>
+<dd><p>The resource id.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.PlaybackEngine">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">PlaybackEngine</span></span><a class="headerlink" href="#GPA.PlaybackEngine" title="Permalink to this definition"></a></dt>
+<dd><p>Provides high level control over RangePlayer execution for results extraction with experiment application.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.PlaybackEngine.apply_experiment">
+<span class="sig-name descname"><span class="pre">apply_experiment</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.PlaybackEngine.apply_experiment" title="Permalink to this definition"></a></dt>
+<dd><p>Apply an experiment to an erg or a list of ergs. List should contain integer type elements. Other types will be ignored</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.PlaybackEngine.disable_calls">
+<span class="sig-name descname"><span class="pre">disable_calls</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.PlaybackEngine.disable_calls" title="Permalink to this definition"></a></dt>
+<dd><p>Skips execution of the API calls at the given indices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>indices</strong> (<em>list</em><em>[</em><em>int</em><em>]</em>) – list of api call indices to disable</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">callables</span><span class="p">[</span><span class="mi">100</span><span class="p">]</span><span class="o">.</span><span class="n">_category</span> <span class="o">&amp;</span> <span class="n">CallableTypeEnum</span><span class="o">.</span><span class="n">Draw</span> <span class="o">||</span> <span class="n">callables</span><span class="p">[</span><span class="mi">100</span><span class="p">]</span><span class="o">.</span><span class="n">_category</span> <span class="o">&amp;</span> <span class="n">CallableTypeEnum</span><span class="o">.</span><span class="n">Dispatch</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">playback_engine</span><span class="o">.</span><span class="n">disable_calls</span><span class="p">([</span><span class="mi">100</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.PlaybackEngine.enable_all_calls">
+<span class="sig-name descname"><span class="pre">enable_all_calls</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.PlaybackEngine.enable_all_calls" title="Permalink to this definition"></a></dt>
+<dd><p>Clears the list of disabled calls set by the user, returning it to the 
+default state whereall API calls are executed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.PlaybackEngine.enable_calls">
+<span class="sig-name descname"><span class="pre">enable_calls</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.PlaybackEngine.enable_calls" title="Permalink to this definition"></a></dt>
+<dd><p>Re-enables execution of calls previously disabled by disable_calls().</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>indices</strong> (<em>list</em><em>[</em><em>int</em><em>]</em>) – list of api call indices to enable</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<p>playback_engine.enable_calls([100,200,300])</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.PlaybackEngine.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.PlaybackEngine.execute" title="Permalink to this definition"></a></dt>
+<dd><p>Execute a metrics request</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.PlaybackEngine.execute_range">
+<span class="sig-name descname"><span class="pre">execute_range</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.PlaybackEngine.execute_range" title="Permalink to this definition"></a></dt>
+<dd><p>Executes this PlaybackeEngine’s RangePlayer.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.PlaybackEngine.execute_resource_request">
+<span class="sig-name descname"><span class="pre">execute_resource_request</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.PlaybackEngine.execute_resource_request" title="Permalink to this definition"></a></dt>
+<dd><p>Execute a metadata request</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.PlaybackEngine.get_metadata">
+<span class="sig-name descname"><span class="pre">get_metadata</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.PlaybackEngine.get_metadata" title="Permalink to this definition"></a></dt>
+<dd><p>Get the metadata extractor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.PlaybackEngine.get_metrics_extractor">
+<span class="sig-name descname"><span class="pre">get_metrics_extractor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.PlaybackEngine.get_metrics_extractor" title="Permalink to this definition"></a></dt>
+<dd><p>Get the metrics extractor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.PlaybackEngine.validate_shader">
+<span class="sig-name descname"><span class="pre">validate_shader</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.PlaybackEngine.validate_shader" title="Permalink to this definition"></a></dt>
+<dd><p>Validate a given shader source object. Returns True if validation succeeds. Validation is a requirement before using shader in an experiment</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.Player">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">Player</span></span><a class="headerlink" href="#GPA.Player" title="Permalink to this definition"></a></dt>
+<dd><p>Used to play back the api calls within a stream.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">layers</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hud-layer&quot;</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;screenshot&quot;</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;frame&#39;</span><span class="p">,</span><span class="s1">&#39;200&#39;</span><span class="p">)])]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">player</span> <span class="o">=</span> <span class="n">GPA</span><span class="o">.</span><span class="n">Player</span><span class="p">(</span><span class="n">stream</span><span class="o">=</span><span class="n">stream_object</span><span class="p">,</span> <span class="n">pre_layer</span><span class="o">=</span><span class="n">layers</span><span class="p">,</span> <span class="n">post_layer</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;logging&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.Player.play_stream">
+<span class="sig-name descname"><span class="pre">play_stream</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.Player.play_stream" title="Permalink to this definition"></a></dt>
+<dd><p>Play back a stream from the beginning or from a keyframe to any desired point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong> (<em>float</em>) – Position in the stream to start (default 0). In range [0.0, 1.0). The stream will always play from the beginning if no keyframes were captured</p></li>
+<li><p><strong>end</strong> (<em>float</em>) – Postion in the stream to end playback (default 1). In range [0.0, 1.0].</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>valueError</strong> – If start position is greater than end position</p>
+</dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">player</span><span class="o">.</span><span class="n">play_stream</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">player</span><span class="o">.</span><span class="n">play_stream</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">player</span><span class="o">.</span><span class="n">play_stream</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.Player.play_stream_by_range">
+<span class="sig-name descname"><span class="pre">play_stream_by_range</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.Player.play_stream_by_range" title="Permalink to this definition"></a></dt>
+<dd><p>Play back a stream from the beginning or from a keyframe to any desired point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong> (<em>int</em>) – Range in the stream to start (default 0). The stream will always play from the beginning if no keyframes were captured</p></li>
+<li><p><strong>end</strong> (<em>int</em>) – Postion in the stream to end playback (default to last range).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>valueError</strong> – If start range is greater than end range</p>
+</dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">player</span><span class="o">.</span><span class="n">play_stream_by_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">player</span><span class="o">.</span><span class="n">play_stream_by_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">player</span><span class="o">.</span><span class="n">play_stream_by_range</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.RangePlayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">RangePlayer</span></span><a class="headerlink" href="#GPA.RangePlayer" title="Permalink to this definition"></a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="GPA.RangePlayer.play_range">
+<span class="sig-name descname"><span class="pre">play_range</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.RangePlayer.play_range" title="Permalink to this definition"></a></dt>
+<dd><p>Play the given range</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.RangePlayer.prepare_for_metrics_collection">
+<span class="sig-name descname"><span class="pre">prepare_for_metrics_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.RangePlayer.prepare_for_metrics_collection" title="Permalink to this definition"></a></dt>
+<dd><p>Validate a given range for metrics collection and sets internal state.
+:param first: The index to begin preparing for metrics collection
+:type first: int
+:param last: The last prepare for metrics collection
+:type last: int
+:raise: GPA.InvalidRangeException if range is not valid
+:raise: GPA.Error if an error occurred</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.RangePlayer.range_cache">
+<span class="sig-name descname"><span class="pre">range_cache</span></span><a class="headerlink" href="#GPA.RangePlayer.range_cache" title="Permalink to this definition"></a></dt>
+<dd><p>The processed callable cache.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.RequestedResource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">RequestedResource</span></span><a class="headerlink" href="#GPA.RequestedResource" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.RequestedResource.buffer">
+<span class="sig-name descname"><span class="pre">buffer</span></span><a class="headerlink" href="#GPA.RequestedResource.buffer" title="Permalink to this definition"></a></dt>
+<dd><p>Buffer request parameters</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.RequestedResource.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#GPA.RequestedResource.id" title="Permalink to this definition"></a></dt>
+<dd><p>Resource ID</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.RequestedResource.resource_type">
+<span class="sig-name descname"><span class="pre">resource_type</span></span><a class="headerlink" href="#GPA.RequestedResource.resource_type" title="Permalink to this definition"></a></dt>
+<dd><p>Resource Type</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.RequestedResource.texture">
+<span class="sig-name descname"><span class="pre">texture</span></span><a class="headerlink" href="#GPA.RequestedResource.texture" title="Permalink to this definition"></a></dt>
+<dd><p>Texture request parameters</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.ResourceBindings">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">ResourceBindings</span></span><a class="headerlink" href="#GPA.ResourceBindings" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResourceBindings.indexBuffers">
+<span class="sig-name descname"><span class="pre">indexBuffers</span></span><a class="headerlink" href="#GPA.ResourceBindings.indexBuffers" title="Permalink to this definition"></a></dt>
+<dd><p>List of resource IDs representing indexBuffers.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResourceBindings.inputs">
+<span class="sig-name descname"><span class="pre">inputs</span></span><a class="headerlink" href="#GPA.ResourceBindings.inputs" title="Permalink to this definition"></a></dt>
+<dd><p>List of input resources.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResourceBindings.is_draw_call">
+<span class="sig-name descname"><span class="pre">is_draw_call</span></span><a class="headerlink" href="#GPA.ResourceBindings.is_draw_call" title="Permalink to this definition"></a></dt>
+<dd><p>True if this resource binding is bound to a draw call.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResourceBindings.outputs">
+<span class="sig-name descname"><span class="pre">outputs</span></span><a class="headerlink" href="#GPA.ResourceBindings.outputs" title="Permalink to this definition"></a></dt>
+<dd><p>List of outputs resources.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResourceBindings.shaders">
+<span class="sig-name descname"><span class="pre">shaders</span></span><a class="headerlink" href="#GPA.ResourceBindings.shaders" title="Permalink to this definition"></a></dt>
+<dd><p>List of resource IDs representing shaders.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResourceBindings.vertexBuffers">
+<span class="sig-name descname"><span class="pre">vertexBuffers</span></span><a class="headerlink" href="#GPA.ResourceBindings.vertexBuffers" title="Permalink to this definition"></a></dt>
+<dd><p>List of resource IDs representing vertexBuffers.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.ResourceData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">ResourceData</span></span><a class="headerlink" href="#GPA.ResourceData" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResourceData.resource_data">
+<span class="sig-name descname"><span class="pre">resource_data</span></span><a class="headerlink" href="#GPA.ResourceData.resource_data" title="Permalink to this definition"></a></dt>
+<dd><p>Memory view of the raw data from the return buffer</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResourceData.resource_id">
+<span class="sig-name descname"><span class="pre">resource_id</span></span><a class="headerlink" href="#GPA.ResourceData.resource_id" title="Permalink to this definition"></a></dt>
+<dd><p>ID of the xtracted resource</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.ResourceDataRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">ResourceDataRequest</span></span><a class="headerlink" href="#GPA.ResourceDataRequest" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResourceDataRequest.index">
+<span class="sig-name descname"><span class="pre">index</span></span><a class="headerlink" href="#GPA.ResourceDataRequest.index" title="Permalink to this definition"></a></dt>
+<dd><p>Index of requested API call</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResourceDataRequest.resource_list">
+<span class="sig-name descname"><span class="pre">resource_list</span></span><a class="headerlink" href="#GPA.ResourceDataRequest.resource_list" title="Permalink to this definition"></a></dt>
+<dd><p>A list of resource IDs</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.ResourceExperiment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">ResourceExperiment</span></span><a class="headerlink" href="#GPA.ResourceExperiment" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResourceExperiment.image_bindings">
+<span class="sig-name descname"><span class="pre">image_bindings</span></span><a class="headerlink" href="#GPA.ResourceExperiment.image_bindings" title="Permalink to this definition"></a></dt>
+<dd><p>Dictionary with (integer)set and (integer)binding tuple as the key and ImageBindings as the value.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResourceExperiment.image_data">
+<span class="sig-name descname"><span class="pre">image_data</span></span><a class="headerlink" href="#GPA.ResourceExperiment.image_data" title="Permalink to this definition"></a></dt>
+<dd><p>Dictionary of (integer)handles as keys and ImageData objects as values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.ResourceExperiment.remove_image_binding">
+<span class="sig-name descname"><span class="pre">remove_image_binding</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.ResourceExperiment.remove_image_binding" title="Permalink to this definition"></a></dt>
+<dd><p>Undos any currently set modification made to the given resource binding.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.ResourceExperiment.remove_image_data">
+<span class="sig-name descname"><span class="pre">remove_image_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.ResourceExperiment.remove_image_data" title="Permalink to this definition"></a></dt>
+<dd><p>Disassociates the image associated with the given ID and removes its data on this ResourceExperiment.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.ResourceExperiment.set_image_at_binding">
+<span class="sig-name descname"><span class="pre">set_image_at_binding</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.ResourceExperiment.set_image_at_binding" title="Permalink to this definition"></a></dt>
+<dd><p>Requests that the resource associated with the given ID is set at the given binding.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.ResourceExperiment.set_image_data">
+<span class="sig-name descname"><span class="pre">set_image_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.ResourceExperiment.set_image_data" title="Permalink to this definition"></a></dt>
+<dd><p>Hands over user resource data to the ResourceExperiment that the user would like to use when making a binding modification later.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.ResourceMetadata">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">ResourceMetadata</span></span><a class="headerlink" href="#GPA.ResourceMetadata" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResourceMetadata.debug_name">
+<span class="sig-name descname"><span class="pre">debug_name</span></span><a class="headerlink" href="#GPA.ResourceMetadata.debug_name" title="Permalink to this definition"></a></dt>
+<dd><p>The working name for this resource</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResourceMetadata.depth">
+<span class="sig-name descname"><span class="pre">depth</span></span><a class="headerlink" href="#GPA.ResourceMetadata.depth" title="Permalink to this definition"></a></dt>
+<dd><p>The depth of the texture resource</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResourceMetadata.format">
+<span class="sig-name descname"><span class="pre">format</span></span><a class="headerlink" href="#GPA.ResourceMetadata.format" title="Permalink to this definition"></a></dt>
+<dd><p>The data format of this texture resource</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResourceMetadata.height">
+<span class="sig-name descname"><span class="pre">height</span></span><a class="headerlink" href="#GPA.ResourceMetadata.height" title="Permalink to this definition"></a></dt>
+<dd><p>The height of the texture resource</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResourceMetadata.length">
+<span class="sig-name descname"><span class="pre">length</span></span><a class="headerlink" href="#GPA.ResourceMetadata.length" title="Permalink to this definition"></a></dt>
+<dd><p>The length in bytes of the buffer resource</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResourceMetadata.mips">
+<span class="sig-name descname"><span class="pre">mips</span></span><a class="headerlink" href="#GPA.ResourceMetadata.mips" title="Permalink to this definition"></a></dt>
+<dd><p>The number of mip levels in this texture resource</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResourceMetadata.resource_type">
+<span class="sig-name descname"><span class="pre">resource_type</span></span><a class="headerlink" href="#GPA.ResourceMetadata.resource_type" title="Permalink to this definition"></a></dt>
+<dd><p>The type of resource this metadata is for</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResourceMetadata.sample_count">
+<span class="sig-name descname"><span class="pre">sample_count</span></span><a class="headerlink" href="#GPA.ResourceMetadata.sample_count" title="Permalink to this definition"></a></dt>
+<dd><p>The sample count of this texture resource; 1 (single sampled) by default</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResourceMetadata.sampler_metadata">
+<span class="sig-name descname"><span class="pre">sampler_metadata</span></span><a class="headerlink" href="#GPA.ResourceMetadata.sampler_metadata" title="Permalink to this definition"></a></dt>
+<dd><p>Sampler metadata struct object</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResourceMetadata.shader_source">
+<span class="sig-name descname"><span class="pre">shader_source</span></span><a class="headerlink" href="#GPA.ResourceMetadata.shader_source" title="Permalink to this definition"></a></dt>
+<dd><p>A list of shader source metadata</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResourceMetadata.slices">
+<span class="sig-name descname"><span class="pre">slices</span></span><a class="headerlink" href="#GPA.ResourceMetadata.slices" title="Permalink to this definition"></a></dt>
+<dd><p>The number of slices in this texure resource</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResourceMetadata.sub_type">
+<span class="sig-name descname"><span class="pre">sub_type</span></span><a class="headerlink" href="#GPA.ResourceMetadata.sub_type" title="Permalink to this definition"></a></dt>
+<dd><p>The subType of this resource</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResourceMetadata.width">
+<span class="sig-name descname"><span class="pre">width</span></span><a class="headerlink" href="#GPA.ResourceMetadata.width" title="Permalink to this definition"></a></dt>
+<dd><p>The width of the texture resource</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.ResultResourceMetadata">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">ResultResourceMetadata</span></span><a class="headerlink" href="#GPA.ResultResourceMetadata" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResultResourceMetadata.buffer">
+<span class="sig-name descname"><span class="pre">buffer</span></span><a class="headerlink" href="#GPA.ResultResourceMetadata.buffer" title="Permalink to this definition"></a></dt>
+<dd><p>Metadata for the extracted buffer.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResultResourceMetadata.debug_name">
+<span class="sig-name descname"><span class="pre">debug_name</span></span><a class="headerlink" href="#GPA.ResultResourceMetadata.debug_name" title="Permalink to this definition"></a></dt>
+<dd><p>The debug name, if set, empty otherwise.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResultResourceMetadata.metadata_type">
+<span class="sig-name descname"><span class="pre">metadata_type</span></span><a class="headerlink" href="#GPA.ResultResourceMetadata.metadata_type" title="Permalink to this definition"></a></dt>
+<dd><p>The type of resource this metadata is for.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ResultResourceMetadata.texture">
+<span class="sig-name descname"><span class="pre">texture</span></span><a class="headerlink" href="#GPA.ResultResourceMetadata.texture" title="Permalink to this definition"></a></dt>
+<dd><p>Metadata for the extracted texture.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.SamplerMetadata">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">SamplerMetadata</span></span><a class="headerlink" href="#GPA.SamplerMetadata" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.SamplerMetadata.address_mode_u">
+<span class="sig-name descname"><span class="pre">address_mode_u</span></span><a class="headerlink" href="#GPA.SamplerMetadata.address_mode_u" title="Permalink to this definition"></a></dt>
+<dd><p>Method to use for resolving an x texture coordinate that is outside the 0 to 1 range.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.SamplerMetadata.address_mode_v">
+<span class="sig-name descname"><span class="pre">address_mode_v</span></span><a class="headerlink" href="#GPA.SamplerMetadata.address_mode_v" title="Permalink to this definition"></a></dt>
+<dd><p>Method to use for resolving a v texture coordinate that is outside the 0 to 1 range.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.SamplerMetadata.address_mode_w">
+<span class="sig-name descname"><span class="pre">address_mode_w</span></span><a class="headerlink" href="#GPA.SamplerMetadata.address_mode_w" title="Permalink to this definition"></a></dt>
+<dd><p>Method to use for resolving a w texture coordinate that is outside the 0 to 1 range.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.SamplerMetadata.border_color">
+<span class="sig-name descname"><span class="pre">border_color</span></span><a class="headerlink" href="#GPA.SamplerMetadata.border_color" title="Permalink to this definition"></a></dt>
+<dd><p>Border color to use if kTextureAddressBorder is specified for addressModeU, addressModeV, or addressModeW. Range must be between 0.0 and 1.0 inclusive. Equivalent to (Vk) VkBorderColor, (DX) FLOAT BorderColor[4]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.SamplerMetadata.compare_enable">
+<span class="sig-name descname"><span class="pre">compare_enable</span></span><a class="headerlink" href="#GPA.SamplerMetadata.compare_enable" title="Permalink to this definition"></a></dt>
+<dd><p>True if comparision operations are enabled during lookups.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.SamplerMetadata.compare_op">
+<span class="sig-name descname"><span class="pre">compare_op</span></span><a class="headerlink" href="#GPA.SamplerMetadata.compare_op" title="Permalink to this definition"></a></dt>
+<dd><p>The comparison function to apply to fetched data before filtering.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.SamplerMetadata.flags">
+<span class="sig-name descname"><span class="pre">flags</span></span><a class="headerlink" href="#GPA.SamplerMetadata.flags" title="Permalink to this definition"></a></dt>
+<dd><p>Creation flags</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.SamplerMetadata.mag_filter">
+<span class="sig-name descname"><span class="pre">mag_filter</span></span><a class="headerlink" href="#GPA.SamplerMetadata.mag_filter" title="Permalink to this definition"></a></dt>
+<dd><p>Value specifying the magnification filter to apply to lookups.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.SamplerMetadata.max_anisotropy">
+<span class="sig-name descname"><span class="pre">max_anisotropy</span></span><a class="headerlink" href="#GPA.SamplerMetadata.max_anisotropy" title="Permalink to this definition"></a></dt>
+<dd><p>Anisotropy clamp value</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.SamplerMetadata.max_lod">
+<span class="sig-name descname"><span class="pre">max_lod</span></span><a class="headerlink" href="#GPA.SamplerMetadata.max_lod" title="Permalink to this definition"></a></dt>
+<dd><p>Used to clamp the computed LOD value.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.SamplerMetadata.min_filter">
+<span class="sig-name descname"><span class="pre">min_filter</span></span><a class="headerlink" href="#GPA.SamplerMetadata.min_filter" title="Permalink to this definition"></a></dt>
+<dd><p>Value specifying the minification filter to apply to lookups.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.SamplerMetadata.min_lod">
+<span class="sig-name descname"><span class="pre">min_lod</span></span><a class="headerlink" href="#GPA.SamplerMetadata.min_lod" title="Permalink to this definition"></a></dt>
+<dd><p>Used to clamp the computed LOD value.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.SamplerMetadata.mip_lod_bias">
+<span class="sig-name descname"><span class="pre">mip_lod_bias</span></span><a class="headerlink" href="#GPA.SamplerMetadata.mip_lod_bias" title="Permalink to this definition"></a></dt>
+<dd><p>Offset from the calculated mipmap level.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.SamplerMetadata.mipmap_mode">
+<span class="sig-name descname"><span class="pre">mipmap_mode</span></span><a class="headerlink" href="#GPA.SamplerMetadata.mipmap_mode" title="Permalink to this definition"></a></dt>
+<dd><p>Value specifying the mipmap filter to apply to lookups.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.SamplerMetadata.unnormalized_coordinates">
+<span class="sig-name descname"><span class="pre">unnormalized_coordinates</span></span><a class="headerlink" href="#GPA.SamplerMetadata.unnormalized_coordinates" title="Permalink to this definition"></a></dt>
+<dd><p>Controls whether to use unnormalized or normalized texel coordinates to address texels of the image.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.ShaderMetadata">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">ShaderMetadata</span></span><a class="headerlink" href="#GPA.ShaderMetadata" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ShaderMetadata.shader_sources">
+<span class="sig-name descname"><span class="pre">shader_sources</span></span><a class="headerlink" href="#GPA.ShaderMetadata.shader_sources" title="Permalink to this definition"></a></dt>
+<dd><p>A list of shader source code.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ShaderMetadata.shader_stage">
+<span class="sig-name descname"><span class="pre">shader_stage</span></span><a class="headerlink" href="#GPA.ShaderMetadata.shader_stage" title="Permalink to this definition"></a></dt>
+<dd><p>The graphics pipline stage that this shader is bound to.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.ShaderRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">ShaderRequest</span></span><a class="headerlink" href="#GPA.ShaderRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Represents a request for a shader source code of a particular language.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ShaderRequest.language">
+<span class="sig-name descname"><span class="pre">language</span></span><a class="headerlink" href="#GPA.ShaderRequest.language" title="Permalink to this definition"></a></dt>
+<dd><p>The desired language enum</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ShaderRequest.resource_id">
+<span class="sig-name descname"><span class="pre">resource_id</span></span><a class="headerlink" href="#GPA.ShaderRequest.resource_id" title="Permalink to this definition"></a></dt>
+<dd><p>Resource ID</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.ShaderSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">ShaderSource</span></span><a class="headerlink" href="#GPA.ShaderSource" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ShaderSource.contents">
+<span class="sig-name descname"><span class="pre">contents</span></span><a class="headerlink" href="#GPA.ShaderSource.contents" title="Permalink to this definition"></a></dt>
+<dd><p>Shader contents(source code) as a string. Needs validation if modified before use.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ShaderSource.language">
+<span class="sig-name descname"><span class="pre">language</span></span><a class="headerlink" href="#GPA.ShaderSource.language" title="Permalink to this definition"></a></dt>
+<dd><p>The name of the shader language (as a string) being used</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.ShaderSource.stage">
+<span class="sig-name descname"><span class="pre">stage</span></span><a class="headerlink" href="#GPA.ShaderSource.stage" title="Permalink to this definition"></a></dt>
+<dd><p>The stage of graphics pipeline (as a string), the shader is meant to be used.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.SimpleFragmentShaderExperiment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">SimpleFragmentShaderExperiment</span></span><a class="headerlink" href="#GPA.SimpleFragmentShaderExperiment" title="Permalink to this definition"></a></dt>
+<dd><p>This class provides a prebuilt simple fragment shader     experiment object with configurable RGBA color property</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.SimpleFragmentShaderExperiment.color">
+<span class="sig-name descname"><span class="pre">color</span></span><a class="headerlink" href="#GPA.SimpleFragmentShaderExperiment.color" title="Permalink to this definition"></a></dt>
+<dd><p>Set color as list of floats</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.Stream">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">Stream</span></span><a class="headerlink" href="#GPA.Stream" title="Permalink to this definition"></a></dt>
+<dd><p>The main interface for capturing and parsing/accessing streams of graphics (and other) API calls, and associated data.</p>
+<p>Constructor:
+Open a GPA stream folder.
+:param arg: Path to stream folder
+:type arg: str or os.PathLike
+:returns A Stream object representing the loaded GPA Stream
+:rtype Stream</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Stream</span><span class="p">(</span><span class="s2">&quot;/GPA/GameStream/&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.Stream.get_range">
+<span class="sig-name descname"><span class="pre">get_range</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.Stream.get_range" title="Permalink to this definition"></a></dt>
+<dd><p>Return a Range representing the callables within the specified boundaries.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.Stream.get_storage_count">
+<span class="sig-name descname"><span class="pre">get_storage_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.Stream.get_storage_count" title="Permalink to this definition"></a></dt>
+<dd><p>Return the number of Storage “substreams” within this stream.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.Stream.range_count">
+<span class="sig-name descname"><span class="pre">range_count</span></span><a class="headerlink" href="#GPA.Stream.range_count" title="Permalink to this definition"></a></dt>
+<dd><p>The number of ranges in the stream.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.StreamData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">StreamData</span></span><a class="headerlink" href="#GPA.StreamData" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamData.header_info">
+<span class="sig-name descname"><span class="pre">header_info</span></span><a class="headerlink" href="#GPA.StreamData.header_info" title="Permalink to this definition"></a></dt>
+<dd><p>get stream header info</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">StreamHeaderInfo</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.architecture">
+<span class="sig-name descname"><span class="pre">architecture</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.architecture" title="Permalink to this definition"></a></dt>
+<dd><p>32 or 64 bit architecture</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.bios_date">
+<span class="sig-name descname"><span class="pre">bios_date</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.bios_date" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.bios_version">
+<span class="sig-name descname"><span class="pre">bios_version</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.bios_version" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.color_depth">
+<span class="sig-name descname"><span class="pre">color_depth</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.color_depth" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.cores_count">
+<span class="sig-name descname"><span class="pre">cores_count</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.cores_count" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.developer_mode_enabled">
+<span class="sig-name descname"><span class="pre">developer_mode_enabled</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.developer_mode_enabled" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.dram_memory">
+<span class="sig-name descname"><span class="pre">dram_memory</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.dram_memory" title="Permalink to this definition"></a></dt>
+<dd><p>physical memory of capture computer</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.file_version">
+<span class="sig-name descname"><span class="pre">file_version</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.file_version" title="Permalink to this definition"></a></dt>
+<dd><p>Current file version</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.gpa_build_number">
+<span class="sig-name descname"><span class="pre">gpa_build_number</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.gpa_build_number" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.gpa_release_quarter">
+<span class="sig-name descname"><span class="pre">gpa_release_quarter</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.gpa_release_quarter" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.gpa_release_sprint">
+<span class="sig-name descname"><span class="pre">gpa_release_sprint</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.gpa_release_sprint" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.gpa_release_year">
+<span class="sig-name descname"><span class="pre">gpa_release_year</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.gpa_release_year" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.gpu_driver_date">
+<span class="sig-name descname"><span class="pre">gpu_driver_date</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.gpu_driver_date" title="Permalink to this definition"></a></dt>
+<dd><p>GPU driver revision data mm/dd/yyyy</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.gpu_driver_version">
+<span class="sig-name descname"><span class="pre">gpu_driver_version</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.gpu_driver_version" title="Permalink to this definition"></a></dt>
+<dd><p>GPU driver version</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.gpu_name">
+<span class="sig-name descname"><span class="pre">gpu_name</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.gpu_name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the used gpu</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.gpu_product_id">
+<span class="sig-name descname"><span class="pre">gpu_product_id</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.gpu_product_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.gpu_stepping">
+<span class="sig-name descname"><span class="pre">gpu_stepping</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.gpu_stepping" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.gpu_vendor">
+<span class="sig-name descname"><span class="pre">gpu_vendor</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.gpu_vendor" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the used gpu vendor</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.graphics_API">
+<span class="sig-name descname"><span class="pre">graphics_API</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.graphics_API" title="Permalink to this definition"></a></dt>
+<dd><p>Graphics API name</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.graphics_API_version">
+<span class="sig-name descname"><span class="pre">graphics_API_version</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.graphics_API_version" title="Permalink to this definition"></a></dt>
+<dd><p>Graphics API version</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.hostname">
+<span class="sig-name descname"><span class="pre">hostname</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.hostname" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the capture computer</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.locale">
+<span class="sig-name descname"><span class="pre">locale</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.locale" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.num_api_calls">
+<span class="sig-name descname"><span class="pre">num_api_calls</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.num_api_calls" title="Permalink to this definition"></a></dt>
+<dd><p>Number of api calls captured</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.num_frames">
+<span class="sig-name descname"><span class="pre">num_frames</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.num_frames" title="Permalink to this definition"></a></dt>
+<dd><p>Number of frames captured</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.os_version">
+<span class="sig-name descname"><span class="pre">os_version</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.os_version" title="Permalink to this definition"></a></dt>
+<dd><p>Operating system version</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.resolution_height">
+<span class="sig-name descname"><span class="pre">resolution_height</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.resolution_height" title="Permalink to this definition"></a></dt>
+<dd><p>Height of the window</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.resolution_width">
+<span class="sig-name descname"><span class="pre">resolution_width</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.resolution_width" title="Permalink to this definition"></a></dt>
+<dd><p>Width of the window</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.StreamHeaderInfo.secure_boot_enabled">
+<span class="sig-name descname"><span class="pre">secure_boot_enabled</span></span><a class="headerlink" href="#GPA.StreamHeaderInfo.secure_boot_enabled" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.StreamScrubber">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">StreamScrubber</span></span><a class="headerlink" href="#GPA.StreamScrubber" title="Permalink to this definition"></a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="GPA.StreamScrubber.play_to_bookmark">
+<span class="sig-name descname"><span class="pre">play_to_bookmark</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.StreamScrubber.play_to_bookmark" title="Permalink to this definition"></a></dt>
+<dd><p>Play to the bookmark in the stream (this will use keyframing, if available)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.TextureBox">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">TextureBox</span></span><a class="headerlink" href="#GPA.TextureBox" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.TextureBox.depth">
+<span class="sig-name descname"><span class="pre">depth</span></span><a class="headerlink" href="#GPA.TextureBox.depth" title="Permalink to this definition"></a></dt>
+<dd><p>depth of the box.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.TextureBox.height">
+<span class="sig-name descname"><span class="pre">height</span></span><a class="headerlink" href="#GPA.TextureBox.height" title="Permalink to this definition"></a></dt>
+<dd><p>height of the box.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.TextureBox.width">
+<span class="sig-name descname"><span class="pre">width</span></span><a class="headerlink" href="#GPA.TextureBox.width" title="Permalink to this definition"></a></dt>
+<dd><p>width of the box.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.TextureBox.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#GPA.TextureBox.x" title="Permalink to this definition"></a></dt>
+<dd><p>x coordinate of the box.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.TextureBox.y">
+<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#GPA.TextureBox.y" title="Permalink to this definition"></a></dt>
+<dd><p>y coordinate of the box.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.TextureBox.z">
+<span class="sig-name descname"><span class="pre">z</span></span><a class="headerlink" href="#GPA.TextureBox.z" title="Permalink to this definition"></a></dt>
+<dd><p>z coordinate of the box.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.TextureSlice">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">TextureSlice</span></span><a class="headerlink" href="#GPA.TextureSlice" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.TextureSlice.array_index">
+<span class="sig-name descname"><span class="pre">array_index</span></span><a class="headerlink" href="#GPA.TextureSlice.array_index" title="Permalink to this definition"></a></dt>
+<dd><p>Index of the desired texture within the texure array.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.TextureSlice.aspect">
+<span class="sig-name descname"><span class="pre">aspect</span></span><a class="headerlink" href="#GPA.TextureSlice.aspect" title="Permalink to this definition"></a></dt>
+<dd><p>Enum representing the type of data this texture is storing.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.TextureSlice.mip_index">
+<span class="sig-name descname"><span class="pre">mip_index</span></span><a class="headerlink" href="#GPA.TextureSlice.mip_index" title="Permalink to this definition"></a></dt>
+<dd><p>The mip level within the texture.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.TextureSubresourceDesc">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">TextureSubresourceDesc</span></span><a class="headerlink" href="#GPA.TextureSubresourceDesc" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.TextureSubresourceDesc.box">
+<span class="sig-name descname"><span class="pre">box</span></span><a class="headerlink" href="#GPA.TextureSubresourceDesc.box" title="Permalink to this definition"></a></dt>
+<dd><p>The region of interest within the texture.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.TextureSubresourceDesc.format">
+<span class="sig-name descname"><span class="pre">format</span></span><a class="headerlink" href="#GPA.TextureSubresourceDesc.format" title="Permalink to this definition"></a></dt>
+<dd><p>The format of the texture data.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.TextureSubresourceDesc.row_stride">
+<span class="sig-name descname"><span class="pre">row_stride</span></span><a class="headerlink" href="#GPA.TextureSubresourceDesc.row_stride" title="Permalink to this definition"></a></dt>
+<dd><p>The row stride of texture data.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.TextureSubresourceDesc.slice">
+<span class="sig-name descname"><span class="pre">slice</span></span><a class="headerlink" href="#GPA.TextureSubresourceDesc.slice" title="Permalink to this definition"></a></dt>
+<dd><p>The subresource texture.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.TextureSubresourceDesc.texure_type">
+<span class="sig-name descname"><span class="pre">texure_type</span></span><a class="headerlink" href="#GPA.TextureSubresourceDesc.texure_type" title="Permalink to this definition"></a></dt>
+<dd><p>The type of texture to request.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.TwoByTwoTextureReplacementExperiment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">TwoByTwoTextureReplacementExperiment</span></span><a class="headerlink" href="#GPA.TwoByTwoTextureReplacementExperiment" title="Permalink to this definition"></a></dt>
+<dd><p>This class provides a prebuilt resource experiment object which is api agnostic</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.TwoByTwoTextureReplacementExperiment.SetTextureColor">
+<span class="sig-name descname"><span class="pre">SetTextureColor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.TwoByTwoTextureReplacementExperiment.SetTextureColor" title="Permalink to this definition"></a></dt>
+<dd><p>Sets the four colors used in the two by two texture.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.TwoByTwoTextureReplacementExperiment.add_target_replacement_binding">
+<span class="sig-name descname"><span class="pre">add_target_replacement_binding</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.TwoByTwoTextureReplacementExperiment.add_target_replacement_binding" title="Permalink to this definition"></a></dt>
+<dd><p>Adds a new binding to the list of texture bindings that should be replaced with a 2x2 image.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GPA.TwoByTwoTextureReplacementExperiment.clear_replacment_bindings">
+<span class="sig-name descname"><span class="pre">clear_replacment_bindings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.TwoByTwoTextureReplacementExperiment.clear_replacment_bindings" title="Permalink to this definition"></a></dt>
+<dd><p>Clears the list of bindings where images should be replaced.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.TwoByTwoTextureReplacementExperiment.color1">
+<span class="sig-name descname"><span class="pre">color1</span></span><a class="headerlink" href="#GPA.TwoByTwoTextureReplacementExperiment.color1" title="Permalink to this definition"></a></dt>
+<dd><p>Set color as list of floats</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.TwoByTwoTextureReplacementExperiment.color2">
+<span class="sig-name descname"><span class="pre">color2</span></span><a class="headerlink" href="#GPA.TwoByTwoTextureReplacementExperiment.color2" title="Permalink to this definition"></a></dt>
+<dd><p>Set color as list of floats</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.TwoByTwoTextureReplacementExperiment.color3">
+<span class="sig-name descname"><span class="pre">color3</span></span><a class="headerlink" href="#GPA.TwoByTwoTextureReplacementExperiment.color3" title="Permalink to this definition"></a></dt>
+<dd><p>Set color as list of floats</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GPA.TwoByTwoTextureReplacementExperiment.color4">
+<span class="sig-name descname"><span class="pre">color4</span></span><a class="headerlink" href="#GPA.TwoByTwoTextureReplacementExperiment.color4" title="Permalink to this definition"></a></dt>
+<dd><p>Set color as list of floats</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GPA.WireframeExperiment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">WireframeExperiment</span></span><a class="headerlink" href="#GPA.WireframeExperiment" title="Permalink to this definition"></a></dt>
+<dd><p>This class provides a prebuilt wireframe objectwhich is api agnostic</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="GPA.capture_stream">
+<span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">capture_stream</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.capture_stream" title="Permalink to this definition"></a></dt>
+<dd><p>Run a graphics application injected under GPA (and optionally capture stream)
+This function blocks until application exits, but you can run it on a separate thread and it wont pause
+other python threads(due to not using the GIL internally)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target_name</strong> (<em>str</em>) – path to application to run injected under GPA</p></li>
+<li><p><strong>layer_list</strong> (<em>List</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>Tuple</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em><em>]</em>) – (optional) list of layers where every element is a layer_name str or a (layer_name, layer_args_list) tuple if passing layer args layers include hud-layer/screenshot/capture/validation(see layers directory/ for others) details about layer arguments can be found by running gpa-help executable passing the layer name or on the gpa README.md</p></li>
+<li><p><strong>target_args</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – (optional) arguments to pass to target application</p></li>
+</ul>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">capture_stream</span><span class="p">(</span><span class="n">path_to_application</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;hud-layer&quot;</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;capture&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;directory=&#39;</span><span class="o">+</span><span class="n">non_defautl_captures_folder</span><span class="p">])])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">capture_stream</span><span class="p">(</span><span class="n">path_to_application</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;screenshot&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;frame=100&#39;</span><span class="p">]),</span> <span class="s2">&quot;capture&quot;</span><span class="p">])</span>
+<span class="go">#if you don&#39;t include capture layer gpa wont capture, it will only inject</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">capture_stream</span><span class="p">(</span><span class="n">path_to_application</span><span class="p">,</span> <span class="n">target_args</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;-a&#39;</span><span class="p">,</span> <span class="s1">&#39;-noheartbeatthread&#39;</span><span class="p">,</span> <span class="s1">&#39;-fullscreen&#39;</span><span class="p">])</span>
+<span class="go">#or more usefully inject and screenshot</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">capture_stream</span><span class="p">(</span><span class="n">path_to_application</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;screenshot&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;frame=100&#39;</span><span class="p">])],</span> <span class="p">[</span><span class="s1">&#39;-a&#39;</span><span class="p">,</span> <span class="s1">&#39;-noheartbeatthread&#39;</span><span class="p">,</span> <span class="s1">&#39;-fullscreen&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="GPA.init_gpa_metrics">
+<span class="sig-prename descclassname"><span class="pre">GPA.</span></span><span class="sig-name descname"><span class="pre">init_gpa_metrics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GPA.init_gpa_metrics" title="Permalink to this definition"></a></dt>
+<dd><p>Perform one-time metrics setup activities that need to be performed
+before any graphics devices exist for the process regardless of it
+they will be used for metrics collection (for example, before performing playback).</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="layers.html" class="btn btn-neutral float-left" title="Layers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../cppapi/library_root.html" class="btn btn-neutral float-right" title="C++ Interfaces" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2022 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

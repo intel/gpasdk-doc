@@ -1,0 +1,72 @@
+
+.. _program_listing_file_include_serialization_userdata.h:
+
+Program Listing for File userdata.h
+===================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_serialization_userdata.h>` (``include/serialization/userdata.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "serialization/apicallcontext.h"
+   
+   #include <cstdint>
+   
+   namespace gpa {
+   namespace serialization {
+   
+   class ArgsWriter;
+   class ArgsReader;
+   
+   class IUserData
+   {
+   public:
+       IUserData(ArgsReader* reader);  // read constructor
+       IUserData(ArgsWriter* writer);  // write constructor
+   
+       virtual ~IUserData(){};
+   
+       virtual void Read() = 0;
+   
+       virtual void PreWrite() = 0;
+   
+       virtual void PostWrite() = 0;
+   
+       void SetArgsWriter(ArgsWriter* writer);
+   
+       //    //! @brief Handles pre-playback logic, called during IFunctionCall::PrePlayback.
+       //    //! @param context The same IPlaybackContext that is used during IFunctionCall::PrePlayback
+       //    virtual void PrePlayback(Context* context) = 0;
+   
+       //    //! @brief Handles post-playback logic, called during IFunctionCall::PostPlayback.
+       //    //! @param context The same IPlaybackContext that is used during IFunctionCall::PostPlayback
+       //    virtual void PostPlayback(Context* context) = 0;
+   
+   protected:
+       ArgsWriter* mWriter = nullptr;
+       ArgsReader* mReader = nullptr;
+   };
+   
+   }  // namespace serialization
+   }  // namespace gpa

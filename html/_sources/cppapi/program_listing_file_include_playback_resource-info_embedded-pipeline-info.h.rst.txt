@@ -1,0 +1,162 @@
+
+.. _program_listing_file_include_playback_resource-info_embedded-pipeline-info.h:
+
+Program Listing for File embedded-pipeline-info.h
+=================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_resource-info_embedded-pipeline-info.h>` (``include/playback/resource-info/embedded-pipeline-info.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "playback/resource-info/resource-info.h"
+   #include "playback/resource-info/resource-info-ex/render-target-info.h"
+   
+   namespace gpa {
+   namespace playback {
+   
+   //DepthStencilState
+   struct DepthStencilState
+   {
+       bool depthEnable{false};                                                         
+       api_types::DepthWriteMask depthWriteMask{api_types::GPA_DEPTH_WRITE_MASK_ZERO};  
+       api_types::ComparisonFunc depthFunc{api_types::GPA_COMPARISON_NEVER};            
+       bool stencilEnable{false};                                                       
+       uint8_t stencilReadMask{0};                                                      
+       uint8_t stencilWriteMask{0};                                                     
+       api_types::DepthStencilOp frontFace{};                                           
+       api_types::DepthStencilOp backFace{};                                            
+       uint32_t stencilRefValue;                                                        
+   };
+   
+   bool operator==(DepthStencilState const& lhs, DepthStencilState const& rhs);
+   
+   bool operator!=(DepthStencilState const& lhs, DepthStencilState const& rhs);
+   
+   bool operator<(DepthStencilState const& lhs, DepthStencilState const& rhs);
+   
+   //RasterizerState
+   struct RasterizerState
+   {
+       api_types::FillMode fillMode{api_types::GPA_FILL_UNKNOWN};  
+       api_types::CullMode cullMode{api_types::GPA_CULL_UNKNOWN};  
+   
+       bool frontCounterClockwise{false};
+       int32_t depthBias{0};               
+       float depthBiasClamp{0};            
+       float slopeScaledDepthBias{0};      
+       bool depthClipEnable{false};        
+       bool scissorEnable{false};          
+       bool multisampleEnable{false};      
+       bool antialiasedLineEnable{false};  
+   };
+   
+   bool operator==(RasterizerState const& lhs, RasterizerState const& rhs);
+   
+   bool operator!=(RasterizerState const& lhs, RasterizerState const& rhs);
+   
+   bool operator<(RasterizerState const& lhs, RasterizerState const& rhs);
+   
+   // Blend State
+   struct BlendState
+   {
+       bool alphaToCoverageEnable{false};                             
+       bool independentBlendEnable{false};                            
+       float blendConstants[4]{0, 0, 0, 0};                           
+       uint32_t attachmentCount{0};                                   
+       api_types::BlendStateAttachment const* pAttachments{nullptr};  
+   };
+   
+   bool operator==(BlendState const& lhs, BlendState const& rhs);
+   
+   bool operator!=(BlendState const& lhs, BlendState const& rhs);
+   
+   bool operator<(BlendState const& lhs, BlendState const& rhs);
+   
+   // Viewport State
+   struct ViewportState
+   {
+       uint32_t viewportCount{0};                       
+       api_types::Viewport const* pViewports{nullptr};  
+   };
+   
+   bool operator==(ViewportState const& lhs, ViewportState const& rhs);
+   
+   bool operator!=(ViewportState const& lhs, ViewportState const& rhs);
+   
+   bool operator<(ViewportState const& lhs, ViewportState const& rhs);
+   
+   // ScissorRect State
+   struct ScissorRectState
+   {
+       uint32_t scissorRectCount{0};                     
+       api_types::Rect2D const* pScissorRects{nullptr};  
+   };
+   
+   bool operator==(ScissorRectState const& lhs, ScissorRectState const& rhs);
+   
+   bool operator!=(ScissorRectState const& lhs, ScissorRectState const& rhs);
+   
+   bool operator<(ScissorRectState const& lhs, ScissorRectState const& rhs);
+   
+   class EmbeddedPipelineInfo
+       : public ResourceInfo
+   {
+   public:
+       TypeId GetTypeId() const override final;
+       BlendState blendState{};                                                                    
+       RasterizerState rasterizerState{};                                                          
+       DepthStencilState depthStencilState{};                                                      
+       ViewportState viewportState{};                                                              
+       ScissorRectState scissorRectState{};                                                        
+       api_types::PrimitiveTopology primitiveTopology{api_types::GPA_PRIMITIVE_TOPOLOGY_UNKNOWN};  
+   
+   protected:
+       void OnRegister() override final;
+   
+   private:
+       class Storage final
+       {
+       public:
+           std::vector<api_types::BlendStateAttachment> blendAttachments;
+           std::vector<api_types::Viewport> viewports;
+           std::vector<api_types::Rect2D> scissorRects;
+       } mStorage;
+   };
+   
+   namespace detail {
+   
+   template<>
+   inline auto MakeTuple<EmbeddedPipelineInfo>(const EmbeddedPipelineInfo& embeddedPipelineInfo)
+   {
+       return std::make_tuple(
+           embeddedPipelineInfo.blendState,
+           embeddedPipelineInfo.rasterizerState,
+           embeddedPipelineInfo.viewportState,
+           embeddedPipelineInfo.scissorRectState,
+           embeddedPipelineInfo.primitiveTopology,
+           embeddedPipelineInfo.depthStencilState);
+   }
+   }  // namespace detail
+   }  // namespace playback
+   }  // namespace gpa

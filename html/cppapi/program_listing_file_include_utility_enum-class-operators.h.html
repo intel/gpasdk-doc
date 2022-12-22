@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Program Listing for File enum-class-operators.h &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+            <a href="../index.html">
+            <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending “Helloworld” Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">‘Helloworld’ Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">‘Helloworld’ Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/reference.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">API-Debug-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">Device-Override</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#unions">Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id3">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id4">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id5">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id6">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id7">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id8">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id9">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id10">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Program Listing for File enum-class-operators.h</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="program-listing-for-file-enum-class-operators-h">
+<span id="program-listing-file-include-utility-enum-class-operators-h"></span><h1>Program Listing for File enum-class-operators.h<a class="headerlink" href="#program-listing-for-file-enum-class-operators-h" title="Permalink to this headline"></a></h1>
+<p>↰ <a class="reference internal" href="file_include_utility_enum-class-operators.h.html#file-include-utility-enum-class-operators-h"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">include/utility/enum-class-operators.h</span></code>)</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/******************************************************************************</span>
+<span class="cm">© Intel Corporation.</span>
+
+<span class="cm">This software and the related documents are Intel copyrighted materials,</span>
+<span class="cm">and your use of them is governed by the express license under which they</span>
+<span class="cm">were provided to you (&quot;License&quot;). Unless the License provides otherwise,</span>
+<span class="cm">you may not use, modify, copy, publish, distribute, disclose or transmit</span>
+<span class="cm">this software or the related documents without Intel&#39;s prior written</span>
+<span class="cm">permission.</span>
+
+
+<span class="cm"> This software and the related documents are provided as is, with no express</span>
+<span class="cm">or implied warranties, other than those that are expressly stated in the</span>
+<span class="cm">License.</span>
+
+<span class="cm">******************************************************************************/</span><span class="w"></span>
+
+<span class="cp">#pragma once</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;type_traits&gt;</span><span class="cp"></span>
+
+<span class="cp">#define GPA_DEFINE_ENUM_CLASS_OPERATORS(GPA_ENUM_TYPE)                                                         \</span>
+<span class="cp">                                                                                                               \</span>
+<span class="cp">    inline GPA_ENUM_TYPE&amp; operator++(GPA_ENUM_TYPE&amp; value)                                                     \</span>
+<span class="cp">    {                                                                                                          \</span>
+<span class="cp">        value = static_cast&lt;GPA_ENUM_TYPE&gt;(static_cast&lt;std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type&gt;(value) + 1); \</span>
+<span class="cp">        return value;                                                                                          \</span>
+<span class="cp">    }                                                                                                          \</span>
+<span class="cp">                                                                                                               \</span>
+<span class="cp">    inline GPA_ENUM_TYPE operator++(GPA_ENUM_TYPE&amp; value, int)                                                 \</span>
+<span class="cp">    {                                                                                                          \</span>
+<span class="cp">        auto temp = value;                                                                                     \</span>
+<span class="cp">        ++value;                                                                                               \</span>
+<span class="cp">        return temp;                                                                                           \</span>
+<span class="cp">    }                                                                                                          \</span>
+<span class="cp">                                                                                                               \</span>
+<span class="cp">    inline GPA_ENUM_TYPE&amp; operator--(GPA_ENUM_TYPE&amp; value)                                                     \</span>
+<span class="cp">    {                                                                                                          \</span>
+<span class="cp">        value = static_cast&lt;GPA_ENUM_TYPE&gt;(static_cast&lt;std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type&gt;(value) - 1); \</span>
+<span class="cp">        return value;                                                                                          \</span>
+<span class="cp">    }                                                                                                          \</span>
+<span class="cp">                                                                                                               \</span>
+<span class="cp">    inline GPA_ENUM_TYPE operator--(GPA_ENUM_TYPE&amp; value, int)                                                 \</span>
+<span class="cp">    {                                                                                                          \</span>
+<span class="cp">        auto temp = value;                                                                                     \</span>
+<span class="cp">        --value;                                                                                               \</span>
+<span class="cp">        return temp;                                                                                           \</span>
+<span class="cp">    }                                                                                                          \</span>
+<span class="cp">                                                                                                               \</span>
+<span class="cp">    inline GPA_ENUM_TYPE operator+(GPA_ENUM_TYPE lhs, std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type rhs)           \</span>
+<span class="cp">    {                                                                                                          \</span>
+<span class="cp">        return static_cast&lt;GPA_ENUM_TYPE&gt;(static_cast&lt;std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type&gt;(lhs) + rhs);  \</span>
+<span class="cp">    }                                                                                                          \</span>
+<span class="cp">                                                                                                               \</span>
+<span class="cp">    inline GPA_ENUM_TYPE operator-(GPA_ENUM_TYPE lhs, std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type rhs)           \</span>
+<span class="cp">    {                                                                                                          \</span>
+<span class="cp">        return static_cast&lt;GPA_ENUM_TYPE&gt;(static_cast&lt;std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type&gt;(lhs) - rhs);  \</span>
+<span class="cp">    }                                                                                                          \</span>
+<span class="cp">                                                                                                               \</span>
+<span class="cp">    inline bool operator==(GPA_ENUM_TYPE lhs, std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type rhs)                   \</span>
+<span class="cp">    {                                                                                                          \</span>
+<span class="cp">        return static_cast&lt;std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type&gt;(lhs) == rhs;                             \</span>
+<span class="cp">    }                                                                                                          \</span>
+<span class="cp">                                                                                                               \</span>
+<span class="cp">    inline bool operator==(std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type lhs, GPA_ENUM_TYPE rhs)                   \</span>
+<span class="cp">    {                                                                                                          \</span>
+<span class="cp">        return lhs == static_cast&lt;std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type&gt;(rhs);                             \</span>
+<span class="cp">    }                                                                                                          \</span>
+<span class="cp">                                                                                                               \</span>
+<span class="cp">    inline bool operator!=(GPA_ENUM_TYPE lhs, std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type rhs)                   \</span>
+<span class="cp">    {                                                                                                          \</span>
+<span class="cp">        return static_cast&lt;std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type&gt;(lhs) != rhs;                             \</span>
+<span class="cp">    }                                                                                                          \</span>
+<span class="cp">                                                                                                               \</span>
+<span class="cp">    inline bool operator!=(std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type lhs, GPA_ENUM_TYPE rhs)                   \</span>
+<span class="cp">    {                                                                                                          \</span>
+<span class="cp">        return lhs != static_cast&lt;std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type&gt;(rhs);                             \</span>
+<span class="cp">    }                                                                                                          \</span>
+<span class="cp">                                                                                                               \</span>
+<span class="cp">    inline bool operator&lt;(GPA_ENUM_TYPE lhs, std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type rhs)                    \</span>
+<span class="cp">    {                                                                                                          \</span>
+<span class="cp">        return static_cast&lt;std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type&gt;(lhs) &lt; rhs;                              \</span>
+<span class="cp">    }                                                                                                          \</span>
+<span class="cp">                                                                                                               \</span>
+<span class="cp">    inline bool operator&lt;(std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type lhs, GPA_ENUM_TYPE rhs)                    \</span>
+<span class="cp">    {                                                                                                          \</span>
+<span class="cp">        return lhs &lt; static_cast&lt;std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type&gt;(rhs);                              \</span>
+<span class="cp">    }                                                                                                          \</span>
+<span class="cp">                                                                                                               \</span>
+<span class="cp">    inline bool operator&lt;=(GPA_ENUM_TYPE lhs, std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type rhs)                   \</span>
+<span class="cp">    {                                                                                                          \</span>
+<span class="cp">        return static_cast&lt;std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type&gt;(lhs) &lt;= rhs;                             \</span>
+<span class="cp">    }                                                                                                          \</span>
+<span class="cp">                                                                                                               \</span>
+<span class="cp">    inline bool operator&lt;=(std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type lhs, GPA_ENUM_TYPE rhs)                   \</span>
+<span class="cp">    {                                                                                                          \</span>
+<span class="cp">        return lhs &lt;= static_cast&lt;std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type&gt;(rhs);                             \</span>
+<span class="cp">    }                                                                                                          \</span>
+<span class="cp">                                                                                                               \</span>
+<span class="cp">    inline bool operator&gt;(GPA_ENUM_TYPE lhs, std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type rhs)                    \</span>
+<span class="cp">    {                                                                                                          \</span>
+<span class="cp">        return static_cast&lt;std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type&gt;(lhs) &gt; rhs;                              \</span>
+<span class="cp">    }                                                                                                          \</span>
+<span class="cp">                                                                                                               \</span>
+<span class="cp">    inline bool operator&gt;(std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type lhs, GPA_ENUM_TYPE rhs)                    \</span>
+<span class="cp">    {                                                                                                          \</span>
+<span class="cp">        return lhs &gt; static_cast&lt;std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type&gt;(rhs);                              \</span>
+<span class="cp">    }                                                                                                          \</span>
+<span class="cp">                                                                                                               \</span>
+<span class="cp">    inline bool operator&gt;=(GPA_ENUM_TYPE lhs, std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type rhs)                   \</span>
+<span class="cp">    {                                                                                                          \</span>
+<span class="cp">        return static_cast&lt;std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type&gt;(lhs) &gt;= rhs;                             \</span>
+<span class="cp">    }                                                                                                          \</span>
+<span class="cp">                                                                                                               \</span>
+<span class="cp">    inline bool operator&gt;=(std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type lhs, GPA_ENUM_TYPE rhs)                   \</span>
+<span class="cp">    {                                                                                                          \</span>
+<span class="cp">        return lhs &gt;= static_cast&lt;std::underlying_type&lt;GPA_ENUM_TYPE&gt;::type&gt;(rhs);                             \</span>
+<span class="cp">    }</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2022 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

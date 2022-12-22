@@ -1,0 +1,134 @@
+
+.. _program_listing_file_include_playback_resource-info_detail_info-object-registry.h:
+
+Program Listing for File info-object-registry.h
+===============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_resource-info_detail_info-object-registry.h>` (``include/playback/resource-info/detail/info-object-registry.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "playback/resource-info/detail/utilities.h"
+   
+   #include <cstddef>
+   #include <memory>
+   #include <set>
+   #include <utility>
+   
+   namespace gpa {
+   namespace playback {
+   namespace detail {
+   
+   template<typename BaseInfoType>
+   class InfoObjectRegistry final
+   {
+   public:
+       InfoObjectRegistry() = default;
+   
+       template<typename InfoType>
+       inline std::pair<InfoType*, bool> RegisterObject(InfoType const& infoObj)
+       {
+           bool newRegistration = false;
+           auto pInfoObject = GetRegisteredObject(infoObj);
+           if (!pInfoObject) {
+               newRegistration = true;
+               pInfoObject = new InfoType(infoObj);
+               mInfoObjects.insert(std::unique_ptr<BaseInfoType>((BaseInfoType*)pInfoObject));
+           }
+           return {pInfoObject->template As<InfoType>(), newRegistration};
+       }
+   
+       template<typename InfoType>
+       inline InfoType const* GetRegisteredObject(InfoType const& infoObj) const
+       {
+           std::unique_ptr<BaseInfoType> pInfoObject((BaseInfoType*)&infoObj);
+           auto itr = mInfoObjects.find(pInfoObject);
+           pInfoObject.release();
+           return itr != mInfoObjects.end() ? (*itr)->template As<InfoType>() : nullptr;
+       }
+   
+       template<typename InfoType>
+       inline InfoType* GetRegisteredObject(InfoType const& infoObj)
+       {
+           std::unique_ptr<BaseInfoType> pInfoObject((BaseInfoType*)&infoObj);
+           auto itr = mInfoObjects.find(pInfoObject);
+           pInfoObject.release();
+           return itr != mInfoObjects.end() ? (*itr)->template As<InfoType>() : nullptr;
+       }
+   
+       inline void GetRegisteredObjects(
+           size_t* pInfoObjCount,
+           BaseInfoType const** ppInfoObjs) const
+       {
+           if (pInfoObjCount) {
+               if (ppInfoObjs) {
+                   size_t resource_i = 0;
+                   for (auto const& itr : mInfoObjects) {
+                       if (resource_i < *pInfoObjCount) {
+                           ppInfoObjs[resource_i++] = itr.get();
+                       } else {
+                           break;
+                       }
+                   }
+               } else {
+                   *pInfoObjCount = mInfoObjects.size();
+               }
+           }
+       }
+   
+       template<typename InfoType>
+       inline void GetRegisteredObjectsOfType(
+           size_t* pInfoObjCount,
+           InfoType const** ppInfoObjs) const
+       {
+           if (pInfoObjCount) {
+               size_t i = 0;
+               for (auto const& itr : mInfoObjects) {
+                   auto pInfoObject = itr->template As<InfoType>();
+                   if (pInfoObject) {
+                       if (ppInfoObjs) {
+                           if (i < *pInfoObjCount) {
+                               ppInfoObjs[i++] = pInfoObject;
+                           } else {
+                               break;
+                           }
+                       } else {
+                           ++(*pInfoObjCount);
+                       }
+                   }
+               }
+           }
+       }
+   
+   private:
+       using Comparer = PtrComparer<std::unique_ptr<BaseInfoType>>;
+       std::set<std::unique_ptr<BaseInfoType>, Comparer> mInfoObjects;
+   
+       InfoObjectRegistry(InfoObjectRegistry<BaseInfoType> const&) = delete;
+       InfoObjectRegistry<BaseInfoType>& operator=(InfoObjectRegistry<BaseInfoType> const&) = delete;
+   };
+   
+   }  // namespace detail
+   }  // namespace playback
+   }  // namespace gpa

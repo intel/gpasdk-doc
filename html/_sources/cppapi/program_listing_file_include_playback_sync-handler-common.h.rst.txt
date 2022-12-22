@@ -1,0 +1,139 @@
+
+.. _program_listing_file_include_playback_sync-handler-common.h:
+
+Program Listing for File sync-handler-common.h
+==============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_sync-handler-common.h>` (``include/playback/sync-handler-common.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   #pragma once
+   
+   #include <memory>
+   
+   namespace gpa {
+   namespace playback {
+   namespace sync_handler {
+   
+   enum class SyncCommandType {
+       kQueueSignal,
+       kQueueWait,
+       kQueueOther,
+       kImmidiateSignal,
+       kCreateSharedHandle,
+       kOpenSharedHandle,
+       kOther
+   };
+   
+   struct SyncQueueWait
+   {
+       uint64_t queueUid;
+       uint64_t fenceUid;
+       uint64_t waitValue;
+   };
+   
+   struct SyncQueueSignal
+   {
+       uint64_t queueUid;
+       uint64_t fenceUid;
+       uint64_t signalValue;
+   };
+   
+   struct SyncQueueOther
+   {
+       uint64_t queueUid;
+   };
+   
+   struct SyncImmidiateSignal
+   {
+       uint64_t fenceUid;
+       uint64_t signalValue;
+   };
+   
+   struct CreateSharedHandle
+   {
+       uint64_t objectUid;
+       wchar_t const* name;
+       uint64_t outHandle;
+   };
+   
+   struct OpenSharedHandle
+   {
+       uint64_t handle;
+       uint64_t outObjectUid;
+   };
+   
+   struct SyncCommand
+   {
+       SyncCommand(){};
+   
+       SyncCommand(SyncQueueOther arg)
+           : type(SyncCommandType::kQueueOther)
+       {
+           data.queueOther = arg;
+       }
+   
+       SyncCommand(SyncQueueSignal arg)
+           : type(SyncCommandType::kQueueSignal)
+       {
+           data.queueSignal = arg;
+       }
+   
+       SyncCommand(SyncImmidiateSignal arg)
+           : type(SyncCommandType::kImmidiateSignal)
+       {
+           data.immidiateSignal = arg;
+       }
+   
+       SyncCommand(CreateSharedHandle arg)
+           : type(SyncCommandType::kCreateSharedHandle)
+       {
+           data.createSharedHandle = arg;
+       }
+   
+       SyncCommand(OpenSharedHandle arg)
+           : type(SyncCommandType::kOpenSharedHandle)
+       {
+           data.openSharedHandle = arg;
+       }
+   
+       SyncCommand(SyncQueueWait arg)
+           : type(SyncCommandType::kQueueWait)
+       {
+           data.queueWait = arg;
+       }
+   
+       SyncCommandType type = SyncCommandType::kOther;
+       union
+       {
+           SyncQueueWait queueWait;
+           SyncQueueSignal queueSignal;
+           SyncImmidiateSignal immidiateSignal;
+           CreateSharedHandle createSharedHandle;
+           OpenSharedHandle openSharedHandle;
+           SyncQueueOther queueOther;
+       } data{};
+   };
+   
+   }  // namespace sync_handler
+   }  // namespace playback
+   }  // namespace gpa

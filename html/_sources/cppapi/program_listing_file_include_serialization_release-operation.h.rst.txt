@@ -1,0 +1,56 @@
+
+.. _program_listing_file_include_serialization_release-operation.h:
+
+Program Listing for File release-operation.h
+============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_serialization_release-operation.h>` (``include/serialization/release-operation.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "operations/operation.h"
+   #include "serialization/apicallcontext.h"
+   
+   namespace gpa {
+   namespace serialization {
+   
+   
+   struct ReleaseOperation : public Operation
+   {
+       ReleaseOperation();
+       ~ReleaseOperation();
+   
+       virtual char const* GetName() const;
+   
+       virtual size_t Serialize(MemoryBackedSerializer*) const;
+       virtual size_t Deserialize(MemoryBackedSerializer*);
+   
+       uint64_t key;
+       uint8_t api;
+   };
+   
+   void ReleaseObject(void* object);
+   
+   }  // namespace serialization
+   }  // namespace gpa
