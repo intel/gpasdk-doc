@@ -1,0 +1,378 @@
+
+.. _program_listing_file_include_argsprinter_argsprinter.h:
+
+Program Listing for File argsprinter.h
+======================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_argsprinter_argsprinter.h>` (``include/argsprinter/argsprinter.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   ******************************************************************************/
+   #pragma once
+   #include <igpa-config.h>
+   
+   #if HAVE_DIRECTX
+   #include <d3d9.h>
+   #include <d3d10_1.h>
+   #include <d3d11_4.h>
+   #include <d3d11on12.h>
+   #include <d3d12.h>
+   #include <dxgi1_6.h>
+   #include <dxgi.h>
+   #include <Windows.h>
+   #include "directx-capture-key.h"
+   #include "argsprinter-directx.h"
+   #endif
+   
+   #if HAVE_VULKAN
+   #include <vulkan/vulkan.h>
+   #endif
+   
+   #include "utility/unicode.h"
+   #include <algorithm>
+   #include <iosfwd>
+   #include <string>
+   #include <sstream>
+   #include <iomanip>
+   #include <type_traits>
+   #include <typeinfo>
+   
+   namespace gpa {
+   namespace serialization {
+   namespace argsprinter {
+   
+   // These are the default templates, specializations will be be in the inline files
+   // we want to keep this file free of the implementation of various specializations
+   // it is ok to forward declare them if that fixes compilation issues.
+   
+   // Basic Types
+   template<typename T>
+   inline void Print(T const& /*src*/, std::string srcName, std::ostream& os, size_t indent)
+   {
+       const auto str = typeid(T*).name();
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName << ": IS NYI (ref)!"
+          << " T& = " << str << std::endl;
+   }
+   
+   template<typename T>
+   inline void Print(T const* /*src*/, std::string srcName, std::ostream& os, size_t indent)
+   {
+       const auto str = typeid(T*).name();
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName << ": IS NYI(ptr) !"
+          << " T* = " << str << std::endl;
+   }
+   
+   template<typename T, size_t N>
+   inline void Print(std::add_lvalue_reference_t<const T[N]> array, std::string srcName, std::ostream& os, size_t indent)
+   {
+       PrintArray(array, N, srcName, os, indent);
+   }
+   
+   // Values that should be printed in hex (pointer/object ID values, etc)
+   template<typename T>
+   inline void PrintInHex(T src, std::string srcName, std::ostream& os, size_t indent)
+   {
+       //const auto str = typeid(T*).name();
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName << ": 0x" << std::hex << src << std::dec << std::endl;
+   }
+   
+   // Arrays
+   template<typename T>
+   inline void PrintArray(const T* array, size_t size, std::string srcName, std::ostream& os, size_t indent)
+   {
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName << std::endl;
+   
+       for (size_t ii = 0; ii < size; ++ii) {
+           std::stringstream ss;
+           ss << "[" << std::to_string(ii) << "] ";
+           Print(array[ii], ss.str(), os, indent + 1);
+       }
+   }
+   
+   template<typename T>
+   inline void PrintArray(T* array, size_t size, std::string srcName, std::ostream& os, size_t indent)
+   {
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName << std::endl;
+   
+       for (size_t ii = 0; ii < size; ++ii) {
+           std::stringstream ss;
+           ss << "[" << std::to_string(ii) << "] ";
+           Print(array[ii], ss.str(), os, indent + 1);
+       }
+   }
+   
+   template<typename T, size_t N>
+   inline void PrintArray(std::add_lvalue_reference_t<T[N]> array, std::string srcName, std::ostream& os, size_t indent)
+   {
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName << ": " << std::endl;
+       for (size_t ii = 0; ii < N; ++ii) {
+           std::stringstream ss;
+           ss << "[" << std::to_string(ii) << "] ";
+           Print(array[ii], ss.str(), os, indent + 1);
+       }
+   }
+   
+   template<typename T>
+   inline void PrintPrimitiveArray(T* array, size_t size, std::string srcName, std::ostream& os, size_t indent)
+   {
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName << ": [ ";
+       for (size_t ii = 0; ii < size; ++ii) {
+           os << array[ii] << ", ";
+       }
+       os << "]" << std::endl;
+   }
+   
+   // Pointers
+   template<typename T>
+   inline void PrintPointer(T* ptr, std::string srcName, std::ostream& os, size_t indent = 0)
+   {
+       std::string indentString(indent * 4, ' ');
+       if (ptr == nullptr) {
+           os << indentString << srcName;
+           os << " NULLPTR" << std::endl;
+           return;
+       }
+       Print(*ptr, srcName, os, indent);
+   }
+   
+   template<typename T>
+   inline void PrintPointer(T const* ptr, std::string srcName, std::ostream& os, size_t indent = 0)
+   {
+       std::string indentString(indent * 4, ' ');
+       if (ptr == nullptr) {
+           os << indentString << srcName;
+           os << " NULLPTR" << std::endl;
+           return;
+       }
+       Print(*ptr, srcName, os, indent);
+   }
+   
+   // Double Pointers
+   template<typename T>
+   inline void PrintPointerPointer(T** ptr, size_t count, std::string srcName, std::ostream& os, size_t indent)
+   {
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName << std::endl;
+       if (ptr == nullptr) {
+           os << " NULLPTR" << std::endl;
+           return;
+       }
+       for (size_t ii = 0; ii < count; ++ii) {
+           std::string indexString = std::string("[") + std::to_string(ii) + std::string("]");
+           PrintPointer(ptr[ii], indexString, os, indent + 1);
+       }
+   }
+   
+   template<typename T>
+   inline void PrintPointerPointer(T* const* ptr, size_t count, std::string srcName, std::ostream& os, size_t indent)
+   {
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName << std::endl;
+       if (ptr == nullptr) {
+           os << " NULLPTR" << std::endl;
+           return;
+       }
+       for (size_t ii = 0; ii < count; ++ii) {
+           std::string indexString = std::string("[") + std::to_string(ii) + std::string("]");
+           PrintPointer(ptr[ii], indexString, os, indent + 1);
+       }
+   }
+   
+   template<typename T>
+   inline void PrintPointerPointer(const T* const* ptr, size_t count, std::string srcName, std::ostream& os, size_t indent)
+   {
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName << std::endl;
+       if (ptr == nullptr) {
+           os << " NULLPTR" << std::endl;
+           return;
+       }
+       for (size_t ii = 0; ii < count; ++ii) {
+           std::string indexString = std::string("[") + std::to_string(ii) + std::string("]");
+           PrintPointer(ptr[ii], indexString, os, indent + 1);
+       }
+   }
+   
+   // the basic, api-agnostic specializations of the above templates go in this file
+   #include "common-specializations.inl"
+   
+   inline auto StringifyArray(const wchar_t* array)
+   {
+       if (!array) {
+           return std::string("nullptr");
+       }
+   
+       //TODO Wchar to char and print
+       std::string narrowedStr = gpa::utility::Narrow(std::wstring(array));
+       std::stringstream str;
+       str << narrowedStr;
+       return str.str();
+   }
+   
+   #if HAVE_DIRECTX
+   
+   // We need to forward declare these specializations so the complier does not create them before it finds our implementations.
+   
+   // template<>
+   // inline void Print(HRESULT const& src, std::string srcName, std::ostream& os, size_t indent);
+   template<>
+   inline void Print(BOOL const& src, std::string srcName, std::ostream& os, size_t indent);
+   template<>
+   inline void Print(LUID const& src, std::string srcName, std::ostream& os, size_t indent);
+   template<>
+   inline void Print(GUID const& src, std::string srcName, std::ostream& os, size_t indent);
+   template<>
+   inline void Print(HWND const& src, std::string srcName, std::ostream& os, size_t indent);
+   template<>
+   inline void Print(HWND__ const& src, std::string srcName, std::ostream& os, size_t indent);
+   template<>
+   inline void Print(RECT const& src, std::string srcName, std::ostream& os, size_t indent);
+   template<>
+   inline void Print(D3D12_RESOURCE_DESC* const&, std::string srcName, std::ostream& os, size_t indent);
+   template<>
+   inline void Print(D3D12_CPU_DESCRIPTOR_HANDLE* const& src, std::string srcName, std::ostream& os, size_t indent);
+   template<>
+   inline void Print(D3D12_GPU_DESCRIPTOR_HANDLE* const& src, std::string srcName, std::ostream& os, size_t indent);
+   template<>
+   inline void Print(D3D12_CPU_DESCRIPTOR_HANDLE const& src, std::string srcName, std::ostream& os, size_t indent);
+   template<>
+   inline void Print(D3D12_GPU_DESCRIPTOR_HANDLE const& src, std::string srcName, std::ostream& os, size_t indent);
+   template<>
+   inline void Print(std::add_lvalue_reference_t<const D3D12_RENDER_TARGET_BLEND_DESC[8]> src, std::string srcName, std::ostream& os, size_t indent);
+   template<>
+   inline void Print(std::add_lvalue_reference_t<const DXGI_FORMAT[8]> src, std::string srcName, std::ostream& os, size_t indent);
+   template<>
+   inline void Print(D3D12_STATE_OBJECT_DESC const& desc, std::string srcName, std::ostream& os, size_t indent);
+   template<>
+   inline void Print(D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC const& src, std::string srcName, std::ostream& os, size_t indent);
+   template<>
+   inline void Print(D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE const& src, std::string srcName, std::ostream& os, size_t indent);
+   template<>
+   inline void Print(D3D12_GPU_VIRTUAL_ADDRESS_RANGE const& src, std::string srcName, std::ostream& os, size_t indent);
+   template<>
+   inline void Print(D3D12_DESCRIPTOR_HEAP_DESC const& src, std::string srcName, std::ostream& os, size_t indent);
+   template<>
+   inline void Print(D3D12_DESCRIPTOR_HEAP_DESC* const& src, std::string srcName, std::ostream& os, size_t indent);
+   
+   void PrintSubObject(const D3D12_STATE_SUBOBJECT* subObj, std::string srcName, std::ostream& wstr, size_t indent);
+   template<>
+   inline void PrintInHex(D3D12_GPU_VIRTUAL_ADDRESS src, std::string srcName, std::ostream& os, size_t indent);
+   // Interface Pointers
+   template<typename T>
+   inline void PrintInterfacePointer(T* ptr, const std::string& srcName, std::ostream& os, size_t indent = 0, uint64_t* captureKey = nullptr)
+   {
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName;
+       if (ptr == nullptr) {
+           os << " NULLPTR" << std::endl;
+           return;
+       }
+   
+       if (captureKey != nullptr) {
+           os << " Stream Capture Unique ID 0x" << std::hex << std::uppercase << captureKey << std::dec;
+       }
+       os << " 0x" << std::hex << std::uppercase << (size_t)ptr << std::dec << std::endl;
+   }
+   
+   template<typename T>
+   inline void PrintInterfacePointerPointer(T** ptr, size_t count, const std::string& srcName, std::ostream& os, size_t indent = 0, uint64_t* captureKeys = nullptr)
+   {
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName << std::endl;
+       if (ptr == nullptr) {
+           os << " NULLPTR" << std::endl;
+           return;
+       }
+       for (size_t ii = 0; ii < count; ++ii) {
+           std::stringstream ss;
+           ss << std::string("[") << std::to_string(ii) << std::string("]");
+           if (captureKeys != nullptr) {
+               ss << " Stream Capture Unique ID 0x" << std::hex << std::uppercase << captureKeys[ii] << std::dec;
+           }
+           ss << " ";
+           PrintPointer(ptr[ii], ss.str(), os, indent + 1);
+       }
+   }
+   
+   template<typename T>
+   inline void PrintInterfacePointerPointer(T* const* ptr, size_t count, const std::string& srcName, std::ostream& os, size_t indent = 0, uint64_t* captureKeys = nullptr)
+   {
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName << std::endl;
+       if (ptr == nullptr) {
+           os << " NULLPTR" << std::endl;
+           return;
+       }
+       for (size_t ii = 0; ii < count; ++ii) {
+           std::stringstream ss;
+           ss << std::string("[") << std::to_string(ii) << std::string("]");
+           if (captureKeys != nullptr) {
+               ss << " Stream Capture Unique ID 0x" << std::hex << captureKeys[ii] << std::dec;
+           }
+           ss << " ";
+           PrintPointer(ptr[ii], ss.str(), os, indent + 1);
+       }
+   }
+   
+   // Generated DirectX specializations
+   #include "directx-argsprinter-enums.inl"
+   #include "directx-argsprinter-classes.inl"
+   #include "directx-argsprinter-structs.inl"
+   
+   // these are the hand written specializations, many of which we forward declared above
+   #include "argsprinter-directx-specializations.inl"
+   
+   #endif  // HAVE DIRECTX
+   
+   #if HAVE_VULKAN
+   
+   #if !HAVE_DIRECTX
+   template<typename T>
+   inline void PrintInterfacePointer(T* ptr, std::string srcName, std::ostream& os, size_t indent = 0, uint64_t* captureKey = nullptr)
+   {
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName;
+       if (ptr == nullptr) {
+           os << " NULLPTR" << std::endl;
+           return;
+       }
+       os << std::endl;
+       std::stringstream ss;
+       if (captureKey != nullptr) {
+           ss << " Stream Capture Unique ID 0x" << std::hex << std::uppercase << captureKey << std::dec;
+       }
+       ss << " ";
+       Print(*ptr, ss.str(), os, indent + 1);
+   }
+   
+   #endif
+   #include "vulkan-argsprinter-enums.inl"
+   #include "vulkan-argsprinter-classes.inl"
+   #include "vulkan-argsprinter-structs.inl"
+   #endif
+   
+   }  // namespace argsprinter
+   }  // namespace serialization
+   }  // namespace gpa
