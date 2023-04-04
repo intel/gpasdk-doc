@@ -1,0 +1,197 @@
+
+.. _program_listing_file_include_argsprinter_common-specializations.inl:
+
+Program Listing for File common-specializations.inl
+===================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_argsprinter_common-specializations.inl>` (``include/argsprinter/common-specializations.inl``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   template<> inline void Print(unsigned char const& src, std::string srcName, std::ostream& os, size_t indent);
+   template<> inline void Print(unsigned int const& src, std::string srcName, std::ostream& os, size_t indent);
+   template<> inline void Print(unsigned short const& src, std::string srcName, std::ostream& os, size_t indent);
+   template<> inline void Print(unsigned long long const& src, std::string srcName, std::ostream& os, size_t indent);
+   template<> inline void Print(unsigned long const& src, std::string srcName, std::ostream& os, size_t indent);
+   template<> inline void Print(float const& src, std::string srcName, std::ostream& os, size_t indent);
+   template<> inline void Print(wchar_t const& src, std::string srcName, std::ostream& os, size_t indent);
+   template<> inline void Print(wchar_t const* src, std::string srcName, std::ostream& os, size_t indent);
+   template<> inline void Print(long const & src, std::string srcName, std::ostream& os, size_t indent);
+   
+   // Arrays 
+   template<>
+   inline void PrintArray(const wchar_t* array, size_t /*size*/, std::string srcName, std::ostream& os, size_t indent)
+   {
+       std::string narrowedStr = gpa::utility::Narrow(std::wstring(array));
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName << " : " << narrowedStr << std::endl;
+   }
+   
+   template<>
+   inline void PrintArray(const char* array, size_t /*size*/, std::string srcName, std::ostream& os, size_t indent)
+   {
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName << " : " << array << std::endl;
+   }
+   
+   template<>
+   inline void PrintArray(float* array, size_t size, std::string srcName, std::ostream& os, size_t indent)
+   {
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName << ": ";
+       for (size_t ii = 0; ii < size; ++ii) {
+           Print(array[ii], "", os, indent + 1);
+       }
+   }
+   
+   // PrintInHex
+   template<>
+   inline void PrintInHex(unsigned char const& src, std::string srcName, std::ostream& os, size_t indent)
+   {
+       std::string indentString(indent * 4, ' ');         
+       os << indentString << srcName << ": 0x" << std::hex << src << std::dec << std::endl;
+   }
+   
+   template<>
+   inline void PrintInHex(unsigned int const& src, std::string srcName, std::ostream& os, size_t indent)
+   {
+       std::string indentString(indent * 4, ' ');         
+       os << indentString << srcName << ": 0x" << std::hex << src << std::dec << std::endl;
+   }
+   
+   template<>
+   inline void PrintInHex(unsigned short const& src, std::string srcName, std::ostream& os, size_t indent)
+   {
+       std::string indentString(indent * 4, ' ');         
+       os << indentString << srcName << ": 0x" << std::hex << src << std::dec << std::endl;
+   }
+   
+   template<>
+   inline void PrintInHex(unsigned long long const& src, std::string srcName, std::ostream& os, size_t indent)
+   {
+       std::string indentString(indent * 4, ' ');         
+       os << indentString << srcName << ": 0x" << std::hex << src << std::dec << std::endl;
+   }
+   
+   template<>
+   inline void PrintInHex(unsigned long const& src, std::string srcName, std::ostream& os, size_t indent)
+   {
+       std::string indentString(indent * 4, ' ');         
+       os << indentString << srcName << ": 0x" << std::hex << src << std::dec << std::endl;
+   }
+   
+   
+   // PrintPointer
+   template<>
+   inline void PrintPointer(char const* ptr, std::string srcName, std::ostream& os, size_t indent /*= 0*/)
+   {
+       std::string indentString(indent * 4, ' ');
+       if (ptr == nullptr) {
+           os << indentString << srcName;
+           os << " NULLPTR" << std::endl;
+           return;
+       }
+       os << indentString << srcName << ": " << ptr << std::endl;
+   }
+   
+   template<>
+   inline void PrintPointer(void* ptr, std::string srcName, std::ostream& os, size_t indent)
+   {
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName << " void * = 0x" <<std::hex<< std::uppercase<< (uint64_t)ptr << std::dec << std::endl;
+   }
+   
+   template<>
+   inline void PrintPointer(const void* ptr, std::string srcName, std::ostream& os, size_t indent)
+   {
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName << " void * = 0x" <<std::hex  << std::uppercase <<  (uint64_t)ptr << std::dec << std::endl;
+   }
+   
+   template<>
+   inline void PrintPointer(wchar_t const* ptr, std::string srcName, std::ostream& os, size_t indent)
+   {
+       if (ptr == nullptr) {
+           std::string indentString(indent * 4, ' ');
+           os << indentString << srcName;
+           os << " NULLPTR" << std::endl;
+           return;
+       }
+       Print(ptr, srcName, os, indent);
+   }
+   
+   
+   // PrintPointerPointer
+   
+   // Print - Basic Types 
+   template<>
+   inline void Print(unsigned char const& src, std::string srcName, std::ostream& os, size_t indent)
+   {
+       std::string indentString(indent * 4, ' ');    
+       os << indentString << srcName << ": " << (int)src << std::endl;
+   }
+   
+   template<>
+   inline void Print(unsigned int const& src, std::string srcName, std::ostream& os, size_t indent)
+   {
+       std::string indentString(indent * 4, ' ');    
+       os << indentString << srcName << ": " << src << std::endl;
+   }
+   
+   template<>
+   inline void Print(unsigned short const& src, std::string srcName, std::ostream& os, size_t indent)
+   {
+       std::string indentString(indent * 4, ' ');    
+       os << indentString << srcName << ": " << src << std::endl;
+   }
+   
+   template<>
+   inline void Print(unsigned long long const& src, std::string srcName, std::ostream& os, size_t indent)
+   {
+       std::string indentString(indent * 4, ' ');    
+       os << indentString << srcName << ": " << src << std::endl;
+   }
+   
+   template<>
+   inline void Print(unsigned long const& src, std::string srcName, std::ostream& os, size_t indent)
+   {
+       std::string indentString(indent * 4, ' ');    
+       os << indentString << srcName << ": " << src << std::endl;
+   }
+   
+   template<>
+   inline void Print(float const& src, std::string srcName, std::ostream& os, size_t indent)
+   {
+       std::string indentString(indent * 4, ' ');    
+       os << indentString << srcName << ": " << src << std::endl;
+   }
+   
+   template<>
+   inline void Print(wchar_t const& src, std::string srcName, std::ostream& os, size_t indent)
+   {
+       std::wstring wstr;
+       wstr += src;
+       std::string narrowedStr = gpa::utility::Narrow(wstr);
+       std::stringstream str;
+       str << narrowedStr;
+   
+       std::string indentString(indent * 4, ' ');    
+       os << indentString << srcName << ": " << src << std::endl;
+   }
+   
+   template<>
+   inline void Print(wchar_t const* src, std::string srcName, std::ostream& os, size_t indent)
+   {
+       std::string indentString(indent * 4, ' ');
+   
+       // ////////////////
+       PrintArray(src, 0 /*irrelevant*/, srcName, os, indent);
+   }
+   
+   template<> 
+   inline void Print(long const& src, std::string srcName, std::ostream& os, size_t indent){
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName << ": " << src << std::endl;
+   }

@@ -23,7 +23,7 @@ API Call Routing
 =====================
 To add a custom override function, do the following:
 
-#.  In the main file of the layer, before your :code:`LAYER_ENTRYPOINT`, list the function definitions to be overridden. These definitions are identical to the corresponding API calls, with the addition of a const pointer to the next layer. You should use the inbuilt :code:`HAVE_METAL`, :code:`HAVE_DIRECTX`, and :code:`HAVE_VULKAN` together with the preprocessor directive :code:`#if defined` to ensure platform cross-compatibility. For example, overriding a Metal* API call on a Windows* machine that  has only DirectX* causes fatal build issues.
+#.  In the main file of the layer, before your :code:`LAYER_ENTRYPOINT`, list the function definitions to be overridden. These definitions are identical to the corresponding API calls, with the addition of a const pointer to the next layer. You should use the inbuilt  :code:`HAVE_DIRECTX` and :code:`HAVE_VULKAN` together with the preprocessor directive :code:`#if defined` to ensure platform cross-compatibility. For example, overriding a Metal* API call on a Windows* machine that  has only DirectX* causes fatal build issues.
 
 #.  Implement the custom behavior of your function. Create separate files for each API override to avoid the build issues. Include these files into the layer main file using the :code:`#if defined` directive.
 

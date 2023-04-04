@@ -36,6 +36,7 @@ Program Listing for File callable-cache.h
    #include <cstddef>
    #include <vector>
    #include <map>
+   #include <set>
    #include <vector>
    
    namespace gpa {
@@ -128,11 +129,28 @@ Program Listing for File callable-cache.h
        // @brief Returns mObjectMapKeyOverrides
        std::map<SecondaryCommandBufferKeyT, SecondaryCommandBufferMetadata>* ObjectMapKeyOverrides();
    
+       const std::set<uint64_t>& GetSecondaryBufferExecutionIndices();
+       const std::set<uint64_t>& GetCommandBufferSubmissionIndices();
+       // Must be called if mCallables vector is changed (new members added or deleted, vector sorted)
+       void MarkCachedSetsDirty();
+       // Recalculate secondary buffer executions for mCallables
+       void RecalculateSecondaryBufferExecutionIndices();
+       // Recalculate command buffer submissions for mCallables
+       void RecalculateCommandBufferSubmissionIndices();
+   
    protected:
        bool mIsProcessedInGPUOrder = false;
        std::vector<Callable> mCallables;
        // @brief Map containing pairs of capture key with its override that needs to be applied at given index
        std::map<SecondaryCommandBufferKeyT, SecondaryCommandBufferMetadata> mObjectMapKeyOverrides;
+   
+       // @brief set that contains secondary command buffer (Bundle) execution callable indices for entire CallableCache
+       std::set<uint64_t> mSecondaryCommandBufferExecutionIndices;
+       bool mIsDirtySecondaryCommandBufferExecutionsSet = true;
+   
+       // @brief set that contains command buffer (command list) submission callable indices for entire CallableCache
+       std::set<uint64_t> mCommandBufferSubmissionIndices;
+       bool mIsDirtyCommandBufferSubmissionsSet = true;
    };
    
    }  // namespace playback
