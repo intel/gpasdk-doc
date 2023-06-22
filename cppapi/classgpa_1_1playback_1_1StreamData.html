@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class StreamData &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Class StreamDataBookmark" href="classgpa_1_1playback_1_1StreamDataBookmark.html" />
+    <link rel="prev" title="Class StoragePacketReader" href="classgpa_1_1playback_1_1StoragePacketReader.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">'Helloworld' Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">'Helloworld' Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">API-Debug-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">Device-Override</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id38">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id5">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id8">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id9">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id10">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id11">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id12">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id13">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id14">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id15">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id16">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../src/reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">C++ Interfaces</a></li>
+      <li class="breadcrumb-item active">Class StreamData</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-streamdata">
+<span id="exhale-class-classgpa-1-1playback-1-1streamdata"></span><h1>Class StreamData<a class="headerlink" href="#class-streamdata" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_playback_stream-data.h.html#file-include-playback-stream-data-h"><span class="std std-ref">File stream-data.h</span></a></p></li>
+</ul>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback10StreamDataE">
+<span id="_CPPv3N3gpa8playback10StreamDataE"></span><span id="_CPPv2N3gpa8playback10StreamDataE"></span><span id="gpa::playback::StreamData"></span><span class="target" id="classgpa_1_1playback_1_1StreamData"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StreamData</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback10StreamDataE" title="Permalink to this definition"></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback10StreamData10StreamDataEPN13serialization6StreamEPN6memory9AllocatorE">
+<span id="_CPPv3N3gpa8playback10StreamData10StreamDataEPN13serialization6StreamEPN6memory9AllocatorE"></span><span id="_CPPv2N3gpa8playback10StreamData10StreamDataEPN13serialization6StreamEPN6memory9AllocatorE"></span><span id="gpa::playback::StreamData::StreamData__serialization::StreamP.memory::AllocatorP"></span><span class="target" id="classgpa_1_1playback_1_1StreamData_1a4cab6aa7a32493ad7329b89ec827eb0c"></span><span class="sig-name descname"><span class="n"><span class="pre">StreamData</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">serialization</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classgpa_1_1serialization_1_1Stream.html#_CPPv4N3gpa13serialization6StreamE" title="gpa::serialization::Stream"><span class="n"><span class="pre">Stream</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">stream</span></span>, <span class="n"><span class="pre">memory</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classgpa_1_1memory_1_1Allocator.html#_CPPv4N3gpa6memory9AllocatorE" title="gpa::memory::Allocator"><span class="n"><span class="pre">Allocator</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">allocator</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback10StreamData10StreamDataEPN13serialization6StreamEPN6memory9AllocatorE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback10StreamDataD0Ev">
+<span id="_CPPv3N3gpa8playback10StreamDataD0Ev"></span><span id="_CPPv2N3gpa8playback10StreamDataD0Ev"></span><span id="gpa::playback::StreamData::~StreamData"></span><span class="target" id="classgpa_1_1playback_1_1StreamData_1a82a93ee54c9f649569734f8a1ee089e8"></span><span class="sig-name descname"><span class="n"><span class="pre">~StreamData</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback10StreamDataD0Ev" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback10StreamData7CurrentEv">
+<span id="_CPPv3NK3gpa8playback10StreamData7CurrentEv"></span><span id="_CPPv2NK3gpa8playback10StreamData7CurrentEv"></span><span id="gpa::playback::StreamData::CurrentC"></span><span class="target" id="classgpa_1_1playback_1_1StreamData_1a4b9a8a9e053897adadc501e9eea4af86"></span><a class="reference internal" href="classgpa_1_1playback_1_1Callable.html#_CPPv4N3gpa8playback8CallableE" title="gpa::playback::Callable"><span class="n"><span class="pre">Callable</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Current</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback10StreamData7CurrentEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback10StreamData8MoveNextEv">
+<span id="_CPPv3N3gpa8playback10StreamData8MoveNextEv"></span><span id="_CPPv2N3gpa8playback10StreamData8MoveNextEv"></span><span id="gpa::playback::StreamData::MoveNext"></span><span class="target" id="classgpa_1_1playback_1_1StreamData_1a3261a2eae2260d981afded63f9e09679"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MoveNext</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback10StreamData8MoveNextEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback10StreamData6MoveToE8uint64_t8uint64_t">
+<span id="_CPPv3NK3gpa8playback10StreamData6MoveToE8uint64_t8uint64_t"></span><span id="_CPPv2NK3gpa8playback10StreamData6MoveToE8uint64_t8uint64_t"></span><span id="gpa::playback::StreamData::MoveTo__uint64_t.uint64_tC"></span><span class="target" id="classgpa_1_1playback_1_1StreamData_1a5f1437a1f5946aa5da958d15ea7103ff"></span><a class="reference internal" href="classgpa_1_1playback_1_1Callable.html#_CPPv4N3gpa8playback8CallableE" title="gpa::playback::Callable"><span class="n"><span class="pre">Callable</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MoveTo</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">threadId</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">offset</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback10StreamData6MoveToE8uint64_t8uint64_t" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback10StreamData4NextEv">
+<span id="_CPPv3N3gpa8playback10StreamData4NextEv"></span><span id="_CPPv2N3gpa8playback10StreamData4NextEv"></span><span id="gpa::playback::StreamData::Next"></span><span class="target" id="classgpa_1_1playback_1_1StreamData_1a77070455be2ebbe7bfd7588d7476415d"></span><a class="reference internal" href="classgpa_1_1playback_1_1Callable.html#_CPPv4N3gpa8playback8CallableE" title="gpa::playback::Callable"><span class="n"><span class="pre">Callable</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Next</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback10StreamData4NextEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback10StreamData4NextE8uint64_t">
+<span id="_CPPv3N3gpa8playback10StreamData4NextE8uint64_t"></span><span id="_CPPv2N3gpa8playback10StreamData4NextE8uint64_t"></span><span id="gpa::playback::StreamData::Next__uint64_t"></span><span class="target" id="classgpa_1_1playback_1_1StreamData_1a82cd5872ae515966ff18aeece3476254"></span><a class="reference internal" href="classgpa_1_1playback_1_1Callable.html#_CPPv4N3gpa8playback8CallableE" title="gpa::playback::Callable"><span class="n"><span class="pre">Callable</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Next</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">threadId</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback10StreamData4NextE8uint64_t" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback10StreamData2AtE8uint64_t8uint64_t">
+<span id="_CPPv3NK3gpa8playback10StreamData2AtE8uint64_t8uint64_t"></span><span id="_CPPv2NK3gpa8playback10StreamData2AtE8uint64_t8uint64_t"></span><span id="gpa::playback::StreamData::At__uint64_t.uint64_tC"></span><span class="target" id="classgpa_1_1playback_1_1StreamData_1a8afb59a056febc82b7dbc84df2dae6c0"></span><a class="reference internal" href="classgpa_1_1playback_1_1Callable.html#_CPPv4N3gpa8playback8CallableE" title="gpa::playback::Callable"><span class="n"><span class="pre">Callable</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">At</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">threadId</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">offset</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback10StreamData2AtE8uint64_t8uint64_t" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback10StreamData5ResetEv">
+<span id="_CPPv3N3gpa8playback10StreamData5ResetEv"></span><span id="_CPPv2N3gpa8playback10StreamData5ResetEv"></span><span id="gpa::playback::StreamData::Reset"></span><span class="target" id="classgpa_1_1playback_1_1StreamData_1a27ebe31951c256c9a8c07fef679fb8e6"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Reset</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback10StreamData5ResetEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback10StreamData14StartTimestampEv">
+<span id="_CPPv3NK3gpa8playback10StreamData14StartTimestampEv"></span><span id="_CPPv2NK3gpa8playback10StreamData14StartTimestampEv"></span><span id="gpa::playback::StreamData::StartTimestampC"></span><span class="target" id="classgpa_1_1playback_1_1StreamData_1a2d8359bddeb9f069e80990cc32594195"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StartTimestamp</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback10StreamData14StartTimestampEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Returns starting timestamp of the stream, or UINT64_MAX if timestamp not available. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback10StreamData12EndTimestampEv">
+<span id="_CPPv3NK3gpa8playback10StreamData12EndTimestampEv"></span><span id="_CPPv2NK3gpa8playback10StreamData12EndTimestampEv"></span><span id="gpa::playback::StreamData::EndTimestampC"></span><span class="target" id="classgpa_1_1playback_1_1StreamData_1abcf11d18c5833f0b319573a6cbfd0498"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EndTimestamp</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback10StreamData12EndTimestampEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Returns ending timestamp of the stream, or UINT64_MAX if timestamp not available. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback10StreamData16StartFrameNumberEv">
+<span id="_CPPv3NK3gpa8playback10StreamData16StartFrameNumberEv"></span><span id="_CPPv2NK3gpa8playback10StreamData16StartFrameNumberEv"></span><span id="gpa::playback::StreamData::StartFrameNumberC"></span><span class="target" id="classgpa_1_1playback_1_1StreamData_1af24a24e7caee1836b38135abeb8b5c56"></span><span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StartFrameNumber</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback10StreamData16StartFrameNumberEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Returns the stream's starting capture-time frame number, or -1 if information not present or otherwise invalid. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback10StreamData23GetNormalizedCoordinateE8uint64_t">
+<span id="_CPPv3NK3gpa8playback10StreamData23GetNormalizedCoordinateE8uint64_t"></span><span id="_CPPv2NK3gpa8playback10StreamData23GetNormalizedCoordinateE8uint64_t"></span><span id="gpa::playback::StreamData::GetNormalizedCoordinate__uint64_tC"></span><span class="target" id="classgpa_1_1playback_1_1StreamData_1ab6740c57e1d32f36853745a0725e3722"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetNormalizedCoordinate</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">timestamp</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback10StreamData23GetNormalizedCoordinateE8uint64_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Return the normalized position (in the range [0..1) of the timestamps in the stream) corresponding to the provided timestamp, or -1.0 if coordinate otherwise not available. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback10StreamData14CreateBookmarkEv">
+<span id="_CPPv3NK3gpa8playback10StreamData14CreateBookmarkEv"></span><span id="_CPPv2NK3gpa8playback10StreamData14CreateBookmarkEv"></span><span id="gpa::playback::StreamData::CreateBookmarkC"></span><span class="target" id="classgpa_1_1playback_1_1StreamData_1a23c774c21ea625ff6690caa4f602e246"></span><a class="reference internal" href="classgpa_1_1playback_1_1StreamDataBookmark.html#_CPPv4N3gpa8playback18StreamDataBookmarkE" title="gpa::playback::StreamDataBookmark"><span class="n"><span class="pre">StreamDataBookmark</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CreateBookmark</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback10StreamData14CreateBookmarkEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback10StreamData13ApplyBookmarkERK18StreamDataBookmark">
+<span id="_CPPv3N3gpa8playback10StreamData13ApplyBookmarkERK18StreamDataBookmark"></span><span id="_CPPv2N3gpa8playback10StreamData13ApplyBookmarkERK18StreamDataBookmark"></span><span id="gpa::playback::StreamData::ApplyBookmark__StreamDataBookmarkCR"></span><span class="target" id="classgpa_1_1playback_1_1StreamData_1aafc4c960be15b0e2fefbd91337125197"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ApplyBookmark</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classgpa_1_1playback_1_1StreamDataBookmark.html#_CPPv4N3gpa8playback18StreamDataBookmarkE" title="gpa::playback::StreamDataBookmark"><span class="n"><span class="pre">StreamDataBookmark</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">bookmark</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback10StreamData13ApplyBookmarkERK18StreamDataBookmark" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback10StreamData9GetStreamEv">
+<span id="_CPPv3NK3gpa8playback10StreamData9GetStreamEv"></span><span id="_CPPv2NK3gpa8playback10StreamData9GetStreamEv"></span><span id="gpa::playback::StreamData::GetStreamC"></span><span class="target" id="classgpa_1_1playback_1_1StreamData_1aa82bcd1d1f8b1c790dd3ae149ac5d319"></span><span class="n"><span class="pre">serialization</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classgpa_1_1serialization_1_1Stream.html#_CPPv4N3gpa13serialization6StreamE" title="gpa::serialization::Stream"><span class="n"><span class="pre">Stream</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetStream</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback10StreamData9GetStreamEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback10StreamData31FindKeyframeForNormalizedOffsetEd">
+<span id="_CPPv3NK3gpa8playback10StreamData31FindKeyframeForNormalizedOffsetEd"></span><span id="_CPPv2NK3gpa8playback10StreamData31FindKeyframeForNormalizedOffsetEd"></span><span id="gpa::playback::StreamData::FindKeyframeForNormalizedOffset__doubleC"></span><span class="target" id="classgpa_1_1playback_1_1StreamData_1a4aaa416034c36c1e90a3c932cf59a4c1"></span><span class="n"><span class="pre">serialization</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classgpa_1_1serialization_1_1metadata_1_1Keyframe.html#_CPPv4N3gpa13serialization8metadata8KeyframeE" title="gpa::serialization::metadata::Keyframe"><span class="n"><span class="pre">Keyframe</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">FindKeyframeForNormalizedOffset</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">offset</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback10StreamData31FindKeyframeForNormalizedOffsetEd" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback10StreamData27FindDeferredCaptureKeyframeEv">
+<span id="_CPPv3NK3gpa8playback10StreamData27FindDeferredCaptureKeyframeEv"></span><span id="_CPPv2NK3gpa8playback10StreamData27FindDeferredCaptureKeyframeEv"></span><span id="gpa::playback::StreamData::FindDeferredCaptureKeyframeC"></span><span class="target" id="classgpa_1_1playback_1_1StreamData_1a86cf5a7d1c43e003acea866484b92435"></span><span class="n"><span class="pre">serialization</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classgpa_1_1serialization_1_1metadata_1_1Keyframe.html#_CPPv4N3gpa13serialization8metadata8KeyframeE" title="gpa::serialization::metadata::Keyframe"><span class="n"><span class="pre">Keyframe</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">FindDeferredCaptureKeyframe</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback10StreamData27FindDeferredCaptureKeyframeEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback10StreamData28FindMandatoryInitialKeyframeEv">
+<span id="_CPPv3NK3gpa8playback10StreamData28FindMandatoryInitialKeyframeEv"></span><span id="_CPPv2NK3gpa8playback10StreamData28FindMandatoryInitialKeyframeEv"></span><span id="gpa::playback::StreamData::FindMandatoryInitialKeyframeC"></span><span class="target" id="classgpa_1_1playback_1_1StreamData_1a53c30b8527561592065a2a8798137b3a"></span><span class="n"><span class="pre">serialization</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classgpa_1_1serialization_1_1metadata_1_1Keyframe.html#_CPPv4N3gpa13serialization8metadata8KeyframeE" title="gpa::serialization::metadata::Keyframe"><span class="n"><span class="pre">Keyframe</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">FindMandatoryInitialKeyframe</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback10StreamData28FindMandatoryInitialKeyframeEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback10StreamData11GetKeyframeE8uint64_t">
+<span id="_CPPv3NK3gpa8playback10StreamData11GetKeyframeE8uint64_t"></span><span id="_CPPv2NK3gpa8playback10StreamData11GetKeyframeE8uint64_t"></span><span id="gpa::playback::StreamData::GetKeyframe__uint64_tC"></span><span class="target" id="classgpa_1_1playback_1_1StreamData_1af5fcecf1edea1f04d219754ea644f47e"></span><span class="n"><span class="pre">serialization</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classgpa_1_1serialization_1_1metadata_1_1Keyframe.html#_CPPv4N3gpa13serialization8metadata8KeyframeE" title="gpa::serialization::metadata::Keyframe"><span class="n"><span class="pre">Keyframe</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetKeyframe</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">index</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback10StreamData11GetKeyframeE8uint64_t" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback10StreamData19GetStreamInfoHeaderEv">
+<span id="_CPPv3NK3gpa8playback10StreamData19GetStreamInfoHeaderEv"></span><span id="_CPPv2NK3gpa8playback10StreamData19GetStreamInfoHeaderEv"></span><span id="gpa::playback::StreamData::GetStreamInfoHeaderC"></span><span class="target" id="classgpa_1_1playback_1_1StreamData_1ae498ca7c6b4715855f2cd8c3102191e1"></span><span class="n"><span class="pre">serialization</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structgpa_1_1serialization_1_1metadata_1_1StreamInfoHeader.html#_CPPv4N3gpa13serialization8metadata16StreamInfoHeaderE" title="gpa::serialization::metadata::StreamInfoHeader"><span class="n"><span class="pre">StreamInfoHeader</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetStreamInfoHeader</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback10StreamData19GetStreamInfoHeaderEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback10StreamData16GetKeyframeCountEb">
+<span id="_CPPv3NK3gpa8playback10StreamData16GetKeyframeCountEb"></span><span id="_CPPv2NK3gpa8playback10StreamData16GetKeyframeCountEb"></span><span id="gpa::playback::StreamData::GetKeyframeCount__bC"></span><span class="target" id="classgpa_1_1playback_1_1StreamData_1a4072a71369eae12bbadea900a99257d9"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetKeyframeCount</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">includeDeferred</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback10StreamData16GetKeyframeCountEb" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback10StreamData17GetQueuesMetadataEv">
+<span id="_CPPv3NK3gpa8playback10StreamData17GetQueuesMetadataEv"></span><span id="_CPPv2NK3gpa8playback10StreamData17GetQueuesMetadataEv"></span><span id="gpa::playback::StreamData::GetQueuesMetadataC"></span><span class="target" id="classgpa_1_1playback_1_1StreamData_1a36273cce396f251d83065e234bde1902"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">serialization</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structgpa_1_1serialization_1_1metadata_1_1QueueHeader.html#_CPPv4N3gpa13serialization8metadata11QueueHeaderE" title="gpa::serialization::metadata::QueueHeader"><span class="n"><span class="pre">QueueHeader</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetQueuesMetadata</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback10StreamData17GetQueuesMetadataEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback10StreamData22GetCapturedProcessNameEv">
+<span id="_CPPv3NK3gpa8playback10StreamData22GetCapturedProcessNameEv"></span><span id="_CPPv2NK3gpa8playback10StreamData22GetCapturedProcessNameEv"></span><span id="gpa::playback::StreamData::GetCapturedProcessNameC"></span><span class="target" id="classgpa_1_1playback_1_1StreamData_1a08b02fa7605f01a20782548269455429"></span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetCapturedProcessName</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback10StreamData22GetCapturedProcessNameEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="classgpa_1_1playback_1_1StoragePacketReader.html" class="btn btn-neutral float-left" title="Class StoragePacketReader" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="classgpa_1_1playback_1_1StreamDataBookmark.html" class="btn btn-neutral float-right" title="Class StreamDataBookmark" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

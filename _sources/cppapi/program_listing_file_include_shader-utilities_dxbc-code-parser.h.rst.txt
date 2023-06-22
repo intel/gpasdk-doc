@@ -1,0 +1,181 @@
+
+.. _program_listing_file_include_shader-utilities_dxbc-code-parser.h:
+
+Program Listing for File dxbc-code-parser.h
+===========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_shader-utilities_dxbc-code-parser.h>` (``include\shader-utilities\dxbc-code-parser.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   #pragma once
+   
+   #include <map>
+   #include <memory>
+   #include <string>
+   
+   namespace gpa {
+   namespace shader_utilities {
+   namespace dxbc_code_parser {
+   
+   enum class ShaderType {
+       kUnknown,
+       kPixelShader,
+       kVertexShader,
+       kGeometryShader,
+       kHullShader,
+       kDomainShader,
+       kComputeShader,
+   };
+   
+   enum class Dimension {
+       kUnknown,
+       kBuffer,
+       kTexture1D,
+       kTexture1DArray,
+       kTexture2D,
+       kTexture2DArray,
+       kTexture2DMS,
+       kTexture2DMSArray,
+       kTexture3D,
+       kTextureCube,
+       kTextureCubeArray
+   };
+   
+   enum class RegisterType {
+       kUnknown,
+       kConstantBuffer,
+       kTexture,
+       kUnordered,
+       kSampler,
+       kRenderTarget,
+       kDepthStencil,
+       kVertexBuffer
+   };
+   
+   struct UavFlags
+   {
+       bool isInput = false;
+       bool isOutput = false;
+   };
+   
+   struct RegisterName
+   {
+       RegisterType type = RegisterType::kUnknown;
+       uint32_t index = 0;
+   
+       bool operator<(const RegisterName& r) const
+       {
+           return std::tie(type, index) < std::tie(r.type, r.index);
+       }
+   
+       bool operator>(const RegisterName& r) const
+       {
+           return r < *this;
+       }
+   
+       bool operator>=(const RegisterName& r) const
+       {
+           return std::tie(type, index) >= std::tie(r.type, r.index);
+       }
+   
+       bool operator<=(const RegisterName& r) const
+       {
+           return r <= *this;
+       }
+   
+       bool operator==(const RegisterName& r) const
+       {
+           return std::tie(type, index) == std::tie(r.type, r.index);
+       }
+   
+       bool operator!=(const RegisterName& r) const
+       {
+           return !(r == *this);
+       }
+   };
+   
+   struct ShaderRegister
+   {
+       Dimension dimension = Dimension::kUnknown;
+       uint32_t range_start = 0;
+       uint32_t range_size = 0;
+       uint32_t array_size = 0;
+       uint64_t space = 0;
+       UavFlags uavFlags;
+   };
+   
+   struct Version
+   {
+       uint32_t major = 0;
+       uint32_t minor = 0;
+   
+       bool operator<(const Version& r) const
+       {
+           return std::tie(major, minor) < std::tie(r.major, r.minor);
+       }
+   
+       bool operator>(const Version& r) const
+       {
+           return r < *this;
+       }
+   
+       bool operator>=(const Version& r) const
+       {
+           return std::tie(major, minor) >= std::tie(r.major, r.minor);
+       }
+   
+       bool operator<=(const Version& r) const
+       {
+           return r <= *this;
+       }
+   
+       bool operator==(const Version& r) const
+       {
+           return std::tie(major, minor) == std::tie(r.major, r.minor);
+       }
+   
+       bool operator!=(const Version& r) const
+       {
+           return !(r == *this);
+       }
+   };
+   
+   class DXBCReflectorImpl;
+   
+   class DXBCReflector final
+   {
+   public:
+       DXBCReflector(const std::string& code) noexcept;
+   
+       using Registers = std::map<RegisterName, ShaderRegister>;
+   
+       ShaderType GetShaderType() const noexcept;
+       Version GetVersion() const noexcept;
+       const Registers& GetRegisters() const noexcept;
+   
+   private:
+       std::shared_ptr<DXBCReflectorImpl> mImpl;
+   };
+   
+   }  // namespace dxbc_code_parser
+   }  // namespace shader_utilities
+   }  // namespace gpa

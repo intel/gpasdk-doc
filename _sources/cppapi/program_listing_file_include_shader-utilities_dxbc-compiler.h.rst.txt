@@ -1,0 +1,80 @@
+
+.. _program_listing_file_include_shader-utilities_dxbc-compiler.h:
+
+Program Listing for File dxbc-compiler.h
+========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_shader-utilities_dxbc-compiler.h>` (``include\shader-utilities\dxbc-compiler.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include <d3dcompiler.h>
+   #include "api-types/api-types.h"
+   
+   namespace gpa {
+   namespace shader_utilities {
+   namespace dxbc_compiler {
+   
+   /*
+    * @brief Compiles HLSL source into DXBC machine code.
+    * @details This can be used to compile HLSL code written with Shader Model 5.x or below.
+    *          To compile SM 6.0 or above, @see dxil_compiler::Compile.
+    */
+   bool Compile(LPCVOID pSrcData,
+                SIZE_T srcDataSize,
+                LPCSTR pSourceName,
+                const D3D_SHADER_MACRO *pDefines,
+                ID3DInclude *pInclude,
+                LPCSTR pEntrypoint,
+                LPCSTR pTarget,
+                UINT flags1,
+                UINT flags2,
+                ID3DBlob **ppCode,
+                ID3DBlob **ppErrorMsgs);
+   
+   /*
+    * @brief Performs reflection on DXBC machine code.
+    */
+   bool Reflect(_In_reads_bytes_(SrcDataSize) LPCVOID pSrcData,
+                _In_ SIZE_T srcDataSize,
+                _In_ REFIID pInterface,
+                _Out_ void **ppReflector);
+   
+   /*
+    * @brief Disassembles DXBC machine code into readable DXBC source.
+    */
+   bool Disassemble(_In_reads_bytes_(SrcDataSize) LPCVOID pSrcData,
+                    _In_ SIZE_T srcDataSize,
+                    _In_ UINT flags,
+                    _In_opt_ LPCSTR szComments,
+                    _Out_ ID3DBlob **ppDisassembly);
+   
+   /*
+    * @brief Disassembles DXIL machine code from a debug shader into readable HLSL source.
+    */
+   api_types::ManagedShaderSource Decompile(_In_reads_bytes_(SrcDataSize) LPCVOID pSrcData, _In_ SIZE_T SrcDataSize);
+   
+   }  // namespace dxbc_compiler
+   }  // namespace shader_utilities
+   }  // namespace gpa

@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Struct InjectionProperties &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Struct TargetLaunchProperties" href="structgpa_1_1injector_1_1TargetLaunchProperties.html" />
+    <link rel="prev" title="Struct ReadPixelGuard" href="structgpa_1_1gpu__utility_1_1ReadPixelGuard.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">'Helloworld' Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">'Helloworld' Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">API-Debug-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">Device-Override</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id38">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id5">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id8">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id9">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id10">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id11">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id12">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id13">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id14">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id15">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id16">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../src/reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">C++ Interfaces</a></li>
+      <li class="breadcrumb-item active">Struct InjectionProperties</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="struct-injectionproperties">
+<span id="exhale-struct-structgpa-1-1injector-1-1injectionproperties"></span><h1>Struct InjectionProperties<a class="headerlink" href="#struct-injectionproperties" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_injector_types.h.html#file-include-injector-types-h"><span class="std std-ref">File injector/types.h</span></a></p></li>
+</ul>
+<section id="struct-documentation">
+<h2>Struct Documentation<a class="headerlink" href="#struct-documentation" title="Permalink to this headline"></a></h2>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8injector19InjectionPropertiesE">
+<span id="_CPPv3N3gpa8injector19InjectionPropertiesE"></span><span id="_CPPv2N3gpa8injector19InjectionPropertiesE"></span><span id="gpa::injector::InjectionProperties"></span><span class="target" id="structgpa_1_1injector_1_1InjectionProperties"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">InjectionProperties</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8injector19InjectionPropertiesE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Holds properties required for injection. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8injector19InjectionProperties8logLevelE">
+<span id="_CPPv3N3gpa8injector19InjectionProperties8logLevelE"></span><span id="_CPPv2N3gpa8injector19InjectionProperties8logLevelE"></span><span id="gpa::injector::InjectionProperties::logLevel__cA"></span><span class="target" id="structgpa_1_1injector_1_1InjectionProperties_1ac94bb403a97cf047681d02d0cf0557c0"></span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">logLevel</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">utility</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">kLogLevelLength</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3gpa8injector19InjectionProperties8logLevelE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>log level defined by user </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8injector19InjectionProperties7ipcNameE">
+<span id="_CPPv3N3gpa8injector19InjectionProperties7ipcNameE"></span><span id="_CPPv2N3gpa8injector19InjectionProperties7ipcNameE"></span><span id="gpa::injector::InjectionProperties::ipcName__TCHARA"></span><span class="target" id="structgpa_1_1injector_1_1InjectionProperties_1abf889ecb9a35241a6f25a4e563029cc2"></span><span class="n"><span class="pre">TCHAR</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ipcName</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">kMaxPathLength</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3gpa8injector19InjectionProperties7ipcNameE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>IPC filename (UNIX socket, named pipes) for communication between shim and launcher. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8injector19InjectionProperties11logFilenameE">
+<span id="_CPPv3N3gpa8injector19InjectionProperties11logFilenameE"></span><span id="_CPPv2N3gpa8injector19InjectionProperties11logFilenameE"></span><span id="gpa::injector::InjectionProperties::logFilename__TCHARA"></span><span class="target" id="structgpa_1_1injector_1_1InjectionProperties_1af1546f97b53b2f044ccc60cc3c0ca1d3"></span><span class="n"><span class="pre">TCHAR</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">logFilename</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">utility</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">kLogFilenameLength</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3gpa8injector19InjectionProperties11logFilenameE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>log output file defined by user </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8injector19InjectionProperties16skipListFileNameE">
+<span id="_CPPv3N3gpa8injector19InjectionProperties16skipListFileNameE"></span><span id="_CPPv2N3gpa8injector19InjectionProperties16skipListFileNameE"></span><span id="gpa::injector::InjectionProperties::skipListFileName__TCHARA"></span><span class="target" id="structgpa_1_1injector_1_1InjectionProperties_1a5403531c468a49ee16b0d6ca39fce600"></span><span class="n"><span class="pre">TCHAR</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">skipListFileName</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">utility</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">kLogFilenameLength</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3gpa8injector19InjectionProperties16skipListFileNameE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>skip-list file </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8injector19InjectionProperties10layerNamesE">
+<span id="_CPPv3N3gpa8injector19InjectionProperties10layerNamesE"></span><span id="_CPPv2N3gpa8injector19InjectionProperties10layerNamesE"></span><span id="gpa::injector::InjectionProperties::layerNames__TCHARAA"></span><span class="target" id="structgpa_1_1injector_1_1InjectionProperties_1a0c78159da5751c06899167f63d34b088"></span><span class="n"><span class="pre">TCHAR</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">layerNames</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">utility</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">kMaxLayers</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">utility</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">kLayerNameLength</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3gpa8injector19InjectionProperties10layerNamesE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>names of the layers to inject </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8injector19InjectionProperties18layerKeyValueCountE">
+<span id="_CPPv3N3gpa8injector19InjectionProperties18layerKeyValueCountE"></span><span id="_CPPv2N3gpa8injector19InjectionProperties18layerKeyValueCountE"></span><span id="gpa::injector::InjectionProperties::layerKeyValueCount__uint64_tA"></span><span class="target" id="structgpa_1_1injector_1_1InjectionProperties_1ad59ca3710463eb3fb03d0bdf70143610"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">layerKeyValueCount</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">utility</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">kMaxLayerArgs</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3gpa8injector19InjectionProperties18layerKeyValueCountE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>layer arguments </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8injector19InjectionProperties9numLayersE">
+<span id="_CPPv3N3gpa8injector19InjectionProperties9numLayersE"></span><span id="_CPPv2N3gpa8injector19InjectionProperties9numLayersE"></span><span id="gpa::injector::InjectionProperties::numLayers__uint32_t"></span><span class="target" id="structgpa_1_1injector_1_1InjectionProperties_1a8132c09cf23501a0534a414530125663"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numLayers</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N3gpa8injector19InjectionProperties9numLayersE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>The number of layers. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8injector19InjectionProperties16enableKeyframingE">
+<span id="_CPPv3N3gpa8injector19InjectionProperties16enableKeyframingE"></span><span id="_CPPv2N3gpa8injector19InjectionProperties16enableKeyframingE"></span><span id="gpa::injector::InjectionProperties::enableKeyframing__uint32_t"></span><span class="target" id="structgpa_1_1injector_1_1InjectionProperties_1a1240439f9c0f2c8512f6effa91309f70"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">enableKeyframing</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N3gpa8injector19InjectionProperties16enableKeyframingE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if capture should keyframe, false otherwise. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8injector19InjectionProperties15pageTrackerModeE">
+<span id="_CPPv3N3gpa8injector19InjectionProperties15pageTrackerModeE"></span><span id="_CPPv2N3gpa8injector19InjectionProperties15pageTrackerModeE"></span><span id="gpa::injector::InjectionProperties::pageTrackerMode__uint32_t"></span><span class="target" id="structgpa_1_1injector_1_1InjectionProperties_1a94ecbf32d0215e371408e2527e629d99"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pageTrackerMode</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N3gpa8injector19InjectionProperties15pageTrackerModeE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Integer indicating how the shadow buffer should track memory (see gpa-injector for options) (see gpa-injector for options) (see gpa-injector for options) </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8injector19InjectionProperties10logOptionsE">
+<span id="_CPPv3N3gpa8injector19InjectionProperties10logOptionsE"></span><span id="_CPPv2N3gpa8injector19InjectionProperties10logOptionsE"></span><span id="gpa::injector::InjectionProperties::logOptions__gpa::logger::Options"></span><span class="target" id="structgpa_1_1injector_1_1InjectionProperties_1af304f48a816afcd13012dcb94b690d95"></span><span class="n"><span class="pre">gpa</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structgpa_1_1logger_1_1Options.html#_CPPv4N3gpa6logger7OptionsE" title="gpa::logger::Options"><span class="n"><span class="pre">Options</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">logOptions</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8injector19InjectionProperties10logOptionsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Copy of log options for log init. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8injector19InjectionProperties14processCounterE">
+<span id="_CPPv3N3gpa8injector19InjectionProperties14processCounterE"></span><span id="_CPPv2N3gpa8injector19InjectionProperties14processCounterE"></span><span id="gpa::injector::InjectionProperties::processCounter__uint32_tV"></span><span class="target" id="structgpa_1_1injector_1_1InjectionProperties_1a3af8b14440c0947b0570957408cb1b46"></span><span class="k"><span class="pre">volatile</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">processCounter</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N3gpa8injector19InjectionProperties14processCounterE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Counter of alive processes the shim is attached to. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8injector19InjectionProperties4pidsE">
+<span id="_CPPv3N3gpa8injector19InjectionProperties4pidsE"></span><span id="_CPPv2N3gpa8injector19InjectionProperties4pidsE"></span><span id="gpa::injector::InjectionProperties::pids__int32_tVA"></span><span class="target" id="structgpa_1_1injector_1_1InjectionProperties_1a860ffa302bf182a149fcb64ab6667f56"></span><span class="k"><span class="pre">volatile</span></span><span class="w"> </span><span class="n"><span class="pre">int32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pids</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">utility</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">kMaxProcesses</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3gpa8injector19InjectionProperties4pidsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Array of PIDs representing processes the shim has been attached to been attached to been attached to </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8injector19InjectionProperties22keyValuePairsForLayersE">
+<span id="_CPPv3N3gpa8injector19InjectionProperties22keyValuePairsForLayersE"></span><span id="_CPPv2N3gpa8injector19InjectionProperties22keyValuePairsForLayersE"></span><span id="gpa::injector::InjectionProperties::keyValuePairsForLayers__utility::KeyValPairAA"></span><span class="target" id="structgpa_1_1injector_1_1InjectionProperties_1a9447075a02c5ff7d7b9672a95ed344fe"></span><span class="n"><span class="pre">utility</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">KeyValPair</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">keyValuePairsForLayers</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">utility</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">kMaxLayers</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">utility</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">kMaxLayerArgs</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv4N3gpa8injector19InjectionProperties22keyValuePairsForLayersE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8injector19InjectionProperties15waitForDebuggerE">
+<span id="_CPPv3N3gpa8injector19InjectionProperties15waitForDebuggerE"></span><span id="_CPPv2N3gpa8injector19InjectionProperties15waitForDebuggerE"></span><span id="gpa::injector::InjectionProperties::waitForDebugger__TCHARA"></span><span class="target" id="structgpa_1_1injector_1_1InjectionProperties_1af4612a581cc75cb19b3834dfcc1cf7b4"></span><span class="n"><span class="pre">TCHAR</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">waitForDebugger</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">utility</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">kLogFilenameLength</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3gpa8injector19InjectionProperties15waitForDebuggerE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Name of the process for which messagebox should be shown after injecting to. &quot;all&quot; value means the messagebox is shown after injecting to every process. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8injector19InjectionProperties21disableKeyboardEventsE">
+<span id="_CPPv3N3gpa8injector19InjectionProperties21disableKeyboardEventsE"></span><span id="_CPPv2N3gpa8injector19InjectionProperties21disableKeyboardEventsE"></span><span id="gpa::injector::InjectionProperties::disableKeyboardEvents__uint32_t"></span><span class="target" id="structgpa_1_1injector_1_1InjectionProperties_1ac5b574fd2062f01718596070310734a3"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">disableKeyboardEvents</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><a class="headerlink" href="#_CPPv4N3gpa8injector19InjectionProperties21disableKeyboardEventsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if keyboard event publishing is disabled in the shim. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8injector19InjectionProperties12hookApiFlagsE">
+<span id="_CPPv3N3gpa8injector19InjectionProperties12hookApiFlagsE"></span><span id="_CPPv2N3gpa8injector19InjectionProperties12hookApiFlagsE"></span><span id="gpa::injector::InjectionProperties::hookApiFlags__uint32_t"></span><span class="target" id="structgpa_1_1injector_1_1InjectionProperties_1a4ac5bb05392b7810ae638feb495b277b"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hookApiFlags</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">utility</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="enum_hook-api-flags_8h_1a5ad5e0a82b75e9efb0af5e381540a73b.html#_CPPv4N3gpa7utility15HookApiFlagBitsE" title="gpa::utility::HookApiFlagBits"><span class="n"><span class="pre">HookApiFlagBits</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="enum_hook-api-flags_8h_1a5ad5e0a82b75e9efb0af5e381540a73b.html#_CPPv4N3gpa7utility15HookApiFlagBits8kHookAllE" title="gpa::utility::HookApiFlagBits::kHookAll"><span class="n"><span class="pre">kHookAll</span></span></a><a class="headerlink" href="#_CPPv4N3gpa8injector19InjectionProperties12hookApiFlagsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Bitmask of apis to hook see &#64;HookApiFlagBits. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8injector19InjectionProperties13hookD3D11On12E">
+<span id="_CPPv3N3gpa8injector19InjectionProperties13hookD3D11On12E"></span><span id="_CPPv2N3gpa8injector19InjectionProperties13hookD3D11On12E"></span><span id="gpa::injector::InjectionProperties::hookD3D11On12__uint32_t"></span><span class="target" id="structgpa_1_1injector_1_1InjectionProperties_1a2fa8630cfcc7dd669caa83024882d655"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hookD3D11On12</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N3gpa8injector19InjectionProperties13hookD3D11On12E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if D3D12 calls from D3D11On12 should be intercepted, false otherwise. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8injector19InjectionProperties13injectionModeE">
+<span id="_CPPv3N3gpa8injector19InjectionProperties13injectionModeE"></span><span id="_CPPv2N3gpa8injector19InjectionProperties13injectionModeE"></span><span id="gpa::injector::InjectionProperties::injectionMode__uint32_t"></span><span class="target" id="structgpa_1_1injector_1_1InjectionProperties_1ad0593cc2751e7df047a608179b20ba92"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">injectionMode</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">utility</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">InjectionMode</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">kSetThreadContext</span></span><a class="headerlink" href="#_CPPv4N3gpa8injector19InjectionProperties13injectionModeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8injector19InjectionProperties10sizeOfThisE">
+<span id="_CPPv3N3gpa8injector19InjectionProperties10sizeOfThisE"></span><span id="_CPPv2N3gpa8injector19InjectionProperties10sizeOfThisE"></span><span id="gpa::injector::InjectionProperties::sizeOfThis__uint32_t"></span><span class="target" id="structgpa_1_1injector_1_1InjectionProperties_1a10f4d06ab437ad7f3aa579d15b739264"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sizeOfThis</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">sizeof</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4N3gpa8injector19InjectionPropertiesE" title="gpa::injector::InjectionProperties"><span class="n"><span class="pre">InjectionProperties</span></span></a><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#_CPPv4N3gpa8injector19InjectionProperties10sizeOfThisE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8injector19InjectionProperties14exitAfterFrameE">
+<span id="_CPPv3N3gpa8injector19InjectionProperties14exitAfterFrameE"></span><span id="_CPPv2N3gpa8injector19InjectionProperties14exitAfterFrameE"></span><span id="gpa::injector::InjectionProperties::exitAfterFrame__uint64_t"></span><span class="target" id="structgpa_1_1injector_1_1InjectionProperties_1a2e779ce9103579f2cb1de80197c2b5ed"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">exitAfterFrame</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N3gpa8injector19InjectionProperties14exitAfterFrameE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Exit application after target frame has been reached. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="structgpa_1_1gpu__utility_1_1ReadPixelGuard.html" class="btn btn-neutral float-left" title="Struct ReadPixelGuard" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="structgpa_1_1injector_1_1TargetLaunchProperties.html" class="btn btn-neutral float-right" title="Struct TargetLaunchProperties" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

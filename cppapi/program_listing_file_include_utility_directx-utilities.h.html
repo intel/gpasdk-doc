@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Program Listing for File directx-utilities.h &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">'Helloworld' Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">'Helloworld' Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/reference.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">API-Debug-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">Device-Override</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id38">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id5">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id8">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id9">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id10">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id11">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id12">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id13">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id14">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id15">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id16">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Program Listing for File directx-utilities.h</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="program-listing-for-file-directx-utilities-h">
+<span id="program-listing-file-include-utility-directx-utilities-h"></span><h1>Program Listing for File directx-utilities.h<a class="headerlink" href="#program-listing-for-file-directx-utilities-h" title="Permalink to this headline"></a></h1>
+<p>↰ <a class="reference internal" href="file_include_utility_directx-utilities.h.html#file-include-utility-directx-utilities-h"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">include\utility\directx-utilities.h</span></code>)</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/******************************************************************************</span>
+<span class="cm">© Intel Corporation.</span>
+
+<span class="cm">This software and the related documents are Intel copyrighted materials,</span>
+<span class="cm">and your use of them is governed by the express license under which they</span>
+<span class="cm">were provided to you (&quot;License&quot;). Unless the License provides otherwise,</span>
+<span class="cm">you may not use, modify, copy, publish, distribute, disclose or transmit</span>
+<span class="cm">this software or the related documents without Intel&#39;s prior written</span>
+<span class="cm">permission.</span>
+
+
+<span class="cm"> This software and the related documents are provided as is, with no express</span>
+<span class="cm">or implied warranties, other than those that are expressly stated in the</span>
+<span class="cm">License.</span>
+
+<span class="cm">******************************************************************************/</span>
+<span class="cp">#pragma once</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;assert.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;guid_hash.h&quot;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;d3d9.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;d3d10_1.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;d3d11_4.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;d3d12.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;dxgi1_6.h&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;atlbase.h&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdint&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;functional&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;map&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;type_traits&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unordered_map&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+
+<span class="c1">// @brief Generic test for success on any directx creation call</span>
+<span class="cp">#define UNSUCCESSFUL(hr) (FAILED(hr) || hr == S_FALSE)</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">AssertIfFailed</span><span class="p">(</span><span class="n">HRESULT</span><span class="w"> </span><span class="n">result</span><span class="p">);</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">gpa</span><span class="w"> </span><span class="p">{</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">utility</span><span class="w"> </span><span class="p">{</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">directx</span><span class="w"> </span><span class="p">{</span>
+
+<span class="n">CComPtr</span><span class="o">&lt;</span><span class="n">ID3D12Device</span><span class="o">&gt;</span><span class="w"> </span><span class="n">GetDevice</span><span class="p">(</span><span class="n">ID3D12DeviceChild</span><span class="o">*</span><span class="w"> </span><span class="n">deviceChild</span><span class="p">);</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">DirectXPrivateData</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">virtual</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">IUnknown</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">DirectXPrivateData</span><span class="p">();</span>
+
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">HRESULT</span><span class="w"> </span><span class="n">STDMETHODCALLTYPE</span><span class="w"> </span><span class="n">QueryInterface</span><span class="p">(</span><span class="n">REFIID</span><span class="w"> </span><span class="n">riid</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="o">**</span><span class="w"> </span><span class="n">ppvObject</span><span class="p">);</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">ULONG</span><span class="w"> </span><span class="n">STDMETHODCALLTYPE</span><span class="w"> </span><span class="n">AddRef</span><span class="p">();</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">ULONG</span><span class="w"> </span><span class="n">STDMETHODCALLTYPE</span><span class="w"> </span><span class="n">Release</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="c1">// {374D3F62-2ACE-4DF6-B605-9A62B2EA793A}</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">GUID</span><span class="w"> </span><span class="n">sAssociatedCaptureKeyGUID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">0x374d3f62</span><span class="p">,</span><span class="w"> </span><span class="mh">0x2ace</span><span class="p">,</span><span class="w"> </span><span class="mh">0x4df6</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mh">0xb6</span><span class="p">,</span><span class="w"> </span><span class="mh">0x5</span><span class="p">,</span><span class="w"> </span><span class="mh">0x9a</span><span class="p">,</span><span class="w"> </span><span class="mh">0x62</span><span class="p">,</span><span class="w"> </span><span class="mh">0xb2</span><span class="p">,</span><span class="w"> </span><span class="mh">0xea</span><span class="p">,</span><span class="w"> </span><span class="mh">0x79</span><span class="p">,</span><span class="w"> </span><span class="mh">0x3a</span><span class="p">}};</span>
+
+<span class="c1">// {90455112-A6EC-415F-8CE0-2830405824BF}</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">GUID</span><span class="w"> </span><span class="n">sOutObjectCaptureKeyGUID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">0x90455112</span><span class="p">,</span><span class="w"> </span><span class="mh">0xa6ec</span><span class="p">,</span><span class="w"> </span><span class="mh">0x415f</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mh">0x8c</span><span class="p">,</span><span class="w"> </span><span class="mh">0xe0</span><span class="p">,</span><span class="w"> </span><span class="mh">0x28</span><span class="p">,</span><span class="w"> </span><span class="mh">0x30</span><span class="p">,</span><span class="w"> </span><span class="mh">0x40</span><span class="p">,</span><span class="w"> </span><span class="mh">0x58</span><span class="p">,</span><span class="w"> </span><span class="mh">0x24</span><span class="p">,</span><span class="w"> </span><span class="mh">0xbf</span><span class="p">}};</span>
+
+<span class="c1">// {0ED71FEC-DF0F-4C69-A809-80FF4B8B53F8}</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">GUID</span><span class="w"> </span><span class="n">sHwndSwapChainGUID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">0xed71fec</span><span class="p">,</span><span class="w"> </span><span class="mh">0xdf0f</span><span class="p">,</span><span class="w"> </span><span class="mh">0x4c69</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mh">0xa8</span><span class="p">,</span><span class="w"> </span><span class="mh">0x9</span><span class="p">,</span><span class="w"> </span><span class="mh">0x80</span><span class="p">,</span><span class="w"> </span><span class="mh">0xff</span><span class="p">,</span><span class="w"> </span><span class="mh">0x4b</span><span class="p">,</span><span class="w"> </span><span class="mh">0x8b</span><span class="p">,</span><span class="w"> </span><span class="mh">0x53</span><span class="p">,</span><span class="w"> </span><span class="mh">0xf8</span><span class="p">}};</span>
+
+<span class="c1">// {2ED93005-E5AC-4EFC-90F7-091EE2D7884F}</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">GUID</span><span class="w"> </span><span class="n">sExtensionResourceDataContainerGUID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">0x2ed93005</span><span class="p">,</span><span class="w"> </span><span class="mh">0xe5ac</span><span class="p">,</span><span class="w"> </span><span class="mh">0x4efc</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mh">0x90</span><span class="p">,</span><span class="w"> </span><span class="mh">0xf7</span><span class="p">,</span><span class="w"> </span><span class="mh">0x9</span><span class="p">,</span><span class="w"> </span><span class="mh">0x1e</span><span class="p">,</span><span class="w"> </span><span class="mh">0xe2</span><span class="p">,</span><span class="w"> </span><span class="mh">0xd7</span><span class="p">,</span><span class="w"> </span><span class="mh">0x88</span><span class="p">,</span><span class="w"> </span><span class="mh">0x4f</span><span class="p">}};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">Type</span><span class="o">&gt;</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">has_private_data</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">is_convertible</span><span class="o">&lt;</span><span class="n">Type</span><span class="p">,</span><span class="w"> </span><span class="n">ID3D11Device</span><span class="o">*&gt;::</span><span class="n">value</span><span class="w"> </span><span class="o">||</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">is_convertible</span><span class="o">&lt;</span><span class="n">Type</span><span class="p">,</span><span class="w"> </span><span class="n">ID3D11DeviceChild</span><span class="o">*&gt;::</span><span class="n">value</span><span class="w"> </span><span class="o">||</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">is_convertible</span><span class="o">&lt;</span><span class="n">Type</span><span class="p">,</span><span class="w"> </span><span class="n">IDXGIObject</span><span class="o">*&gt;::</span><span class="n">value</span><span class="w"> </span><span class="o">||</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">is_convertible</span><span class="o">&lt;</span><span class="n">Type</span><span class="p">,</span><span class="w"> </span><span class="n">ID3D12Object</span><span class="o">*&gt;::</span><span class="n">value</span><span class="p">;</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">D3DResourceDesc</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">Width</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">Height</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">Depth</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">MipLevels</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ArraySize</span><span class="p">;</span>
+<span class="w">    </span><span class="n">DXGI_FORMAT</span><span class="w"> </span><span class="n">Format</span><span class="p">;</span>
+<span class="w">    </span><span class="n">DXGI_SAMPLE_DESC</span><span class="w"> </span><span class="n">SampleDesc</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">CompressedWidth</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">CompressedHeight</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">FormatStride</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">D3D10ResourceDesc</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">D3DResourceDesc</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">D3D10_RESOURCE_DIMENSION</span><span class="w"> </span><span class="n">Dimension</span><span class="p">;</span>
+<span class="w">    </span><span class="n">D3D10_USAGE</span><span class="w"> </span><span class="n">Usage</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">BindFlags</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">CPUAccessFlags</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">MiscFlags</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">D3D11ResourceDesc</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">D3DResourceDesc</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">D3D11_RESOURCE_DIMENSION</span><span class="w"> </span><span class="n">Dimension</span><span class="p">;</span>
+<span class="w">    </span><span class="n">D3D11_USAGE</span><span class="w"> </span><span class="n">Usage</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">BindFlags</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">CPUAccessFlags</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">MiscFlags</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">D3D12ResourceDesc</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">D3DResourceDesc</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_DIMENSION</span><span class="w"> </span><span class="n">Dimension</span><span class="p">;</span>
+<span class="w">    </span><span class="n">UINT64</span><span class="w"> </span><span class="n">Alignment</span><span class="p">;</span>
+<span class="w">    </span><span class="n">D3D12_TEXTURE_LAYOUT</span><span class="w"> </span><span class="n">Layout</span><span class="p">;</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_FLAGS</span><span class="w"> </span><span class="n">Flags</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">D3DPrivateDataInterface</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">IUnknown</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">D3DPrivateDataInterface</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="n">HRESULT</span><span class="w"> </span><span class="n">STDMETHODCALLTYPE</span><span class="w"> </span><span class="n">QueryInterface</span><span class="p">(</span><span class="n">REFIID</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="o">**</span><span class="p">)</span><span class="w"> </span><span class="k">override</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">E_NOINTERFACE</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">ULONG</span><span class="w"> </span><span class="n">STDMETHODCALLTYPE</span><span class="w"> </span><span class="n">AddRef</span><span class="p">()</span><span class="w"> </span><span class="k">override</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">ULONG</span><span class="w"> </span><span class="n">STDMETHODCALLTYPE</span><span class="w"> </span><span class="n">Release</span><span class="p">()</span><span class="w"> </span><span class="k">override</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">delete</span><span class="w"> </span><span class="k">this</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// @brief Basic implementation of IUnknown</span>
+<span class="c1">//        Can be used with any class that derives from IUnknown ( specify IUnknownDerivedClass )</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">IUnknownDerivedClass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IUnknown</span><span class="o">&gt;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">IUnknownImpl</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">IUnknownDerivedClass</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">ULONG</span><span class="w"> </span><span class="n">mRefCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">IUnknownImpl</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">HRESULT</span><span class="w"> </span><span class="n">STDMETHODCALLTYPE</span><span class="w"> </span><span class="n">QueryInterface</span><span class="p">(</span><span class="n">REFIID</span><span class="w"> </span><span class="n">riid</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="o">**</span><span class="w"> </span><span class="n">ppvObject</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">ppvObject</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">E_INVALIDARG</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">InlineIsEqualGUID</span><span class="p">(</span><span class="n">riid</span><span class="p">,</span><span class="w"> </span><span class="n">__uuidof</span><span class="p">(</span><span class="n">IUnknownDerivedClass</span><span class="p">))</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">InlineIsEqualGUID</span><span class="p">(</span><span class="n">riid</span><span class="p">,</span><span class="w"> </span><span class="n">__uuidof</span><span class="p">(</span><span class="n">IUnknown</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="o">++</span><span class="n">mRefCount</span><span class="p">;</span>
+<span class="w">            </span><span class="o">*</span><span class="n">ppvObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="k">this</span><span class="p">;</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">S_OK</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">E_FAIL</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">ULONG</span><span class="w"> </span><span class="n">STDMETHODCALLTYPE</span><span class="w"> </span><span class="n">AddRef</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">++</span><span class="n">mRefCount</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">ULONG</span><span class="w"> </span><span class="n">STDMETHODCALLTYPE</span><span class="w"> </span><span class="n">Release</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">--</span><span class="n">mRefCount</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">delete</span><span class="w"> </span><span class="k">this</span><span class="p">;</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">mRefCount</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// @brief Basic implementation of ID3D12Object</span>
+<span class="c1">//        Can be used with any class that derives from ID3D12Object ( specify ID3D12ObjectDerivedClass )</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">ID3D12ObjectDerivedClass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ID3D12Object</span><span class="o">&gt;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ID3D12ObjectImpl</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">IUnknownImpl</span><span class="o">&lt;</span><span class="n">ID3D12ObjectDerivedClass</span><span class="o">&gt;</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">PrivateDataEntry</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">privateDataBlob</span><span class="p">;</span>
+<span class="w">        </span><span class="n">IUnknown</span><span class="o">*</span><span class="w"> </span><span class="n">privateDataInterface</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">GUID</span><span class="p">,</span><span class="w"> </span><span class="n">PrivateDataEntry</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mPrivateData</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">HRESULT</span><span class="w"> </span><span class="n">STDMETHODCALLTYPE</span><span class="w"> </span><span class="n">GetPrivateData</span><span class="p">(</span><span class="n">REFGUID</span><span class="w"> </span><span class="n">guid</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="o">*</span><span class="w"> </span><span class="n">pDataSize</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">pData</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">pDataSize</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">E_INVALIDARG</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">found</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mPrivateData</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">guid</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">found</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">mPrivateData</span><span class="p">.</span><span class="n">end</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="o">*</span><span class="n">pDataSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">DXGI_ERROR_NOT_FOUND</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">PrivateDataEntry</span><span class="o">&amp;</span><span class="w"> </span><span class="n">foundEntry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">found</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">dataToCopySize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">dataToCopy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">foundEntry</span><span class="p">.</span><span class="n">privateDataInterface</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">dataToCopySize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">IUnknown</span><span class="o">*</span><span class="p">);</span>
+<span class="w">            </span><span class="n">dataToCopy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">foundEntry</span><span class="p">.</span><span class="n">privateDataInterface</span><span class="p">;</span>
+<span class="w">            </span><span class="n">ASSERT</span><span class="p">(</span><span class="n">foundEntry</span><span class="p">.</span><span class="n">privateDataBlob</span><span class="p">.</span><span class="n">empty</span><span class="p">());</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">dataToCopySize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="p">)</span><span class="n">foundEntry</span><span class="p">.</span><span class="n">privateDataBlob</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+<span class="w">            </span><span class="n">dataToCopy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">foundEntry</span><span class="p">.</span><span class="n">privateDataBlob</span><span class="p">.</span><span class="n">data</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">pDataAvailableSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">pDataSize</span><span class="p">;</span>
+<span class="w">        </span><span class="o">*</span><span class="n">pDataSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dataToCopySize</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">pData</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">S_OK</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pDataAvailableSize</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">dataToCopySize</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">DXGI_ERROR_MORE_DATA</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">memcpy</span><span class="p">(</span><span class="n">pData</span><span class="p">,</span><span class="w"> </span><span class="n">dataToCopy</span><span class="p">,</span><span class="w"> </span><span class="n">dataToCopySize</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">foundEntry</span><span class="p">.</span><span class="n">privateDataInterface</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">foundEntry</span><span class="p">.</span><span class="n">privateDataInterface</span><span class="o">-&gt;</span><span class="n">AddRef</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">S_OK</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">HRESULT</span><span class="w"> </span><span class="n">STDMETHODCALLTYPE</span><span class="w"> </span><span class="n">SetPrivateData</span><span class="p">(</span><span class="n">REFGUID</span><span class="w"> </span><span class="n">guid</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">DataSize</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">pData</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pData</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// SetPrivateData with null pData returns S_FALSE, if entry had not been provided earlier</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">mPrivateData</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">guid</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">S_OK</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">S_FALSE</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">entry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mPrivateData</span><span class="p">[</span><span class="n">guid</span><span class="p">];</span>
+<span class="w">        </span><span class="n">entry</span><span class="p">.</span><span class="n">privateDataBlob</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">DataSize</span><span class="p">);</span>
+<span class="w">        </span><span class="n">memcpy</span><span class="p">(</span><span class="n">entry</span><span class="p">.</span><span class="n">privateDataBlob</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">pData</span><span class="p">,</span><span class="w"> </span><span class="n">DataSize</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">entry</span><span class="p">.</span><span class="n">privateDataInterface</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">entry</span><span class="p">.</span><span class="n">privateDataInterface</span><span class="o">-&gt;</span><span class="n">Release</span><span class="p">();</span>
+<span class="w">            </span><span class="n">entry</span><span class="p">.</span><span class="n">privateDataInterface</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">S_OK</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">HRESULT</span><span class="w"> </span><span class="n">STDMETHODCALLTYPE</span><span class="w"> </span><span class="n">SetPrivateDataInterface</span><span class="p">(</span><span class="n">REFGUID</span><span class="w"> </span><span class="n">guid</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">IUnknown</span><span class="o">*</span><span class="w"> </span><span class="n">pData</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">entry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mPrivateData</span><span class="p">[</span><span class="n">guid</span><span class="p">];</span>
+<span class="w">        </span><span class="n">entry</span><span class="p">.</span><span class="n">privateDataBlob</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+
+<span class="w">        </span><span class="c1">// No idea why the argument is const. Makes no sense, since the object needs to accept AddRef and Release calls</span>
+<span class="w">        </span><span class="n">IUnknown</span><span class="o">*</span><span class="w"> </span><span class="n">mutablePData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">const_cast</span><span class="o">&lt;</span><span class="n">IUnknown</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">pData</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">mutablePData</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">mutablePData</span><span class="o">-&gt;</span><span class="n">AddRef</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">entry</span><span class="p">.</span><span class="n">privateDataInterface</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">entry</span><span class="p">.</span><span class="n">privateDataInterface</span><span class="o">-&gt;</span><span class="n">Release</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">entry</span><span class="p">.</span><span class="n">privateDataInterface</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mutablePData</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">S_OK</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">HRESULT</span><span class="w"> </span><span class="n">STDMETHODCALLTYPE</span><span class="w"> </span><span class="n">SetName</span><span class="p">(</span><span class="n">LPCWSTR</span><span class="w"> </span><span class="n">Name</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">SetPrivateData</span><span class="p">(</span><span class="n">WKPDID_D3DDebugObjectNameW</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="p">)</span><span class="n">wcslen</span><span class="p">(</span><span class="n">Name</span><span class="p">),</span><span class="w"> </span><span class="n">Name</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="cm">/*</span>
+<span class="cm">This class exists solely to facilitate deferred capture (and, by extension, subcapture)</span>
+<span class="cm">of Intel D3D12 extensions. The extension mechanism can and does overwrite the data contained</span>
+<span class="cm">in the resources it uses, so if we wait until a state capture is performed to extract resource</span>
+<span class="cm">data from the driver, it&#39;s too late -- the data has already been altered. So for extension</span>
+<span class="cm">resources only, we save a copy of the original data into one of these, which is attached to</span>
+<span class="cm">the resource via SetPrivateDataInterface. If one of these is present during writing of the</span>
+<span class="cm">state capture, we use this data instead of data obtained from the current state of the</span>
+<span class="cm">resource.</span>
+
+<span class="cm">Additionally, some extension scenarios (such as 64-bit emulated atomics) delete the</span>
+<span class="cm">resource once the extension has been initialized, and so there would not be data available</span>
+<span class="cm">at state capture time to copy down from the GPU, and so this object is used to keep the resource</span>
+<span class="cm">data around for those extension scenarios as well.</span>
+<span class="cm">*/</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">D3DResourceDataContainerImpl</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">D3DResourceDataContainerImpl</span><span class="p">(</span><span class="n">D3D12_RESOURCE_DESC</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">desc</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">StoreData</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">byteLen</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="nf">Data</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="nf">DataLen</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_DESC</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">Desc</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mData</span><span class="p">;</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_DESC</span><span class="w"> </span><span class="n">mDesc</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">D3DResourceDataContainer</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">D3DPrivateDataInterface</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">D3DResourceDataContainer</span><span class="p">(</span><span class="n">D3D12_RESOURCE_DESC</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">desc</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">D3DResourceDataContainerImpl</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mImpl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">StoreData</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">byteLen</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="nf">Data</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="nf">DataLen</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_DESC</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">Desc</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">DeviceType</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">DoWithDevice</span><span class="p">(</span><span class="n">ID3D12DeviceChild</span><span class="o">*</span><span class="w"> </span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="n">DeviceType</span><span class="o">*</span><span class="p">)</span><span class="o">&gt;</span><span class="w"> </span><span class="n">callback</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">CComPtr</span><span class="o">&lt;</span><span class="n">DeviceType</span><span class="o">&gt;</span><span class="w"> </span><span class="n">device</span><span class="p">;</span>
+<span class="w">    </span><span class="n">object</span><span class="o">-&gt;</span><span class="n">GetDevice</span><span class="p">(</span><span class="n">IID_PPV_ARGS</span><span class="p">(</span><span class="o">&amp;</span><span class="n">device</span><span class="p">));</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">device</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">callback</span><span class="p">(</span><span class="n">device</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Unique identifier for a shader that can be used in Shader records.</span>
+<span class="c1">// This is only valid for Ray generation shaders, Hit groups, Miss shaders and Callable shaders.</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">D3D12ShaderIdentifier</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">id</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="w">    </span><span class="k">explicit</span><span class="w"> </span><span class="n">D3D12ShaderIdentifier</span><span class="p">(</span><span class="kt">uint64_t</span><span class="o">*</span><span class="w"> </span><span class="n">data</span><span class="p">);</span>
+<span class="w">    </span><span class="n">D3D12ShaderIdentifier</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">D3D12ShaderIdentifier</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">D3D12ShaderIdentifier</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">D3D12ShaderIdentifier</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">D3D12ShaderIdentifier</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="k">explicit</span><span class="w"> </span><span class="k">operator</span><span class="w"> </span><span class="kt">bool</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="k">static_assert</span><span class="p">(</span><span class="n">D3D12_SHADER_IDENTIFIER_SIZE_IN_BYTES</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">D3D12ShaderIdentifier</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;Shader identifier size must be equal 32 bytes&quot;</span><span class="p">);</span>
+
+<span class="kt">uint64_t</span><span class="w"> </span><span class="nf">GetCaptureKey</span><span class="p">(</span><span class="n">ID3D12Object</span><span class="o">*</span><span class="w"> </span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">GUID</span><span class="o">&amp;</span><span class="w"> </span><span class="n">guid</span><span class="p">);</span>
+<span class="kt">uint64_t</span><span class="w"> </span><span class="nf">GetCaptureKey</span><span class="p">(</span><span class="n">ID3D12Object</span><span class="o">*</span><span class="w"> </span><span class="n">object</span><span class="p">);</span>
+<span class="kt">uint64_t</span><span class="w"> </span><span class="nf">GetCreatingObjectCaptureKey</span><span class="p">(</span><span class="n">ID3D12Device</span><span class="o">*</span><span class="w"> </span><span class="n">device</span><span class="p">);</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">GetSubresourceDesc</span><span class="p">(</span><span class="n">ID3D10Resource</span><span class="o">*</span><span class="w"> </span><span class="n">resource</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">subresource</span><span class="p">,</span><span class="w"> </span><span class="n">D3D10ResourceDesc</span><span class="o">*</span><span class="w"> </span><span class="n">desc</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">GetSubresourceDesc</span><span class="p">(</span><span class="n">ID3D11Resource</span><span class="o">*</span><span class="w"> </span><span class="n">resource</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">subresource</span><span class="p">,</span><span class="w"> </span><span class="n">D3D11ResourceDesc</span><span class="o">*</span><span class="w"> </span><span class="n">desc</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">GetSubresourceDesc</span><span class="p">(</span><span class="n">ID3D12Resource</span><span class="o">*</span><span class="w"> </span><span class="n">resource</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">subresource</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12ResourceDesc</span><span class="o">*</span><span class="w"> </span><span class="n">desc</span><span class="p">);</span>
+<span class="kt">size_t</span><span class="w"> </span><span class="nf">GetD3D11SubresourceDataSize</span><span class="p">(</span><span class="n">D3D11ResourceDesc</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">desc</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">rowPitch</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">depthPitch</span><span class="p">);</span>
+<span class="kt">size_t</span><span class="w"> </span><span class="nf">GetD3D11SubresourceDataSize</span><span class="p">(</span><span class="n">ID3D11Resource</span><span class="o">*</span><span class="w"> </span><span class="n">resource</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">subresource</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">rowPitch</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">depthPitch</span><span class="p">);</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="nf">CalculateMipLevels</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">width</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">height</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">depth</span><span class="p">);</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="nf">GetFormatBitCount</span><span class="p">(</span><span class="n">DXGI_FORMAT</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">format</span><span class="p">);</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="nf">GetFormatByteCount</span><span class="p">(</span><span class="n">DXGI_FORMAT</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">format</span><span class="p">);</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="nf">GetFormatStride</span><span class="p">(</span><span class="n">DXGI_FORMAT</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">format</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">width</span><span class="p">);</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="nf">GetFormatComponentSize</span><span class="p">(</span><span class="n">DXGI_FORMAT</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">format</span><span class="p">);</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="nf">Align</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">alignment</span><span class="p">);</span>
+<span class="kt">uint64_t</span><span class="w"> </span><span class="nf">Align</span><span class="p">(</span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">alignment</span><span class="p">);</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="nf">CalculateSubresourceSize</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">width</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">height</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">depth</span><span class="p">,</span><span class="w"> </span><span class="n">DXGI_FORMAT</span><span class="w"> </span><span class="n">format</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">alignment</span><span class="p">);</span>
+<span class="kt">bool</span><span class="w"> </span><span class="nf">IsFormatCompressed</span><span class="p">(</span><span class="n">DXGI_FORMAT</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">format</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">GetCompressedSize</span><span class="p">(</span><span class="kt">uint32_t</span><span class="o">*</span><span class="w"> </span><span class="n">width</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="o">*</span><span class="w"> </span><span class="n">height</span><span class="p">);</span>
+<span class="kt">bool</span><span class="w"> </span><span class="nf">IsSRGBFormat</span><span class="p">(</span><span class="n">DXGI_FORMAT</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">format</span><span class="p">);</span>
+<span class="n">D3D12_RESOURCE_STATES</span><span class="w"> </span><span class="nf">TruncateResourceState</span><span class="p">(</span><span class="n">D3D12_COMMAND_LIST_TYPE</span><span class="w"> </span><span class="n">commandListType</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_RESOURCE_STATES</span><span class="w"> </span><span class="n">state</span><span class="p">);</span>
+<span class="n">UINT</span><span class="w"> </span><span class="nf">GetVendorId</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="o">&amp;</span><span class="n">CreateDXGIFactory1</span><span class="p">)</span><span class="w"> </span><span class="n">createDXGIFactory1</span><span class="p">,</span><span class="w"> </span><span class="n">ID3D12Device</span><span class="o">*</span><span class="w"> </span><span class="n">device</span><span class="p">);</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">CopyTextureRegion</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="o">&amp;</span><span class="n">CreateDXGIFactory1</span><span class="p">)</span><span class="w"> </span><span class="n">createDXGIFactory1</span><span class="p">,</span><span class="w"> </span><span class="n">ID3D12Device</span><span class="o">*</span><span class="w"> </span><span class="n">device</span><span class="p">,</span><span class="w"> </span><span class="n">ID3D12GraphicsCommandList</span><span class="o">*</span><span class="w"> </span><span class="n">commandList</span><span class="p">,</span>
+<span class="w">                       </span><span class="n">D3D12_TEXTURE_COPY_LOCATION</span><span class="o">*</span><span class="w"> </span><span class="n">src</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_TEXTURE_COPY_LOCATION</span><span class="o">*</span><span class="w"> </span><span class="n">dst</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_RESOURCE_DIMENSION</span><span class="w"> </span><span class="n">dimension</span><span class="p">);</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">wstring</span><span class="w"> </span><span class="nf">GetObjectName</span><span class="p">(</span><span class="n">ID3D12Object</span><span class="o">*</span><span class="w"> </span><span class="n">object</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">wstring</span><span class="w"> </span><span class="nf">GetObjectName</span><span class="p">(</span><span class="n">ID3D11DeviceChild</span><span class="o">*</span><span class="w"> </span><span class="n">object</span><span class="p">);</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">DescType</span><span class="o">&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">GetArraySize</span><span class="p">(</span><span class="n">DescType</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="n">desc</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">desc</span><span class="o">-&gt;</span><span class="n">ArraySize</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">GetArraySize</span><span class="p">(</span><span class="n">D3D10_BUFFER_DESC</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="cm">/*desc*/</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">GetArraySize</span><span class="p">(</span><span class="n">D3D11_BUFFER_DESC</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="cm">/*desc*/</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">GetArraySize</span><span class="p">(</span><span class="n">D3D10_TEXTURE3D_DESC</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="cm">/*desc*/</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">GetArraySize</span><span class="p">(</span><span class="n">D3D11_TEXTURE3D_DESC</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="cm">/*desc*/</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">GetArraySize</span><span class="p">(</span><span class="n">D3D11_TEXTURE3D_DESC1</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="cm">/*desc*/</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">DescType</span><span class="o">&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">GetMipLevels</span><span class="p">(</span><span class="n">DescType</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="n">desc</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">desc</span><span class="o">-&gt;</span><span class="n">MipLevels</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">GetMipLevels</span><span class="p">(</span><span class="n">D3D10_BUFFER_DESC</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="cm">/*desc*/</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">GetMipLevels</span><span class="p">(</span><span class="n">D3D11_BUFFER_DESC</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="cm">/*desc*/</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">DescType</span><span class="o">&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">GetWidth</span><span class="p">(</span><span class="n">DescType</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="n">desc</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">desc</span><span class="o">-&gt;</span><span class="n">Width</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">GetWidth</span><span class="p">(</span><span class="n">D3D10_BUFFER_DESC</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="n">desc</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">desc</span><span class="o">-&gt;</span><span class="n">ByteWidth</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">GetWidth</span><span class="p">(</span><span class="n">D3D11_BUFFER_DESC</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="n">desc</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">desc</span><span class="o">-&gt;</span><span class="n">ByteWidth</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">DescType</span><span class="o">&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">GetHeight</span><span class="p">(</span><span class="n">DescType</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="n">desc</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">desc</span><span class="o">-&gt;</span><span class="n">Height</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">GetHeight</span><span class="p">(</span><span class="n">D3D10_BUFFER_DESC</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="cm">/*desc*/</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">GetHeight</span><span class="p">(</span><span class="n">D3D11_BUFFER_DESC</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="cm">/*desc*/</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">GetHeight</span><span class="p">(</span><span class="n">D3D10_TEXTURE1D_DESC</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="cm">/*desc*/</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">GetHeight</span><span class="p">(</span><span class="n">D3D11_TEXTURE1D_DESC</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="cm">/*desc*/</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">DescType</span><span class="o">&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">GetDepth</span><span class="p">(</span><span class="n">DescType</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="cm">/*desc*/</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">GetDepth</span><span class="p">(</span><span class="n">D3D10_TEXTURE3D_DESC</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="n">desc</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">desc</span><span class="o">-&gt;</span><span class="n">Depth</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">GetDepth</span><span class="p">(</span><span class="n">D3D11_TEXTURE3D_DESC</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="n">desc</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">desc</span><span class="o">-&gt;</span><span class="n">Depth</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">GetDepth</span><span class="p">(</span><span class="n">D3D11_TEXTURE3D_DESC1</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="n">desc</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">desc</span><span class="o">-&gt;</span><span class="n">Depth</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">DescType</span><span class="o">&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="n">DXGI_FORMAT</span><span class="w"> </span><span class="n">GetFormat</span><span class="p">(</span><span class="n">DescType</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="n">desc</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">desc</span><span class="o">-&gt;</span><span class="n">Format</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="n">DXGI_FORMAT</span><span class="w"> </span><span class="n">GetFormat</span><span class="p">(</span><span class="n">D3D10_BUFFER_DESC</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="cm">/*desc*/</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">DXGI_FORMAT_R8_TYPELESS</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="n">DXGI_FORMAT</span><span class="w"> </span><span class="n">GetFormat</span><span class="p">(</span><span class="n">D3D11_BUFFER_DESC</span><span class="w"> </span><span class="k">const</span><span class="o">*</span><span class="w"> </span><span class="cm">/*desc*/</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">DXGI_FORMAT_R8_TYPELESS</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">ConvertPIXEventDataToString</span><span class="p">(</span><span class="n">UINT</span><span class="w"> </span><span class="n">metadataType</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">pData</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">DataType</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">ObjectType</span><span class="o">&gt;</span>
+<span class="n">DataType</span><span class="o">*</span><span class="w"> </span><span class="n">GetPrivateObject</span><span class="p">(</span><span class="n">ObjectType</span><span class="o">*</span><span class="w"> </span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">force</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_base_of</span><span class="o">&lt;</span><span class="n">IUnknown</span><span class="p">,</span><span class="w"> </span><span class="n">DataType</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;data must be inherited from IUnknown&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_base_of</span><span class="o">&lt;</span><span class="n">IUnknown</span><span class="p">,</span><span class="w"> </span><span class="n">ObjectType</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;object must be inherited from IUnknown&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">object</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">DataType</span><span class="o">*</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="w">    </span><span class="n">HRESULT</span><span class="w"> </span><span class="n">hr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">object</span><span class="o">-&gt;</span><span class="n">GetPrivateData</span><span class="p">(</span><span class="n">__uuidof</span><span class="p">(</span><span class="n">DataType</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">data</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">FAILED</span><span class="p">(</span><span class="n">hr</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">force</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">DataType</span><span class="p">(</span><span class="n">object</span><span class="p">);</span>
+<span class="w">        </span><span class="n">object</span><span class="o">-&gt;</span><span class="n">SetPrivateDataInterface</span><span class="p">(</span><span class="n">__uuidof</span><span class="p">(</span><span class="n">DataType</span><span class="p">),</span><span class="w"> </span><span class="n">data</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">inline</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">AlignTo</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">value</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">((</span><span class="n">value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">uint64_t</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">uint64_t</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">uint64_t</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">RootSignaturePatchTable</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">enum</span><span class="w"> </span><span class="nc">ParamType</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">INVALID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="n">DESCRIPTOR_TABLE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="n">RESOURCE_VIEW</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">PatchableParam</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ParamType</span><span class="w"> </span><span class="n">type</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">offset</span><span class="p">;</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">D3D12_DESCRIPTOR_RANGE1</span><span class="o">&gt;</span><span class="w"> </span><span class="n">descriptorRanges</span><span class="p">;</span><span class="w">  </span><span class="c1">// Available if type is DESCRIPTOR_TABLE</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">PatchableParam</span><span class="o">&gt;</span><span class="w"> </span><span class="n">patchableParams</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">__declspec</span><span class="p">(</span><span class="n">uuid</span><span class="p">(</span><span class="s">&quot;483863D0-A5FC-4CED-A38D-3B093CF950DC&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="nl">D3D12StateObjectExportDataFromDDI</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">D3DPrivateDataInterface</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">D3D12StateObjectExportDataFromDDI</span><span class="p">(</span><span class="n">ID3D12StateObject</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">wstring</span><span class="p">,</span><span class="w"> </span><span class="n">RootSignaturePatchTable</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">GetExportNameToPatchTable</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">mExportNameToPatchTable</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">wstring</span><span class="p">,</span><span class="w"> </span><span class="n">RootSignaturePatchTable</span><span class="o">&gt;</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">GetExportNameToPatchTable</span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">mExportNameToPatchTable</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">wstring</span><span class="p">,</span><span class="w"> </span><span class="n">RootSignaturePatchTable</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mExportNameToPatchTable</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">// Aligns the |address| to the nearest multiple of |alignment| then returns the number of alignment bytes needed for alignment.</span>
+<span class="n">D3D12_GPU_VIRTUAL_ADDRESS</span><span class="w"> </span><span class="nf">AlignVATo</span><span class="p">(</span><span class="n">D3D12_GPU_VIRTUAL_ADDRESS</span><span class="w"> </span><span class="n">address</span><span class="p">,</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">alignment</span><span class="p">,</span><span class="w"> </span><span class="kt">uint64_t</span><span class="o">*</span><span class="w"> </span><span class="n">bytesToAlign</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">);</span>
+
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace directx</span>
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace utility</span>
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace gpa</span>
+
+<span class="c1">// Intel D3D12 extensions mark committed resource data as extension-</span>
+<span class="c1">// specific by setting the top bit to 1 -- we need to filter that out</span>
+<span class="c1">// when creating page tracking data structures</span>
+<span class="cp">#define INTC_EXT_MASK 0x8000000000000000</span>
+<span class="cp">#define INTC_EXT_FILTER(s) ((s) &amp; ~(INTC_EXT_MASK))</span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

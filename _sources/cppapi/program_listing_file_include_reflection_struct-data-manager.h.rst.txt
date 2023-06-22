@@ -1,0 +1,105 @@
+
+.. _program_listing_file_include_reflection_struct-data-manager.h:
+
+Program Listing for File struct-data-manager.h
+==============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_reflection_struct-data-manager.h>` (``include\reflection\struct-data-manager.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include <stdlib.h>
+   
+   namespace gpa {
+   namespace serialization {
+   
+   class Struct;
+   class Union;
+   
+   struct StructDataObserver
+   {
+       virtual void OnBeginStruct(Struct const*) {}
+       virtual void OnEndStruct() {}
+   
+       virtual void OnBeginField(class StructDataEditor const&, class Field const*, size_t) {}
+       virtual void OnEndField(class Field const*) {}
+   };
+   
+   class StructDataManager
+   {
+   public:
+       StructDataManager();
+   
+       StructDataManager(Struct const* structDef);
+   
+       StructDataManager(void const* base, Struct const* structDef);
+   
+       StructDataManager(void const* base, size_t count, Struct const* structDef);
+   
+       StructDataManager(Union const* unionDef);
+   
+       StructDataManager(void const* base, Union const* unionDef);
+   
+       StructDataManager(void const* base, size_t count, Union const* unionDef);
+   
+       StructDataManager(StructDataManager const& other);
+   
+       StructDataManager(StructDataManager&& other) noexcept;
+   
+       ~StructDataManager();
+   
+       StructDataManager& operator=(StructDataManager const& other);
+   
+       StructDataManager& operator=(StructDataManager&& other) noexcept;
+   
+       operator bool() const;
+   
+       void* MutableBase() const;
+   
+       size_t MutableBaseSize() const;
+   
+       void const* UnmodifiedBase() const;
+   
+       Struct const* StructDef() const;
+   
+       Union const* UnionDef() const;
+   
+       void Observe(StructDataObserver& observer) const;
+   
+   private:
+       void const* mOriginalData;
+       void* mMutableData;
+       size_t mMutableDataSize;
+       size_t mCount;
+       Struct const* mStructDef;
+       Union const* mUnionDef;
+   
+       template<typename TypeDef>
+       void MakeDeepCopy(TypeDef const* typeDef);
+       void DeleteMutableData();
+       void Swap(StructDataManager& other);
+   };
+   
+   }  // namespace serialization
+   }  // namespace gpa

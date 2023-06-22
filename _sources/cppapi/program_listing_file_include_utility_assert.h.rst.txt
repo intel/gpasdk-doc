@@ -1,0 +1,128 @@
+
+.. _program_listing_file_include_utility_assert.h:
+
+Program Listing for File assert.h
+=================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_utility_assert.h>` (``include\utility\assert.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   (c) Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   /*
+   assert.h replaces use of <assert> to enable better debugging. 
+   
+   Unlike <assert>, assert.h provides:
+   - Logging to STDOUT with file, line, and condition information.
+   - Always breaks debugger where the assertion fires.
+   - Instructs compiler where to optimize out code.
+   */
+   
+   // MSVC triggers warning for `do {} while(0)` statements but this can be bypassed via the "owl face".
+   // The "owl face" makes the compiler treat the condition as a sequence-operator by evaluating the second "0" and thus prevents
+   // the compiler from complaining the loop is being controlled by a constant.
+   #if defined(_MSC_VER)
+   #define GPA_ASSERT_LOOP_CONDITION (0, 0)
+   #else
+   #define GPA_ASSERT_LOOP_CONDITION (false)
+   #endif
+   
+   // Tell the compiler what code cannot be reached, ever.
+   #if defined(_MSC_VER)
+   #define GPA_UNREACHABLE() __assume(false)
+   #elif defined(__GNUC__)  // GCC 4.8+, Clang, Intel, and GCC-compatible compilers.
+   #define GPA_UNREACHABLE() __builtin_unreachable()
+   #else
+   #error "Unsupported compiler."
+   #endif
+   
+   // Casting any expression to void tricks the compiler to thinking its always being used.
+   #define GPA_UNUSED(expr) (void)expr
+   
+   #if defined(_MSC_VER)
+   extern void __cdecl __debugbreak(void);
+   #define GPA_DEBUG_BREAKPOINT() __debugbreak();
+   #elif defined(__i386__) || defined(__x86_64__)
+   #define GPA_DEBUG_BREAKPOINT() __asm__ __volatile__("int $3\n\t")
+   #else
+   #error "Unsupported architecture."
+   #endif
+   
+   // Generate the assertion code. When enabled, the assert handler is called. Else,
+   // tell the compiler the code is never reachable (so it can optimize it out).
+   #if defined(GPA_ALWAYS_ASSERT)
+   #define GPA_ASSERT_HELPER(file, func, line, condition)                   \
+       do {                                                                 \
+           if (!(condition)) {                                              \
+               gpa::utility::HandleAssertion(file, func, line, #condition); \
+           }                                                                \
+       } while (GPA_ASSERT_LOOP_CONDITION)
+   #else
+   // MSVC optimizes out the |condition| code if we __assume(condition)
+   // but if that logic is reversed, assuming the condition is never true,
+   // is equivelent and cannot be optimized-out.
+   #if defined(_MSC_VER)
+   #define GPA_ASSERT_HELPER(file, func, line, condition) \
+       do {                                               \
+           if (!(condition)) {                            \
+               GPA_UNREACHABLE();                         \
+           }                                              \
+       } while (GPA_ASSERT_LOOP_CONDITION)
+   #else
+   
+   // For non-MSVC, casting the result of sizeof(condition) is a common workaround.
+   #define GPA_ASSERT_HELPER(file, func, line, condition) \
+       do {                                               \
+           GPA_UNUSED(sizeof(condition));                 \
+       } while (GPA_ASSERT_LOOP_CONDITION)
+   #endif
+   
+   #endif
+   
+   #define GPA_ASSERT_UNREACHABLE()                                \
+       do {                                                        \
+           GPA_ASSERT(GPA_ASSERT_LOOP_CONDITION && "Unreachable"); \
+           GPA_UNREACHABLE();                                      \
+       } while (GPA_ASSERT_LOOP_CONDITION)
+   
+   #define GPA_ASSERT(condition) \
+       GPA_ASSERT_HELPER(__FILE__, __func__, __LINE__, condition)
+   
+   // Short-hand macros.
+   #if !defined(ASSERT)
+   #define ASSERT GPA_ASSERT
+   #endif
+   
+   #if !defined(UNREACHABLE)
+   #define UNREACHABLE GPA_ASSERT_UNREACHABLE
+   #endif
+   
+   #if !defined(UNUSED)
+   #define UNUSED GPA_UNUSED
+   #endif
+   
+   namespace gpa {
+   namespace utility {
+   
+   void HandleAssertion(const char* file, const char* function, int line, const char* condition);
+   
+   }  // namespace utility
+   }  // namespace gpa

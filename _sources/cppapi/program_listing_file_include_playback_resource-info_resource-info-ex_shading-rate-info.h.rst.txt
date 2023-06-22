@@ -1,0 +1,62 @@
+
+.. _program_listing_file_include_playback_resource-info_resource-info-ex_shading-rate-info.h:
+
+Program Listing for File shading-rate-info.h
+============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_resource-info_resource-info-ex_shading-rate-info.h>` (``include\playback\resource-info\resource-info-ex\shading-rate-info.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   
+   (c) Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "playback/resource-info/resource-info-ex.h"
+   
+   namespace gpa {
+   namespace playback {
+   
+   class ShadingRateInfo final
+       : public ResourceInfo::Ex
+   {
+   public:
+       uint8_t width{1};   // the shading rate should reduce horizontal resolution
+       uint8_t height{1};  // the shading rate should reduce vertical resolution
+   
+       /* The primitive shading rate combiner, refer to the two combiners for RSSetShadingRate in DX12 or 
+       VkPipelineFragmentShadingRateStateCreateInfoKHR in Vulkan. Primitive: first combiner, Following: second combiner*/
+       api_types::ShadingRateCombiner shadingRateCombinerPrimitive{api_types::GPA_SHADING_RATE_COMBINER_PASSTHROUGH};
+       api_types::ShadingRateCombiner shadingRateCombinerAttachment{api_types::GPA_SHADING_RATE_COMBINER_PASSTHROUGH};
+   
+       TypeId GetTypeId() const override final;
+   };
+   
+   namespace detail {
+   
+   template<>
+   inline auto MakeTuple<ShadingRateInfo>(const ShadingRateInfo& shadingRateInfo)
+   {
+       return std::make_tuple(shadingRateInfo.width, shadingRateInfo.height, shadingRateInfo.shadingRateCombinerPrimitive, shadingRateInfo.shadingRateCombinerAttachment);
+   }
+   
+   }  // namespace detail
+   }  // namespace playback
+   }  // namespace gpa
