@@ -4,7 +4,7 @@
 Program Listing for File stream-data.h
 ======================================
 
-|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_stream-data.h>` (``include/playback/stream-data.h``)
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_stream-data.h>` (``include\playback\stream-data.h``)
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
@@ -83,6 +83,7 @@ Program Listing for File stream-data.h
        serialization::Stream* GetStream() const;
        serialization::metadata::Keyframe const* FindKeyframeForNormalizedOffset(double offset) const;
        serialization::metadata::Keyframe const* FindDeferredCaptureKeyframe() const;
+       serialization::metadata::Keyframe const* FindMandatoryInitialKeyframe() const;
        serialization::metadata::Keyframe const* GetKeyframe(uint64_t index) const;
        serialization::metadata::StreamInfoHeader* GetStreamInfoHeader() const;
        uint64_t GetKeyframeCount(bool includeDeferred) const;
@@ -96,6 +97,9 @@ Program Listing for File stream-data.h
        StoragePacketDeserializer* mPacketDeserializer;
        serialization::RandomAccessSerializer* mMetadataSerializer;
        serialization::metadata::MetadataIndex* mMetadataIndex;
+   
+       StreamData(StreamData const&) = delete;
+       StreamData& operator=(StreamData const&) = delete;
    };
    
    }  // namespace playback

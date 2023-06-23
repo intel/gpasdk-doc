@@ -4,7 +4,7 @@
 Program Listing for File argsprinter.h
 ======================================
 
-|exhale_lsh| :ref:`Return to documentation for file <file_include_argsprinter_argsprinter.h>` (``include/argsprinter/argsprinter.h``)
+|exhale_lsh| :ref:`Return to documentation for file <file_include_argsprinter_argsprinter.h>` (``include\argsprinter\argsprinter.h``)
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
@@ -12,7 +12,7 @@ Program Listing for File argsprinter.h
 
    /******************************************************************************
    © Intel Corporation.
-    
+   
    This software and the related documents are Intel copyrighted materials,
    and your use of them is governed by the express license under which they
    were provided to you ("License"). Unless the License provides otherwise,
@@ -283,6 +283,7 @@ Program Listing for File argsprinter.h
    template<typename T>
    inline void PrintInterfacePointer(T* ptr, const std::string& srcName, std::ostream& os, size_t indent = 0, uint64_t* captureKey = nullptr)
    {
+       std::ios_base::fmtflags initialFormat = os.flags();
        std::string indentString(indent * 4, ' ');
        os << indentString << srcName;
        if (ptr == nullptr) {
@@ -291,49 +292,52 @@ Program Listing for File argsprinter.h
        }
    
        if (captureKey != nullptr) {
-           os << " Stream Capture Unique ID 0x" << std::hex << std::uppercase << captureKey << std::dec;
+           os << " Stream Capture Unique ID 0x" << std::hex << std::uppercase << *captureKey << std::dec;
        }
        os << " 0x" << std::hex << std::uppercase << (size_t)ptr << std::dec << std::endl;
+       os.flags(initialFormat);
    }
    
    template<typename T>
    inline void PrintInterfacePointerPointer(T** ptr, size_t count, const std::string& srcName, std::ostream& os, size_t indent = 0, uint64_t* captureKeys = nullptr)
    {
+       std::ios_base::fmtflags initialFormat = os.flags();
        std::string indentString(indent * 4, ' ');
        os << indentString << srcName << std::endl;
        if (ptr == nullptr) {
            os << " NULLPTR" << std::endl;
            return;
        }
+       indentString = std::string((indent + 1) * 4, ' ');
        for (size_t ii = 0; ii < count; ++ii) {
-           std::stringstream ss;
-           ss << std::string("[") << std::to_string(ii) << std::string("]");
+           os << indentString << std::string("[") << std::to_string(ii) << std::string("]");
            if (captureKeys != nullptr) {
-               ss << " Stream Capture Unique ID 0x" << std::hex << std::uppercase << captureKeys[ii] << std::dec;
+               os << " Stream Capture Unique ID 0x" << std::hex << std::uppercase << captureKeys[ii] << std::dec;
            }
-           ss << " ";
-           PrintPointer(ptr[ii], ss.str(), os, indent + 1);
+           os << " 0x" << std::hex << std::uppercase << (size_t)ptr[ii] << std::dec << std::endl;
        }
+       os.flags(initialFormat);
    }
    
    template<typename T>
    inline void PrintInterfacePointerPointer(T* const* ptr, size_t count, const std::string& srcName, std::ostream& os, size_t indent = 0, uint64_t* captureKeys = nullptr)
    {
+       std::ios_base::fmtflags initialFormat = os.flags();
        std::string indentString(indent * 4, ' ');
        os << indentString << srcName << std::endl;
        if (ptr == nullptr) {
            os << " NULLPTR" << std::endl;
            return;
        }
+       indentString = std::string((indent + 1) * 4, ' ');
        for (size_t ii = 0; ii < count; ++ii) {
-           std::stringstream ss;
-           ss << std::string("[") << std::to_string(ii) << std::string("]");
+           os << indentString << std::string("[") << std::to_string(ii) << std::string("]");
            if (captureKeys != nullptr) {
-               ss << " Stream Capture Unique ID 0x" << std::hex << captureKeys[ii] << std::dec;
+               os << " Stream Capture Unique ID 0x" << std::hex << captureKeys[ii] << std::dec;
            }
-           ss << " ";
-           PrintPointer(ptr[ii], ss.str(), os, indent + 1);
+           os << " 0x" << std::hex << std::uppercase << (size_t)ptr[ii] << std::dec << std::endl;
        }
+       os.flags(initialFormat);
    }
    
    // Generated DirectX specializations

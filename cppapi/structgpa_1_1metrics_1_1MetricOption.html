@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Struct MetricOption &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Struct MetricOption::Value" href="structgpa_1_1metrics_1_1MetricOption_1_1Value.html" />
+    <link rel="prev" title="Struct MetricInstanceOption" href="structgpa_1_1metrics_1_1MetricInstanceOption.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">'Helloworld' Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">'Helloworld' Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">API-Debug-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">Device-Override</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id38">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id5">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id8">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id9">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id10">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id11">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id12">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id13">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id14">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id15">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id16">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../src/reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">C++ Interfaces</a></li>
+      <li class="breadcrumb-item active">Struct MetricOption</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="struct-metricoption">
+<span id="exhale-struct-structgpa-1-1metrics-1-1metricoption"></span><h1>Struct MetricOption<a class="headerlink" href="#struct-metricoption" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_metrics_types.h.html#file-include-metrics-types-h"><span class="std std-ref">File metrics/types.h</span></a></p></li>
+</ul>
+<section id="nested-relationships">
+<h2>Nested Relationships<a class="headerlink" href="#nested-relationships" title="Permalink to this headline"></a></h2>
+<section id="nested-types">
+<h3>Nested Types<a class="headerlink" href="#nested-types" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="structgpa_1_1metrics_1_1MetricOption_1_1Value.html#exhale-struct-structgpa-1-1metrics-1-1metricoption-1-1value"><span class="std std-ref">Struct MetricOption::Value</span></a></p></li>
+</ul>
+</section>
+</section>
+<section id="struct-documentation">
+<h2>Struct Documentation<a class="headerlink" href="#struct-documentation" title="Permalink to this headline"></a></h2>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOptionE">
+<span id="_CPPv3N3gpa7metrics12MetricOptionE"></span><span id="_CPPv2N3gpa7metrics12MetricOptionE"></span><span id="gpa::metrics::MetricOption"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MetricOption</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOptionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Structure that contains information about an option for a prototype metric or instance of one. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp enum-class">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption4TypeE">
+<span id="_CPPv3N3gpa7metrics12MetricOption4TypeE"></span><span id="_CPPv2N3gpa7metrics12MetricOption4TypeE"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1a94ebba833841c1bf1accad67d34a4f86"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Type</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption4TypeE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Types of prototype or instantiated metric options. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption4Type15kDisaggregationE">
+<span id="_CPPv3N3gpa7metrics12MetricOption4Type15kDisaggregationE"></span><span id="_CPPv2N3gpa7metrics12MetricOption4Type15kDisaggregationE"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1a94ebba833841c1bf1accad67d34a4f86af604705caf03d5d041e2d4d44f84b3b1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kDisaggregation</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption4Type15kDisaggregationE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Option type used for enabling disaggregation. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption4Type8kLatencyE">
+<span id="_CPPv3N3gpa7metrics12MetricOption4Type8kLatencyE"></span><span id="_CPPv2N3gpa7metrics12MetricOption4Type8kLatencyE"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1a94ebba833841c1bf1accad67d34a4f86ae666b47116e72795005cb57815c5f3a1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kLatency</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption4Type8kLatencyE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Option type used for enabling latency. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption4Type21kNormalizationAverageE">
+<span id="_CPPv3N3gpa7metrics12MetricOption4Type21kNormalizationAverageE"></span><span id="_CPPv2N3gpa7metrics12MetricOption4Type21kNormalizationAverageE"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1a94ebba833841c1bf1accad67d34a4f86ac1116df295acf4738a4a417e3614be84"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kNormalizationAverage</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption4Type21kNormalizationAverageE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Option type used for enabling average normalization (raw metric / instance count). Normalization types are mutually exclusive. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption4Type18kNormalizationRateE">
+<span id="_CPPv3N3gpa7metrics12MetricOption4Type18kNormalizationRateE"></span><span id="_CPPv2N3gpa7metrics12MetricOption4Type18kNormalizationRateE"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1a94ebba833841c1bf1accad67d34a4f86a87aeb8141f839697002fea8cacb9a776"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kNormalizationRate</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption4Type18kNormalizationRateE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Option type used for enabling rate normalization (raw metric / timestamp). Changes metric units to per second. Normalization types are mutually exclusive. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption4Type25kNormalizationUtilizationE">
+<span id="_CPPv3N3gpa7metrics12MetricOption4Type25kNormalizationUtilizationE"></span><span id="_CPPv2N3gpa7metrics12MetricOption4Type25kNormalizationUtilizationE"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1a94ebba833841c1bf1accad67d34a4f86ad5b03ecaf104fccef982cb48346e4063"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kNormalizationUtilization</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption4Type25kNormalizationUtilizationE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Option type used for enabling utilization normalization (raw metric * 100% / cycles / instance count). Changes metric units to percent. Normalization types are mutually exclusive. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption4Type6kCountE">
+<span id="_CPPv3N3gpa7metrics12MetricOption4Type6kCountE"></span><span id="_CPPv2N3gpa7metrics12MetricOption4Type6kCountE"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1a94ebba833841c1bf1accad67d34a4f86a5a162d352f3b3603e03fc9b2f043fb40"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kCount</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption4Type6kCountE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Number of possible option types. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption4Type8kInvalidE">
+<span id="_CPPv3N3gpa7metrics12MetricOption4Type8kInvalidE"></span><span id="_CPPv2N3gpa7metrics12MetricOption4Type8kInvalidE"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1a94ebba833841c1bf1accad67d34a4f86ab10913c938482a8aa4ba85b7a1116cb4"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kInvalid</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption4Type8kInvalidE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Invalid option type. </p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption12StringLengthE">
+<span id="_CPPv3N3gpa7metrics12MetricOption12StringLengthE"></span><span id="_CPPv2N3gpa7metrics12MetricOption12StringLengthE"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1afaa7f02d244e8d11d438e898e34c7423"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StringLength</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption12StringLengthE" title="Permalink to this definition"></a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption12StringLength19kSymbolicNameLengthE">
+<span id="_CPPv3N3gpa7metrics12MetricOption12StringLength19kSymbolicNameLengthE"></span><span id="_CPPv2N3gpa7metrics12MetricOption12StringLength19kSymbolicNameLengthE"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1afaa7f02d244e8d11d438e898e34c7423a48bfdb3f7aa1a9e1b773dbe348a27b2e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kSymbolicNameLength</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption12StringLength19kSymbolicNameLengthE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption4typeE">
+<span id="_CPPv3N3gpa7metrics12MetricOption4typeE"></span><span id="_CPPv2N3gpa7metrics12MetricOption4typeE"></span><span id="gpa::metrics::MetricOption::type__Type"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1a6c89a3519626eac3ef334571687f2376"></span><a class="reference internal" href="#_CPPv4N3gpa7metrics12MetricOption4TypeE" title="gpa::metrics::MetricOption::Type"><span class="n"><span class="pre">Type</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">type</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption4typeE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Type of the metric option. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption12symbolicNameE">
+<span id="_CPPv3N3gpa7metrics12MetricOption12symbolicNameE"></span><span id="_CPPv2N3gpa7metrics12MetricOption12symbolicNameE"></span><span id="gpa::metrics::MetricOption::symbolicName__cA"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1a903af716918fbc479e952ad5f230edca"></span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">symbolicName</span></span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4N3gpa7metrics12MetricOption12StringLengthE" title="gpa::metrics::MetricOption::StringLength"><span class="n"><span class="pre">StringLength</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3gpa7metrics12MetricOption12StringLength19kSymbolicNameLengthE" title="gpa::metrics::MetricOption::StringLength::kSymbolicNameLength"><span class="n"><span class="pre">kSymbolicNameLength</span></span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption12symbolicNameE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption10valueCountE">
+<span id="_CPPv3N3gpa7metrics12MetricOption10valueCountE"></span><span id="_CPPv2N3gpa7metrics12MetricOption10valueCountE"></span><span id="gpa::metrics::MetricOption::valueCount__uint32_t"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1a79a78bce12afffc49b7f39f98709453e"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">valueCount</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption10valueCountE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Number of initialized elements in pValueArray. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption11pValueArrayE">
+<span id="_CPPv3N3gpa7metrics12MetricOption11pValueArrayE"></span><span id="_CPPv2N3gpa7metrics12MetricOption11pValueArrayE"></span><span id="gpa::metrics::MetricOption::pValueArray__ValueP"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1a54e93b492c7fcbc6d4e3485856a7bbdd"></span><a class="reference internal" href="#_CPPv4N3gpa7metrics12MetricOption5ValueE" title="gpa::metrics::MetricOption::Value"><span class="n"><span class="pre">Value</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">pValueArray</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption11pValueArrayE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Array of <a class="reference internal" href="structgpa_1_1metrics_1_1MetricOption_1_1Value.html#structgpa_1_1metrics_1_1MetricOption_1_1Value"><span class="std std-ref">Value</span></a> structures for the option. </p>
+</dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption5ValueE">
+<span id="_CPPv3N3gpa7metrics12MetricOption5ValueE"></span><span id="_CPPv2N3gpa7metrics12MetricOption5ValueE"></span><span id="gpa::metrics::MetricOption::Value"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1_1Value"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Value</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption5ValueE" title="Permalink to this definition"></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp enum-class">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption5Value4TypeE">
+<span id="_CPPv3N3gpa7metrics12MetricOption5Value4TypeE"></span><span id="_CPPv2N3gpa7metrics12MetricOption5Value4TypeE"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1_1Value_1a09bd5797add6a66cef6a5f29f4e9d4ee"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Type</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption5Value4TypeE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Types of metric option Values. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption5Value4Type12kRangeUint32E">
+<span id="_CPPv3N3gpa7metrics12MetricOption5Value4Type12kRangeUint32E"></span><span id="_CPPv2N3gpa7metrics12MetricOption5Value4Type12kRangeUint32E"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1_1Value_1a09bd5797add6a66cef6a5f29f4e9d4eeae3ff9a3c4895e97febaddf46bb1654e0"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kRangeUint32</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption5Value4Type12kRangeUint32E" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption5Value4Type12kRangeUint64E">
+<span id="_CPPv3N3gpa7metrics12MetricOption5Value4Type12kRangeUint64E"></span><span id="_CPPv2N3gpa7metrics12MetricOption5Value4Type12kRangeUint64E"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1_1Value_1a09bd5797add6a66cef6a5f29f4e9d4eea760039bed58b656e4546a9f8013de396"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kRangeUint64</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption5Value4Type12kRangeUint64E" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption5Value4Type7kUint32E">
+<span id="_CPPv3N3gpa7metrics12MetricOption5Value4Type7kUint32E"></span><span id="_CPPv2N3gpa7metrics12MetricOption5Value4Type7kUint32E"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1_1Value_1a09bd5797add6a66cef6a5f29f4e9d4eeaf5fca11a36e986e3623193c5cccc4f39"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kUint32</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption5Value4Type7kUint32E" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption5Value4Type7kUint64E">
+<span id="_CPPv3N3gpa7metrics12MetricOption5Value4Type7kUint64E"></span><span id="_CPPv2N3gpa7metrics12MetricOption5Value4Type7kUint64E"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1_1Value_1a09bd5797add6a66cef6a5f29f4e9d4eea4e5966a6ca84ccd3ed763941df242c68"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kUint64</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption5Value4Type7kUint64E" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption5Value4Type6kCountE">
+<span id="_CPPv3N3gpa7metrics12MetricOption5Value4Type6kCountE"></span><span id="_CPPv2N3gpa7metrics12MetricOption5Value4Type6kCountE"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1_1Value_1a09bd5797add6a66cef6a5f29f4e9d4eea5a162d352f3b3603e03fc9b2f043fb40"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kCount</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption5Value4Type6kCountE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Number of possible <a class="reference internal" href="structgpa_1_1metrics_1_1MetricOption_1_1Value.html#structgpa_1_1metrics_1_1MetricOption_1_1Value"><span class="std std-ref">Value</span></a> types. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption5Value4Type8kInvalidE">
+<span id="_CPPv3N3gpa7metrics12MetricOption5Value4Type8kInvalidE"></span><span id="_CPPv2N3gpa7metrics12MetricOption5Value4Type8kInvalidE"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1_1Value_1a09bd5797add6a66cef6a5f29f4e9d4eeab10913c938482a8aa4ba85b7a1116cb4"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kInvalid</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption5Value4Type8kInvalidE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Invalid <a class="reference internal" href="structgpa_1_1metrics_1_1MetricOption_1_1Value.html#structgpa_1_1metrics_1_1MetricOption_1_1Value"><span class="std std-ref">Value</span></a> type. </p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption5Value4typeE">
+<span id="_CPPv3N3gpa7metrics12MetricOption5Value4typeE"></span><span id="_CPPv2N3gpa7metrics12MetricOption5Value4typeE"></span><span id="gpa::metrics::MetricOption::Value::type__Type"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1_1Value_1a92cd6d6a652152fc4329e314ddaeab6a"></span><a class="reference internal" href="#_CPPv4N3gpa7metrics12MetricOption5Value4TypeE" title="gpa::metrics::MetricOption::Value::Type"><span class="n"><span class="pre">Type</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">type</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption5Value4typeE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Type of data provided in the <a class="reference internal" href="structgpa_1_1metrics_1_1MetricOption_1_1Value.html#structgpa_1_1metrics_1_1MetricOption_1_1Value"><span class="std std-ref">Value</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption5Value3minE">
+<span id="_CPPv3N3gpa7metrics12MetricOption5Value3minE"></span><span id="_CPPv2N3gpa7metrics12MetricOption5Value3minE"></span><span id="gpa::metrics::MetricOption::Value::min__uint32_t"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1_1Value_1a90e946e8996296ef6bbcaafa0811fa9f"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">min</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption5Value3minE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption5Value3maxE">
+<span id="_CPPv3N3gpa7metrics12MetricOption5Value3maxE"></span><span id="_CPPv2N3gpa7metrics12MetricOption5Value3maxE"></span><span id="gpa::metrics::MetricOption::Value::max__uint32_t"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1_1Value_1a5e220311ea5217b7dbadfa53e832b090"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">max</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption5Value3maxE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption5Value11rangeUint32E">
+<span id="_CPPv3N3gpa7metrics12MetricOption5Value11rangeUint32E"></span><span id="_CPPv2N3gpa7metrics12MetricOption5Value11rangeUint32E"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1_1Value_1a41a1bdcf0f9447e86c46e65920f523ee"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">gpa</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">metrics</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3gpa7metrics12MetricOptionE" title="gpa::metrics::MetricOption"><span class="n"><span class="pre">MetricOption</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3gpa7metrics12MetricOption5ValueE" title="gpa::metrics::MetricOption::Value"><span class="n"><span class="pre">Value</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">[anonymous]</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">[anonymous]</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rangeUint32</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption5Value11rangeUint32E" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp">
+<span class="target" id="structgpa_1_1metrics_1_1MetricOption_1_1Value_1afb14818e07b0c1c1878677dbd3e8b94b"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">min</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp">
+<span class="target" id="structgpa_1_1metrics_1_1MetricOption_1_1Value_1aee6254b8d23282f9300606398a146160"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">max</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption5Value11rangeUint64E">
+<span id="_CPPv3N3gpa7metrics12MetricOption5Value11rangeUint64E"></span><span id="_CPPv2N3gpa7metrics12MetricOption5Value11rangeUint64E"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1_1Value_1a7e020dc4e0c91c80b854870c03d603f0"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">gpa</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">metrics</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3gpa7metrics12MetricOptionE" title="gpa::metrics::MetricOption"><span class="n"><span class="pre">MetricOption</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3gpa7metrics12MetricOption5ValueE" title="gpa::metrics::MetricOption::Value"><span class="n"><span class="pre">Value</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">[anonymous]</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">[anonymous]</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rangeUint64</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption5Value11rangeUint64E" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption5Value6uint32E">
+<span id="_CPPv3N3gpa7metrics12MetricOption5Value6uint32E"></span><span id="_CPPv2N3gpa7metrics12MetricOption5Value6uint32E"></span><span id="gpa::metrics::MetricOption::Value::uint32__uint32_t"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1_1Value_1abeaeb5c03af9d201ccee1a5f34013d1f"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">uint32</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption5Value6uint32E" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption5Value6uint64E">
+<span id="_CPPv3N3gpa7metrics12MetricOption5Value6uint64E"></span><span id="_CPPv2N3gpa7metrics12MetricOption5Value6uint64E"></span><span id="gpa::metrics::MetricOption::Value::uint64__uint64_t"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1_1Value_1af1f8a4e682b7adc630d95bf17fdc761c"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">uint64</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption5Value6uint64E" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa7metrics12MetricOption5Value4dataE">
+<span id="_CPPv3N3gpa7metrics12MetricOption5Value4dataE"></span><span id="_CPPv2N3gpa7metrics12MetricOption5Value4dataE"></span><span class="target" id="structgpa_1_1metrics_1_1MetricOption_1_1Value_1a2936b319aba2868533d322d402452ca6"></span><span class="k"><span class="pre">union</span></span><span class="w"> </span><span class="n"><span class="pre">gpa</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">metrics</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3gpa7metrics12MetricOptionE" title="gpa::metrics::MetricOption"><span class="n"><span class="pre">MetricOption</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3gpa7metrics12MetricOption5ValueE" title="gpa::metrics::MetricOption::Value"><span class="n"><span class="pre">Value</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">[anonymous]</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">data</span></span></span><a class="headerlink" href="#_CPPv4N3gpa7metrics12MetricOption5Value4dataE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>The actual <a class="reference internal" href="structgpa_1_1metrics_1_1MetricOption_1_1Value.html#structgpa_1_1metrics_1_1MetricOption_1_1Value"><span class="std std-ref">Value</span></a> data. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="structgpa_1_1metrics_1_1MetricInstanceOption.html" class="btn btn-neutral float-left" title="Struct MetricInstanceOption" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="structgpa_1_1metrics_1_1MetricOption_1_1Value.html" class="btn btn-neutral float-right" title="Struct MetricOption::Value" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

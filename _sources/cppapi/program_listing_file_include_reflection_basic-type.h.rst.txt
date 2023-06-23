@@ -1,0 +1,188 @@
+
+.. _program_listing_file_include_reflection_basic-type.h:
+
+Program Listing for File basic-type.h
+=====================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_reflection_basic-type.h>` (``include\reflection\basic-type.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include <cstdint>
+   #include <cstddef>
+   #include <type_traits>
+   
+   
+   namespace gpa {
+   namespace serialization {
+   
+   enum class BasicType {
+       kUndefined,    
+       kFloat,        
+       kDouble,       
+       kString,       
+       kWideString,   
+       kInt8,         
+       kInt16,        
+       kInt32,        
+       kInt64,        
+       kUInt8,        
+       kUInt16,       
+       kUInt32,       
+       kUInt64,       
+       kHandle,       
+       kPointer,      
+       kEmbedded,     
+       kUserDefined,  
+   };
+   
+   constexpr BasicType GetBasicType(float)
+   {
+       return BasicType::kFloat;
+   }
+   constexpr BasicType GetBasicType(double)
+   {
+       return BasicType::kDouble;
+   }
+   constexpr BasicType GetBasicType(char const*)
+   {
+       return BasicType::kString;
+   }
+   constexpr BasicType GetBasicType(char*)
+   {
+       return BasicType::kString;
+   }
+   constexpr BasicType GetBasicType(wchar_t const*)
+   {
+       return BasicType::kWideString;
+   }
+   constexpr BasicType GetBasicType(wchar_t*)
+   {
+       return BasicType::kWideString;
+   }
+   constexpr BasicType GetBasicType(char)
+   {
+       return BasicType::kString;
+   }
+   constexpr BasicType GetBasicType(int8_t)
+   {
+       return BasicType::kInt8;
+   }
+   constexpr BasicType GetBasicType(int16_t)
+   {
+       return BasicType::kInt16;
+   }
+   constexpr BasicType GetBasicType(int32_t)
+   {
+       return BasicType::kInt32;
+   }
+   #if !defined(__linux__)
+   constexpr BasicType GetBasicType(long)
+   {
+   #if _WIN32
+       // https://docs.microsoft.com/en-us/windows/win32/winprog/windows-data-types
+       return BasicType::kInt32;
+   #endif
+   }
+   #endif
+   constexpr BasicType GetBasicType(int64_t)
+   {
+       return BasicType::kInt64;
+   }
+   constexpr BasicType GetBasicType(uint8_t)
+   {
+       return BasicType::kUInt8;
+   }
+   constexpr BasicType GetBasicType(uint16_t)
+   {
+       return BasicType::kUInt16;
+   }
+   constexpr BasicType GetBasicType(uint32_t)
+   {
+       return BasicType::kUInt32;
+   }
+   #if !defined(__linux__)
+   constexpr BasicType GetBasicType(unsigned long)
+   {
+   #if _WIN32
+       // https://docs.microsoft.com/en-us/windows/win32/winprog/windows-data-types
+       return BasicType::kUInt32;
+   #endif
+   }
+   #endif
+   constexpr BasicType GetBasicType(uint64_t)
+   {
+       return BasicType::kUInt64;
+   }
+   constexpr BasicType GetBasicType(void*)
+   {
+       return BasicType::kPointer;
+   }
+   constexpr BasicType GetBasicType(void const*)
+   {
+       return BasicType::kPointer;
+   }
+   
+   template<typename T, typename std::enable_if<std::is_enum<T>::value, int>::type = 0>
+   constexpr BasicType GetBasicType(T)
+   {
+       typedef typename std::underlying_type<T>::type TmpType;
+       TmpType tmp{0};
+       return GetBasicType(tmp);
+   }
+   
+   template<typename T, typename std::enable_if<!std::is_enum<T>::value, int>::type = 0, typename std::enable_if<!std::is_class<T>::value, int>::type = 0>
+   constexpr BasicType GetBasicType(T)
+   {
+       return BasicType::kUserDefined;
+   }
+   
+   template<typename T, typename std::enable_if<std::is_class<T>::value, int>::type = 0>
+   constexpr BasicType GetBasicType(T)
+   {
+       return BasicType::kEmbedded;
+   }
+   
+   template<typename T>
+   constexpr BasicType GetBasicType(T*)
+   {
+       return BasicType::kPointer;
+   }
+   
+   template<typename T>
+   constexpr BasicType GetBasicType(T const*)
+   {
+       return BasicType::kPointer;
+   }
+   
+   template<typename T, size_t N>
+   constexpr BasicType GetBasicType(T[N])
+   {
+       return BasicType::kEmbedded;
+   }
+   
+   size_t GetSize(BasicType type);
+   
+   }  // namespace serialization
+   }  // namespace gpa

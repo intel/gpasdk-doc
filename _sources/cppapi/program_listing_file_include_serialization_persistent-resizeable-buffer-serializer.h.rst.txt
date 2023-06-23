@@ -1,0 +1,65 @@
+
+.. _program_listing_file_include_serialization_persistent-resizeable-buffer-serializer.h:
+
+Program Listing for File persistent-resizeable-buffer-serializer.h
+==================================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_serialization_persistent-resizeable-buffer-serializer.h>` (``include\serialization\persistent-resizeable-buffer-serializer.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "serialization/buffer-serializer.h"
+   #include "serialization/memorybacked-serializer.h"
+   
+   #include <cstdint>
+   #include <functional>
+   #include <vector>
+   
+   namespace gpa {
+   namespace serialization {
+   
+   class PersistentResizableBufferSerializer : public BufferSerializer
+   {
+   private:
+       size_t mCurrentCapacity;
+       size_t mMaxCapacity;
+       size_t mResizeStep;
+   
+   public:
+       enum {
+           kDefaultInitialCapacity = 1024 * 1024,     // 1 MiB
+           kDefaultResizeStep = 1024 * 1024,          // 1 MiB
+           kDefaultMaxCapacity = 1024 * 1024 * 1024,  // 1 GiB
+       };
+   
+       PersistentResizableBufferSerializer(size_t const initialCapacity = kDefaultInitialCapacity, size_t const maxCapacity = kDefaultMaxCapacity, size_t const resizeStep = kDefaultResizeStep);
+       ~PersistentResizableBufferSerializer();
+   
+   private:
+       void* Preallocate(size_t const initialCapacity, size_t const maxCapacity) const;
+       bool Reallocate(uint8_t*& userBuffer, size_t& capacity, size_t const minSize);
+   };
+   
+   }  // namespace serialization
+   }  // namespace gpa

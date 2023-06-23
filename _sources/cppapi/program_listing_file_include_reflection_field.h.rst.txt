@@ -1,0 +1,138 @@
+
+.. _program_listing_file_include_reflection_field.h:
+
+Program Listing for File field.h
+================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_reflection_field.h>` (``include\reflection\field.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "reflection/basic-type.h"
+   #include <functional>
+   #include <cstddef>
+   
+   namespace gpa {
+   namespace serialization {
+   
+   class Struct;
+   class Enum;
+   class Union;
+   
+   class Field
+   {
+   public:
+       Field();
+   
+       Field(char const* name, char const* typeString, BasicType basicType, size_t offset, size_t size,
+             Struct const* structRef, Enum const* enumRef, Union const* unionRef, Field const* lenField, BasicType referencedType, size_t elementCount, std::function<size_t(uint64_t)> lengthFunction = nullptr);
+   
+       Field(char const* name, char const* typeString, BasicType basicType, size_t offset, size_t size,
+             Struct const* structRef, Enum const* enumRef, Union const* unionRef, Field const* lenField, BasicType referencedType);
+   
+       Field(char const* name, char const* typeString, BasicType basicType, size_t offset, size_t size,
+             Struct const* structRef, Enum const* enumRef, Union const* unionRef, Field const* lenField, BasicType referencedType, std::function<size_t(uint64_t)> lengthFunction);
+   
+       Field(char const* name, char const* typeString, BasicType basicType, size_t offset, size_t size,
+             Struct const* structRef, Enum const* enumRef, Union const* unionRef, Field const* lenField);
+       ~Field();
+   
+       char const* Name() const;
+   
+       char const* TypeString() const;
+   
+       BasicType Type() const;
+   
+       BasicType ReferencedType() const;
+   
+       size_t Offset() const;
+   
+       size_t Size() const;
+   
+       size_t ElementCount() const;
+   
+       Struct const* StructRef() const;
+   
+       Enum const* EnumRef() const;
+   
+       Union const* UnionRef() const;
+   
+       Field const* LengthField() const;
+   
+       std::function<size_t(uint64_t)> LengthFunction() const;
+   
+   private:
+       char const* mName;
+       char const* mTypeString;
+       BasicType mType;
+       BasicType mReferencedType;
+       size_t mOffset;
+       size_t mSize;
+       Struct const* mStructRef;
+       Enum const* mEnumRef;
+       Union const* mUnionRef;
+       Field const* mLengthField;
+       size_t mElementCount;
+       std::function<size_t(uint64_t)> mLengthFunction;
+   };
+   
+   // convenience function for retrieving field value from live struct instance
+   template<typename T>
+   T GetFieldValue(Field const* fieldDef, void* structInstance)
+   {
+       unsigned char* base = (unsigned char*)structInstance;
+       unsigned char* fieldData = base + fieldDef->Offset();
+   
+       switch (fieldDef->Type()) {
+       case BasicType::kFloat:
+           return (T) * ((double*)fieldData);
+       case BasicType::kDouble:
+           return (T) * ((double*)fieldData);
+       case BasicType::kString:
+           return (T) * ((char const**)fieldData);
+       case BasicType::kWideString:
+           return (T) * ((wchar_t const**)fieldData);
+       case BasicType::kInt32:
+           return (T) * ((long*)fieldData);
+       case BasicType::kInt64:
+           return (T) * ((long long*)fieldData);
+       case BasicType::kUInt32:
+           return (T) * ((unsigned long*)fieldData);
+       case BasicType::kUInt64:
+           return (T) * ((unsigned long long*)fieldData);
+       case BasicType::kPointer:
+       case BasicType::kHandle:
+       case BasicType::kUserDefined:
+           return (T) * ((void**)fieldData);
+       case BasicType::kEmbedded:
+           return (T) * (fieldData);
+       default:
+           return (T)0;
+       }
+   
+       return (T)(0);
+   }
+   
+   }  // namespace serialization
+   }  // namespace gpa

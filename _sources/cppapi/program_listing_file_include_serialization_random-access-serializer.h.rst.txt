@@ -4,7 +4,7 @@
 Program Listing for File random-access-serializer.h
 ===================================================
 
-|exhale_lsh| :ref:`Return to documentation for file <file_include_serialization_random-access-serializer.h>` (``include/serialization/random-access-serializer.h``)
+|exhale_lsh| :ref:`Return to documentation for file <file_include_serialization_random-access-serializer.h>` (``include\serialization\random-access-serializer.h``)
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
@@ -66,8 +66,11 @@ Program Listing for File random-access-serializer.h
        void OnClose() override;
    
    private:
-       stream::RandomAccessStorage* mStorage;
-       stream::View* mView;
+       stream::RandomAccessStorage* mStorage{};
+       stream::View* mView{};
+   
+       RandomAccessSerializer(RandomAccessSerializer const&) = delete;
+       RandomAccessSerializer& operator=(RandomAccessSerializer const&) = delete;
    };
    
    }  // namespace serialization

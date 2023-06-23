@@ -4,7 +4,7 @@
 Program Listing for File multiqueue-filter.h
 ============================================
 
-|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_multiqueue-filter.h>` (``include/playback/multiqueue-filter.h``)
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_multiqueue-filter.h>` (``include\playback\multiqueue-filter.h``)
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
@@ -55,6 +55,9 @@ Program Listing for File multiqueue-filter.h
        /* move ctor */
        QueueRange(QueueRange&& other);
    
+       /* move assignment operator */
+       QueueRange& operator=(QueueRange&& other);
+   
        /*
         * @brief Returns the number of queue event calls within the range.
         */
@@ -98,6 +101,9 @@ Program Listing for File multiqueue-filter.h
    private:
        class Impl;
        Impl* mImpl = nullptr;
+   
+       QueueRange(QueueRange const&) = delete;
+       QueueRange& operator=(QueueRange const&) = delete;
    };
    
    class QueueLog
@@ -114,6 +120,9 @@ Program Listing for File multiqueue-filter.h
    
        /* move ctor */
        QueueLog(QueueLog&& other);
+   
+       /* move assignment operator */
+       QueueLog& operator=(QueueLog&& other);
    
        /*
         * @param callable The callable that is being added to the log.
@@ -160,6 +169,9 @@ Program Listing for File multiqueue-filter.h
    private:
        class Impl;
        Impl* mImpl = nullptr;
+   
+       QueueLog(QueueLog const&) = delete;
+       QueueLog& operator=(QueueLog const&) = delete;
    };
    
    class MultiQueueFilter
@@ -174,6 +186,9 @@ Program Listing for File multiqueue-filter.h
    
        /* move ctor */
        MultiQueueFilter(MultiQueueFilter&& other);
+   
+       /* move assignment operator */
+       MultiQueueFilter& operator=(MultiQueueFilter&& other);
    
        /*
         * @brief Filters the calls in the given StreamData by their execution context.
@@ -215,6 +230,9 @@ Program Listing for File multiqueue-filter.h
    private:
        class Impl;
        Impl* mImpl = nullptr;
+   
+       MultiQueueFilter(MultiQueueFilter const&) = delete;
+       MultiQueueFilter& operator=(MultiQueueFilter const&) = delete;
    };
    
    }  // namespace playback

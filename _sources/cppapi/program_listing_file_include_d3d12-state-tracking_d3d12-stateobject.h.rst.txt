@@ -1,0 +1,82 @@
+
+.. _program_listing_file_include_d3d12-state-tracking_d3d12-stateobject.h:
+
+Program Listing for File d3d12-stateobject.h
+============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_d3d12-state-tracking_d3d12-stateobject.h>` (``include\d3d12-state-tracking\d3d12-stateobject.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   #include "d3d12-object.h"
+   #include "stateobject-parser.h"
+   #include <guiddef.h>
+   #include <d3d12.h>
+   #include <map>
+   #include <string>
+   #include <memory>
+   
+   namespace gpa {
+   namespace serialization {
+   class StructDataManager;
+   }  // namespace serialization
+   namespace utility {
+   namespace directx {
+   struct D3D12ShaderIdentifier;
+   }  // namespace directx
+   }  // namespace utility
+   
+   namespace d3d12_state_tracker {
+   
+   class D3D12StateObjectState : public D3D12ObjectState
+   {
+   private:
+       std::unique_ptr<StateObjectParser::ParsedData> mParsedData;
+       std::unique_ptr<serialization::StructDataManager> mStateObjectDescDataManager;
+       std::map<utility::directx::D3D12ShaderIdentifier, std::wstring> mShaderIdentifierToExportName;
+       bool mAddedToExistingStateObject = false;
+       WeakPtr<ID3D12StateObject> mStateObjectGrownFrom;
+   
+   public:
+       static constexpr GUID sGUID = {0x4ab36ec4, 0x75b6, 0x4998, {0xb0, 0xc5, 0xee, 0xb2, 0x38, 0x9, 0x92, 0xe6}};
+   
+   private:
+       void DeepCopyStateObjectDesc(const D3D12_STATE_OBJECT_DESC* pDesc, bool patchPointers);
+   
+   public:
+       D3D12StateObjectState(ID3D12StateObject* runtimeObj, const D3D12_STATE_OBJECT_DESC* pDesc);
+       D3D12StateObjectState(ID3D12StateObject* runtimeObj, const D3D12_STATE_OBJECT_DESC* pDesc, ID3D12StateObject* stateObjectToGrowFrom);
+       ~D3D12StateObjectState() override = default;
+   
+       GUID GetGUID() override;
+   
+       void AddExportName(std::wstring exportName);
+       std::wstring GetExportName(const utility::directx::D3D12ShaderIdentifier& shaderIdentifier) const;
+       const std::map<utility::directx::D3D12ShaderIdentifier, std::wstring>& GetShaderIdentifierToExportNameMapping() const;
+       const D3D12_STATE_OBJECT_DESC* GetDesc() const;
+       StateObjectParser::ParsedData const& GetParsedData();
+       bool WasAddedToExistingStateObject(ID3D12StateObject** ppStateObjectToGrowFrom);
+   };
+   
+   }  // namespace d3d12_state_tracker
+   }  // namespace gpa

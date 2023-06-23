@@ -4,7 +4,7 @@
 Program Listing for File metrics-source.h
 =========================================
 
-|exhale_lsh| :ref:`Return to documentation for file <file_include_metrics_metrics-source.h>` (``include/metrics/metrics-source.h``)
+|exhale_lsh| :ref:`Return to documentation for file <file_include_metrics_metrics-source.h>` (``include\metrics\metrics-source.h``)
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
@@ -77,6 +77,32 @@ Program Listing for File metrics-source.h
        virtual int32_t GroupContainingMetric(uint32_t const metricIndex) const = 0;
    
        virtual IMetricGroup const* MetricGroup(uint32_t metricGroupIndex) const = 0;
+   
+       virtual uint32_t NumMetricPrototypes() const = 0;
+   
+       virtual Result MetricPrototypeDescription(
+           uint32_t const metricPrototypeIndex,
+           MetricDesc* const pMetricPrototypeDescription) const = 0;
+   
+       virtual Result InstantiateMetricPrototype(
+           uint32_t const metricPrototypeIndex,
+           char const* pNameOverride,
+           char const* pSymbolicNameOverride,
+           char const* pDescriptionOverride,
+           char const* pUnitsOverride,
+           uint32_t optionCount,
+           MetricInstanceOption const* pOptionArray,
+           uint32_t* pInstantiatedMetricIndex) = 0;
+   
+       virtual Result RemoveInstantiatedMetric(uint32_t const instantiatedMetricIndex) = 0;
+   
+       virtual Result PrepareInstantiatedMetricsForUsage(
+           char const* pGroupNamePrefixOverride,
+           char const* pGroupSymbolicNamePrefixOverride) = 0;
+   
+       virtual uint32_t NumInstantiatedMetrics() const = 0;
+   
+       virtual MetricDesc const& InstantiatedMetricDescription(uint32_t const instantiatedMetricIndex) const = 0;
    };
    
    GPA_METRICS_EXPORT

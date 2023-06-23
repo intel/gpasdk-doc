@@ -4,7 +4,7 @@
 Program Listing for File data-manager.h
 =======================================
 
-|exhale_lsh| :ref:`Return to documentation for file <file_include_data-manager_data-manager.h>` (``include/data-manager/data-manager.h``)
+|exhale_lsh| :ref:`Return to documentation for file <file_include_data-manager_data-manager.h>` (``include\data-manager\data-manager.h``)
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
@@ -69,13 +69,29 @@ Program Listing for File data-manager.h
        void PostVisit() override;
    
        // used for basic RTTI
-       virtual bool IsMappedObjectData();
+       virtual bool IsMappedObjectData() const;
+   
+       // "Zombie" objects are required to support the Intel Arc D3D12 driver's implementation of 
+       // 64-bit emulated atomics extension in Unreal 5.1+ workloads (this is required for Nanite 
+       // to work). The nature of the extension implementation in the driver is such that, for 
+       // deferred and subcapture, we need to restore some objects (devices and extension-specific
+       // resources) that were otherwise destroyed, prior to restore point state capture, during 
+       // execution of the workload. When the specified objects are destroyed during application
+       // runtime, we mark them as "zombies" to keep them around for later enumeration during 
+       // state capture creation. 
+       virtual bool IsZombie() const;
+       virtual void MakeZombie();
    
        void AddDependency(Ptr objectData);
    
    protected:
        // list of other ObjectData on which I may depend
        std::vector<Ptr> mDependencies;
+   
+       // if this is a "zombie" object -- it's been deleted elsewhere, but
+       // for some reason, the call cache should remain (for keyframe/deferred
+       // purposes, for example)
+       bool mZombie;
    };
    
    struct IObjectDataSource
@@ -93,7 +109,7 @@ Program Listing for File data-manager.h
        ~MappedObjectData();
    
        // ObjectData implementation
-       bool IsMappedObjectData() override;
+       bool IsMappedObjectData() const override;
    
        virtual void Apply(ResourceDataDescriptor const* desc);
    
@@ -138,7 +154,7 @@ Program Listing for File data-manager.h
    
        ObjectData::Ptr GetAssociatedDataRef(ObjectRef object, Key key);
    
-       void AssociateDataRefForObject(ObjectRef object, Key key, ObjectData::Ptr data);
+       void AssociateDataRefForObject(ObjectRef object, Key key, ObjectData::Ptr data, bool retain = false, ObjectRef* retainedObjectId = nullptr);
    
        typedef void (*ObjectEnumerationCallback)(ObjectRef object, Key key, ObjectData::Ptr data, void* userData);
        void EnumerateObjectsWithKey(ObjectEnumerationCallback callback, Key key, void* userData);

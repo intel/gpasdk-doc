@@ -4,7 +4,7 @@
 Program Listing for File metrics/types.h
 ========================================
 
-|exhale_lsh| :ref:`Return to documentation for file <file_include_metrics_types.h>` (``include/metrics/types.h``)
+|exhale_lsh| :ref:`Return to documentation for file <file_include_metrics_types.h>` (``include\metrics\types.h``)
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
@@ -46,15 +46,19 @@ Program Listing for File metrics/types.h
    
    const MetricValue kInvalidMetricValue = std::numeric_limits<MetricValue>::quiet_NaN();
    
-   int32_t const kInvalidGroup = INT32_MAX;
+   uint32_t const kInvalidMetricIndex = UINT32_MAX;  
+   uint32_t const kInvalidGroupIndex = UINT32_MAX;   
+   int32_t const kInvalidGroup = INT32_MAX;          
    
    enum class Result {
        kSuccess,
        kFailed,
+       kNotFound,
        kIncomplete,
        kInvalidOperation,
        kInvalidParameter,
        kNoMetricsAvailable,
+       kOutOfMemory,
        kUnsupported,
    };
    
@@ -77,6 +81,7 @@ Program Listing for File metrics/types.h
    };
    ENUM_AS_BITSET(Category)
    
+   
    enum class Type {
        Unknown = 0,
    
@@ -91,36 +96,138 @@ Program Listing for File metrics/types.h
        Number
    };
    
+   struct GPA_METRICS_CLASS_EXPORT MetricOption
+   {
+       enum class Type {
+           kDisaggregation,            
+           kLatency,                   
+           kNormalizationAverage,      
+           kNormalizationRate,         
+           kNormalizationUtilization,  
+   
+           kCount,                  
+           kInvalid = Type::kCount  
+       };
+   
+       enum StringLength : uint16_t {
+           kSymbolicNameLength = 64
+       };
+   
+       // Stucture that contains a metric option value.
+       struct Value
+       {
+           enum class Type {
+               kRangeUint32,
+               kRangeUint64,
+               kUint32,
+               kUint64,
+   
+               kCount,                  
+               kInvalid = Type::kCount  
+           };
+   
+           Type type;  
+           union
+           {
+               struct
+               {
+                   uint32_t min;
+                   uint32_t max;
+               } rangeUint32;
+               struct
+               {
+                   uint64_t min;
+                   uint64_t max;
+               } rangeUint64;
+               uint32_t uint32;
+               uint64_t uint64;
+           } data;  
+       };
+   
+       Type type;                                             
+       char symbolicName[StringLength::kSymbolicNameLength];  //<! Symbolic name of the metric option.
+       uint32_t valueCount;                                   
+       Value* pValueArray;                                    
+   
+       bool operator==(MetricOption const& rhs) const
+       {
+           if (type != rhs.type ||
+               strncmp(symbolicName, rhs.symbolicName, StringLength::kSymbolicNameLength) != 0 ||
+               valueCount != rhs.valueCount) {
+               return false;
+           }
+   
+           uint32_t valuesFound = 0;
+           for (uint32_t valueIndex = 0; valueIndex < valueCount; ++valueIndex) {
+               for (uint32_t rhsValueIndex = 0; rhsValueIndex < rhs.valueCount; ++rhsValueIndex) {
+                   if (pValueArray[valueIndex].type == rhs.pValueArray[rhsValueIndex].type &&
+                       pValueArray[valueIndex].data.rangeUint64.min == rhs.pValueArray[rhsValueIndex].data.rangeUint64.min &&
+                       pValueArray[valueIndex].data.rangeUint64.max == rhs.pValueArray[rhsValueIndex].data.rangeUint64.max) {
+                       ++valuesFound;
+                       break;
+                   }
+               }
+           }
+   
+           return valuesFound == valueCount;
+       }
+   };
+   
+   struct GPA_METRICS_CLASS_EXPORT MetricInstanceOption
+   {
+       MetricOption::Type type;
+       MetricOption::Value value;
+   };
+   
    struct GPA_METRICS_CLASS_EXPORT MetricDesc
    {
-       enum MetricLengths : uint16_t {
+       enum StringLength : uint16_t {
            kUriLength = 256,
            kNameLength = 128,
            kDescriptionLength = 256,
            kUnitsLength = 32,
-           kGroupLength = 64
+           kSymbolicNameLength = kNameLength,
+           kGroupLength = 64,
+   
+           // Aliases.
+           kSymbolicName = kSymbolicNameLength,  // Deprecated.
        };
    
        uint32_t index;    
        uint32_t groupId;  
        Type type;         
    
-       char uri[MetricLengths::kUriLength];    
-       char name[MetricLengths::kNameLength];  
-       char description[MetricLengths::kDescriptionLength];
-       char units[MetricLengths::kUnitsLength];  
+       char uri[StringLength::kUriLength];    
+       char name[StringLength::kNameLength];  
+       char description[StringLength::kDescriptionLength];
+       char units[StringLength::kUnitsLength];  
    
-       char symbolicName[MetricLengths::kNameLength];  //<! Metric name in the driver
-       char group[MetricLengths::kGroupLength];        
+       char symbolicName[StringLength::kSymbolicNameLength];  //<! Metric name in the driver
+       char group[StringLength::kGroupLength];                
    
        Category category;  
    
+       uint32_t optionCount;        
+       MetricOption* pOptionArray;  
+   
        bool operator==(MetricDesc const& rhs) const
        {
-           if (strncmp(this->uri, rhs.uri, MetricLengths::kUriLength) == 0)
-               return true;
-           else
+           if (strncmp(uri, rhs.uri, StringLength::kUriLength) != 0 ||
+               optionCount != rhs.optionCount) {
                return false;
+           }
+   
+           uint32_t optionsFound = 0;
+           for (uint32_t optionIndex = 0; optionIndex < optionCount; ++optionIndex) {
+               for (uint32_t rhsOptionIndex = 0; rhsOptionIndex < rhs.optionCount; ++rhsOptionIndex) {
+                   if (pOptionArray[optionIndex] == rhs.pOptionArray[rhsOptionIndex]) {
+                       ++optionsFound;
+                       break;
+                   }
+               }
+           }
+   
+           return optionsFound == optionCount;
        }
    
        bool IsNormalizedUnits() const
@@ -138,6 +245,9 @@ Program Listing for File metrics/types.h
    
        kGraphicsApiCount = kVulkan
    };
+   
+   GPA_METRICS_EXPORT
+   char const* TypeToString(Type type);
    
    GPA_METRICS_EXPORT
    char const* GraphicsApiToString(GraphicsApi graphicsApi);

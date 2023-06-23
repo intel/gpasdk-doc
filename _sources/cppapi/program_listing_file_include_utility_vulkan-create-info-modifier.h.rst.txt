@@ -1,0 +1,275 @@
+
+.. _program_listing_file_include_utility_vulkan-create-info-modifier.h:
+
+Program Listing for File vulkan-create-info-modifier.h
+======================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_utility_vulkan-create-info-modifier.h>` (``include\utility\vulkan-create-info-modifier.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   
+   (C) Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "igpa-config.h"
+   
+   #include <vulkan/vulkan.h>
+   
+   #include <set>
+   #include <string>
+   #include <vector>
+   
+   namespace gpa {
+   namespace utility {
+   namespace vulkan {
+   namespace detail {
+   
+   template<typename VkCreateInfoStructureType>
+   class LayerExtensionCollectionModifier
+   {
+   public:
+       inline LayerExtensionCollectionModifier() = default;
+   
+       inline virtual ~LayerExtensionCollectionModifier() = 0;
+   
+       inline const std::set<std::string>& GetAvailableLayers() const
+       {
+           return mAvailableLayers;
+       }
+   
+       inline const std::set<std::string>& GetAvailableExtensions() const
+       {
+           return mAvailableExtensions;
+       }
+   
+       inline const std::vector<const char*>& GetEnabledLayers() const
+       {
+           return mEnabledLayers;
+       }
+   
+       inline const std::vector<const char*>& GetEnabledExtensions() const
+       {
+           return mEnabledExtensions;
+       }
+   
+       inline void SetCreateInfo(VkCreateInfoStructureType* pCreateInfo, bool autoRevert = true)
+       {
+           AutoRevert();
+           mCreateInfo = pCreateInfo;
+           mAutoRevert = autoRevert;
+           mStashedCreateInfo = {};
+           if (mCreateInfo) {
+               mStashedCreateInfo = *mCreateInfo;
+               PopulateEntries(mCreateInfo->enabledLayerCount, mCreateInfo->ppEnabledLayerNames, mEnabledLayers);
+               PopulateEntries(mCreateInfo->enabledExtensionCount, mCreateInfo->ppEnabledExtensionNames, mEnabledExtensions);
+               ApplyCustomEntries();
+           }
+       }
+   
+       inline bool ApplyCustomLayer(const char* layerName)
+       {
+           return ApplyCustomEntry(layerName, mAvailableLayers, mEnabledLayers);
+       }
+   
+       inline bool ApplyCustomExtension(const char* extensionName)
+       {
+           return ApplyCustomEntry(extensionName, mAvailableExtensions, mEnabledExtensions);
+       }
+   
+       inline void Validate()
+       {
+           ValidateEntries(mAvailableLayers, mEnabledLayers);
+           ValidateEntries(mAvailableExtensions, mEnabledExtensions);
+           ApplyCustomEntries();
+       }
+   
+       inline void Revert()
+       {
+           if (mCreateInfo) {
+               *mCreateInfo = mStashedCreateInfo;
+           }
+       }
+   
+       inline void Clear()
+       {
+           AutoRevert();
+           mAvailableLayers = {};
+           mEnabledLayers = {};
+           mAvailableExtensions = {};
+           mEnabledExtensions = {};
+           mStashedCreateInfo = {};
+           mCreateInfo = nullptr;
+           mAutoRevert = false;
+       }
+   
+   protected:
+       inline void PopulateEntries(uint32_t enabledEntryCount, const char* const* ppEnabledEntryNames, std::vector<const char*>& enabledEntries)
+       {
+           if (enabledEntryCount && ppEnabledEntryNames) {
+               enabledEntries.assign(ppEnabledEntryNames, ppEnabledEntryNames + enabledEntryCount);
+           }
+       }
+   
+       inline bool ApplyCustomEntry(const char* entryName, const std::set<std::string>& availableEntries, std::vector<const char*>& enabledEntries)
+       {
+           if (entryName && mCreateInfo) {
+               if (availableEntries.find(entryName) != availableEntries.end()) {
+                   enabledEntries.push_back(entryName);
+                   ApplyCustomEntries();
+                   return true;
+               }
+           }
+           return false;
+       }
+   
+       inline void ApplyCustomEntries()
+       {
+           if (mCreateInfo) {
+               mCreateInfo->enabledLayerCount = (uint32_t)mEnabledLayers.size();
+               mCreateInfo->ppEnabledLayerNames = mEnabledLayers.empty() ? nullptr : mEnabledLayers.data();
+               mCreateInfo->enabledExtensionCount = (uint32_t)mEnabledExtensions.size();
+               mCreateInfo->ppEnabledExtensionNames = mEnabledExtensions.empty() ? nullptr : mEnabledExtensions.data();
+           }
+       }
+   
+       inline void ValidateEntries(const std::set<std::string>& availableEntries, std::vector<const char*>& enabledEntries)
+       {
+           for (auto itr = enabledEntries.begin(); itr != enabledEntries.end();) {
+               if (availableEntries.find(*itr) == availableEntries.end()) {
+                   itr = enabledEntries.erase(itr);
+               } else {
+                   ++itr;
+               }
+           }
+       }
+   
+       inline void AutoRevert()
+       {
+           if (mAutoRevert) {
+               Revert();
+           }
+       }
+   
+       std::set<std::string> mAvailableLayers;
+       std::vector<const char*> mEnabledLayers;
+       std::set<std::string> mAvailableExtensions;
+       std::vector<const char*> mEnabledExtensions;
+       VkCreateInfoStructureType mStashedCreateInfo{};
+       VkCreateInfoStructureType* mCreateInfo{nullptr};
+       bool mAutoRevert{false};
+   
+       LayerExtensionCollectionModifier(const LayerExtensionCollectionModifier&) = delete;
+       LayerExtensionCollectionModifier& operator=(const LayerExtensionCollectionModifier&) = delete;
+       LayerExtensionCollectionModifier(LayerExtensionCollectionModifier&&) = delete;
+       LayerExtensionCollectionModifier& operator=(LayerExtensionCollectionModifier&&) = delete;
+   };
+   
+   template<typename VkCreateInfoStructureType>
+   inline LayerExtensionCollectionModifier<VkCreateInfoStructureType>::~LayerExtensionCollectionModifier()
+   {
+       AutoRevert();
+   }
+   
+   }  // namespace detail
+   
+   class InstanceCreateInfoModifier final
+       : public detail::LayerExtensionCollectionModifier<VkInstanceCreateInfo>
+   {
+   public:
+       inline void EnumerateLayersAndExtensions(PFN_vkEnumerateInstanceLayerProperties enumerateInstanceLayerProperties, PFN_vkEnumerateInstanceExtensionProperties enumerateInstanceExtensionProperties)
+       {
+           mAvailableLayers.clear();
+           if (enumerateInstanceLayerProperties) {
+               uint32_t propertyCount = 0;
+               enumerateInstanceLayerProperties(&propertyCount, nullptr);
+               std::vector<VkLayerProperties> layerProperties(propertyCount);
+               enumerateInstanceLayerProperties(&propertyCount, layerProperties.data());
+               for (const auto& layerProperty : layerProperties) {
+                   mAvailableLayers.insert(layerProperty.layerName);
+               }
+           }
+           mAvailableExtensions.clear();
+           if (enumerateInstanceExtensionProperties) {
+               auto populateAvailableExtensions =
+                   [&](const char* pLayerName) {
+                       uint32_t propertyCount = 0;
+                       enumerateInstanceExtensionProperties(pLayerName, &propertyCount, nullptr);
+                       std::vector<VkExtensionProperties> extensionProperties(propertyCount);
+                       enumerateInstanceExtensionProperties(pLayerName, &propertyCount, extensionProperties.data());
+                       for (const auto& extensionProperty : extensionProperties) {
+                           mAvailableExtensions.insert(extensionProperty.extensionName);
+                       }
+                   };
+               populateAvailableExtensions(nullptr);
+               for (const auto& availableLayer : mAvailableLayers) {
+                   populateAvailableExtensions(availableLayer.c_str());
+               }
+           }
+       }
+   
+       inline static void RemoveVkStateTrackerCreateInfo(VkInstanceCreateInfo* pInstanceCreateInfo)
+       {
+           // TODO : Replace with generic remove_pnext(VkStructureType)
+           auto pApplicationInfo = pInstanceCreateInfo ? pInstanceCreateInfo->pApplicationInfo : nullptr;
+           auto pPrevious = (VkBaseInStructure*)pApplicationInfo;
+           auto pNext = (VkBaseInStructure*)(pApplicationInfo ? pApplicationInfo->pNext : nullptr);
+           while (pNext) {
+               if (pNext->sType == VK_STRUCTURE_TYPE_APPLICATION_INFO) {
+                   pPrevious->pNext = nullptr;
+                   break;
+               }
+               pPrevious = pNext;
+               pNext = (VkBaseInStructure*)pNext->pNext;
+           }
+       }
+   };
+   
+   class DeviceCreateInfoModifier final
+       : public detail::LayerExtensionCollectionModifier<VkDeviceCreateInfo>
+   {
+   public:
+       inline void EnumerateExtensions(uint32_t enabledLayerCount, const char* const* ppEnabledLayerNames, VkPhysicalDevice vkPhysicalDevice, PFN_vkEnumerateDeviceExtensionProperties enumerateDeviceExtensionProperties)
+       {
+           mAvailableExtensions.clear();
+           if (enumerateDeviceExtensionProperties) {
+               auto populateAvailableExtensions =
+                   [&](const char* pLayerName) {
+                       uint32_t propertyCount = 0;
+                       enumerateDeviceExtensionProperties(vkPhysicalDevice, pLayerName, &propertyCount, nullptr);
+                       std::vector<VkExtensionProperties> extensionProperties(propertyCount);
+                       enumerateDeviceExtensionProperties(vkPhysicalDevice, pLayerName, &propertyCount, extensionProperties.data());
+                       for (const auto& extensionProperty : extensionProperties) {
+                           mAvailableExtensions.insert(extensionProperty.extensionName);
+                       }
+                   };
+               populateAvailableExtensions(nullptr);
+               if (enabledLayerCount && ppEnabledLayerNames) {
+                   for (uint32_t i = 0; i < enabledLayerCount; ++i) {
+                       populateAvailableExtensions(ppEnabledLayerNames[i]);
+                   }
+               }
+           }
+       }
+   };
+   
+   }  // namespace vulkan
+   }  // namespace utility
+   }  // namespace gpa

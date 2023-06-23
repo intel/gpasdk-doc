@@ -1,0 +1,102 @@
+
+.. _program_listing_file_include_d3d12-resource-extraction_d3d12-extraction-utilities.h:
+
+Program Listing for File d3d12-extraction-utilities.h
+=====================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_d3d12-resource-extraction_d3d12-extraction-utilities.h>` (``include\d3d12-resource-extraction\d3d12-extraction-utilities.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   
+           Copyright 2021 - 2021 Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   #pragma once
+   
+   #include <cstdint>
+   #include <vector>
+   
+   #include <d3d12.h>
+   #include <gpgmm_d3d12.h>
+   #include <atlbase.h>
+   
+   namespace gpa {
+   namespace resource_utilities {
+   namespace d3d12 {
+   
+   bool DxCall(HRESULT result);
+   
+   class ResourceTransition
+   {
+   public:
+       ResourceTransition(
+           ID3D12GraphicsCommandList* commandList,
+           ID3D12Resource* resource,
+           D3D12_RESOURCE_STATES originalState,
+           D3D12_RESOURCE_STATES lifetimeState);
+   
+       ~ResourceTransition();
+   
+   private:
+       ID3D12GraphicsCommandList* mCommandList = nullptr;
+       D3D12_RESOURCE_BARRIER mEndBarrier{};
+   };
+   
+   CComPtr<ID3D12Device> GetDevice(ID3D12Resource* resource);
+   CComPtr<gpgmm::d3d12::IResourceAllocation> GetReadbackBuffer(gpgmm::d3d12::IResourceAllocator* allocator, ID3D12Resource* resource);
+   uint64_t GetBufferSize(ID3D12Resource* resource);
+   
+   struct SubresourceInformation
+   {
+       struct Properties
+       {
+           DXGI_FORMAT format = DXGI_FORMAT_UNKNOWN;
+           uint32_t rowPitch = 0;
+           uint64_t depthPitch = 0;
+           size_t size = 0;
+           size_t alignedSize = 0;
+   
+           size_t GetPixelSize() const;
+       } srcInfo, dstInfo;
+   
+       uint32_t width = 0;
+       uint32_t height = 0;
+       uint32_t depth = 0;
+   
+       SubresourceInformation(
+           const D3D12_RESOURCE_DESC& desc,
+           UINT subresource,
+           const D3D12_PLACED_SUBRESOURCE_FOOTPRINT& placement,
+           uint32_t numRows);
+   
+       size_t GetSize() const;
+       bool NeedToConvert() const;
+       bool FromatCondition(DXGI_FORMAT srcFormat, DXGI_FORMAT dstFormat) const;
+       bool FromatCondition(DXGI_FORMAT srcFormat1, DXGI_FORMAT srcFormat2, DXGI_FORMAT dstFormat) const;
+   };
+   
+   void ConvertSubresourceData(
+       const uint8_t* const inGpuData,
+       const uint64_t inDataSize,
+       uint8_t* const outCpuData,
+       const uint64_t outDataSize,
+       const SubresourceInformation& subresourceInfo);
+   
+   }  // namespace d3d12
+   }  // namespace resource_utilities
+   }  // namespace gpa

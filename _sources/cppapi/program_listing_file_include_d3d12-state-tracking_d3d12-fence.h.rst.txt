@@ -1,0 +1,64 @@
+
+.. _program_listing_file_include_d3d12-state-tracking_d3d12-fence.h:
+
+Program Listing for File d3d12-fence.h
+======================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_d3d12-state-tracking_d3d12-fence.h>` (``include\d3d12-state-tracking\d3d12-fence.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   #include "d3d12-object.h"
+   #include <guiddef.h>
+   #include <d3d12.h>
+   
+   namespace gpa {
+   namespace d3d12_state_tracker {
+   
+   class D3D12FenceState : public D3D12ObjectState
+   {
+   private:
+       uint64_t mLastSignaledFence;
+       D3D12_FENCE_FLAGS mFlags;
+       HANDLE mLastEvent;
+       uint64_t mLastEventCompletionValue;
+   
+   public:
+       static constexpr GUID sGUID = {0x1ffacc1d, 0x808e, 0x4907, {0xaa, 0x8b, 0x10, 0x85, 0x5f, 0x8c, 0x80, 0xa2}};
+   
+   public:
+       D3D12FenceState(ID3D12Fence* runtimeObj, uint64_t initialFenceValue, D3D12_FENCE_FLAGS flags);
+       virtual ~D3D12FenceState();
+   
+       GUID GetGUID() override;
+   
+       void OnSignal(uint64_t value);
+       void OnSetEventOnCompletion(UINT64 value, HANDLE hEvent);
+       uint64_t GetLastSignaledFenceValue() const;
+       D3D12_FENCE_FLAGS GetFlags() const;
+       HANDLE GetLastRegisteredEvent();
+       uint64_t GetLastRegisteredEventCompletionValue();
+   };
+   
+   }  // namespace d3d12_state_tracker
+   }  // namespace gpa
