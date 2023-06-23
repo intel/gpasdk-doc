@@ -1,0 +1,224 @@
+
+.. _program_listing_file_include_reflection_argument.h:
+
+Program Listing for File argument.h
+===================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_reflection_argument.h>` (``include\reflection\argument.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "reflection/basic-type.h"
+   
+   #include <cstddef>
+   
+   namespace gpa {
+   namespace serialization {
+   
+   class Struct;
+   class Enum;
+   class Union;
+   
+   class Argument
+   {
+   public:
+       Argument(char const* name, char const* typeString, size_t index, size_t constElemCount, char const* value, Struct const* structDef, Enum const* enumDef, Union const* unionDef, Argument const* elementCountArg);
+       Argument(char const* name, char const* typeString, size_t index, size_t constElemCount, char* value, Struct const* structDef, Enum const* enumDef, Union const* unionDef, Argument const* elementCountArg);
+       Argument(char const* name, char const* typeString, size_t index, size_t constElemCount, float value, Struct const* structDef, Enum const* enumDef, Union const* unionDef, Argument const* elementCountArg);
+       Argument(char const* name, char const* typeString, size_t index, size_t constElemCount, double value, Struct const* structDef, Enum const* enumDef, Union const* unionDef, Argument const* elementCountArg);
+   #ifdef _WIN32
+       Argument(char const* name, char const* typeString, size_t index, size_t constElemCount, unsigned long value, Struct const* structDef, Enum const* enumDef, Union const* unionDef, Argument const* elementCountArg);
+       Argument(char const* name, char const* typeString, size_t index, size_t constElemCount, long value, Struct const* structDef, Enum const* enumDef, Union const* unionDef, Argument const* elementCountArg);
+   #endif
+       Argument(char const* name, char const* typeString, size_t index, size_t constElemCount, uint8_t value, Struct const* structDef, Enum const* enumDef, Union const* unionDef, Argument const* elementCountArg);
+       Argument(char const* name, char const* typeString, size_t index, size_t constElemCount, uint16_t value, Struct const* structDef, Enum const* enumDef, Union const* unionDef, Argument const* elementCountArg);
+       Argument(char const* name, char const* typeString, size_t index, size_t constElemCount, uint32_t value, Struct const* structDef, Enum const* enumDef, Union const* unionDef, Argument const* elementCountArg);
+       Argument(char const* name, char const* typeString, size_t index, size_t constElemCount, uint64_t value, Struct const* structDef, Enum const* enumDef, Union const* unionDef, Argument const* elementCountArg);
+       Argument(char const* name, char const* typeString, size_t index, size_t constElemCount, int8_t value, Struct const* structDef, Enum const* enumDef, Union const* unionDef, Argument const* elementCountArg);
+       Argument(char const* name, char const* typeString, size_t index, size_t constElemCount, int16_t value, Struct const* structDef, Enum const* enumDef, Union const* unionDef, Argument const* elementCountArg);
+       Argument(char const* name, char const* typeString, size_t index, size_t constElemCount, int32_t value, Struct const* structDef, Enum const* enumDef, Union const* unionDef, Argument const* elementCountArg);
+       Argument(char const* name, char const* typeString, size_t index, size_t constElemCount, int64_t value, Struct const* structDef, Enum const* enumDef, Union const* unionDef, Argument const* elementCountArg);
+   
+       // anything that is a pointer (const or otherwise) should be recorded as such
+       template<typename T>
+       Argument(char const* name, char const* typeString, size_t index, size_t constElemCount, T* /*valueRef*/,
+                Struct const* structDef, Enum const* enumDef, Union const* unionDef, Argument const* elementCountArg, BasicType referencedType)
+           : mName(name)
+           , mTypeString(typeString)
+           , mIndex(index)
+           , mElementCount(constElemCount)
+           , mElementCountArg(elementCountArg)
+           , mStructDef(structDef)
+           , mEnumDef(enumDef)
+           , mUnionDef(unionDef)
+           , mType(BasicType::kPointer)
+           , mReferencedType(referencedType)
+       {
+       }
+   
+       template<typename T>
+       Argument(char const* name, char const* typeString, size_t index, size_t constElemCount, T const* /*valueRef*/,
+                Struct const* structDef, Enum const* enumDef, Union const* unionDef, Argument const* elementCountArg, BasicType referencedType)
+           : mName(name)
+           , mTypeString(typeString)
+           , mIndex(index)
+           , mElementCount(constElemCount)
+           , mElementCountArg(elementCountArg)
+           , mStructDef(structDef)
+           , mEnumDef(enumDef)
+           , mUnionDef(unionDef)
+           , mType(BasicType::kPointer)
+           , mReferencedType(referencedType)
+       {
+       }
+   
+       // Handles are generally UDT pointers or pointers to UDT (possibly arrays of pointers
+       // that are filled in by the API call)
+       template<typename T>
+       Argument(char const* name, char const* typeString, size_t index, size_t constElemCount, T* /*valueRef*/,
+                Argument const* elementCountArg)
+           : mName(name)
+           , mTypeString(typeString)
+           , mIndex(index)
+           , mElementCount(constElemCount)
+           , mElementCountArg(elementCountArg)
+           , mStructDef(nullptr)
+           , mEnumDef(nullptr)
+           , mUnionDef(nullptr)
+           , mType(BasicType::kHandle)
+       {
+       }
+   
+       template<typename T>
+       Argument(char const* name, char const* typeString, size_t index, size_t constElemCount, T const* /*valueRef*/,
+                Argument const* elementCountArg)
+           : mName(name)
+           , mTypeString(typeString)
+           , mIndex(index)
+           , mElementCount(constElemCount)
+           , mElementCountArg(elementCountArg)
+           , mStructDef(nullptr)
+           , mEnumDef(nullptr)
+           , mUnionDef(nullptr)
+           , mType(BasicType::kHandle)
+       {
+       }
+   
+       // Vulkan compiles handles on 32-bit systems as uint64_t
+       Argument(char const* name, char const* typeString, size_t index, size_t constElemCount, uint64_t /*valueRef*/,
+                Argument const* elementCountArg);
+   
+       // pointer-to-struct
+       template<typename T>
+       Argument(char const* name, char const* typeString, size_t index, size_t constElemCount, T* /*valueRef*/,
+                Struct const* structDef, Enum const* enumDef, Union const* unionDef, Argument const* elementCountArg)
+           : mName(name)
+           , mTypeString(typeString)
+           , mIndex(index)
+           , mElementCount(constElemCount)
+           , mElementCountArg(elementCountArg)
+           , mStructDef(structDef)
+           , mEnumDef(enumDef)
+           , mUnionDef(unionDef)
+           , mType(BasicType::kPointer)
+       {
+       }
+   
+       template<typename T>
+       Argument(char const* name, char const* typeString, size_t index, size_t constElemCount, T const* /*valueRef*/,
+                Struct const* structDef, Enum const* enumDef, Union const* unionDef, Argument const* elementCountArg)
+           : mName(name)
+           , mTypeString(typeString)
+           , mIndex(index)
+           , mElementCount(constElemCount)
+           , mElementCountArg(elementCountArg)
+           , mStructDef(structDef)
+           , mEnumDef(enumDef)
+           , mUnionDef(unionDef)
+           , mType(BasicType::kPointer)
+       {
+       }
+   
+       // catch-all for things not handled above -- these will all end up treated
+       // as "embedded" data
+       template<typename T>
+       Argument(char const* name, char const* typeString, size_t index, size_t constElemCount, T& /*valueRef*/,
+                Struct const* structDef, Enum const* enumDef, Union const* unionDef, Argument const* elementCountArg)
+           : mName(name)
+           , mTypeString(typeString)
+           , mIndex(index)
+           , mElementCount(constElemCount)
+           , mElementCountArg(elementCountArg)
+           , mStructDef(structDef)
+           , mEnumDef(enumDef)
+           , mUnionDef(unionDef)
+           , mType(BasicType::kEmbedded)
+       {
+       }
+   
+       ~Argument();
+   
+       char const* Name() const;
+   
+       char const* TypeString() const;
+   
+       size_t Index() const;
+   
+       BasicType Type() const;
+   
+       BasicType ReferencedType() const;
+   
+       Argument const* ElemCountArg() const;
+   
+       size_t ConstantArrayElementCount() const;
+   
+       bool IsVector() const;
+   
+       bool IsConstantSizedArray() const;
+   
+       bool IsStruct() const;
+   
+       Struct const* StructDef() const;
+   
+       Enum const* EnumDef() const;
+   
+       Union const* UnionDef() const;
+   
+       bool IsIntegralPrimitive() const;
+   
+   protected:
+       char const* mName{};
+       char const* mTypeString{};
+       size_t mIndex{};
+       size_t mElementCount{};
+       Argument const* mElementCountArg{};
+       Struct const* mStructDef{};
+       Enum const* mEnumDef{};
+       Union const* mUnionDef{};
+       BasicType mType{};
+       BasicType mReferencedType{};
+   };
+   
+   }  // namespace serialization
+   }  // namespace gpa

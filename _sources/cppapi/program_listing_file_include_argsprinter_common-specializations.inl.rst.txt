@@ -4,7 +4,7 @@
 Program Listing for File common-specializations.inl
 ===================================================
 
-|exhale_lsh| :ref:`Return to documentation for file <file_include_argsprinter_common-specializations.inl>` (``include/argsprinter/common-specializations.inl``)
+|exhale_lsh| :ref:`Return to documentation for file <file_include_argsprinter_common-specializations.inl>` (``include\argsprinter\common-specializations.inl``)
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
@@ -20,7 +20,7 @@ Program Listing for File common-specializations.inl
    template<> inline void Print(wchar_t const* src, std::string srcName, std::ostream& os, size_t indent);
    template<> inline void Print(long const & src, std::string srcName, std::ostream& os, size_t indent);
    
-   // Arrays 
+   // Arrays
    template<>
    inline void PrintArray(const wchar_t* array, size_t /*size*/, std::string srcName, std::ostream& os, size_t indent)
    {
@@ -50,35 +50,35 @@ Program Listing for File common-specializations.inl
    template<>
    inline void PrintInHex(unsigned char const& src, std::string srcName, std::ostream& os, size_t indent)
    {
-       std::string indentString(indent * 4, ' ');         
+       std::string indentString(indent * 4, ' ');
        os << indentString << srcName << ": 0x" << std::hex << src << std::dec << std::endl;
    }
    
    template<>
    inline void PrintInHex(unsigned int const& src, std::string srcName, std::ostream& os, size_t indent)
    {
-       std::string indentString(indent * 4, ' ');         
+       std::string indentString(indent * 4, ' ');
        os << indentString << srcName << ": 0x" << std::hex << src << std::dec << std::endl;
    }
    
    template<>
    inline void PrintInHex(unsigned short const& src, std::string srcName, std::ostream& os, size_t indent)
    {
-       std::string indentString(indent * 4, ' ');         
+       std::string indentString(indent * 4, ' ');
        os << indentString << srcName << ": 0x" << std::hex << src << std::dec << std::endl;
    }
    
    template<>
    inline void PrintInHex(unsigned long long const& src, std::string srcName, std::ostream& os, size_t indent)
    {
-       std::string indentString(indent * 4, ' ');         
+       std::string indentString(indent * 4, ' ');
        os << indentString << srcName << ": 0x" << std::hex << src << std::dec << std::endl;
    }
    
    template<>
    inline void PrintInHex(unsigned long const& src, std::string srcName, std::ostream& os, size_t indent)
    {
-       std::string indentString(indent * 4, ' ');         
+       std::string indentString(indent * 4, ' ');
        os << indentString << srcName << ": 0x" << std::hex << src << std::dec << std::endl;
    }
    
@@ -99,15 +99,21 @@ Program Listing for File common-specializations.inl
    template<>
    inline void PrintPointer(void* ptr, std::string srcName, std::ostream& os, size_t indent)
    {
+       std::ios_base::fmtflags initialFormat = os.flags();
        std::string indentString(indent * 4, ' ');
        os << indentString << srcName << " void * = 0x" <<std::hex<< std::uppercase<< (uint64_t)ptr << std::dec << std::endl;
+       // Reset stream to the same format it had when we entered the function
+       os.flags(initialFormat);
    }
    
    template<>
    inline void PrintPointer(const void* ptr, std::string srcName, std::ostream& os, size_t indent)
    {
+       std::ios_base::fmtflags initialFormat = os.flags();
        std::string indentString(indent * 4, ' ');
        os << indentString << srcName << " void * = 0x" <<std::hex  << std::uppercase <<  (uint64_t)ptr << std::dec << std::endl;
+       // Reset stream to the same format it had when we entered the function
+       os.flags(initialFormat);
    }
    
    template<>
@@ -125,46 +131,46 @@ Program Listing for File common-specializations.inl
    
    // PrintPointerPointer
    
-   // Print - Basic Types 
+   // Print - Basic Types
    template<>
    inline void Print(unsigned char const& src, std::string srcName, std::ostream& os, size_t indent)
    {
-       std::string indentString(indent * 4, ' ');    
+       std::string indentString(indent * 4, ' ');
        os << indentString << srcName << ": " << (int)src << std::endl;
    }
    
    template<>
    inline void Print(unsigned int const& src, std::string srcName, std::ostream& os, size_t indent)
    {
-       std::string indentString(indent * 4, ' ');    
+       std::string indentString(indent * 4, ' ');
        os << indentString << srcName << ": " << src << std::endl;
    }
    
    template<>
    inline void Print(unsigned short const& src, std::string srcName, std::ostream& os, size_t indent)
    {
-       std::string indentString(indent * 4, ' ');    
+       std::string indentString(indent * 4, ' ');
        os << indentString << srcName << ": " << src << std::endl;
    }
    
    template<>
    inline void Print(unsigned long long const& src, std::string srcName, std::ostream& os, size_t indent)
    {
-       std::string indentString(indent * 4, ' ');    
+       std::string indentString(indent * 4, ' ');
        os << indentString << srcName << ": " << src << std::endl;
    }
    
    template<>
    inline void Print(unsigned long const& src, std::string srcName, std::ostream& os, size_t indent)
    {
-       std::string indentString(indent * 4, ' ');    
+       std::string indentString(indent * 4, ' ');
        os << indentString << srcName << ": " << src << std::endl;
    }
    
    template<>
    inline void Print(float const& src, std::string srcName, std::ostream& os, size_t indent)
    {
-       std::string indentString(indent * 4, ' ');    
+       std::string indentString(indent * 4, ' ');
        os << indentString << srcName << ": " << src << std::endl;
    }
    
@@ -177,7 +183,7 @@ Program Listing for File common-specializations.inl
        std::stringstream str;
        str << narrowedStr;
    
-       std::string indentString(indent * 4, ' ');    
+       std::string indentString(indent * 4, ' ');
        os << indentString << srcName << ": " << src << std::endl;
    }
    
@@ -190,7 +196,7 @@ Program Listing for File common-specializations.inl
        PrintArray(src, 0 /*irrelevant*/, srcName, os, indent);
    }
    
-   template<> 
+   template<>
    inline void Print(long const& src, std::string srcName, std::ostream& os, size_t indent){
        std::string indentString(indent * 4, ' ');
        os << indentString << srcName << ": " << src << std::endl;

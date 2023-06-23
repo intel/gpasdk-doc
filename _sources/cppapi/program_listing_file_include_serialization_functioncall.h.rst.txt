@@ -4,7 +4,7 @@
 Program Listing for File functioncall.h
 =======================================
 
-|exhale_lsh| :ref:`Return to documentation for file <file_include_serialization_functioncall.h>` (``include/serialization/functioncall.h``)
+|exhale_lsh| :ref:`Return to documentation for file <file_include_serialization_functioncall.h>` (``include\serialization\functioncall.h``)
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
@@ -51,18 +51,18 @@ Program Listing for File functioncall.h
    
    struct FunctionCall : public IFunctionCall
    {
-       StreamPacketHeader mContext;
-       ArgsReader* mArgsReader;
-       ArgsWriter* mArgsWriter;
-       IUserData* mUserData = nullptr;
-       IUserData* mAllocatedUserData = nullptr;
-       size_t mDependencyCount = 0;
-       uint64_t* mDependencies = nullptr;
+       StreamPacketHeader mContext{};
+       ArgsReader* mArgsReader{};
+       ArgsWriter* mArgsWriter{};
+       IUserData* mUserData{};
+       IUserData* mAllocatedUserData{};
+       size_t mDependencyCount{};
+       uint64_t* mDependencies{};
    
        // Allow custom code to attach arbitrary data to the args (outside of the
        // IUserData structure above). This pointer is not managed, any code that
        // sets it to a heap-allocated object must also free that object.
-       void* opaque;
+       void* opaque{};
    
        FunctionCall(StreamPacketHeader const& context, ArgsReader* argsReader);
    
@@ -87,6 +87,10 @@ Program Listing for File functioncall.h
    
        virtual void InitDependencies();
        virtual void InitDependencyCount();
+   
+   private:
+       FunctionCall(FunctionCall const&) = delete;
+       FunctionCall& operator=(FunctionCall const&) = delete;
    };
    
    }  // namespace serialization

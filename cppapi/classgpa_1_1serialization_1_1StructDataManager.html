@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class StructDataManager &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Class Union" href="classgpa_1_1serialization_1_1Union.html" />
+    <link rel="prev" title="Class StructDataEditor" href="classgpa_1_1serialization_1_1StructDataEditor.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">'Helloworld' Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">'Helloworld' Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">API-Debug-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">Device-Override</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id38">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id5">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id8">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id9">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id10">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id11">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id12">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id13">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id14">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id15">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id16">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../src/reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">C++ Interfaces</a></li>
+      <li class="breadcrumb-item active">Class StructDataManager</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-structdatamanager">
+<span id="exhale-class-classgpa-1-1serialization-1-1structdatamanager"></span><h1>Class StructDataManager<a class="headerlink" href="#class-structdatamanager" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_reflection_struct-data-manager.h.html#file-include-reflection-struct-data-manager-h"><span class="std std-ref">File struct-data-manager.h</span></a></p></li>
+</ul>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization17StructDataManagerE">
+<span id="_CPPv3N3gpa13serialization17StructDataManagerE"></span><span id="_CPPv2N3gpa13serialization17StructDataManagerE"></span><span id="gpa::serialization::StructDataManager"></span><span class="target" id="classgpa_1_1serialization_1_1StructDataManager"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StructDataManager</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization17StructDataManagerE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>A class that manages writable storage for struct editing, including deep-copy. </p>
+<p>This class provides a convenient option for updating the members of a struct that is described by a <a class="reference internal" href="classgpa_1_1serialization_1_1Struct.html#classgpa_1_1serialization_1_1Struct"><span class="std std-ref">Struct</span></a> metadata instance.</p>
+<p>This class has two constructors; one takes only a pointer to the <a class="reference internal" href="classgpa_1_1serialization_1_1Struct.html#classgpa_1_1serialization_1_1Struct"><span class="std std-ref">Struct</span></a> metadata instance, while the other also takes a pointer to immutable source data (the &quot;copy&quot; constructor). In both cases, this class will create enough space to contain all of the struct's data; in the case of the &quot;copy&quot; constructor, it will create enough space to contain a full &quot;deep copy&quot; of the source data (taking into account all existing struct and array references as well as any element counts therein). Note that the non-copy constructor will not anticipate any &quot;nesting&quot; requirements, and therefore only enough space is created for the &quot;top-level&quot; struct.</p>
+<p>Regardless which constructor is called, the storage allocated for this struct data is owned by this class, and will be valid for the lifetime of this class. A pointer to this memory is available via the <a class="reference internal" href="#classgpa_1_1serialization_1_1StructDataManager_1a03c7218c6c0d1048470b1bed1365513a"><span class="std std-ref">MutableBase()</span></a> method, and if the caller has access to the original struct declaration, they can simply cast the pointer returned by this method as a pointer to the declared struct and edit the data &quot;the easy way&quot;. In other words, there is nothing special about the storage managed by this class; this class exists merely to manage that memory as well as perform any deep copy necessary. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization17StructDataManager17StructDataManagerEv">
+<span id="_CPPv3N3gpa13serialization17StructDataManager17StructDataManagerEv"></span><span id="_CPPv2N3gpa13serialization17StructDataManager17StructDataManagerEv"></span><span id="gpa::serialization::StructDataManager::StructDataManager"></span><span class="target" id="classgpa_1_1serialization_1_1StructDataManager_1a93639c3e9669eb341aeb85ef47a522f6"></span><span class="sig-name descname"><span class="n"><span class="pre">StructDataManager</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13serialization17StructDataManager17StructDataManagerEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Default constructor, initializes all members to nullptr. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>StructDataManager(void cosnt* base, Struct const* structDef) </p>
+</div>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization17StructDataManager17StructDataManagerEPK6Struct">
+<span id="_CPPv3N3gpa13serialization17StructDataManager17StructDataManagerEPK6Struct"></span><span id="_CPPv2N3gpa13serialization17StructDataManager17StructDataManagerEPK6Struct"></span><span id="gpa::serialization::StructDataManager::StructDataManager__StructCP"></span><span class="target" id="classgpa_1_1serialization_1_1StructDataManager_1a02f3ff6f5df68b7dbbb2321fc8f192d1"></span><span class="sig-name descname"><span class="n"><span class="pre">StructDataManager</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classgpa_1_1serialization_1_1Struct.html#_CPPv4N3gpa13serialization6StructE" title="gpa::serialization::Struct"><span class="n"><span class="pre">Struct</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">structDef</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13serialization17StructDataManager17StructDataManagerEPK6Struct" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Allocate storage for the struct described by <em>structDef</em>. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>StructDataManager(void cosnt* base, Struct const* structDef) </p>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>structDef</strong> -- Pointer to metadata describing the struct, whose data this class will manage. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization17StructDataManager17StructDataManagerEPKvPK6Struct">
+<span id="_CPPv3N3gpa13serialization17StructDataManager17StructDataManagerEPKvPK6Struct"></span><span id="_CPPv2N3gpa13serialization17StructDataManager17StructDataManagerEPKvPK6Struct"></span><span id="gpa::serialization::StructDataManager::StructDataManager__voidCP.StructCP"></span><span class="target" id="classgpa_1_1serialization_1_1StructDataManager_1ae563143456d6e80580fb2169bc60a955"></span><span class="sig-name descname"><span class="n"><span class="pre">StructDataManager</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">base</span></span>, <a class="reference internal" href="classgpa_1_1serialization_1_1Struct.html#_CPPv4N3gpa13serialization6StructE" title="gpa::serialization::Struct"><span class="n"><span class="pre">Struct</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">structDef</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13serialization17StructDataManager17StructDataManagerEPKvPK6Struct" title="Permalink to this definition"></a><br /></dt>
+<dd><p>&quot;Copy&quot; constructor that will allocate storage for this struct, and also for any &quot;nested&quot; data referenced by the struct data provided via <em>base</em>. </p>
+<p>Call this constructor if you have a pointer to constant, non-modifiable data that you would like to update. This constructor will create enough storage to hold a &quot;deep copy&quot; (that is, a copy of the top-level struct as well as all &quot;nested&quot; data refernced by it), and then perform the deep copy of the source data to the modifiable space. All pointers in the modifiable copy are updated to reference the mutable data and therefore updates to this memory will not affect the original copy. If <em>base</em> is <code class="docutils literal notranslate"><span class="pre">nullptr</span></code>, then calling this constructor is identical to calling the non-&quot;copy&quot; constructor. <div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>operator bool() </p>
+</div>
+</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <em>structDef</em> is null, then this object is &quot;invalid&quot; and no deep-copy is performed on the source data (assuming that <em>base</em> is not null), and no space is allocated or managed. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base</strong> -- Pointer to memory containing an immutable copy of the data to be managed by this struct. </p></li>
+<li><p><strong>structDef</strong> -- Pointer to metadata describing the struct, whose data this class will manage. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization17StructDataManager17StructDataManagerEPKv6size_tPK6Struct">
+<span id="_CPPv3N3gpa13serialization17StructDataManager17StructDataManagerEPKv6size_tPK6Struct"></span><span id="_CPPv2N3gpa13serialization17StructDataManager17StructDataManagerEPKv6size_tPK6Struct"></span><span id="gpa::serialization::StructDataManager::StructDataManager__voidCP.s.StructCP"></span><span class="target" id="classgpa_1_1serialization_1_1StructDataManager_1a9b66a45ec69154a353faaab1b9023563"></span><span class="sig-name descname"><span class="n"><span class="pre">StructDataManager</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">base</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">count</span></span>, <a class="reference internal" href="classgpa_1_1serialization_1_1Struct.html#_CPPv4N3gpa13serialization6StructE" title="gpa::serialization::Struct"><span class="n"><span class="pre">Struct</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">structDef</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13serialization17StructDataManager17StructDataManagerEPKv6size_tPK6Struct" title="Permalink to this definition"></a><br /></dt>
+<dd><p>&quot;Copy&quot; constructor that will allocate storage for the array of structs, and also for any &quot;nested&quot; data referenced by the structs data provided via <em>base</em>. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#classgpa_1_1serialization_1_1StructDataManager_1ae563143456d6e80580fb2169bc60a955"><span class="std std-ref">StructDataManager::StructDataManager(void const* base, Struct const* structDef)</span></a>; </p>
+</div>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization17StructDataManager17StructDataManagerEPK5Union">
+<span id="_CPPv3N3gpa13serialization17StructDataManager17StructDataManagerEPK5Union"></span><span id="_CPPv2N3gpa13serialization17StructDataManager17StructDataManagerEPK5Union"></span><span id="gpa::serialization::StructDataManager::StructDataManager__UnionCP"></span><span class="target" id="classgpa_1_1serialization_1_1StructDataManager_1a8e7f89f2be3e1feb036064cace4b90d2"></span><span class="sig-name descname"><span class="n"><span class="pre">StructDataManager</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classgpa_1_1serialization_1_1Union.html#_CPPv4N3gpa13serialization5UnionE" title="gpa::serialization::Union"><span class="n"><span class="pre">Union</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">unionDef</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13serialization17StructDataManager17StructDataManagerEPK5Union" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Allocate storage for the union described by <em>unionDef</em>. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>StructDataManager(void cosnt* base, Union const* unionDef) </p>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>unionDef</strong> -- Pointer to metadata describing the union, whose data this class will manage. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization17StructDataManager17StructDataManagerEPKvPK5Union">
+<span id="_CPPv3N3gpa13serialization17StructDataManager17StructDataManagerEPKvPK5Union"></span><span id="_CPPv2N3gpa13serialization17StructDataManager17StructDataManagerEPKvPK5Union"></span><span id="gpa::serialization::StructDataManager::StructDataManager__voidCP.UnionCP"></span><span class="target" id="classgpa_1_1serialization_1_1StructDataManager_1a53fe45d8e411c8186e91f8275daa0f26"></span><span class="sig-name descname"><span class="n"><span class="pre">StructDataManager</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">base</span></span>, <a class="reference internal" href="classgpa_1_1serialization_1_1Union.html#_CPPv4N3gpa13serialization5UnionE" title="gpa::serialization::Union"><span class="n"><span class="pre">Union</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">unionDef</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13serialization17StructDataManager17StructDataManagerEPKvPK5Union" title="Permalink to this definition"></a><br /></dt>
+<dd><p>&quot;Copy&quot; constructor that will allocate storage for this union, and also for any &quot;nested&quot; data referenced by the union data provided via <em>base</em>. </p>
+<p>Call this constructor if you have a pointer to constant, non-modifiable data that you would like to update. This constructor will create enough storage to hold a &quot;deep copy&quot; (that is, a copy of the top-level union as well as all &quot;nested&quot; data refernced by it), and then perform the deep copy of the source data to the modifiable space. All pointers in the modifiable copy are updated to reference the mutable data and therefore updates to this memory will not affect the original copy. If <em>base</em> is <code class="docutils literal notranslate"><span class="pre">nullptr</span></code>, then calling this constructor is identical to calling the non-&quot;copy&quot; constructor. <div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>operator bool() </p>
+</div>
+</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <em>unionDef</em> is null, then this object is &quot;invalid&quot; and no deep-copy is performed on the source data (assuming that <em>base</em> is not null), and no space is allocated or managed. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base</strong> -- Pointer to memory containing an immutable copy of the data to be managed by this union. </p></li>
+<li><p><strong>unionDef</strong> -- Pointer to metadata describing the union, whose data this class will manage. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization17StructDataManager17StructDataManagerEPKv6size_tPK5Union">
+<span id="_CPPv3N3gpa13serialization17StructDataManager17StructDataManagerEPKv6size_tPK5Union"></span><span id="_CPPv2N3gpa13serialization17StructDataManager17StructDataManagerEPKv6size_tPK5Union"></span><span id="gpa::serialization::StructDataManager::StructDataManager__voidCP.s.UnionCP"></span><span class="target" id="classgpa_1_1serialization_1_1StructDataManager_1aebf5f802bcef9fef42ff957f7efb23e5"></span><span class="sig-name descname"><span class="n"><span class="pre">StructDataManager</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">base</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">count</span></span>, <a class="reference internal" href="classgpa_1_1serialization_1_1Union.html#_CPPv4N3gpa13serialization5UnionE" title="gpa::serialization::Union"><span class="n"><span class="pre">Union</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">unionDef</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13serialization17StructDataManager17StructDataManagerEPKv6size_tPK5Union" title="Permalink to this definition"></a><br /></dt>
+<dd><p>&quot;Copy&quot; constructor that will allocate storage for the array of unions, and also for any &quot;nested&quot; data referenced by the unions data provided via <em>base</em>. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#classgpa_1_1serialization_1_1StructDataManager_1a53fe45d8e411c8186e91f8275daa0f26"><span class="std std-ref">StructDataManager::StructDataManager(void const* base, Union const* unionDef)</span></a>; </p>
+</div>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization17StructDataManager17StructDataManagerERK17StructDataManager">
+<span id="_CPPv3N3gpa13serialization17StructDataManager17StructDataManagerERK17StructDataManager"></span><span id="_CPPv2N3gpa13serialization17StructDataManager17StructDataManagerERK17StructDataManager"></span><span id="gpa::serialization::StructDataManager::StructDataManager__StructDataManagerCR"></span><span class="target" id="classgpa_1_1serialization_1_1StructDataManager_1aaf8b7cef9671ab2e984134bcdc4c94b7"></span><span class="sig-name descname"><span class="n"><span class="pre">StructDataManager</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa13serialization17StructDataManager17StructDataManagerERK17StructDataManager" title="gpa::serialization::StructDataManager::StructDataManager"><span class="n"><span class="pre">StructDataManager</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13serialization17StructDataManager17StructDataManagerERK17StructDataManager" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Standard copy constructor. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#classgpa_1_1serialization_1_1StructDataManager_1a50e393f51711ff4a6ef7edb40fef6095"><span class="std std-ref">operator=()</span></a>. </p>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>other</strong> -- Source <a class="reference internal" href="#classgpa_1_1serialization_1_1StructDataManager"><span class="std std-ref">StructDataManager</span></a> to copy. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization17StructDataManager17StructDataManagerERR17StructDataManager">
+<span id="_CPPv3N3gpa13serialization17StructDataManager17StructDataManagerERR17StructDataManager"></span><span id="_CPPv2N3gpa13serialization17StructDataManager17StructDataManagerERR17StructDataManager"></span><span id="gpa::serialization::StructDataManager::StructDataManager__StructDataManagerRR"></span><span class="target" id="classgpa_1_1serialization_1_1StructDataManager_1aa9d39e96e9f50492b7c3a62da599e6f9"></span><span class="sig-name descname"><span class="n"><span class="pre">StructDataManager</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa13serialization17StructDataManager17StructDataManagerERR17StructDataManager" title="gpa::serialization::StructDataManager::StructDataManager"><span class="n"><span class="pre">StructDataManager</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization17StructDataManager17StructDataManagerERR17StructDataManager" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Standard move constructor. </p>
+<p>After this operation, the source object is left in its default-constructed state. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>other</strong> -- Source <a class="reference internal" href="#classgpa_1_1serialization_1_1StructDataManager"><span class="std std-ref">StructDataManager</span></a> to move. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization17StructDataManagerD0Ev">
+<span id="_CPPv3N3gpa13serialization17StructDataManagerD0Ev"></span><span id="_CPPv2N3gpa13serialization17StructDataManagerD0Ev"></span><span id="gpa::serialization::StructDataManager::~StructDataManager"></span><span class="target" id="classgpa_1_1serialization_1_1StructDataManager_1a34d33799a6ddb4ca5a8a613bfa0c38bf"></span><span class="sig-name descname"><span class="n"><span class="pre">~StructDataManager</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13serialization17StructDataManagerD0Ev" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Standard destructor. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization17StructDataManageraSERK17StructDataManager">
+<span id="_CPPv3N3gpa13serialization17StructDataManageraSERK17StructDataManager"></span><span id="_CPPv2N3gpa13serialization17StructDataManageraSERK17StructDataManager"></span><span id="gpa::serialization::StructDataManager::assign-operator__StructDataManagerCR"></span><span class="target" id="classgpa_1_1serialization_1_1StructDataManager_1a50e393f51711ff4a6ef7edb40fef6095"></span><a class="reference internal" href="#_CPPv4N3gpa13serialization17StructDataManagerE" title="gpa::serialization::StructDataManager"><span class="n"><span class="pre">StructDataManager</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa13serialization17StructDataManagerE" title="gpa::serialization::StructDataManager"><span class="n"><span class="pre">StructDataManager</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa13serialization17StructDataManageraSERK17StructDataManager" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Standard assignment operator. </p>
+<p>After this assignment is complete, the destination (&quot;this&quot; object) will contain a full, proper deep copy of the source object; no dependencies will exist between the two objects. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>other</strong> -- Source object (RHS) for the assignment operation. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Reference to &quot;this&quot; (assignment destination) </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization17StructDataManageraSERR17StructDataManager">
+<span id="_CPPv3N3gpa13serialization17StructDataManageraSERR17StructDataManager"></span><span id="_CPPv2N3gpa13serialization17StructDataManageraSERR17StructDataManager"></span><span id="gpa::serialization::StructDataManager::assign-operator__StructDataManagerRR"></span><span class="target" id="classgpa_1_1serialization_1_1StructDataManager_1af025430662b258b2fb7dfdeedc515217"></span><a class="reference internal" href="#_CPPv4N3gpa13serialization17StructDataManagerE" title="gpa::serialization::StructDataManager"><span class="n"><span class="pre">StructDataManager</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa13serialization17StructDataManagerE" title="gpa::serialization::StructDataManager"><span class="n"><span class="pre">StructDataManager</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization17StructDataManageraSERR17StructDataManager" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Standard move-assingment operator. </p>
+<p>After this assignment is complete, the destination (&quot;this&quot; object) has ownership of the full state of the source object as it existed prior to the operation. After this operation, the source object will be in its default-constructed state, and no dependencies will exist between the two objects. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>other</strong> -- Source object (RHS) for the assignment operation. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Reference to &quot;this&quot; (assignment destination) </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa13serialization17StructDataManagercvbEv">
+<span id="_CPPv3NK3gpa13serialization17StructDataManagercvbEv"></span><span id="_CPPv2NK3gpa13serialization17StructDataManagercvbEv"></span><span id="gpa::serialization::StructDataManager::castto-b-operatorC"></span><span class="target" id="classgpa_1_1serialization_1_1StructDataManager_1ac43a60582b73b7a000e002bd52efd56d"></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa13serialization17StructDataManagercvbEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Returns &quot;true&quot; if &quot;this&quot; is a valid object, false otherwise. </p>
+<p>Object validity is determined by the values of the object data members; specifically, if the object has a valid <a class="reference internal" href="classgpa_1_1serialization_1_1Struct.html#classgpa_1_1serialization_1_1Struct"><span class="std std-ref">Struct</span></a> instance, and possesses either valid &quot;original&quot; data or valid &quot;mutable data&quot;, then it is considered to be a valid object and this operator will return true. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa13serialization17StructDataManager11MutableBaseEv">
+<span id="_CPPv3NK3gpa13serialization17StructDataManager11MutableBaseEv"></span><span id="_CPPv2NK3gpa13serialization17StructDataManager11MutableBaseEv"></span><span id="gpa::serialization::StructDataManager::MutableBaseC"></span><span class="target" id="classgpa_1_1serialization_1_1StructDataManager_1a03c7218c6c0d1048470b1bed1365513a"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">MutableBase</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa13serialization17StructDataManager11MutableBaseEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Access the mutable copy of the struct data. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Pointer to memory corresponding to the start of storage for the top-level struct. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa13serialization17StructDataManager15MutableBaseSizeEv">
+<span id="_CPPv3NK3gpa13serialization17StructDataManager15MutableBaseSizeEv"></span><span id="_CPPv2NK3gpa13serialization17StructDataManager15MutableBaseSizeEv"></span><span id="gpa::serialization::StructDataManager::MutableBaseSizeC"></span><span class="target" id="classgpa_1_1serialization_1_1StructDataManager_1a82796da03d05274c6658079fbd8e6a75"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MutableBaseSize</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa13serialization17StructDataManager15MutableBaseSizeEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Returns the size of mutable copy of the struct data. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa13serialization17StructDataManager14UnmodifiedBaseEv">
+<span id="_CPPv3NK3gpa13serialization17StructDataManager14UnmodifiedBaseEv"></span><span id="_CPPv2NK3gpa13serialization17StructDataManager14UnmodifiedBaseEv"></span><span id="gpa::serialization::StructDataManager::UnmodifiedBaseC"></span><span class="target" id="classgpa_1_1serialization_1_1StructDataManager_1a61528a0348e825703f77a35e7df27f7f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">UnmodifiedBase</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa13serialization17StructDataManager14UnmodifiedBaseEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Access the original data (if any) used to make the deep copy. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>If the &quot;copy&quot; constructor was invoked, this will return the &quot;base&quot; pointer originally provided. If that pointer was null or the non-&quot;copy&quot; constructor was called, this method returns <code class="docutils literal notranslate"><span class="pre">nullptr</span></code>. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa13serialization17StructDataManager9StructDefEv">
+<span id="_CPPv3NK3gpa13serialization17StructDataManager9StructDefEv"></span><span id="_CPPv2NK3gpa13serialization17StructDataManager9StructDefEv"></span><span id="gpa::serialization::StructDataManager::StructDefC"></span><span class="target" id="classgpa_1_1serialization_1_1StructDataManager_1aef107183eec8eb2610847a21a93d6190"></span><a class="reference internal" href="classgpa_1_1serialization_1_1Struct.html#_CPPv4N3gpa13serialization6StructE" title="gpa::serialization::Struct"><span class="n"><span class="pre">Struct</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">StructDef</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa13serialization17StructDataManager9StructDefEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Access the metadata for the top-level struct used to construct this class. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Pointer to the top-level struct metadata. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa13serialization17StructDataManager8UnionDefEv">
+<span id="_CPPv3NK3gpa13serialization17StructDataManager8UnionDefEv"></span><span id="_CPPv2NK3gpa13serialization17StructDataManager8UnionDefEv"></span><span id="gpa::serialization::StructDataManager::UnionDefC"></span><span class="target" id="classgpa_1_1serialization_1_1StructDataManager_1ae96c3aaa43ebafbf73a9f0f5dbe6bd44"></span><a class="reference internal" href="classgpa_1_1serialization_1_1Union.html#_CPPv4N3gpa13serialization5UnionE" title="gpa::serialization::Union"><span class="n"><span class="pre">Union</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">UnionDef</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa13serialization17StructDataManager8UnionDefEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Access the metadata for the top-level union used to construct this class. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Pointer to the top-level union metadata. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa13serialization17StructDataManager7ObserveER18StructDataObserver">
+<span id="_CPPv3NK3gpa13serialization17StructDataManager7ObserveER18StructDataObserver"></span><span id="_CPPv2NK3gpa13serialization17StructDataManager7ObserveER18StructDataObserver"></span><span id="gpa::serialization::StructDataManager::Observe__StructDataObserverRC"></span><span class="target" id="classgpa_1_1serialization_1_1StructDataManager_1aca16b15ddec409f0a48de220d959ec1d"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Observe</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structgpa_1_1serialization_1_1StructDataObserver.html#_CPPv4N3gpa13serialization18StructDataObserverE" title="gpa::serialization::StructDataObserver"><span class="n"><span class="pre">StructDataObserver</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">observer</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa13serialization17StructDataManager7ObserveER18StructDataObserver" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="classgpa_1_1serialization_1_1StructDataEditor.html" class="btn btn-neutral float-left" title="Class StructDataEditor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="classgpa_1_1serialization_1_1Union.html" class="btn btn-neutral float-right" title="Class Union" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

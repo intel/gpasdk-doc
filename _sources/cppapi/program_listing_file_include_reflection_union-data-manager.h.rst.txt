@@ -1,0 +1,83 @@
+
+.. _program_listing_file_include_reflection_union-data-manager.h:
+
+Program Listing for File union-data-manager.h
+=============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_reflection_union-data-manager.h>` (``include\reflection\union-data-manager.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include <stdlib.h>
+   
+   namespace gpa {
+   namespace serialization {
+   
+   class Union;
+   
+   class UnionDataManager
+   {
+   public:
+       UnionDataManager();
+   
+       UnionDataManager(Union const* unionDef);
+   
+       UnionDataManager(void const* base, Union const* unionDef);
+   
+       UnionDataManager(void const* base, size_t count, Union const* unionDef);
+   
+       UnionDataManager(UnionDataManager const& other);
+   
+       UnionDataManager(UnionDataManager&& other);
+   
+       ~UnionDataManager();
+   
+       UnionDataManager& operator=(UnionDataManager const& other);
+   
+       UnionDataManager& operator=(UnionDataManager&& other);
+   
+       operator bool() const;
+   
+       void* MutableBase() const;
+   
+       size_t MutableBaseSize() const;
+   
+       void const* UnmodifiedBase() const;
+   
+       Union const* UnionDef() const;
+   
+   private:
+       void const* mOriginalData{};
+       void* mMutableData{};
+       size_t mMutableDataSize{};
+       size_t mCount{};
+       Union const* mUnionDef{};
+   
+       void MakeDeepCopy();
+       void DeleteMutableData();
+       void Clear();
+   };
+   
+   }  // namespace serialization
+   }  // namespace gpa

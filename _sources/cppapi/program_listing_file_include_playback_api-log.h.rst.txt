@@ -4,7 +4,7 @@
 Program Listing for File api-log.h
 ==================================
 
-|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_api-log.h>` (``include/playback/api-log.h``)
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_api-log.h>` (``include\playback\api-log.h``)
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
@@ -74,16 +74,19 @@ Program Listing for File api-log.h
        StreamDataBookmark RangeBookmarkEndWithDelimiter(uint64_t index) const;
    
    private:
-       StreamData* mStreamData = nullptr;
-       StreamData* mAllocatedData = nullptr;
-       memory::Allocator* mAllocator;
-       memory::Allocator* mDefaultAllocator;
+       StreamData* mStreamData{nullptr};
+       StreamData* mAllocatedData{nullptr};
+       memory::Allocator* mAllocator{nullptr};
+       memory::Allocator* mDefaultAllocator{nullptr};
        std::vector<serialization::GPAToken> mDelimiters;
        std::vector<StreamDataBookmark> mRangeStartBookmarks;
        std::vector<StreamDataBookmark> mRangeEndBookmarks;
        std::vector<StreamDataBookmark> mRangeEndDelimeterBookmarks;
        CallableCache CollectRange(const StreamDataBookmark& begin, const StreamDataBookmark& end) const;
        void InitializeDelimiters(serialization::GPAToken const* delimiters);
+   
+       ApiLog(ApiLog const&) = delete;
+       ApiLog& operator=(ApiLog const&) = delete;
    };
    
    }  // namespace playback

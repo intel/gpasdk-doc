@@ -4,7 +4,7 @@
 Program Listing for File resource-info-registry.h
 =================================================
 
-|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_resource-info_detail_resource-info-registry.h>` (``include/playback/resource-info/detail/resource-info-registry.h``)
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_resource-info_detail_resource-info-registry.h>` (``include\playback\resource-info\detail\resource-info-registry.h``)
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
@@ -96,14 +96,14 @@ Program Listing for File resource-info-registry.h
            BindingMonitor* pBindingMonitor = nullptr);
    
        template<typename DerivedExType>
-       inline void BindResourceInfo(
+       inline void BindResourceInfoEx(
            ResourceInfo::Usage usage,
            ResourceInfo const* pResourceInfo,
            DerivedExType const& resourceInfoEx,
            BindingMonitor* pBindingMonitor = nullptr)
        {
            auto pResourceInfoEx = RegisterResourceInfoEx(resourceInfoEx);
-           BindResourceInfo(usage, pResourceInfo, pResourceInfoEx, pBindingMonitor);
+           BindResourceInfoEx(usage, pResourceInfo, pResourceInfoEx, pBindingMonitor);
        }
    
        ResourceId GenerateShaderId(
@@ -130,7 +130,7 @@ Program Listing for File resource-info-registry.h
            std::string mBytecode;
        };
    
-       void BindResourceInfo(
+       void BindResourceInfoEx(
            ResourceInfo::Usage usage,
            ResourceInfo const* pResourceInfo,
            ResourceInfo::Ex const* pResourceInfoEx,

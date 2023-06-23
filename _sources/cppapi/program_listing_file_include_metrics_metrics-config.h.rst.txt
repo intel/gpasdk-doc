@@ -4,7 +4,7 @@
 Program Listing for File metrics-config.h
 =========================================
 
-|exhale_lsh| :ref:`Return to documentation for file <file_include_metrics_metrics-config.h>` (``include/metrics/metrics-config.h``)
+|exhale_lsh| :ref:`Return to documentation for file <file_include_metrics_metrics-config.h>` (``include\metrics\metrics-config.h``)
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
@@ -64,6 +64,10 @@ Program Listing for File metrics-config.h
            #endif
        #endif
    
+       #if !defined(SPRINTF_S)
+           #define SPRINTF_S(dst, count, fmt, ...) sprintf_s(dst, count, fmt, __VA_ARGS__)
+       #endif
+   
        #if !defined(STRCPY)
            #define STRCPY(dst, src, dstSize) strncpy_s(dst, dstSize, src, dstSize - 1)
        #endif
@@ -99,6 +103,18 @@ Program Listing for File metrics-config.h
            #define ATOI(str) atoi(str)
            #define TCHAR_FORMAT_SPECIFIER "%s"
            #define TO_STRING std::to_string
+       #endif
+   
+       #if !defined(SPRINTF_S)
+           #if defined(__STDC_LIB_EXT1__)
+               #define SPRINTF_S(dst, count, fmt, ...) sprintf_s(dst, count, fmt, __VA_ARGS__)
+           #else
+               #define SPRINTF_S(dst, count, fmt, ...)                     \
+                           {                                               \
+                               snprintf(dst, count - 1, fmt, __VA_ARGS__); \
+                               dst[count - 1] = 0;                         \
+                           }
+           #endif
        #endif
    #endif
    

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class Enumerator::Iterator &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Class Experimentor" href="classgpa_1_1playback_1_1Experimentor.html" />
+    <link rel="prev" title="Template Class Enumerator" href="classgpa_1_1playback_1_1Enumerator.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">'Helloworld' Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">'Helloworld' Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">API-Debug-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">Device-Override</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id38">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id5">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id8">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id9">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id10">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id11">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id12">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id13">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id14">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id15">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id16">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../src/reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">C++ Interfaces</a></li>
+      <li class="breadcrumb-item active">Class Enumerator::Iterator</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-enumerator-iterator">
+<span id="exhale-class-classgpa-1-1playback-1-1enumerator-1-1iterator"></span><h1>Class Enumerator::Iterator<a class="headerlink" href="#class-enumerator-iterator" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_playback_resource-info_enumerator.h.html#file-include-playback-resource-info-enumerator-h"><span class="std std-ref">File enumerator.h</span></a></p></li>
+</ul>
+<section id="nested-relationships">
+<h2>Nested Relationships<a class="headerlink" href="#nested-relationships" title="Permalink to this headline"></a></h2>
+<p>This class is a nested type of <a class="reference internal" href="classgpa_1_1playback_1_1Enumerator.html#exhale-class-classgpa-1-1playback-1-1enumerator"><span class="std std-ref">Template Class Enumerator</span></a>.</p>
+</section>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback10Enumerator8IteratorE">
+<span id="_CPPv3N3gpa8playback10Enumerator8IteratorE"></span><span id="_CPPv2N3gpa8playback10Enumerator8IteratorE"></span><span id="gpa::playback::Enumerator::Iterator"></span><span class="target" id="classgpa_1_1playback_1_1Enumerator_1_1Iterator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Iterator</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback10Enumerator8IteratorE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>An iterator to an enumerated pointer. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback10Enumerator8Iterator8IteratorEv">
+<span id="_CPPv3N3gpa8playback10Enumerator8Iterator8IteratorEv"></span><span id="_CPPv2N3gpa8playback10Enumerator8Iterator8IteratorEv"></span><span id="gpa::playback::Enumerator::Iterator::Iterator"></span><span class="target" id="classgpa_1_1playback_1_1Enumerator_1_1Iterator_1a97895858ea09e6ffd92eb1cf16f942de"></span><span class="sig-name descname"><span class="n"><span class="pre">Iterator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback10Enumerator8Iterator8IteratorEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Constructs an instance of <a class="reference internal" href="#classgpa_1_1playback_1_1Enumerator_1_1Iterator"><span class="std std-ref">Iterator</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback10Enumerator8Iterator8IteratorEPPK1T">
+<span id="_CPPv3N3gpa8playback10Enumerator8Iterator8IteratorEPPK1T"></span><span id="_CPPv2N3gpa8playback10Enumerator8Iterator8IteratorEPPK1T"></span><span id="gpa::playback::Enumerator::Iterator::Iterator__TCPP"></span><span class="target" id="classgpa_1_1playback_1_1Enumerator_1_1Iterator_1ab518025fb43b1ed65cb82627ac889e80"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Iterator</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">T</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ptr</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback10Enumerator8Iterator8IteratorEPPK1T" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Constructs an instance of <a class="reference internal" href="#classgpa_1_1playback_1_1Enumerator_1_1Iterator"><span class="std std-ref">Iterator</span></a>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ptr</strong> -- <strong>[in]</strong> The array of pointers to iterate </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback10Enumerator8Iterator8IteratorERK8Iterator">
+<span id="_CPPv3N3gpa8playback10Enumerator8Iterator8IteratorERK8Iterator"></span><span id="_CPPv2N3gpa8playback10Enumerator8Iterator8IteratorERK8Iterator"></span><span id="gpa::playback::Enumerator::Iterator::Iterator__IteratorCR"></span><span class="target" id="classgpa_1_1playback_1_1Enumerator_1_1Iterator_1a0b1b64864f968077dc659815ef8a266a"></span><span class="sig-name descname"><span class="n"><span class="pre">Iterator</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa8playback10Enumerator8Iterator8IteratorERK8Iterator" title="gpa::playback::Enumerator::Iterator::Iterator"><span class="n"><span class="pre">Iterator</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback10Enumerator8Iterator8IteratorERK8Iterator" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Copies an instance of <a class="reference internal" href="#classgpa_1_1playback_1_1Enumerator_1_1Iterator"><span class="std std-ref">Iterator</span></a>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>other</strong> -- <strong>[in]</strong> The <a class="reference internal" href="#classgpa_1_1playback_1_1Enumerator_1_1Iterator"><span class="std std-ref">Iterator</span></a> to copy from </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback10Enumerator8IteratoraSERK8Iterator">
+<span id="_CPPv3N3gpa8playback10Enumerator8IteratoraSERK8Iterator"></span><span id="_CPPv2N3gpa8playback10Enumerator8IteratoraSERK8Iterator"></span><span id="gpa::playback::Enumerator::Iterator::assign-operator__IteratorCR"></span><span class="target" id="classgpa_1_1playback_1_1Enumerator_1_1Iterator_1a63d3f69bdece817e0e8c4d378d848aa6"></span><a class="reference internal" href="#_CPPv4N3gpa8playback10Enumerator8IteratorE" title="gpa::playback::Enumerator::Iterator"><span class="n"><span class="pre">Iterator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa8playback10Enumerator8IteratorE" title="gpa::playback::Enumerator::Iterator"><span class="n"><span class="pre">Iterator</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback10Enumerator8IteratoraSERK8Iterator" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Copies an instance of <a class="reference internal" href="#classgpa_1_1playback_1_1Enumerator_1_1Iterator"><span class="std std-ref">Iterator</span></a>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>other</strong> -- <strong>[in]</strong> The <a class="reference internal" href="#classgpa_1_1playback_1_1Enumerator_1_1Iterator"><span class="std std-ref">Iterator</span></a> to copy from </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>This <a class="reference internal" href="#classgpa_1_1playback_1_1Enumerator_1_1Iterator"><span class="std std-ref">Iterator</span></a> after being copied to </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback10Enumerator8IteratorppEv">
+<span id="_CPPv3N3gpa8playback10Enumerator8IteratorppEv"></span><span id="_CPPv2N3gpa8playback10Enumerator8IteratorppEv"></span><span id="gpa::playback::Enumerator::Iterator::inc-operator"></span><span class="target" id="classgpa_1_1playback_1_1Enumerator_1_1Iterator_1a162c9a4b93265e66d176f072475b0c18"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3gpa8playback10Enumerator8IteratorE" title="gpa::playback::Enumerator::Iterator"><span class="n"><span class="pre">Iterator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">++</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback10Enumerator8IteratorppEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Increments this <a class="reference internal" href="#classgpa_1_1playback_1_1Enumerator_1_1Iterator"><span class="std std-ref">Iterator</span></a>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>This <a class="reference internal" href="#classgpa_1_1playback_1_1Enumerator_1_1Iterator"><span class="std std-ref">Iterator</span></a> after being incremented </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback10Enumerator8IteratorppEi">
+<span id="_CPPv3N3gpa8playback10Enumerator8IteratorppEi"></span><span id="_CPPv2N3gpa8playback10Enumerator8IteratorppEi"></span><span id="gpa::playback::Enumerator::Iterator::inc-operator__i"></span><span class="target" id="classgpa_1_1playback_1_1Enumerator_1_1Iterator_1a9a75ac58fd735b90a2cbda45ad22a169"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3gpa8playback10Enumerator8IteratorE" title="gpa::playback::Enumerator::Iterator"><span class="n"><span class="pre">Iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">++</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback10Enumerator8IteratorppEi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Increments this <a class="reference internal" href="#classgpa_1_1playback_1_1Enumerator_1_1Iterator"><span class="std std-ref">Iterator</span></a>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A copy of this <a class="reference internal" href="#classgpa_1_1playback_1_1Enumerator_1_1Iterator"><span class="std std-ref">Iterator</span></a> before being incremented </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback10Enumerator8IteratorneERK8Iterator">
+<span id="_CPPv3N3gpa8playback10Enumerator8IteratorneERK8Iterator"></span><span id="_CPPv2N3gpa8playback10Enumerator8IteratorneERK8Iterator"></span><span id="gpa::playback::Enumerator::Iterator::neq-operator__IteratorCR"></span><span class="target" id="classgpa_1_1playback_1_1Enumerator_1_1Iterator_1a0f948768e08f78aa83190562a9eeacf8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">!=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa8playback10Enumerator8IteratorE" title="gpa::playback::Enumerator::Iterator"><span class="n"><span class="pre">Iterator</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback10Enumerator8IteratorneERK8Iterator" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Gets a value indicating whether or not this <a class="reference internal" href="#classgpa_1_1playback_1_1Enumerator_1_1Iterator"><span class="std std-ref">Iterator</span></a> is inequal to a given <a class="reference internal" href="#classgpa_1_1playback_1_1Enumerator_1_1Iterator"><span class="std std-ref">Iterator</span></a>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>other</strong> -- <strong>[in]</strong> The <a class="reference internal" href="#classgpa_1_1playback_1_1Enumerator_1_1Iterator"><span class="std std-ref">Iterator</span></a> to compare this <a class="reference internal" href="#classgpa_1_1playback_1_1Enumerator_1_1Iterator"><span class="std std-ref">Iterator</span></a> against </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A value indicating whether or not this <a class="reference internal" href="#classgpa_1_1playback_1_1Enumerator_1_1Iterator"><span class="std std-ref">Iterator</span></a> is inequal to a given <a class="reference internal" href="#classgpa_1_1playback_1_1Enumerator_1_1Iterator"><span class="std std-ref">Iterator</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback10Enumerator8IteratorptEv">
+<span id="_CPPv3NK3gpa8playback10Enumerator8IteratorptEv"></span><span id="_CPPv2NK3gpa8playback10Enumerator8IteratorptEv"></span><span id="gpa::playback::Enumerator::Iterator::pointer-operatorC"></span><span class="target" id="classgpa_1_1playback_1_1Enumerator_1_1Iterator_1a43fd1614fe79620f67fd89fb2f92c5e7"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">-&gt;</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback10Enumerator8IteratorptEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Dereferences this <a class="reference internal" href="#classgpa_1_1playback_1_1Enumerator_1_1Iterator"><span class="std std-ref">Iterator</span></a>'s current value. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A pointer to this <a class="reference internal" href="#classgpa_1_1playback_1_1Enumerator_1_1Iterator"><span class="std std-ref">Iterator</span></a>'s current value </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback10Enumerator8IteratormlEv">
+<span id="_CPPv3NK3gpa8playback10Enumerator8IteratormlEv"></span><span id="_CPPv2NK3gpa8playback10Enumerator8IteratormlEv"></span><span id="gpa::playback::Enumerator::Iterator::mul-operatorC"></span><span class="target" id="classgpa_1_1playback_1_1Enumerator_1_1Iterator_1aec20f4adfb9b2ce4d9740a8bf2ecdfb7"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">*</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback10Enumerator8IteratormlEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Dereferences this <a class="reference internal" href="#classgpa_1_1playback_1_1Enumerator_1_1Iterator"><span class="std std-ref">Iterator</span></a>'s current value. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A reference to this <a class="reference internal" href="#classgpa_1_1playback_1_1Enumerator_1_1Iterator"><span class="std std-ref">Iterator</span></a>'s current value </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="classgpa_1_1playback_1_1Enumerator.html" class="btn btn-neutral float-left" title="Template Class Enumerator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="classgpa_1_1playback_1_1Experimentor.html" class="btn btn-neutral float-right" title="Class Experimentor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

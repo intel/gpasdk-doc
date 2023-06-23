@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class D3D12PlaybackSupport &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Class DefaultPlaybackListener" href="classgpa_1_1playback_1_1DefaultPlaybackListener.html" />
+    <link rel="prev" title="Class CrossGpuPreprocessor" href="classgpa_1_1playback_1_1CrossGpuPreprocessor.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">'Helloworld' Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">'Helloworld' Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">API-Debug-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">Device-Override</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id38">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id5">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id8">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id9">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id10">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id11">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id12">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id13">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id14">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id15">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id16">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../src/reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">C++ Interfaces</a></li>
+      <li class="breadcrumb-item active">Class D3D12PlaybackSupport</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-d3d12playbacksupport">
+<span id="exhale-class-classgpa-1-1playback-1-1d3d12playbacksupport"></span><h1>Class D3D12PlaybackSupport<a class="headerlink" href="#class-d3d12playbacksupport" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_d3d12-playback-support_d3d12-playback-support.h.html#file-include-d3d12-playback-support-d3d12-playback-support-h"><span class="std std-ref">File d3d12-playback-support.h</span></a></p></li>
+</ul>
+<section id="nested-relationships">
+<h2>Nested Relationships<a class="headerlink" href="#nested-relationships" title="Permalink to this headline"></a></h2>
+<section id="nested-types">
+<h3>Nested Types<a class="headerlink" href="#nested-types" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="structgpa_1_1playback_1_1D3D12PlaybackSupport_1_1DescriptorHeapDataDX12.html#exhale-struct-structgpa-1-1playback-1-1d3d12playbacksupport-1-1descriptorheapdatadx12"><span class="std std-ref">Struct D3D12PlaybackSupport::DescriptorHeapDataDX12</span></a></p></li>
+<li><p><a class="reference internal" href="structgpa_1_1playback_1_1D3D12PlaybackSupport_1_1HandleTypeAndValue.html#exhale-struct-structgpa-1-1playback-1-1d3d12playbacksupport-1-1handletypeandvalue"><span class="std std-ref">Struct D3D12PlaybackSupport::HandleTypeAndValue</span></a></p></li>
+</ul>
+</section>
+</section>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupportE">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupportE"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupportE"></span><span id="gpa::playback::D3D12PlaybackSupport"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">D3D12PlaybackSupport</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupportE" title="Permalink to this definition"></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport20D3D12PlaybackSupportEv">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport20D3D12PlaybackSupportEv"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport20D3D12PlaybackSupportEv"></span><span id="gpa::playback::D3D12PlaybackSupport::D3D12PlaybackSupport"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1af9173b8584568dfa0aad6d6cdb26740f"></span><span class="sig-name descname"><span class="n"><span class="pre">D3D12PlaybackSupport</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport20D3D12PlaybackSupportEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupportD0Ev">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupportD0Ev"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupportD0Ev"></span><span id="gpa::playback::D3D12PlaybackSupport::~D3D12PlaybackSupport"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a0ee00939576afdad10b8ed3a8b7490f8"></span><span class="sig-name descname"><span class="n"><span class="pre">~D3D12PlaybackSupport</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupportD0Ev" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport31TranslateD3D12GPUVirtualAddressER25D3D12_GPU_VIRTUAL_ADDRESS">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport31TranslateD3D12GPUVirtualAddressER25D3D12_GPU_VIRTUAL_ADDRESS"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport31TranslateD3D12GPUVirtualAddressER25D3D12_GPU_VIRTUAL_ADDRESS"></span><span id="gpa::playback::D3D12PlaybackSupport::TranslateD3D12GPUVirtualAddress__D3D12_GPU_VIRTUAL_ADDRESSR"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a82fe32bdf884af3a06d0fee0b96c57f5"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TranslateD3D12GPUVirtualAddress</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">D3D12_GPU_VIRTUAL_ADDRESS</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">address</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport31TranslateD3D12GPUVirtualAddressER25D3D12_GPU_VIRTUAL_ADDRESS" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport33TranslateD3D12CPUDescriptorHandleER27D3D12_CPU_DESCRIPTOR_HANDLE">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport33TranslateD3D12CPUDescriptorHandleER27D3D12_CPU_DESCRIPTOR_HANDLE"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport33TranslateD3D12CPUDescriptorHandleER27D3D12_CPU_DESCRIPTOR_HANDLE"></span><span id="gpa::playback::D3D12PlaybackSupport::TranslateD3D12CPUDescriptorHandle__D3D12_CPU_DESCRIPTOR_HANDLER"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1ac0a7b97504b7a8bcf019cb7bae8e3add"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TranslateD3D12CPUDescriptorHandle</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">D3D12_CPU_DESCRIPTOR_HANDLE</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">address</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport33TranslateD3D12CPUDescriptorHandleER27D3D12_CPU_DESCRIPTOR_HANDLE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport33TranslateD3D12GPUDescriptorHandleER27D3D12_GPU_DESCRIPTOR_HANDLE">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport33TranslateD3D12GPUDescriptorHandleER27D3D12_GPU_DESCRIPTOR_HANDLE"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport33TranslateD3D12GPUDescriptorHandleER27D3D12_GPU_DESCRIPTOR_HANDLE"></span><span id="gpa::playback::D3D12PlaybackSupport::TranslateD3D12GPUDescriptorHandle__D3D12_GPU_DESCRIPTOR_HANDLER"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1ad81515a1c1b6275bbfa1ca3479d4495d"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TranslateD3D12GPUDescriptorHandle</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">D3D12_GPU_DESCRIPTOR_HANDLE</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">address</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport33TranslateD3D12GPUDescriptorHandleER27D3D12_GPU_DESCRIPTOR_HANDLE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport22OnGetGPUVirtualAddressEP14ID3D12Resource8uint64_tRPK16GPADispatchTable">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport22OnGetGPUVirtualAddressEP14ID3D12Resource8uint64_tRPK16GPADispatchTable"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport22OnGetGPUVirtualAddressEP14ID3D12Resource8uint64_tRPK16GPADispatchTable"></span><span id="gpa::playback::D3D12PlaybackSupport::OnGetGPUVirtualAddress__ID3D12ResourceP.uint64_t.GPADispatchTableCPR"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1ae8991223189f94417beb5aa9eb07ed39"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnGetGPUVirtualAddress</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12Resource</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">resource</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">captureTimeValue</span></span>, <span class="n"><span class="pre">GPADispatchTable</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">table</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport22OnGetGPUVirtualAddressEP14ID3D12Resource8uint64_tRPK16GPADispatchTable" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport26OnCreateOrAddToStateObjectEP17ID3D12StateObjectPK23D3D12_STATE_OBJECT_DESCP17ID3D12StateObject">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport26OnCreateOrAddToStateObjectEP17ID3D12StateObjectPK23D3D12_STATE_OBJECT_DESCP17ID3D12StateObject"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport26OnCreateOrAddToStateObjectEP17ID3D12StateObjectPK23D3D12_STATE_OBJECT_DESCP17ID3D12StateObject"></span><span id="gpa::playback::D3D12PlaybackSupport::OnCreateOrAddToStateObject__ID3D12StateObjectP.D3D12_STATE_OBJECT_DESCCP.ID3D12StateObjectP"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a2c6a2cecdc4317c0b9e8db46eaaffef9"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnCreateOrAddToStateObject</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12StateObject</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">stateObject</span></span>, <span class="n"><span class="pre">D3D12_STATE_OBJECT_DESC</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pDesc</span></span>, <span class="n"><span class="pre">ID3D12StateObject</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">stateObjectToGrowFrom</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport26OnCreateOrAddToStateObjectEP17ID3D12StateObjectPK23D3D12_STATE_OBJECT_DESCP17ID3D12StateObject" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport21OnGetShaderIdentifierEP27ID3D12StateObjectProperties7LPCWSTRPvRPK16GPADispatchTable">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport21OnGetShaderIdentifierEP27ID3D12StateObjectProperties7LPCWSTRPvRPK16GPADispatchTable"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport21OnGetShaderIdentifierEP27ID3D12StateObjectProperties7LPCWSTRPvRPK16GPADispatchTable"></span><span id="gpa::playback::D3D12PlaybackSupport::OnGetShaderIdentifier__ID3D12StateObjectPropertiesP.LPCWSTR.voidP.GPADispatchTableCPR"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a51ac004715f928c6ee52e8240cc50562"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnGetShaderIdentifier</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12StateObjectProperties</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">properties</span></span>, <span class="n"><span class="pre">LPCWSTR</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">pExportName</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">captureTimeIdentifier</span></span>, <span class="n"><span class="pre">GPADispatchTable</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">table</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport21OnGetShaderIdentifierEP27ID3D12StateObjectProperties7LPCWSTRPvRPK16GPADispatchTable" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport23GetReverseShaderMappingEP17ID3D12StateObject">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport23GetReverseShaderMappingEP17ID3D12StateObject"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport23GetReverseShaderMappingEP17ID3D12StateObject"></span><span id="gpa::playback::D3D12PlaybackSupport::GetReverseShaderMapping__ID3D12StateObjectP"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a13bafb39e1d6cddc555d19a537100ebd"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">gpa</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">utility</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">directx</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structgpa_1_1utility_1_1directx_1_1D3D12ShaderIdentifier.html#_CPPv4N3gpa7utility7directx21D3D12ShaderIdentifierE" title="gpa::utility::directx::D3D12ShaderIdentifier"><span class="n"><span class="pre">D3D12ShaderIdentifier</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">gpa</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">utility</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">directx</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structgpa_1_1utility_1_1directx_1_1D3D12ShaderIdentifier.html#_CPPv4N3gpa7utility7directx21D3D12ShaderIdentifierE" title="gpa::utility::directx::D3D12ShaderIdentifier"><span class="n"><span class="pre">D3D12ShaderIdentifier</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetReverseShaderMapping</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12StateObject</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">stateObj</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport23GetReverseShaderMappingEP17ID3D12StateObject" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport35ApplySubcaptureReverseShaderMappingEP17ID3D12StateObjectRKNSt3mapIN3gpa7utility7directx21D3D12ShaderIdentifierEN3gpa7utility7directx21D3D12ShaderIdentifierEEE">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport35ApplySubcaptureReverseShaderMappingEP17ID3D12StateObjectRKNSt3mapIN3gpa7utility7directx21D3D12ShaderIdentifierEN3gpa7utility7directx21D3D12ShaderIdentifierEEE"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport35ApplySubcaptureReverseShaderMappingEP17ID3D12StateObjectRKNSt3mapIN3gpa7utility7directx21D3D12ShaderIdentifierEN3gpa7utility7directx21D3D12ShaderIdentifierEEE"></span><span id="gpa::playback::D3D12PlaybackSupport::ApplySubcaptureReverseShaderMapping__ID3D12StateObjectP.std::map:gpa::utility::directx::D3D12ShaderIdentifier.gpa::utility::directx::D3D12ShaderIdentifier:CR"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a5dcc679a808d11d5a7598217b7f454c3"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ApplySubcaptureReverseShaderMapping</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12StateObject</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">stateObject</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">gpa</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">utility</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">directx</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structgpa_1_1utility_1_1directx_1_1D3D12ShaderIdentifier.html#_CPPv4N3gpa7utility7directx21D3D12ShaderIdentifierE" title="gpa::utility::directx::D3D12ShaderIdentifier"><span class="n"><span class="pre">D3D12ShaderIdentifier</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">gpa</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">utility</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">directx</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structgpa_1_1utility_1_1directx_1_1D3D12ShaderIdentifier.html#_CPPv4N3gpa7utility7directx21D3D12ShaderIdentifierE" title="gpa::utility::directx::D3D12ShaderIdentifier"><span class="n"><span class="pre">D3D12ShaderIdentifier</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">revMapping</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport35ApplySubcaptureReverseShaderMappingEP17ID3D12StateObjectRKNSt3mapIN3gpa7utility7directx21D3D12ShaderIdentifierEN3gpa7utility7directx21D3D12ShaderIdentifierEEE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport25OnPreCreateDescriptorHeapE8uint64_t">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport25OnPreCreateDescriptorHeapE8uint64_t"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport25OnPreCreateDescriptorHeapE8uint64_t"></span><span id="gpa::playback::D3D12PlaybackSupport::OnPreCreateDescriptorHeap__uint64_t"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a50e36709372c48182f95768f7a0171e9"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnPreCreateDescriptorHeap</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">captureDeviceKey</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport25OnPreCreateDescriptorHeapE8uint64_t" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport26OnPostCreateDescriptorHeapEP20ID3D12DescriptorHeap">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport26OnPostCreateDescriptorHeapEP20ID3D12DescriptorHeap"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport26OnPostCreateDescriptorHeapEP20ID3D12DescriptorHeap"></span><span id="gpa::playback::D3D12PlaybackSupport::OnPostCreateDescriptorHeap__ID3D12DescriptorHeapP"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a2fe1eb0f6f980c85429f79518f373329"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnPostCreateDescriptorHeap</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12DescriptorHeap</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">heap</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport26OnPostCreateDescriptorHeapEP20ID3D12DescriptorHeap" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport34OnGetDescriptorHandleIncrementSizeE8uint64_t26D3D12_DESCRIPTOR_HEAP_TYPE8uint32_t">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport34OnGetDescriptorHandleIncrementSizeE8uint64_t26D3D12_DESCRIPTOR_HEAP_TYPE8uint32_t"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport34OnGetDescriptorHandleIncrementSizeE8uint64_t26D3D12_DESCRIPTOR_HEAP_TYPE8uint32_t"></span><span id="gpa::playback::D3D12PlaybackSupport::OnGetDescriptorHandleIncrementSize__uint64_t.D3D12_DESCRIPTOR_HEAP_TYPE.uint32_t"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1ac59d11c2a2d141797c3c316ede643e4c"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnGetDescriptorHandleIncrementSize</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">captureDeviceKey</span></span>, <span class="n"><span class="pre">D3D12_DESCRIPTOR_HEAP_TYPE</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">descriptorHeapType</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">captureIncrementSize</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport34OnGetDescriptorHandleIncrementSizeE8uint64_t26D3D12_DESCRIPTOR_HEAP_TYPE8uint32_t" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport36OnGetCPUDescriptorHandleForHeapStartEP20ID3D12DescriptorHeapP27D3D12_CPU_DESCRIPTOR_HANDLERPK16GPADispatchTable">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport36OnGetCPUDescriptorHandleForHeapStartEP20ID3D12DescriptorHeapP27D3D12_CPU_DESCRIPTOR_HANDLERPK16GPADispatchTable"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport36OnGetCPUDescriptorHandleForHeapStartEP20ID3D12DescriptorHeapP27D3D12_CPU_DESCRIPTOR_HANDLERPK16GPADispatchTable"></span><span id="gpa::playback::D3D12PlaybackSupport::OnGetCPUDescriptorHandleForHeapStart__ID3D12DescriptorHeapP.D3D12_CPU_DESCRIPTOR_HANDLEP.GPADispatchTableCPR"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1ab3a02ddc7feb4e8aa4201f7ca3147e26"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnGetCPUDescriptorHandleForHeapStart</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12DescriptorHeap</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">heap</span></span>, <span class="n"><span class="pre">D3D12_CPU_DESCRIPTOR_HANDLE</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">captureTimeValue</span></span>, <span class="n"><span class="pre">GPADispatchTable</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">table</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport36OnGetCPUDescriptorHandleForHeapStartEP20ID3D12DescriptorHeapP27D3D12_CPU_DESCRIPTOR_HANDLERPK16GPADispatchTable" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport36OnGetGPUDescriptorHandleForHeapStartEP20ID3D12DescriptorHeapP27D3D12_GPU_DESCRIPTOR_HANDLERPK16GPADispatchTable">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport36OnGetGPUDescriptorHandleForHeapStartEP20ID3D12DescriptorHeapP27D3D12_GPU_DESCRIPTOR_HANDLERPK16GPADispatchTable"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport36OnGetGPUDescriptorHandleForHeapStartEP20ID3D12DescriptorHeapP27D3D12_GPU_DESCRIPTOR_HANDLERPK16GPADispatchTable"></span><span id="gpa::playback::D3D12PlaybackSupport::OnGetGPUDescriptorHandleForHeapStart__ID3D12DescriptorHeapP.D3D12_GPU_DESCRIPTOR_HANDLEP.GPADispatchTableCPR"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1aeb401daca4a2198b37116aceadcab0f2"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnGetGPUDescriptorHandleForHeapStart</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12DescriptorHeap</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">heap</span></span>, <span class="n"><span class="pre">D3D12_GPU_DESCRIPTOR_HANDLE</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">captureTimeValue</span></span>, <span class="n"><span class="pre">GPADispatchTable</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">table</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport36OnGetGPUDescriptorHandleForHeapStartEP20ID3D12DescriptorHeapP27D3D12_GPU_DESCRIPTOR_HANDLERPK16GPADispatchTable" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport22OnSetEventOnCompletionEP11ID3D12Fence6UINT64P6HANDLEP9ObjectMap">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport22OnSetEventOnCompletionEP11ID3D12Fence6UINT64P6HANDLEP9ObjectMap"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport22OnSetEventOnCompletionEP11ID3D12Fence6UINT64P6HANDLEP9ObjectMap"></span><span id="gpa::playback::D3D12PlaybackSupport::OnSetEventOnCompletion__ID3D12FenceP.UINT64.HANDLEP.ObjectMapP"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a9f975f526b7d1424777c40a6f0c4f2a5"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnSetEventOnCompletion</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12Fence</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">fence</span></span>, <span class="n"><span class="pre">UINT64</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span>, <span class="n"><span class="pre">HANDLE</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">hEvent</span></span>, <a class="reference internal" href="classgpa_1_1playback_1_1ObjectMap.html#_CPPv4N3gpa8playback9ObjectMapE" title="gpa::playback::ObjectMap"><span class="n"><span class="pre">ObjectMap</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">objMap</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport22OnSetEventOnCompletionEP11ID3D12Fence6UINT64P6HANDLEP9ObjectMap" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport23GetGpuVirtualAddressMapEv">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport23GetGpuVirtualAddressMapEv"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport23GetGpuVirtualAddressMapEv"></span><span id="gpa::playback::D3D12PlaybackSupport::GetGpuVirtualAddressMap"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a8cf022880c2104d41fac348a5c3b70b7"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">uint64_t</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">D3D12_GPU_VIRTUAL_ADDRESS_RANGE</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetGpuVirtualAddressMap</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport23GetGpuVirtualAddressMapEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport38GetGpuVirtualAddressMapUpdateTimestampEv">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport38GetGpuVirtualAddressMapUpdateTimestampEv"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport38GetGpuVirtualAddressMapUpdateTimestampEv"></span><span id="gpa::playback::D3D12PlaybackSupport::GetGpuVirtualAddressMapUpdateTimestamp"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a48a35217db050965fda0d440fc9f9262"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetGpuVirtualAddressMapUpdateTimestamp</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport38GetGpuVirtualAddressMapUpdateTimestampEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback20D3D12PlaybackSupport31GetCaptureD3D12ShaderIdentifierERKN7utility7directx21D3D12ShaderIdentifierEP17ID3D12StateObject">
+<span id="_CPPv3NK3gpa8playback20D3D12PlaybackSupport31GetCaptureD3D12ShaderIdentifierERKN7utility7directx21D3D12ShaderIdentifierEP17ID3D12StateObject"></span><span id="_CPPv2NK3gpa8playback20D3D12PlaybackSupport31GetCaptureD3D12ShaderIdentifierERKN7utility7directx21D3D12ShaderIdentifierEP17ID3D12StateObject"></span><span id="gpa::playback::D3D12PlaybackSupport::GetCaptureD3D12ShaderIdentifier__utility::directx::D3D12ShaderIdentifierCR.ID3D12StateObjectPC"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a26ab4adfa4fa81b0afc3f626bd043ad1"></span><span class="n"><span class="pre">utility</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">directx</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structgpa_1_1utility_1_1directx_1_1D3D12ShaderIdentifier.html#_CPPv4N3gpa7utility7directx21D3D12ShaderIdentifierE" title="gpa::utility::directx::D3D12ShaderIdentifier"><span class="n"><span class="pre">D3D12ShaderIdentifier</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetCaptureD3D12ShaderIdentifier</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">utility</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">directx</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structgpa_1_1utility_1_1directx_1_1D3D12ShaderIdentifier.html#_CPPv4N3gpa7utility7directx21D3D12ShaderIdentifierE" title="gpa::utility::directx::D3D12ShaderIdentifier"><span class="n"><span class="pre">D3D12ShaderIdentifier</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">playbackIdentifier</span></span>, <span class="n"><span class="pre">ID3D12StateObject</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">stateObj</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback20D3D12PlaybackSupport31GetCaptureD3D12ShaderIdentifierERKN7utility7directx21D3D12ShaderIdentifierEP17ID3D12StateObject" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback20D3D12PlaybackSupport18GetCrossGpuManagerEv">
+<span id="_CPPv3NK3gpa8playback20D3D12PlaybackSupport18GetCrossGpuManagerEv"></span><span id="_CPPv2NK3gpa8playback20D3D12PlaybackSupport18GetCrossGpuManagerEv"></span><span id="gpa::playback::D3D12PlaybackSupport::GetCrossGpuManagerC"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a859e96b0ec023187c4839728556318fb"></span><span class="n"><span class="pre">cross_gpu</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classgpa_1_1cross__gpu_1_1CrossGpuManager.html#_CPPv4N3gpa9cross_gpu15CrossGpuManagerE" title="gpa::cross_gpu::CrossGpuManager"><span class="n"><span class="pre">CrossGpuManager</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetCrossGpuManager</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback20D3D12PlaybackSupport18GetCrossGpuManagerEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport36GetDescriptorHeapByCaptureAddressMapEv">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport36GetDescriptorHeapByCaptureAddressMapEv"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport36GetDescriptorHeapByCaptureAddressMapEv"></span><span id="gpa::playback::D3D12PlaybackSupport::GetDescriptorHeapByCaptureAddressMap"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a8dca257f49e5df2f61ab3725a6cf7c2f"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">uint64_t</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX12E" title="gpa::playback::D3D12PlaybackSupport::DescriptorHeapDataDX12"><span class="n"><span class="pre">DescriptorHeapDataDX12</span></span></a><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetDescriptorHeapByCaptureAddressMap</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport36GetDescriptorHeapByCaptureAddressMapEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport51GetDescriptorHeapByCaptureAddressMapUpdateTimestampEv">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport51GetDescriptorHeapByCaptureAddressMapUpdateTimestampEv"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport51GetDescriptorHeapByCaptureAddressMapUpdateTimestampEv"></span><span id="gpa::playback::D3D12PlaybackSupport::GetDescriptorHeapByCaptureAddressMapUpdateTimestamp"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1afaa928fee31f6847fe271d727d817698"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetDescriptorHeapByCaptureAddressMapUpdateTimestamp</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport51GetDescriptorHeapByCaptureAddressMapUpdateTimestampEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport27GetDescriptorHeapByIndexVecEv">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport27GetDescriptorHeapByIndexVecEv"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport27GetDescriptorHeapByIndexVecEv"></span><span id="gpa::playback::D3D12PlaybackSupport::GetDescriptorHeapByIndexVec"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1ac50924386b2710e9e75a5b8529588d4e"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX12E" title="gpa::playback::D3D12PlaybackSupport::DescriptorHeapDataDX12"><span class="n"><span class="pre">DescriptorHeapDataDX12</span></span></a><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetDescriptorHeapByIndexVec</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport27GetDescriptorHeapByIndexVecEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport26EnumerateKnownStateObjectsENSt8functionIFvP17ID3D12StateObjectEEE">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport26EnumerateKnownStateObjectsENSt8functionIFvP17ID3D12StateObjectEEE"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport26EnumerateKnownStateObjectsENSt8functionIFvP17ID3D12StateObjectEEE"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1aa5680f5d284a21bf752f3ef2f94807fd"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EnumerateKnownStateObjects</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">ID3D12StateObject</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">callback</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport26EnumerateKnownStateObjectsENSt8functionIFvP17ID3D12StateObjectEEE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport25GetCaptureDeviceKeyByHeapEv">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport25GetCaptureDeviceKeyByHeapEv"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport25GetCaptureDeviceKeyByHeapEv"></span><span id="gpa::playback::D3D12PlaybackSupport::GetCaptureDeviceKeyByHeap"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a0217daca32ac47a019d76fe9107170a0"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">ID3D12DescriptorHeap</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">uint64_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetCaptureDeviceKeyByHeap</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport25GetCaptureDeviceKeyByHeapEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport46GetCaptureDescriptorIncrementSizeByHeapTypeMapEv">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport46GetCaptureDescriptorIncrementSizeByHeapTypeMapEv"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport46GetCaptureDescriptorIncrementSizeByHeapTypeMapEv"></span><span id="gpa::playback::D3D12PlaybackSupport::GetCaptureDescriptorIncrementSizeByHeapTypeMap"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a402d16289864d6ce0be4daf305c53618"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">uint64_t</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">D3D12_DESCRIPTOR_HEAP_TYPE</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetCaptureDescriptorIncrementSizeByHeapTypeMap</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport46GetCaptureDescriptorIncrementSizeByHeapTypeMapEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport5ClearEv">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport5ClearEv"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport5ClearEv"></span><span id="gpa::playback::D3D12PlaybackSupport::Clear"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a0e896a5fcc4fcaed65dc45037dbe875f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Clear</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport5ClearEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport35RegisterRaytracingArgumentsNotifierEPN10raytracing7directx27RaytracingArgumentsNotifierE">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport35RegisterRaytracingArgumentsNotifierEPN10raytracing7directx27RaytracingArgumentsNotifierE"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport35RegisterRaytracingArgumentsNotifierEPN10raytracing7directx27RaytracingArgumentsNotifierE"></span><span id="gpa::playback::D3D12PlaybackSupport::RegisterRaytracingArgumentsNotifier__raytracing::directx::RaytracingArgumentsNotifierP"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a1e815ff7a4e72bbcecf218469ab9e049"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RegisterRaytracingArgumentsNotifier</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">raytracing</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">directx</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classgpa_1_1raytracing_1_1directx_1_1RaytracingArgumentsNotifier.html#_CPPv4N3gpa10raytracing7directx27RaytracingArgumentsNotifierE" title="gpa::raytracing::directx::RaytracingArgumentsNotifier"><span class="n"><span class="pre">RaytracingArgumentsNotifier</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">notifier</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport35RegisterRaytracingArgumentsNotifierEPN10raytracing7directx27RaytracingArgumentsNotifierE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport40GetRegisteredRaytracingArgumentsNotifierEv">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport40GetRegisteredRaytracingArgumentsNotifierEv"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport40GetRegisteredRaytracingArgumentsNotifierEv"></span><span id="gpa::playback::D3D12PlaybackSupport::GetRegisteredRaytracingArgumentsNotifier"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a9b17fe46bb348f5a2afaa60ee97435cb"></span><span class="n"><span class="pre">raytracing</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">directx</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classgpa_1_1raytracing_1_1directx_1_1RaytracingArgumentsNotifier.html#_CPPv4N3gpa10raytracing7directx27RaytracingArgumentsNotifierE" title="gpa::raytracing::directx::RaytracingArgumentsNotifier"><span class="n"><span class="pre">RaytracingArgumentsNotifier</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetRegisteredRaytracingArgumentsNotifier</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport40GetRegisteredRaytracingArgumentsNotifierEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport37UnregisterRaytracingArgumentsNotifierEv">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport37UnregisterRaytracingArgumentsNotifierEv"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport37UnregisterRaytracingArgumentsNotifierEv"></span><span id="gpa::playback::D3D12PlaybackSupport::UnregisterRaytracingArgumentsNotifier"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a16ea9cc8e2b4a1b0ce52f69b1a167996"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UnregisterRaytracingArgumentsNotifier</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport37UnregisterRaytracingArgumentsNotifierEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback20D3D12PlaybackSupport24UseOldRaytracingPatchingEv">
+<span id="_CPPv3NK3gpa8playback20D3D12PlaybackSupport24UseOldRaytracingPatchingEv"></span><span id="_CPPv2NK3gpa8playback20D3D12PlaybackSupport24UseOldRaytracingPatchingEv"></span><span id="gpa::playback::D3D12PlaybackSupport::UseOldRaytracingPatchingC"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a902b63a9c13da057d6ccf987eb1f6104"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UseOldRaytracingPatching</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback20D3D12PlaybackSupport24UseOldRaytracingPatchingEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport27EnableOldRaytracingPatchingEv">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport27EnableOldRaytracingPatchingEv"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport27EnableOldRaytracingPatchingEv"></span><span id="gpa::playback::D3D12PlaybackSupport::EnableOldRaytracingPatching"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1afff63685e2836cdde29c3b14bec23acb"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EnableOldRaytracingPatching</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport27EnableOldRaytracingPatchingEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback20D3D12PlaybackSupport33PrintPlaybackSizeMismatchMessagesEv">
+<span id="_CPPv3NK3gpa8playback20D3D12PlaybackSupport33PrintPlaybackSizeMismatchMessagesEv"></span><span id="_CPPv2NK3gpa8playback20D3D12PlaybackSupport33PrintPlaybackSizeMismatchMessagesEv"></span><span id="gpa::playback::D3D12PlaybackSupport::PrintPlaybackSizeMismatchMessagesC"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a37a75f4693e49f1398a6f71bbdf83396"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PrintPlaybackSizeMismatchMessages</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback20D3D12PlaybackSupport33PrintPlaybackSizeMismatchMessagesEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport32MutePlaybackSizeMismatchMessagesEv">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport32MutePlaybackSizeMismatchMessagesEv"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport32MutePlaybackSizeMismatchMessagesEv"></span><span id="gpa::playback::D3D12PlaybackSupport::MutePlaybackSizeMismatchMessages"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a2bd8d68cf81b0e2c78ce0f860d6ff525"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MutePlaybackSizeMismatchMessages</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport32MutePlaybackSizeMismatchMessagesEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport40RegisterAccelerationStructureReplacementE25D3D12_GPU_VIRTUAL_ADDRESS25D3D12_GPU_VIRTUAL_ADDRESS">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport40RegisterAccelerationStructureReplacementE25D3D12_GPU_VIRTUAL_ADDRESS25D3D12_GPU_VIRTUAL_ADDRESS"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport40RegisterAccelerationStructureReplacementE25D3D12_GPU_VIRTUAL_ADDRESS25D3D12_GPU_VIRTUAL_ADDRESS"></span><span id="gpa::playback::D3D12PlaybackSupport::RegisterAccelerationStructureReplacement__D3D12_GPU_VIRTUAL_ADDRESS.D3D12_GPU_VIRTUAL_ADDRESS"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1ab558cbe447090399d0251a5206ed62c4"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RegisterAccelerationStructureReplacement</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">D3D12_GPU_VIRTUAL_ADDRESS</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">org</span></span>, <span class="n"><span class="pre">D3D12_GPU_VIRTUAL_ADDRESS</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">replacement</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport40RegisterAccelerationStructureReplacementE25D3D12_GPU_VIRTUAL_ADDRESS25D3D12_GPU_VIRTUAL_ADDRESS" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport42UnregisterAccelerationStructureReplacementE25D3D12_GPU_VIRTUAL_ADDRESS">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport42UnregisterAccelerationStructureReplacementE25D3D12_GPU_VIRTUAL_ADDRESS"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport42UnregisterAccelerationStructureReplacementE25D3D12_GPU_VIRTUAL_ADDRESS"></span><span id="gpa::playback::D3D12PlaybackSupport::UnregisterAccelerationStructureReplacement__D3D12_GPU_VIRTUAL_ADDRESS"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a8fcf24e5b896f329153965ecd82b4d82"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UnregisterAccelerationStructureReplacement</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">D3D12_GPU_VIRTUAL_ADDRESS</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">org</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport42UnregisterAccelerationStructureReplacementE25D3D12_GPU_VIRTUAL_ADDRESS" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport48TranslateD3D12GPUVirtualAddressSkipASReplacementER25D3D12_GPU_VIRTUAL_ADDRESS">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport48TranslateD3D12GPUVirtualAddressSkipASReplacementER25D3D12_GPU_VIRTUAL_ADDRESS"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport48TranslateD3D12GPUVirtualAddressSkipASReplacementER25D3D12_GPU_VIRTUAL_ADDRESS"></span><span id="gpa::playback::D3D12PlaybackSupport::TranslateD3D12GPUVirtualAddressSkipASReplacement__D3D12_GPU_VIRTUAL_ADDRESSR"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a331da2a840e5755f05340ad70d41349f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TranslateD3D12GPUVirtualAddressSkipASReplacement</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">D3D12_GPU_VIRTUAL_ADDRESS</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">address</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport48TranslateD3D12GPUVirtualAddressSkipASReplacementER25D3D12_GPU_VIRTUAL_ADDRESS" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback20D3D12PlaybackSupport20D3D12PlaybackSupport36GetGpuVirtualAddressASReplacementMapEv">
+<span id="_CPPv3NK3gpa8playback20D3D12PlaybackSupport20D3D12PlaybackSupport36GetGpuVirtualAddressASReplacementMapEv"></span><span id="_CPPv2NK3gpa8playback20D3D12PlaybackSupport20D3D12PlaybackSupport36GetGpuVirtualAddressASReplacementMapEv"></span><span id="gpa::playback::D3D12PlaybackSupport::D3D12PlaybackSupport::GetGpuVirtualAddressASReplacementMapC"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a49ff8fcd95dc70d8895afbc3ff5b2574"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">D3D12_GPU_VIRTUAL_ADDRESS</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">D3D12_GPU_VIRTUAL_ADDRESS</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetGpuVirtualAddressASReplacementMap</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback20D3D12PlaybackSupport20D3D12PlaybackSupport36GetGpuVirtualAddressASReplacementMapEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa8playback20D3D12PlaybackSupport20D3D12PlaybackSupport51GetGpuVirtualAddressASReplacementMapUpdateTimestampEv">
+<span id="_CPPv3NK3gpa8playback20D3D12PlaybackSupport20D3D12PlaybackSupport51GetGpuVirtualAddressASReplacementMapUpdateTimestampEv"></span><span id="_CPPv2NK3gpa8playback20D3D12PlaybackSupport20D3D12PlaybackSupport51GetGpuVirtualAddressASReplacementMapUpdateTimestampEv"></span><span id="gpa::playback::D3D12PlaybackSupport::D3D12PlaybackSupport::GetGpuVirtualAddressASReplacementMapUpdateTimestampC"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1aa3562dfa2f0d48a95eb000de6f9d5a91"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetGpuVirtualAddressASReplacementMapUpdateTimestamp</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa8playback20D3D12PlaybackSupport20D3D12PlaybackSupport51GetGpuVirtualAddressASReplacementMapUpdateTimestampEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport30TranslateD3D12ShaderIdentifierERN7utility7directx21D3D12ShaderIdentifierEP17ID3D12StateObjectPPKNSt7wstringE">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport30TranslateD3D12ShaderIdentifierERN7utility7directx21D3D12ShaderIdentifierEP17ID3D12StateObjectPPKNSt7wstringE"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport30TranslateD3D12ShaderIdentifierERN7utility7directx21D3D12ShaderIdentifierEP17ID3D12StateObjectPPKNSt7wstringE"></span><span id="gpa::playback::D3D12PlaybackSupport::TranslateD3D12ShaderIdentifier__utility::directx::D3D12ShaderIdentifierR.ID3D12StateObjectP.std::wstringCPP"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1adfc39382154add09d3936b2b3d2fb1ec"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TranslateD3D12ShaderIdentifier</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">utility</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">directx</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structgpa_1_1utility_1_1directx_1_1D3D12ShaderIdentifier.html#_CPPv4N3gpa7utility7directx21D3D12ShaderIdentifierE" title="gpa::utility::directx::D3D12ShaderIdentifier"><span class="n"><span class="pre">D3D12ShaderIdentifier</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">identifier</span></span>, <span class="n"><span class="pre">ID3D12StateObject</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">stateObj</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">wstring</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ppExportName</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport30TranslateD3D12ShaderIdentifierERN7utility7directx21D3D12ShaderIdentifierEP17ID3D12StateObjectPPKNSt7wstringE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport27EnumerateKnownShaderMappingEP17ID3D12StateObjectNSt8functionIFvN3gpa7utility7directx21D3D12ShaderIdentifierEN3gpa7utility7directx21D3D12ShaderIdentifierEPKNSt7wstringEEEE">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport27EnumerateKnownShaderMappingEP17ID3D12StateObjectNSt8functionIFvN3gpa7utility7directx21D3D12ShaderIdentifierEN3gpa7utility7directx21D3D12ShaderIdentifierEPKNSt7wstringEEEE"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport27EnumerateKnownShaderMappingEP17ID3D12StateObjectNSt8functionIFvN3gpa7utility7directx21D3D12ShaderIdentifierEN3gpa7utility7directx21D3D12ShaderIdentifierEPKNSt7wstringEEEE"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1ab2b0fb66fa9c7f6d0d3e87ddfaddbecb"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EnumerateKnownShaderMapping</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12StateObject</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">stateObject</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">gpa</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">utility</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">directx</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structgpa_1_1utility_1_1directx_1_1D3D12ShaderIdentifier.html#_CPPv4N3gpa7utility7directx21D3D12ShaderIdentifierE" title="gpa::utility::directx::D3D12ShaderIdentifier"><span class="n"><span class="pre">D3D12ShaderIdentifier</span></span></a><span class="w"> </span><span class="n"><span class="pre">captureTime</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">gpa</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">utility</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">directx</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structgpa_1_1utility_1_1directx_1_1D3D12ShaderIdentifier.html#_CPPv4N3gpa7utility7directx21D3D12ShaderIdentifierE" title="gpa::utility::directx::D3D12ShaderIdentifier"><span class="n"><span class="pre">D3D12ShaderIdentifier</span></span></a><span class="w"> </span><span class="n"><span class="pre">playbackTime</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">wstring</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">exportName</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">cb</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport27EnumerateKnownShaderMappingEP17ID3D12StateObjectNSt8functionIFvN3gpa7utility7directx21D3D12ShaderIdentifierEN3gpa7utility7directx21D3D12ShaderIdentifierEPKNSt7wstringEEEE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport26GetKnownShaderMappingCountEP17ID3D12StateObject">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport26GetKnownShaderMappingCountEP17ID3D12StateObject"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport26GetKnownShaderMappingCountEP17ID3D12StateObject"></span><span id="gpa::playback::D3D12PlaybackSupport::GetKnownShaderMappingCount__ID3D12StateObjectP"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1acda0974add19d35b68163bb0c3a9448d"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetKnownShaderMappingCount</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12StateObject</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">stateObject</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport26GetKnownShaderMappingCountEP17ID3D12StateObject" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport29GetLastMappingUpdateTimestampEP17ID3D12StateObject">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport29GetLastMappingUpdateTimestampEP17ID3D12StateObject"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport29GetLastMappingUpdateTimestampEP17ID3D12StateObject"></span><span id="gpa::playback::D3D12PlaybackSupport::GetLastMappingUpdateTimestamp__ID3D12StateObjectP"></span><span class="target" id="classgpa_1_1playback_1_1D3D12PlaybackSupport_1a043a08f9010b41dfcfc151b16ff9b5ca"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetLastMappingUpdateTimestamp</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12StateObject</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">stateObj</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport29GetLastMappingUpdateTimestampEP17ID3D12StateObject" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX12E">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX12E"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX12E"></span><span id="gpa::playback::D3D12PlaybackSupport::DescriptorHeapDataDX12"></span><span class="target" id="structgpa_1_1playback_1_1D3D12PlaybackSupport_1_1DescriptorHeapDataDX12"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DescriptorHeapDataDX12</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX12E" title="Permalink to this definition"></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX1218uniqueSequentialIDE">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX1218uniqueSequentialIDE"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX1218uniqueSequentialIDE"></span><span id="gpa::playback::D3D12PlaybackSupport::DescriptorHeapDataDX12::uniqueSequentialID__uint32_t"></span><span class="target" id="structgpa_1_1playback_1_1D3D12PlaybackSupport_1_1DescriptorHeapDataDX12_1ac3038bcd057bdbeac8f4edc9ee4c9a15"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">uniqueSequentialID</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX1218uniqueSequentialIDE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX1213incrementSizeE">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX1213incrementSizeE"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX1213incrementSizeE"></span><span id="gpa::playback::D3D12PlaybackSupport::DescriptorHeapDataDX12::incrementSize__uint32_t"></span><span class="target" id="structgpa_1_1playback_1_1D3D12PlaybackSupport_1_1DescriptorHeapDataDX12_1ac75ecade202b537fe610d97820192e6d"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">incrementSize</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX1213incrementSizeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX1218descriptorHeapTypeE">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX1218descriptorHeapTypeE"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX1218descriptorHeapTypeE"></span><span id="gpa::playback::D3D12PlaybackSupport::DescriptorHeapDataDX12::descriptorHeapType__D3D12_DESCRIPTOR_HEAP_TYPE"></span><span class="target" id="structgpa_1_1playback_1_1D3D12PlaybackSupport_1_1DescriptorHeapDataDX12_1a95d46db373a4f90f280a73ab99f7687a"></span><span class="n"><span class="pre">D3D12_DESCRIPTOR_HEAP_TYPE</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">descriptorHeapType</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">D3D12_DESCRIPTOR_HEAP_TYPE_NUM_TYPES</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX1218descriptorHeapTypeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX129cpuHandleE">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX129cpuHandleE"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX129cpuHandleE"></span><span id="gpa::playback::D3D12PlaybackSupport::DescriptorHeapDataDX12::cpuHandle__D3D12_CPU_DESCRIPTOR_HANDLE"></span><span class="target" id="structgpa_1_1playback_1_1D3D12PlaybackSupport_1_1DescriptorHeapDataDX12_1a997a12f762452270be74b49eef3fbd5d"></span><span class="n"><span class="pre">D3D12_CPU_DESCRIPTOR_HANDLE</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cpuHandle</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX129cpuHandleE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX129gpuHandleE">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX129gpuHandleE"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX129gpuHandleE"></span><span id="gpa::playback::D3D12PlaybackSupport::DescriptorHeapDataDX12::gpuHandle__D3D12_GPU_DESCRIPTOR_HANDLE"></span><span class="target" id="structgpa_1_1playback_1_1D3D12PlaybackSupport_1_1DescriptorHeapDataDX12_1a364403da314850bcbf6442a40525c704"></span><span class="n"><span class="pre">D3D12_GPU_DESCRIPTOR_HANDLE</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">gpuHandle</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX129gpuHandleE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX124heapE">
+<span id="_CPPv3N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX124heapE"></span><span id="_CPPv2N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX124heapE"></span><span id="gpa::playback::D3D12PlaybackSupport::DescriptorHeapDataDX12::heap__ID3D12DescriptorHeapP"></span><span class="target" id="structgpa_1_1playback_1_1D3D12PlaybackSupport_1_1DescriptorHeapDataDX12_1a44fc46a99be142f74de8e9f0d0e4e48d"></span><span class="n"><span class="pre">ID3D12DescriptorHeap</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">heap</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback20D3D12PlaybackSupport22DescriptorHeapDataDX124heapE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="classgpa_1_1playback_1_1CrossGpuPreprocessor.html" class="btn btn-neutral float-left" title="Class CrossGpuPreprocessor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="classgpa_1_1playback_1_1DefaultPlaybackListener.html" class="btn btn-neutral float-right" title="Class DefaultPlaybackListener" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

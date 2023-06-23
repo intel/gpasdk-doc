@@ -1,0 +1,66 @@
+
+.. _program_listing_file_include_cross-gpu_virtual-address-lifetime-manager.h:
+
+Program Listing for File virtual-address-lifetime-manager.h
+===========================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_cross-gpu_virtual-address-lifetime-manager.h>` (``include\cross-gpu\virtual-address-lifetime-manager.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   (C) Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   #pragma once
+   
+   #include "cross-gpu/cross-gpu-common.h"
+   
+   #include <unordered_map>
+   
+   namespace gpa {
+   namespace cross_gpu {
+   
+   // Helper class for resources lifetime tracking during playback
+   // Resolves same VA and same Ptr collisions.
+   // Can be removed after timestamp resolving support.
+   class VirtualAddressLifetimeManager
+   {
+   public:
+       struct ResourceData
+       {
+           Ptr resourcePtr = 0;
+           Offset heapOffset = 0;
+           Offsets resourceOffsets;
+       };
+   
+       VirtualAddressLifetimeManager();
+   
+       ResourceData& GetResourceData(GpuVA address, Ptr resource);
+   
+       const ResourceData* GetActiveOffsets(GpuVA address) const;
+   
+       void Activate(GpuVA address, Ptr resource);
+       void Hide(GpuVA address);
+   
+   private:
+       std::unordered_map<GpuVA, std::vector<ResourceData>> mStorage;
+       VirtualAddressTo<const ResourceData*> mActive;
+   };
+   
+   }  // namespace cross_gpu
+   }  // namespace gpa

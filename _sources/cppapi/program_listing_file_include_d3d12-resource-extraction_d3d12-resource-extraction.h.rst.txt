@@ -1,0 +1,102 @@
+
+.. _program_listing_file_include_d3d12-resource-extraction_d3d12-resource-extraction.h:
+
+Program Listing for File d3d12-resource-extraction.h
+====================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_d3d12-resource-extraction_d3d12-resource-extraction.h>` (``include\d3d12-resource-extraction\d3d12-resource-extraction.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   
+           Copyright 2021 - 2021 Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   #pragma once
+   
+   #include <memory>
+   #include <vector>
+   #include <functional>
+   
+   #include <d3d12.h>
+   #include <d3dx12.h>
+   #include <gpgmm_d3d12.h>
+   #include <atlbase.h>
+   
+   namespace gpa {
+   namespace resource_utilities {
+   namespace d3d12 {
+   
+   class ResourceCopy
+   {
+   public:
+       ResourceCopy(gpgmm::d3d12::IResourceAllocator* allocator, ID3D12Resource* resource);
+       virtual ~ResourceCopy() = default;
+   
+       size_t GetSize() const;
+       void GetData(uint8_t* const data, size_t size) const;
+   
+   protected:
+       CComPtr<gpgmm::d3d12::IResourceAllocation> mCopyResource;
+       size_t mResourceSize = 0;
+   };
+   
+   class BufferCopy : public ResourceCopy
+   {
+   public:
+       BufferCopy(
+           gpgmm::d3d12::IResourceAllocator* allocator,
+           ID3D12Resource* resource,
+           ID3D12GraphicsCommandList* commandList,
+           D3D12_RESOURCE_STATES state);
+   
+       ~BufferCopy() override;
+   };
+   
+   struct SubresourceInfo
+   {
+       size_t rowPitch = 0;
+       size_t slicePitch = 0;
+       DXGI_FORMAT format = DXGI_FORMAT_UNKNOWN;
+   };
+   
+   class TextureCopy : public ResourceCopy
+   {
+   public:
+       TextureCopy(
+           gpgmm::d3d12::IResourceAllocator* allocator,
+           ID3D12Resource* resource,
+           ID3D12GraphicsCommandList* commandList,
+           D3D12_RESOURCE_STATES state);
+   
+       uint32_t GetSubresourceIndex(uint32_t planeIndex, uint32_t arrayIndex, uint32_t mipIndex) const;
+       size_t GetSubresourceSize(uint32_t subresourceIndex) const;
+       SubresourceInfo GetSubresourceData(uint32_t subresourceIndex, uint8_t* const data, size_t size) const;
+   
+       ~TextureCopy() override;
+   
+   private:
+       CComPtr<ID3D12Device> mDevice;
+       const CD3DX12_RESOURCE_DESC mResourceDesc{};
+   
+       std::vector<D3D12_PLACED_SUBRESOURCE_FOOTPRINT> mFootprints;
+       std::vector<uint32_t> mNumRows;
+   };
+   
+   }  // namespace d3d12
+   }  // namespace resource_utilities
+   }  // namespace gpa

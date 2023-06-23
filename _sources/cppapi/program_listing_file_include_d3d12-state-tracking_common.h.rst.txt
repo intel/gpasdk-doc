@@ -1,0 +1,116 @@
+
+.. _program_listing_file_include_d3d12-state-tracking_common.h:
+
+Program Listing for File d3d12-state-tracking/common.h
+======================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_d3d12-state-tracking_common.h>` (``include\d3d12-state-tracking\common.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   #include <d3d12.h>
+   #include <gpgmm_d3d12.h>
+   #include <stdint.h>
+   
+   namespace gpa {
+   namespace d3d12_state_tracker {
+   
+   static const GUID IID_StateTrackingObject = {0xd2da226e, 0xc1c0, 0x43f7, {0x90, 0xb1, 0x4f, 0x16, 0x1a, 0x78, 0x6d, 0x34}};
+   
+   class D3D12ResourceState;
+   class D3D12DescriptorHeapState;
+   struct DX12Descriptor;
+   
+   template<typename StateObjectType, typename RuntimeObjectType, typename... Args>
+   StateObjectType* InitializeStateObject(void** ppObject, HRESULT result, Args... constructorArgs)
+   {
+       using namespace d3d12_state_tracker;
+       if (!ppObject || FAILED(result)) {
+           return nullptr;
+       }
+   
+       auto* typedObject = (RuntimeObjectType*)*ppObject;
+       UINT size = sizeof(void*);
+       void* existingPrivateData = nullptr;
+       if (SUCCEEDED(typedObject->GetPrivateData(IID_StateTrackingObject, &size, &existingPrivateData))) {
+           return (StateObjectType*)existingPrivateData;
+       }
+   
+       StateObjectType* state = new StateObjectType(typedObject, constructorArgs...);
+       typedObject->SetPrivateDataInterface(IID_StateTrackingObject, state);
+       return state;
+   }
+   
+   template<typename PrivateDataType, typename T>
+   PrivateDataType* GetStateObject(T* object)
+   {
+       if (!object) {
+           return nullptr;
+       }
+   
+       PrivateDataType* data = nullptr;
+       UINT dataSize = sizeof(void*);
+       if (FAILED(object->GetPrivateData(IID_StateTrackingObject, &dataSize, &data))) {
+           return nullptr;
+       }
+   
+       return data;
+   }
+   
+   template<typename PrivateDataType, typename T>
+   PrivateDataType* GetStateObject(uint64_t genericHandle)
+   {
+       return GetStateObject<PrivateDataType, T>((T*)genericHandle);
+   }
+   
+   ID3D12Resource* GetResourceFromGPUVirtualAddress(D3D12_GPU_VIRTUAL_ADDRESS inAddress, uint32_t* outOffset = nullptr, D3D12ResourceState** outResourceStateObject = nullptr);
+   
+   DX12Descriptor* GetDescriptorFromCPUHandle(D3D12_CPU_DESCRIPTOR_HANDLE handle, D3D12DescriptorHeapState** outDescriptorHeapStateObject = nullptr);
+   
+   DX12Descriptor* GetDescriptorFromCPUHandle(D3D12_CPU_DESCRIPTOR_HANDLE handle, uint64_t index, D3D12DescriptorHeapState** outDescriptorHeapStateObject = nullptr);
+   
+   DX12Descriptor* GetDescriptorFromGPUHandle(D3D12_GPU_DESCRIPTOR_HANDLE handle, D3D12DescriptorHeapState** outDescriptorHeapStateObject = nullptr);
+   
+   inline uint32_t GetHeapIdFromCpuDescriptorHandle(uint64_t cpuDescriptorHandle)
+   {
+       return cpuDescriptorHandle >> 32;
+   }
+   
+   inline uint32_t GetHeapStartOffsetFromCpuDescriptorHandle(uint64_t cpuDescriptorHandle)
+   {
+       return cpuDescriptorHandle & UINT_MAX;
+   }
+   
+   inline uint64_t MakeCpuDescriptorHandle(uint32_t heapId, uint32_t index)
+   {
+       return ((uint64_t)heapId << 32) + index;
+   }
+   
+   gpgmm::d3d12::IResourceAllocator* GetResourceAllocator(ID3D12Device* device);
+   
+   gpgmm::d3d12::IResidencyManager* GetResidencyManager(ID3D12Device* device);
+   
+   D3D12_RESOURCE_STATES GetResourceStates(ID3D12GraphicsCommandList* commandList, ID3D12Resource* resource, uint32_t subresourceIndex);
+   
+   }  // namespace d3d12_state_tracker
+   }  // namespace gpa

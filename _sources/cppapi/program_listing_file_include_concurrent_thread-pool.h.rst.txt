@@ -4,7 +4,7 @@
 Program Listing for File thread-pool.h
 ======================================
 
-|exhale_lsh| :ref:`Return to documentation for file <file_include_concurrent_thread-pool.h>` (``include/concurrent/thread-pool.h``)
+|exhale_lsh| :ref:`Return to documentation for file <file_include_concurrent_thread-pool.h>` (``include\concurrent\thread-pool.h``)
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
@@ -28,6 +28,10 @@ Program Listing for File thread-pool.h
    ******************************************************************************/
    #pragma once
    
+   #ifdef _WIN32
+   #include <Windows.h>
+   #endif
+   
    #include <atomic>
    #include <future>
    #include <functional>
@@ -39,6 +43,66 @@ Program Listing for File thread-pool.h
    
    namespace gpa {
    namespace concurrent {
+   
+   #ifdef _WIN32
+   
+   //fastest possible async Task using Windows provided Thread Pool
+   class WinNativeThreadPool
+   {
+       static DWORD WINAPI WorkItem(void* ctx);
+       static size_t& GetCounter();
+   
+   public:
+       struct Task  //inherit your tasks from this
+       {
+           virtual void Run() = 0;
+       };
+   
+       //Fastest. This code doesn't handle the lifetime of Task. You can "new" it and delete in the end of Run, see below
+       static HRESULT UnsafeQueue(Task& task, DWORD dwFlags = 0);  // flags come from WT_EXECUTEDEFAULT family
+   
+       template<class F>
+       class Wrapper : public Task  //keeps copy of functor and deletes it after call
+       {
+       protected:
+           F mCallable;
+   
+           Wrapper(F clb)  // protected to allow changing of "new/delete this" only by heirs: https://isocpp.org/wiki/faq/freestore-mgmt#delete-this
+               : mCallable(clb)
+           {
+           }
+   
+       public:
+           static Wrapper<F>* Create(F clb)
+           {
+               return new Wrapper<F>(clb);
+           }
+           virtual void Run()
+           {
+               mCallable();
+               delete this;
+           }
+       };
+   
+       template<class T>                                       //Fastest: takes only basic function that take no arguments to call
+       static HRESULT Queue(T(callable)(), DWORD dwFlags = 0)  //costs sync on malloc / free
+       {
+           return UnsafeQueue(*Wrapper<decltype(callable)>::Create(callable), dwFlags);
+       }
+   
+       template<class T>                                           //Takes any callable like lambda, std::function, std::bind, or whatever has operator ()
+       static HRESULT Queue(const T& callable, DWORD dwFlags = 0)  //AND keeps the copy thrughout execution
+       {
+           return UnsafeQueue(*Wrapper<T>::Create(callable), dwFlags);
+       }
+   
+       //Wait on this counter to make sure all tasks are finished
+       static size_t Count()
+       {
+           return GetCounter();
+       }
+   };
+   #endif
    
    using VoidFunction = std::function<void()>;
    

@@ -1,0 +1,65 @@
+
+.. _program_listing_file_include_d3d12-state-tracking_d3d12-commandallocator.h:
+
+Program Listing for File d3d12-commandallocator.h
+=================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_d3d12-state-tracking_d3d12-commandallocator.h>` (``include\d3d12-state-tracking\d3d12-commandallocator.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   #include "d3d12-object.h"
+   #include "concurrent/critical-section.h"
+   #include <guiddef.h>
+   #include <d3d12.h>
+   #include <unordered_set>
+   
+   namespace gpa {
+   namespace d3d12_state_tracker {
+   
+   class D3D12CommandAllocatorState : public D3D12ObjectState
+   {
+   private:
+       std::unordered_set<ID3D12GraphicsCommandList*> mCmdLists;
+       gpa::concurrent::CriticalSection mCmdListsCriticalSection;
+       D3D12_COMMAND_LIST_TYPE mType;
+   
+   public:
+       static constexpr GUID sGUID = {0xe987a28e, 0xef54, 0x4d50, {0xb3, 0xe1, 0xaa, 0x9c, 0xcf, 0xa8, 0xfb, 0xa8}};
+   
+   public:
+       using D3D12ObjectState::D3D12ObjectState;
+       D3D12CommandAllocatorState(ID3D12Object* runtimeObj, D3D12_COMMAND_LIST_TYPE type);
+       virtual ~D3D12CommandAllocatorState();
+   
+       GUID GetGUID() override;
+   
+       void OnReset();
+       void RegisterCmdList(ID3D12GraphicsCommandList* cmdList);
+       void UnregisterCmdList(ID3D12GraphicsCommandList* cmdList);
+       std::unordered_set<ID3D12GraphicsCommandList*> const& GetAllocatedCommandLists();
+       D3D12_COMMAND_LIST_TYPE GetType() const;
+   };
+   
+   }  // namespace d3d12_state_tracker
+   }  // namespace gpa
