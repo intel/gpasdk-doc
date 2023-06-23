@@ -4,7 +4,7 @@
 Program Listing for File injector/types.h
 =========================================
 
-|exhale_lsh| :ref:`Return to documentation for file <file_include_injector_types.h>` (``include/injector/types.h``)
+|exhale_lsh| :ref:`Return to documentation for file <file_include_injector_types.h>` (``include\injector\types.h``)
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
@@ -86,10 +86,15 @@ Program Listing for File injector/types.h
        InjectionProperties injectionProperties;  
        bool ioRedirectEnabled = true;            
        bool isAntiCheatDetectorEnabled = true;   
+       bool isAttachRequested = false;           
+       char const* szAttachCondition = nullptr;  
+       char const* szAttachFlavors = nullptr;    
    };
    
    // (internal) name of the environment variable that contains the name of the shared memory object that holds InjectionProperties data
    constexpr char kSharedMemoryEnvVar[] = "GPA_SHARED_MEMORY";
+   
+   const char* GetSharedMemoryName(int32_t pid, bool bTimeStamp);
    
    }  // namespace injector
    }  // namespace gpa

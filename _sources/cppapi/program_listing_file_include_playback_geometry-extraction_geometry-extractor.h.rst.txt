@@ -4,7 +4,7 @@
 Program Listing for File geometry-extractor.h
 =============================================
 
-|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_geometry-extraction_geometry-extractor.h>` (``include/playback/geometry-extraction/geometry-extractor.h``)
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_geometry-extraction_geometry-extractor.h>` (``include\playback\geometry-extraction\geometry-extractor.h``)
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
@@ -50,7 +50,8 @@ Program Listing for File geometry-extractor.h
    
    class GeometryExtractor
        : public CallableReceiver,
-         public CallableBroadcaster
+         public CallableBroadcaster,
+         public CallableCallbacks
    {
    public:
        struct Result final
@@ -66,6 +67,7 @@ Program Listing for File geometry-extractor.h
                FAILURE_NO_GEOMETRY                = -5, 
                FAILURE_POSITION_PARAM_NOT_FOUND   = -6, 
                FAILURE_INTERNAL                   = -7, 
+               INSUFFICIENT_BUFFER_SIZE           = -8, 
                // clang-format on
            };
    
@@ -117,6 +119,12 @@ Program Listing for File geometry-extractor.h
        virtual ~GeometryExtractor();
    
        virtual void SetRequest(Request& request);
+   
+       void ReprocessRequest();
+   
+       virtual void SetSOBufferSize(size_t size);
+   
+       virtual size_t GetSOBufferSizeHint();
    
        virtual void Clear();
    

@@ -4,7 +4,7 @@
 Program Listing for File stream.h
 =================================
 
-|exhale_lsh| :ref:`Return to documentation for file <file_include_stream_stream.h>` (``include/stream/stream.h``)
+|exhale_lsh| :ref:`Return to documentation for file <file_include_stream_stream.h>` (``include\stream\stream.h``)
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
@@ -88,16 +88,19 @@ Program Listing for File stream.h
        TCHAR const* GetStorageDirectory();
    
    private:
-       StorageManager* mStorageManager;
-       stream::StorageViewManager* mStorageViewManager;
+       StorageManager* mStorageManager{};
+       stream::StorageViewManager* mStorageViewManager{};
    
        // we track and handle these separately as they are shared, not per-thread, storage
-       Storage* mResourceStorage;
-       Storage* mKeyframeStorage;
+       Storage* mResourceStorage{};
+       Storage* mKeyframeStorage{};
    
        bool InitPersistentDataStore(TCHAR const* directoryName);
        bool InitVirtualDataStore();
        void DeinitDataStore();
+   
+       Stream(Stream const&) = delete;
+       Stream& operator=(Stream const&) = delete;
    };
    
    }  // namespace serialization

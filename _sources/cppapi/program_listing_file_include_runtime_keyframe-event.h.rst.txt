@@ -4,7 +4,7 @@
 Program Listing for File keyframe-event.h
 =========================================
 
-|exhale_lsh| :ref:`Return to documentation for file <file_include_runtime_keyframe-event.h>` (``include/runtime/keyframe-event.h``)
+|exhale_lsh| :ref:`Return to documentation for file <file_include_runtime_keyframe-event.h>` (``include\runtime\keyframe-event.h``)
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
@@ -41,6 +41,12 @@ Program Listing for File keyframe-event.h
        NOT_SET = 0,
        STANDARD = 1,
        DEFERRED = 2,
+   };
+   
+   class KeyframeApplicationStartEvent : public runtime::EventData
+   {
+       GPA_EVENT_CLASS(KeyframeApplicationStartEvent)
+       KeyframeMode mode = KeyframeMode::NOT_SET;
    };
    
    class KeyframeAppliedEvent : public runtime::EventData

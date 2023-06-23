@@ -4,7 +4,7 @@
 Program Listing for File player.h
 =================================
 
-|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_player.h>` (``include/playback/player.h``)
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_player.h>` (``include\playback\player.h``)
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
@@ -43,6 +43,7 @@ Program Listing for File player.h
    
    namespace gpa {
    struct Surface;
+   struct PlaybackHookCallbacks;
    namespace serialization {
    class Storage;
    class RandomAccessSerializer;
@@ -59,6 +60,11 @@ Program Listing for File player.h
        Player(TCHAR const* const* prePlaybackLayers, TCHAR const* const* postPlaybackLayers,
               serialization::Storage* resourceStorage, playback::IPlaybackListener* playbackListener,
               LayerArgLookup const* argLookup = nullptr, bool enableD3D12DDIHooks = true);
+   
+       Player(TCHAR const* const* prePlaybackLayers, TCHAR const* const* postPlaybackLayers,
+              serialization::Storage* resourceStorage, playback::IPlaybackListener* playbackListener,
+              STD_STRING const& processNameOverride, LayerArgLookup const* argLookup = nullptr,
+              bool enableD3D12DDIHooks = true);
    
        ~Player();
    
@@ -83,7 +89,15 @@ Program Listing for File player.h
        // for overriding the reported process name, to enable driver-side title optimizations
        STD_STRING mProcessNameOverride;
    
+   #if defined(_WIN32)
+       // resident hook callbacks
+       std::unique_ptr<PlaybackHookCallbacks> mPlaybackHookCallbacks;
+   #endif
+   
        void OnProcessNameOverride(TCHAR* overrideName, size_t overrideNameLen, TCHAR const* originalName);
+       void Initialize(TCHAR const* const* prePlaybackLayers, TCHAR const* const* postPlaybackLayers,
+                       serialization::Storage* resourceStorage, playback::IPlaybackListener* playbackListener,
+                       LayerArgLookup const* argLookup, bool enableD3D12DDIHooks);
    };
    
    }  // namespace playback

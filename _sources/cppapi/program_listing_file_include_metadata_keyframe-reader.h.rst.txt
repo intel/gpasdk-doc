@@ -4,7 +4,7 @@
 Program Listing for File keyframe-reader.h
 ==========================================
 
-|exhale_lsh| :ref:`Return to documentation for file <file_include_metadata_keyframe-reader.h>` (``include/metadata/keyframe-reader.h``)
+|exhale_lsh| :ref:`Return to documentation for file <file_include_metadata_keyframe-reader.h>` (``include\metadata\keyframe-reader.h``)
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
@@ -60,11 +60,11 @@ Program Listing for File keyframe-reader.h
        void AddOperationReference(Keyframe* keyframe, uint64_t currentOffset)
        {
            T op = {};
-           StreamPacketHeaderEx packetHeader;
+           StreamPacketHeaderEx packetHeader{};
            mSerializer->Read(packetHeader);
            op.Deserialize(mSerializer);
    
-           metadata::Keyframe::ApiCallReference apiCallRef;
+           metadata::Keyframe::ApiCallReference apiCallRef{};
            apiCallRef.offset = currentOffset;
            apiCallRef.threadId = kKeyframeStorageID;
            apiCallRef.timestamp = op.packetHeader.timestamp;

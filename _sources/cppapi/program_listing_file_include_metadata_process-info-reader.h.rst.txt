@@ -4,7 +4,7 @@
 Program Listing for File process-info-reader.h
 ==============================================
 
-|exhale_lsh| :ref:`Return to documentation for file <file_include_metadata_process-info-reader.h>` (``include/metadata/process-info-reader.h``)
+|exhale_lsh| :ref:`Return to documentation for file <file_include_metadata_process-info-reader.h>` (``include\metadata\process-info-reader.h``)
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
@@ -48,8 +48,11 @@ Program Listing for File process-info-reader.h
        char const* ProcessName() const;
    
    private:
-       RandomAccessSerializer* mSerializer;
-       ProcessInfo* mProcessInfo;
+       RandomAccessSerializer* mSerializer{};
+       ProcessInfo* mProcessInfo{};
+   
+       ProcessInfoReader(ProcessInfoReader const&) = delete;
+       ProcessInfoReader& operator=(ProcessInfoReader const&) = delete;
    };
    
    }  // namespace metadata

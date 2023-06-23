@@ -4,7 +4,7 @@
 Program Listing for File range-repeat-stream-builder.h
 ======================================================
 
-|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_range-repeat-stream-builder.h>` (``include/playback/range-repeat-stream-builder.h``)
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_range-repeat-stream-builder.h>` (``include\playback\range-repeat-stream-builder.h``)
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
@@ -33,6 +33,7 @@ Program Listing for File range-repeat-stream-builder.h
    #include "playback/range-repeat-cache.h"
    #include "playback/sync-handler.h"
    #include <map>
+   #include <memory>
    #include <vector>
    
    namespace gpa {
@@ -71,14 +72,14 @@ Program Listing for File range-repeat-stream-builder.h
    
        bool FlattenedSecondaryCommandBuffers() const;
    
-       Callable* SpawnMarkerCallable(uint32_t markerType, uint64_t object = 0);
+       Callable SpawnMarkerCallable(uint32_t markerType, uint64_t object = 0);
    
    private:
        // @brief Cache containing callables prepared for execution in repeat cycle
        CallableCache mCallables;
    
        // @brief Vector of spawned markers for deinitialization purposes
-       std::vector<serialization::Marker*> mSpawnedMarkers;
+       std::vector<std::unique_ptr<serialization::Marker>> mSpawnedMarkers;
    
        bool mFlattenedSecondaryCmdBuffers = false;
    };

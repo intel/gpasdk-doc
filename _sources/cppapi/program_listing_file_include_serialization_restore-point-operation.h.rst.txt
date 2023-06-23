@@ -4,7 +4,7 @@
 Program Listing for File restore-point-operation.h
 ==================================================
 
-|exhale_lsh| :ref:`Return to documentation for file <file_include_serialization_restore-point-operation.h>` (``include/serialization/restore-point-operation.h``)
+|exhale_lsh| :ref:`Return to documentation for file <file_include_serialization_restore-point-operation.h>` (``include\serialization\restore-point-operation.h``)
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
@@ -40,6 +40,13 @@ Program Listing for File restore-point-operation.h
    class RestorePointOperation : public Operation
    {
    public:
+       enum class Type {
+           kStream,       // Indicates that this RestorePointOperation will restore the entire state of the stream
+           kStreamBegin,  // Indicates that this RestorePointOperation marks the beginning of stream state restoration
+           kStreamEnd,    // Indicates that this RestorePointOperation marks the end of stream state restoration
+           kResource,     // Indicates that this RestorePointOperation will restore the state of a single resource
+       };
+   
        RestorePointOperation();
        ~RestorePointOperation();
    
@@ -49,10 +56,25 @@ Program Listing for File restore-point-operation.h
        size_t Deserialize(MemoryBackedSerializer* serializer) override;
    
        bool IsSuccessful() override;
-       uint64_t GetStartTimestamp() const;
-       void SetStartTimestamp(uint64_t timestamp);
+       Type GetType() const;
+       void SetType(Type type);
+       uint64_t GetResourceTypeId() const;
+       void SetResourceTypeId(uint64_t resourceTypeId);
+       uint64_t GetResourceId() const;
+       void SetResourceId(uint64_t resourceId);
+       uint64_t GetSerializedDataOffset() const;
+       void SetSerializedDataOffset(uint64_t serializedDataOffset);
+       uint64_t GetSerializedDataSize() const;
+       void SetSerializedDataSize(uint64_t serializedDataSize);
+       uint64_t GetTimestemp() const;
+       void SetTimestamp(uint64_t timestamp);
    
    private:
+       Type mType{Type::kStream};
+       uint64_t mResourceTypeId{0};
+       uint64_t mResourceId{0};
+       uint64_t mSerializedDataOffset{0};
+       uint64_t mSerializedDataSize{0};
        uint64_t mTimestamp{0};
    };
    

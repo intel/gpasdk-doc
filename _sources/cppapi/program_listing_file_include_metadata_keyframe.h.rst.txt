@@ -4,7 +4,7 @@
 Program Listing for File keyframe.h
 ===================================
 
-|exhale_lsh| :ref:`Return to documentation for file <file_include_metadata_keyframe.h>` (``include/metadata/keyframe.h``)
+|exhale_lsh| :ref:`Return to documentation for file <file_include_metadata_keyframe.h>` (``include\metadata\keyframe.h``)
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
@@ -50,21 +50,21 @@ Program Listing for File keyframe.h
    
        struct ResourceUpdate
        {
-           uint64_t threadId;
-           uint64_t copyCallLocation;
+           uint64_t threadId{};
+           uint64_t copyCallLocation{};
        };
    
        struct ApiCallReference
        {
-           uint64_t threadId;
-           uint64_t offset;
-           uint64_t timestamp;
+           uint64_t threadId{};
+           uint64_t offset{};
+           uint64_t timestamp{};
        };
    
        struct ThreadRestart
        {
-           uint64_t threadId;
-           uint64_t offset;
+           uint64_t threadId{};
+           uint64_t offset{};
        };
    
        void AddApiCallReference(ApiCallReference const& apiCallReference);
@@ -89,9 +89,9 @@ Program Listing for File keyframe.h
        SubcaptureReverseMapsData& GetSubcaptureData();
    
    private:
-       int64_t mFrameNumber;
-       uint64_t mTimestamp;
-       uint32_t mFlags;
+       int64_t mFrameNumber{};
+       uint64_t mTimestamp{};
+       uint32_t mFlags{};
        std::vector<ApiCallReference> mApiCalls;
        std::vector<ResourceUpdate> mResourceUpdates;
    
@@ -99,7 +99,7 @@ Program Listing for File keyframe.h
    
        SubcaptureReverseMapsData mSubcaptureData;
    
-       bool mInitialized;
+       bool mInitialized{};
    
        void SortApiCalls(KeyframeContext* context);
        void SortResourceUpdates();

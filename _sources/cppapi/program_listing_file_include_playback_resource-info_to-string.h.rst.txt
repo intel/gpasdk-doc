@@ -4,7 +4,7 @@
 Program Listing for File playback/resource-info/to-string.h
 ===========================================================
 
-|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_resource-info_to-string.h>` (``include/playback/resource-info/to-string.h``)
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_resource-info_to-string.h>` (``include\playback\resource-info\to-string.h``)
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
@@ -39,6 +39,7 @@ Program Listing for File playback/resource-info/to-string.h
    #include "playback/resource-info/resource-info-ex/resource-transfer-info.h"
    #include "playback/resource-info/resource-info-ex/scissor-rect-info.h"
    #include "playback/resource-info/resource-info-ex/shading-rate-image-info.h"
+   #include "playback/resource-info/resource-info-ex/shading-rate-info.h"
    #include "playback/resource-info/resource-info-ex/vertex-buffer-info.h"
    #include "playback/resource-info/resource-info-ex/viewport-info.h"
    #include "playback/resource-info/buffer-info.h"
@@ -625,6 +626,19 @@ Program Listing for File playback/resource-info/to-string.h
    }
    
    template<>
+   inline std::string ToString<playback::ShadingRateInfo>(playback::ShadingRateInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "Horizontal ShadingRate", obj.width) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "Vertical ShadingRate", obj.height) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "shadingRateCombinerPrimitive", obj.shadingRateCombinerPrimitive) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "shadingRateCombinerAttachment", obj.shadingRateCombinerAttachment);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
    inline std::string ToString<playback::VertexBufferInfo>(playback::VertexBufferInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
    {
        using namespace detail;
@@ -995,6 +1009,10 @@ Program Listing for File playback/resource-info/to-string.h
        case ResourceInfo::Ex::GetTypeId<ShadingRateImageInfo>(): {
            auto pShadingRateImageInfo = obj.As<ShadingRateImageInfo>();
            return pShadingRateImageInfo ? ToString(*pShadingRateImageInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
+       case ResourceInfo::Ex::GetTypeId<ShadingRateInfo>(): {
+           auto pShadingRateInfo = obj.As<ShadingRateInfo>();
+           return pShadingRateInfo ? ToString(*pShadingRateInfo, strFmtFlags, tabCount, tabSize) : "{ }";
        }
        case ResourceInfo::Ex::GetTypeId<VertexBufferInfo>(): {
            auto pVertexBufferInfo = obj.As<VertexBufferInfo>();
