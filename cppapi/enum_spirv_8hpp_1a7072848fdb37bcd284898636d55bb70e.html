@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enum Capability &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Enum Decoration" href="enum_spirv_8hpp_1ae613902552cc82dd8c58397263c76356.html" />
+    <link rel="prev" title="Enum BuiltIn" href="enum_spirv_8hpp_1ab312cadcb9bd0bd6744b529228620ffe.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">'Helloworld' Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">'Helloworld' Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">API-Debug-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">Device-Override</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#unions">Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#sept-21-2023">2023.3 (Sept 21 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id35">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id36">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id40">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id41">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2023.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id5">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id8">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id11">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id12">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id13">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id14">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id15">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id16">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id17">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id18">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id19">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../src/reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">C++ Interfaces</a></li>
+      <li class="breadcrumb-item active">Enum Capability</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="enum-capability">
+<span id="exhale-enum-spirv-8hpp-1a7072848fdb37bcd284898636d55bb70e"></span><h1>Enum Capability<a class="headerlink" href="#enum-capability" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_spirv_cross_spirv.hpp.html#file-include-spirv-cross-spirv-hpp"><span class="std std-ref">File spirv.hpp</span></a></p></li>
+</ul>
+<section id="enum-documentation">
+<h2>Enum Documentation<a class="headerlink" href="#enum-documentation" title="Permalink to this headline"></a></h2>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10CapabilityE">
+<span id="_CPPv3N3spv10CapabilityE"></span><span id="_CPPv2N3spv10CapabilityE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70e"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">spv</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Capability</span></span></span><a class="headerlink" href="#_CPPv4N3spv10CapabilityE" title="Permalink to this definition"></a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability16CapabilityMatrixE">
+<span id="_CPPv3N3spv10Capability16CapabilityMatrixE"></span><span id="_CPPv2N3spv10Capability16CapabilityMatrixE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eacf060a0bb92c9bb96fe92fa7fb50979a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityMatrix</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability16CapabilityMatrixE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability16CapabilityShaderE">
+<span id="_CPPv3N3spv10Capability16CapabilityShaderE"></span><span id="_CPPv2N3spv10Capability16CapabilityShaderE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eadb9129bc54fd296fb84c324b9edf7586"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityShader</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability16CapabilityShaderE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability18CapabilityGeometryE">
+<span id="_CPPv3N3spv10Capability18CapabilityGeometryE"></span><span id="_CPPv2N3spv10Capability18CapabilityGeometryE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea5feb87af449f046586ce65ef938039b2"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityGeometry</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability18CapabilityGeometryE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability22CapabilityTessellationE">
+<span id="_CPPv3N3spv10Capability22CapabilityTessellationE"></span><span id="_CPPv2N3spv10Capability22CapabilityTessellationE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaa0fa8679efcf9ab2c9413246ff553586"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityTessellation</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability22CapabilityTessellationE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability19CapabilityAddressesE">
+<span id="_CPPv3N3spv10Capability19CapabilityAddressesE"></span><span id="_CPPv2N3spv10Capability19CapabilityAddressesE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea23a73be1f2f45c0224761acd4c66949b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityAddresses</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability19CapabilityAddressesE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability17CapabilityLinkageE">
+<span id="_CPPv3N3spv10Capability17CapabilityLinkageE"></span><span id="_CPPv2N3spv10Capability17CapabilityLinkageE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea2c0cb6951a146b6a5069cb75fc489ab0"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityLinkage</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability17CapabilityLinkageE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability16CapabilityKernelE">
+<span id="_CPPv3N3spv10Capability16CapabilityKernelE"></span><span id="_CPPv2N3spv10Capability16CapabilityKernelE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea8d25c14bcb0983e0bf0cc78b2884ec27"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityKernel</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability16CapabilityKernelE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability18CapabilityVector16E">
+<span id="_CPPv3N3spv10Capability18CapabilityVector16E"></span><span id="_CPPv2N3spv10Capability18CapabilityVector16E"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ead553a0a40152f39ada6454bc0cf68e6c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityVector16</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability18CapabilityVector16E" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability23CapabilityFloat16BufferE">
+<span id="_CPPv3N3spv10Capability23CapabilityFloat16BufferE"></span><span id="_CPPv2N3spv10Capability23CapabilityFloat16BufferE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea8fa54af03a674fa47d82053295d4b9f7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityFloat16Buffer</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability23CapabilityFloat16BufferE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability17CapabilityFloat16E">
+<span id="_CPPv3N3spv10Capability17CapabilityFloat16E"></span><span id="_CPPv2N3spv10Capability17CapabilityFloat16E"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea0a4cbbeaad7b7905acd9728aaf673a8c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityFloat16</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability17CapabilityFloat16E" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability17CapabilityFloat64E">
+<span id="_CPPv3N3spv10Capability17CapabilityFloat64E"></span><span id="_CPPv2N3spv10Capability17CapabilityFloat64E"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea5e16dbca93765ebb38718bfe9bf49ca7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityFloat64</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability17CapabilityFloat64E" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability15CapabilityInt64E">
+<span id="_CPPv3N3spv10Capability15CapabilityInt64E"></span><span id="_CPPv2N3spv10Capability15CapabilityInt64E"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eac23a0773252702d93b896e698a3a99fb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityInt64</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability15CapabilityInt64E" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability22CapabilityInt64AtomicsE">
+<span id="_CPPv3N3spv10Capability22CapabilityInt64AtomicsE"></span><span id="_CPPv2N3spv10Capability22CapabilityInt64AtomicsE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea6133ce35a81084bb76e6f4152180519b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityInt64Atomics</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability22CapabilityInt64AtomicsE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability20CapabilityImageBasicE">
+<span id="_CPPv3N3spv10Capability20CapabilityImageBasicE"></span><span id="_CPPv2N3spv10Capability20CapabilityImageBasicE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eab43b6d9aacb0ff2caf33e79feee14f6b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityImageBasic</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability20CapabilityImageBasicE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability24CapabilityImageReadWriteE">
+<span id="_CPPv3N3spv10Capability24CapabilityImageReadWriteE"></span><span id="_CPPv2N3spv10Capability24CapabilityImageReadWriteE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea43bc06f0b2bebfce369a673b7c9ddce2"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityImageReadWrite</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability24CapabilityImageReadWriteE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability21CapabilityImageMipmapE">
+<span id="_CPPv3N3spv10Capability21CapabilityImageMipmapE"></span><span id="_CPPv2N3spv10Capability21CapabilityImageMipmapE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eac4a06104e70ede5bfbf8b8429f6d64ce"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityImageMipmap</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability21CapabilityImageMipmapE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability15CapabilityPipesE">
+<span id="_CPPv3N3spv10Capability15CapabilityPipesE"></span><span id="_CPPv2N3spv10Capability15CapabilityPipesE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea96a256b06664f2f259f97e94e6b1e865"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityPipes</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability15CapabilityPipesE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability16CapabilityGroupsE">
+<span id="_CPPv3N3spv10Capability16CapabilityGroupsE"></span><span id="_CPPv2N3spv10Capability16CapabilityGroupsE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea1969dc6102e04a76614279678340f861"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityGroups</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability16CapabilityGroupsE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability23CapabilityDeviceEnqueueE">
+<span id="_CPPv3N3spv10Capability23CapabilityDeviceEnqueueE"></span><span id="_CPPv2N3spv10Capability23CapabilityDeviceEnqueueE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eae28d6ad02bdd9bab1cd2ba2037bf0b18"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityDeviceEnqueue</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability23CapabilityDeviceEnqueueE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability24CapabilityLiteralSamplerE">
+<span id="_CPPv3N3spv10Capability24CapabilityLiteralSamplerE"></span><span id="_CPPv2N3spv10Capability24CapabilityLiteralSamplerE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea049a2f9355a0f94faf7f94e2b10e4276"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityLiteralSampler</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability24CapabilityLiteralSamplerE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability23CapabilityAtomicStorageE">
+<span id="_CPPv3N3spv10Capability23CapabilityAtomicStorageE"></span><span id="_CPPv2N3spv10Capability23CapabilityAtomicStorageE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eae8a2554af3255a25be7fb12a18066b50"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityAtomicStorage</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability23CapabilityAtomicStorageE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability15CapabilityInt16E">
+<span id="_CPPv3N3spv10Capability15CapabilityInt16E"></span><span id="_CPPv2N3spv10Capability15CapabilityInt16E"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea649cb580973c06071b5a2067f6a1523e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityInt16</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability15CapabilityInt16E" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability31CapabilityTessellationPointSizeE">
+<span id="_CPPv3N3spv10Capability31CapabilityTessellationPointSizeE"></span><span id="_CPPv2N3spv10Capability31CapabilityTessellationPointSizeE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eacb7f44748dd7641bd4fe5f425fdd7d2a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityTessellationPointSize</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability31CapabilityTessellationPointSizeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability27CapabilityGeometryPointSizeE">
+<span id="_CPPv3N3spv10Capability27CapabilityGeometryPointSizeE"></span><span id="_CPPv2N3spv10Capability27CapabilityGeometryPointSizeE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea485f80aa429715061ddcbbaa5ebe81b7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityGeometryPointSize</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability27CapabilityGeometryPointSizeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability29CapabilityImageGatherExtendedE">
+<span id="_CPPv3N3spv10Capability29CapabilityImageGatherExtendedE"></span><span id="_CPPv2N3spv10Capability29CapabilityImageGatherExtendedE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eac2716426ffec266497735dee304b2b75"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityImageGatherExtended</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability29CapabilityImageGatherExtendedE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability33CapabilityStorageImageMultisampleE">
+<span id="_CPPv3N3spv10Capability33CapabilityStorageImageMultisampleE"></span><span id="_CPPv2N3spv10Capability33CapabilityStorageImageMultisampleE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea17c6748733f11b76237347ce3824ea5a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityStorageImageMultisample</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability33CapabilityStorageImageMultisampleE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability43CapabilityUniformBufferArrayDynamicIndexingE">
+<span id="_CPPv3N3spv10Capability43CapabilityUniformBufferArrayDynamicIndexingE"></span><span id="_CPPv2N3spv10Capability43CapabilityUniformBufferArrayDynamicIndexingE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ead5a18e26101dbc1f9f3d6571ef1018fb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityUniformBufferArrayDynamicIndexing</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability43CapabilityUniformBufferArrayDynamicIndexingE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability42CapabilitySampledImageArrayDynamicIndexingE">
+<span id="_CPPv3N3spv10Capability42CapabilitySampledImageArrayDynamicIndexingE"></span><span id="_CPPv2N3spv10Capability42CapabilitySampledImageArrayDynamicIndexingE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaae9e742fb3bd35a43ceb280a425d7be5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilitySampledImageArrayDynamicIndexing</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability42CapabilitySampledImageArrayDynamicIndexingE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability43CapabilityStorageBufferArrayDynamicIndexingE">
+<span id="_CPPv3N3spv10Capability43CapabilityStorageBufferArrayDynamicIndexingE"></span><span id="_CPPv2N3spv10Capability43CapabilityStorageBufferArrayDynamicIndexingE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea6e30041fcd2c88d2e8c3ba7ebf5f5979"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityStorageBufferArrayDynamicIndexing</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability43CapabilityStorageBufferArrayDynamicIndexingE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability42CapabilityStorageImageArrayDynamicIndexingE">
+<span id="_CPPv3N3spv10Capability42CapabilityStorageImageArrayDynamicIndexingE"></span><span id="_CPPv2N3spv10Capability42CapabilityStorageImageArrayDynamicIndexingE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ead1274a130d640e9243cc179f495e7fb6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityStorageImageArrayDynamicIndexing</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability42CapabilityStorageImageArrayDynamicIndexingE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability22CapabilityClipDistanceE">
+<span id="_CPPv3N3spv10Capability22CapabilityClipDistanceE"></span><span id="_CPPv2N3spv10Capability22CapabilityClipDistanceE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eac6f5b9087b5bb19d52b89e587a7f74f5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityClipDistance</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability22CapabilityClipDistanceE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability22CapabilityCullDistanceE">
+<span id="_CPPv3N3spv10Capability22CapabilityCullDistanceE"></span><span id="_CPPv2N3spv10Capability22CapabilityCullDistanceE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea98cdc53155a1b6f619a45dba8eba3b49"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityCullDistance</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability22CapabilityCullDistanceE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability24CapabilityImageCubeArrayE">
+<span id="_CPPv3N3spv10Capability24CapabilityImageCubeArrayE"></span><span id="_CPPv2N3spv10Capability24CapabilityImageCubeArrayE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaa772a84acd2de9f04f107dbaba96ed67"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityImageCubeArray</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability24CapabilityImageCubeArrayE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability27CapabilitySampleRateShadingE">
+<span id="_CPPv3N3spv10Capability27CapabilitySampleRateShadingE"></span><span id="_CPPv2N3spv10Capability27CapabilitySampleRateShadingE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea3c95a7e3f4e707390ab4f5f9bc14c1c0"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilitySampleRateShading</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability27CapabilitySampleRateShadingE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability19CapabilityImageRectE">
+<span id="_CPPv3N3spv10Capability19CapabilityImageRectE"></span><span id="_CPPv2N3spv10Capability19CapabilityImageRectE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaeffbdea4b3419d15a4d61b21850c5af6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityImageRect</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability19CapabilityImageRectE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability21CapabilitySampledRectE">
+<span id="_CPPv3N3spv10Capability21CapabilitySampledRectE"></span><span id="_CPPv2N3spv10Capability21CapabilitySampledRectE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea1ceb459075660705d28b9fd43f160b3c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilitySampledRect</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability21CapabilitySampledRectE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability24CapabilityGenericPointerE">
+<span id="_CPPv3N3spv10Capability24CapabilityGenericPointerE"></span><span id="_CPPv2N3spv10Capability24CapabilityGenericPointerE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea0074094160400c9b6a2d10b8b127178d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityGenericPointer</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability24CapabilityGenericPointerE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability14CapabilityInt8E">
+<span id="_CPPv3N3spv10Capability14CapabilityInt8E"></span><span id="_CPPv2N3spv10Capability14CapabilityInt8E"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea06cc67c8274cefbba930f11c4cdd7a1f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityInt8</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability14CapabilityInt8E" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability25CapabilityInputAttachmentE">
+<span id="_CPPv3N3spv10Capability25CapabilityInputAttachmentE"></span><span id="_CPPv2N3spv10Capability25CapabilityInputAttachmentE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea493989527356369389551188461f7895"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityInputAttachment</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability25CapabilityInputAttachmentE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability25CapabilitySparseResidencyE">
+<span id="_CPPv3N3spv10Capability25CapabilitySparseResidencyE"></span><span id="_CPPv2N3spv10Capability25CapabilitySparseResidencyE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eafeb03b03b5aa4b6566235735647d4687"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilitySparseResidency</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability25CapabilitySparseResidencyE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability16CapabilityMinLodE">
+<span id="_CPPv3N3spv10Capability16CapabilityMinLodE"></span><span id="_CPPv2N3spv10Capability16CapabilityMinLodE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea129715e16b1dcadb8900336f333290db"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityMinLod</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability16CapabilityMinLodE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability19CapabilitySampled1DE">
+<span id="_CPPv3N3spv10Capability19CapabilitySampled1DE"></span><span id="_CPPv2N3spv10Capability19CapabilitySampled1DE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea88747acb4e9ddf4cebc6fa8e0172739c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilitySampled1D</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability19CapabilitySampled1DE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability17CapabilityImage1DE">
+<span id="_CPPv3N3spv10Capability17CapabilityImage1DE"></span><span id="_CPPv2N3spv10Capability17CapabilityImage1DE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea4a639fd9029f07607e56b3a7be5a7960"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityImage1D</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability17CapabilityImage1DE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability26CapabilitySampledCubeArrayE">
+<span id="_CPPv3N3spv10Capability26CapabilitySampledCubeArrayE"></span><span id="_CPPv2N3spv10Capability26CapabilitySampledCubeArrayE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eac71c9f7da88725b5bc7ad05914a5987f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilitySampledCubeArray</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability26CapabilitySampledCubeArrayE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability23CapabilitySampledBufferE">
+<span id="_CPPv3N3spv10Capability23CapabilitySampledBufferE"></span><span id="_CPPv2N3spv10Capability23CapabilitySampledBufferE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea26bf4ea9a9f4d8cb685c1198012cb1e0"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilitySampledBuffer</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability23CapabilitySampledBufferE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability21CapabilityImageBufferE">
+<span id="_CPPv3N3spv10Capability21CapabilityImageBufferE"></span><span id="_CPPv2N3spv10Capability21CapabilityImageBufferE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eacd04962ed2cb9842671e4d3ba3cee4c0"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityImageBuffer</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability21CapabilityImageBufferE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability22CapabilityImageMSArrayE">
+<span id="_CPPv3N3spv10Capability22CapabilityImageMSArrayE"></span><span id="_CPPv2N3spv10Capability22CapabilityImageMSArrayE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ead50e2fe1d2fabfa97b7fff1db711bd5d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityImageMSArray</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability22CapabilityImageMSArrayE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability37CapabilityStorageImageExtendedFormatsE">
+<span id="_CPPv3N3spv10Capability37CapabilityStorageImageExtendedFormatsE"></span><span id="_CPPv2N3spv10Capability37CapabilityStorageImageExtendedFormatsE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea1e32d862c6dc1dba6bc2b81e5f4145ec"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityStorageImageExtendedFormats</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability37CapabilityStorageImageExtendedFormatsE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability20CapabilityImageQueryE">
+<span id="_CPPv3N3spv10Capability20CapabilityImageQueryE"></span><span id="_CPPv2N3spv10Capability20CapabilityImageQueryE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eadb156e275c995edb894542fdb0a35a7b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityImageQuery</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability20CapabilityImageQueryE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability27CapabilityDerivativeControlE">
+<span id="_CPPv3N3spv10Capability27CapabilityDerivativeControlE"></span><span id="_CPPv2N3spv10Capability27CapabilityDerivativeControlE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea30b1751d34ae16a4cb355b1be220c7a0"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityDerivativeControl</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability27CapabilityDerivativeControlE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability31CapabilityInterpolationFunctionE">
+<span id="_CPPv3N3spv10Capability31CapabilityInterpolationFunctionE"></span><span id="_CPPv2N3spv10Capability31CapabilityInterpolationFunctionE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea4e558a8be26db7aa6d1ff8fa8fceb1d9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityInterpolationFunction</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability31CapabilityInterpolationFunctionE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability27CapabilityTransformFeedbackE">
+<span id="_CPPv3N3spv10Capability27CapabilityTransformFeedbackE"></span><span id="_CPPv2N3spv10Capability27CapabilityTransformFeedbackE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea22d77f670216cd41d1dd5b618614e9d9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityTransformFeedback</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability27CapabilityTransformFeedbackE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability25CapabilityGeometryStreamsE">
+<span id="_CPPv3N3spv10Capability25CapabilityGeometryStreamsE"></span><span id="_CPPv2N3spv10Capability25CapabilityGeometryStreamsE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaeea2faae02d2b0c72782eac625994578"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityGeometryStreams</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability25CapabilityGeometryStreamsE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability39CapabilityStorageImageReadWithoutFormatE">
+<span id="_CPPv3N3spv10Capability39CapabilityStorageImageReadWithoutFormatE"></span><span id="_CPPv2N3spv10Capability39CapabilityStorageImageReadWithoutFormatE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea16ffba64921eb92507ce1d32749a42a2"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityStorageImageReadWithoutFormat</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability39CapabilityStorageImageReadWithoutFormatE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability40CapabilityStorageImageWriteWithoutFormatE">
+<span id="_CPPv3N3spv10Capability40CapabilityStorageImageWriteWithoutFormatE"></span><span id="_CPPv2N3spv10Capability40CapabilityStorageImageWriteWithoutFormatE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ead240818adf38a8209ee60482dea9e7e4"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityStorageImageWriteWithoutFormat</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability40CapabilityStorageImageWriteWithoutFormatE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability23CapabilityMultiViewportE">
+<span id="_CPPv3N3spv10Capability23CapabilityMultiViewportE"></span><span id="_CPPv2N3spv10Capability23CapabilityMultiViewportE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eab48eb6db54d147ac6e94119baa1b0e3a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityMultiViewport</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability23CapabilityMultiViewportE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability26CapabilitySubgroupDispatchE">
+<span id="_CPPv3N3spv10Capability26CapabilitySubgroupDispatchE"></span><span id="_CPPv2N3spv10Capability26CapabilitySubgroupDispatchE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea17ddc708d5483f6158aa043d63e52ea6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilitySubgroupDispatch</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability26CapabilitySubgroupDispatchE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability22CapabilityNamedBarrierE">
+<span id="_CPPv3N3spv10Capability22CapabilityNamedBarrierE"></span><span id="_CPPv2N3spv10Capability22CapabilityNamedBarrierE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea5d24c7b7412191f7361e6cb7cfaa4e98"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityNamedBarrier</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability22CapabilityNamedBarrierE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability21CapabilityPipeStorageE">
+<span id="_CPPv3N3spv10Capability21CapabilityPipeStorageE"></span><span id="_CPPv2N3spv10Capability21CapabilityPipeStorageE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea37d80d35df03dc2c8ece1fd3629f94cb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityPipeStorage</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability21CapabilityPipeStorageE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability25CapabilityGroupNonUniformE">
+<span id="_CPPv3N3spv10Capability25CapabilityGroupNonUniformE"></span><span id="_CPPv2N3spv10Capability25CapabilityGroupNonUniformE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ead7891f162eb1e6fe277bb1223b7d7042"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityGroupNonUniform</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability25CapabilityGroupNonUniformE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability29CapabilityGroupNonUniformVoteE">
+<span id="_CPPv3N3spv10Capability29CapabilityGroupNonUniformVoteE"></span><span id="_CPPv2N3spv10Capability29CapabilityGroupNonUniformVoteE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea533565078be234694fc3502e9701b50c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityGroupNonUniformVote</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability29CapabilityGroupNonUniformVoteE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability35CapabilityGroupNonUniformArithmeticE">
+<span id="_CPPv3N3spv10Capability35CapabilityGroupNonUniformArithmeticE"></span><span id="_CPPv2N3spv10Capability35CapabilityGroupNonUniformArithmeticE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eadbe271cc00bc9e80d69f87cec27658cb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityGroupNonUniformArithmetic</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability35CapabilityGroupNonUniformArithmeticE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability31CapabilityGroupNonUniformBallotE">
+<span id="_CPPv3N3spv10Capability31CapabilityGroupNonUniformBallotE"></span><span id="_CPPv2N3spv10Capability31CapabilityGroupNonUniformBallotE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eabfa5aae4f956d07abbdeaa32bc7faab8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityGroupNonUniformBallot</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability31CapabilityGroupNonUniformBallotE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability32CapabilityGroupNonUniformShuffleE">
+<span id="_CPPv3N3spv10Capability32CapabilityGroupNonUniformShuffleE"></span><span id="_CPPv2N3spv10Capability32CapabilityGroupNonUniformShuffleE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea7aa55818b3def46994252781886d3cea"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityGroupNonUniformShuffle</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability32CapabilityGroupNonUniformShuffleE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability40CapabilityGroupNonUniformShuffleRelativeE">
+<span id="_CPPv3N3spv10Capability40CapabilityGroupNonUniformShuffleRelativeE"></span><span id="_CPPv2N3spv10Capability40CapabilityGroupNonUniformShuffleRelativeE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea362ac7a6a9c56e59fa27810a3a3c3ff6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityGroupNonUniformShuffleRelative</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability40CapabilityGroupNonUniformShuffleRelativeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability34CapabilityGroupNonUniformClusteredE">
+<span id="_CPPv3N3spv10Capability34CapabilityGroupNonUniformClusteredE"></span><span id="_CPPv2N3spv10Capability34CapabilityGroupNonUniformClusteredE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea0db3273c006bdf51107fb7ca19c8c00b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityGroupNonUniformClustered</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability34CapabilityGroupNonUniformClusteredE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability29CapabilityGroupNonUniformQuadE">
+<span id="_CPPv3N3spv10Capability29CapabilityGroupNonUniformQuadE"></span><span id="_CPPv2N3spv10Capability29CapabilityGroupNonUniformQuadE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eabe50287976e33d6d9a7ffdb966319e4b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityGroupNonUniformQuad</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability29CapabilityGroupNonUniformQuadE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability21CapabilityShaderLayerE">
+<span id="_CPPv3N3spv10Capability21CapabilityShaderLayerE"></span><span id="_CPPv2N3spv10Capability21CapabilityShaderLayerE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea857d193973c1ce224f809d4f50cb2250"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityShaderLayer</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability21CapabilityShaderLayerE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability29CapabilityShaderViewportIndexE">
+<span id="_CPPv3N3spv10Capability29CapabilityShaderViewportIndexE"></span><span id="_CPPv2N3spv10Capability29CapabilityShaderViewportIndexE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea083857ec4e5ff71969155d06ca46adda"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityShaderViewportIndex</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability29CapabilityShaderViewportIndexE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability27CapabilityUniformDecorationE">
+<span id="_CPPv3N3spv10Capability27CapabilityUniformDecorationE"></span><span id="_CPPv2N3spv10Capability27CapabilityUniformDecorationE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea78f36459023815c51c5e56bb96a72105"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityUniformDecoration</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability27CapabilityUniformDecorationE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability32CapabilityFragmentShadingRateKHRE">
+<span id="_CPPv3N3spv10Capability32CapabilityFragmentShadingRateKHRE"></span><span id="_CPPv2N3spv10Capability32CapabilityFragmentShadingRateKHRE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea6026a86f95f036df2c088d2d911a72b9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityFragmentShadingRateKHR</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability32CapabilityFragmentShadingRateKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability27CapabilitySubgroupBallotKHRE">
+<span id="_CPPv3N3spv10Capability27CapabilitySubgroupBallotKHRE"></span><span id="_CPPv2N3spv10Capability27CapabilitySubgroupBallotKHRE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea75f78e04deaa50736331a9c5a6173484"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilitySubgroupBallotKHR</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability27CapabilitySubgroupBallotKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability24CapabilityDrawParametersE">
+<span id="_CPPv3N3spv10Capability24CapabilityDrawParametersE"></span><span id="_CPPv2N3spv10Capability24CapabilityDrawParametersE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eae7f5c8e0a48686bfa7cd63950bac1821"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityDrawParameters</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability24CapabilityDrawParametersE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability42CapabilityWorkgroupMemoryExplicitLayoutKHRE">
+<span id="_CPPv3N3spv10Capability42CapabilityWorkgroupMemoryExplicitLayoutKHRE"></span><span id="_CPPv2N3spv10Capability42CapabilityWorkgroupMemoryExplicitLayoutKHRE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea6cf56411436fba5e558cc22340ac7667"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityWorkgroupMemoryExplicitLayoutKHR</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability42CapabilityWorkgroupMemoryExplicitLayoutKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability52CapabilityWorkgroupMemoryExplicitLayout8BitAccessKHRE">
+<span id="_CPPv3N3spv10Capability52CapabilityWorkgroupMemoryExplicitLayout8BitAccessKHRE"></span><span id="_CPPv2N3spv10Capability52CapabilityWorkgroupMemoryExplicitLayout8BitAccessKHRE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea0321eb063be43527238d7e1f617b18f9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityWorkgroupMemoryExplicitLayout8BitAccessKHR</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability52CapabilityWorkgroupMemoryExplicitLayout8BitAccessKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability53CapabilityWorkgroupMemoryExplicitLayout16BitAccessKHRE">
+<span id="_CPPv3N3spv10Capability53CapabilityWorkgroupMemoryExplicitLayout16BitAccessKHRE"></span><span id="_CPPv2N3spv10Capability53CapabilityWorkgroupMemoryExplicitLayout16BitAccessKHRE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaa8a0e559db9e70bac660fced37ea9bcf"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityWorkgroupMemoryExplicitLayout16BitAccessKHR</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability53CapabilityWorkgroupMemoryExplicitLayout16BitAccessKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability25CapabilitySubgroupVoteKHRE">
+<span id="_CPPv3N3spv10Capability25CapabilitySubgroupVoteKHRE"></span><span id="_CPPv2N3spv10Capability25CapabilitySubgroupVoteKHRE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaf87043c6702a55f75410b9ebc0d68ac7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilitySubgroupVoteKHR</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability25CapabilitySubgroupVoteKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability34CapabilityStorageBuffer16BitAccessE">
+<span id="_CPPv3N3spv10Capability34CapabilityStorageBuffer16BitAccessE"></span><span id="_CPPv2N3spv10Capability34CapabilityStorageBuffer16BitAccessE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea021baebe1e0854405adbec0744faa6b4"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityStorageBuffer16BitAccess</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability34CapabilityStorageBuffer16BitAccessE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability37CapabilityStorageUniformBufferBlock16E">
+<span id="_CPPv3N3spv10Capability37CapabilityStorageUniformBufferBlock16E"></span><span id="_CPPv2N3spv10Capability37CapabilityStorageUniformBufferBlock16E"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eada2ebef858cee6f88bd24d622f9bd892"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityStorageUniformBufferBlock16</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability37CapabilityStorageUniformBufferBlock16E" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability26CapabilityStorageUniform16E">
+<span id="_CPPv3N3spv10Capability26CapabilityStorageUniform16E"></span><span id="_CPPv2N3spv10Capability26CapabilityStorageUniform16E"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eade9f91a5e5e3d063580fa00bcbfbb535"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityStorageUniform16</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability26CapabilityStorageUniform16E" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability44CapabilityUniformAndStorageBuffer16BitAccessE">
+<span id="_CPPv3N3spv10Capability44CapabilityUniformAndStorageBuffer16BitAccessE"></span><span id="_CPPv2N3spv10Capability44CapabilityUniformAndStorageBuffer16BitAccessE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea5c505a4c70a21c8e7049fb700001e40e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityUniformAndStorageBuffer16BitAccess</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability44CapabilityUniformAndStorageBuffer16BitAccessE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability31CapabilityStoragePushConstant16E">
+<span id="_CPPv3N3spv10Capability31CapabilityStoragePushConstant16E"></span><span id="_CPPv2N3spv10Capability31CapabilityStoragePushConstant16E"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea42b642b97812679a8061197196929283"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityStoragePushConstant16</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability31CapabilityStoragePushConstant16E" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability30CapabilityStorageInputOutput16E">
+<span id="_CPPv3N3spv10Capability30CapabilityStorageInputOutput16E"></span><span id="_CPPv2N3spv10Capability30CapabilityStorageInputOutput16E"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea9991b0bc5ad479fc9924024bb14f10f7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityStorageInputOutput16</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability30CapabilityStorageInputOutput16E" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability21CapabilityDeviceGroupE">
+<span id="_CPPv3N3spv10Capability21CapabilityDeviceGroupE"></span><span id="_CPPv2N3spv10Capability21CapabilityDeviceGroupE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea22ce2589b04c7f049a38cc144630b9a4"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityDeviceGroup</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability21CapabilityDeviceGroupE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability19CapabilityMultiViewE">
+<span id="_CPPv3N3spv10Capability19CapabilityMultiViewE"></span><span id="_CPPv2N3spv10Capability19CapabilityMultiViewE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaed7113b1f16025754080e6ebdc8601af"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityMultiView</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability19CapabilityMultiViewE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability39CapabilityVariablePointersStorageBufferE">
+<span id="_CPPv3N3spv10Capability39CapabilityVariablePointersStorageBufferE"></span><span id="_CPPv2N3spv10Capability39CapabilityVariablePointersStorageBufferE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea6749981e36d7e0d087e85facc99fcfb3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityVariablePointersStorageBuffer</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability39CapabilityVariablePointersStorageBufferE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability26CapabilityVariablePointersE">
+<span id="_CPPv3N3spv10Capability26CapabilityVariablePointersE"></span><span id="_CPPv2N3spv10Capability26CapabilityVariablePointersE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaebd296144b2a84d13e18302aab9b32e5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityVariablePointers</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability26CapabilityVariablePointersE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability26CapabilityAtomicStorageOpsE">
+<span id="_CPPv3N3spv10Capability26CapabilityAtomicStorageOpsE"></span><span id="_CPPv2N3spv10Capability26CapabilityAtomicStorageOpsE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea42491c95f3d02ace1affd03cd8262905"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityAtomicStorageOps</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability26CapabilityAtomicStorageOpsE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability37CapabilitySampleMaskPostDepthCoverageE">
+<span id="_CPPv3N3spv10Capability37CapabilitySampleMaskPostDepthCoverageE"></span><span id="_CPPv2N3spv10Capability37CapabilitySampleMaskPostDepthCoverageE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea01bc6c3b9a9152272d4b4894001a5c11"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilitySampleMaskPostDepthCoverage</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability37CapabilitySampleMaskPostDepthCoverageE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability33CapabilityStorageBuffer8BitAccessE">
+<span id="_CPPv3N3spv10Capability33CapabilityStorageBuffer8BitAccessE"></span><span id="_CPPv2N3spv10Capability33CapabilityStorageBuffer8BitAccessE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea6b3bd963123cc4e981fbc8801c3c3429"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityStorageBuffer8BitAccess</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability33CapabilityStorageBuffer8BitAccessE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability43CapabilityUniformAndStorageBuffer8BitAccessE">
+<span id="_CPPv3N3spv10Capability43CapabilityUniformAndStorageBuffer8BitAccessE"></span><span id="_CPPv2N3spv10Capability43CapabilityUniformAndStorageBuffer8BitAccessE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea8377d0f3fe58e8ec666871739d894aed"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityUniformAndStorageBuffer8BitAccess</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability43CapabilityUniformAndStorageBuffer8BitAccessE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability30CapabilityStoragePushConstant8E">
+<span id="_CPPv3N3spv10Capability30CapabilityStoragePushConstant8E"></span><span id="_CPPv2N3spv10Capability30CapabilityStoragePushConstant8E"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea5820cf3d5211a3fff685c647b93a6c03"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityStoragePushConstant8</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability30CapabilityStoragePushConstant8E" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability24CapabilityDenormPreserveE">
+<span id="_CPPv3N3spv10Capability24CapabilityDenormPreserveE"></span><span id="_CPPv2N3spv10Capability24CapabilityDenormPreserveE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea346ffed6b1d12adf1acea94ac8507d37"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityDenormPreserve</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability24CapabilityDenormPreserveE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability27CapabilityDenormFlushToZeroE">
+<span id="_CPPv3N3spv10Capability27CapabilityDenormFlushToZeroE"></span><span id="_CPPv2N3spv10Capability27CapabilityDenormFlushToZeroE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eacc42ae4f0cc0d4a1ae44b8932770547a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityDenormFlushToZero</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability27CapabilityDenormFlushToZeroE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability34CapabilitySignedZeroInfNanPreserveE">
+<span id="_CPPv3N3spv10Capability34CapabilitySignedZeroInfNanPreserveE"></span><span id="_CPPv2N3spv10Capability34CapabilitySignedZeroInfNanPreserveE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaff1180ca336b6747bc3ac635139a560d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilitySignedZeroInfNanPreserve</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability34CapabilitySignedZeroInfNanPreserveE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability25CapabilityRoundingModeRTEE">
+<span id="_CPPv3N3spv10Capability25CapabilityRoundingModeRTEE"></span><span id="_CPPv2N3spv10Capability25CapabilityRoundingModeRTEE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea295b0481f11bee36f697749f8aee17b7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityRoundingModeRTE</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability25CapabilityRoundingModeRTEE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability25CapabilityRoundingModeRTZE">
+<span id="_CPPv3N3spv10Capability25CapabilityRoundingModeRTZE"></span><span id="_CPPv2N3spv10Capability25CapabilityRoundingModeRTZE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea7c6c67dd447b3123677aac9e48154863"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityRoundingModeRTZ</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability25CapabilityRoundingModeRTZE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability32CapabilityRayQueryProvisionalKHRE">
+<span id="_CPPv3N3spv10Capability32CapabilityRayQueryProvisionalKHRE"></span><span id="_CPPv2N3spv10Capability32CapabilityRayQueryProvisionalKHRE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea2ddb00959a867cd7357389e1c532409a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityRayQueryProvisionalKHR</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability32CapabilityRayQueryProvisionalKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability21CapabilityRayQueryKHRE">
+<span id="_CPPv3N3spv10Capability21CapabilityRayQueryKHRE"></span><span id="_CPPv2N3spv10Capability21CapabilityRayQueryKHRE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea3a86b1bdfb6a0e676df62c8f4aa78783"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityRayQueryKHR</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability21CapabilityRayQueryKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability41CapabilityRayTraversalPrimitiveCullingKHRE">
+<span id="_CPPv3N3spv10Capability41CapabilityRayTraversalPrimitiveCullingKHRE"></span><span id="_CPPv2N3spv10Capability41CapabilityRayTraversalPrimitiveCullingKHRE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea0e0409ccfe50673feef6b9d653753a92"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityRayTraversalPrimitiveCullingKHR</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability41CapabilityRayTraversalPrimitiveCullingKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability23CapabilityRayTracingKHRE">
+<span id="_CPPv3N3spv10Capability23CapabilityRayTracingKHRE"></span><span id="_CPPv2N3spv10Capability23CapabilityRayTracingKHRE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eab52b9b84c38ca42a9d61950a53ee9b64"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityRayTracingKHR</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability23CapabilityRayTracingKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability25CapabilityFloat16ImageAMDE">
+<span id="_CPPv3N3spv10Capability25CapabilityFloat16ImageAMDE"></span><span id="_CPPv2N3spv10Capability25CapabilityFloat16ImageAMDE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea3dfbcbc2be0e421b130a8dbbf4fac945"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityFloat16ImageAMD</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability25CapabilityFloat16ImageAMDE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability31CapabilityImageGatherBiasLodAMDE">
+<span id="_CPPv3N3spv10Capability31CapabilityImageGatherBiasLodAMDE"></span><span id="_CPPv2N3spv10Capability31CapabilityImageGatherBiasLodAMDE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea40f5f801337550a0ed4ae64d01716e37"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityImageGatherBiasLodAMD</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability31CapabilityImageGatherBiasLodAMDE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability25CapabilityFragmentMaskAMDE">
+<span id="_CPPv3N3spv10Capability25CapabilityFragmentMaskAMDE"></span><span id="_CPPv2N3spv10Capability25CapabilityFragmentMaskAMDE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea36606802a192e6b0b6879dce5a6aec9a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityFragmentMaskAMD</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability25CapabilityFragmentMaskAMDE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability26CapabilityStencilExportEXTE">
+<span id="_CPPv3N3spv10Capability26CapabilityStencilExportEXTE"></span><span id="_CPPv2N3spv10Capability26CapabilityStencilExportEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea00eb65a31d2f45f5a2b4b2f782f2709d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityStencilExportEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability26CapabilityStencilExportEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability30CapabilityImageReadWriteLodAMDE">
+<span id="_CPPv3N3spv10Capability30CapabilityImageReadWriteLodAMDE"></span><span id="_CPPv2N3spv10Capability30CapabilityImageReadWriteLodAMDE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea536e5f793a6e9149f368cbebf74e8b46"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityImageReadWriteLodAMD</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability30CapabilityImageReadWriteLodAMDE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability23CapabilityInt64ImageEXTE">
+<span id="_CPPv3N3spv10Capability23CapabilityInt64ImageEXTE"></span><span id="_CPPv2N3spv10Capability23CapabilityInt64ImageEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea5845ae474afbbc4a750e760f14964cce"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityInt64ImageEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability23CapabilityInt64ImageEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability24CapabilityShaderClockKHRE">
+<span id="_CPPv3N3spv10Capability24CapabilityShaderClockKHRE"></span><span id="_CPPv2N3spv10Capability24CapabilityShaderClockKHRE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea5a5fe72a39b338168cc71fc28452364b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityShaderClockKHR</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability24CapabilityShaderClockKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability38CapabilitySampleMaskOverrideCoverageNVE">
+<span id="_CPPv3N3spv10Capability38CapabilitySampleMaskOverrideCoverageNVE"></span><span id="_CPPv2N3spv10Capability38CapabilitySampleMaskOverrideCoverageNVE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea3af144322bfd434075d9aa0ad7bb3547"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilitySampleMaskOverrideCoverageNV</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability38CapabilitySampleMaskOverrideCoverageNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability37CapabilityGeometryShaderPassthroughNVE">
+<span id="_CPPv3N3spv10Capability37CapabilityGeometryShaderPassthroughNVE"></span><span id="_CPPv2N3spv10Capability37CapabilityGeometryShaderPassthroughNVE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea56735e1a0b41e6ff6277d7e7791ed4b0"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityGeometryShaderPassthroughNV</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability37CapabilityGeometryShaderPassthroughNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability37CapabilityShaderViewportIndexLayerEXTE">
+<span id="_CPPv3N3spv10Capability37CapabilityShaderViewportIndexLayerEXTE"></span><span id="_CPPv2N3spv10Capability37CapabilityShaderViewportIndexLayerEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ead6bf669b492e2e25a98cf313ca3a93d3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityShaderViewportIndexLayerEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability37CapabilityShaderViewportIndexLayerEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability36CapabilityShaderViewportIndexLayerNVE">
+<span id="_CPPv3N3spv10Capability36CapabilityShaderViewportIndexLayerNVE"></span><span id="_CPPv2N3spv10Capability36CapabilityShaderViewportIndexLayerNVE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea873706075479957a36d756e72853e84a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityShaderViewportIndexLayerNV</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability36CapabilityShaderViewportIndexLayerNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability30CapabilityShaderViewportMaskNVE">
+<span id="_CPPv3N3spv10Capability30CapabilityShaderViewportMaskNVE"></span><span id="_CPPv2N3spv10Capability30CapabilityShaderViewportMaskNVE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaccafb57bb29e490f1f19842317dec097"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityShaderViewportMaskNV</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability30CapabilityShaderViewportMaskNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability28CapabilityShaderStereoViewNVE">
+<span id="_CPPv3N3spv10Capability28CapabilityShaderStereoViewNVE"></span><span id="_CPPv2N3spv10Capability28CapabilityShaderStereoViewNVE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eada478e431e61828de76a65b7d4fa1248"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityShaderStereoViewNV</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability28CapabilityShaderStereoViewNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability29CapabilityPerViewAttributesNVE">
+<span id="_CPPv3N3spv10Capability29CapabilityPerViewAttributesNVE"></span><span id="_CPPv2N3spv10Capability29CapabilityPerViewAttributesNVE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea04851695724788e5321130a11a0fe9f2"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityPerViewAttributesNV</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability29CapabilityPerViewAttributesNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability33CapabilityFragmentFullyCoveredEXTE">
+<span id="_CPPv3N3spv10Capability33CapabilityFragmentFullyCoveredEXTE"></span><span id="_CPPv2N3spv10Capability33CapabilityFragmentFullyCoveredEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaf34e30c43c1eec58620fc5e072acfb58"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityFragmentFullyCoveredEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability33CapabilityFragmentFullyCoveredEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability23CapabilityMeshShadingNVE">
+<span id="_CPPv3N3spv10Capability23CapabilityMeshShadingNVE"></span><span id="_CPPv2N3spv10Capability23CapabilityMeshShadingNVE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaff0d25c1fe5840a39f4fce1a90943e46"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityMeshShadingNV</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability23CapabilityMeshShadingNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability26CapabilityImageFootprintNVE">
+<span id="_CPPv3N3spv10Capability26CapabilityImageFootprintNVE"></span><span id="_CPPv2N3spv10Capability26CapabilityImageFootprintNVE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea08f86f34dee16e2d2e9fd635f9f4bf8f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityImageFootprintNV</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability26CapabilityImageFootprintNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability24CapabilityMeshShadingEXTE">
+<span id="_CPPv3N3spv10Capability24CapabilityMeshShadingEXTE"></span><span id="_CPPv2N3spv10Capability24CapabilityMeshShadingEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea2a1721229e5075a7fb6e85129395035c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityMeshShadingEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability24CapabilityMeshShadingEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability32CapabilityFragmentBarycentricKHRE">
+<span id="_CPPv3N3spv10Capability32CapabilityFragmentBarycentricKHRE"></span><span id="_CPPv2N3spv10Capability32CapabilityFragmentBarycentricKHRE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea27aba7f7a96a60b00b28b709b286d7c4"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityFragmentBarycentricKHR</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability32CapabilityFragmentBarycentricKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability31CapabilityFragmentBarycentricNVE">
+<span id="_CPPv3N3spv10Capability31CapabilityFragmentBarycentricNVE"></span><span id="_CPPv2N3spv10Capability31CapabilityFragmentBarycentricNVE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea06da0d3d78cc8c39cf037ac1426e7b17"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityFragmentBarycentricNV</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability31CapabilityFragmentBarycentricNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability39CapabilityComputeDerivativeGroupQuadsNVE">
+<span id="_CPPv3N3spv10Capability39CapabilityComputeDerivativeGroupQuadsNVE"></span><span id="_CPPv2N3spv10Capability39CapabilityComputeDerivativeGroupQuadsNVE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea0d68327b8825e07a6aa57e7034d1b138"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityComputeDerivativeGroupQuadsNV</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability39CapabilityComputeDerivativeGroupQuadsNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability28CapabilityFragmentDensityEXTE">
+<span id="_CPPv3N3spv10Capability28CapabilityFragmentDensityEXTE"></span><span id="_CPPv2N3spv10Capability28CapabilityFragmentDensityEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea553357a28086cd30f7e9a51add7e14e5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityFragmentDensityEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability28CapabilityFragmentDensityEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability23CapabilityShadingRateNVE">
+<span id="_CPPv3N3spv10Capability23CapabilityShadingRateNVE"></span><span id="_CPPv2N3spv10Capability23CapabilityShadingRateNVE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eae8517cf7bc83bbbba541579f6535557c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityShadingRateNV</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability23CapabilityShadingRateNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability38CapabilityGroupNonUniformPartitionedNVE">
+<span id="_CPPv3N3spv10Capability38CapabilityGroupNonUniformPartitionedNVE"></span><span id="_CPPv2N3spv10Capability38CapabilityGroupNonUniformPartitionedNVE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea2d4034e8ec346e50b334e81b10f761f4"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityGroupNonUniformPartitionedNV</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability38CapabilityGroupNonUniformPartitionedNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability26CapabilityShaderNonUniformE">
+<span id="_CPPv3N3spv10Capability26CapabilityShaderNonUniformE"></span><span id="_CPPv2N3spv10Capability26CapabilityShaderNonUniformE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea1634bfced755cbd657ba74b80e1a0cfa"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityShaderNonUniform</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability26CapabilityShaderNonUniformE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability29CapabilityShaderNonUniformEXTE">
+<span id="_CPPv3N3spv10Capability29CapabilityShaderNonUniformEXTE"></span><span id="_CPPv2N3spv10Capability29CapabilityShaderNonUniformEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaee07f7a01f77593e1e3e132fc714e67f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityShaderNonUniformEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability29CapabilityShaderNonUniformEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability32CapabilityRuntimeDescriptorArrayE">
+<span id="_CPPv3N3spv10Capability32CapabilityRuntimeDescriptorArrayE"></span><span id="_CPPv2N3spv10Capability32CapabilityRuntimeDescriptorArrayE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea941db0777d18127a844e81cc74b675f1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityRuntimeDescriptorArray</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability32CapabilityRuntimeDescriptorArrayE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability35CapabilityRuntimeDescriptorArrayEXTE">
+<span id="_CPPv3N3spv10Capability35CapabilityRuntimeDescriptorArrayEXTE"></span><span id="_CPPv2N3spv10Capability35CapabilityRuntimeDescriptorArrayEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea515ed43a1240129a2d06ef9c0ac7f365"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityRuntimeDescriptorArrayEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability35CapabilityRuntimeDescriptorArrayEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability45CapabilityInputAttachmentArrayDynamicIndexingE">
+<span id="_CPPv3N3spv10Capability45CapabilityInputAttachmentArrayDynamicIndexingE"></span><span id="_CPPv2N3spv10Capability45CapabilityInputAttachmentArrayDynamicIndexingE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea468edce73e93197f410fbcc3aca0dbcd"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityInputAttachmentArrayDynamicIndexing</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability45CapabilityInputAttachmentArrayDynamicIndexingE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability48CapabilityInputAttachmentArrayDynamicIndexingEXTE">
+<span id="_CPPv3N3spv10Capability48CapabilityInputAttachmentArrayDynamicIndexingEXTE"></span><span id="_CPPv2N3spv10Capability48CapabilityInputAttachmentArrayDynamicIndexingEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea304d3215223ee9d3e258041daedb4bdd"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityInputAttachmentArrayDynamicIndexingEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability48CapabilityInputAttachmentArrayDynamicIndexingEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability48CapabilityUniformTexelBufferArrayDynamicIndexingE">
+<span id="_CPPv3N3spv10Capability48CapabilityUniformTexelBufferArrayDynamicIndexingE"></span><span id="_CPPv2N3spv10Capability48CapabilityUniformTexelBufferArrayDynamicIndexingE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea5de02f7a1407011dab713c796189e052"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityUniformTexelBufferArrayDynamicIndexing</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability48CapabilityUniformTexelBufferArrayDynamicIndexingE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability51CapabilityUniformTexelBufferArrayDynamicIndexingEXTE">
+<span id="_CPPv3N3spv10Capability51CapabilityUniformTexelBufferArrayDynamicIndexingEXTE"></span><span id="_CPPv2N3spv10Capability51CapabilityUniformTexelBufferArrayDynamicIndexingEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea207b0a0f9558a9e375eadf637f6ef523"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityUniformTexelBufferArrayDynamicIndexingEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability51CapabilityUniformTexelBufferArrayDynamicIndexingEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability48CapabilityStorageTexelBufferArrayDynamicIndexingE">
+<span id="_CPPv3N3spv10Capability48CapabilityStorageTexelBufferArrayDynamicIndexingE"></span><span id="_CPPv2N3spv10Capability48CapabilityStorageTexelBufferArrayDynamicIndexingE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eafe21d276dafdcde204d2f1bba390d618"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityStorageTexelBufferArrayDynamicIndexing</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability48CapabilityStorageTexelBufferArrayDynamicIndexingE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability51CapabilityStorageTexelBufferArrayDynamicIndexingEXTE">
+<span id="_CPPv3N3spv10Capability51CapabilityStorageTexelBufferArrayDynamicIndexingEXTE"></span><span id="_CPPv2N3spv10Capability51CapabilityStorageTexelBufferArrayDynamicIndexingEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea36920353c9c5edc34d519341f55b70cc"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityStorageTexelBufferArrayDynamicIndexingEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability51CapabilityStorageTexelBufferArrayDynamicIndexingEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability46CapabilityUniformBufferArrayNonUniformIndexingE">
+<span id="_CPPv3N3spv10Capability46CapabilityUniformBufferArrayNonUniformIndexingE"></span><span id="_CPPv2N3spv10Capability46CapabilityUniformBufferArrayNonUniformIndexingE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eae1d2a5afb510fd03c52d50190f303e12"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityUniformBufferArrayNonUniformIndexing</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability46CapabilityUniformBufferArrayNonUniformIndexingE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability49CapabilityUniformBufferArrayNonUniformIndexingEXTE">
+<span id="_CPPv3N3spv10Capability49CapabilityUniformBufferArrayNonUniformIndexingEXTE"></span><span id="_CPPv2N3spv10Capability49CapabilityUniformBufferArrayNonUniformIndexingEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea9dc9a8416307805bb3dea2eccd555e9b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityUniformBufferArrayNonUniformIndexingEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability49CapabilityUniformBufferArrayNonUniformIndexingEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability45CapabilitySampledImageArrayNonUniformIndexingE">
+<span id="_CPPv3N3spv10Capability45CapabilitySampledImageArrayNonUniformIndexingE"></span><span id="_CPPv2N3spv10Capability45CapabilitySampledImageArrayNonUniformIndexingE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea274af32d73b8e1182382683e467098bd"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilitySampledImageArrayNonUniformIndexing</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability45CapabilitySampledImageArrayNonUniformIndexingE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability48CapabilitySampledImageArrayNonUniformIndexingEXTE">
+<span id="_CPPv3N3spv10Capability48CapabilitySampledImageArrayNonUniformIndexingEXTE"></span><span id="_CPPv2N3spv10Capability48CapabilitySampledImageArrayNonUniformIndexingEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea919abbad23b3f8b0adb4da284dfe2876"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilitySampledImageArrayNonUniformIndexingEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability48CapabilitySampledImageArrayNonUniformIndexingEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability46CapabilityStorageBufferArrayNonUniformIndexingE">
+<span id="_CPPv3N3spv10Capability46CapabilityStorageBufferArrayNonUniformIndexingE"></span><span id="_CPPv2N3spv10Capability46CapabilityStorageBufferArrayNonUniformIndexingE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea11b3e31f7cc07b1a3986483bb86f8b3b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityStorageBufferArrayNonUniformIndexing</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability46CapabilityStorageBufferArrayNonUniformIndexingE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability49CapabilityStorageBufferArrayNonUniformIndexingEXTE">
+<span id="_CPPv3N3spv10Capability49CapabilityStorageBufferArrayNonUniformIndexingEXTE"></span><span id="_CPPv2N3spv10Capability49CapabilityStorageBufferArrayNonUniformIndexingEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea25f75d125052d0a155e3d3ac0f552be7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityStorageBufferArrayNonUniformIndexingEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability49CapabilityStorageBufferArrayNonUniformIndexingEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability45CapabilityStorageImageArrayNonUniformIndexingE">
+<span id="_CPPv3N3spv10Capability45CapabilityStorageImageArrayNonUniformIndexingE"></span><span id="_CPPv2N3spv10Capability45CapabilityStorageImageArrayNonUniformIndexingE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea0958b1291f72741ba1dbc8c6ee6c0e43"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityStorageImageArrayNonUniformIndexing</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability45CapabilityStorageImageArrayNonUniformIndexingE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability48CapabilityStorageImageArrayNonUniformIndexingEXTE">
+<span id="_CPPv3N3spv10Capability48CapabilityStorageImageArrayNonUniformIndexingEXTE"></span><span id="_CPPv2N3spv10Capability48CapabilityStorageImageArrayNonUniformIndexingEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaddf5c79bf310a365cc8bae2db2bc1ca2"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityStorageImageArrayNonUniformIndexingEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability48CapabilityStorageImageArrayNonUniformIndexingEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability48CapabilityInputAttachmentArrayNonUniformIndexingE">
+<span id="_CPPv3N3spv10Capability48CapabilityInputAttachmentArrayNonUniformIndexingE"></span><span id="_CPPv2N3spv10Capability48CapabilityInputAttachmentArrayNonUniformIndexingE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eac4eb40dbe11023e5aefdcf013e4030ef"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityInputAttachmentArrayNonUniformIndexing</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability48CapabilityInputAttachmentArrayNonUniformIndexingE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability51CapabilityInputAttachmentArrayNonUniformIndexingEXTE">
+<span id="_CPPv3N3spv10Capability51CapabilityInputAttachmentArrayNonUniformIndexingEXTE"></span><span id="_CPPv2N3spv10Capability51CapabilityInputAttachmentArrayNonUniformIndexingEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eace1a2d1e7d34527e227a86ee4a3925d6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityInputAttachmentArrayNonUniformIndexingEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability51CapabilityInputAttachmentArrayNonUniformIndexingEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability51CapabilityUniformTexelBufferArrayNonUniformIndexingE">
+<span id="_CPPv3N3spv10Capability51CapabilityUniformTexelBufferArrayNonUniformIndexingE"></span><span id="_CPPv2N3spv10Capability51CapabilityUniformTexelBufferArrayNonUniformIndexingE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eae659b3b3ace40167efe621ca13d6f005"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityUniformTexelBufferArrayNonUniformIndexing</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability51CapabilityUniformTexelBufferArrayNonUniformIndexingE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability54CapabilityUniformTexelBufferArrayNonUniformIndexingEXTE">
+<span id="_CPPv3N3spv10Capability54CapabilityUniformTexelBufferArrayNonUniformIndexingEXTE"></span><span id="_CPPv2N3spv10Capability54CapabilityUniformTexelBufferArrayNonUniformIndexingEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea96cea7892e30d575aed1adf9f58d937d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityUniformTexelBufferArrayNonUniformIndexingEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability54CapabilityUniformTexelBufferArrayNonUniformIndexingEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability51CapabilityStorageTexelBufferArrayNonUniformIndexingE">
+<span id="_CPPv3N3spv10Capability51CapabilityStorageTexelBufferArrayNonUniformIndexingE"></span><span id="_CPPv2N3spv10Capability51CapabilityStorageTexelBufferArrayNonUniformIndexingE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaf02f88ddd6b43d1c7a756cb3162b8cd1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityStorageTexelBufferArrayNonUniformIndexing</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability51CapabilityStorageTexelBufferArrayNonUniformIndexingE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability54CapabilityStorageTexelBufferArrayNonUniformIndexingEXTE">
+<span id="_CPPv3N3spv10Capability54CapabilityStorageTexelBufferArrayNonUniformIndexingEXTE"></span><span id="_CPPv2N3spv10Capability54CapabilityStorageTexelBufferArrayNonUniformIndexingEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ead16e5fd0f214de5870dcac734790028e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityStorageTexelBufferArrayNonUniformIndexingEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability54CapabilityStorageTexelBufferArrayNonUniformIndexingEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability22CapabilityRayTracingNVE">
+<span id="_CPPv3N3spv10Capability22CapabilityRayTracingNVE"></span><span id="_CPPv2N3spv10Capability22CapabilityRayTracingNVE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea55a528514d1eb212aaeb3f88a829ca0c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityRayTracingNV</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability22CapabilityRayTracingNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability32CapabilityRayTracingMotionBlurNVE">
+<span id="_CPPv3N3spv10Capability32CapabilityRayTracingMotionBlurNVE"></span><span id="_CPPv2N3spv10Capability32CapabilityRayTracingMotionBlurNVE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea32c3c812427a8e9e06723d846988a07d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityRayTracingMotionBlurNV</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability32CapabilityRayTracingMotionBlurNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability27CapabilityVulkanMemoryModelE">
+<span id="_CPPv3N3spv10Capability27CapabilityVulkanMemoryModelE"></span><span id="_CPPv2N3spv10Capability27CapabilityVulkanMemoryModelE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaaecb81fc03e2c2f7fc56e649b28d7fa1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityVulkanMemoryModel</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability27CapabilityVulkanMemoryModelE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability30CapabilityVulkanMemoryModelKHRE">
+<span id="_CPPv3N3spv10Capability30CapabilityVulkanMemoryModelKHRE"></span><span id="_CPPv2N3spv10Capability30CapabilityVulkanMemoryModelKHRE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eafe0883c9f0cfdfe77017c27c805fd7bd"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityVulkanMemoryModelKHR</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability30CapabilityVulkanMemoryModelKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability38CapabilityVulkanMemoryModelDeviceScopeE">
+<span id="_CPPv3N3spv10Capability38CapabilityVulkanMemoryModelDeviceScopeE"></span><span id="_CPPv2N3spv10Capability38CapabilityVulkanMemoryModelDeviceScopeE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eabf005b422aa1d5391b9a028b842cf642"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityVulkanMemoryModelDeviceScope</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability38CapabilityVulkanMemoryModelDeviceScopeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability41CapabilityVulkanMemoryModelDeviceScopeKHRE">
+<span id="_CPPv3N3spv10Capability41CapabilityVulkanMemoryModelDeviceScopeKHRE"></span><span id="_CPPv2N3spv10Capability41CapabilityVulkanMemoryModelDeviceScopeKHRE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea0cf23494fb128537a89d41d5e688b12b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityVulkanMemoryModelDeviceScopeKHR</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability41CapabilityVulkanMemoryModelDeviceScopeKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability40CapabilityPhysicalStorageBufferAddressesE">
+<span id="_CPPv3N3spv10Capability40CapabilityPhysicalStorageBufferAddressesE"></span><span id="_CPPv2N3spv10Capability40CapabilityPhysicalStorageBufferAddressesE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea2a729fde669fb67ac8377ad1cc985d95"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityPhysicalStorageBufferAddresses</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability40CapabilityPhysicalStorageBufferAddressesE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability43CapabilityPhysicalStorageBufferAddressesEXTE">
+<span id="_CPPv3N3spv10Capability43CapabilityPhysicalStorageBufferAddressesEXTE"></span><span id="_CPPv2N3spv10Capability43CapabilityPhysicalStorageBufferAddressesEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaf6ab7bbb392e170510d07b77908f1623"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityPhysicalStorageBufferAddressesEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability43CapabilityPhysicalStorageBufferAddressesEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability40CapabilityComputeDerivativeGroupLinearNVE">
+<span id="_CPPv3N3spv10Capability40CapabilityComputeDerivativeGroupLinearNVE"></span><span id="_CPPv2N3spv10Capability40CapabilityComputeDerivativeGroupLinearNVE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea45cf35008df8dd5fc65d7ee8539f7839"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityComputeDerivativeGroupLinearNV</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability40CapabilityComputeDerivativeGroupLinearNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability34CapabilityRayTracingProvisionalKHRE">
+<span id="_CPPv3N3spv10Capability34CapabilityRayTracingProvisionalKHRE"></span><span id="_CPPv2N3spv10Capability34CapabilityRayTracingProvisionalKHRE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea50a8b2371acf3050e10f2fa8c2c6d7b2"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityRayTracingProvisionalKHR</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability34CapabilityRayTracingProvisionalKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability29CapabilityCooperativeMatrixNVE">
+<span id="_CPPv3N3spv10Capability29CapabilityCooperativeMatrixNVE"></span><span id="_CPPv2N3spv10Capability29CapabilityCooperativeMatrixNVE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea263c7167f47f402744dc27b5c15dea19"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityCooperativeMatrixNV</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability29CapabilityCooperativeMatrixNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability42CapabilityFragmentShaderSampleInterlockEXTE">
+<span id="_CPPv3N3spv10Capability42CapabilityFragmentShaderSampleInterlockEXTE"></span><span id="_CPPv2N3spv10Capability42CapabilityFragmentShaderSampleInterlockEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea0489741df08747bd3fef5705f6eb7c0f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityFragmentShaderSampleInterlockEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability42CapabilityFragmentShaderSampleInterlockEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability47CapabilityFragmentShaderShadingRateInterlockEXTE">
+<span id="_CPPv3N3spv10Capability47CapabilityFragmentShaderShadingRateInterlockEXTE"></span><span id="_CPPv2N3spv10Capability47CapabilityFragmentShaderShadingRateInterlockEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea5e7887767241a5e0ee8f676ddcefef34"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityFragmentShaderShadingRateInterlockEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability47CapabilityFragmentShaderShadingRateInterlockEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability28CapabilityShaderSMBuiltinsNVE">
+<span id="_CPPv3N3spv10Capability28CapabilityShaderSMBuiltinsNVE"></span><span id="_CPPv2N3spv10Capability28CapabilityShaderSMBuiltinsNVE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eae200c4a38239c63a879a165ee3ec83b6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityShaderSMBuiltinsNV</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability28CapabilityShaderSMBuiltinsNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability41CapabilityFragmentShaderPixelInterlockEXTE">
+<span id="_CPPv3N3spv10Capability41CapabilityFragmentShaderPixelInterlockEXTE"></span><span id="_CPPv2N3spv10Capability41CapabilityFragmentShaderPixelInterlockEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea0709e3d93948634578247d828693739d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityFragmentShaderPixelInterlockEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability41CapabilityFragmentShaderPixelInterlockEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability34CapabilityDemoteToHelperInvocationE">
+<span id="_CPPv3N3spv10Capability34CapabilityDemoteToHelperInvocationE"></span><span id="_CPPv2N3spv10Capability34CapabilityDemoteToHelperInvocationE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea40abab084f57b36e618383124bb4a282"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityDemoteToHelperInvocation</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability34CapabilityDemoteToHelperInvocationE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability37CapabilityDemoteToHelperInvocationEXTE">
+<span id="_CPPv3N3spv10Capability37CapabilityDemoteToHelperInvocationEXTE"></span><span id="_CPPv2N3spv10Capability37CapabilityDemoteToHelperInvocationEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaa60fcbc1328aef04d49c6bca680d61eb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityDemoteToHelperInvocationEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability37CapabilityDemoteToHelperInvocationEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability27CapabilityBindlessTextureNVE">
+<span id="_CPPv3N3spv10Capability27CapabilityBindlessTextureNVE"></span><span id="_CPPv2N3spv10Capability27CapabilityBindlessTextureNVE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea208beb5ba52081b3347d990465009e19"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityBindlessTextureNV</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability27CapabilityBindlessTextureNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability30CapabilitySubgroupShuffleINTELE">
+<span id="_CPPv3N3spv10Capability30CapabilitySubgroupShuffleINTELE"></span><span id="_CPPv2N3spv10Capability30CapabilitySubgroupShuffleINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea8fc71e49bd221e2f12eb2f3919748f35"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilitySubgroupShuffleINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability30CapabilitySubgroupShuffleINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability36CapabilitySubgroupBufferBlockIOINTELE">
+<span id="_CPPv3N3spv10Capability36CapabilitySubgroupBufferBlockIOINTELE"></span><span id="_CPPv2N3spv10Capability36CapabilitySubgroupBufferBlockIOINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eae3e88c793851cc4fe15c9654e0126fca"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilitySubgroupBufferBlockIOINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability36CapabilitySubgroupBufferBlockIOINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability35CapabilitySubgroupImageBlockIOINTELE">
+<span id="_CPPv3N3spv10Capability35CapabilitySubgroupImageBlockIOINTELE"></span><span id="_CPPv2N3spv10Capability35CapabilitySubgroupImageBlockIOINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea634c96be467c9e6453d7d91d9fc83e5c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilitySubgroupImageBlockIOINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability35CapabilitySubgroupImageBlockIOINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability40CapabilitySubgroupImageMediaBlockIOINTELE">
+<span id="_CPPv3N3spv10Capability40CapabilitySubgroupImageMediaBlockIOINTELE"></span><span id="_CPPv2N3spv10Capability40CapabilitySubgroupImageMediaBlockIOINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea6947292dfe504aaf5bfe4fbf8a78ab64"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilitySubgroupImageMediaBlockIOINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability40CapabilitySubgroupImageMediaBlockIOINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability30CapabilityRoundToInfinityINTELE">
+<span id="_CPPv3N3spv10Capability30CapabilityRoundToInfinityINTELE"></span><span id="_CPPv2N3spv10Capability30CapabilityRoundToInfinityINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eabc9cc72e0ff411dd8232785253c2eb4b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityRoundToInfinityINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability30CapabilityRoundToInfinityINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability32CapabilityFloatingPointModeINTELE">
+<span id="_CPPv3N3spv10Capability32CapabilityFloatingPointModeINTELE"></span><span id="_CPPv2N3spv10Capability32CapabilityFloatingPointModeINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eae324a8b28b72155ae0456ddb5992ebac"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityFloatingPointModeINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability32CapabilityFloatingPointModeINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability32CapabilityIntegerFunctions2INTELE">
+<span id="_CPPv3N3spv10Capability32CapabilityIntegerFunctions2INTELE"></span><span id="_CPPv2N3spv10Capability32CapabilityIntegerFunctions2INTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eafbfa54d93aaa45e9d49b8b1eeadd80f3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityIntegerFunctions2INTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability32CapabilityIntegerFunctions2INTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability31CapabilityFunctionPointersINTELE">
+<span id="_CPPv3N3spv10Capability31CapabilityFunctionPointersINTELE"></span><span id="_CPPv2N3spv10Capability31CapabilityFunctionPointersINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea3f93319a0561492168ff3930ebd51787"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityFunctionPointersINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability31CapabilityFunctionPointersINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability33CapabilityIndirectReferencesINTELE">
+<span id="_CPPv3N3spv10Capability33CapabilityIndirectReferencesINTELE"></span><span id="_CPPv2N3spv10Capability33CapabilityIndirectReferencesINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea2e48381844d57d4d9d37a190ef3fc0db"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityIndirectReferencesINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability33CapabilityIndirectReferencesINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability18CapabilityAsmINTELE">
+<span id="_CPPv3N3spv10Capability18CapabilityAsmINTELE"></span><span id="_CPPv2N3spv10Capability18CapabilityAsmINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea442ba6a20df79d3a10192752c7f9587d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityAsmINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability18CapabilityAsmINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability32CapabilityAtomicFloat32MinMaxEXTE">
+<span id="_CPPv3N3spv10Capability32CapabilityAtomicFloat32MinMaxEXTE"></span><span id="_CPPv2N3spv10Capability32CapabilityAtomicFloat32MinMaxEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaa738eed36d5f3da934076c39f5a62251"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityAtomicFloat32MinMaxEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability32CapabilityAtomicFloat32MinMaxEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability32CapabilityAtomicFloat64MinMaxEXTE">
+<span id="_CPPv3N3spv10Capability32CapabilityAtomicFloat64MinMaxEXTE"></span><span id="_CPPv2N3spv10Capability32CapabilityAtomicFloat64MinMaxEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea97e5a275462a83282c298fa772d21dac"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityAtomicFloat64MinMaxEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability32CapabilityAtomicFloat64MinMaxEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability32CapabilityAtomicFloat16MinMaxEXTE">
+<span id="_CPPv3N3spv10Capability32CapabilityAtomicFloat16MinMaxEXTE"></span><span id="_CPPv2N3spv10Capability32CapabilityAtomicFloat16MinMaxEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea97916ffc47d3a09415cbfe2f7b2d0890"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityAtomicFloat16MinMaxEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability32CapabilityAtomicFloat16MinMaxEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability28CapabilityVectorComputeINTELE">
+<span id="_CPPv3N3spv10Capability28CapabilityVectorComputeINTELE"></span><span id="_CPPv2N3spv10Capability28CapabilityVectorComputeINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eac8c6aaee6e95fee3e30408e4eab82b48"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityVectorComputeINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability28CapabilityVectorComputeINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability24CapabilityVectorAnyINTELE">
+<span id="_CPPv3N3spv10Capability24CapabilityVectorAnyINTELE"></span><span id="_CPPv2N3spv10Capability24CapabilityVectorAnyINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea0a8c4d5a389d661e1b4b5fa6609d935a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityVectorAnyINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability24CapabilityVectorAnyINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability25CapabilityExpectAssumeKHRE">
+<span id="_CPPv3N3spv10Capability25CapabilityExpectAssumeKHRE"></span><span id="_CPPv2N3spv10Capability25CapabilityExpectAssumeKHRE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea8ac10333e7e950d61e19a503a97564e9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityExpectAssumeKHR</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability25CapabilityExpectAssumeKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability42CapabilitySubgroupAvcMotionEstimationINTELE">
+<span id="_CPPv3N3spv10Capability42CapabilitySubgroupAvcMotionEstimationINTELE"></span><span id="_CPPv2N3spv10Capability42CapabilitySubgroupAvcMotionEstimationINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eac77229b9723349ee66b4723de35f0d7b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilitySubgroupAvcMotionEstimationINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability42CapabilitySubgroupAvcMotionEstimationINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability47CapabilitySubgroupAvcMotionEstimationIntraINTELE">
+<span id="_CPPv3N3spv10Capability47CapabilitySubgroupAvcMotionEstimationIntraINTELE"></span><span id="_CPPv2N3spv10Capability47CapabilitySubgroupAvcMotionEstimationIntraINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea36f0400d73cb5e1269f6c0321fccf253"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilitySubgroupAvcMotionEstimationIntraINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability47CapabilitySubgroupAvcMotionEstimationIntraINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability48CapabilitySubgroupAvcMotionEstimationChromaINTELE">
+<span id="_CPPv3N3spv10Capability48CapabilitySubgroupAvcMotionEstimationChromaINTELE"></span><span id="_CPPv2N3spv10Capability48CapabilitySubgroupAvcMotionEstimationChromaINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea76d0dc54b53453266f67d09958b5ebe3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilitySubgroupAvcMotionEstimationChromaINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability48CapabilitySubgroupAvcMotionEstimationChromaINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability34CapabilityVariableLengthArrayINTELE">
+<span id="_CPPv3N3spv10Capability34CapabilityVariableLengthArrayINTELE"></span><span id="_CPPv2N3spv10Capability34CapabilityVariableLengthArrayINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eafec32379baad4f71ac0061671a4f2c3b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityVariableLengthArrayINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability34CapabilityVariableLengthArrayINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability35CapabilityFunctionFloatControlINTELE">
+<span id="_CPPv3N3spv10Capability35CapabilityFunctionFloatControlINTELE"></span><span id="_CPPv2N3spv10Capability35CapabilityFunctionFloatControlINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea4672b5196a6e3faad6d2a4b738ff3d8a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityFunctionFloatControlINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability35CapabilityFunctionFloatControlINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability35CapabilityFPGAMemoryAttributesINTELE">
+<span id="_CPPv3N3spv10Capability35CapabilityFPGAMemoryAttributesINTELE"></span><span id="_CPPv2N3spv10Capability35CapabilityFPGAMemoryAttributesINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea8c390d556b523393f5ca094cf7e3b46e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityFPGAMemoryAttributesINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability35CapabilityFPGAMemoryAttributesINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability29CapabilityFPFastMathModeINTELE">
+<span id="_CPPv3N3spv10Capability29CapabilityFPFastMathModeINTELE"></span><span id="_CPPv2N3spv10Capability29CapabilityFPFastMathModeINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea30947a77755dbe419934ee6df4996b9b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityFPFastMathModeINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability29CapabilityFPFastMathModeINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability41CapabilityArbitraryPrecisionIntegersINTELE">
+<span id="_CPPv3N3spv10Capability41CapabilityArbitraryPrecisionIntegersINTELE"></span><span id="_CPPv2N3spv10Capability41CapabilityArbitraryPrecisionIntegersINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea1a72a34f9c6169954c22b228cddb24ff"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityArbitraryPrecisionIntegersINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability41CapabilityArbitraryPrecisionIntegersINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability46CapabilityArbitraryPrecisionFloatingPointINTELE">
+<span id="_CPPv3N3spv10Capability46CapabilityArbitraryPrecisionFloatingPointINTELE"></span><span id="_CPPv2N3spv10Capability46CapabilityArbitraryPrecisionFloatingPointINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea16266f71320614eba98d3f27e552f14d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityArbitraryPrecisionFloatingPointINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability46CapabilityArbitraryPrecisionFloatingPointINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability39CapabilityUnstructuredLoopControlsINTELE">
+<span id="_CPPv3N3spv10Capability39CapabilityUnstructuredLoopControlsINTELE"></span><span id="_CPPv2N3spv10Capability39CapabilityUnstructuredLoopControlsINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eacae2e6eef8ca457b0c89219a49582a50"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityUnstructuredLoopControlsINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability39CapabilityUnstructuredLoopControlsINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability31CapabilityFPGALoopControlsINTELE">
+<span id="_CPPv3N3spv10Capability31CapabilityFPGALoopControlsINTELE"></span><span id="_CPPv2N3spv10Capability31CapabilityFPGALoopControlsINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eab755e77c48dd5d9f1b0f76f6b4db2872"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityFPGALoopControlsINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability31CapabilityFPGALoopControlsINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability31CapabilityKernelAttributesINTELE">
+<span id="_CPPv3N3spv10Capability31CapabilityKernelAttributesINTELE"></span><span id="_CPPv2N3spv10Capability31CapabilityKernelAttributesINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea1ab58949fd1318a4ce40e53b678fbdab"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityKernelAttributesINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability31CapabilityKernelAttributesINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability35CapabilityFPGAKernelAttributesINTELE">
+<span id="_CPPv3N3spv10Capability35CapabilityFPGAKernelAttributesINTELE"></span><span id="_CPPv2N3spv10Capability35CapabilityFPGAKernelAttributesINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaf45686c73810990fe0257e7f70b365fb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityFPGAKernelAttributesINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability35CapabilityFPGAKernelAttributesINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability33CapabilityFPGAMemoryAccessesINTELE">
+<span id="_CPPv3N3spv10Capability33CapabilityFPGAMemoryAccessesINTELE"></span><span id="_CPPv2N3spv10Capability33CapabilityFPGAMemoryAccessesINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea50042b798fdedccd52c41241ad49f18e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityFPGAMemoryAccessesINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability33CapabilityFPGAMemoryAccessesINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability36CapabilityFPGAClusterAttributesINTELE">
+<span id="_CPPv3N3spv10Capability36CapabilityFPGAClusterAttributesINTELE"></span><span id="_CPPv2N3spv10Capability36CapabilityFPGAClusterAttributesINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea9b358a4e20b282ad6e7a2f2f5dadd61d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityFPGAClusterAttributesINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability36CapabilityFPGAClusterAttributesINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability23CapabilityLoopFuseINTELE">
+<span id="_CPPv3N3spv10Capability23CapabilityLoopFuseINTELE"></span><span id="_CPPv2N3spv10Capability23CapabilityLoopFuseINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea5bb829f6cea6c84bbb9ecfea60a2cb8b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityLoopFuseINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability23CapabilityLoopFuseINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability35CapabilityMemoryAccessAliasingINTELE">
+<span id="_CPPv3N3spv10Capability35CapabilityMemoryAccessAliasingINTELE"></span><span id="_CPPv2N3spv10Capability35CapabilityMemoryAccessAliasingINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eab9be6605bc7520bb0de9ecaec6576c1c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityMemoryAccessAliasingINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability35CapabilityMemoryAccessAliasingINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability33CapabilityFPGABufferLocationINTELE">
+<span id="_CPPv3N3spv10Capability33CapabilityFPGABufferLocationINTELE"></span><span id="_CPPv2N3spv10Capability33CapabilityFPGABufferLocationINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eacb72b8be6adffbb635b170a9066bf105"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityFPGABufferLocationINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability33CapabilityFPGABufferLocationINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability43CapabilityArbitraryPrecisionFixedPointINTELE">
+<span id="_CPPv3N3spv10Capability43CapabilityArbitraryPrecisionFixedPointINTELE"></span><span id="_CPPv2N3spv10Capability43CapabilityArbitraryPrecisionFixedPointINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea311f412095cae12d664871aa732f4bd5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityArbitraryPrecisionFixedPointINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability43CapabilityArbitraryPrecisionFixedPointINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability32CapabilityUSMStorageClassesINTELE">
+<span id="_CPPv3N3spv10Capability32CapabilityUSMStorageClassesINTELE"></span><span id="_CPPv2N3spv10Capability32CapabilityUSMStorageClassesINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eabe9ab3251a00354bee6c70ebba1c6a7a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityUSMStorageClassesINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability32CapabilityUSMStorageClassesINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability22CapabilityIOPipesINTELE">
+<span id="_CPPv3N3spv10Capability22CapabilityIOPipesINTELE"></span><span id="_CPPv2N3spv10Capability22CapabilityIOPipesINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea3cd8ee100d35ad3a4e54a3949defeb6a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityIOPipesINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability22CapabilityIOPipesINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability28CapabilityBlockingPipesINTELE">
+<span id="_CPPv3N3spv10Capability28CapabilityBlockingPipesINTELE"></span><span id="_CPPv2N3spv10Capability28CapabilityBlockingPipesINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea5059b84054be4fc92dd989a0135db921"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityBlockingPipesINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability28CapabilityBlockingPipesINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability22CapabilityFPGARegINTELE">
+<span id="_CPPv3N3spv10Capability22CapabilityFPGARegINTELE"></span><span id="_CPPv2N3spv10Capability22CapabilityFPGARegINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea35ea39ccd2ae9444db1f4ef7382ab9b1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityFPGARegINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability22CapabilityFPGARegINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability28CapabilityDotProductInputAllE">
+<span id="_CPPv3N3spv10Capability28CapabilityDotProductInputAllE"></span><span id="_CPPv2N3spv10Capability28CapabilityDotProductInputAllE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea51e47bc9c8ba35c229273d7110c300cd"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityDotProductInputAll</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability28CapabilityDotProductInputAllE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability31CapabilityDotProductInputAllKHRE">
+<span id="_CPPv3N3spv10Capability31CapabilityDotProductInputAllKHRE"></span><span id="_CPPv2N3spv10Capability31CapabilityDotProductInputAllKHRE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eab94d7d8d86ce6fa39056bc394aafb668"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityDotProductInputAllKHR</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability31CapabilityDotProductInputAllKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability31CapabilityDotProductInput4x8BitE">
+<span id="_CPPv3N3spv10Capability31CapabilityDotProductInput4x8BitE"></span><span id="_CPPv2N3spv10Capability31CapabilityDotProductInput4x8BitE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaed7169b88c41c968750de39567b932d3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityDotProductInput4x8Bit</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability31CapabilityDotProductInput4x8BitE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability34CapabilityDotProductInput4x8BitKHRE">
+<span id="_CPPv3N3spv10Capability34CapabilityDotProductInput4x8BitKHRE"></span><span id="_CPPv2N3spv10Capability34CapabilityDotProductInput4x8BitKHRE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea7a9efba016962bf77f87641dac43e476"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityDotProductInput4x8BitKHR</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability34CapabilityDotProductInput4x8BitKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability37CapabilityDotProductInput4x8BitPackedE">
+<span id="_CPPv3N3spv10Capability37CapabilityDotProductInput4x8BitPackedE"></span><span id="_CPPv2N3spv10Capability37CapabilityDotProductInput4x8BitPackedE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea72e3d6b580a41e2b952242c9a266f2b8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityDotProductInput4x8BitPacked</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability37CapabilityDotProductInput4x8BitPackedE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability40CapabilityDotProductInput4x8BitPackedKHRE">
+<span id="_CPPv3N3spv10Capability40CapabilityDotProductInput4x8BitPackedKHRE"></span><span id="_CPPv2N3spv10Capability40CapabilityDotProductInput4x8BitPackedKHRE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea6fd1c68920b171d3a80024313b26d192"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityDotProductInput4x8BitPackedKHR</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability40CapabilityDotProductInput4x8BitPackedKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability20CapabilityDotProductE">
+<span id="_CPPv3N3spv10Capability20CapabilityDotProductE"></span><span id="_CPPv2N3spv10Capability20CapabilityDotProductE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea3f75bc86feae652be984ad870c3ed947"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityDotProduct</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability20CapabilityDotProductE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability23CapabilityDotProductKHRE">
+<span id="_CPPv3N3spv10Capability23CapabilityDotProductKHRE"></span><span id="_CPPv2N3spv10Capability23CapabilityDotProductKHRE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea9b82b1257fd7f5802218862cc44c3114"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityDotProductKHR</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability23CapabilityDotProductKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability24CapabilityRayCullMaskKHRE">
+<span id="_CPPv3N3spv10Capability24CapabilityRayCullMaskKHRE"></span><span id="_CPPv2N3spv10Capability24CapabilityRayCullMaskKHRE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaa20662d4a82baf3d5b921f1de00eadae"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityRayCullMaskKHR</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability24CapabilityRayCullMaskKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability25CapabilityBitInstructionsE">
+<span id="_CPPv3N3spv10Capability25CapabilityBitInstructionsE"></span><span id="_CPPv2N3spv10Capability25CapabilityBitInstructionsE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea07dd7e3e62c7e14fb5bb1df6d38c6b52"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityBitInstructions</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability25CapabilityBitInstructionsE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability34CapabilityGroupNonUniformRotateKHRE">
+<span id="_CPPv3N3spv10Capability34CapabilityGroupNonUniformRotateKHRE"></span><span id="_CPPv2N3spv10Capability34CapabilityGroupNonUniformRotateKHRE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaa057aa90f90efe4d64181106281364dc"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityGroupNonUniformRotateKHR</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability34CapabilityGroupNonUniformRotateKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability29CapabilityAtomicFloat32AddEXTE">
+<span id="_CPPv3N3spv10Capability29CapabilityAtomicFloat32AddEXTE"></span><span id="_CPPv2N3spv10Capability29CapabilityAtomicFloat32AddEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ead4cef118af90017390dfb22f012e309e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityAtomicFloat32AddEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability29CapabilityAtomicFloat32AddEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability29CapabilityAtomicFloat64AddEXTE">
+<span id="_CPPv3N3spv10Capability29CapabilityAtomicFloat64AddEXTE"></span><span id="_CPPv2N3spv10Capability29CapabilityAtomicFloat64AddEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea5e6948ba8715f5b09d377934dec2ac0d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityAtomicFloat64AddEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability29CapabilityAtomicFloat64AddEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability36CapabilityLongConstantCompositeINTELE">
+<span id="_CPPv3N3spv10Capability36CapabilityLongConstantCompositeINTELE"></span><span id="_CPPv2N3spv10Capability36CapabilityLongConstantCompositeINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eacbefa4f6bf701c1d8c7f6dd18d40588a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityLongConstantCompositeINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability36CapabilityLongConstantCompositeINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability22CapabilityOptNoneINTELE">
+<span id="_CPPv3N3spv10Capability22CapabilityOptNoneINTELE"></span><span id="_CPPv2N3spv10Capability22CapabilityOptNoneINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaba82a663b169a82b1205b82ffc51c738"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityOptNoneINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability22CapabilityOptNoneINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability29CapabilityAtomicFloat16AddEXTE">
+<span id="_CPPv3N3spv10Capability29CapabilityAtomicFloat16AddEXTE"></span><span id="_CPPv2N3spv10Capability29CapabilityAtomicFloat16AddEXTE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eaeb24ca003b9f0682e2e8815a392705b7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityAtomicFloat16AddEXT</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability29CapabilityAtomicFloat16AddEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability30CapabilityDebugInfoModuleINTELE">
+<span id="_CPPv3N3spv10Capability30CapabilityDebugInfoModuleINTELE"></span><span id="_CPPv2N3spv10Capability30CapabilityDebugInfoModuleINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea88513c94d61ec3610369499a6b975711"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityDebugInfoModuleINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability30CapabilityDebugInfoModuleINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability27CapabilitySplitBarrierINTELE">
+<span id="_CPPv3N3spv10Capability27CapabilitySplitBarrierINTELE"></span><span id="_CPPv2N3spv10Capability27CapabilitySplitBarrierINTELE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70ea0c6d9c1e503805bf6ecc80b7d9bd3af6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilitySplitBarrierINTEL</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability27CapabilitySplitBarrierINTELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability35CapabilityGroupUniformArithmeticKHRE">
+<span id="_CPPv3N3spv10Capability35CapabilityGroupUniformArithmeticKHRE"></span><span id="_CPPv2N3spv10Capability35CapabilityGroupUniformArithmeticKHRE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eabbf5788923ac23a929d64f7c2c8b19a6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityGroupUniformArithmeticKHR</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability35CapabilityGroupUniformArithmeticKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3spv10Capability13CapabilityMaxE">
+<span id="_CPPv3N3spv10Capability13CapabilityMaxE"></span><span id="_CPPv2N3spv10Capability13CapabilityMaxE"></span><span class="target" id="spirv_8hpp_1a7072848fdb37bcd284898636d55bb70eab749e87bf24b5ad2b447142710cca9ef"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CapabilityMax</span></span></span><a class="headerlink" href="#_CPPv4N3spv10Capability13CapabilityMaxE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="enum_spirv_8hpp_1ab312cadcb9bd0bd6744b529228620ffe.html" class="btn btn-neutral float-left" title="Enum BuiltIn" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="enum_spirv_8hpp_1ae613902552cc82dd8c58397263c76356.html" class="btn btn-neutral float-right" title="Enum Decoration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

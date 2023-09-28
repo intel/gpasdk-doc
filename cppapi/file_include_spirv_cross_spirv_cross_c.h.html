@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File spirv_cross_c.h &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">'Helloworld' Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">'Helloworld' Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/reference.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">API-Debug-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">Device-Override</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#unions">Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#sept-21-2023">2023.3 (Sept 21 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id35">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id36">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id40">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id41">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2023.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id5">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id8">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id11">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id12">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id13">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id14">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id15">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id16">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id17">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id18">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id19">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">File spirv_cross_c.h</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="file-spirv-cross-c-h">
+<span id="file-include-spirv-cross-spirv-cross-c-h"></span><h1>File spirv_cross_c.h<a class="headerlink" href="#file-spirv-cross-c-h" title="Permalink to this headline"></a></h1>
+<div class="contents local topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#definition-include-spirv-cross-spirv-cross-c-h" id="id1">Definition (<code class="docutils literal notranslate"><span class="pre">include\spirv_cross\spirv_cross_c.h</span></code>)</a></p></li>
+<li><p><a class="reference internal" href="#includes" id="id2">Includes</a></p></li>
+<li><p><a class="reference internal" href="#classes" id="id3">Classes</a></p></li>
+<li><p><a class="reference internal" href="#enums" id="id4">Enums</a></p></li>
+<li><p><a class="reference internal" href="#functions" id="id5">Functions</a></p></li>
+<li><p><a class="reference internal" href="#defines" id="id6">Defines</a></p></li>
+<li><p><a class="reference internal" href="#typedefs" id="id7">Typedefs</a></p></li>
+</ul>
+</div>
+<section id="definition-include-spirv-cross-spirv-cross-c-h">
+<h2>Definition (<code class="docutils literal notranslate"><span class="pre">include\spirv_cross\spirv_cross_c.h</span></code>)<a class="headerlink" href="#definition-include-spirv-cross-spirv-cross-c-h" title="Permalink to this headline"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="program_listing_file_include_spirv_cross_spirv_cross_c.h.html">Program Listing for File spirv_cross_c.h</a></li>
+</ul>
+</div>
+</section>
+<section id="includes">
+<h2>Includes<a class="headerlink" href="#includes" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">spirv.h</span></code> (<a class="reference internal" href="file_include_spirv_cross_spirv.h.html#file-include-spirv-cross-spirv-h"><span class="std std-ref">File spirv.h</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stddef.h</span></code></p></li>
+</ul>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="structspvc__buffer__range.html#exhale-struct-structspvc-buffer-range"><span class="std std-ref">Struct spvc_buffer_range</span></a></p></li>
+<li><p><a class="reference internal" href="structspvc__combined__image__sampler.html#exhale-struct-structspvc-combined-image-sampler"><span class="std std-ref">Struct spvc_combined_image_sampler</span></a></p></li>
+<li><p><a class="reference internal" href="structspvc__entry__point.html#exhale-struct-structspvc-entry-point"><span class="std std-ref">Struct spvc_entry_point</span></a></p></li>
+<li><p><a class="reference internal" href="structspvc__hlsl__resource__binding.html#exhale-struct-structspvc-hlsl-resource-binding"><span class="std std-ref">Struct spvc_hlsl_resource_binding</span></a></p></li>
+<li><p><a class="reference internal" href="structspvc__hlsl__resource__binding__mapping.html#exhale-struct-structspvc-hlsl-resource-binding-mapping"><span class="std std-ref">Struct spvc_hlsl_resource_binding_mapping</span></a></p></li>
+<li><p><a class="reference internal" href="structspvc__hlsl__root__constants.html#exhale-struct-structspvc-hlsl-root-constants"><span class="std std-ref">Struct spvc_hlsl_root_constants</span></a></p></li>
+<li><p><a class="reference internal" href="structspvc__hlsl__vertex__attribute__remap.html#exhale-struct-structspvc-hlsl-vertex-attribute-remap"><span class="std std-ref">Struct spvc_hlsl_vertex_attribute_remap</span></a></p></li>
+<li><p><a class="reference internal" href="structspvc__msl__constexpr__sampler.html#exhale-struct-structspvc-msl-constexpr-sampler"><span class="std std-ref">Struct spvc_msl_constexpr_sampler</span></a></p></li>
+<li><p><a class="reference internal" href="structspvc__msl__resource__binding.html#exhale-struct-structspvc-msl-resource-binding"><span class="std std-ref">Struct spvc_msl_resource_binding</span></a></p></li>
+<li><p><a class="reference internal" href="structspvc__msl__sampler__ycbcr__conversion.html#exhale-struct-structspvc-msl-sampler-ycbcr-conversion"><span class="std std-ref">Struct spvc_msl_sampler_ycbcr_conversion</span></a></p></li>
+<li><p><a class="reference internal" href="structspvc__msl__shader__interface__var.html#exhale-struct-structspvc-msl-shader-interface-var"><span class="std std-ref">Struct spvc_msl_shader_interface_var</span></a></p></li>
+<li><p><a class="reference internal" href="structspvc__msl__shader__interface__var__2.html#exhale-struct-structspvc-msl-shader-interface-var-2"><span class="std std-ref">Struct spvc_msl_shader_interface_var_2</span></a></p></li>
+<li><p><a class="reference internal" href="structspvc__msl__vertex__attribute.html#exhale-struct-structspvc-msl-vertex-attribute"><span class="std std-ref">Struct spvc_msl_vertex_attribute</span></a></p></li>
+<li><p><a class="reference internal" href="structspvc__reflected__builtin__resource.html#exhale-struct-structspvc-reflected-builtin-resource"><span class="std std-ref">Struct spvc_reflected_builtin_resource</span></a></p></li>
+<li><p><a class="reference internal" href="structspvc__reflected__resource.html#exhale-struct-structspvc-reflected-resource"><span class="std std-ref">Struct spvc_reflected_resource</span></a></p></li>
+<li><p><a class="reference internal" href="structspvc__specialization__constant.html#exhale-struct-structspvc-specialization-constant"><span class="std std-ref">Struct spvc_specialization_constant</span></a></p></li>
+</ul>
+</section>
+<section id="enums">
+<h2>Enums<a class="headerlink" href="#enums" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="enum_spirv__cross__c_8h_1a1c6ba9542fa28e0b0e823b20ead282f4.html#exhale-enum-spirv-cross-c-8h-1a1c6ba9542fa28e0b0e823b20ead282f4"><span class="std std-ref">Enum spvc_backend</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__cross__c_8h_1aa4f7907d7753167d73fb2cd1753633a6.html#exhale-enum-spirv-cross-c-8h-1aa4f7907d7753167d73fb2cd1753633a6"><span class="std std-ref">Enum spvc_basetype</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__cross__c_8h_1a0f2238d745bd90fd5c51057682c8407b.html#exhale-enum-spirv-cross-c-8h-1a0f2238d745bd90fd5c51057682c8407b"><span class="std std-ref">Enum spvc_builtin_resource_type</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__cross__c_8h_1a0a91fa98f00989a0ac70bab033a62a9b.html#exhale-enum-spirv-cross-c-8h-1a0a91fa98f00989a0ac70bab033a62a9b"><span class="std std-ref">Enum spvc_capture_mode</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183.html#exhale-enum-spirv-cross-c-8h-1a474c5812447e39e0fad54b861000e183"><span class="std std-ref">Enum spvc_compiler_option</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__cross__c_8h_1ae2ce3d2eeb3630457f82475c08710658.html#exhale-enum-spirv-cross-c-8h-1ae2ce3d2eeb3630457f82475c08710658"><span class="std std-ref">Enum spvc_hlsl_binding_flag_bits</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__cross__c_8h_1a0359f9d89e5aa1fea7f95d50f2a041fa.html#exhale-enum-spirv-cross-c-8h-1a0359f9d89e5aa1fea7f95d50f2a041fa"><span class="std std-ref">Enum spvc_msl_chroma_location</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__cross__c_8h_1ad3b8cacdb96f7fd4fa7bd7f0932b4239.html#exhale-enum-spirv-cross-c-8h-1ad3b8cacdb96f7fd4fa7bd7f0932b4239"><span class="std std-ref">Enum spvc_msl_component_swizzle</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__cross__c_8h_1add0ac09d71fa9d9808c1caa52fafedaa.html#exhale-enum-spirv-cross-c-8h-1add0ac09d71fa9d9808c1caa52fafedaa"><span class="std std-ref">Enum spvc_msl_format_resolution</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__cross__c_8h_1aff4e6895a18963198d602eda49e57727.html#exhale-enum-spirv-cross-c-8h-1aff4e6895a18963198d602eda49e57727"><span class="std std-ref">Enum spvc_msl_index_type</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__cross__c_8h_1ad643742c3d9d0f9207c837349bcadd30.html#exhale-enum-spirv-cross-c-8h-1ad643742c3d9d0f9207c837349bcadd30"><span class="std std-ref">Enum spvc_msl_platform</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__cross__c_8h_1a8786eb2dec15ed5bfc347994058071e3.html#exhale-enum-spirv-cross-c-8h-1a8786eb2dec15ed5bfc347994058071e3"><span class="std std-ref">Enum spvc_msl_sampler_address</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__cross__c_8h_1aafebcd6a60516162556ce953f8d37e64.html#exhale-enum-spirv-cross-c-8h-1aafebcd6a60516162556ce953f8d37e64"><span class="std std-ref">Enum spvc_msl_sampler_border_color</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__cross__c_8h_1abbe04db55626acd9f500a558f813f295.html#exhale-enum-spirv-cross-c-8h-1abbe04db55626acd9f500a558f813f295"><span class="std std-ref">Enum spvc_msl_sampler_compare_func</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__cross__c_8h_1a721d5398927047df70796b2c5256d35d.html#exhale-enum-spirv-cross-c-8h-1a721d5398927047df70796b2c5256d35d"><span class="std std-ref">Enum spvc_msl_sampler_coord</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__cross__c_8h_1aa637672e767b75de9ae949be964c3068.html#exhale-enum-spirv-cross-c-8h-1aa637672e767b75de9ae949be964c3068"><span class="std std-ref">Enum spvc_msl_sampler_filter</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__cross__c_8h_1abf2148735cb8ae318b3a1ffb644f5f42.html#exhale-enum-spirv-cross-c-8h-1abf2148735cb8ae318b3a1ffb644f5f42"><span class="std std-ref">Enum spvc_msl_sampler_mip_filter</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__cross__c_8h_1ab9916c8cb3ca4c179185344d5855c33d.html#exhale-enum-spirv-cross-c-8h-1ab9916c8cb3ca4c179185344d5855c33d"><span class="std std-ref">Enum spvc_msl_sampler_ycbcr_model_conversion</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__cross__c_8h_1af9de91198dcdb3c9f396f0be75086ef8.html#exhale-enum-spirv-cross-c-8h-1af9de91198dcdb3c9f396f0be75086ef8"><span class="std std-ref">Enum spvc_msl_sampler_ycbcr_range</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__cross__c_8h_1a1706457c54670e1af21a44e8907b095a.html#exhale-enum-spirv-cross-c-8h-1a1706457c54670e1af21a44e8907b095a"><span class="std std-ref">Enum spvc_msl_shader_variable_format</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__cross__c_8h_1a82dbf72233351bcac6bbc182eb3fa6b2.html#exhale-enum-spirv-cross-c-8h-1a82dbf72233351bcac6bbc182eb3fa6b2"><span class="std std-ref">Enum spvc_msl_shader_variable_rate</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__cross__c_8h_1a65f1dac66bd628128858a25dd030c630.html#exhale-enum-spirv-cross-c-8h-1a65f1dac66bd628128858a25dd030c630"><span class="std std-ref">Enum spvc_resource_type</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__cross__c_8h_1a8d13dc939b0e02cec8b34a4773d0a200.html#exhale-enum-spirv-cross-c-8h-1a8d13dc939b0e02cec8b34a4773d0a200"><span class="std std-ref">Enum spvc_result</span></a></p></li>
+</ul>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a814cb465926e6b347849a05b5fd6c369.html#exhale-function-spirv-cross-c-8h-1a814cb465926e6b347849a05b5fd6c369"><span class="std std-ref">Function spvc_compiler_add_header_line</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a19d7beabec7aa70b914a4dcba658ef93.html#exhale-function-spirv-cross-c-8h-1a19d7beabec7aa70b914a4dcba658ef93"><span class="std std-ref">Function spvc_compiler_buffer_get_hlsl_counter_buffer</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a9b8b063d1670eeb08cfd1253dce97472.html#exhale-function-spirv-cross-c-8h-1a9b8b063d1670eeb08cfd1253dce97472"><span class="std std-ref">Function spvc_compiler_buffer_is_hlsl_counter_buffer</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a5e9cb3183bfd5c0cb4c7cebb236b023a.html#exhale-function-spirv-cross-c-8h-1a5e9cb3183bfd5c0cb4c7cebb236b023a"><span class="std std-ref">Function spvc_compiler_build_combined_image_samplers</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1af1ab30e3c1f7a5fc78d64717e82c3632.html#exhale-function-spirv-cross-c-8h-1af1ab30e3c1f7a5fc78d64717e82c3632"><span class="std std-ref">Function spvc_compiler_build_dummy_sampler_for_combined_images</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a720c6448bbada82cbf5c6b3688b8e0dc.html#exhale-function-spirv-cross-c-8h-1a720c6448bbada82cbf5c6b3688b8e0dc"><span class="std std-ref">Function spvc_compiler_compile</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a7d842bf4b000f41212165ffc50f28185.html#exhale-function-spirv-cross-c-8h-1a7d842bf4b000f41212165ffc50f28185"><span class="std std-ref">Function spvc_compiler_create_compiler_options</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a25d19e26e339a464aef8d22ad85bb058.html#exhale-function-spirv-cross-c-8h-1a25d19e26e339a464aef8d22ad85bb058"><span class="std std-ref">Function spvc_compiler_create_shader_resources</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a05702d12bb3aa09770304932ca60c973.html#exhale-function-spirv-cross-c-8h-1a05702d12bb3aa09770304932ca60c973"><span class="std std-ref">Function spvc_compiler_create_shader_resources_for_active_variables</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a866f719b1b5911494e485cd340ba6bd5.html#exhale-function-spirv-cross-c-8h-1a866f719b1b5911494e485cd340ba6bd5"><span class="std std-ref">Function spvc_compiler_flatten_buffer_block</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a4ee57455abe7167a09f88ce3e0a2047c.html#exhale-function-spirv-cross-c-8h-1a4ee57455abe7167a09f88ce3e0a2047c"><span class="std std-ref">Function spvc_compiler_get_active_buffer_ranges</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a76d2e639ae0bba8e7602cb08f1243928.html#exhale-function-spirv-cross-c-8h-1a76d2e639ae0bba8e7602cb08f1243928"><span class="std std-ref">Function spvc_compiler_get_active_interface_variables</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1ad7016ec362e87183353470f79aef45ab.html#exhale-function-spirv-cross-c-8h-1ad7016ec362e87183353470f79aef45ab"><span class="std std-ref">Function spvc_compiler_get_binary_offset_for_decoration</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1afad35338bf12377645812b37f46ffc82.html#exhale-function-spirv-cross-c-8h-1afad35338bf12377645812b37f46ffc82"><span class="std std-ref">Function spvc_compiler_get_buffer_block_decorations</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a109e647a8bb00b985dbe90becef20c4b.html#exhale-function-spirv-cross-c-8h-1a109e647a8bb00b985dbe90becef20c4b"><span class="std std-ref">Function spvc_compiler_get_cleansed_entry_point_name</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a5203438b7179126fff6aa54b434c49be.html#exhale-function-spirv-cross-c-8h-1a5203438b7179126fff6aa54b434c49be"><span class="std std-ref">Function spvc_compiler_get_combined_image_samplers</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1ae56203dcdd393a08e186fb2fa2a52b6b.html#exhale-function-spirv-cross-c-8h-1ae56203dcdd393a08e186fb2fa2a52b6b"><span class="std std-ref">Function spvc_compiler_get_constant_handle</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1ac20214051bb03474b6bfc7cb1339bca2.html#exhale-function-spirv-cross-c-8h-1ac20214051bb03474b6bfc7cb1339bca2"><span class="std std-ref">Function spvc_compiler_get_current_id_bound</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a234fb7c9511674b76875de3b1b9f9d1b.html#exhale-function-spirv-cross-c-8h-1a234fb7c9511674b76875de3b1b9f9d1b"><span class="std std-ref">Function spvc_compiler_get_declared_capabilities</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1ab7de5173bc3dac1da1e3c59b82d64c74.html#exhale-function-spirv-cross-c-8h-1ab7de5173bc3dac1da1e3c59b82d64c74"><span class="std std-ref">Function spvc_compiler_get_declared_extensions</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a327faf7985a9456cc92f9857c4dd2ef7.html#exhale-function-spirv-cross-c-8h-1a327faf7985a9456cc92f9857c4dd2ef7"><span class="std std-ref">Function spvc_compiler_get_declared_struct_member_size</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a51f9e38e033a44d20b9cc2b743359f44.html#exhale-function-spirv-cross-c-8h-1a51f9e38e033a44d20b9cc2b743359f44"><span class="std std-ref">Function spvc_compiler_get_declared_struct_size</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a911f91af4d67e1f8bdf47c0454c11e97.html#exhale-function-spirv-cross-c-8h-1a911f91af4d67e1f8bdf47c0454c11e97"><span class="std std-ref">Function spvc_compiler_get_declared_struct_size_runtime_array</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a2fb27488e05aada3caa713328da28fda.html#exhale-function-spirv-cross-c-8h-1a2fb27488e05aada3caa713328da28fda"><span class="std std-ref">Function spvc_compiler_get_decoration</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1aa7a0476a2025dbf7ab16509569217c95.html#exhale-function-spirv-cross-c-8h-1aa7a0476a2025dbf7ab16509569217c95"><span class="std std-ref">Function spvc_compiler_get_decoration_string</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a1fd48cd9daee1c3a32f9e7be6cb24899.html#exhale-function-spirv-cross-c-8h-1a1fd48cd9daee1c3a32f9e7be6cb24899"><span class="std std-ref">Function spvc_compiler_get_entry_points</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a482fb215cfb54dcb9f5ac2d348179775.html#exhale-function-spirv-cross-c-8h-1a482fb215cfb54dcb9f5ac2d348179775"><span class="std std-ref">Function spvc_compiler_get_execution_mode_argument</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1ae9f650357c339add60b73932e8e738d4.html#exhale-function-spirv-cross-c-8h-1ae9f650357c339add60b73932e8e738d4"><span class="std std-ref">Function spvc_compiler_get_execution_mode_argument_by_index</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1aaad5523951b17dabc7cc07d7080d47c6.html#exhale-function-spirv-cross-c-8h-1aaad5523951b17dabc7cc07d7080d47c6"><span class="std std-ref">Function spvc_compiler_get_execution_model</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1ae0b484f50dbc5d99a3b1cb3ba59d4560.html#exhale-function-spirv-cross-c-8h-1ae0b484f50dbc5d99a3b1cb3ba59d4560"><span class="std std-ref">Function spvc_compiler_get_execution_modes</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a580ecbe0570523b73f054842ae13186a.html#exhale-function-spirv-cross-c-8h-1a580ecbe0570523b73f054842ae13186a"><span class="std std-ref">Function spvc_compiler_get_member_decoration</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1acf8432058699690fa5cd875d91fa7781.html#exhale-function-spirv-cross-c-8h-1acf8432058699690fa5cd875d91fa7781"><span class="std std-ref">Function spvc_compiler_get_member_decoration_string</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a309d312db9f5b2b83443be9e59b98a1c.html#exhale-function-spirv-cross-c-8h-1a309d312db9f5b2b83443be9e59b98a1c"><span class="std std-ref">Function spvc_compiler_get_member_name</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a4e4a99f5b10ba42bcbe1efa07d292e74.html#exhale-function-spirv-cross-c-8h-1a4e4a99f5b10ba42bcbe1efa07d292e74"><span class="std std-ref">Function spvc_compiler_get_name</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a82e37ab4b042afa420fef70bffb8e1ad.html#exhale-function-spirv-cross-c-8h-1a82e37ab4b042afa420fef70bffb8e1ad"><span class="std std-ref">Function spvc_compiler_get_remapped_declared_block_name</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1afd48a6aadd6bc05739e913455a316d12.html#exhale-function-spirv-cross-c-8h-1afd48a6aadd6bc05739e913455a316d12"><span class="std std-ref">Function spvc_compiler_get_specialization_constants</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a3a2b2b9b9fda5d1729f66d79acc9f279.html#exhale-function-spirv-cross-c-8h-1a3a2b2b9b9fda5d1729f66d79acc9f279"><span class="std std-ref">Function spvc_compiler_get_type_handle</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a41500c75ce6443a94f00e0a00c400a2b.html#exhale-function-spirv-cross-c-8h-1a41500c75ce6443a94f00e0a00c400a2b"><span class="std std-ref">Function spvc_compiler_get_work_group_size_specialization_constants</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1adcb16735b0cb7df63d9ff589adb0209a.html#exhale-function-spirv-cross-c-8h-1adcb16735b0cb7df63d9ff589adb0209a"><span class="std std-ref">Function spvc_compiler_has_active_builtin</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a7e69e28c85b44853b94792e0efbb6f33.html#exhale-function-spirv-cross-c-8h-1a7e69e28c85b44853b94792e0efbb6f33"><span class="std std-ref">Function spvc_compiler_has_decoration</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1aa5a2cb84c7205225a505e39b5763ef77.html#exhale-function-spirv-cross-c-8h-1aa5a2cb84c7205225a505e39b5763ef77"><span class="std std-ref">Function spvc_compiler_has_member_decoration</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a3cc1bc3738bc9f5063204206bbd3abec.html#exhale-function-spirv-cross-c-8h-1a3cc1bc3738bc9f5063204206bbd3abec"><span class="std std-ref">Function spvc_compiler_hlsl_add_resource_binding</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a4767e83cc69475dfe20d32f7d49d24b6.html#exhale-function-spirv-cross-c-8h-1a4767e83cc69475dfe20d32f7d49d24b6"><span class="std std-ref">Function spvc_compiler_hlsl_add_vertex_attribute_remap</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a5539beff6cfd2cd3eab85b3b1ffa570c.html#exhale-function-spirv-cross-c-8h-1a5539beff6cfd2cd3eab85b3b1ffa570c"><span class="std std-ref">Function spvc_compiler_hlsl_is_resource_used</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a2f0d33f14808b4a3eb231d053c1fe98c.html#exhale-function-spirv-cross-c-8h-1a2f0d33f14808b4a3eb231d053c1fe98c"><span class="std std-ref">Function spvc_compiler_hlsl_remap_num_workgroups_builtin</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a0e02c381a4c67f60fb98ee625034139f.html#exhale-function-spirv-cross-c-8h-1a0e02c381a4c67f60fb98ee625034139f"><span class="std std-ref">Function spvc_compiler_hlsl_set_resource_binding_flags</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a1a0bdefecfccf165a412b1f95130482d.html#exhale-function-spirv-cross-c-8h-1a1a0bdefecfccf165a412b1f95130482d"><span class="std std-ref">Function spvc_compiler_hlsl_set_root_constants_layout</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a766e80798bb0eea4304ffb43b2f2bce8.html#exhale-function-spirv-cross-c-8h-1a766e80798bb0eea4304ffb43b2f2bce8"><span class="std std-ref">Function spvc_compiler_install_compiler_options</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1ad5ae2c8378e29c56eaf37c278d000ef5.html#exhale-function-spirv-cross-c-8h-1ad5ae2c8378e29c56eaf37c278d000ef5"><span class="std std-ref">Function spvc_compiler_mask_stage_output_by_builtin</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a24efb5f50da21de0481e1d123945431a.html#exhale-function-spirv-cross-c-8h-1a24efb5f50da21de0481e1d123945431a"><span class="std std-ref">Function spvc_compiler_mask_stage_output_by_location</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a0cbdaf5c33fe179aefd3170e3aefe82b.html#exhale-function-spirv-cross-c-8h-1a0cbdaf5c33fe179aefd3170e3aefe82b"><span class="std std-ref">Function spvc_compiler_msl_add_discrete_descriptor_set</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a16adf6d11ad2d92d5ff076443fdfb2de.html#exhale-function-spirv-cross-c-8h-1a16adf6d11ad2d92d5ff076443fdfb2de"><span class="std std-ref">Function spvc_compiler_msl_add_dynamic_buffer</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a109c3ae5eb322aabd4044be11d681e74.html#exhale-function-spirv-cross-c-8h-1a109c3ae5eb322aabd4044be11d681e74"><span class="std std-ref">Function spvc_compiler_msl_add_inline_uniform_block</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a130c0deaccc9dbe82d735f732af38a06.html#exhale-function-spirv-cross-c-8h-1a130c0deaccc9dbe82d735f732af38a06"><span class="std std-ref">Function spvc_compiler_msl_add_resource_binding</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a67df678ddefcba91fb31cd9bcf10762a.html#exhale-function-spirv-cross-c-8h-1a67df678ddefcba91fb31cd9bcf10762a"><span class="std std-ref">Function spvc_compiler_msl_add_shader_input</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a1c94161d0982218216780394f5b494cd.html#exhale-function-spirv-cross-c-8h-1a1c94161d0982218216780394f5b494cd"><span class="std std-ref">Function spvc_compiler_msl_add_shader_input_2</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a3b635c0ab0d021e7b0b27a0de3b72f65.html#exhale-function-spirv-cross-c-8h-1a3b635c0ab0d021e7b0b27a0de3b72f65"><span class="std std-ref">Function spvc_compiler_msl_add_shader_output</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a05628923340d5ae2613ce6bb892f30cd.html#exhale-function-spirv-cross-c-8h-1a05628923340d5ae2613ce6bb892f30cd"><span class="std std-ref">Function spvc_compiler_msl_add_shader_output_2</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1ae3cec7e0b17e5fff97317e5321e1c81b.html#exhale-function-spirv-cross-c-8h-1ae3cec7e0b17e5fff97317e5321e1c81b"><span class="std std-ref">Function spvc_compiler_msl_add_vertex_attribute</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1aa61c153c0f159a3514e1613da0ae02b2.html#exhale-function-spirv-cross-c-8h-1aa61c153c0f159a3514e1613da0ae02b2"><span class="std std-ref">Function spvc_compiler_msl_get_automatic_resource_binding</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a93de203723c0a8fa9d94736bb2c96e43.html#exhale-function-spirv-cross-c-8h-1a93de203723c0a8fa9d94736bb2c96e43"><span class="std std-ref">Function spvc_compiler_msl_get_automatic_resource_binding_secondary</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a19dff5410bb41ebd6b69477c6b1acef7.html#exhale-function-spirv-cross-c-8h-1a19dff5410bb41ebd6b69477c6b1acef7"><span class="std std-ref">Function spvc_compiler_msl_get_combined_sampler_suffix</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1ac65ebdd6fcdce999ced19fd24ed88b51.html#exhale-function-spirv-cross-c-8h-1ac65ebdd6fcdce999ced19fd24ed88b51"><span class="std std-ref">Function spvc_compiler_msl_is_rasterization_disabled</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a4441822683060a5e3447810f25cb4313.html#exhale-function-spirv-cross-c-8h-1a4441822683060a5e3447810f25cb4313"><span class="std std-ref">Function spvc_compiler_msl_is_resource_used</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a82542c19aa6d4d6b3355f79120b396e5.html#exhale-function-spirv-cross-c-8h-1a82542c19aa6d4d6b3355f79120b396e5"><span class="std std-ref">Function spvc_compiler_msl_is_shader_input_used</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a9389cbad5d913c3bfc56c5b3a917b0e4.html#exhale-function-spirv-cross-c-8h-1a9389cbad5d913c3bfc56c5b3a917b0e4"><span class="std std-ref">Function spvc_compiler_msl_is_shader_output_used</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1aa0118967eaf26b467ccf8c7f0b86b4f3.html#exhale-function-spirv-cross-c-8h-1aa0118967eaf26b467ccf8c7f0b86b4f3"><span class="std std-ref">Function spvc_compiler_msl_is_vertex_attribute_used</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1aee295eb5f74a85dbdd50194777660724.html#exhale-function-spirv-cross-c-8h-1aee295eb5f74a85dbdd50194777660724"><span class="std std-ref">Function spvc_compiler_msl_needs_aux_buffer</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a4e2096690e66e38bf0442472258ed59b.html#exhale-function-spirv-cross-c-8h-1a4e2096690e66e38bf0442472258ed59b"><span class="std std-ref">Function spvc_compiler_msl_needs_buffer_size_buffer</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1ab18b7878f41a1261259fe642092b9a9f.html#exhale-function-spirv-cross-c-8h-1ab18b7878f41a1261259fe642092b9a9f"><span class="std std-ref">Function spvc_compiler_msl_needs_input_threadgroup_mem</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a3384331a30628de8cc5e0725473981b7.html#exhale-function-spirv-cross-c-8h-1a3384331a30628de8cc5e0725473981b7"><span class="std std-ref">Function spvc_compiler_msl_needs_output_buffer</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a6395caae929e5615c8a9072b4c6ef292.html#exhale-function-spirv-cross-c-8h-1a6395caae929e5615c8a9072b4c6ef292"><span class="std std-ref">Function spvc_compiler_msl_needs_patch_output_buffer</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a672078f83be6a11ec2ef26fd1fc386ae.html#exhale-function-spirv-cross-c-8h-1a672078f83be6a11ec2ef26fd1fc386ae"><span class="std std-ref">Function spvc_compiler_msl_needs_swizzle_buffer</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1ad065d4884e584a3839a00505b481872d.html#exhale-function-spirv-cross-c-8h-1ad065d4884e584a3839a00505b481872d"><span class="std std-ref">Function spvc_compiler_msl_remap_constexpr_sampler</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1aadcbf5e104e2853e0c14ada32e2bee0a.html#exhale-function-spirv-cross-c-8h-1aadcbf5e104e2853e0c14ada32e2bee0a"><span class="std std-ref">Function spvc_compiler_msl_remap_constexpr_sampler_by_binding</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1ae450871bcf94e3ea8e3808739d00b5f1.html#exhale-function-spirv-cross-c-8h-1ae450871bcf94e3ea8e3808739d00b5f1"><span class="std std-ref">Function spvc_compiler_msl_remap_constexpr_sampler_by_binding_ycbcr</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a3223482cf3887ba8c0c17855abe5dce7.html#exhale-function-spirv-cross-c-8h-1a3223482cf3887ba8c0c17855abe5dce7"><span class="std std-ref">Function spvc_compiler_msl_remap_constexpr_sampler_ycbcr</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a337eed781583b27b3dcbf48a53fd666b.html#exhale-function-spirv-cross-c-8h-1a337eed781583b27b3dcbf48a53fd666b"><span class="std std-ref">Function spvc_compiler_msl_set_argument_buffer_device_address_space</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a62cf7ff39119c38f1f2946cb903092a7.html#exhale-function-spirv-cross-c-8h-1a62cf7ff39119c38f1f2946cb903092a7"><span class="std std-ref">Function spvc_compiler_msl_set_combined_sampler_suffix</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1ad1dc7a69c65ce55da0e2e7bfdad92b27.html#exhale-function-spirv-cross-c-8h-1ad1dc7a69c65ce55da0e2e7bfdad92b27"><span class="std std-ref">Function spvc_compiler_msl_set_fragment_output_components</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a01fb7403a0634cc9f56492e6b2e86345.html#exhale-function-spirv-cross-c-8h-1a01fb7403a0634cc9f56492e6b2e86345"><span class="std std-ref">Function spvc_compiler_options_set_bool</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a70f3ad18b35fbf66701afb02556c2b80.html#exhale-function-spirv-cross-c-8h-1a70f3ad18b35fbf66701afb02556c2b80"><span class="std std-ref">Function spvc_compiler_options_set_uint</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1aa047acd4b9db1cd6cc0f6fbb8275b292.html#exhale-function-spirv-cross-c-8h-1aa047acd4b9db1cd6cc0f6fbb8275b292"><span class="std std-ref">Function spvc_compiler_rename_entry_point</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a73646ae467913d9b0657e6379faa3dcd.html#exhale-function-spirv-cross-c-8h-1a73646ae467913d9b0657e6379faa3dcd"><span class="std std-ref">Function spvc_compiler_require_extension</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a9943dd52d141f1fe0efb2fdc1fec8529.html#exhale-function-spirv-cross-c-8h-1a9943dd52d141f1fe0efb2fdc1fec8529"><span class="std std-ref">Function spvc_compiler_set_decoration</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1ad704d119dc886dc2b393cc167e534035.html#exhale-function-spirv-cross-c-8h-1ad704d119dc886dc2b393cc167e534035"><span class="std std-ref">Function spvc_compiler_set_decoration_string</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1aa987a517fe571ea0ba8935db3d2e7eb4.html#exhale-function-spirv-cross-c-8h-1aa987a517fe571ea0ba8935db3d2e7eb4"><span class="std std-ref">Function spvc_compiler_set_enabled_interface_variables</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a877fb3b3328e19d63aebc840f41f8707.html#exhale-function-spirv-cross-c-8h-1a877fb3b3328e19d63aebc840f41f8707"><span class="std std-ref">Function spvc_compiler_set_entry_point</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1aa422a3dcd25727a7185fd6c5b53c451f.html#exhale-function-spirv-cross-c-8h-1aa422a3dcd25727a7185fd6c5b53c451f"><span class="std std-ref">Function spvc_compiler_set_execution_mode</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a03f7d8072dc7d7cd25a2f7b53b0315f2.html#exhale-function-spirv-cross-c-8h-1a03f7d8072dc7d7cd25a2f7b53b0315f2"><span class="std std-ref">Function spvc_compiler_set_execution_mode_with_arguments</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a9470ac73972448e9dba8ca6fec93ac02.html#exhale-function-spirv-cross-c-8h-1a9470ac73972448e9dba8ca6fec93ac02"><span class="std std-ref">Function spvc_compiler_set_member_decoration</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a28e343d7e082dd1eff500b3351440717.html#exhale-function-spirv-cross-c-8h-1a28e343d7e082dd1eff500b3351440717"><span class="std std-ref">Function spvc_compiler_set_member_decoration_string</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a9d1adcc732ee33ffa04be7d4c0ecb73c.html#exhale-function-spirv-cross-c-8h-1a9d1adcc732ee33ffa04be7d4c0ecb73c"><span class="std std-ref">Function spvc_compiler_set_member_name</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a6dcdc6df6e9ebfe39b79d269b834c6fc.html#exhale-function-spirv-cross-c-8h-1a6dcdc6df6e9ebfe39b79d269b834c6fc"><span class="std std-ref">Function spvc_compiler_set_name</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a1af1f9a1bd03e4d8dd9244c095dbe8e2.html#exhale-function-spirv-cross-c-8h-1a1af1f9a1bd03e4d8dd9244c095dbe8e2"><span class="std std-ref">Function spvc_compiler_type_struct_member_array_stride</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a40252353f884291bdbd91fbc833dcf4e.html#exhale-function-spirv-cross-c-8h-1a40252353f884291bdbd91fbc833dcf4e"><span class="std std-ref">Function spvc_compiler_type_struct_member_matrix_stride</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a11920518787986e1f7ca0956316289ec.html#exhale-function-spirv-cross-c-8h-1a11920518787986e1f7ca0956316289ec"><span class="std std-ref">Function spvc_compiler_type_struct_member_offset</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1aec8cba75e1003a9d987fef086928efac.html#exhale-function-spirv-cross-c-8h-1aec8cba75e1003a9d987fef086928efac"><span class="std std-ref">Function spvc_compiler_unset_decoration</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a0ff8b7707c72b3b4f861ea1cb6b10e0f.html#exhale-function-spirv-cross-c-8h-1a0ff8b7707c72b3b4f861ea1cb6b10e0f"><span class="std std-ref">Function spvc_compiler_unset_execution_mode</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1adf8be4b21551da807c9b39dfb2168808.html#exhale-function-spirv-cross-c-8h-1adf8be4b21551da807c9b39dfb2168808"><span class="std std-ref">Function spvc_compiler_unset_member_decoration</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a588aa6ad66fc262e870faec491570213.html#exhale-function-spirv-cross-c-8h-1a588aa6ad66fc262e870faec491570213"><span class="std std-ref">Function spvc_compiler_update_active_builtins</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1ad9a9895dcd84ca214445c151dbc07662.html#exhale-function-spirv-cross-c-8h-1ad9a9895dcd84ca214445c151dbc07662"><span class="std std-ref">Function spvc_compiler_variable_is_depth_or_compare</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a6f834611e912b8404d14d3e41c94f23d.html#exhale-function-spirv-cross-c-8h-1a6f834611e912b8404d14d3e41c94f23d"><span class="std std-ref">Function spvc_constant_get_scalar_fp16</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a8ef014b4e0fb64d625fa5be9a4ac829b.html#exhale-function-spirv-cross-c-8h-1a8ef014b4e0fb64d625fa5be9a4ac829b"><span class="std std-ref">Function spvc_constant_get_scalar_fp32</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a55a11f521f1993c20afc264aeaea37db.html#exhale-function-spirv-cross-c-8h-1a55a11f521f1993c20afc264aeaea37db"><span class="std std-ref">Function spvc_constant_get_scalar_fp64</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1ae6b4daef8f9f4bfd79ac93264a4fb8b9.html#exhale-function-spirv-cross-c-8h-1ae6b4daef8f9f4bfd79ac93264a4fb8b9"><span class="std std-ref">Function spvc_constant_get_scalar_i16</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a716fe4f2b40038fd7784ab61a9fb9f18.html#exhale-function-spirv-cross-c-8h-1a716fe4f2b40038fd7784ab61a9fb9f18"><span class="std std-ref">Function spvc_constant_get_scalar_i32</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a293e87c6f3016303b4e9cdd8a18978aa.html#exhale-function-spirv-cross-c-8h-1a293e87c6f3016303b4e9cdd8a18978aa"><span class="std std-ref">Function spvc_constant_get_scalar_i8</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a950c252940d303c55bb9e349f53c61f7.html#exhale-function-spirv-cross-c-8h-1a950c252940d303c55bb9e349f53c61f7"><span class="std std-ref">Function spvc_constant_get_scalar_u16</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1ab1f520e2576e783c2984bb5ade3ea8b0.html#exhale-function-spirv-cross-c-8h-1ab1f520e2576e783c2984bb5ade3ea8b0"><span class="std std-ref">Function spvc_constant_get_scalar_u32</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a6c9da93ea041ddf3ecff5492737f256d.html#exhale-function-spirv-cross-c-8h-1a6c9da93ea041ddf3ecff5492737f256d"><span class="std std-ref">Function spvc_constant_get_scalar_u8</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1acec543a9179c099f960a051d99fb4767.html#exhale-function-spirv-cross-c-8h-1acec543a9179c099f960a051d99fb4767"><span class="std std-ref">Function spvc_constant_get_subconstants</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1aae1191e7d283d332f0f629a27d473155.html#exhale-function-spirv-cross-c-8h-1aae1191e7d283d332f0f629a27d473155"><span class="std std-ref">Function spvc_constant_get_type</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a3a874ea31f350463d0ca4680603a4917.html#exhale-function-spirv-cross-c-8h-1a3a874ea31f350463d0ca4680603a4917"><span class="std std-ref">Function spvc_constant_set_scalar_fp16</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a8c0a1657903c9d3ce342db0e911e5ffe.html#exhale-function-spirv-cross-c-8h-1a8c0a1657903c9d3ce342db0e911e5ffe"><span class="std std-ref">Function spvc_constant_set_scalar_fp32</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a9cce0cafc5336683e8a06ce07c4bb282.html#exhale-function-spirv-cross-c-8h-1a9cce0cafc5336683e8a06ce07c4bb282"><span class="std std-ref">Function spvc_constant_set_scalar_fp64</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a44355fb878568095102605d51b24eff6.html#exhale-function-spirv-cross-c-8h-1a44355fb878568095102605d51b24eff6"><span class="std std-ref">Function spvc_constant_set_scalar_i16</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a6b592f4771b6073263e365b111aea114.html#exhale-function-spirv-cross-c-8h-1a6b592f4771b6073263e365b111aea114"><span class="std std-ref">Function spvc_constant_set_scalar_i32</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1ad45850a4be2c8dcfb2f5df91144afc17.html#exhale-function-spirv-cross-c-8h-1ad45850a4be2c8dcfb2f5df91144afc17"><span class="std std-ref">Function spvc_constant_set_scalar_i8</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a36440c8150a20859baa7bbd3a4dd9b98.html#exhale-function-spirv-cross-c-8h-1a36440c8150a20859baa7bbd3a4dd9b98"><span class="std std-ref">Function spvc_constant_set_scalar_u16</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a4c5bcd2efd689d4c6c9fe9b60149d942.html#exhale-function-spirv-cross-c-8h-1a4c5bcd2efd689d4c6c9fe9b60149d942"><span class="std std-ref">Function spvc_constant_set_scalar_u32</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1ad1693765dcbd1627aee50e5bbc0030de.html#exhale-function-spirv-cross-c-8h-1ad1693765dcbd1627aee50e5bbc0030de"><span class="std std-ref">Function spvc_constant_set_scalar_u8</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a29b6ceacb1ba450b18afee7fbf382795.html#exhale-function-spirv-cross-c-8h-1a29b6ceacb1ba450b18afee7fbf382795"><span class="std std-ref">Function spvc_context_create</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1aa16f9349e1da88cd5f4e2e11382fb0da.html#exhale-function-spirv-cross-c-8h-1aa16f9349e1da88cd5f4e2e11382fb0da"><span class="std std-ref">Function spvc_context_create_compiler</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1ad09a835213d89d68143e6a33db6f9294.html#exhale-function-spirv-cross-c-8h-1ad09a835213d89d68143e6a33db6f9294"><span class="std std-ref">Function spvc_context_destroy</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a55783de6251a38d3d0886d5833627e46.html#exhale-function-spirv-cross-c-8h-1a55783de6251a38d3d0886d5833627e46"><span class="std std-ref">Function spvc_context_get_last_error_string</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a6611ce3328adf180715666ff73f5951b.html#exhale-function-spirv-cross-c-8h-1a6611ce3328adf180715666ff73f5951b"><span class="std std-ref">Function spvc_context_parse_spirv</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a838ab365309647dbeedd4566fe4d0643.html#exhale-function-spirv-cross-c-8h-1a838ab365309647dbeedd4566fe4d0643"><span class="std std-ref">Function spvc_context_release_allocations</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a698d7f32749ce43c79859d082810f778.html#exhale-function-spirv-cross-c-8h-1a698d7f32749ce43c79859d082810f778"><span class="std std-ref">Function spvc_context_set_error_callback</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a29bcb48de929907ac47724107e68b09d.html#exhale-function-spirv-cross-c-8h-1a29bcb48de929907ac47724107e68b09d"><span class="std std-ref">Function spvc_get_commit_revision_and_timestamp</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a2979842af2dc68b0198661895b10f141.html#exhale-function-spirv-cross-c-8h-1a2979842af2dc68b0198661895b10f141"><span class="std std-ref">Function spvc_get_version</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1ac200fdb3a7fa187ef71b9cc7c8208e76.html#exhale-function-spirv-cross-c-8h-1ac200fdb3a7fa187ef71b9cc7c8208e76"><span class="std std-ref">Function spvc_hlsl_resource_binding_init</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1abc68b9beafc5efb2c629a0f60b3e2710.html#exhale-function-spirv-cross-c-8h-1abc68b9beafc5efb2c629a0f60b3e2710"><span class="std std-ref">Function spvc_msl_constexpr_sampler_init</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a8aa74c2bd383d36173f181b405bbf63c.html#exhale-function-spirv-cross-c-8h-1a8aa74c2bd383d36173f181b405bbf63c"><span class="std std-ref">Function spvc_msl_get_aux_buffer_struct_version</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a341039d59ce189e27d8dd3fd1a9ab097.html#exhale-function-spirv-cross-c-8h-1a341039d59ce189e27d8dd3fd1a9ab097"><span class="std std-ref">Function spvc_msl_resource_binding_init</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1aed576937cc316455bed477b499d71876.html#exhale-function-spirv-cross-c-8h-1aed576937cc316455bed477b499d71876"><span class="std std-ref">Function spvc_msl_sampler_ycbcr_conversion_init</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1aeb034b11d94111a7ab4860a8c5c5c4f5.html#exhale-function-spirv-cross-c-8h-1aeb034b11d94111a7ab4860a8c5c5c4f5"><span class="std std-ref">Function spvc_msl_shader_input_init</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1aeb2a9b18183b23430716b34f11fd372c.html#exhale-function-spirv-cross-c-8h-1aeb2a9b18183b23430716b34f11fd372c"><span class="std std-ref">Function spvc_msl_shader_interface_var_init</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a4614149965f38c97d3787250c1eb75ef.html#exhale-function-spirv-cross-c-8h-1a4614149965f38c97d3787250c1eb75ef"><span class="std std-ref">Function spvc_msl_shader_interface_var_init_2</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1ac68b8c17c6b9c48647ef66edd6b67a29.html#exhale-function-spirv-cross-c-8h-1ac68b8c17c6b9c48647ef66edd6b67a29"><span class="std std-ref">Function spvc_msl_vertex_attribute_init</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a8e7de13037da34a4be164322afa98e5c.html#exhale-function-spirv-cross-c-8h-1a8e7de13037da34a4be164322afa98e5c"><span class="std std-ref">Function spvc_resources_get_builtin_resource_list_for_type</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a89b8d6830b13c294645536a6d6dae6ce.html#exhale-function-spirv-cross-c-8h-1a89b8d6830b13c294645536a6d6dae6ce"><span class="std std-ref">Function spvc_resources_get_resource_list_for_type</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1abf4fad197ada7b2cf2d342f86f6f41cf.html#exhale-function-spirv-cross-c-8h-1abf4fad197ada7b2cf2d342f86f6f41cf"><span class="std std-ref">Function spvc_type_array_dimension_is_literal</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a87887afa34537a9bd5188515df6dd758.html#exhale-function-spirv-cross-c-8h-1a87887afa34537a9bd5188515df6dd758"><span class="std std-ref">Function spvc_type_get_array_dimension</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1acd826a7a74c322c624e6fa4ec419d812.html#exhale-function-spirv-cross-c-8h-1acd826a7a74c322c624e6fa4ec419d812"><span class="std std-ref">Function spvc_type_get_base_type_id</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1af99e127ec6759d562ad23ff1ed35c9a6.html#exhale-function-spirv-cross-c-8h-1af99e127ec6759d562ad23ff1ed35c9a6"><span class="std std-ref">Function spvc_type_get_basetype</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a213a591dd6ed32b8dd7372546da5962a.html#exhale-function-spirv-cross-c-8h-1a213a591dd6ed32b8dd7372546da5962a"><span class="std std-ref">Function spvc_type_get_bit_width</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1ac09f19863d19fd69277be1ecc4e5210d.html#exhale-function-spirv-cross-c-8h-1ac09f19863d19fd69277be1ecc4e5210d"><span class="std std-ref">Function spvc_type_get_columns</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1ac563b7f1282e0dc3944554c49fd61457.html#exhale-function-spirv-cross-c-8h-1ac563b7f1282e0dc3944554c49fd61457"><span class="std std-ref">Function spvc_type_get_image_access_qualifier</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a4f89ecc9e094f5e446c24acc29d4d862.html#exhale-function-spirv-cross-c-8h-1a4f89ecc9e094f5e446c24acc29d4d862"><span class="std std-ref">Function spvc_type_get_image_arrayed</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a336ed268fc6623e0a59ab78a64ec9a90.html#exhale-function-spirv-cross-c-8h-1a336ed268fc6623e0a59ab78a64ec9a90"><span class="std std-ref">Function spvc_type_get_image_dimension</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a48d8ceb9fdd6dc8ef624fe35609a2dfa.html#exhale-function-spirv-cross-c-8h-1a48d8ceb9fdd6dc8ef624fe35609a2dfa"><span class="std std-ref">Function spvc_type_get_image_is_depth</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1acd4c7305868221877fcaf60035803831.html#exhale-function-spirv-cross-c-8h-1acd4c7305868221877fcaf60035803831"><span class="std std-ref">Function spvc_type_get_image_is_storage</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a19e30e4c6e93912fca2fb22329defa10.html#exhale-function-spirv-cross-c-8h-1a19e30e4c6e93912fca2fb22329defa10"><span class="std std-ref">Function spvc_type_get_image_multisampled</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a0e3add8baea841afa44ea274d7f5eb58.html#exhale-function-spirv-cross-c-8h-1a0e3add8baea841afa44ea274d7f5eb58"><span class="std std-ref">Function spvc_type_get_image_sampled_type</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a7ad6e3e36dabdffd2e3d04c7f07b22a2.html#exhale-function-spirv-cross-c-8h-1a7ad6e3e36dabdffd2e3d04c7f07b22a2"><span class="std std-ref">Function spvc_type_get_image_storage_format</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a1caf89565b933de964e481c4465d29ec.html#exhale-function-spirv-cross-c-8h-1a1caf89565b933de964e481c4465d29ec"><span class="std std-ref">Function spvc_type_get_member_type</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a0ac43b07a64d77e34031edd502520f5b.html#exhale-function-spirv-cross-c-8h-1a0ac43b07a64d77e34031edd502520f5b"><span class="std std-ref">Function spvc_type_get_num_array_dimensions</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1adb64ed53d87dd71b17b32e501a6df206.html#exhale-function-spirv-cross-c-8h-1adb64ed53d87dd71b17b32e501a6df206"><span class="std std-ref">Function spvc_type_get_num_member_types</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1a3a159c351010db03928042d643d46968.html#exhale-function-spirv-cross-c-8h-1a3a159c351010db03928042d643d46968"><span class="std std-ref">Function spvc_type_get_storage_class</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__cross__c_8h_1acc7372c78deaf97c9c073797ab4d1d45.html#exhale-function-spirv-cross-c-8h-1acc7372c78deaf97c9c073797ab4d1d45"><span class="std std-ref">Function spvc_type_get_vector_size</span></a></p></li>
+</ul>
+</section>
+<section id="defines">
+<h2>Defines<a class="headerlink" href="#defines" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="define_spirv__cross__c_8h_1a3579e9ac96df0ea0a341b3df45baefdb.html#exhale-define-spirv-cross-c-8h-1a3579e9ac96df0ea0a341b3df45baefdb"><span class="std std-ref">Define SPVC_C_API_VERSION_MAJOR</span></a></p></li>
+<li><p><a class="reference internal" href="define_spirv__cross__c_8h_1ad1399272f30c3cd61891194c39b4dfd0.html#exhale-define-spirv-cross-c-8h-1ad1399272f30c3cd61891194c39b4dfd0"><span class="std std-ref">Define SPVC_C_API_VERSION_MINOR</span></a></p></li>
+<li><p><a class="reference internal" href="define_spirv__cross__c_8h_1ae21de16e5a5aff091ddb4ba5a4404a73.html#exhale-define-spirv-cross-c-8h-1ae21de16e5a5aff091ddb4ba5a4404a73"><span class="std std-ref">Define SPVC_C_API_VERSION_PATCH</span></a></p></li>
+<li><p><a class="reference internal" href="define_spirv__cross__c_8h_1ab5ddab03ed886b499965e7357ad0d078.html#exhale-define-spirv-cross-c-8h-1ab5ddab03ed886b499965e7357ad0d078"><span class="std std-ref">Define SPVC_COMPILER_OPTION_COMMON_BIT</span></a></p></li>
+<li><p><a class="reference internal" href="define_spirv__cross__c_8h_1aa50f3d4b53b1dbd9ca332aceb65b9698.html#exhale-define-spirv-cross-c-8h-1aa50f3d4b53b1dbd9ca332aceb65b9698"><span class="std std-ref">Define SPVC_COMPILER_OPTION_ENUM_BITS</span></a></p></li>
+<li><p><a class="reference internal" href="define_spirv__cross__c_8h_1a6ca81c8ee51fcabb95da1e3f72f7ae89.html#exhale-define-spirv-cross-c-8h-1a6ca81c8ee51fcabb95da1e3f72f7ae89"><span class="std std-ref">Define SPVC_COMPILER_OPTION_GLSL_BIT</span></a></p></li>
+<li><p><a class="reference internal" href="define_spirv__cross__c_8h_1a123252ea10c4172bbcfffeadabe96bed.html#exhale-define-spirv-cross-c-8h-1a123252ea10c4172bbcfffeadabe96bed"><span class="std std-ref">Define SPVC_COMPILER_OPTION_HLSL_BIT</span></a></p></li>
+<li><p><a class="reference internal" href="define_spirv__cross__c_8h_1a326c385adc13032e6f28ae6ac2b153ba.html#exhale-define-spirv-cross-c-8h-1a326c385adc13032e6f28ae6ac2b153ba"><span class="std std-ref">Define SPVC_COMPILER_OPTION_LANG_BITS</span></a></p></li>
+<li><p><a class="reference internal" href="define_spirv__cross__c_8h_1a5031e2eaf2f3fe80d955a65b88c06a13.html#exhale-define-spirv-cross-c-8h-1a5031e2eaf2f3fe80d955a65b88c06a13"><span class="std std-ref">Define SPVC_COMPILER_OPTION_MSL_BIT</span></a></p></li>
+<li><p><a class="reference internal" href="define_spirv__cross__c_8h_1a95014c2580fc7e376b9c2725b51ecc6b.html#exhale-define-spirv-cross-c-8h-1a95014c2580fc7e376b9c2725b51ecc6b"><span class="std std-ref">Define SPVC_FALSE</span></a></p></li>
+<li><p><a class="reference internal" href="define_spirv__cross__c_8h_1a3c013f8124957176b2ae6d89f14fa976.html#exhale-define-spirv-cross-c-8h-1a3c013f8124957176b2ae6d89f14fa976"><span class="std std-ref">Define SPVC_HLSL_PUSH_CONSTANT_BINDING</span></a></p></li>
+<li><p><a class="reference internal" href="define_spirv__cross__c_8h_1ae68161c15c36db9aad2c69b988aa15d3.html#exhale-define-spirv-cross-c-8h-1ae68161c15c36db9aad2c69b988aa15d3"><span class="std std-ref">Define SPVC_HLSL_PUSH_CONSTANT_DESC_SET</span></a></p></li>
+<li><p><a class="reference internal" href="define_spirv__cross__c_8h_1a79dcf82435e7e74d3a96f43e64085e27.html#exhale-define-spirv-cross-c-8h-1a79dcf82435e7e74d3a96f43e64085e27"><span class="std std-ref">Define SPVC_MAKE_MSL_VERSION</span></a></p></li>
+<li><p><a class="reference internal" href="define_spirv__cross__c_8h_1a696dc1d3d9293d35ecbb684e4ea911fe.html#exhale-define-spirv-cross-c-8h-1a696dc1d3d9293d35ecbb684e4ea911fe"><span class="std std-ref">Define SPVC_MSL_ARGUMENT_BUFFER_BINDING</span></a></p></li>
+<li><p><a class="reference internal" href="define_spirv__cross__c_8h_1acb4d27ee7e8bb8cb0de78183955d1a15.html#exhale-define-spirv-cross-c-8h-1acb4d27ee7e8bb8cb0de78183955d1a15"><span class="std std-ref">Define SPVC_MSL_AUX_BUFFER_STRUCT_VERSION</span></a></p></li>
+<li><p><a class="reference internal" href="define_spirv__cross__c_8h_1a8cf84d7fff2a830a5e5ee88edd436faa.html#exhale-define-spirv-cross-c-8h-1a8cf84d7fff2a830a5e5ee88edd436faa"><span class="std std-ref">Define SPVC_MSL_BUFFER_SIZE_BUFFER_BINDING</span></a></p></li>
+<li><p><a class="reference internal" href="define_spirv__cross__c_8h_1a8e46790fb131f61a7ba17819c2f00aa2.html#exhale-define-spirv-cross-c-8h-1a8e46790fb131f61a7ba17819c2f00aa2"><span class="std std-ref">Define SPVC_MSL_PUSH_CONSTANT_BINDING</span></a></p></li>
+<li><p><a class="reference internal" href="define_spirv__cross__c_8h_1a9d5b9938ca3893dcc71e0e5a524510c8.html#exhale-define-spirv-cross-c-8h-1a9d5b9938ca3893dcc71e0e5a524510c8"><span class="std std-ref">Define SPVC_MSL_PUSH_CONSTANT_DESC_SET</span></a></p></li>
+<li><p><a class="reference internal" href="define_spirv__cross__c_8h_1ae5e2ff408bdb0bdb03acba0f51c24b14.html#exhale-define-spirv-cross-c-8h-1ae5e2ff408bdb0bdb03acba0f51c24b14"><span class="std std-ref">Define SPVC_MSL_SWIZZLE_BUFFER_BINDING</span></a></p></li>
+<li><p><a class="reference internal" href="define_spirv__cross__c_8h_1abd4fd5e00dcba40ec0aef129002dd612.html#exhale-define-spirv-cross-c-8h-1abd4fd5e00dcba40ec0aef129002dd612"><span class="std std-ref">Define SPVC_PUBLIC_API</span></a></p></li>
+<li><p><a class="reference internal" href="define_spirv__cross__c_8h_1a0ee003065966d229f6b451d9131be1e1.html#exhale-define-spirv-cross-c-8h-1a0ee003065966d229f6b451d9131be1e1"><span class="std std-ref">Define SPVC_TRUE</span></a></p></li>
+</ul>
+</section>
+<section id="typedefs">
+<h2>Typedefs<a class="headerlink" href="#typedefs" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1aa4b03e433cc6625b2ade7bcc12001a40.html#exhale-typedef-spirv-cross-c-8h-1aa4b03e433cc6625b2ade7bcc12001a40"><span class="std std-ref">Typedef spvc_backend</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a45d91b1129b1b7522e4691b3c1c194e6.html#exhale-typedef-spirv-cross-c-8h-1a45d91b1129b1b7522e4691b3c1c194e6"><span class="std std-ref">Typedef spvc_basetype</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a78ac57ac5a9a7956a2353e275846c7a3.html#exhale-typedef-spirv-cross-c-8h-1a78ac57ac5a9a7956a2353e275846c7a3"><span class="std std-ref">Typedef spvc_bool</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1aed1f03830fa99a016274fef96b0e959d.html#exhale-typedef-spirv-cross-c-8h-1aed1f03830fa99a016274fef96b0e959d"><span class="std std-ref">Typedef spvc_buffer_range</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a2fca9df2b06101a8d206822ec0cd91cf.html#exhale-typedef-spirv-cross-c-8h-1a2fca9df2b06101a8d206822ec0cd91cf"><span class="std std-ref">Typedef spvc_builtin_resource_type</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a6c504bf4d97d20ee9104eb55329727db.html#exhale-typedef-spirv-cross-c-8h-1a6c504bf4d97d20ee9104eb55329727db"><span class="std std-ref">Typedef spvc_capture_mode</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a8be7fcb6e9139793d7615d0cb1bd203c.html#exhale-typedef-spirv-cross-c-8h-1a8be7fcb6e9139793d7615d0cb1bd203c"><span class="std std-ref">Typedef spvc_combined_image_sampler</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1aec4692976d532c544c805123ca5efb35.html#exhale-typedef-spirv-cross-c-8h-1aec4692976d532c544c805123ca5efb35"><span class="std std-ref">Typedef spvc_compiler</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a0018a0d5be66a49ca3705c175e6e49f4.html#exhale-typedef-spirv-cross-c-8h-1a0018a0d5be66a49ca3705c175e6e49f4"><span class="std std-ref">Typedef spvc_compiler_option</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a7d04430151969c6dc2d17309f569e36e.html#exhale-typedef-spirv-cross-c-8h-1a7d04430151969c6dc2d17309f569e36e"><span class="std std-ref">Typedef spvc_compiler_options</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1ac8b29b2bfd5c417d73b8ae9f0caa27c6.html#exhale-typedef-spirv-cross-c-8h-1ac8b29b2bfd5c417d73b8ae9f0caa27c6"><span class="std std-ref">Typedef spvc_constant</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a7e9c36a0a4c6437a7c7288729a824fc9.html#exhale-typedef-spirv-cross-c-8h-1a7e9c36a0a4c6437a7c7288729a824fc9"><span class="std std-ref">Typedef spvc_constant_id</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a6b327608cd35402abbede2aa5bec7360.html#exhale-typedef-spirv-cross-c-8h-1a6b327608cd35402abbede2aa5bec7360"><span class="std std-ref">Typedef spvc_context</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a22ee6ed2fb277e60ab11ec0d2e83c004.html#exhale-typedef-spirv-cross-c-8h-1a22ee6ed2fb277e60ab11ec0d2e83c004"><span class="std std-ref">Typedef spvc_entry_point</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a46a435a1d73d4d73f8e9d6f123fa7255.html#exhale-typedef-spirv-cross-c-8h-1a46a435a1d73d4d73f8e9d6f123fa7255"><span class="std std-ref">Typedef spvc_error_callback</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a12efc97d1f7913e9c4b9b10e813ed14e.html#exhale-typedef-spirv-cross-c-8h-1a12efc97d1f7913e9c4b9b10e813ed14e"><span class="std std-ref">Typedef spvc_hlsl_binding_flag_bits</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a7ee959aa9c3876340a0bd0d24f1a8944.html#exhale-typedef-spirv-cross-c-8h-1a7ee959aa9c3876340a0bd0d24f1a8944"><span class="std std-ref">Typedef spvc_hlsl_binding_flags</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a33f206c8a374b2d960bb62ec8688aa72.html#exhale-typedef-spirv-cross-c-8h-1a33f206c8a374b2d960bb62ec8688aa72"><span class="std std-ref">Typedef spvc_hlsl_resource_binding</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a1c2ffb9d1d8422bc53883ed83ed7cbcf.html#exhale-typedef-spirv-cross-c-8h-1a1c2ffb9d1d8422bc53883ed83ed7cbcf"><span class="std std-ref">Typedef spvc_hlsl_resource_binding_mapping</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1aa2501bae1d56526318dcec0d974e3894.html#exhale-typedef-spirv-cross-c-8h-1aa2501bae1d56526318dcec0d974e3894"><span class="std std-ref">Typedef spvc_hlsl_root_constants</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a72d9a585c724c72af0eb06b7486a62a9.html#exhale-typedef-spirv-cross-c-8h-1a72d9a585c724c72af0eb06b7486a62a9"><span class="std std-ref">Typedef spvc_hlsl_vertex_attribute_remap</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a672ef5b564bb0bb8c527405edc2a4d5f.html#exhale-typedef-spirv-cross-c-8h-1a672ef5b564bb0bb8c527405edc2a4d5f"><span class="std std-ref">Typedef spvc_msl_chroma_location</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a9fc1c592fdc232c5eb8cfd9b73722cca.html#exhale-typedef-spirv-cross-c-8h-1a9fc1c592fdc232c5eb8cfd9b73722cca"><span class="std std-ref">Typedef spvc_msl_component_swizzle</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1acff64dc71defd1b1199c5a637cd066fa.html#exhale-typedef-spirv-cross-c-8h-1acff64dc71defd1b1199c5a637cd066fa"><span class="std std-ref">Typedef spvc_msl_constexpr_sampler</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a39d02ecd81f42f238ee8ca02b2d96651.html#exhale-typedef-spirv-cross-c-8h-1a39d02ecd81f42f238ee8ca02b2d96651"><span class="std std-ref">Typedef spvc_msl_format_resolution</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a6e5034baa9dc51c1e4c0adb4c14a16e1.html#exhale-typedef-spirv-cross-c-8h-1a6e5034baa9dc51c1e4c0adb4c14a16e1"><span class="std std-ref">Typedef spvc_msl_index_type</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a0bd2111d2829d123f05f5f3c0bfeb8a0.html#exhale-typedef-spirv-cross-c-8h-1a0bd2111d2829d123f05f5f3c0bfeb8a0"><span class="std std-ref">Typedef spvc_msl_platform</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1acd308cde0ca85bb3031a3d3309e1107d.html#exhale-typedef-spirv-cross-c-8h-1acd308cde0ca85bb3031a3d3309e1107d"><span class="std std-ref">Typedef spvc_msl_resource_binding</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1aeec0f5620667f22e8a68f75939b0c6ed.html#exhale-typedef-spirv-cross-c-8h-1aeec0f5620667f22e8a68f75939b0c6ed"><span class="std std-ref">Typedef spvc_msl_sampler_address</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a90a30b3a80e2f9aa76b78e9c09cb00b1.html#exhale-typedef-spirv-cross-c-8h-1a90a30b3a80e2f9aa76b78e9c09cb00b1"><span class="std std-ref">Typedef spvc_msl_sampler_border_color</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a04024670d2486a1a9b63d7977a9f9625.html#exhale-typedef-spirv-cross-c-8h-1a04024670d2486a1a9b63d7977a9f9625"><span class="std std-ref">Typedef spvc_msl_sampler_compare_func</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1ace53a2f45a0ec05ac519ba5375f8af43.html#exhale-typedef-spirv-cross-c-8h-1ace53a2f45a0ec05ac519ba5375f8af43"><span class="std std-ref">Typedef spvc_msl_sampler_coord</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a1db42aed259e767cf380bf73842d71c8.html#exhale-typedef-spirv-cross-c-8h-1a1db42aed259e767cf380bf73842d71c8"><span class="std std-ref">Typedef spvc_msl_sampler_filter</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1af6f230ae797e8cd4b5bd8a987f4b867c.html#exhale-typedef-spirv-cross-c-8h-1af6f230ae797e8cd4b5bd8a987f4b867c"><span class="std std-ref">Typedef spvc_msl_sampler_mip_filter</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1acf667303cf4c095df756062a4f522196.html#exhale-typedef-spirv-cross-c-8h-1acf667303cf4c095df756062a4f522196"><span class="std std-ref">Typedef spvc_msl_sampler_ycbcr_conversion</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a9c3313d3d9fb0a851f3d1bcc151dc789.html#exhale-typedef-spirv-cross-c-8h-1a9c3313d3d9fb0a851f3d1bcc151dc789"><span class="std std-ref">Typedef spvc_msl_sampler_ycbcr_model_conversion</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1ab3ec31be5a926f3c3fe834ba1f0ab31a.html#exhale-typedef-spirv-cross-c-8h-1ab3ec31be5a926f3c3fe834ba1f0ab31a"><span class="std std-ref">Typedef spvc_msl_sampler_ycbcr_range</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1abc165bd7fa587b52bb6710a9edadf619.html#exhale-typedef-spirv-cross-c-8h-1abc165bd7fa587b52bb6710a9edadf619"><span class="std std-ref">Typedef spvc_msl_shader_input</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1aeff2dc8eb791ae79486dd4ee0b10dbdb.html#exhale-typedef-spirv-cross-c-8h-1aeff2dc8eb791ae79486dd4ee0b10dbdb"><span class="std std-ref">Typedef spvc_msl_shader_input_format</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1aa79a7b3d821976534e3eea465d0efb4e.html#exhale-typedef-spirv-cross-c-8h-1aa79a7b3d821976534e3eea465d0efb4e"><span class="std std-ref">Typedef spvc_msl_shader_interface_var</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1ab0e3fae4165eb2df805b26ef125cbba5.html#exhale-typedef-spirv-cross-c-8h-1ab0e3fae4165eb2df805b26ef125cbba5"><span class="std std-ref">Typedef spvc_msl_shader_interface_var_2</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a29c9842830e0014a80772618114fdce5.html#exhale-typedef-spirv-cross-c-8h-1a29c9842830e0014a80772618114fdce5"><span class="std std-ref">Typedef spvc_msl_shader_variable_format</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1aaf3ceefb1802961781be4151da6ed453.html#exhale-typedef-spirv-cross-c-8h-1aaf3ceefb1802961781be4151da6ed453"><span class="std std-ref">Typedef spvc_msl_shader_variable_rate</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a0671247f9d436e9d4d8d83abe1ef28f5.html#exhale-typedef-spirv-cross-c-8h-1a0671247f9d436e9d4d8d83abe1ef28f5"><span class="std std-ref">Typedef spvc_msl_vertex_attribute</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a1d89842c17e3ba716c557b3dbd7b7880.html#exhale-typedef-spirv-cross-c-8h-1a1d89842c17e3ba716c557b3dbd7b7880"><span class="std std-ref">Typedef spvc_msl_vertex_format</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a391bd3250d6bd8c8692a008bfca78f26.html#exhale-typedef-spirv-cross-c-8h-1a391bd3250d6bd8c8692a008bfca78f26"><span class="std std-ref">Typedef spvc_parsed_ir</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a5e9bb9eee03d3b0e935f6ebbc46f769b.html#exhale-typedef-spirv-cross-c-8h-1a5e9bb9eee03d3b0e935f6ebbc46f769b"><span class="std std-ref">Typedef spvc_reflected_builtin_resource</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a4bb6d20536d46a1d159ac0834e89a4e0.html#exhale-typedef-spirv-cross-c-8h-1a4bb6d20536d46a1d159ac0834e89a4e0"><span class="std std-ref">Typedef spvc_reflected_resource</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1adce2c15abdae74e5dac6df6d2a5efd72.html#exhale-typedef-spirv-cross-c-8h-1adce2c15abdae74e5dac6df6d2a5efd72"><span class="std std-ref">Typedef spvc_resource_type</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a635a103245cac5e331316db46935a557.html#exhale-typedef-spirv-cross-c-8h-1a635a103245cac5e331316db46935a557"><span class="std std-ref">Typedef spvc_resources</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a2aa3c96eaabd6f97ddb572a20c0e5148.html#exhale-typedef-spirv-cross-c-8h-1a2aa3c96eaabd6f97ddb572a20c0e5148"><span class="std std-ref">Typedef spvc_result</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a826ffd2b476260ccccf5e72b102e0f98.html#exhale-typedef-spirv-cross-c-8h-1a826ffd2b476260ccccf5e72b102e0f98"><span class="std std-ref">Typedef spvc_set</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a7a8f284c28e390adfa2618f6385c1cb9.html#exhale-typedef-spirv-cross-c-8h-1a7a8f284c28e390adfa2618f6385c1cb9"><span class="std std-ref">Typedef spvc_specialization_constant</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1aa6ef26d345ded311ae6e17c20b710829.html#exhale-typedef-spirv-cross-c-8h-1aa6ef26d345ded311ae6e17c20b710829"><span class="std std-ref">Typedef spvc_type</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1a323f14103a50635685d90139de688133.html#exhale-typedef-spirv-cross-c-8h-1a323f14103a50635685d90139de688133"><span class="std std-ref">Typedef spvc_type_id</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__c_8h_1aff456a39779f5a11405474e1ff99193c.html#exhale-typedef-spirv-cross-c-8h-1aff456a39779f5a11405474e1ff99193c"><span class="std std-ref">Typedef spvc_variable_id</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

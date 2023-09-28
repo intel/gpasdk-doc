@@ -265,6 +265,8 @@ Program Listing for File d3d12-graphicscommandlist.h
    
    public:
        D3D12GraphicsCommandListState(ID3D12GraphicsCommandList *pList, UINT nodeMask, D3D12_COMMAND_LIST_TYPE type, ID3D12CommandAllocator *pCommandAllocator, ID3D12PipelineState *pInitialState);
+       D3D12GraphicsCommandListState(D3D12GraphicsCommandListState const &) = delete;
+       D3D12GraphicsCommandListState &operator=(D3D12GraphicsCommandListState const &) = delete;
        ~D3D12GraphicsCommandListState() override;
    
        GUID GetGUID() override;

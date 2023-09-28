@@ -38,6 +38,9 @@ Program Listing for File allocator.h
    class Allocator
    {
    public:
+       Allocator() = default;
+       Allocator(Allocator const&) = delete;
+       Allocator& operator=(Allocator const&) = delete;
        virtual ~Allocator();
    
        virtual void* Allocate(size_t nBytes) = 0;

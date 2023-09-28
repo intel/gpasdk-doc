@@ -10,6 +10,22 @@ Program Listing for File playback-common.h
 
 .. code-block:: cpp
 
+   /******************************************************************************
+   (c) 2023 Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
    
    #pragma once
    
@@ -40,38 +56,16 @@ Program Listing for File playback-common.h
        DispatchRays = 1 << 16,
        AccelerationStructureCall = 1 << 17,
        DebugMarker = 1 << 18,
+       Create = 1 << 19,
+       Destroy = 1 << 20,
    
        // uninitialized type value
        Unknown = 1 << 31,
    
        AllTypes =
-           Other | Clear | Draw | Dispatch | ExecuteIndirect | CopyResource | BlitWrite | GpuSync | Present | ExecuteCommandList | Marker | BeginUserRegion | EndUserRegion | CloseCommandList | GpuEvent | GpuCall | DispatchRays | AccelerationStructureCall | DebugMarker | Unknown,
+           Other | Clear | Draw | Dispatch | ExecuteIndirect | CopyResource | BlitWrite | GpuSync | Present | ExecuteCommandList | Marker | BeginUserRegion | EndUserRegion | CloseCommandList | GpuEvent | GpuCall | DispatchRays | AccelerationStructureCall | DebugMarker | Create | Destroy | Unknown,
    };
    ENUM_AS_BITSET(CallableType)
-   
-   const char* const sCallableTypes[] = {
-       "Other",
-       "Clear",
-       "Draw",
-       "Dispatch",
-       "ExecuteIndirect",
-       "CopyResource",
-       "BlitWrite",
-       "GpuSync",
-       "Present",
-       "ExecuteCommandList",
-       "Marker",
-       "BeginUserRegion",
-       "EndUserRegion",
-       "CloseCommandList",
-       "GpuEvent",
-       "GpuCall",
-       "DispatchRays",
-       "AccelerationStructureCall",
-       "DebugMarker",
-   };
-   
-   const size_t sNumCallableTypes = sizeof(sCallableTypes) / sizeof(sCallableTypes[0]);
    
    char const* CallableTypeToString(CallableType type);
    

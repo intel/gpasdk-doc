@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File spirv.hpp &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">'Helloworld' Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">'Helloworld' Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/reference.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">API-Debug-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">Device-Override</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#unions">Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#sept-21-2023">2023.3 (Sept 21 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id35">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id36">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id40">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id41">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2023.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id5">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id8">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id11">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id12">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id13">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id14">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id15">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id16">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id17">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id18">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id19">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">File spirv.hpp</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="file-spirv-hpp">
+<span id="file-include-spirv-cross-spirv-hpp"></span><h1>File spirv.hpp<a class="headerlink" href="#file-spirv-hpp" title="Permalink to this headline"></a></h1>
+<div class="contents local topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#definition-include-spirv-cross-spirv-hpp" id="id1">Definition (<code class="docutils literal notranslate"><span class="pre">include\spirv_cross\spirv.hpp</span></code>)</a></p></li>
+<li><p><a class="reference internal" href="#included-by" id="id2">Included By</a></p></li>
+<li><p><a class="reference internal" href="#namespaces" id="id3">Namespaces</a></p></li>
+<li><p><a class="reference internal" href="#enums" id="id4">Enums</a></p></li>
+<li><p><a class="reference internal" href="#functions" id="id5">Functions</a></p></li>
+<li><p><a class="reference internal" href="#defines" id="id6">Defines</a></p></li>
+<li><p><a class="reference internal" href="#typedefs" id="id7">Typedefs</a></p></li>
+<li><p><a class="reference internal" href="#variables" id="id8">Variables</a></p></li>
+</ul>
+</div>
+<section id="definition-include-spirv-cross-spirv-hpp">
+<h2>Definition (<code class="docutils literal notranslate"><span class="pre">include\spirv_cross\spirv.hpp</span></code>)<a class="headerlink" href="#definition-include-spirv-cross-spirv-hpp" title="Permalink to this headline"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="program_listing_file_include_spirv_cross_spirv.hpp.html">Program Listing for File spirv.hpp</a></li>
+</ul>
+</div>
+</section>
+<section id="included-by">
+<h2>Included By<a class="headerlink" href="#included-by" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="file_include_spirv_cross_spirv_common.hpp.html#file-include-spirv-cross-spirv-common-hpp"><span class="std std-ref">File spirv_common.hpp</span></a></p></li>
+<li><p><a class="reference internal" href="file_include_spirv_cross_spirv_cross.hpp.html#file-include-spirv-cross-spirv-cross-hpp"><span class="std std-ref">File spirv_cross.hpp</span></a></p></li>
+</ul>
+</section>
+<section id="namespaces">
+<h2>Namespaces<a class="headerlink" href="#namespaces" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="namespace_spv.html#namespace-spv"><span class="std std-ref">Namespace spv</span></a></p></li>
+</ul>
+</section>
+<section id="enums">
+<h2>Enums<a class="headerlink" href="#enums" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1ae14c4fb1dcb8e39dcd4b38c2da7e218b.html#exhale-enum-spirv-8hpp-1ae14c4fb1dcb8e39dcd4b38c2da7e218b"><span class="std std-ref">Enum AccessQualifier</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1aef069dec092efbe12be3b6b24f0fed00.html#exhale-enum-spirv-8hpp-1aef069dec092efbe12be3b6b24f0fed00"><span class="std std-ref">Enum AddressingModel</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1ab312cadcb9bd0bd6744b529228620ffe.html#exhale-enum-spirv-8hpp-1ab312cadcb9bd0bd6744b529228620ffe"><span class="std std-ref">Enum BuiltIn</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a7072848fdb37bcd284898636d55bb70e.html#exhale-enum-spirv-8hpp-1a7072848fdb37bcd284898636d55bb70e"><span class="std std-ref">Enum Capability</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1ae613902552cc82dd8c58397263c76356.html#exhale-enum-spirv-8hpp-1ae613902552cc82dd8c58397263c76356"><span class="std std-ref">Enum Decoration</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a44d6b4e3850cb9024be834fa83720773.html#exhale-enum-spirv-8hpp-1a44d6b4e3850cb9024be834fa83720773"><span class="std std-ref">Enum Dim</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1acc05ebbc88e8755c6d6c3d8c7d86c699.html#exhale-enum-spirv-8hpp-1acc05ebbc88e8755c6d6c3d8c7d86c699"><span class="std std-ref">Enum ExecutionMode</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a4146a44de5b6570caf0fec52cf50c2ac.html#exhale-enum-spirv-8hpp-1a4146a44de5b6570caf0fec52cf50c2ac"><span class="std std-ref">Enum ExecutionModel</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1aa00b82b80dce1dbffab1673e1ab57108.html#exhale-enum-spirv-8hpp-1aa00b82b80dce1dbffab1673e1ab57108"><span class="std std-ref">Enum FPDenormMode</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a14e58c692731cdbe02912006783970ba.html#exhale-enum-spirv-8hpp-1a14e58c692731cdbe02912006783970ba"><span class="std std-ref">Enum FPFastMathModeMask</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1aba8443a8e7dd8804f935d3a6b699a59a.html#exhale-enum-spirv-8hpp-1aba8443a8e7dd8804f935d3a6b699a59a"><span class="std std-ref">Enum FPFastMathModeShift</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a4e6e07963de128b1a72d058bb1c26e6f.html#exhale-enum-spirv-8hpp-1a4e6e07963de128b1a72d058bb1c26e6f"><span class="std std-ref">Enum FPOperationMode</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a24ad2a75dbaf7fde47863dd252b00ce4.html#exhale-enum-spirv-8hpp-1a24ad2a75dbaf7fde47863dd252b00ce4"><span class="std std-ref">Enum FPRoundingMode</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a5c9f5887190eedfa15ce2859596d978e.html#exhale-enum-spirv-8hpp-1a5c9f5887190eedfa15ce2859596d978e"><span class="std std-ref">Enum FragmentShadingRateMask</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a0dbaadb8727da01bbfeb0728216e7c83.html#exhale-enum-spirv-8hpp-1a0dbaadb8727da01bbfeb0728216e7c83"><span class="std std-ref">Enum FragmentShadingRateShift</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a4419be75f85d00e6e7dde5cf41579ecc.html#exhale-enum-spirv-8hpp-1a4419be75f85d00e6e7dde5cf41579ecc"><span class="std std-ref">Enum FunctionControlMask</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a900048d7d1d13bca402c7f55190ca099.html#exhale-enum-spirv-8hpp-1a900048d7d1d13bca402c7f55190ca099"><span class="std std-ref">Enum FunctionControlShift</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a963102c6d35eb4c3abf3133f223c40d9.html#exhale-enum-spirv-8hpp-1a963102c6d35eb4c3abf3133f223c40d9"><span class="std std-ref">Enum FunctionParameterAttribute</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a13391312a1220231a98d107d53f6d5dc.html#exhale-enum-spirv-8hpp-1a13391312a1220231a98d107d53f6d5dc"><span class="std std-ref">Enum GroupOperation</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a275886d56861fdf479ce8bfd07d5976d.html#exhale-enum-spirv-8hpp-1a275886d56861fdf479ce8bfd07d5976d"><span class="std std-ref">Enum ImageChannelDataType</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a100b5be03ae746d6f24b391522620855.html#exhale-enum-spirv-8hpp-1a100b5be03ae746d6f24b391522620855"><span class="std std-ref">Enum ImageChannelOrder</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a9b39b291044d4b6a04c3a2d4dbd7ea8b.html#exhale-enum-spirv-8hpp-1a9b39b291044d4b6a04c3a2d4dbd7ea8b"><span class="std std-ref">Enum ImageFormat</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a421c9022b437bd09027a04c8531e46eb.html#exhale-enum-spirv-8hpp-1a421c9022b437bd09027a04c8531e46eb"><span class="std std-ref">Enum ImageOperandsMask</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a5ca1dbf30e57c6a19e37e96a83b06700.html#exhale-enum-spirv-8hpp-1a5ca1dbf30e57c6a19e37e96a83b06700"><span class="std std-ref">Enum ImageOperandsShift</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a755d8db1298608b273e68c03a44e0976.html#exhale-enum-spirv-8hpp-1a755d8db1298608b273e68c03a44e0976"><span class="std std-ref">Enum KernelEnqueueFlags</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a70e4c4967ec6736f7c8b3e65315d2ded.html#exhale-enum-spirv-8hpp-1a70e4c4967ec6736f7c8b3e65315d2ded"><span class="std std-ref">Enum KernelProfilingInfoMask</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a4508033cc717fd81db2d4685e1e30535.html#exhale-enum-spirv-8hpp-1a4508033cc717fd81db2d4685e1e30535"><span class="std std-ref">Enum KernelProfilingInfoShift</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1ae510d097bbf510c0bda8da6421d003f5.html#exhale-enum-spirv-8hpp-1ae510d097bbf510c0bda8da6421d003f5"><span class="std std-ref">Enum LinkageType</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1aa2ccc0cf25a5a88c7a263ffe00a634fc.html#exhale-enum-spirv-8hpp-1aa2ccc0cf25a5a88c7a263ffe00a634fc"><span class="std std-ref">Enum LoopControlMask</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a4de7efb84669436f4d4de3f7fc8319ed.html#exhale-enum-spirv-8hpp-1a4de7efb84669436f4d4de3f7fc8319ed"><span class="std std-ref">Enum LoopControlShift</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1af70c1696c70356d76cb22be22985a1a1.html#exhale-enum-spirv-8hpp-1af70c1696c70356d76cb22be22985a1a1"><span class="std std-ref">Enum MemoryAccessMask</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1abed2521869930f9fa571e97917c0f8a5.html#exhale-enum-spirv-8hpp-1abed2521869930f9fa571e97917c0f8a5"><span class="std std-ref">Enum MemoryAccessShift</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1ad95be6021bf0c434f976e21b9a784da1.html#exhale-enum-spirv-8hpp-1ad95be6021bf0c434f976e21b9a784da1"><span class="std std-ref">Enum MemoryModel</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1af0d21a3d5b2239b3aa53e287b9bfd6c7.html#exhale-enum-spirv-8hpp-1af0d21a3d5b2239b3aa53e287b9bfd6c7"><span class="std std-ref">Enum MemorySemanticsMask</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1af68501bd26f83e49e73df7bc02afc2af.html#exhale-enum-spirv-8hpp-1af68501bd26f83e49e73df7bc02afc2af"><span class="std std-ref">Enum MemorySemanticsShift</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1aa0f2f6d99fb7a9d8eeae222f8d3dac1c.html#exhale-enum-spirv-8hpp-1aa0f2f6d99fb7a9d8eeae222f8d3dac1c"><span class="std std-ref">Enum Op</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a681bcdd6ed4773f6e68902b8d6800bfa.html#exhale-enum-spirv-8hpp-1a681bcdd6ed4773f6e68902b8d6800bfa"><span class="std std-ref">Enum OverflowModes</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1affeab13a0619ea7e02b7959939fae2b5.html#exhale-enum-spirv-8hpp-1affeab13a0619ea7e02b7959939fae2b5"><span class="std std-ref">Enum PackedVectorFormat</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1ab04c2db7171f58e51032dd0ee5dfea71.html#exhale-enum-spirv-8hpp-1ab04c2db7171f58e51032dd0ee5dfea71"><span class="std std-ref">Enum QuantizationModes</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a52fa3ad73ec56971b7b2ec9d5e1a8b3b.html#exhale-enum-spirv-8hpp-1a52fa3ad73ec56971b7b2ec9d5e1a8b3b"><span class="std std-ref">Enum RayFlagsMask</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1ae0bcd0b267cef922372c8cfa979442ba.html#exhale-enum-spirv-8hpp-1ae0bcd0b267cef922372c8cfa979442ba"><span class="std std-ref">Enum RayFlagsShift</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1ab240d7a8d9bfab541e08e6146cb875c5.html#exhale-enum-spirv-8hpp-1ab240d7a8d9bfab541e08e6146cb875c5"><span class="std std-ref">Enum RayQueryCandidateIntersectionType</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a23fe0a4e8d65450474ad7adadcfb4d63.html#exhale-enum-spirv-8hpp-1a23fe0a4e8d65450474ad7adadcfb4d63"><span class="std std-ref">Enum RayQueryCommittedIntersectionType</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a4f62a100d9898fc6d44aed7bf659ab27.html#exhale-enum-spirv-8hpp-1a4f62a100d9898fc6d44aed7bf659ab27"><span class="std std-ref">Enum RayQueryIntersection</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a676fec3db8edaf3d42dc99cd4f00373a.html#exhale-enum-spirv-8hpp-1a676fec3db8edaf3d42dc99cd4f00373a"><span class="std std-ref">Enum SamplerAddressingMode</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a39a5604fe9bd7064fdfd200b21bf06bf.html#exhale-enum-spirv-8hpp-1a39a5604fe9bd7064fdfd200b21bf06bf"><span class="std std-ref">Enum SamplerFilterMode</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1a2059951648469fcffb3e7f621e5dc920.html#exhale-enum-spirv-8hpp-1a2059951648469fcffb3e7f621e5dc920"><span class="std std-ref">Enum Scope</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1aa1b0068eb01a6d81c9bcfc2a0cdfd1e8.html#exhale-enum-spirv-8hpp-1aa1b0068eb01a6d81c9bcfc2a0cdfd1e8"><span class="std std-ref">Enum SelectionControlMask</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1afb58918492991cd7bc321489dffe53da.html#exhale-enum-spirv-8hpp-1afb58918492991cd7bc321489dffe53da"><span class="std std-ref">Enum SelectionControlShift</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1ac491d0fa205ed059d7de8a3af9f9ec84.html#exhale-enum-spirv-8hpp-1ac491d0fa205ed059d7de8a3af9f9ec84"><span class="std std-ref">Enum SourceLanguage</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv_8hpp_1ab02689a0e3091570dddccd86014596f1.html#exhale-enum-spirv-8hpp-1ab02689a0e3091570dddccd86014596f1"><span class="std std-ref">Enum StorageClass</span></a></p></li>
+</ul>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="function_spirv_8hpp_1a8a6cf7a9e54279679828605ad51b607d.html#exhale-function-spirv-8hpp-1a8a6cf7a9e54279679828605ad51b607d"><span class="std std-ref">Function spv::operator|(ImageOperandsMask, ImageOperandsMask)</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv_8hpp_1ac4297f4a3ca576f6fd50d7a9d55cc36a.html#exhale-function-spirv-8hpp-1ac4297f4a3ca576f6fd50d7a9d55cc36a"><span class="std std-ref">Function spv::operator|(FPFastMathModeMask, FPFastMathModeMask)</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv_8hpp_1a2d954bdd5a6a8725e5890ae043c69835.html#exhale-function-spirv-8hpp-1a2d954bdd5a6a8725e5890ae043c69835"><span class="std std-ref">Function spv::operator|(SelectionControlMask, SelectionControlMask)</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv_8hpp_1a27bca601bbe855c0cb80840deeb59d8b.html#exhale-function-spirv-8hpp-1a27bca601bbe855c0cb80840deeb59d8b"><span class="std std-ref">Function spv::operator|(LoopControlMask, LoopControlMask)</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv_8hpp_1a18be728ab3a5f2ec8273d7bf2d548433.html#exhale-function-spirv-8hpp-1a18be728ab3a5f2ec8273d7bf2d548433"><span class="std std-ref">Function spv::operator|(FunctionControlMask, FunctionControlMask)</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv_8hpp_1aee68f71486ec93cea75ff3f60d577762.html#exhale-function-spirv-8hpp-1aee68f71486ec93cea75ff3f60d577762"><span class="std std-ref">Function spv::operator|(MemorySemanticsMask, MemorySemanticsMask)</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv_8hpp_1a4d54ba47a3ea53fd6c12052421db91ad.html#exhale-function-spirv-8hpp-1a4d54ba47a3ea53fd6c12052421db91ad"><span class="std std-ref">Function spv::operator|(MemoryAccessMask, MemoryAccessMask)</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv_8hpp_1aaf559ac8931b3a315203db416023f00c.html#exhale-function-spirv-8hpp-1aaf559ac8931b3a315203db416023f00c"><span class="std std-ref">Function spv::operator|(KernelProfilingInfoMask, KernelProfilingInfoMask)</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv_8hpp_1a437b8d932ef73668c8f0b109739c56cd.html#exhale-function-spirv-8hpp-1a437b8d932ef73668c8f0b109739c56cd"><span class="std std-ref">Function spv::operator|(RayFlagsMask, RayFlagsMask)</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv_8hpp_1a53477750ae7573ebede9dd7ae696a7a2.html#exhale-function-spirv-8hpp-1a53477750ae7573ebede9dd7ae696a7a2"><span class="std std-ref">Function spv::operator|(FragmentShadingRateMask, FragmentShadingRateMask)</span></a></p></li>
+</ul>
+</section>
+<section id="defines">
+<h2>Defines<a class="headerlink" href="#defines" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="define_spirv_8hpp_1a39561140d08c5cf69ae31067f8e29f28.html#exhale-define-spirv-8hpp-1a39561140d08c5cf69ae31067f8e29f28"><span class="std std-ref">Define SPV_REVISION</span></a></p></li>
+<li><p><a class="reference internal" href="define_spirv_8hpp_1af6dfb3700c10433f65f96d89e4bb5da9.html#exhale-define-spirv-8hpp-1af6dfb3700c10433f65f96d89e4bb5da9"><span class="std std-ref">Define SPV_VERSION</span></a></p></li>
+</ul>
+</section>
+<section id="typedefs">
+<h2>Typedefs<a class="headerlink" href="#typedefs" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="typedef_spirv_8hpp_1a9a7099eca1112d4db9985b11c4779074.html#exhale-typedef-spirv-8hpp-1a9a7099eca1112d4db9985b11c4779074"><span class="std std-ref">Typedef spv::Id</span></a></p></li>
+</ul>
+</section>
+<section id="variables">
+<h2>Variables<a class="headerlink" href="#variables" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="variable_spirv_8hpp_1a5bd2d114096a9df913c53d9b5c23f570.html#exhale-variable-spirv-8hpp-1a5bd2d114096a9df913c53d9b5c23f570"><span class="std std-ref">Variable spv::MagicNumber</span></a></p></li>
+<li><p><a class="reference internal" href="variable_spirv_8hpp_1a540c9df1020ca4e6b3b28ae0e0dd567e.html#exhale-variable-spirv-8hpp-1a540c9df1020ca4e6b3b28ae0e0dd567e"><span class="std std-ref">Variable spv::OpCodeMask</span></a></p></li>
+<li><p><a class="reference internal" href="variable_spirv_8hpp_1aa4785e6317c77bf455f0e91aebe8bd50.html#exhale-variable-spirv-8hpp-1aa4785e6317c77bf455f0e91aebe8bd50"><span class="std std-ref">Variable spv::Revision</span></a></p></li>
+<li><p><a class="reference internal" href="variable_spirv_8hpp_1a2fff8ee99ae2ba8f968f4a6439f5ccfc.html#exhale-variable-spirv-8hpp-1a2fff8ee99ae2ba8f968f4a6439f5ccfc"><span class="std std-ref">Variable spv::Version</span></a></p></li>
+<li><p><a class="reference internal" href="variable_spirv_8hpp_1a5c54482b29ec2b4ffa1d0a09cfc9c7cf.html#exhale-variable-spirv-8hpp-1a5c54482b29ec2b4ffa1d0a09cfc9c7cf"><span class="std std-ref">Variable spv::WordCountShift</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class XMLHandle &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Class XMLNode" href="classtinyxml2_1_1XMLNode.html" />
+    <link rel="prev" title="Class XMLElement" href="classtinyxml2_1_1XMLElement.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">'Helloworld' Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">'Helloworld' Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">API-Debug-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">Device-Override</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#unions">Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#sept-21-2023">2023.3 (Sept 21 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id35">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id36">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id40">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id41">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2023.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id5">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id8">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id11">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id12">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id13">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id14">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id15">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id16">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id17">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id18">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id19">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../src/reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">C++ Interfaces</a></li>
+      <li class="breadcrumb-item active">Class XMLHandle</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-xmlhandle">
+<span id="exhale-class-classtinyxml2-1-1xmlhandle"></span><h1>Class XMLHandle<a class="headerlink" href="#class-xmlhandle" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_tinyxml2_tinyxml2.h.html#file-include-tinyxml2-tinyxml2-h"><span class="std std-ref">File tinyxml2.h</span></a></p></li>
+</ul>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml29XMLHandleE">
+<span id="_CPPv3N8tinyxml29XMLHandleE"></span><span id="_CPPv2N8tinyxml29XMLHandleE"></span><span id="tinyxml2::XMLHandle"></span><span class="target" id="classtinyxml2_1_1XMLHandle"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">XMLHandle</span></span></span><a class="headerlink" href="#_CPPv4N8tinyxml29XMLHandleE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>A <a class="reference internal" href="#classtinyxml2_1_1XMLHandle"><span class="std std-ref">XMLHandle</span></a> is a class that wraps a node pointer with null checks; this is an incredibly useful thing. Note that <a class="reference internal" href="#classtinyxml2_1_1XMLHandle"><span class="std std-ref">XMLHandle</span></a> is not part of the TinyXML-2 DOM structure. It is a separate utility class.</p>
+<p>Take an example: <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Document</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="n">Element</span><span class="w"> </span><span class="n">attributeA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;valueA&quot;</span><span class="o">&gt;</span>
+<span class="w">        </span><span class="o">&lt;</span><span class="n">Child</span><span class="w"> </span><span class="n">attributeB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;value1&quot;</span><span class="w"> </span><span class="o">/&gt;</span>
+<span class="w">        </span><span class="o">&lt;</span><span class="n">Child</span><span class="w"> </span><span class="n">attributeB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;value2&quot;</span><span class="w"> </span><span class="o">/&gt;</span>
+<span class="w">    </span><span class="o">&lt;/</span><span class="n">Element</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">Document</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</p>
+<p>Assuming you want the value of &quot;attributeB&quot; in the 2nd &quot;Child&quot; element, it's very easy to write a <em>lot</em> of code that looks like:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">XMLElement</span><span class="o">*</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">document</span><span class="p">.</span><span class="n">FirstChildElement</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;Document&quot;</span><span class="w"> </span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">XMLElement</span><span class="o">*</span><span class="w"> </span><span class="n">element</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">root</span><span class="o">-&gt;</span><span class="n">FirstChildElement</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;Element&quot;</span><span class="w"> </span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">element</span><span class="w"> </span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">XMLElement</span><span class="o">*</span><span class="w"> </span><span class="n">child</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element</span><span class="o">-&gt;</span><span class="n">FirstChildElement</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;Child&quot;</span><span class="w"> </span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">child</span><span class="w"> </span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">XMLElement</span><span class="o">*</span><span class="w"> </span><span class="n">child2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">child</span><span class="o">-&gt;</span><span class="n">NextSiblingElement</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;Child&quot;</span><span class="w"> </span><span class="p">);</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">child2</span><span class="w"> </span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// Finally do something useful.</span>
+</pre></div>
+</div>
+<p>And that doesn't even cover &quot;else&quot; cases. <a class="reference internal" href="#classtinyxml2_1_1XMLHandle"><span class="std std-ref">XMLHandle</span></a> addresses the verbosity of such code. A <a class="reference internal" href="#classtinyxml2_1_1XMLHandle"><span class="std std-ref">XMLHandle</span></a> checks for null pointers so it is perfectly safe and correct to use:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">XMLHandle</span><span class="w"> </span><span class="nf">docHandle</span><span class="p">(</span><span class="w"> </span><span class="o">&amp;</span><span class="n">document</span><span class="w"> </span><span class="p">);</span>
+<span class="n">XMLElement</span><span class="o">*</span><span class="w"> </span><span class="n">child2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">docHandle</span><span class="p">.</span><span class="n">FirstChildElement</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;Document&quot;</span><span class="w"> </span><span class="p">).</span><span class="n">FirstChildElement</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;Element&quot;</span><span class="w"> </span><span class="p">).</span><span class="n">FirstChildElement</span><span class="p">().</span><span class="n">NextSiblingElement</span><span class="p">();</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">child2</span><span class="w"> </span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// do something useful</span>
+</pre></div>
+</div>
+<p>Which is MUCH more concise and useful.</p>
+<p>It is also safe to copy handles - internally they are nothing more than node pointers. <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">XMLHandle</span><span class="w"> </span><span class="n">handleCopy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">handle</span><span class="p">;</span>
+</pre></div>
+</div>
+</p>
+<p>See also <a class="reference internal" href="classtinyxml2_1_1XMLConstHandle.html#classtinyxml2_1_1XMLConstHandle"><span class="std std-ref">XMLConstHandle</span></a>, which is the same as <a class="reference internal" href="#classtinyxml2_1_1XMLHandle"><span class="std std-ref">XMLHandle</span></a>, but operates on const objects. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml29XMLHandle9XMLHandleEP7XMLNode">
+<span id="_CPPv3N8tinyxml29XMLHandle9XMLHandleEP7XMLNode"></span><span id="_CPPv2N8tinyxml29XMLHandle9XMLHandleEP7XMLNode"></span><span id="tinyxml2::XMLHandle::XMLHandle__XMLNodeP"></span><span class="target" id="classtinyxml2_1_1XMLHandle_1a9c240a35c18f053509b4b97ddccd9793"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">XMLHandle</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classtinyxml2_1_1XMLNode.html#_CPPv4N8tinyxml27XMLNodeE" title="tinyxml2::XMLNode"><span class="n"><span class="pre">XMLNode</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">node</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml29XMLHandle9XMLHandleEP7XMLNode" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Create a handle from any node (at any depth of the tree.) This can be a null pointer. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml29XMLHandle9XMLHandleER7XMLNode">
+<span id="_CPPv3N8tinyxml29XMLHandle9XMLHandleER7XMLNode"></span><span id="_CPPv2N8tinyxml29XMLHandle9XMLHandleER7XMLNode"></span><span id="tinyxml2::XMLHandle::XMLHandle__XMLNodeR"></span><span class="target" id="classtinyxml2_1_1XMLHandle_1aa2edbc1c0d3e3e8259bd98de7f1cf500"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">XMLHandle</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classtinyxml2_1_1XMLNode.html#_CPPv4N8tinyxml27XMLNodeE" title="tinyxml2::XMLNode"><span class="n"><span class="pre">XMLNode</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">node</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml29XMLHandle9XMLHandleER7XMLNode" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Create a handle from a node. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml29XMLHandle9XMLHandleERK9XMLHandle">
+<span id="_CPPv3N8tinyxml29XMLHandle9XMLHandleERK9XMLHandle"></span><span id="_CPPv2N8tinyxml29XMLHandle9XMLHandleERK9XMLHandle"></span><span id="tinyxml2::XMLHandle::XMLHandle__XMLHandleCR"></span><span class="target" id="classtinyxml2_1_1XMLHandle_1afd8e01e6018c07347b8e6d80272466aa"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">XMLHandle</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N8tinyxml29XMLHandle9XMLHandleERK9XMLHandle" title="tinyxml2::XMLHandle::XMLHandle"><span class="n"><span class="pre">XMLHandle</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ref</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml29XMLHandle9XMLHandleERK9XMLHandle" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Copy constructor. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml29XMLHandleaSERK9XMLHandle">
+<span id="_CPPv3N8tinyxml29XMLHandleaSERK9XMLHandle"></span><span id="_CPPv2N8tinyxml29XMLHandleaSERK9XMLHandle"></span><span id="tinyxml2::XMLHandle::assign-operator__XMLHandleCR"></span><span class="target" id="classtinyxml2_1_1XMLHandle_1aa07c9a53f78d7b2dc1018668641521d8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N8tinyxml29XMLHandleE" title="tinyxml2::XMLHandle"><span class="n"><span class="pre">XMLHandle</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N8tinyxml29XMLHandleE" title="tinyxml2::XMLHandle"><span class="n"><span class="pre">XMLHandle</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ref</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml29XMLHandleaSERK9XMLHandle" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Assignment. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml29XMLHandle10FirstChildEv">
+<span id="_CPPv3N8tinyxml29XMLHandle10FirstChildEv"></span><span id="_CPPv2N8tinyxml29XMLHandle10FirstChildEv"></span><span id="tinyxml2::XMLHandle::FirstChild"></span><span class="target" id="classtinyxml2_1_1XMLHandle_1a536447dc7f54c0cd11e031dad94795ae"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N8tinyxml29XMLHandleE" title="tinyxml2::XMLHandle"><span class="n"><span class="pre">XMLHandle</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FirstChild</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml29XMLHandle10FirstChildEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get the first child of this handle. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml29XMLHandle17FirstChildElementEPKc">
+<span id="_CPPv3N8tinyxml29XMLHandle17FirstChildElementEPKc"></span><span id="_CPPv2N8tinyxml29XMLHandle17FirstChildElementEPKc"></span><span id="tinyxml2::XMLHandle::FirstChildElement__cCP"></span><span class="target" id="classtinyxml2_1_1XMLHandle_1a74b04dd0f15e0bf01860e282b840b6a3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N8tinyxml29XMLHandleE" title="tinyxml2::XMLHandle"><span class="n"><span class="pre">XMLHandle</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FirstChildElement</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml29XMLHandle17FirstChildElementEPKc" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get the first child element of this handle. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml29XMLHandle9LastChildEv">
+<span id="_CPPv3N8tinyxml29XMLHandle9LastChildEv"></span><span id="_CPPv2N8tinyxml29XMLHandle9LastChildEv"></span><span id="tinyxml2::XMLHandle::LastChild"></span><span class="target" id="classtinyxml2_1_1XMLHandle_1a9d09f04435f0f2f7d0816b0198d0517b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N8tinyxml29XMLHandleE" title="tinyxml2::XMLHandle"><span class="n"><span class="pre">XMLHandle</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LastChild</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml29XMLHandle9LastChildEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get the last child of this handle. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml29XMLHandle16LastChildElementEPKc">
+<span id="_CPPv3N8tinyxml29XMLHandle16LastChildElementEPKc"></span><span id="_CPPv2N8tinyxml29XMLHandle16LastChildElementEPKc"></span><span id="tinyxml2::XMLHandle::LastChildElement__cCP"></span><span class="target" id="classtinyxml2_1_1XMLHandle_1a42cccd0ce8b1ce704f431025e9f19e0c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N8tinyxml29XMLHandleE" title="tinyxml2::XMLHandle"><span class="n"><span class="pre">XMLHandle</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LastChildElement</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml29XMLHandle16LastChildElementEPKc" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get the last child element of this handle. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml29XMLHandle15PreviousSiblingEv">
+<span id="_CPPv3N8tinyxml29XMLHandle15PreviousSiblingEv"></span><span id="_CPPv2N8tinyxml29XMLHandle15PreviousSiblingEv"></span><span id="tinyxml2::XMLHandle::PreviousSibling"></span><span class="target" id="classtinyxml2_1_1XMLHandle_1a428374e756f4db4cbc287fec64eae02c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N8tinyxml29XMLHandleE" title="tinyxml2::XMLHandle"><span class="n"><span class="pre">XMLHandle</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PreviousSibling</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml29XMLHandle15PreviousSiblingEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get the previous sibling of this handle. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml29XMLHandle22PreviousSiblingElementEPKc">
+<span id="_CPPv3N8tinyxml29XMLHandle22PreviousSiblingElementEPKc"></span><span id="_CPPv2N8tinyxml29XMLHandle22PreviousSiblingElementEPKc"></span><span id="tinyxml2::XMLHandle::PreviousSiblingElement__cCP"></span><span class="target" id="classtinyxml2_1_1XMLHandle_1a786957e498039554ed334cdc36612a7e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N8tinyxml29XMLHandleE" title="tinyxml2::XMLHandle"><span class="n"><span class="pre">XMLHandle</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PreviousSiblingElement</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml29XMLHandle22PreviousSiblingElementEPKc" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get the previous sibling element of this handle. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml29XMLHandle11NextSiblingEv">
+<span id="_CPPv3N8tinyxml29XMLHandle11NextSiblingEv"></span><span id="_CPPv2N8tinyxml29XMLHandle11NextSiblingEv"></span><span id="tinyxml2::XMLHandle::NextSibling"></span><span class="target" id="classtinyxml2_1_1XMLHandle_1aad2eccc7c7c7b18145877c978c3850b5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N8tinyxml29XMLHandleE" title="tinyxml2::XMLHandle"><span class="n"><span class="pre">XMLHandle</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NextSibling</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml29XMLHandle11NextSiblingEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get the next sibling of this handle. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml29XMLHandle18NextSiblingElementEPKc">
+<span id="_CPPv3N8tinyxml29XMLHandle18NextSiblingElementEPKc"></span><span id="_CPPv2N8tinyxml29XMLHandle18NextSiblingElementEPKc"></span><span id="tinyxml2::XMLHandle::NextSiblingElement__cCP"></span><span class="target" id="classtinyxml2_1_1XMLHandle_1ae41d88ee061f3c49a081630ff753b2c5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N8tinyxml29XMLHandleE" title="tinyxml2::XMLHandle"><span class="n"><span class="pre">XMLHandle</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NextSiblingElement</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml29XMLHandle18NextSiblingElementEPKc" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get the next sibling element of this handle. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml29XMLHandle6ToNodeEv">
+<span id="_CPPv3N8tinyxml29XMLHandle6ToNodeEv"></span><span id="_CPPv2N8tinyxml29XMLHandle6ToNodeEv"></span><span id="tinyxml2::XMLHandle::ToNode"></span><span class="target" id="classtinyxml2_1_1XMLHandle_1a689453c96dd3d4016437d2298d1de691"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="classtinyxml2_1_1XMLNode.html#_CPPv4N8tinyxml27XMLNodeE" title="tinyxml2::XMLNode"><span class="n"><span class="pre">XMLNode</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">ToNode</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml29XMLHandle6ToNodeEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Safe cast to <a class="reference internal" href="classtinyxml2_1_1XMLNode.html#classtinyxml2_1_1XMLNode"><span class="std std-ref">XMLNode</span></a>. This can return null. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml29XMLHandle9ToElementEv">
+<span id="_CPPv3N8tinyxml29XMLHandle9ToElementEv"></span><span id="_CPPv2N8tinyxml29XMLHandle9ToElementEv"></span><span id="tinyxml2::XMLHandle::ToElement"></span><span class="target" id="classtinyxml2_1_1XMLHandle_1ab2371c4adb8b04afe04ed216bf9b0676"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="classtinyxml2_1_1XMLElement.html#_CPPv4N8tinyxml210XMLElementE" title="tinyxml2::XMLElement"><span class="n"><span class="pre">XMLElement</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">ToElement</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml29XMLHandle9ToElementEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Safe cast to <a class="reference internal" href="classtinyxml2_1_1XMLElement.html#classtinyxml2_1_1XMLElement"><span class="std std-ref">XMLElement</span></a>. This can return null. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml29XMLHandle6ToTextEv">
+<span id="_CPPv3N8tinyxml29XMLHandle6ToTextEv"></span><span id="_CPPv2N8tinyxml29XMLHandle6ToTextEv"></span><span id="tinyxml2::XMLHandle::ToText"></span><span class="target" id="classtinyxml2_1_1XMLHandle_1accc80bcbd81e816f13a23c172587c288"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="classtinyxml2_1_1XMLText.html#_CPPv4N8tinyxml27XMLTextE" title="tinyxml2::XMLText"><span class="n"><span class="pre">XMLText</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">ToText</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml29XMLHandle6ToTextEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Safe cast to <a class="reference internal" href="classtinyxml2_1_1XMLText.html#classtinyxml2_1_1XMLText"><span class="std std-ref">XMLText</span></a>. This can return null. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml29XMLHandle9ToUnknownEv">
+<span id="_CPPv3N8tinyxml29XMLHandle9ToUnknownEv"></span><span id="_CPPv2N8tinyxml29XMLHandle9ToUnknownEv"></span><span id="tinyxml2::XMLHandle::ToUnknown"></span><span class="target" id="classtinyxml2_1_1XMLHandle_1add97784cbe14ef42bb36e158ad6e6082"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="classtinyxml2_1_1XMLUnknown.html#_CPPv4N8tinyxml210XMLUnknownE" title="tinyxml2::XMLUnknown"><span class="n"><span class="pre">XMLUnknown</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">ToUnknown</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml29XMLHandle9ToUnknownEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Safe cast to <a class="reference internal" href="classtinyxml2_1_1XMLUnknown.html#classtinyxml2_1_1XMLUnknown"><span class="std std-ref">XMLUnknown</span></a>. This can return null. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml29XMLHandle13ToDeclarationEv">
+<span id="_CPPv3N8tinyxml29XMLHandle13ToDeclarationEv"></span><span id="_CPPv2N8tinyxml29XMLHandle13ToDeclarationEv"></span><span id="tinyxml2::XMLHandle::ToDeclaration"></span><span class="target" id="classtinyxml2_1_1XMLHandle_1a85d0c76920a013ea2a29456dbf7d160d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="classtinyxml2_1_1XMLDeclaration.html#_CPPv4N8tinyxml214XMLDeclarationE" title="tinyxml2::XMLDeclaration"><span class="n"><span class="pre">XMLDeclaration</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">ToDeclaration</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml29XMLHandle13ToDeclarationEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Safe cast to <a class="reference internal" href="classtinyxml2_1_1XMLDeclaration.html#classtinyxml2_1_1XMLDeclaration"><span class="std std-ref">XMLDeclaration</span></a>. This can return null. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="classtinyxml2_1_1XMLElement.html" class="btn btn-neutral float-left" title="Class XMLElement" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="classtinyxml2_1_1XMLNode.html" class="btn btn-neutral float-right" title="Class XMLNode" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

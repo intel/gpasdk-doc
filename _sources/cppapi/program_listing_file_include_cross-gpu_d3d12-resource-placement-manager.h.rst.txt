@@ -1,0 +1,175 @@
+
+.. _program_listing_file_include_cross-gpu_d3d12-resource-placement-manager.h:
+
+Program Listing for File d3d12-resource-placement-manager.h
+===========================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_cross-gpu_d3d12-resource-placement-manager.h>` (``include\cross-gpu\d3d12-resource-placement-manager.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   (C) Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+   This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   #pragma once
+   
+   #include "cross-gpu/d3d12-cross-gpu-support.h"
+   #include "utility/noncopyable.h"
+   
+   #include <map>
+   #include <memory>
+   #include <unordered_map>
+   #include <unordered_set>
+   
+   namespace gpa {
+   namespace cross_gpu {
+   
+   namespace playback {
+   
+   using D3D12_HEAP_ALLOCATION_INFO = D3D12_RESOURCE_ALLOCATION_INFO;
+   
+   class D3D12ResourcePlacementManagers;
+   
+   // Determines heap offset for playback from captured stream data.
+   //
+   // A resource placement refers to the specific whereabouts of a resource in a heap or some sub-allocated range within a resource.
+   // Resource placements are device-specific and heap-relative so this manager provides a mapping between devices by expanding the size the underlying resource (and heap).
+   class D3D12ResourcePlacementManager : public NonCopyable
+   {
+   public:
+       D3D12ResourcePlacementManager() = default;
+       ~D3D12ResourcePlacementManager() = default;
+   
+       // Called to load resource placements from captured stream before playback begins.
+       //
+       // For placed resources, heap key DOES NOT EQUAL the resource key and heap offset MUST be valid.
+       // For committed resources, the heap key EQUALS the resource key and heap offset MUST be zero.
+       // For reserved resources, the heap key EQUALS NULL and heap offset MUST be invalid.
+       void OnDeviceCreateResource(TObjectKey resourceKey, const D3D12_RESOURCE_DESC& desc, TObjectKey heapKey = NULL_OBJECT_KEY, uint64_t heapOffset = INVALID_OFFSET);
+       void OnDeviceCreateHeap(TObjectKey heapKey, const D3D12_HEAP_DESC& desc);
+   
+       // Associates a heap with an existing resource placement.
+       // For reserved resources, the heap key MUST be valid and heap offset must be VALID.
+       void OnCommandQueueUpdateTileMappings(TObjectKey resourceKey, TObjectKey heapKey, UINT NumRanges, const D3D12_TILE_RANGE_FLAGS* pRangeFlags, const UINT* pHeapRangeStartOffsets);
+   
+       void OnDeviceGetResourceAllocationInfo(const D3D12_RESOURCE_DESC& desc, const D3D12_RESOURCE_ALLOCATION_INFO& returnedInfo);
+   
+       // Specifies the resource allocation info associated with a resource key.
+       void SetResourcePlacementInfo(TObjectKey resourceKey, const D3D12_RESOURCE_ALLOCATION_INFO& allocationInfo);
+   
+       // Creates sub-placement that represents a region within an existing resource placement.
+       void CreateResourceSubPlacement(TObjectKey resourceKey, const D3D12_RESOURCE_ALLOCATION_INFO1& originalSubResourcePlacementInfo, const D3D12_RESOURCE_ALLOCATION_INFO& calculatedSubAllocationInfo);
+   
+       // Called during playback to patch resource/heap descs.
+       //
+       // For placed resources, the heap allocation info seperately returns the heap size for one or more resource placement infos.
+       // For committed resources, the heap allocation info is equivelent to the resource being placed at offset zero.
+       // For reserved resources, one or more resource placements represent the returned heap allocation info.
+       //
+       // Returns zero'd info struct if the placements for the resource and/or heap do not exist.
+       // Specifying NULL device gets the placements, if still valid.
+       D3D12_HEAP_ALLOCATION_INFO GetHeapAllocationInfo(ID3D12Device* pDevice, TObjectKey heapKey);
+       D3D12_RESOURCE_ALLOCATION_INFO1 GetResourcePlacementInfo(ID3D12Device* pDevice, TObjectKey resourceKey, uint64_t resourceStartOffset = INVALID_OFFSET, TObjectKey heapKey = NULL_OBJECT_KEY, uint64_t heapOffset = INVALID_OFFSET);
+       D3D12_HEAP_ALLOCATION_INFO GetResourcePlacementInfo1(ID3D12Device* pDevice, TObjectKey resourceKey, TObjectKey heapKey, uint32_t numRanges, const UINT* pHeapRangeStartOffsets, D3D12_RESOURCE_ALLOCATION_INFO1* pResourcePlacementInfo);
+   
+       // Return the original heap offset associated with a resource, captured in the stream data.
+       // Returns INVALID_OFFSET if the heap has no resource associated.
+       uint64_t GetHeapOffset(TObjectKey resourceKey) const;
+   
+   private:
+       friend D3D12ResourcePlacementManagers;
+   
+       void CalculatePlacementOffsetsIfDirty(ID3D12Device* pDevice, TObjectKey heapKey);
+       D3D12_RESOURCE_ALLOCATION_INFO GetResourceAllocationInfo(const D3D12_RESOURCE_DESC& resourceDesc) const;
+       D3D12_RESOURCE_ALLOCATION_INFO1 GetResourcePlacementInfoInternal(ID3D12Device* pDevice, TObjectKey resourceKey, uint64_t resourceStartOffset, TObjectKey heapKey, uint64_t heapOffset);
+   
+       // Describes a resource placed in a heap.
+       struct ResourcePlacement
+       {
+           TObjectKey ResourceKey = NULL_OBJECT_KEY;
+           D3D12_RESOURCE_DESC ResourceDesc = {};
+           D3D12_RESOURCE_ALLOCATION_INFO1 OriginalInfo = {};
+           D3D12_RESOURCE_ALLOCATION_INFO1 CalculatedInfo = {};
+           bool IsDirty = false;  // Recalculates underlying SubPlacement(s)
+           std::map<uint64_t, ResourcePlacement> SubPlacementsByResourceStartOffset;
+       };
+   
+       uint64_t CalculatePlacementOffsets(std::list<ResourcePlacement>* pResourcePlacements);
+   
+       // Associates one more resources placed at the same heap offset.
+       struct ResourcePlacementsPerResourceKey
+       {
+           std::unordered_map<TObjectKey, ResourcePlacement> ResourcePlacementsPerResourceKey;
+       };
+   
+       // Stores resources in order of heap offset.
+       struct ResourcePlacements
+       {
+           D3D12_RESOURCE_ALLOCATION_INFO OriginalInfo = {};
+           D3D12_RESOURCE_ALLOCATION_INFO CalculatedInfo = {};
+           bool IsDirty = false;  // Recalculates underlying Placements(s)
+           std::map<uint64_t, ResourcePlacementsPerResourceKey> ResourcePlacementsByHeapOffset;
+       };
+   
+       std::unordered_map<TObjectKey, ResourcePlacements> mResourcePlacementsPerHeapKey;
+   
+       class ResourceAllocationInfoEntry : public NonCopyable
+       {
+       public:
+           ResourceAllocationInfoEntry(const D3D12_RESOURCE_DESC& desc);  // for lookup
+           ResourceAllocationInfoEntry(const D3D12_RESOURCE_DESC& desc, const D3D12_RESOURCE_ALLOCATION_INFO& info);
+   
+           D3D12_RESOURCE_DESC GetDesc() const;
+           D3D12_RESOURCE_ALLOCATION_INFO GetInfo() const;
+   
+           struct HashFunc
+           {
+               size_t operator()(const ResourceAllocationInfoEntry& entry) const;
+           };
+   
+           struct EqualFunc
+           {
+               bool operator()(const ResourceAllocationInfoEntry& lhs, const ResourceAllocationInfoEntry& rhs) const;
+           };
+   
+       private:
+           D3D12_RESOURCE_DESC mDesc = {};
+           D3D12_RESOURCE_ALLOCATION_INFO mInfo = {};
+       };
+   
+       // Tracks {Desc, ALLOCATION_INFO} per device.
+       std::unordered_set<ResourceAllocationInfoEntry, ResourceAllocationInfoEntry::HashFunc, ResourceAllocationInfoEntry::EqualFunc> mResourceAllocationInfoPerDesc;
+   };
+   
+   // Tracks placements per device.
+   class D3D12ResourcePlacementManagers : public NonCopyable
+   {
+   public:
+       D3D12ResourcePlacementManagers() = default;
+       ~D3D12ResourcePlacementManagers() = default;
+   
+       // Called by stream data pre-processor to create resource placements for a device that will be associated upon playback upon specifying |pDevice|.
+       D3D12ResourcePlacementManager* GetOrCreate(TObjectKey deviceKey);
+   
+   private:
+       std::unordered_map<TObjectKey, std::unique_ptr<D3D12ResourcePlacementManager>> mResourcePlacementManagersPerDeviceKey;
+   };
+   
+   }  // namespace playback
+   }  // namespace cross_gpu
+   }  // namespace gpa

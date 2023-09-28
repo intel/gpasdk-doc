@@ -1,0 +1,57 @@
+
+.. _program_listing_file_include_playback_experiments_viewport-experiment.h:
+
+Program Listing for File viewport-experiment.h
+==============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_experiments_viewport-experiment.h>` (``include\playback\experiments\viewport-experiment.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   (c) Intel Corporation 2023.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "playback/experiments/experiment.h"
+   
+   #include <memory>
+   
+   namespace gpa {
+   namespace playback {
+   
+   class ViewportExperiment
+       : public PipelineExperiment::Prefab
+   {
+   public:
+       ViewportExperiment();
+   
+       ~ViewportExperiment();
+   
+       void AddViewPort(api_types::Viewport viewport);
+   
+       BaseExperiment::Prefab::Impl const& GetImpl() const override final;
+   
+   private:
+       class Impl;
+       std::unique_ptr<Impl> mImpl;
+   };
+   
+   }  // namespace playback
+   }  // namespace gpa

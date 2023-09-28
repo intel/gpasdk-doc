@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Struct CompilerGLSL::Options &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Struct Options::FragmentOptions" href="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1_1FragmentOptions.html" />
+    <link rel="prev" title="Struct CompilerGLSL::BackendVariations" href="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1BackendVariations.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">'Helloworld' Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">'Helloworld' Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">API-Debug-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">Device-Override</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#unions">Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#sept-21-2023">2023.3 (Sept 21 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id35">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id36">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id40">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id41">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2023.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id5">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id8">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id11">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id12">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id13">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id14">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id15">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id16">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id17">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id18">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id19">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../src/reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">C++ Interfaces</a></li>
+      <li class="breadcrumb-item active">Struct CompilerGLSL::Options</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="struct-compilerglsl-options">
+<span id="exhale-struct-structspirv-cross-namespace-1-1compilerglsl-1-1options"></span><h1>Struct CompilerGLSL::Options<a class="headerlink" href="#struct-compilerglsl-options" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_spirv_cross_spirv_glsl.hpp.html#file-include-spirv-cross-spirv-glsl-hpp"><span class="std std-ref">File spirv_glsl.hpp</span></a></p></li>
+</ul>
+<section id="nested-relationships">
+<h2>Nested Relationships<a class="headerlink" href="#nested-relationships" title="Permalink to this headline"></a></h2>
+<p>This struct is a nested type of <a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#exhale-class-classspirv-cross-namespace-1-1compilerglsl"><span class="std std-ref">Class CompilerGLSL</span></a>.</p>
+<section id="nested-types">
+<h3>Nested Types<a class="headerlink" href="#nested-types" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1_1FragmentOptions.html#exhale-struct-structspirv-cross-namespace-1-1compilerglsl-1-1options-1-1fragmentoptions"><span class="std std-ref">Struct Options::FragmentOptions</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1_1VertexOptions.html#exhale-struct-structspirv-cross-namespace-1-1compilerglsl-1-1options-1-1vertexoptions"><span class="std std-ref">Struct Options::VertexOptions</span></a></p></li>
+</ul>
+</section>
+</section>
+<section id="struct-documentation">
+<h2>Struct Documentation<a class="headerlink" href="#struct-documentation" title="Permalink to this headline"></a></h2>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7OptionsE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7OptionsE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7OptionsE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Options</span></span></span><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options9PrecisionE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options9PrecisionE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options9PrecisionE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1a47a1da1e7944bc5be532c2726e2c9e65"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Precision</span></span></span><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options9Precision8DontCareE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options9Precision8DontCareE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options9Precision8DontCareE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1a47a1da1e7944bc5be532c2726e2c9e65a9da6e00152bc6a8b9152df85831649fa"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DontCare</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options9Precision4LowpE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options9Precision4LowpE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options9Precision4LowpE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1a47a1da1e7944bc5be532c2726e2c9e65af09760db8d2c1ac2ebdb431e55566ed8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Lowp</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options9Precision7MediumpE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options9Precision7MediumpE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options9Precision7MediumpE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1a47a1da1e7944bc5be532c2726e2c9e65a6e743a189f9257b021c4cb15996cff24"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Mediump</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options9Precision5HighpE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options9Precision5HighpE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options9Precision5HighpE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1a47a1da1e7944bc5be532c2726e2c9e65aa8610061ed84dc14514922a5e5e88440"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Highp</span></span></span><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options7versionE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options7versionE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options7versionE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::version__uint32_t"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1a1d6741b57579eb05d857f811c4ca2b13"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">version</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">450</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options2esE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options2esE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options2esE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::es__b"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1ad509bc592685c2e4f723ffa5140935c6"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">es</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options15force_temporaryE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options15force_temporaryE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options15force_temporaryE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::force_temporary__b"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1a7ad72a46444b314e5c859b907a595f44"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">force_temporary</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options36force_recompile_max_debug_iterationsE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options36force_recompile_max_debug_iterationsE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options36force_recompile_max_debug_iterationsE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::force_recompile_max_debug_iterations__uint32_t"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1a517020d5ceb0aafc3feb0346f8d35a4e"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">force_recompile_max_debug_iterations</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">3</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options16vulkan_semanticsE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options16vulkan_semanticsE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options16vulkan_semanticsE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::vulkan_semantics__b"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1ad9d586556374906155e0c294daa22f06"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vulkan_semantics</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options23separate_shader_objectsE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options23separate_shader_objectsE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options23separate_shader_objectsE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::separate_shader_objects__b"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1a05cdec467dbf7998f9dad446a4aa3001"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">separate_shader_objects</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options31flatten_multidimensional_arraysE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options31flatten_multidimensional_arraysE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options31flatten_multidimensional_arraysE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::flatten_multidimensional_arrays__b"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1a43af551a209fbc7aef1315cd80173a93"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">flatten_multidimensional_arrays</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options24enable_420pack_extensionE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options24enable_420pack_extensionE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options24enable_420pack_extensionE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::enable_420pack_extension__b"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1a616df7609f83e98afb047e63a49150df"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">enable_420pack_extension</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options36emit_push_constant_as_uniform_bufferE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options36emit_push_constant_as_uniform_bufferE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options36emit_push_constant_as_uniform_bufferE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::emit_push_constant_as_uniform_buffer__b"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1af7490e5c1427ee8f45bb53efe5443e40"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">emit_push_constant_as_uniform_buffer</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options37emit_uniform_buffer_as_plain_uniformsE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options37emit_uniform_buffer_as_plain_uniformsE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options37emit_uniform_buffer_as_plain_uniformsE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::emit_uniform_buffer_as_plain_uniforms__b"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1a993ef5bc514f8546a3e74dfe92ee697b"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">emit_uniform_buffer_as_plain_uniforms</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options20emit_line_directivesE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options20emit_line_directivesE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options20emit_line_directivesE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::emit_line_directives__b"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1a27bfa0e027321d1eee1375467e1b945b"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">emit_line_directives</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options40enable_storage_image_qualifier_deductionE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options40enable_storage_image_qualifier_deductionE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options40enable_storage_image_qualifier_deductionE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::enable_storage_image_qualifier_deduction__b"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1a08d3d306f2644c9c516063576d95197a"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">enable_storage_image_qualifier_deduction</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options32force_zero_initialized_variablesE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options32force_zero_initialized_variablesE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options32force_zero_initialized_variablesE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::force_zero_initialized_variables__b"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1a793024b366237df32df5c41385b4d86a"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">force_zero_initialized_variables</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options25force_flattened_io_blocksE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options25force_flattened_io_blocksE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options25force_flattened_io_blocksE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::force_flattened_io_blocks__b"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1ae220a2819cb53c85408b48b010085fab"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">force_flattened_io_blocks</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options16relax_nan_checksE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options16relax_nan_checksE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options16relax_nan_checksE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::relax_nan_checks__b"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1a874a5dc121197388c61ae2a10f18c9e8"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">relax_nan_checks</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options32enable_row_major_load_workaroundE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options32enable_row_major_load_workaroundE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options32enable_row_major_load_workaroundE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::enable_row_major_load_workaround__b"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1a3f77f449efc4f6fca6c1318b38ae662c"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">enable_row_major_load_workaround</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options24ovr_multiview_view_countE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options24ovr_multiview_view_countE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options24ovr_multiview_view_countE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::ovr_multiview_view_count__uint32_t"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1ab7b907427f82b33d691ef4717b3096d0"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ovr_multiview_view_count</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options6vertexE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options6vertexE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options6vertexE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::vertex__SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::VertexOptions"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1a0fe1275c341b43d271bc3f4f1d23bdd6"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">SPIRV_CROSS_NAMESPACE</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSLE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL"><span class="n"><span class="pre">CompilerGLSL</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7OptionsE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options"><span class="n"><span class="pre">Options</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options13VertexOptionsE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::VertexOptions"><span class="n"><span class="pre">VertexOptions</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vertex</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options8fragmentE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options8fragmentE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options8fragmentE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::fragment__SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::FragmentOptions"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1a7c302c2e993abb0574e4d45164c16894"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">SPIRV_CROSS_NAMESPACE</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSLE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL"><span class="n"><span class="pre">CompilerGLSL</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7OptionsE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options"><span class="n"><span class="pre">Options</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options15FragmentOptionsE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::FragmentOptions"><span class="n"><span class="pre">FragmentOptions</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fragment</span></span></span><br /></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options15FragmentOptionsE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options15FragmentOptionsE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options15FragmentOptionsE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::FragmentOptions"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1_1FragmentOptions"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FragmentOptions</span></span></span><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options15FragmentOptions23default_float_precisionE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options15FragmentOptions23default_float_precisionE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options15FragmentOptions23default_float_precisionE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::FragmentOptions::default_float_precision__Precision"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1_1FragmentOptions_1af79ea889acc5923db76452bb5fc14c3a"></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options9PrecisionE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::Precision"><span class="n"><span class="pre">Precision</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">default_float_precision</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options9Precision7MediumpE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::Mediump"><span class="n"><span class="pre">Mediump</span></span></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options15FragmentOptions21default_int_precisionE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options15FragmentOptions21default_int_precisionE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options15FragmentOptions21default_int_precisionE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::FragmentOptions::default_int_precision__Precision"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1_1FragmentOptions_1a0e858538607504f47138373bbb850d21"></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options9PrecisionE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::Precision"><span class="n"><span class="pre">Precision</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">default_int_precision</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options9Precision5HighpE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::Highp"><span class="n"><span class="pre">Highp</span></span></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options13VertexOptionsE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options13VertexOptionsE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options13VertexOptionsE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::VertexOptions"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1_1VertexOptions"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VertexOptions</span></span></span><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options13VertexOptions15fixup_clipspaceE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options13VertexOptions15fixup_clipspaceE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options13VertexOptions15fixup_clipspaceE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::VertexOptions::fixup_clipspace__b"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1_1VertexOptions_1aa95935a8a42172913fd7ed49ef9574cf"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fixup_clipspace</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options13VertexOptions11flip_vert_yE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options13VertexOptions11flip_vert_yE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options13VertexOptions11flip_vert_yE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::VertexOptions::flip_vert_y__b"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1_1VertexOptions_1a41aaf483b38e5e47c6144e04a15d8eac"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">flip_vert_y</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options13VertexOptions29support_nonzero_base_instanceE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options13VertexOptions29support_nonzero_base_instanceE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL7Options13VertexOptions29support_nonzero_base_instanceE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::Options::VertexOptions::support_nonzero_base_instance__b"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1_1VertexOptions_1a21be99eb1d8cf78d9eabc90d03b28220"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">support_nonzero_base_instance</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1BackendVariations.html" class="btn btn-neutral float-left" title="Struct CompilerGLSL::BackendVariations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1_1FragmentOptions.html" class="btn btn-neutral float-right" title="Struct Options::FragmentOptions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

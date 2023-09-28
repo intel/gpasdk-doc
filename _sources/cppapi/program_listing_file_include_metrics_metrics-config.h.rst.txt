@@ -46,6 +46,9 @@ Program Listing for File metrics-config.h
    
        #if defined(UNICODE) || defined(_UNICODE)
            #if !defined(STD_STRING)
+           #include <wctype.h>
+           #include <string>
+   
            #define STD_STRING std::wstring
            #define SPRINTF(dst, count, fmt, ...) swprintf_s(dst, count, fmt, __VA_ARGS__)
            #define STRCMP(a, b) wcscmp(a, b)
@@ -55,6 +58,8 @@ Program Listing for File metrics-config.h
            #endif
        #else
            #if !defined(STD_STRING)
+           #include <ctype.h>
+   
            #define STD_STRING std::string
            #define SPRINTF(dst, count, fmt, ...) sprintf_s(dst, count, fmt, __VA_ARGS__)
            #define STRCMP(a, b) strcmp(a, b)
@@ -75,6 +80,8 @@ Program Listing for File metrics-config.h
        #define __STDC_WANT_LIB_EXT1__ 1
        #include <stdio.h>
        #include <string.h>
+       #include <string>
+   
        #if defined(GPA_METRICS_EXPORTS)
            #define GPA_METRICS_EXPORT extern "C" __attribute__((visibility("default")))
            #define GPA_METRICS_CPP_EXPORT __attribute__((visibility("default")))

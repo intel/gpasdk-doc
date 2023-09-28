@@ -39,6 +39,8 @@ Program Listing for File d3d12-playback-support.h
    #include <string>
    #include "concurrent/lock.h"
    #include "d3d12-state-tracking/d3d12-object.h"
+   #include "cross-gpu/d3d12-acceleration-structure-placement-manager.h"
+   #include "cross-gpu/d3d12-resource-placement-manager.h"
    
    struct GPADispatchTable;
    
@@ -58,10 +60,6 @@ Program Listing for File d3d12-playback-support.h
    };
    }  // namespace directx
    }  // namespace raytracing
-   
-   namespace cross_gpu {
-   class CrossGpuManager;
-   }  // namespace cross_gpu
    
    namespace utility {
    namespace directx {
@@ -112,6 +110,7 @@ Program Listing for File d3d12-playback-support.h
        static void EnumerateKnownShaderMapping(ID3D12StateObject* stateObject, std::function<void(gpa::utility::directx::D3D12ShaderIdentifier captureTime, gpa::utility::directx::D3D12ShaderIdentifier playbackTime, std::wstring const* exportName)> cb);
        static size_t GetKnownShaderMappingCount(ID3D12StateObject* stateObject);
        static uint64_t GetLastMappingUpdateTimestamp(ID3D12StateObject* stateObj);
+       static void OnGetShaderIdentifier(ID3D12StateObject* stateObject, ID3D12StateObjectProperties* properties, LPCWSTR pExportName, void* captureTimeIdentifier, GPADispatchTable const*& table);
    
        void OnPreCreateDescriptorHeap(uint64_t captureDeviceKey);
        void OnPostCreateDescriptorHeap(ID3D12DescriptorHeap* heap);
@@ -125,8 +124,6 @@ Program Listing for File d3d12-playback-support.h
        std::map<uint64_t, D3D12_GPU_VIRTUAL_ADDRESS_RANGE>& GetGpuVirtualAddressMap();
        uint64_t GetGpuVirtualAddressMapUpdateTimestamp();
        utility::directx::D3D12ShaderIdentifier const* GetCaptureD3D12ShaderIdentifier(utility::directx::D3D12ShaderIdentifier const& playbackIdentifier, ID3D12StateObject* stateObj) const;
-   
-       cross_gpu::CrossGpuManager& GetCrossGpuManager() const;
    
        std::map<uint64_t, DescriptorHeapDataDX12*>& GetDescriptorHeapByCaptureAddressMap();
        uint64_t GetDescriptorHeapByCaptureAddressMapUpdateTimestamp();
@@ -155,6 +152,11 @@ Program Listing for File d3d12-playback-support.h
        std::map<D3D12_GPU_VIRTUAL_ADDRESS, D3D12_GPU_VIRTUAL_ADDRESS> const& D3D12PlaybackSupport::GetGpuVirtualAddressASReplacementMap() const;
        uint64_t D3D12PlaybackSupport::GetGpuVirtualAddressASReplacementMapUpdateTimestamp() const;
        // End of suboptimal
+       
+       // Optimal cross platform related
+       cross_gpu::playback::D3D12ResourcePlacementManager* GetOrCreateResourcePlacementManager(cross_gpu::TObjectKey deviceKey);
+       cross_gpu::playback::D3D12AccelerationStructurePlacementManager* GetAccelerationStructurePlacementManager();
+       // End of optimal
    
    private:
        bool TranslateAccelerationStructureGPUVirtualAddress(D3D12_GPU_VIRTUAL_ADDRESS& address);
@@ -186,7 +188,8 @@ Program Listing for File d3d12-playback-support.h
    
        std::map<ID3D12StateObject*, d3d12_state_tracker::WeakPtr<ID3D12StateObject>> mKnownStateObjects;
    
-       std::unique_ptr<cross_gpu::CrossGpuManager> mCrossGpuManager;
+       cross_gpu::playback::D3D12ResourcePlacementManagers mResourcePlacementManagers;
+       cross_gpu::playback::D3D12AccelerationStructurePlacementManager mAccelerationStructurePlacementManager;
    
        raytracing::directx::RaytracingArgumentsNotifier* mRegisteredNotifier = nullptr;
    

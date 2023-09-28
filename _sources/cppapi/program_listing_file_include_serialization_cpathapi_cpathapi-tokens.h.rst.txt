@@ -1,0 +1,233 @@
+
+.. _program_listing_file_include_serialization_cpathapi_cpathapi-tokens.h:
+
+Program Listing for File cpathapi-tokens.h
+==========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_serialization_cpathapi_cpathapi-tokens.h>` (``include\serialization\cpathapi\cpathapi-tokens.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   ******************************************************************************/
+   #pragma once
+   #include "igpa-config.h"
+   #include <stdint.h>
+   #include <unordered_set>
+   #include "serialization/token.h"
+   namespace gpa {
+   namespace serialization {
+   namespace cpathapi {
+   enum ClassToken : uint16_t {
+       kIResource = 0xc21f,
+   };
+   enum FunctionToken : uint32_t {
+       kNoParameter = 0x39556429,
+       kPrimitiveParameter = 0xd9519419,
+       kPointerParameter = 0xaab62b21,
+       kConstPointerParameter = 0xf948edd6,
+       kFixedSizeArrayParameter = 0xcff03e96,
+       kFixedSizeConstArrayParameter = 0x708c249f,
+       kFixedSizePointerParameter = 0xa0e16976,
+       kFixedSizeConstPointerParameter = 0x19eee3a3,
+       kFixedSizePointerParameterNoAnnotation = 0x8b2ac484,
+       kPointerParamterWithLengthToCalculate = 0x636134f5,
+       kConstPointerParameterWithLengthToCalculate = 0xfbbadc57,
+       kOutputPointerParameter = 0x218fdb3e,
+       kInputOutputPointerParameter = 0x430fb610,
+       kInputOutputPointerParameter1 = 0xa1bb9b01,
+       kOutputPointerParameterWithEnum = 0x760bad6d,
+       kPrimitiveStructParameter = 0x4c2d77f0,
+       kPointerToPrimitiveStructParameter = 0xfb164c2e,
+       kConstPointerToPrimitiveStructParameter = 0x79d171a7,
+       kOutputPointerToPrimitiveStructParameter = 0x807bdeaf,
+       kPointerToPrimitiveStructWithSizeParameter = 0xc6fd3ef,
+       kNullTerminatedPointerToPrimitiveStructParameter = 0xc7a3e4fa,
+       kEndElementTerminatedPointerToPrimitiveStructParameter = 0x87b87b88,
+       kEndElementTerminatedPointerToPrimitiveStructParameterNoAnnotation = 0xdecbb98a,
+       kOutputInterfaceParameter = 0x7c528104,
+       kOutputInterfaceParameter1 = 0xb9e1197d,
+       kOutputInterfaceParameter2 = 0xb9e1197e,
+       kOutputInterfaceParameterWithEnum = 0x6da2d4bb,
+       kInterfaceParameter = 0x95bbaa43,
+       kInterfaceParameterArrayWithSize = 0xc4596d5,
+       kOutputArrayInterfaceParameter = 0x73055537,
+       kBlobParameter = 0xabab334d,
+       kConstBlobParameter = 0xf003cc8c,
+       kNullTerminatedStringParameter = 0x33f7c40b,
+       kOutputPointerWithSizeParameter = 0x593fdff,
+       kDataPointerParameter_DependentOnResource = 0x6609e2fe,
+       kArrayParameterWithLengthToCalculate = 0x330c89d2,
+       kPointerToStructWithArrayParameter = 0xa8334160,
+       kPointerToStructWithInterfaceParameter = 0xeb889f06,
+       kPointerToStructWithUnionWithSizeParameter = 0x13aa1b13,
+       kDataPointerInStructArrayCountInStructPointerParameter = 0x672f76f4,
+       kNullTerminatedStringInStructArrayInStructInPointerStructParameter = 0x5813d315,
+       kEnumInFunctionCallParameter = 0xf7ce77fc,
+       kEmbeddedEnumInReferencedStructCallParameter = 0x15a76c00,
+       kReferencedEnumInReferencedStructCallParameter = 0x4f9d54cd,
+       kPrimitiveReturnValue = 0x713a0721,
+       kPritiveStructReturnValue = 0x39e6c202,
+       kInterfaceReturnValue = 0xbbffc253,
+       kGetSize = 0x97cbb78,
+       kGetHeight = 0xad1b7f9a,
+       kMap = 0x3e2ff325,
+       kUnmap = 0xcfcd4902,
+       kPrintContent = 0x118d9b3d,
+   };
+   inline char const* FunctionTokenToString(FunctionToken functionToken)
+   {
+       switch (functionToken)
+       {
+           case kNoParameter: return "kNoParameter"; break;
+           case kPrimitiveParameter: return "kPrimitiveParameter"; break;
+           case kPointerParameter: return "kPointerParameter"; break;
+           case kConstPointerParameter: return "kConstPointerParameter"; break;
+           case kFixedSizeArrayParameter: return "kFixedSizeArrayParameter"; break;
+           case kFixedSizeConstArrayParameter: return "kFixedSizeConstArrayParameter"; break;
+           case kFixedSizePointerParameter: return "kFixedSizePointerParameter"; break;
+           case kFixedSizeConstPointerParameter: return "kFixedSizeConstPointerParameter"; break;
+           case kFixedSizePointerParameterNoAnnotation: return "kFixedSizePointerParameterNoAnnotation"; break;
+           case kPointerParamterWithLengthToCalculate: return "kPointerParamterWithLengthToCalculate"; break;
+           case kConstPointerParameterWithLengthToCalculate: return "kConstPointerParameterWithLengthToCalculate"; break;
+           case kOutputPointerParameter: return "kOutputPointerParameter"; break;
+           case kInputOutputPointerParameter: return "kInputOutputPointerParameter"; break;
+           case kInputOutputPointerParameter1: return "kInputOutputPointerParameter1"; break;
+           case kOutputPointerParameterWithEnum: return "kOutputPointerParameterWithEnum"; break;
+           case kPrimitiveStructParameter: return "kPrimitiveStructParameter"; break;
+           case kPointerToPrimitiveStructParameter: return "kPointerToPrimitiveStructParameter"; break;
+           case kConstPointerToPrimitiveStructParameter: return "kConstPointerToPrimitiveStructParameter"; break;
+           case kOutputPointerToPrimitiveStructParameter: return "kOutputPointerToPrimitiveStructParameter"; break;
+           case kPointerToPrimitiveStructWithSizeParameter: return "kPointerToPrimitiveStructWithSizeParameter"; break;
+           case kNullTerminatedPointerToPrimitiveStructParameter: return "kNullTerminatedPointerToPrimitiveStructParameter"; break;
+           case kEndElementTerminatedPointerToPrimitiveStructParameter: return "kEndElementTerminatedPointerToPrimitiveStructParameter"; break;
+           case kEndElementTerminatedPointerToPrimitiveStructParameterNoAnnotation: return "kEndElementTerminatedPointerToPrimitiveStructParameterNoAnnotation"; break;
+           case kOutputInterfaceParameter: return "kOutputInterfaceParameter"; break;
+           case kOutputInterfaceParameter1: return "kOutputInterfaceParameter1"; break;
+           case kOutputInterfaceParameter2: return "kOutputInterfaceParameter2"; break;
+           case kOutputInterfaceParameterWithEnum: return "kOutputInterfaceParameterWithEnum"; break;
+           case kInterfaceParameter: return "kInterfaceParameter"; break;
+           case kInterfaceParameterArrayWithSize: return "kInterfaceParameterArrayWithSize"; break;
+           case kOutputArrayInterfaceParameter: return "kOutputArrayInterfaceParameter"; break;
+           case kBlobParameter: return "kBlobParameter"; break;
+           case kConstBlobParameter: return "kConstBlobParameter"; break;
+           case kNullTerminatedStringParameter: return "kNullTerminatedStringParameter"; break;
+           case kOutputPointerWithSizeParameter: return "kOutputPointerWithSizeParameter"; break;
+           case kDataPointerParameter_DependentOnResource: return "kDataPointerParameter_DependentOnResource"; break;
+           case kArrayParameterWithLengthToCalculate: return "kArrayParameterWithLengthToCalculate"; break;
+           case kPointerToStructWithArrayParameter: return "kPointerToStructWithArrayParameter"; break;
+           case kPointerToStructWithInterfaceParameter: return "kPointerToStructWithInterfaceParameter"; break;
+           case kPointerToStructWithUnionWithSizeParameter: return "kPointerToStructWithUnionWithSizeParameter"; break;
+           case kDataPointerInStructArrayCountInStructPointerParameter: return "kDataPointerInStructArrayCountInStructPointerParameter"; break;
+           case kNullTerminatedStringInStructArrayInStructInPointerStructParameter: return "kNullTerminatedStringInStructArrayInStructInPointerStructParameter"; break;
+           case kEnumInFunctionCallParameter: return "kEnumInFunctionCallParameter"; break;
+           case kEmbeddedEnumInReferencedStructCallParameter: return "kEmbeddedEnumInReferencedStructCallParameter"; break;
+           case kReferencedEnumInReferencedStructCallParameter: return "kReferencedEnumInReferencedStructCallParameter"; break;
+           case kPrimitiveReturnValue: return "kPrimitiveReturnValue"; break;
+           case kPritiveStructReturnValue: return "kPritiveStructReturnValue"; break;
+           case kInterfaceReturnValue: return "kInterfaceReturnValue"; break;
+           case kGetSize: return "kGetSize"; break;
+           case kGetHeight: return "kGetHeight"; break;
+           case kMap: return "kMap"; break;
+           case kUnmap: return "kUnmap"; break;
+           case kPrintContent: return "kPrintContent"; break;
+           default: return "Unknown cpathapi::FunctionToken";
+       }
+   
+   }
+   
+   inline bool IsValidClassToken(ClassToken token)
+   {
+       (void)token;
+       switch (token)
+       {
+           case kIResource: return true;
+       }
+   
+       return false;
+   }
+   
+   inline bool IsValidFunctionToken(FunctionToken token) 
+   {
+       switch (token)
+       {
+           case kNoParameter: return true;
+           case kPrimitiveParameter: return true;
+           case kPointerParameter: return true;
+           case kConstPointerParameter: return true;
+           case kFixedSizeArrayParameter: return true;
+           case kFixedSizeConstArrayParameter: return true;
+           case kFixedSizePointerParameter: return true;
+           case kFixedSizeConstPointerParameter: return true;
+           case kFixedSizePointerParameterNoAnnotation: return true;
+           case kPointerParamterWithLengthToCalculate: return true;
+           case kConstPointerParameterWithLengthToCalculate: return true;
+           case kOutputPointerParameter: return true;
+           case kInputOutputPointerParameter: return true;
+           case kInputOutputPointerParameter1: return true;
+           case kOutputPointerParameterWithEnum: return true;
+           case kPrimitiveStructParameter: return true;
+           case kPointerToPrimitiveStructParameter: return true;
+           case kConstPointerToPrimitiveStructParameter: return true;
+           case kOutputPointerToPrimitiveStructParameter: return true;
+           case kPointerToPrimitiveStructWithSizeParameter: return true;
+           case kNullTerminatedPointerToPrimitiveStructParameter: return true;
+           case kEndElementTerminatedPointerToPrimitiveStructParameter: return true;
+           case kEndElementTerminatedPointerToPrimitiveStructParameterNoAnnotation: return true;
+           case kOutputInterfaceParameter: return true;
+           case kOutputInterfaceParameter1: return true;
+           case kOutputInterfaceParameter2: return true;
+           case kOutputInterfaceParameterWithEnum: return true;
+           case kInterfaceParameter: return true;
+           case kInterfaceParameterArrayWithSize: return true;
+           case kOutputArrayInterfaceParameter: return true;
+           case kBlobParameter: return true;
+           case kConstBlobParameter: return true;
+           case kNullTerminatedStringParameter: return true;
+           case kOutputPointerWithSizeParameter: return true;
+           case kDataPointerParameter_DependentOnResource: return true;
+           case kArrayParameterWithLengthToCalculate: return true;
+           case kPointerToStructWithArrayParameter: return true;
+           case kPointerToStructWithInterfaceParameter: return true;
+           case kPointerToStructWithUnionWithSizeParameter: return true;
+           case kDataPointerInStructArrayCountInStructPointerParameter: return true;
+           case kNullTerminatedStringInStructArrayInStructInPointerStructParameter: return true;
+           case kEnumInFunctionCallParameter: return true;
+           case kEmbeddedEnumInReferencedStructCallParameter: return true;
+           case kReferencedEnumInReferencedStructCallParameter: return true;
+           case kPrimitiveReturnValue: return true;
+           case kPritiveStructReturnValue: return true;
+           case kInterfaceReturnValue: return true;
+           case kGetSize: return true;
+           case kGetHeight: return true;
+           case kMap: return true;
+           case kUnmap: return true;
+           case kPrintContent: return true;
+       }
+   
+       return false;
+   }
+   
+   inline bool IsValidToken(GPAToken token)
+   {
+       bool const apiValid = token._api == kCPathApi;
+       bool const interfaceValid = IsValidClassToken((ClassToken)token._class);
+       bool const functionValid = IsValidFunctionToken((FunctionToken)token._function);
+       return (apiValid && interfaceValid && functionValid);
+   }
+   
+   } // namespace cpathapi
+   } // namespace serialization
+   } // namespace gpa

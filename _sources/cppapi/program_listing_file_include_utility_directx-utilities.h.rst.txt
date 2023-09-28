@@ -81,6 +81,9 @@ Program Listing for File directx-utilities.h
    // {2ED93005-E5AC-4EFC-90F7-091EE2D7884F}
    static const GUID sExtensionResourceDataContainerGUID = {0x2ed93005, 0xe5ac, 0x4efc, {0x90, 0xf7, 0x9, 0x1e, 0xe2, 0xd7, 0x88, 0x4f}};
    
+   // {2ED93005-E5AC-4EFC-90F7-091EE2D6884F}
+   static const GUID sResourceAllocationInfoGUID = {0x2ed93005, 0xe5ac, 0x4efc, {0x90, 0xf7, 0x9, 0x1e, 0xe2, 0xd6, 0x88, 0x4f}};
+   
    template<class Type>
    constexpr bool has_private_data =
        std::is_convertible<Type, ID3D11Device*>::value ||
@@ -303,18 +306,32 @@ Program Listing for File directx-utilities.h
    at state capture time to copy down from the GPU, and so this object is used to keep the resource
    data around for those extension scenarios as well. 
    */
+   struct DataUpdate
+   {
+       std::vector<uint8_t> data;
+       uint64_t timestamp;
+   };
+   
+   typedef std::vector<DataUpdate> DataUpdates;
+   typedef DataUpdates::iterator UpdateIter;
+   typedef DataUpdates::const_iterator UpdateIterConst;
+   
    class D3DResourceDataContainerImpl
    {
    public:
        D3DResourceDataContainerImpl(D3D12_RESOURCE_DESC const& desc);
    
-       void StoreData(void* data, size_t byteLen);
-       void* Data() const;
-       size_t DataLen() const;
+       void AppendDataUpdate(uint64_t timestamp, void* data, size_t byteLen);
+       size_t UpdateCount() const;
        D3D12_RESOURCE_DESC const& Desc() const;
    
+       UpdateIter begin() { return mDataUpdates.begin(); }
+       UpdateIterConst cbegin() const { return mDataUpdates.cbegin(); }
+       UpdateIter end() { return mDataUpdates.end(); }
+       UpdateIterConst cend() const { return mDataUpdates.cend(); }
+   
    private:
-       std::vector<uint8_t> mData;
+       DataUpdates mDataUpdates;
        D3D12_RESOURCE_DESC mDesc;
    };
    
@@ -324,10 +341,14 @@ Program Listing for File directx-utilities.h
        D3DResourceDataContainer(D3D12_RESOURCE_DESC const& desc);
        std::shared_ptr<D3DResourceDataContainerImpl> mImpl;
    
-       void StoreData(void* data, size_t byteLen);
-       void* Data() const;
-       size_t DataLen() const;
+       void AppendDataUpdate(uint64_t timestamp, void* data, size_t byteLen);
+       size_t UpdateCount() const;
        D3D12_RESOURCE_DESC const& Desc() const;
+   
+       UpdateIter begin() { return mImpl->begin(); }
+       UpdateIterConst cbegin() const { return mImpl->cbegin(); }
+       UpdateIter end() { return mImpl->end(); }
+       UpdateIterConst cend() const { return mImpl->cend(); }
    };
    
    template<typename DeviceType>
@@ -577,6 +598,10 @@ Program Listing for File directx-utilities.h
    
    // Aligns the |address| to the nearest multiple of |alignment| then returns the number of alignment bytes needed for alignment.
    D3D12_GPU_VIRTUAL_ADDRESS AlignVATo(D3D12_GPU_VIRTUAL_ADDRESS address, uint64_t alignment, uint64_t* bytesToAlign = nullptr);
+   
+   // Helper to get pointer to D3D12_RAYTRACING_GEOMETRY_DESC regardless of the geometry layout specified in the AS input.
+   // https://microsoft.github.io/DirectX-Specs/d3d/Raytracing.html#d3d12_raytracing_geometry_desc
+   D3D12_RAYTRACING_GEOMETRY_DESC const* GetRaytracingGeometryDescAtIndex(const D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS& blasInputs, uint32_t indexOfGeometryDesc);
    
    }  // namespace directx
    }  // namespace utility

@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enum FunctionToken &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Enum ClassToken" href="enum_cpathapi-tokens_8h_1a4549e7a3ff201be94dd45099eba035aa.html" />
+    <link rel="prev" title="Enum ClassToken" href="enum_compathapi-tokens_8h_1aabdb8a00c240d7c90bf65e4607fb40d8.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">'Helloworld' Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">'Helloworld' Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">API-Debug-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">Device-Override</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#unions">Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#sept-21-2023">2023.3 (Sept 21 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id35">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id36">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id40">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id41">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2023.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id5">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id8">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id11">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id12">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id13">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id14">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id15">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id16">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id17">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id18">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id19">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../src/reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">C++ Interfaces</a></li>
+      <li class="breadcrumb-item active">Enum FunctionToken</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="enum-functiontoken">
+<span id="exhale-enum-compathapi-tokens-8h-1a2b46b1c9cf4379179d611519e51dee9b"></span><h1>Enum FunctionToken<a class="headerlink" href="#enum-functiontoken" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_serialization_compathapi_compathapi-tokens.h.html#file-include-serialization-compathapi-compathapi-tokens-h"><span class="std std-ref">File compathapi-tokens.h</span></a></p></li>
+</ul>
+<section id="enum-documentation">
+<h2>Enum Documentation<a class="headerlink" href="#enum-documentation" title="Permalink to this headline"></a></h2>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionTokenE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionTokenE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionTokenE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9b"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">gpa</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">serialization</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">compathapi</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">FunctionToken</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionTokenE" title="Permalink to this definition"></a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken25kCreatePrimitiveParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken25kCreatePrimitiveParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken25kCreatePrimitiveParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba98fe9b3c927458860efc8f81b65d70be"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kCreatePrimitiveParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken25kCreatePrimitiveParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken22kCreateStructParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken22kCreateStructParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken22kCreateStructParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9bad6d6f6c69fb892c6079cfcb32da08af0"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kCreateStructParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken22kCreateStructParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken25kCreateInterfaceParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken25kCreateInterfaceParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken25kCreateInterfaceParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba4e05736738493e7a5b5432921c7a4548"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kCreateInterfaceParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken25kCreateInterfaceParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken20kCreateDataParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken20kCreateDataParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken20kCreateDataParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba4f0bb9b1bf5ff3416dfeee058b5bdfb6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kCreateDataParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken20kCreateDataParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken23kCreateVariousParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken23kCreateVariousParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken23kCreateVariousParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9bab208fb3aef54d77a2d68c93fd5ca53f9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kCreateVariousParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken23kCreateVariousParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken19kCreateReturnValuesE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken19kCreateReturnValuesE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken19kCreateReturnValuesE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9babca3df3dd2a4f970a1cf88dc17576555"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kCreateReturnValues</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken19kCreateReturnValuesE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken15kQueryInterfaceE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken15kQueryInterfaceE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken15kQueryInterfaceE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba8851592dc4879347b53e7acb95a00390"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kQueryInterface</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken15kQueryInterfaceE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken7kAddRefE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken7kAddRefE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken7kAddRefE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba9f639361d73159da5f342368247a42e8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kAddRef</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken7kAddRefE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken8kReleaseE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken8kReleaseE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken8kReleaseE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba76e562df3a0225cd193228ce246b7472"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kRelease</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken8kReleaseE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken8kGetSizeE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken8kGetSizeE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken8kGetSizeE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9baf4ee4e2aafe5750c31e39a7a6ad64954"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kGetSize</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken8kGetSizeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken4kMapE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken4kMapE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken4kMapE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9baecca9ea267a1d0950eadaaa82e6de9d9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kMap</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken4kMapE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken6kUnmapE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken6kUnmapE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken6kUnmapE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba9b69c67cfdb04a75b3ac4e0ceddf6bc3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kUnmap</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken6kUnmapE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken13kPrintContentE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken13kPrintContentE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken13kPrintContentE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9baf1574f2ef84562b35eea2ffebe0a92e1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kPrintContent</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken13kPrintContentE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken15kPrintContentExE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken15kPrintContentExE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken15kPrintContentExE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9baf068ca38b568ba3f5ca4f393af8e06b9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kPrintContentEx</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken15kPrintContentExE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken12kNoParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken12kNoParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken12kNoParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba10152f10e4cb24e0747287b7d65f338f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kNoParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken12kNoParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken19kPrimitiveParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken19kPrimitiveParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken19kPrimitiveParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9bafe97ed791faf7b2c7885408753479146"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kPrimitiveParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken19kPrimitiveParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken17kPointerParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken17kPointerParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken17kPointerParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba978499900bbbecb477415d4902dc5687"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kPointerParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken17kPointerParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken22kConstPointerParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken22kConstPointerParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken22kConstPointerParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba42a19eb47401578a0db5b6069f8cc2f9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kConstPointerParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken22kConstPointerParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken24kFixedSizeArrayParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken24kFixedSizeArrayParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken24kFixedSizeArrayParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9bae98c44703ce2e3442a8cb20bddcd52c3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kFixedSizeArrayParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken24kFixedSizeArrayParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken29kFixedSizeConstArrayParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken29kFixedSizeConstArrayParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken29kFixedSizeConstArrayParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba26bb2864b68e0568d5f948da61043ae3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kFixedSizeConstArrayParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken29kFixedSizeConstArrayParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken26kFixedSizePointerParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken26kFixedSizePointerParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken26kFixedSizePointerParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9bae4207e678663ab158dae5ecca6a5d498"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kFixedSizePointerParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken26kFixedSizePointerParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken31kFixedSizeConstPointerParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken31kFixedSizeConstPointerParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken31kFixedSizeConstPointerParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba66075d70f6a7ac1b89227c189bd3e248"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kFixedSizeConstPointerParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken31kFixedSizeConstPointerParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken38kFixedSizePointerParameterNoAnnotationE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken38kFixedSizePointerParameterNoAnnotationE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken38kFixedSizePointerParameterNoAnnotationE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9babbe99a39743607a6cf03f694e5df8269"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kFixedSizePointerParameterNoAnnotation</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken38kFixedSizePointerParameterNoAnnotationE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken37kPointerParamterWithLengthToCalculateE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken37kPointerParamterWithLengthToCalculateE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken37kPointerParamterWithLengthToCalculateE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9bada04cc3e5efbee3c86c92dc2cb7f7252"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kPointerParamterWithLengthToCalculate</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken37kPointerParamterWithLengthToCalculateE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken43kConstPointerParameterWithLengthToCalculateE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken43kConstPointerParameterWithLengthToCalculateE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken43kConstPointerParameterWithLengthToCalculateE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9bacb5528ef05cac517533d213d8169a821"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kConstPointerParameterWithLengthToCalculate</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken43kConstPointerParameterWithLengthToCalculateE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken23kOutputPointerParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken23kOutputPointerParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken23kOutputPointerParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba7a107e284779b38d5c2487449da2c294"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kOutputPointerParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken23kOutputPointerParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken28kInputOutputPointerParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken28kInputOutputPointerParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken28kInputOutputPointerParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9bac21cfe94397d48af7ecde5eb2621d1a5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kInputOutputPointerParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken28kInputOutputPointerParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken29kInputOutputPointerParameter1E">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken29kInputOutputPointerParameter1E"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken29kInputOutputPointerParameter1E"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba18a2d88f2804f4d940da0f62a30171f8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kInputOutputPointerParameter1</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken29kInputOutputPointerParameter1E" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken31kOutputPointerParameterWithEnumE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken31kOutputPointerParameterWithEnumE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken31kOutputPointerParameterWithEnumE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba904eba2255cf15c6dead91a077053797"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kOutputPointerParameterWithEnum</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken31kOutputPointerParameterWithEnumE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken25kPrimitiveStructParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken25kPrimitiveStructParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken25kPrimitiveStructParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9babd31d16822308885c9f68e1e80f4c75a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kPrimitiveStructParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken25kPrimitiveStructParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken34kPointerToPrimitiveStructParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken34kPointerToPrimitiveStructParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken34kPointerToPrimitiveStructParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba20d53eb198698680760279010cab7d77"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kPointerToPrimitiveStructParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken34kPointerToPrimitiveStructParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken39kConstPointerToPrimitiveStructParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken39kConstPointerToPrimitiveStructParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken39kConstPointerToPrimitiveStructParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba35d8a1160c56030ac1f6a8b3eddf383c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kConstPointerToPrimitiveStructParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken39kConstPointerToPrimitiveStructParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken40kOutputPointerToPrimitiveStructParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken40kOutputPointerToPrimitiveStructParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken40kOutputPointerToPrimitiveStructParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9baa8a39dc988a263ecc06a2a134b7a3b6b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kOutputPointerToPrimitiveStructParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken40kOutputPointerToPrimitiveStructParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken42kPointerToPrimitiveStructWithSizeParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken42kPointerToPrimitiveStructWithSizeParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken42kPointerToPrimitiveStructWithSizeParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba1c59637297be054c45ba21efa09e1c73"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kPointerToPrimitiveStructWithSizeParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken42kPointerToPrimitiveStructWithSizeParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken48kNullTerminatedPointerToPrimitiveStructParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken48kNullTerminatedPointerToPrimitiveStructParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken48kNullTerminatedPointerToPrimitiveStructParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba398948dcf687c862cfe01cd3ce3a3263"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kNullTerminatedPointerToPrimitiveStructParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken48kNullTerminatedPointerToPrimitiveStructParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken54kEndElementTerminatedPointerToPrimitiveStructParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken54kEndElementTerminatedPointerToPrimitiveStructParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken54kEndElementTerminatedPointerToPrimitiveStructParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba051e622613f9c0f4355e857079efde01"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kEndElementTerminatedPointerToPrimitiveStructParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken54kEndElementTerminatedPointerToPrimitiveStructParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken66kEndElementTerminatedPointerToPrimitiveStructParameterNoAnnotationE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken66kEndElementTerminatedPointerToPrimitiveStructParameterNoAnnotationE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken66kEndElementTerminatedPointerToPrimitiveStructParameterNoAnnotationE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba763f923ba3a5a0e1522ad84356b43aba"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kEndElementTerminatedPointerToPrimitiveStructParameterNoAnnotation</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken66kEndElementTerminatedPointerToPrimitiveStructParameterNoAnnotationE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken25kOutputInterfaceParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken25kOutputInterfaceParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken25kOutputInterfaceParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9bae6b557229fedcfe6aec7dcf50587f4d7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kOutputInterfaceParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken25kOutputInterfaceParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken26kOutputInterfaceParameter1E">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken26kOutputInterfaceParameter1E"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken26kOutputInterfaceParameter1E"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9bacf5a36d5d6a8234d026b59b096beab84"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kOutputInterfaceParameter1</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken26kOutputInterfaceParameter1E" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken26kOutputInterfaceParameter2E">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken26kOutputInterfaceParameter2E"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken26kOutputInterfaceParameter2E"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba80338a1410e0645679a754f6128788ff"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kOutputInterfaceParameter2</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken26kOutputInterfaceParameter2E" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken33kOutputInterfaceParameterWithGUIDE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken33kOutputInterfaceParameterWithGUIDE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken33kOutputInterfaceParameterWithGUIDE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba25d100baaf8b3e6b065deee7580cb708"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kOutputInterfaceParameterWithGUID</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken33kOutputInterfaceParameterWithGUIDE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken33kOutputInterfaceParameterWithEnumE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken33kOutputInterfaceParameterWithEnumE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken33kOutputInterfaceParameterWithEnumE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9bacd62647be53e367f4ed8678cda802cbd"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kOutputInterfaceParameterWithEnum</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken33kOutputInterfaceParameterWithEnumE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken19kInterfaceParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken19kInterfaceParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken19kInterfaceParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba9eb88b2fa4401cf4b1cd198fe03ba8fc"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kInterfaceParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken19kInterfaceParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken32kInterfaceParameterArrayWithSizeE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken32kInterfaceParameterArrayWithSizeE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken32kInterfaceParameterArrayWithSizeE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9bab637ea3be153d3c095427ea67a84eac1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kInterfaceParameterArrayWithSize</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken32kInterfaceParameterArrayWithSizeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken30kOutputArrayInterfaceParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken30kOutputArrayInterfaceParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken30kOutputArrayInterfaceParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba37592317bcb1636bcec57ddb527f1b8c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kOutputArrayInterfaceParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken30kOutputArrayInterfaceParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken14kBlobParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken14kBlobParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken14kBlobParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba3ff3d77c7183ee8d1026f125a8a95bb2"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kBlobParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken14kBlobParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken19kConstBlobParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken19kConstBlobParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken19kConstBlobParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba8c91e96ea25f21f1fc5d77b38a860999"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kConstBlobParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken19kConstBlobParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken30kNullTerminatedStringParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken30kNullTerminatedStringParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken30kNullTerminatedStringParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba3354a3b9bbc9982c259ead57499c9322"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kNullTerminatedStringParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken30kNullTerminatedStringParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken31kOutputPointerWithSizeParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken31kOutputPointerWithSizeParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken31kOutputPointerWithSizeParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba1a03c5e00351f4bb5483174c865de6d6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kOutputPointerWithSizeParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken31kOutputPointerWithSizeParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken41kDataPointerParameter_DependentOnResourceE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken41kDataPointerParameter_DependentOnResourceE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken41kDataPointerParameter_DependentOnResourceE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba7fbd0aff402d5f9ae7b3d7801717703b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kDataPointerParameter_DependentOnResource</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken41kDataPointerParameter_DependentOnResourceE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken36kArrayParameterWithLengthToCalculateE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken36kArrayParameterWithLengthToCalculateE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken36kArrayParameterWithLengthToCalculateE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba6d5e799775f633a20d66f84812a0c42f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kArrayParameterWithLengthToCalculate</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken36kArrayParameterWithLengthToCalculateE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken34kPointerToStructWithArrayParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken34kPointerToStructWithArrayParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken34kPointerToStructWithArrayParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba7a8e9003dbb75a542f2526893db2745a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kPointerToStructWithArrayParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken34kPointerToStructWithArrayParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken38kPointerToStructWithInterfaceParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken38kPointerToStructWithInterfaceParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken38kPointerToStructWithInterfaceParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba9531a0edbb4ac9633511a4b42cfa55a4"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kPointerToStructWithInterfaceParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken38kPointerToStructWithInterfaceParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken42kPointerToStructWithUnionWithSizeParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken42kPointerToStructWithUnionWithSizeParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken42kPointerToStructWithUnionWithSizeParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba40ec0c74bec18366367e3b885527c2b8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kPointerToStructWithUnionWithSizeParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken42kPointerToStructWithUnionWithSizeParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken54kDataPointerInStructArrayCountInStructPointerParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken54kDataPointerInStructArrayCountInStructPointerParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken54kDataPointerInStructArrayCountInStructPointerParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9badac5f08cda8925fcf11e08f5a24f15f9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kDataPointerInStructArrayCountInStructPointerParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken54kDataPointerInStructArrayCountInStructPointerParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken66kNullTerminatedStringInStructArrayInStructInPointerStructParameterE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken66kNullTerminatedStringInStructArrayInStructInPointerStructParameterE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken66kNullTerminatedStringInStructArrayInStructInPointerStructParameterE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9badda7e6a54385ae6f0949f38c41aacee8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kNullTerminatedStringInStructArrayInStructInPointerStructParameter</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken66kNullTerminatedStringInStructArrayInStructInPointerStructParameterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken21kPrimitiveReturnValueE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken21kPrimitiveReturnValueE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken21kPrimitiveReturnValueE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9bad62fbbb0c61233c0f2ddb7d8a9ca466b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kPrimitiveReturnValue</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken21kPrimitiveReturnValueE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken25kPritiveStructReturnValueE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken25kPritiveStructReturnValueE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken25kPritiveStructReturnValueE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba9dc6a3d8b1cdca6a9fd2f8212254a1c4"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kPritiveStructReturnValue</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken25kPritiveStructReturnValueE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa13serialization10compathapi13FunctionToken21kInterfaceReturnValueE">
+<span id="_CPPv3N3gpa13serialization10compathapi13FunctionToken21kInterfaceReturnValueE"></span><span id="_CPPv2N3gpa13serialization10compathapi13FunctionToken21kInterfaceReturnValueE"></span><span class="target" id="compathapi-tokens_8h_1a2b46b1c9cf4379179d611519e51dee9ba721455d74f243b1e58d728d73782fa3e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kInterfaceReturnValue</span></span></span><a class="headerlink" href="#_CPPv4N3gpa13serialization10compathapi13FunctionToken21kInterfaceReturnValueE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="enum_compathapi-tokens_8h_1aabdb8a00c240d7c90bf65e4607fb40d8.html" class="btn btn-neutral float-left" title="Enum ClassToken" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="enum_cpathapi-tokens_8h_1a4549e7a3ff201be94dd45099eba035aa.html" class="btn btn-neutral float-right" title="Enum ClassToken" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

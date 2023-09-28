@@ -11,8 +11,8 @@ Program Listing for File experiment.h
 .. code-block:: cpp
 
    /******************************************************************************
-   © Intel Corporation.
-    
+   (c) 2019 Intel Corporation.
+   
    This software and the related documents are Intel copyrighted materials,
    and your use of them is governed by the express license under which they
    were provided to you ("License"). Unless the License provides otherwise,
@@ -33,11 +33,13 @@ Program Listing for File experiment.h
    #include "playback/experiments/shader-compiler.h"
    #include "reflection/struct-data-manager.h"
    #include "api-types/structures.h"
+   #include "playback/resource-info/resource-info-ex/shading-rate-info.h"
    
    #include <array>
    #include <cstdint>
    #include <string>
    #include <vector>
+   #include <optional>
    
    namespace gpa {
    namespace playback {
@@ -119,16 +121,31 @@ Program Listing for File experiment.h
    
        void SetScissorRects(size_t numRects, api_types::Rect2D const* pRects);
    
+       std::optional<playback::ShadingRateInfo> GetShadingRateInfo() const;
+   
+       void SetShadingRateInfo(playback::ShadingRateInfo& shadingrateInfo);
+   
        void GetFillMode(api_types::FillMode* fillMode) const;
    
        void SetFillMode(api_types::FillMode fillMode);
+   
+       void SetViewports(size_t numViewports, api_types::Viewport const* pViewports);
+   
+       std::vector<api_types::Viewport> GetViewports() const;
+   
+       void SetBlendFactor(const float blendFactor[4]);
+   
+       void GetBlendFactor(size_t* pCount, float* pBlendFactor) const;
    
    protected:
        std::array<Shader, (size_t)Shader::Stage::kCount> mShaders;
        serialization::StructDataManager mPipelineDataManager;
        std::string mPipelineJson;
        std::vector<api_types::Rect2D> mScissorRects;
+       std::vector<api_types::Viewport> mViewports;
        api_types::FillMode mFillMode;
+       std::optional<playback::ShadingRateInfo> mShadingRateInfo;
+       std::array<float, 4> mBlendFactor;
    };
    
    class ResourceExperiment : public BaseExperiment
@@ -147,9 +164,9 @@ Program Listing for File experiment.h
            uint32_t totalSize;
            uint32_t width;
            uint32_t height;
-           uint32_t depth;
-           uint32_t slices;
-           uint32_t mips;
+           uint32_t depth;   
+           uint32_t slices;  
+           uint32_t mips;    
            uint64_t format;
    
            bool operator==(ImageMetadata const& other) const;

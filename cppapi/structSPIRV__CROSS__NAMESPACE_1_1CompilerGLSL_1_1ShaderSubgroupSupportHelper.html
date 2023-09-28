@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Struct CompilerGLSL::ShaderSubgroupSupportHelper &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Struct ShaderSubgroupSupportHelper::Result" href="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1_1Result.html" />
+    <link rel="prev" title="Struct Options::VertexOptions" href="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1_1VertexOptions.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">'Helloworld' Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">'Helloworld' Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">API-Debug-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">Device-Override</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#unions">Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#sept-21-2023">2023.3 (Sept 21 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id35">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id36">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id40">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id41">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2023.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id5">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id8">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id11">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id12">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id13">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id14">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id15">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id16">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id17">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id18">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id19">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../src/reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">C++ Interfaces</a></li>
+      <li class="breadcrumb-item active">Struct CompilerGLSL::ShaderSubgroupSupportHelper</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="struct-compilerglsl-shadersubgroupsupporthelper">
+<span id="exhale-struct-structspirv-cross-namespace-1-1compilerglsl-1-1shadersubgroupsupporthelper"></span><h1>Struct CompilerGLSL::ShaderSubgroupSupportHelper<a class="headerlink" href="#struct-compilerglsl-shadersubgroupsupporthelper" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_spirv_cross_spirv_glsl.hpp.html#file-include-spirv-cross-spirv-glsl-hpp"><span class="std std-ref">File spirv_glsl.hpp</span></a></p></li>
+</ul>
+<section id="nested-relationships">
+<h2>Nested Relationships<a class="headerlink" href="#nested-relationships" title="Permalink to this headline"></a></h2>
+<p>This struct is a nested type of <a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#exhale-class-classspirv-cross-namespace-1-1compilerglsl"><span class="std std-ref">Class CompilerGLSL</span></a>.</p>
+<section id="nested-types">
+<h3>Nested Types<a class="headerlink" href="#nested-types" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1_1Result.html#exhale-struct-structspirv-cross-namespace-1-1compilerglsl-1-1shadersubgroupsupporthelper-1-1result"><span class="std std-ref">Struct ShaderSubgroupSupportHelper::Result</span></a></p></li>
+</ul>
+</section>
+</section>
+<section id="struct-documentation">
+<h2>Struct Documentation<a class="headerlink" href="#struct-documentation" title="Permalink to this headline"></a></h2>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelperE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelperE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelperE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ShaderSubgroupSupportHelper</span></span></span><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9CandidateE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9CandidateE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9CandidateE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1ac88de4331f3f6cc7a36c5c982b8fa6d6"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Candidate</span></span></span><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate26KHR_shader_subgroup_ballotE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate26KHR_shader_subgroup_ballotE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate26KHR_shader_subgroup_ballotE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1ac88de4331f3f6cc7a36c5c982b8fa6d6a7e0c95b99213cb18e71d766ef1524fc7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">KHR_shader_subgroup_ballot</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate25KHR_shader_subgroup_basicE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate25KHR_shader_subgroup_basicE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate25KHR_shader_subgroup_basicE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1ac88de4331f3f6cc7a36c5c982b8fa6d6af1900e3a96b1ac4a36644b87e9b44d23"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">KHR_shader_subgroup_basic</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate24KHR_shader_subgroup_voteE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate24KHR_shader_subgroup_voteE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate24KHR_shader_subgroup_voteE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1ac88de4331f3f6cc7a36c5c982b8fa6d6af9ee3b33e71a3b54e43cc7ecc346adef"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">KHR_shader_subgroup_vote</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate30KHR_shader_subgroup_arithmeticE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate30KHR_shader_subgroup_arithmeticE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate30KHR_shader_subgroup_arithmeticE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1ac88de4331f3f6cc7a36c5c982b8fa6d6a47870c6e8114bc2281036ba699dbce0d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">KHR_shader_subgroup_arithmetic</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate15NV_gpu_shader_5E">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate15NV_gpu_shader_5E"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate15NV_gpu_shader_5E"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1ac88de4331f3f6cc7a36c5c982b8fa6d6a1bceeeb2c47938bf1afe57792d4dfc7d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NV_gpu_shader_5</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate22NV_shader_thread_groupE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate22NV_shader_thread_groupE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate22NV_shader_thread_groupE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1ac88de4331f3f6cc7a36c5c982b8fa6d6a878d0bd6c4d90ed81201135637eb6c5e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NV_shader_thread_group</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate24NV_shader_thread_shuffleE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate24NV_shader_thread_shuffleE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate24NV_shader_thread_shuffleE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1ac88de4331f3f6cc7a36c5c982b8fa6d6a777ff031da059909b9839e23f57e637f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NV_shader_thread_shuffle</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate17ARB_shader_ballotE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate17ARB_shader_ballotE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate17ARB_shader_ballotE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1ac88de4331f3f6cc7a36c5c982b8fa6d6a9f94d688cf7953bd5b959342ba73bce7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ARB_shader_ballot</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate21ARB_shader_group_voteE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate21ARB_shader_group_voteE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate21ARB_shader_group_voteE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1ac88de4331f3f6cc7a36c5c982b8fa6d6ad43e817825a4289565710d40e8ed0528"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ARB_shader_group_vote</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate14AMD_gcn_shaderE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate14AMD_gcn_shaderE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate14AMD_gcn_shaderE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1ac88de4331f3f6cc7a36c5c982b8fa6d6a9bad176271933dad9f68876375f3bf57"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AMD_gcn_shader</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate14CandidateCountE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate14CandidateCountE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate14CandidateCountE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1ac88de4331f3f6cc7a36c5c982b8fa6d6a67d3d3fe8f0bf4cb2a9635a93d89b842"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CandidateCount</span></span></span><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7FeatureE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7FeatureE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7FeatureE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7e"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Feature</span></span></span><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature12SubgroupMaskE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature12SubgroupMaskE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature12SubgroupMaskE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7eae66a5f8f050f85ca2865871b20505a5d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupMask</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature12SubgroupSizeE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature12SubgroupSizeE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature12SubgroupSizeE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7ea8bd3562b9600618bfef276ff990a2a0b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupSize</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature20SubgroupInvocationIDE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature20SubgroupInvocationIDE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature20SubgroupInvocationIDE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7ea459d0a8a50031bc9255389e9b86df7e7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupInvocationID</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature10SubgroupIDE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature10SubgroupIDE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature10SubgroupIDE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7ea0bbac89bdbe3d2698a19f2817c337670"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupID</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature12NumSubgroupsE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature12NumSubgroupsE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature12NumSubgroupsE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7eae331b486b462a1bad7c150c320f7e175"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NumSubgroups</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature23SubgroupBroadcast_FirstE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature23SubgroupBroadcast_FirstE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature23SubgroupBroadcast_FirstE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7eab7733c190ef7e9269339fd81ccfec2f1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupBroadcast_First</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature25SubgroupBallotFindLSB_MSBE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature25SubgroupBallotFindLSB_MSBE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature25SubgroupBallotFindLSB_MSBE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7ea70a8d419bfa4124086f0bb7b8d95e4d7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupBallotFindLSB_MSB</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature28SubgroupAll_Any_AllEqualBoolE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature28SubgroupAll_Any_AllEqualBoolE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature28SubgroupAll_Any_AllEqualBoolE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7eaaf09bdd4b8bd728c061b56cec7320e48"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupAll_Any_AllEqualBool</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature17SubgroupAllEqualTE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature17SubgroupAllEqualTE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature17SubgroupAllEqualTE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7ea2dcdae3e90afee901900d38529fb98fd"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupAllEqualT</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature13SubgroupElectE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature13SubgroupElectE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature13SubgroupElectE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7ea8cbe214e536654de7dd4dbdf0e14e955"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupElect</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature15SubgroupBarrierE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature15SubgroupBarrierE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature15SubgroupBarrierE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7ead6b45a0cb7abc35dc2d0bd9bb27919fb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupBarrier</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature18SubgroupMemBarrierE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature18SubgroupMemBarrierE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature18SubgroupMemBarrierE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7ea669d7bebb896bbbff6a7ad8fbea1ec8d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupMemBarrier</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature14SubgroupBallotE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature14SubgroupBallotE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature14SubgroupBallotE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7ea3dadd69cea9330b57ed66877b13cd2c8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupBallot</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature46SubgroupInverseBallot_InclBitCount_ExclBitCoutE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature46SubgroupInverseBallot_InclBitCount_ExclBitCoutE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature46SubgroupInverseBallot_InclBitCount_ExclBitCoutE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7ea5a729ee2e96210fe080796e669eb3a71"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupInverseBallot_InclBitCount_ExclBitCout</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature24SubgroupBallotBitExtractE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature24SubgroupBallotBitExtractE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature24SubgroupBallotBitExtractE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7ea7eeddff17e3b5de7b0f1b1a7dc84e764"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupBallotBitExtract</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature22SubgroupBallotBitCountE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature22SubgroupBallotBitCountE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature22SubgroupBallotBitCountE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7eaf4cb827a66583ef1394b1cebaa45c1cd"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupBallotBitCount</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature28SubgroupArithmeticIAddReduceE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature28SubgroupArithmeticIAddReduceE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature28SubgroupArithmeticIAddReduceE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7ea5e6ade13d161788c1b1307bc2cf2ed64"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupArithmeticIAddReduce</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature35SubgroupArithmeticIAddExclusiveScanE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature35SubgroupArithmeticIAddExclusiveScanE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature35SubgroupArithmeticIAddExclusiveScanE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7ea1f2719f6675b28d348411cb7a2659fef"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupArithmeticIAddExclusiveScan</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature35SubgroupArithmeticIAddInclusiveScanE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature35SubgroupArithmeticIAddInclusiveScanE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature35SubgroupArithmeticIAddInclusiveScanE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7ea52420afe0089818b70d4cfa371c653ec"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupArithmeticIAddInclusiveScan</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature28SubgroupArithmeticFAddReduceE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature28SubgroupArithmeticFAddReduceE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature28SubgroupArithmeticFAddReduceE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7eaa5e2335f8296a3a3586e0b13d8bdbbd2"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupArithmeticFAddReduce</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature35SubgroupArithmeticFAddExclusiveScanE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature35SubgroupArithmeticFAddExclusiveScanE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature35SubgroupArithmeticFAddExclusiveScanE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7eadc5cc80051cc8e74dc6b4509acee1bbd"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupArithmeticFAddExclusiveScan</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature35SubgroupArithmeticFAddInclusiveScanE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature35SubgroupArithmeticFAddInclusiveScanE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature35SubgroupArithmeticFAddInclusiveScanE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7eab50e6f36785f805988a518196462df38"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupArithmeticFAddInclusiveScan</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature28SubgroupArithmeticIMulReduceE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature28SubgroupArithmeticIMulReduceE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature28SubgroupArithmeticIMulReduceE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7ea6a2a0ea4fc47c5df8bd813bd77bece0c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupArithmeticIMulReduce</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature35SubgroupArithmeticIMulExclusiveScanE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature35SubgroupArithmeticIMulExclusiveScanE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature35SubgroupArithmeticIMulExclusiveScanE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7eaf64b7e837a05d676527e9ecc2854b4d5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupArithmeticIMulExclusiveScan</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature35SubgroupArithmeticIMulInclusiveScanE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature35SubgroupArithmeticIMulInclusiveScanE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature35SubgroupArithmeticIMulInclusiveScanE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7ea3ba50795e519c8bd30388d10d8300547"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupArithmeticIMulInclusiveScan</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature28SubgroupArithmeticFMulReduceE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature28SubgroupArithmeticFMulReduceE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature28SubgroupArithmeticFMulReduceE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7ea0c48ca2ba99b9d6a21b1b2c34bd55dad"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupArithmeticFMulReduce</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature35SubgroupArithmeticFMulExclusiveScanE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature35SubgroupArithmeticFMulExclusiveScanE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature35SubgroupArithmeticFMulExclusiveScanE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7ea3dc0dd05da6339a36541dba5b37dacc9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupArithmeticFMulExclusiveScan</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature35SubgroupArithmeticFMulInclusiveScanE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature35SubgroupArithmeticFMulInclusiveScanE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature35SubgroupArithmeticFMulInclusiveScanE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7eabd9638069a5fd92fc40f424e8d543366"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SubgroupArithmeticFMulInclusiveScan</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature12FeatureCountE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature12FeatureCountE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7Feature12FeatureCountE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0b41fb090c9510fc72c8554e67a65c7ea3d769d0d0b3b6b1e4216dc2e5a10ff43"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FeatureCount</span></span></span><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper11FeatureMaskE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper11FeatureMaskE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper11FeatureMaskE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a724b364a2abe7be9e09df1824746f16a"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FeatureMask</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper15CandidateVectorE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper15CandidateVectorE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper15CandidateVectorE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a5b9aff6b677bb0e3688549979034f4ad"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CandidateVector</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1SmallVector.html#_CPPv4I0_6size_tEN21SPIRV_CROSS_NAMESPACE11SmallVectorE" title="SPIRV_CROSS_NAMESPACE::SmallVector"><span class="n"><span class="pre">SmallVector</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9CandidateE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::Candidate"><span class="n"><span class="pre">Candidate</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate14CandidateCountE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::CandidateCount"><span class="n"><span class="pre">CandidateCount</span></span></a><span class="p"><span class="pre">&gt;</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper13FeatureVectorE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper13FeatureVectorE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper13FeatureVectorE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1ab27e0279393c623df8cc5c674e3ec397"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FeatureVector</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1SmallVector.html#_CPPv4I0_6size_tEN21SPIRV_CROSS_NAMESPACE11SmallVectorE" title="SPIRV_CROSS_NAMESPACE::SmallVector"><span class="n"><span class="pre">SmallVector</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7FeatureE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::Feature"><span class="n"><span class="pre">Feature</span></span></a><span class="p"><span class="pre">&gt;</span></span><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper15request_featureE7Feature">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper15request_featureE7Feature"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper15request_featureE7Feature"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::request_feature__Feature"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a0480dc4dc4cc91afb53c700880ceaba7"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">request_feature</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7FeatureE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::Feature"><span class="n"><span class="pre">Feature</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">feature</span></span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper20is_feature_requestedE7Feature">
+<span id="_CPPv3NK21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper20is_feature_requestedE7Feature"></span><span id="_CPPv2NK21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper20is_feature_requestedE7Feature"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::is_feature_requested__FeatureC"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a5b485cb148fef7cb58b278baebc7d6f0"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_feature_requested</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7FeatureE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::Feature"><span class="n"><span class="pre">Feature</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">feature</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7resolveEv">
+<span id="_CPPv3NK21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7resolveEv"></span><span id="_CPPv2NK21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7resolveEv"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::resolveC"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a893391079871649f07b4f1f5d9ad2688"></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper6ResultE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::Result"><span class="n"><span class="pre">Result</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">resolve</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper18get_extension_nameE9Candidate">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper18get_extension_nameE9Candidate"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper18get_extension_nameE9Candidate"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::get_extension_name__Candidate"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a77d067ecf7bc4bf9b081d6157bea0f22"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">get_extension_name</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9CandidateE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::Candidate"><span class="n"><span class="pre">Candidate</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper34get_extra_required_extension_namesE9Candidate">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper34get_extra_required_extension_namesE9Candidate"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper34get_extra_required_extension_namesE9Candidate"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::get_extra_required_extension_names__Candidate"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a08b0cba57cbdbda2b4ac5169f336d52c"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1SmallVector.html#_CPPv4I0_6size_tEN21SPIRV_CROSS_NAMESPACE11SmallVectorE" title="SPIRV_CROSS_NAMESPACE::SmallVector"><span class="n"><span class="pre">SmallVector</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_extra_required_extension_names</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9CandidateE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::Candidate"><span class="n"><span class="pre">Candidate</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper38get_extra_required_extension_predicateE9Candidate">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper38get_extra_required_extension_predicateE9Candidate"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper38get_extra_required_extension_predicateE9Candidate"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::get_extra_required_extension_predicate__Candidate"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a38afb0268e70a21bec76b77b05cce5ba"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">get_extra_required_extension_predicate</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9CandidateE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::Candidate"><span class="n"><span class="pre">Candidate</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper24get_feature_dependenciesE7Feature">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper24get_feature_dependenciesE7Feature"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper24get_feature_dependenciesE7Feature"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::get_feature_dependencies__Feature"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a1c665bb2c78420df3c306d9a2d1cbbc5"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper13FeatureVectorE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::FeatureVector"><span class="n"><span class="pre">FeatureVector</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_feature_dependencies</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7FeatureE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::Feature"><span class="n"><span class="pre">Feature</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">feature</span></span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper27get_feature_dependency_maskE7Feature">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper27get_feature_dependency_maskE7Feature"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper27get_feature_dependency_maskE7Feature"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::get_feature_dependency_mask__Feature"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1ab2cc19d0d925aa5e97b7252e4e637397"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper11FeatureMaskE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::FeatureMask"><span class="n"><span class="pre">FeatureMask</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_feature_dependency_mask</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7FeatureE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::Feature"><span class="n"><span class="pre">Feature</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">feature</span></span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper45can_feature_be_implemented_without_extensionsE7Feature">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper45can_feature_be_implemented_without_extensionsE7Feature"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper45can_feature_be_implemented_without_extensionsE7Feature"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::can_feature_be_implemented_without_extensions__Feature"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a4f6f93c4908e9b79a3d5dbe0426e11e8"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">can_feature_be_implemented_without_extensions</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7FeatureE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::Feature"><span class="n"><span class="pre">Feature</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">feature</span></span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper29get_KHR_extension_for_featureE7Feature">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper29get_KHR_extension_for_featureE7Feature"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper29get_KHR_extension_for_featureE7Feature"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::get_KHR_extension_for_feature__Feature"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a5eef6cfc80d8cc38a3f9f27298926cd8"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9CandidateE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::Candidate"><span class="n"><span class="pre">Candidate</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_KHR_extension_for_feature</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7FeatureE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::Feature"><span class="n"><span class="pre">Feature</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">feature</span></span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper26get_candidates_for_featureE7FeatureRK6Result">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper26get_candidates_for_featureE7FeatureRK6Result"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper26get_candidates_for_featureE7FeatureRK6Result"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::get_candidates_for_feature__Feature.ResultCR"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1a786c26131d868a56cff306f71181f5f0"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper15CandidateVectorE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::CandidateVector"><span class="n"><span class="pre">CandidateVector</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_candidates_for_feature</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper7FeatureE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::Feature"><span class="n"><span class="pre">Feature</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">ft</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper6ResultE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::Result"><span class="n"><span class="pre">Result</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">r</span></span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper6ResultE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper6ResultE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper6ResultE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::Result"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1_1Result"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Result</span></span></span><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper6Result6ResultEv">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper6Result6ResultEv"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper6Result6ResultEv"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::Result::Result"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1_1Result_1a4e9e749e5575223c2cd25e6cbfd7571f"></span><span class="sig-name descname"><span class="n"><span class="pre">Result</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper6Result7weightsE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper6Result7weightsE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper6Result7weightsE"></span><span id="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::Result::weights__uint32_tA"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1_1Result_1a0491c5e9d59f0ccc07c5d7233191a57d"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">weights</span></span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12CompilerGLSL27ShaderSubgroupSupportHelper9Candidate14CandidateCountE" title="SPIRV_CROSS_NAMESPACE::CompilerGLSL::ShaderSubgroupSupportHelper::CandidateCount"><span class="n"><span class="pre">CandidateCount</span></span></a><span class="p"><span class="pre">]</span></span><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1_1VertexOptions.html" class="btn btn-neutral float-left" title="Struct Options::VertexOptions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1_1Result.html" class="btn btn-neutral float-right" title="Struct ShaderSubgroupSupportHelper::Result" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

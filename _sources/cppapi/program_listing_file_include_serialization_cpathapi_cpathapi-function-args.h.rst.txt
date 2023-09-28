@@ -1,0 +1,1221 @@
+
+.. _program_listing_file_include_serialization_cpathapi_cpathapi-function-args.h:
+
+Program Listing for File cpathapi-function-args.h
+=================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_serialization_cpathapi_cpathapi-function-args.h>` (``include\serialization\cpathapi\cpathapi-function-args.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   ******************************************************************************/
+   #pragma once
+   #include "serialization/functioncall.h"
+   #include "serialization/userdata.h"
+   #include "argscompiler/argsreader.h"
+   #include "argscompiler/argswriter.h"
+   #include <stddef.h>
+   #include "pathological-api/pathological-structs.h"
+   #include "pathological-api/pathological-api.h"
+   #include <stddef.h>
+   struct GPADispatchTable;
+   namespace gpa {
+   namespace serialization {
+   namespace cpathapi {
+   // ================ START NoParameter ================
+   struct NoParameterArgs : public FunctionCall {
+   NoParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   NoParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter , IUserData* userData = nullptr); // Full parameter constructor
+   ~NoParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF NoParameter ================
+   // ================ START PrimitiveParameter ================
+   struct PrimitiveParameterArgs : public FunctionCall {
+           int m_bar{};
+   PrimitiveParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   PrimitiveParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, int bar, IUserData* userData = nullptr); // Full parameter constructor
+   ~PrimitiveParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF PrimitiveParameter ================
+   // ================ START PointerParameter ================
+   struct PointerParameterArgs : public FunctionCall {
+           int * m_bar{};
+   PointerParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   PointerParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, int * bar, IUserData* userData = nullptr); // Full parameter constructor
+   ~PointerParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF PointerParameter ================
+   // ================ START ConstPointerParameter ================
+   struct ConstPointerParameterArgs : public FunctionCall {
+            int * m_bar{};
+   ConstPointerParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   ConstPointerParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, const int * bar, IUserData* userData = nullptr); // Full parameter constructor
+   ~ConstPointerParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF ConstPointerParameter ================
+   // ================ START FixedSizeArrayParameter ================
+   struct FixedSizeArrayParameterArgs : public FunctionCall {
+               int * m_bar{};
+   FixedSizeArrayParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   FixedSizeArrayParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, int bar[4], IUserData* userData = nullptr); // Full parameter constructor
+   ~FixedSizeArrayParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF FixedSizeArrayParameter ================
+   // ================ START FixedSizeConstArrayParameter ================
+   struct FixedSizeConstArrayParameterArgs : public FunctionCall {
+               int const* m_bar{};
+   FixedSizeConstArrayParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   FixedSizeConstArrayParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, const int bar[4], IUserData* userData = nullptr); // Full parameter constructor
+   ~FixedSizeConstArrayParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF FixedSizeConstArrayParameter ================
+   // ================ START FixedSizePointerParameter ================
+   struct FixedSizePointerParameterArgs : public FunctionCall {
+           int * m_bar{};
+   FixedSizePointerParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   FixedSizePointerParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, int * bar, IUserData* userData = nullptr); // Full parameter constructor
+   ~FixedSizePointerParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF FixedSizePointerParameter ================
+   // ================ START FixedSizeConstPointerParameter ================
+   struct FixedSizeConstPointerParameterArgs : public FunctionCall {
+            int * m_bar{};
+   FixedSizeConstPointerParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   FixedSizeConstPointerParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, const int * bar, IUserData* userData = nullptr); // Full parameter constructor
+   ~FixedSizeConstPointerParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF FixedSizeConstPointerParameter ================
+   // ================ START FixedSizePointerParameterNoAnnotation ================
+   struct FixedSizePointerParameterNoAnnotationArgs : public FunctionCall {
+            int * m_bar{};
+   FixedSizePointerParameterNoAnnotationArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   FixedSizePointerParameterNoAnnotationArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, const int * bar, IUserData* userData = nullptr); // Full parameter constructor
+   ~FixedSizePointerParameterNoAnnotationArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF FixedSizePointerParameterNoAnnotation ================
+   // ================ START PointerParamterWithLengthToCalculate ================
+   struct PointerParamterWithLengthToCalculateArgs : public FunctionCall {
+           int * m_data{};
+           int m_count{};
+   PointerParamterWithLengthToCalculateArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   PointerParamterWithLengthToCalculateArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, int * data, int count, IUserData* userData = nullptr); // Full parameter constructor
+   ~PointerParamterWithLengthToCalculateArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF PointerParamterWithLengthToCalculate ================
+   // ================ START ConstPointerParameterWithLengthToCalculate ================
+   struct ConstPointerParameterWithLengthToCalculateArgs : public FunctionCall {
+            int * m_data{};
+           int m_count{};
+   ConstPointerParameterWithLengthToCalculateArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   ConstPointerParameterWithLengthToCalculateArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, const int * data, int count, IUserData* userData = nullptr); // Full parameter constructor
+   ~ConstPointerParameterWithLengthToCalculateArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF ConstPointerParameterWithLengthToCalculate ================
+   // ================ START OutputPointerParameter ================
+   struct OutputPointerParameterArgs : public FunctionCall {
+           int * m_bar{};
+           int m_newBar{};
+   OutputPointerParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   OutputPointerParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, int * bar, int newBar, IUserData* userData = nullptr); // Full parameter constructor
+   ~OutputPointerParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF OutputPointerParameter ================
+   // ================ START InputOutputPointerParameter ================
+   struct InputOutputPointerParameterArgs : public FunctionCall {
+           int * m_bar{};
+   InputOutputPointerParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   InputOutputPointerParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, int * bar, IUserData* userData = nullptr); // Full parameter constructor
+   ~InputOutputPointerParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF InputOutputPointerParameter ================
+   // ================ START InputOutputPointerParameter1 ================
+   struct InputOutputPointerParameter1Args : public FunctionCall {
+           int * m_bar{};
+   InputOutputPointerParameter1Args(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   InputOutputPointerParameter1Args(GPATimestamp const timestamp, ArgsWriter * argsWriter, int * bar, IUserData* userData = nullptr); // Full parameter constructor
+   ~InputOutputPointerParameter1Args();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF InputOutputPointerParameter1 ================
+   // ================ START OutputPointerParameterWithEnum ================
+   struct OutputPointerParameterWithEnumArgs : public FunctionCall {
+           int * m_bar{};
+           SomeEnum m_inEnum{};
+   OutputPointerParameterWithEnumArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   OutputPointerParameterWithEnumArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, int * bar, SomeEnum inEnum, IUserData* userData = nullptr); // Full parameter constructor
+   ~OutputPointerParameterWithEnumArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF OutputPointerParameterWithEnum ================
+   // ================ START PrimitiveStructParameter ================
+   struct PrimitiveStructParameterArgs : public FunctionCall {
+           StructWithPrimitiveMember m_bar{};
+   PrimitiveStructParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   PrimitiveStructParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, StructWithPrimitiveMember bar, IUserData* userData = nullptr); // Full parameter constructor
+   ~PrimitiveStructParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF PrimitiveStructParameter ================
+   // ================ START PointerToPrimitiveStructParameter ================
+   struct PointerToPrimitiveStructParameterArgs : public FunctionCall {
+           StructWithPrimitiveMember * m_bar{};
+   PointerToPrimitiveStructParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   PointerToPrimitiveStructParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, StructWithPrimitiveMember * bar, IUserData* userData = nullptr); // Full parameter constructor
+   ~PointerToPrimitiveStructParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF PointerToPrimitiveStructParameter ================
+   // ================ START ConstPointerToPrimitiveStructParameter ================
+   struct ConstPointerToPrimitiveStructParameterArgs : public FunctionCall {
+            StructWithPrimitiveMember * m_bar{};
+   ConstPointerToPrimitiveStructParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   ConstPointerToPrimitiveStructParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, const StructWithPrimitiveMember * bar, IUserData* userData = nullptr); // Full parameter constructor
+   ~ConstPointerToPrimitiveStructParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF ConstPointerToPrimitiveStructParameter ================
+   // ================ START OutputPointerToPrimitiveStructParameter ================
+   struct OutputPointerToPrimitiveStructParameterArgs : public FunctionCall {
+           StructWithPrimitiveMember * m_bar{};
+           int m_resultVal{};
+   OutputPointerToPrimitiveStructParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   OutputPointerToPrimitiveStructParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, StructWithPrimitiveMember * bar, int resultVal, IUserData* userData = nullptr); // Full parameter constructor
+   ~OutputPointerToPrimitiveStructParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF OutputPointerToPrimitiveStructParameter ================
+   // ================ START PointerToPrimitiveStructWithSizeParameter ================
+   struct PointerToPrimitiveStructWithSizeParameterArgs : public FunctionCall {
+           StructWithPrimitiveMember * m_bar{};
+           size_t m_count{};
+   PointerToPrimitiveStructWithSizeParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   PointerToPrimitiveStructWithSizeParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, StructWithPrimitiveMember * bar, size_t count, IUserData* userData = nullptr); // Full parameter constructor
+   ~PointerToPrimitiveStructWithSizeParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF PointerToPrimitiveStructWithSizeParameter ================
+   // ================ START NullTerminatedPointerToPrimitiveStructParameter ================
+   struct NullTerminatedPointerToPrimitiveStructParameterArgs : public FunctionCall {
+           StructWithPrimitiveMember ** m_bar{};
+   NullTerminatedPointerToPrimitiveStructParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   NullTerminatedPointerToPrimitiveStructParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, StructWithPrimitiveMember ** bar, IUserData* userData = nullptr); // Full parameter constructor
+   ~NullTerminatedPointerToPrimitiveStructParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF NullTerminatedPointerToPrimitiveStructParameter ================
+   // ================ START EndElementTerminatedPointerToPrimitiveStructParameter ================
+   struct EndElementTerminatedPointerToPrimitiveStructParameterArgs : public FunctionCall {
+           StructWithPrimitiveMember * m_bar{};
+   EndElementTerminatedPointerToPrimitiveStructParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   EndElementTerminatedPointerToPrimitiveStructParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, StructWithPrimitiveMember * bar, IUserData* userData = nullptr); // Full parameter constructor
+   ~EndElementTerminatedPointerToPrimitiveStructParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF EndElementTerminatedPointerToPrimitiveStructParameter ================
+   // ================ START EndElementTerminatedPointerToPrimitiveStructParameterNoAnnotation ================
+   struct EndElementTerminatedPointerToPrimitiveStructParameterNoAnnotationArgs : public FunctionCall {
+           StructWithPrimitiveMember * m_bar{};
+   EndElementTerminatedPointerToPrimitiveStructParameterNoAnnotationArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   EndElementTerminatedPointerToPrimitiveStructParameterNoAnnotationArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, StructWithPrimitiveMember * bar, IUserData* userData = nullptr); // Full parameter constructor
+   ~EndElementTerminatedPointerToPrimitiveStructParameterNoAnnotationArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF EndElementTerminatedPointerToPrimitiveStructParameterNoAnnotation ================
+   // ================ START OutputInterfaceParameter ================
+   struct OutputInterfaceParameterArgs : public FunctionCall {
+           IResource ** m_bar{};
+   OutputInterfaceParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   OutputInterfaceParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, IResource ** bar, IUserData* userData = nullptr); // Full parameter constructor
+   ~OutputInterfaceParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF OutputInterfaceParameter ================
+   // ================ START OutputInterfaceParameter1 ================
+   struct OutputInterfaceParameter1Args : public FunctionCall {
+           IResource ** m_bar{};
+                   uint64_t * m_barKeys{};
+   OutputInterfaceParameter1Args(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   OutputInterfaceParameter1Args(GPATimestamp const timestamp, ArgsWriter * argsWriter, IResource ** bar, IUserData* userData = nullptr); // Full parameter constructor
+   ~OutputInterfaceParameter1Args();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF OutputInterfaceParameter1 ================
+   // ================ START OutputInterfaceParameter2 ================
+   struct OutputInterfaceParameter2Args : public FunctionCall {
+           IResource ** m_bar{};
+                   uint64_t * m_barKeys{};
+   OutputInterfaceParameter2Args(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   OutputInterfaceParameter2Args(GPATimestamp const timestamp, ArgsWriter * argsWriter, IResource ** bar, IUserData* userData = nullptr); // Full parameter constructor
+   ~OutputInterfaceParameter2Args();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF OutputInterfaceParameter2 ================
+   // ================ START OutputInterfaceParameterWithEnum ================
+   struct OutputInterfaceParameterWithEnumArgs : public FunctionCall {
+           IResource ** m_bar{};
+           SomeEnum m_inEnum{};
+   GPARESULT  m_returnValue{};
+   OutputInterfaceParameterWithEnumArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   OutputInterfaceParameterWithEnumArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, IResource ** bar, SomeEnum inEnum, IUserData* userData = nullptr); // Full parameter constructor
+   ~OutputInterfaceParameterWithEnumArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF OutputInterfaceParameterWithEnum ================
+   // ================ START InterfaceParameter ================
+   struct InterfaceParameterArgs : public FunctionCall {
+           IResource * m_bar{};
+   InterfaceParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   InterfaceParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, IResource * bar, IUserData* userData = nullptr); // Full parameter constructor
+   ~InterfaceParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF InterfaceParameter ================
+   // ================ START InterfaceParameterArrayWithSize ================
+   struct InterfaceParameterArrayWithSizeArgs : public FunctionCall {
+           IResource ** m_bar{};
+           int m_count{};
+   InterfaceParameterArrayWithSizeArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   InterfaceParameterArrayWithSizeArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, IResource ** bar, int count, IUserData* userData = nullptr); // Full parameter constructor
+   ~InterfaceParameterArrayWithSizeArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF InterfaceParameterArrayWithSize ================
+   // ================ START OutputArrayInterfaceParameter ================
+   struct OutputArrayInterfaceParameterArgs : public FunctionCall {
+           IResource ** m_bar{};
+                   uint64_t * m_barKeys{};
+           int m_count{};
+   OutputArrayInterfaceParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   OutputArrayInterfaceParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, IResource ** bar, int count, IUserData* userData = nullptr); // Full parameter constructor
+   ~OutputArrayInterfaceParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF OutputArrayInterfaceParameter ================
+   // ================ START BlobParameter ================
+   struct BlobParameterArgs : public FunctionCall {
+           void * m_data{};
+           size_t m_size{};
+   BlobParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   BlobParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, void * data, size_t size, IUserData* userData = nullptr); // Full parameter constructor
+   ~BlobParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF BlobParameter ================
+   // ================ START ConstBlobParameter ================
+   struct ConstBlobParameterArgs : public FunctionCall {
+            void * m_data{};
+           size_t m_size{};
+   ConstBlobParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   ConstBlobParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, const void * data, size_t size, IUserData* userData = nullptr); // Full parameter constructor
+   ~ConstBlobParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF ConstBlobParameter ================
+   // ================ START NullTerminatedStringParameter ================
+   struct NullTerminatedStringParameterArgs : public FunctionCall {
+            char * m_str{};
+   NullTerminatedStringParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   NullTerminatedStringParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, const char * str, IUserData* userData = nullptr); // Full parameter constructor
+   ~NullTerminatedStringParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF NullTerminatedStringParameter ================
+   // ================ START OutputPointerWithSizeParameter ================
+   struct OutputPointerWithSizeParameterArgs : public FunctionCall {
+           int * m_dataSize{};
+           void * m_bar{};
+   OutputPointerWithSizeParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   OutputPointerWithSizeParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, int * dataSize, void * bar, IUserData* userData = nullptr); // Full parameter constructor
+   ~OutputPointerWithSizeParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF OutputPointerWithSizeParameter ================
+   // ================ START DataPointerParameter_DependentOnResource ================
+   struct DataPointerParameter_DependentOnResourceArgs : public FunctionCall {
+           IResource * m_resource{};
+           void ** m_bar{};
+   DataPointerParameter_DependentOnResourceArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   DataPointerParameter_DependentOnResourceArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, IResource * resource, void ** bar, IUserData* userData = nullptr); // Full parameter constructor
+   ~DataPointerParameter_DependentOnResourceArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF DataPointerParameter_DependentOnResource ================
+   // ================ START ArrayParameterWithLengthToCalculate ================
+   struct ArrayParameterWithLengthToCalculateArgs : public FunctionCall {
+           IResource * m_resource{};
+           void * m_data{};
+           int m_pitch{};
+   ArrayParameterWithLengthToCalculateArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   ArrayParameterWithLengthToCalculateArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, IResource * resource, void * data, int pitch, IUserData* userData = nullptr); // Full parameter constructor
+   ~ArrayParameterWithLengthToCalculateArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF ArrayParameterWithLengthToCalculate ================
+   // ================ START PointerToStructWithArrayParameter ================
+   struct PointerToStructWithArrayParameterArgs : public FunctionCall {
+           StructWithArray * m_bar{};
+   PointerToStructWithArrayParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   PointerToStructWithArrayParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, StructWithArray * bar, IUserData* userData = nullptr); // Full parameter constructor
+   ~PointerToStructWithArrayParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF PointerToStructWithArrayParameter ================
+   // ================ START PointerToStructWithInterfaceParameter ================
+   struct PointerToStructWithInterfaceParameterArgs : public FunctionCall {
+           StructWithInterface * m_StructWithInterface{};
+   PointerToStructWithInterfaceParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   PointerToStructWithInterfaceParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, StructWithInterface * StructWithInterface, IUserData* userData = nullptr); // Full parameter constructor
+   ~PointerToStructWithInterfaceParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF PointerToStructWithInterfaceParameter ================
+   // ================ START PointerToStructWithUnionWithSizeParameter ================
+   struct PointerToStructWithUnionWithSizeParameterArgs : public FunctionCall {
+           int m_count{};
+           StructWithUnion * m_bars{};
+   PointerToStructWithUnionWithSizeParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   PointerToStructWithUnionWithSizeParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, int count, StructWithUnion * bars, IUserData* userData = nullptr); // Full parameter constructor
+   ~PointerToStructWithUnionWithSizeParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF PointerToStructWithUnionWithSizeParameter ================
+   // ================ START DataPointerInStructArrayCountInStructPointerParameter ================
+   struct DataPointerInStructArrayCountInStructPointerParameterArgs : public FunctionCall {
+           SizeStruct * m_size{};
+           DataStruct * m_data{};
+   DataPointerInStructArrayCountInStructPointerParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   DataPointerInStructArrayCountInStructPointerParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, SizeStruct * size, DataStruct * data, IUserData* userData = nullptr); // Full parameter constructor
+   ~DataPointerInStructArrayCountInStructPointerParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF DataPointerInStructArrayCountInStructPointerParameter ================
+   // ================ START NullTerminatedStringInStructArrayInStructInPointerStructParameter ================
+   struct NullTerminatedStringInStructArrayInStructInPointerStructParameterArgs : public FunctionCall {
+            StructWithNames * m_bar{};
+   NullTerminatedStringInStructArrayInStructInPointerStructParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   NullTerminatedStringInStructArrayInStructInPointerStructParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, const StructWithNames * bar, IUserData* userData = nullptr); // Full parameter constructor
+   ~NullTerminatedStringInStructArrayInStructInPointerStructParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF NullTerminatedStringInStructArrayInStructInPointerStructParameter ================
+   // ================ START EnumInFunctionCallParameter ================
+   struct EnumInFunctionCallParameterArgs : public FunctionCall {
+           GuitarNotes m_note{};
+   EnumInFunctionCallParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   EnumInFunctionCallParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, GuitarNotes note, IUserData* userData = nullptr); // Full parameter constructor
+   ~EnumInFunctionCallParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF EnumInFunctionCallParameter ================
+   // ================ START EmbeddedEnumInReferencedStructCallParameter ================
+   struct EmbeddedEnumInReferencedStructCallParameterArgs : public FunctionCall {
+            StructWithEmbeddedGuitarNotes * m_bar{};
+   EmbeddedEnumInReferencedStructCallParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   EmbeddedEnumInReferencedStructCallParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, const StructWithEmbeddedGuitarNotes * bar, IUserData* userData = nullptr); // Full parameter constructor
+   ~EmbeddedEnumInReferencedStructCallParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF EmbeddedEnumInReferencedStructCallParameter ================
+   // ================ START ReferencedEnumInReferencedStructCallParameter ================
+   struct ReferencedEnumInReferencedStructCallParameterArgs : public FunctionCall {
+            StructWithGuitarNotesPointer * m_bar{};
+   ReferencedEnumInReferencedStructCallParameterArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   ReferencedEnumInReferencedStructCallParameterArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, const StructWithGuitarNotesPointer * bar, IUserData* userData = nullptr); // Full parameter constructor
+   ~ReferencedEnumInReferencedStructCallParameterArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF ReferencedEnumInReferencedStructCallParameter ================
+   // ================ START PrimitiveReturnValue ================
+   struct PrimitiveReturnValueArgs : public FunctionCall {
+           int m_resultVal{};
+   int  m_returnValue{};
+   PrimitiveReturnValueArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   PrimitiveReturnValueArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, int resultVal, IUserData* userData = nullptr); // Full parameter constructor
+   ~PrimitiveReturnValueArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF PrimitiveReturnValue ================
+   // ================ START PritiveStructReturnValue ================
+   struct PritiveStructReturnValueArgs : public FunctionCall {
+           int m_resultVal{};
+   StructWithPrimitiveMember  m_returnValue{};
+   PritiveStructReturnValueArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   PritiveStructReturnValueArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, int resultVal, IUserData* userData = nullptr); // Full parameter constructor
+   ~PritiveStructReturnValueArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF PritiveStructReturnValue ================
+   // ================ START InterfaceReturnValue ================
+   struct InterfaceReturnValueArgs : public FunctionCall {
+            bool m_returnNull{};
+   IResource *  m_returnValue{};
+     uint64_t m_returnValueKey{}; 
+   InterfaceReturnValueArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Default contructor
+   InterfaceReturnValueArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, const bool returnNull, IUserData* userData = nullptr); // Full parameter constructor
+   ~InterfaceReturnValueArgs();
+   char const * GetName() const override;
+   char const * GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF InterfaceReturnValue ================
+   // ================ START GetSize ================
+   struct IResourceGetSizeArgs : public FunctionCall {
+   IResource* m_self{};
+       size_t m_returnValue{};
+   IResourceGetSizeArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Read constructor
+   IResourceGetSizeArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, IResource* self, IUserData* userData = nullptr); // Write constructor
+   ~IResourceGetSizeArgs();
+   char const * GetName() const override;
+   char const* GetClass() const override;
+   char const* GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   void* GetApiObjectPtr() const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF GetSize ================
+   // ================ START GetHeight ================
+   struct IResourceGetHeightArgs : public FunctionCall {
+   IResource* m_self{};
+       size_t m_returnValue{};
+   IResourceGetHeightArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Read constructor
+   IResourceGetHeightArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, IResource* self, IUserData* userData = nullptr); // Write constructor
+   ~IResourceGetHeightArgs();
+   char const * GetName() const override;
+   char const* GetClass() const override;
+   char const* GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   void* GetApiObjectPtr() const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF GetHeight ================
+   // ================ START Map ================
+   struct IResourceMapArgs : public FunctionCall {
+   IResource* m_self{};
+       void * m_returnValue{};
+   IResourceMapArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Read constructor
+   IResourceMapArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, IResource* self, IUserData* userData = nullptr); // Write constructor
+   ~IResourceMapArgs();
+   char const * GetName() const override;
+   char const* GetClass() const override;
+   char const* GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   void* GetApiObjectPtr() const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF Map ================
+   // ================ START Unmap ================
+   struct IResourceUnmapArgs : public FunctionCall {
+   IResource* m_self{};
+   IResourceUnmapArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Read constructor
+   IResourceUnmapArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, IResource* self, IUserData* userData = nullptr); // Write constructor
+   ~IResourceUnmapArgs();
+   char const * GetName() const override;
+   char const* GetClass() const override;
+   char const* GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   void* GetApiObjectPtr() const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF Unmap ================
+   // ================ START PrintContent ================
+   struct IResourcePrintContentArgs : public FunctionCall {
+   IResource* m_self{};
+   IResourcePrintContentArgs(StreamPacketHeader const & context, ArgsReader * argsReader); // Read constructor
+   IResourcePrintContentArgs(GPATimestamp const timestamp, ArgsWriter * argsWriter, IResource* self, IUserData* userData = nullptr); // Write constructor
+   ~IResourcePrintContentArgs();
+   char const * GetName() const override;
+   char const* GetClass() const override;
+   char const* GetAPI() const override;
+   uint32_t GetParamsCount() const override;
+   Argument* GetParam(uint32_t index, void const** outValue, bool postExecute = false) const override;
+   Argument* GetReturnValue(void const** outValue) const override;
+   void* GetApiObjectPtr() const override;
+   uint8_t GetApiToken() const override;
+   uint16_t GetClassToken() const override;
+   uint32_t GetFunctionToken() const override;
+   void Read(ArgsReader* reader) override;
+   void PreWrite() override;
+   void PostWrite() override;
+   void Execute(GPADispatchTable const * dispatchTable) override;
+   void InitDependencyCount() override;
+   void InitDependencies() override;
+   };
+   // ================ END OF PrintContent ================
+   } // cpathapi
+   } // serialization
+   } // gpa

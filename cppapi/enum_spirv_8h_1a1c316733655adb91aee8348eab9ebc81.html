@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enum SpvBuiltIn_ &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Enum spvc_backend" href="enum_spirv__cross__c_8h_1a1c6ba9542fa28e0b0e823b20ead282f4.html" />
+    <link rel="prev" title="Enum SpvAddressingModel_" href="enum_spirv_8h_1ab5fb458dcb45aa0fb04ba35c23c9b90e.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">'Helloworld' Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">'Helloworld' Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">API-Debug-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">Device-Override</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#unions">Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#sept-21-2023">2023.3 (Sept 21 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id35">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id36">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id40">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id41">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2023.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id5">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id8">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id11">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id12">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id13">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id14">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id15">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id16">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id17">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id18">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id19">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../src/reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">C++ Interfaces</a></li>
+      <li class="breadcrumb-item active">Enum SpvBuiltIn_</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="enum-spvbuiltin">
+<span id="exhale-enum-spirv-8h-1a1c316733655adb91aee8348eab9ebc81"></span><h1>Enum <a href="#id1"><span class="problematic" id="id2">SpvBuiltIn_</span></a><a class="headerlink" href="#enum-spvbuiltin" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_spirv_cross_spirv.h.html#file-include-spirv-cross-spirv-h"><span class="std std-ref">File spirv.h</span></a></p></li>
+</ul>
+<section id="enum-documentation">
+<h2>Enum Documentation<a class="headerlink" href="#enum-documentation" title="Permalink to this headline"></a></h2>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv411SpvBuiltIn_">
+<span id="_CPPv311SpvBuiltIn_"></span><span id="_CPPv211SpvBuiltIn_"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltIn_</span></span></span><a class="headerlink" href="#_CPPv411SpvBuiltIn_" title="Permalink to this definition"></a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_18SpvBuiltInPositionE">
+<span id="_CPPv3N11SpvBuiltIn_18SpvBuiltInPositionE"></span><span id="_CPPv2N11SpvBuiltIn_18SpvBuiltInPositionE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a6bd1dab9bac6925198dc86de9d1098d9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInPosition</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_18SpvBuiltInPositionE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_19SpvBuiltInPointSizeE">
+<span id="_CPPv3N11SpvBuiltIn_19SpvBuiltInPointSizeE"></span><span id="_CPPv2N11SpvBuiltIn_19SpvBuiltInPointSizeE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81ad9a2d38a4a65fbd2fde9922b49acc18e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInPointSize</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_19SpvBuiltInPointSizeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_22SpvBuiltInClipDistanceE">
+<span id="_CPPv3N11SpvBuiltIn_22SpvBuiltInClipDistanceE"></span><span id="_CPPv2N11SpvBuiltIn_22SpvBuiltInClipDistanceE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a3bf9f997f027350ee2cfa95db0bebf2c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInClipDistance</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_22SpvBuiltInClipDistanceE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_22SpvBuiltInCullDistanceE">
+<span id="_CPPv3N11SpvBuiltIn_22SpvBuiltInCullDistanceE"></span><span id="_CPPv2N11SpvBuiltIn_22SpvBuiltInCullDistanceE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a21ab399e4903f39765215ac127d308c9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInCullDistance</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_22SpvBuiltInCullDistanceE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_18SpvBuiltInVertexIdE">
+<span id="_CPPv3N11SpvBuiltIn_18SpvBuiltInVertexIdE"></span><span id="_CPPv2N11SpvBuiltIn_18SpvBuiltInVertexIdE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a0a8270938df2f7d26a3f084eb0f656fb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInVertexId</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_18SpvBuiltInVertexIdE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_20SpvBuiltInInstanceIdE">
+<span id="_CPPv3N11SpvBuiltIn_20SpvBuiltInInstanceIdE"></span><span id="_CPPv2N11SpvBuiltIn_20SpvBuiltInInstanceIdE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a15e78f3d5a55ce68aa42d5bdbac1856d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInInstanceId</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_20SpvBuiltInInstanceIdE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_21SpvBuiltInPrimitiveIdE">
+<span id="_CPPv3N11SpvBuiltIn_21SpvBuiltInPrimitiveIdE"></span><span id="_CPPv2N11SpvBuiltIn_21SpvBuiltInPrimitiveIdE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81afca7a2e8cc2b0bf6f70d612173bfbd75"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInPrimitiveId</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_21SpvBuiltInPrimitiveIdE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_22SpvBuiltInInvocationIdE">
+<span id="_CPPv3N11SpvBuiltIn_22SpvBuiltInInvocationIdE"></span><span id="_CPPv2N11SpvBuiltIn_22SpvBuiltInInvocationIdE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a80746db41a757f1409fcf8ac1681f0e2"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInInvocationId</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_22SpvBuiltInInvocationIdE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_15SpvBuiltInLayerE">
+<span id="_CPPv3N11SpvBuiltIn_15SpvBuiltInLayerE"></span><span id="_CPPv2N11SpvBuiltIn_15SpvBuiltInLayerE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81ab975bf4cba7a0d4e39aa1a49effd8212"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInLayer</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_15SpvBuiltInLayerE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_23SpvBuiltInViewportIndexE">
+<span id="_CPPv3N11SpvBuiltIn_23SpvBuiltInViewportIndexE"></span><span id="_CPPv2N11SpvBuiltIn_23SpvBuiltInViewportIndexE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81aa21f8ca1050133c4d026c2c285a927cf"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInViewportIndex</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_23SpvBuiltInViewportIndexE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_24SpvBuiltInTessLevelOuterE">
+<span id="_CPPv3N11SpvBuiltIn_24SpvBuiltInTessLevelOuterE"></span><span id="_CPPv2N11SpvBuiltIn_24SpvBuiltInTessLevelOuterE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81ab9db9f37189fad78029e1f12a30f7f38"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInTessLevelOuter</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_24SpvBuiltInTessLevelOuterE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_24SpvBuiltInTessLevelInnerE">
+<span id="_CPPv3N11SpvBuiltIn_24SpvBuiltInTessLevelInnerE"></span><span id="_CPPv2N11SpvBuiltIn_24SpvBuiltInTessLevelInnerE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81afd3b0ec9d52dcca49f53034eb927f0d2"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInTessLevelInner</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_24SpvBuiltInTessLevelInnerE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_19SpvBuiltInTessCoordE">
+<span id="_CPPv3N11SpvBuiltIn_19SpvBuiltInTessCoordE"></span><span id="_CPPv2N11SpvBuiltIn_19SpvBuiltInTessCoordE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81af3076c1d6a88fc2d32231d1e7a54e7a2"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInTessCoord</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_19SpvBuiltInTessCoordE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_23SpvBuiltInPatchVerticesE">
+<span id="_CPPv3N11SpvBuiltIn_23SpvBuiltInPatchVerticesE"></span><span id="_CPPv2N11SpvBuiltIn_23SpvBuiltInPatchVerticesE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81aa5613eea4e68a875f1c58e7f3d276035"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInPatchVertices</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_23SpvBuiltInPatchVerticesE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_19SpvBuiltInFragCoordE">
+<span id="_CPPv3N11SpvBuiltIn_19SpvBuiltInFragCoordE"></span><span id="_CPPv2N11SpvBuiltIn_19SpvBuiltInFragCoordE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81aa2850418cb82465aa038ee31d72152ec"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInFragCoord</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_19SpvBuiltInFragCoordE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_20SpvBuiltInPointCoordE">
+<span id="_CPPv3N11SpvBuiltIn_20SpvBuiltInPointCoordE"></span><span id="_CPPv2N11SpvBuiltIn_20SpvBuiltInPointCoordE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a7fc0fe5acc4baf61d870f07039ecd82c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInPointCoord</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_20SpvBuiltInPointCoordE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_21SpvBuiltInFrontFacingE">
+<span id="_CPPv3N11SpvBuiltIn_21SpvBuiltInFrontFacingE"></span><span id="_CPPv2N11SpvBuiltIn_21SpvBuiltInFrontFacingE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a1e56ba8a75b3a79b31b87d40a72c8e32"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInFrontFacing</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_21SpvBuiltInFrontFacingE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_18SpvBuiltInSampleIdE">
+<span id="_CPPv3N11SpvBuiltIn_18SpvBuiltInSampleIdE"></span><span id="_CPPv2N11SpvBuiltIn_18SpvBuiltInSampleIdE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a6e29aa00bad39af4b0af9f98f3a5e4bf"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInSampleId</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_18SpvBuiltInSampleIdE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_24SpvBuiltInSamplePositionE">
+<span id="_CPPv3N11SpvBuiltIn_24SpvBuiltInSamplePositionE"></span><span id="_CPPv2N11SpvBuiltIn_24SpvBuiltInSamplePositionE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81ad38cc97a623bd7f1d3f64df9b0dcc833"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInSamplePosition</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_24SpvBuiltInSamplePositionE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_20SpvBuiltInSampleMaskE">
+<span id="_CPPv3N11SpvBuiltIn_20SpvBuiltInSampleMaskE"></span><span id="_CPPv2N11SpvBuiltIn_20SpvBuiltInSampleMaskE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a533fae7672a61398897117b0970903e7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInSampleMask</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_20SpvBuiltInSampleMaskE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_19SpvBuiltInFragDepthE">
+<span id="_CPPv3N11SpvBuiltIn_19SpvBuiltInFragDepthE"></span><span id="_CPPv2N11SpvBuiltIn_19SpvBuiltInFragDepthE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a2bc51487130ba49dde4815a46027bb0f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInFragDepth</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_19SpvBuiltInFragDepthE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_26SpvBuiltInHelperInvocationE">
+<span id="_CPPv3N11SpvBuiltIn_26SpvBuiltInHelperInvocationE"></span><span id="_CPPv2N11SpvBuiltIn_26SpvBuiltInHelperInvocationE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a2c270fbff2822abc098490ee42177c88"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInHelperInvocation</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_26SpvBuiltInHelperInvocationE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_23SpvBuiltInNumWorkgroupsE">
+<span id="_CPPv3N11SpvBuiltIn_23SpvBuiltInNumWorkgroupsE"></span><span id="_CPPv2N11SpvBuiltIn_23SpvBuiltInNumWorkgroupsE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a9066c77ac7846417838bb95105a3c2a8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInNumWorkgroups</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_23SpvBuiltInNumWorkgroupsE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_23SpvBuiltInWorkgroupSizeE">
+<span id="_CPPv3N11SpvBuiltIn_23SpvBuiltInWorkgroupSizeE"></span><span id="_CPPv2N11SpvBuiltIn_23SpvBuiltInWorkgroupSizeE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a19cf57deea34ce4a5aedf2e481e8da79"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInWorkgroupSize</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_23SpvBuiltInWorkgroupSizeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_21SpvBuiltInWorkgroupIdE">
+<span id="_CPPv3N11SpvBuiltIn_21SpvBuiltInWorkgroupIdE"></span><span id="_CPPv2N11SpvBuiltIn_21SpvBuiltInWorkgroupIdE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a4ca1a136709db83a8d17a797e906cfda"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInWorkgroupId</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_21SpvBuiltInWorkgroupIdE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_27SpvBuiltInLocalInvocationIdE">
+<span id="_CPPv3N11SpvBuiltIn_27SpvBuiltInLocalInvocationIdE"></span><span id="_CPPv2N11SpvBuiltIn_27SpvBuiltInLocalInvocationIdE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a4a036b4ad8dd758055ee89c400377312"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInLocalInvocationId</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_27SpvBuiltInLocalInvocationIdE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_28SpvBuiltInGlobalInvocationIdE">
+<span id="_CPPv3N11SpvBuiltIn_28SpvBuiltInGlobalInvocationIdE"></span><span id="_CPPv2N11SpvBuiltIn_28SpvBuiltInGlobalInvocationIdE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a093b1c432ecbf668ed50d09a3b0d7d30"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInGlobalInvocationId</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_28SpvBuiltInGlobalInvocationIdE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_30SpvBuiltInLocalInvocationIndexE">
+<span id="_CPPv3N11SpvBuiltIn_30SpvBuiltInLocalInvocationIndexE"></span><span id="_CPPv2N11SpvBuiltIn_30SpvBuiltInLocalInvocationIndexE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a1fae8c53f05b969f18959edc1694c16e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInLocalInvocationIndex</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_30SpvBuiltInLocalInvocationIndexE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_17SpvBuiltInWorkDimE">
+<span id="_CPPv3N11SpvBuiltIn_17SpvBuiltInWorkDimE"></span><span id="_CPPv2N11SpvBuiltIn_17SpvBuiltInWorkDimE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81ab6db8b40c4251d66ef55736ce78cd27c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInWorkDim</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_17SpvBuiltInWorkDimE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_20SpvBuiltInGlobalSizeE">
+<span id="_CPPv3N11SpvBuiltIn_20SpvBuiltInGlobalSizeE"></span><span id="_CPPv2N11SpvBuiltIn_20SpvBuiltInGlobalSizeE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a170e064ba42d92930049e898999496e3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInGlobalSize</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_20SpvBuiltInGlobalSizeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_31SpvBuiltInEnqueuedWorkgroupSizeE">
+<span id="_CPPv3N11SpvBuiltIn_31SpvBuiltInEnqueuedWorkgroupSizeE"></span><span id="_CPPv2N11SpvBuiltIn_31SpvBuiltInEnqueuedWorkgroupSizeE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a5416c129ffaed61f99f442d230d1a869"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInEnqueuedWorkgroupSize</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_31SpvBuiltInEnqueuedWorkgroupSizeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_22SpvBuiltInGlobalOffsetE">
+<span id="_CPPv3N11SpvBuiltIn_22SpvBuiltInGlobalOffsetE"></span><span id="_CPPv2N11SpvBuiltIn_22SpvBuiltInGlobalOffsetE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81aff6daf0db553bb98c37d65d2a873a238"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInGlobalOffset</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_22SpvBuiltInGlobalOffsetE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_24SpvBuiltInGlobalLinearIdE">
+<span id="_CPPv3N11SpvBuiltIn_24SpvBuiltInGlobalLinearIdE"></span><span id="_CPPv2N11SpvBuiltIn_24SpvBuiltInGlobalLinearIdE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81aef9c1e845d697093af7f0d82a0d89c24"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInGlobalLinearId</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_24SpvBuiltInGlobalLinearIdE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_22SpvBuiltInSubgroupSizeE">
+<span id="_CPPv3N11SpvBuiltIn_22SpvBuiltInSubgroupSizeE"></span><span id="_CPPv2N11SpvBuiltIn_22SpvBuiltInSubgroupSizeE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81aa3c0ea5443cf05b3864b4616df2b73ca"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInSubgroupSize</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_22SpvBuiltInSubgroupSizeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_25SpvBuiltInSubgroupMaxSizeE">
+<span id="_CPPv3N11SpvBuiltIn_25SpvBuiltInSubgroupMaxSizeE"></span><span id="_CPPv2N11SpvBuiltIn_25SpvBuiltInSubgroupMaxSizeE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81aa2800ae635726abe0a93771118644042"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInSubgroupMaxSize</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_25SpvBuiltInSubgroupMaxSizeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_22SpvBuiltInNumSubgroupsE">
+<span id="_CPPv3N11SpvBuiltIn_22SpvBuiltInNumSubgroupsE"></span><span id="_CPPv2N11SpvBuiltIn_22SpvBuiltInNumSubgroupsE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a096019110c5bf78b40adf67274f184ba"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInNumSubgroups</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_22SpvBuiltInNumSubgroupsE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_30SpvBuiltInNumEnqueuedSubgroupsE">
+<span id="_CPPv3N11SpvBuiltIn_30SpvBuiltInNumEnqueuedSubgroupsE"></span><span id="_CPPv2N11SpvBuiltIn_30SpvBuiltInNumEnqueuedSubgroupsE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81ac246b9d51956b1299496c0f0fa959ff7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInNumEnqueuedSubgroups</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_30SpvBuiltInNumEnqueuedSubgroupsE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_20SpvBuiltInSubgroupIdE">
+<span id="_CPPv3N11SpvBuiltIn_20SpvBuiltInSubgroupIdE"></span><span id="_CPPv2N11SpvBuiltIn_20SpvBuiltInSubgroupIdE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a789fc3749b1b4f5d1a5adeec937ac0b7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInSubgroupId</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_20SpvBuiltInSubgroupIdE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_35SpvBuiltInSubgroupLocalInvocationIdE">
+<span id="_CPPv3N11SpvBuiltIn_35SpvBuiltInSubgroupLocalInvocationIdE"></span><span id="_CPPv2N11SpvBuiltIn_35SpvBuiltInSubgroupLocalInvocationIdE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81ad770a7bf0177d24da57cc42532887f84"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInSubgroupLocalInvocationId</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_35SpvBuiltInSubgroupLocalInvocationIdE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_21SpvBuiltInVertexIndexE">
+<span id="_CPPv3N11SpvBuiltIn_21SpvBuiltInVertexIndexE"></span><span id="_CPPv2N11SpvBuiltIn_21SpvBuiltInVertexIndexE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81aa4759ee3919ab8543727a19f03294981"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInVertexIndex</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_21SpvBuiltInVertexIndexE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_23SpvBuiltInInstanceIndexE">
+<span id="_CPPv3N11SpvBuiltIn_23SpvBuiltInInstanceIndexE"></span><span id="_CPPv2N11SpvBuiltIn_23SpvBuiltInInstanceIndexE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81ab55515956255cbe97d1202e99d0b2d86"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInInstanceIndex</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_23SpvBuiltInInstanceIndexE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_24SpvBuiltInSubgroupEqMaskE">
+<span id="_CPPv3N11SpvBuiltIn_24SpvBuiltInSubgroupEqMaskE"></span><span id="_CPPv2N11SpvBuiltIn_24SpvBuiltInSubgroupEqMaskE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a0d32392285e6f561db4359aef0a45a53"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInSubgroupEqMask</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_24SpvBuiltInSubgroupEqMaskE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_27SpvBuiltInSubgroupEqMaskKHRE">
+<span id="_CPPv3N11SpvBuiltIn_27SpvBuiltInSubgroupEqMaskKHRE"></span><span id="_CPPv2N11SpvBuiltIn_27SpvBuiltInSubgroupEqMaskKHRE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a17c13362ac4e749710fa4c1b0e260b7c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInSubgroupEqMaskKHR</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_27SpvBuiltInSubgroupEqMaskKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_24SpvBuiltInSubgroupGeMaskE">
+<span id="_CPPv3N11SpvBuiltIn_24SpvBuiltInSubgroupGeMaskE"></span><span id="_CPPv2N11SpvBuiltIn_24SpvBuiltInSubgroupGeMaskE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a4811f9b3a9cfaffb1f2d0b9d6fc77955"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInSubgroupGeMask</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_24SpvBuiltInSubgroupGeMaskE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_27SpvBuiltInSubgroupGeMaskKHRE">
+<span id="_CPPv3N11SpvBuiltIn_27SpvBuiltInSubgroupGeMaskKHRE"></span><span id="_CPPv2N11SpvBuiltIn_27SpvBuiltInSubgroupGeMaskKHRE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81abf9bb2184ec34976b7d064790c590d06"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInSubgroupGeMaskKHR</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_27SpvBuiltInSubgroupGeMaskKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_24SpvBuiltInSubgroupGtMaskE">
+<span id="_CPPv3N11SpvBuiltIn_24SpvBuiltInSubgroupGtMaskE"></span><span id="_CPPv2N11SpvBuiltIn_24SpvBuiltInSubgroupGtMaskE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a462ee708d4afb7baba51f88ca165151c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInSubgroupGtMask</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_24SpvBuiltInSubgroupGtMaskE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_27SpvBuiltInSubgroupGtMaskKHRE">
+<span id="_CPPv3N11SpvBuiltIn_27SpvBuiltInSubgroupGtMaskKHRE"></span><span id="_CPPv2N11SpvBuiltIn_27SpvBuiltInSubgroupGtMaskKHRE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a44aed65fc50a406fdb513b4ab05a20b5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInSubgroupGtMaskKHR</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_27SpvBuiltInSubgroupGtMaskKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_24SpvBuiltInSubgroupLeMaskE">
+<span id="_CPPv3N11SpvBuiltIn_24SpvBuiltInSubgroupLeMaskE"></span><span id="_CPPv2N11SpvBuiltIn_24SpvBuiltInSubgroupLeMaskE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81aa91e7710fd3056453900d3e75f47b9f7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInSubgroupLeMask</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_24SpvBuiltInSubgroupLeMaskE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_27SpvBuiltInSubgroupLeMaskKHRE">
+<span id="_CPPv3N11SpvBuiltIn_27SpvBuiltInSubgroupLeMaskKHRE"></span><span id="_CPPv2N11SpvBuiltIn_27SpvBuiltInSubgroupLeMaskKHRE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a9b8e3f89a9c75112e9c90daefd0c3ed7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInSubgroupLeMaskKHR</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_27SpvBuiltInSubgroupLeMaskKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_24SpvBuiltInSubgroupLtMaskE">
+<span id="_CPPv3N11SpvBuiltIn_24SpvBuiltInSubgroupLtMaskE"></span><span id="_CPPv2N11SpvBuiltIn_24SpvBuiltInSubgroupLtMaskE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a8e6754c5dc18da4cde0d1bedafd0f0a6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInSubgroupLtMask</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_24SpvBuiltInSubgroupLtMaskE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_27SpvBuiltInSubgroupLtMaskKHRE">
+<span id="_CPPv3N11SpvBuiltIn_27SpvBuiltInSubgroupLtMaskKHRE"></span><span id="_CPPv2N11SpvBuiltIn_27SpvBuiltInSubgroupLtMaskKHRE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81acd8673bd1bac541561535a0e55a5d0cb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInSubgroupLtMaskKHR</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_27SpvBuiltInSubgroupLtMaskKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_20SpvBuiltInBaseVertexE">
+<span id="_CPPv3N11SpvBuiltIn_20SpvBuiltInBaseVertexE"></span><span id="_CPPv2N11SpvBuiltIn_20SpvBuiltInBaseVertexE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81ae548ce901d6a8754e4eae3439445428e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInBaseVertex</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_20SpvBuiltInBaseVertexE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_22SpvBuiltInBaseInstanceE">
+<span id="_CPPv3N11SpvBuiltIn_22SpvBuiltInBaseInstanceE"></span><span id="_CPPv2N11SpvBuiltIn_22SpvBuiltInBaseInstanceE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a7b581de6708578ba71ce2ed0144ab806"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInBaseInstance</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_22SpvBuiltInBaseInstanceE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_19SpvBuiltInDrawIndexE">
+<span id="_CPPv3N11SpvBuiltIn_19SpvBuiltInDrawIndexE"></span><span id="_CPPv2N11SpvBuiltIn_19SpvBuiltInDrawIndexE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a9ac90cbafbede32e14b3be8a836c5bb8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInDrawIndex</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_19SpvBuiltInDrawIndexE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_33SpvBuiltInPrimitiveShadingRateKHRE">
+<span id="_CPPv3N11SpvBuiltIn_33SpvBuiltInPrimitiveShadingRateKHRE"></span><span id="_CPPv2N11SpvBuiltIn_33SpvBuiltInPrimitiveShadingRateKHRE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a7752c5fda382e3176838cbc0b1b5567f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInPrimitiveShadingRateKHR</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_33SpvBuiltInPrimitiveShadingRateKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_21SpvBuiltInDeviceIndexE">
+<span id="_CPPv3N11SpvBuiltIn_21SpvBuiltInDeviceIndexE"></span><span id="_CPPv2N11SpvBuiltIn_21SpvBuiltInDeviceIndexE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a9b39a69f3a1684a0d09adb4e6f43d7ab"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInDeviceIndex</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_21SpvBuiltInDeviceIndexE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_19SpvBuiltInViewIndexE">
+<span id="_CPPv3N11SpvBuiltIn_19SpvBuiltInViewIndexE"></span><span id="_CPPv2N11SpvBuiltIn_19SpvBuiltInViewIndexE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a21afa1e69424cc77d6f419ce88bb7d3a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInViewIndex</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_19SpvBuiltInViewIndexE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_24SpvBuiltInShadingRateKHRE">
+<span id="_CPPv3N11SpvBuiltIn_24SpvBuiltInShadingRateKHRE"></span><span id="_CPPv2N11SpvBuiltIn_24SpvBuiltInShadingRateKHRE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a692a4ec7c8378097e588638419952a22"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInShadingRateKHR</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_24SpvBuiltInShadingRateKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_29SpvBuiltInBaryCoordNoPerspAMDE">
+<span id="_CPPv3N11SpvBuiltIn_29SpvBuiltInBaryCoordNoPerspAMDE"></span><span id="_CPPv2N11SpvBuiltIn_29SpvBuiltInBaryCoordNoPerspAMDE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a69a0e410219d4fb1dfb318536618c5fb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInBaryCoordNoPerspAMD</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_29SpvBuiltInBaryCoordNoPerspAMDE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_37SpvBuiltInBaryCoordNoPerspCentroidAMDE">
+<span id="_CPPv3N11SpvBuiltIn_37SpvBuiltInBaryCoordNoPerspCentroidAMDE"></span><span id="_CPPv2N11SpvBuiltIn_37SpvBuiltInBaryCoordNoPerspCentroidAMDE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81aa6e7f89a100babb622707246698d8988"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInBaryCoordNoPerspCentroidAMD</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_37SpvBuiltInBaryCoordNoPerspCentroidAMDE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_35SpvBuiltInBaryCoordNoPerspSampleAMDE">
+<span id="_CPPv3N11SpvBuiltIn_35SpvBuiltInBaryCoordNoPerspSampleAMDE"></span><span id="_CPPv2N11SpvBuiltIn_35SpvBuiltInBaryCoordNoPerspSampleAMDE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a5d6e05f3a79e99f820bf0245b0253b07"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInBaryCoordNoPerspSampleAMD</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_35SpvBuiltInBaryCoordNoPerspSampleAMDE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_28SpvBuiltInBaryCoordSmoothAMDE">
+<span id="_CPPv3N11SpvBuiltIn_28SpvBuiltInBaryCoordSmoothAMDE"></span><span id="_CPPv2N11SpvBuiltIn_28SpvBuiltInBaryCoordSmoothAMDE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81ae6b4e739605b600f52b901dca5ea28b1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInBaryCoordSmoothAMD</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_28SpvBuiltInBaryCoordSmoothAMDE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_36SpvBuiltInBaryCoordSmoothCentroidAMDE">
+<span id="_CPPv3N11SpvBuiltIn_36SpvBuiltInBaryCoordSmoothCentroidAMDE"></span><span id="_CPPv2N11SpvBuiltIn_36SpvBuiltInBaryCoordSmoothCentroidAMDE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a69aa12d900d7b439829a47a2f70cff57"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInBaryCoordSmoothCentroidAMD</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_36SpvBuiltInBaryCoordSmoothCentroidAMDE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_34SpvBuiltInBaryCoordSmoothSampleAMDE">
+<span id="_CPPv3N11SpvBuiltIn_34SpvBuiltInBaryCoordSmoothSampleAMDE"></span><span id="_CPPv2N11SpvBuiltIn_34SpvBuiltInBaryCoordSmoothSampleAMDE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81ab42a445ca3095b4b265c302ba36d6207"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInBaryCoordSmoothSampleAMD</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_34SpvBuiltInBaryCoordSmoothSampleAMDE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_31SpvBuiltInBaryCoordPullModelAMDE">
+<span id="_CPPv3N11SpvBuiltIn_31SpvBuiltInBaryCoordPullModelAMDE"></span><span id="_CPPv2N11SpvBuiltIn_31SpvBuiltInBaryCoordPullModelAMDE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81aef766c80ae9a62df025cf35dbd53ad29"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInBaryCoordPullModelAMD</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_31SpvBuiltInBaryCoordPullModelAMDE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_27SpvBuiltInFragStencilRefEXTE">
+<span id="_CPPv3N11SpvBuiltIn_27SpvBuiltInFragStencilRefEXTE"></span><span id="_CPPv2N11SpvBuiltIn_27SpvBuiltInFragStencilRefEXTE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81aa7f5bfad48b6b67bc4927149ccb703ad"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInFragStencilRefEXT</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_27SpvBuiltInFragStencilRefEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_24SpvBuiltInViewportMaskNVE">
+<span id="_CPPv3N11SpvBuiltIn_24SpvBuiltInViewportMaskNVE"></span><span id="_CPPv2N11SpvBuiltIn_24SpvBuiltInViewportMaskNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a2dd54ee153a9f173e009a9d8dd8822d4"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInViewportMaskNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_24SpvBuiltInViewportMaskNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_29SpvBuiltInSecondaryPositionNVE">
+<span id="_CPPv3N11SpvBuiltIn_29SpvBuiltInSecondaryPositionNVE"></span><span id="_CPPv2N11SpvBuiltIn_29SpvBuiltInSecondaryPositionNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a66cce29e26c8f961d3fb6ac4f8788c6a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInSecondaryPositionNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_29SpvBuiltInSecondaryPositionNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_33SpvBuiltInSecondaryViewportMaskNVE">
+<span id="_CPPv3N11SpvBuiltIn_33SpvBuiltInSecondaryViewportMaskNVE"></span><span id="_CPPv2N11SpvBuiltIn_33SpvBuiltInSecondaryViewportMaskNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a98e45693782c13705825a3ceb1e50fbb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInSecondaryViewportMaskNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_33SpvBuiltInSecondaryViewportMaskNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_27SpvBuiltInPositionPerViewNVE">
+<span id="_CPPv3N11SpvBuiltIn_27SpvBuiltInPositionPerViewNVE"></span><span id="_CPPv2N11SpvBuiltIn_27SpvBuiltInPositionPerViewNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a19fe52cee678162645bfd164463f8021"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInPositionPerViewNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_27SpvBuiltInPositionPerViewNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_31SpvBuiltInViewportMaskPerViewNVE">
+<span id="_CPPv3N11SpvBuiltIn_31SpvBuiltInViewportMaskPerViewNVE"></span><span id="_CPPv2N11SpvBuiltIn_31SpvBuiltInViewportMaskPerViewNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a5284dec4b9cacbde6d763843105c566b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInViewportMaskPerViewNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_31SpvBuiltInViewportMaskPerViewNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_25SpvBuiltInFullyCoveredEXTE">
+<span id="_CPPv3N11SpvBuiltIn_25SpvBuiltInFullyCoveredEXTE"></span><span id="_CPPv2N11SpvBuiltIn_25SpvBuiltInFullyCoveredEXTE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a4b88ecd5f3995e9163e125792e3d86a5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInFullyCoveredEXT</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_25SpvBuiltInFullyCoveredEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_21SpvBuiltInTaskCountNVE">
+<span id="_CPPv3N11SpvBuiltIn_21SpvBuiltInTaskCountNVE"></span><span id="_CPPv2N11SpvBuiltIn_21SpvBuiltInTaskCountNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a7e28f963d8924469913943845f333013"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInTaskCountNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_21SpvBuiltInTaskCountNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_26SpvBuiltInPrimitiveCountNVE">
+<span id="_CPPv3N11SpvBuiltIn_26SpvBuiltInPrimitiveCountNVE"></span><span id="_CPPv2N11SpvBuiltIn_26SpvBuiltInPrimitiveCountNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a2cc2e80a744e615d5f949f24bc4a35a4"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInPrimitiveCountNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_26SpvBuiltInPrimitiveCountNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_28SpvBuiltInPrimitiveIndicesNVE">
+<span id="_CPPv3N11SpvBuiltIn_28SpvBuiltInPrimitiveIndicesNVE"></span><span id="_CPPv2N11SpvBuiltIn_28SpvBuiltInPrimitiveIndicesNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a85081f359d3a6b38e050013fc44248ea"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInPrimitiveIndicesNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_28SpvBuiltInPrimitiveIndicesNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_31SpvBuiltInClipDistancePerViewNVE">
+<span id="_CPPv3N11SpvBuiltIn_31SpvBuiltInClipDistancePerViewNVE"></span><span id="_CPPv2N11SpvBuiltIn_31SpvBuiltInClipDistancePerViewNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a2dd1b1a452e69e3f01c4a70d187d23cd"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInClipDistancePerViewNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_31SpvBuiltInClipDistancePerViewNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_31SpvBuiltInCullDistancePerViewNVE">
+<span id="_CPPv3N11SpvBuiltIn_31SpvBuiltInCullDistancePerViewNVE"></span><span id="_CPPv2N11SpvBuiltIn_31SpvBuiltInCullDistancePerViewNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81afbeaa2dea833e943e60eb5b60b1c3228"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInCullDistancePerViewNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_31SpvBuiltInCullDistancePerViewNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_24SpvBuiltInLayerPerViewNVE">
+<span id="_CPPv3N11SpvBuiltIn_24SpvBuiltInLayerPerViewNVE"></span><span id="_CPPv2N11SpvBuiltIn_24SpvBuiltInLayerPerViewNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a5714e30c4c9be0993b78d50460413682"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInLayerPerViewNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_24SpvBuiltInLayerPerViewNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_25SpvBuiltInMeshViewCountNVE">
+<span id="_CPPv3N11SpvBuiltIn_25SpvBuiltInMeshViewCountNVE"></span><span id="_CPPv2N11SpvBuiltIn_25SpvBuiltInMeshViewCountNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a2d6ca0c908abf9131e312de808a9d637"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInMeshViewCountNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_25SpvBuiltInMeshViewCountNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_27SpvBuiltInMeshViewIndicesNVE">
+<span id="_CPPv3N11SpvBuiltIn_27SpvBuiltInMeshViewIndicesNVE"></span><span id="_CPPv2N11SpvBuiltIn_27SpvBuiltInMeshViewIndicesNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a924779763f179afcd80346d391ab016c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInMeshViewIndicesNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_27SpvBuiltInMeshViewIndicesNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_22SpvBuiltInBaryCoordKHRE">
+<span id="_CPPv3N11SpvBuiltIn_22SpvBuiltInBaryCoordKHRE"></span><span id="_CPPv2N11SpvBuiltIn_22SpvBuiltInBaryCoordKHRE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81afca908606f316ed8c428767cd579881d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInBaryCoordKHR</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_22SpvBuiltInBaryCoordKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_21SpvBuiltInBaryCoordNVE">
+<span id="_CPPv3N11SpvBuiltIn_21SpvBuiltInBaryCoordNVE"></span><span id="_CPPv2N11SpvBuiltIn_21SpvBuiltInBaryCoordNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81aad6f142712e9dfa19cff4ea4c420f53a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInBaryCoordNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_21SpvBuiltInBaryCoordNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_29SpvBuiltInBaryCoordNoPerspKHRE">
+<span id="_CPPv3N11SpvBuiltIn_29SpvBuiltInBaryCoordNoPerspKHRE"></span><span id="_CPPv2N11SpvBuiltIn_29SpvBuiltInBaryCoordNoPerspKHRE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a04360f668cc24bc19845c00325d8246c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInBaryCoordNoPerspKHR</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_29SpvBuiltInBaryCoordNoPerspKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_28SpvBuiltInBaryCoordNoPerspNVE">
+<span id="_CPPv3N11SpvBuiltIn_28SpvBuiltInBaryCoordNoPerspNVE"></span><span id="_CPPv2N11SpvBuiltIn_28SpvBuiltInBaryCoordNoPerspNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a01bddc91d0e8b847bf0390dbfd3f27df"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInBaryCoordNoPerspNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_28SpvBuiltInBaryCoordNoPerspNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_21SpvBuiltInFragSizeEXTE">
+<span id="_CPPv3N11SpvBuiltIn_21SpvBuiltInFragSizeEXTE"></span><span id="_CPPv2N11SpvBuiltIn_21SpvBuiltInFragSizeEXTE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a0a738151e2fde60465acf7c73847d900"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInFragSizeEXT</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_21SpvBuiltInFragSizeEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_24SpvBuiltInFragmentSizeNVE">
+<span id="_CPPv3N11SpvBuiltIn_24SpvBuiltInFragmentSizeNVE"></span><span id="_CPPv2N11SpvBuiltIn_24SpvBuiltInFragmentSizeNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a2fa9db8bcf174ce46bcb280a260586d0"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInFragmentSizeNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_24SpvBuiltInFragmentSizeNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_32SpvBuiltInFragInvocationCountEXTE">
+<span id="_CPPv3N11SpvBuiltIn_32SpvBuiltInFragInvocationCountEXTE"></span><span id="_CPPv2N11SpvBuiltIn_32SpvBuiltInFragInvocationCountEXTE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81ae1447f8c51920c3f99ef81e8eaa899bb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInFragInvocationCountEXT</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_32SpvBuiltInFragInvocationCountEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_31SpvBuiltInInvocationsPerPixelNVE">
+<span id="_CPPv3N11SpvBuiltIn_31SpvBuiltInInvocationsPerPixelNVE"></span><span id="_CPPv2N11SpvBuiltIn_31SpvBuiltInInvocationsPerPixelNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81aae0a1b59e3f8b12ae2a9583fc18fc59a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInInvocationsPerPixelNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_31SpvBuiltInInvocationsPerPixelNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_34SpvBuiltInPrimitivePointIndicesEXTE">
+<span id="_CPPv3N11SpvBuiltIn_34SpvBuiltInPrimitivePointIndicesEXTE"></span><span id="_CPPv2N11SpvBuiltIn_34SpvBuiltInPrimitivePointIndicesEXTE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a099b7f629d8cfe7093d371bd445d0a54"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInPrimitivePointIndicesEXT</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_34SpvBuiltInPrimitivePointIndicesEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_33SpvBuiltInPrimitiveLineIndicesEXTE">
+<span id="_CPPv3N11SpvBuiltIn_33SpvBuiltInPrimitiveLineIndicesEXTE"></span><span id="_CPPv2N11SpvBuiltIn_33SpvBuiltInPrimitiveLineIndicesEXTE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a48a3ea7f54de6b356a1d6345c011ff31"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInPrimitiveLineIndicesEXT</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_33SpvBuiltInPrimitiveLineIndicesEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_37SpvBuiltInPrimitiveTriangleIndicesEXTE">
+<span id="_CPPv3N11SpvBuiltIn_37SpvBuiltInPrimitiveTriangleIndicesEXTE"></span><span id="_CPPv2N11SpvBuiltIn_37SpvBuiltInPrimitiveTriangleIndicesEXTE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a972a4148fd2894c10775c047a0cf17ba"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInPrimitiveTriangleIndicesEXT</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_37SpvBuiltInPrimitiveTriangleIndicesEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_26SpvBuiltInCullPrimitiveEXTE">
+<span id="_CPPv3N11SpvBuiltIn_26SpvBuiltInCullPrimitiveEXTE"></span><span id="_CPPv2N11SpvBuiltIn_26SpvBuiltInCullPrimitiveEXTE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81aa0b83c862ebef7ca5cf535a2d291382c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInCullPrimitiveEXT</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_26SpvBuiltInCullPrimitiveEXTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_21SpvBuiltInLaunchIdKHRE">
+<span id="_CPPv3N11SpvBuiltIn_21SpvBuiltInLaunchIdKHRE"></span><span id="_CPPv2N11SpvBuiltIn_21SpvBuiltInLaunchIdKHRE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a46e93cbf6f7d94fa5b4b197327c40cee"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInLaunchIdKHR</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_21SpvBuiltInLaunchIdKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_20SpvBuiltInLaunchIdNVE">
+<span id="_CPPv3N11SpvBuiltIn_20SpvBuiltInLaunchIdNVE"></span><span id="_CPPv2N11SpvBuiltIn_20SpvBuiltInLaunchIdNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a79b0caa2bbdf0f0a897a2c957f624827"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInLaunchIdNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_20SpvBuiltInLaunchIdNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_23SpvBuiltInLaunchSizeKHRE">
+<span id="_CPPv3N11SpvBuiltIn_23SpvBuiltInLaunchSizeKHRE"></span><span id="_CPPv2N11SpvBuiltIn_23SpvBuiltInLaunchSizeKHRE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81af4338a64ef9e8d00d7516b7b4ce74d6c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInLaunchSizeKHR</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_23SpvBuiltInLaunchSizeKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_22SpvBuiltInLaunchSizeNVE">
+<span id="_CPPv3N11SpvBuiltIn_22SpvBuiltInLaunchSizeNVE"></span><span id="_CPPv2N11SpvBuiltIn_22SpvBuiltInLaunchSizeNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a7d0a22cf153599edbf2449f51902965f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInLaunchSizeNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_22SpvBuiltInLaunchSizeNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_27SpvBuiltInWorldRayOriginKHRE">
+<span id="_CPPv3N11SpvBuiltIn_27SpvBuiltInWorldRayOriginKHRE"></span><span id="_CPPv2N11SpvBuiltIn_27SpvBuiltInWorldRayOriginKHRE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a93907cec7d41540a2cd092b7526875d6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInWorldRayOriginKHR</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_27SpvBuiltInWorldRayOriginKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_26SpvBuiltInWorldRayOriginNVE">
+<span id="_CPPv3N11SpvBuiltIn_26SpvBuiltInWorldRayOriginNVE"></span><span id="_CPPv2N11SpvBuiltIn_26SpvBuiltInWorldRayOriginNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a2d1cf3988a8582a2fb8d0b4338c94723"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInWorldRayOriginNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_26SpvBuiltInWorldRayOriginNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_30SpvBuiltInWorldRayDirectionKHRE">
+<span id="_CPPv3N11SpvBuiltIn_30SpvBuiltInWorldRayDirectionKHRE"></span><span id="_CPPv2N11SpvBuiltIn_30SpvBuiltInWorldRayDirectionKHRE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a0a0ebdee90568c5b2de516719de0d17c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInWorldRayDirectionKHR</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_30SpvBuiltInWorldRayDirectionKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_29SpvBuiltInWorldRayDirectionNVE">
+<span id="_CPPv3N11SpvBuiltIn_29SpvBuiltInWorldRayDirectionNVE"></span><span id="_CPPv2N11SpvBuiltIn_29SpvBuiltInWorldRayDirectionNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81ae2438272fd0c619b6c61264921d00963"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInWorldRayDirectionNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_29SpvBuiltInWorldRayDirectionNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_28SpvBuiltInObjectRayOriginKHRE">
+<span id="_CPPv3N11SpvBuiltIn_28SpvBuiltInObjectRayOriginKHRE"></span><span id="_CPPv2N11SpvBuiltIn_28SpvBuiltInObjectRayOriginKHRE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a96b65d4170c651a8d886844b1e3c3cd5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInObjectRayOriginKHR</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_28SpvBuiltInObjectRayOriginKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_27SpvBuiltInObjectRayOriginNVE">
+<span id="_CPPv3N11SpvBuiltIn_27SpvBuiltInObjectRayOriginNVE"></span><span id="_CPPv2N11SpvBuiltIn_27SpvBuiltInObjectRayOriginNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a7462f5ba904a1c1ebc0ab7118f992462"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInObjectRayOriginNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_27SpvBuiltInObjectRayOriginNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_31SpvBuiltInObjectRayDirectionKHRE">
+<span id="_CPPv3N11SpvBuiltIn_31SpvBuiltInObjectRayDirectionKHRE"></span><span id="_CPPv2N11SpvBuiltIn_31SpvBuiltInObjectRayDirectionKHRE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81af0d8c3e58de1de47e4bc117bc023b896"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInObjectRayDirectionKHR</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_31SpvBuiltInObjectRayDirectionKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_30SpvBuiltInObjectRayDirectionNVE">
+<span id="_CPPv3N11SpvBuiltIn_30SpvBuiltInObjectRayDirectionNVE"></span><span id="_CPPv2N11SpvBuiltIn_30SpvBuiltInObjectRayDirectionNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81ae19919e980c141ed0eb5c510c64e6471"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInObjectRayDirectionNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_30SpvBuiltInObjectRayDirectionNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_20SpvBuiltInRayTminKHRE">
+<span id="_CPPv3N11SpvBuiltIn_20SpvBuiltInRayTminKHRE"></span><span id="_CPPv2N11SpvBuiltIn_20SpvBuiltInRayTminKHRE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81af5801a713c3fa760744de4290bb95c35"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInRayTminKHR</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_20SpvBuiltInRayTminKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_19SpvBuiltInRayTminNVE">
+<span id="_CPPv3N11SpvBuiltIn_19SpvBuiltInRayTminNVE"></span><span id="_CPPv2N11SpvBuiltIn_19SpvBuiltInRayTminNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81af0061a93538de9ba938b8697404cf048"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInRayTminNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_19SpvBuiltInRayTminNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_20SpvBuiltInRayTmaxKHRE">
+<span id="_CPPv3N11SpvBuiltIn_20SpvBuiltInRayTmaxKHRE"></span><span id="_CPPv2N11SpvBuiltIn_20SpvBuiltInRayTmaxKHRE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81aac0fb449eb32967163fd97948b40134c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInRayTmaxKHR</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_20SpvBuiltInRayTmaxKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_19SpvBuiltInRayTmaxNVE">
+<span id="_CPPv3N11SpvBuiltIn_19SpvBuiltInRayTmaxNVE"></span><span id="_CPPv2N11SpvBuiltIn_19SpvBuiltInRayTmaxNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a5595fe4f124c6404a237eda91b3b0fb5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInRayTmaxNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_19SpvBuiltInRayTmaxNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_32SpvBuiltInInstanceCustomIndexKHRE">
+<span id="_CPPv3N11SpvBuiltIn_32SpvBuiltInInstanceCustomIndexKHRE"></span><span id="_CPPv2N11SpvBuiltIn_32SpvBuiltInInstanceCustomIndexKHRE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a182f617b0ff4ba7e7b97e3b0c1d644c8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInInstanceCustomIndexKHR</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_32SpvBuiltInInstanceCustomIndexKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_31SpvBuiltInInstanceCustomIndexNVE">
+<span id="_CPPv3N11SpvBuiltIn_31SpvBuiltInInstanceCustomIndexNVE"></span><span id="_CPPv2N11SpvBuiltIn_31SpvBuiltInInstanceCustomIndexNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a6c6e27f0bfa88bfad8567b2e288b8a29"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInInstanceCustomIndexNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_31SpvBuiltInInstanceCustomIndexNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_26SpvBuiltInObjectToWorldKHRE">
+<span id="_CPPv3N11SpvBuiltIn_26SpvBuiltInObjectToWorldKHRE"></span><span id="_CPPv2N11SpvBuiltIn_26SpvBuiltInObjectToWorldKHRE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81af44837491295435a2ba602771c450f60"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInObjectToWorldKHR</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_26SpvBuiltInObjectToWorldKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_25SpvBuiltInObjectToWorldNVE">
+<span id="_CPPv3N11SpvBuiltIn_25SpvBuiltInObjectToWorldNVE"></span><span id="_CPPv2N11SpvBuiltIn_25SpvBuiltInObjectToWorldNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a4e37b7fc7cc07d92570ae4bda4974e09"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInObjectToWorldNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_25SpvBuiltInObjectToWorldNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_26SpvBuiltInWorldToObjectKHRE">
+<span id="_CPPv3N11SpvBuiltIn_26SpvBuiltInWorldToObjectKHRE"></span><span id="_CPPv2N11SpvBuiltIn_26SpvBuiltInWorldToObjectKHRE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81addbcea929e5bc92cf2729325fe0b2591"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInWorldToObjectKHR</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_26SpvBuiltInWorldToObjectKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_25SpvBuiltInWorldToObjectNVE">
+<span id="_CPPv3N11SpvBuiltIn_25SpvBuiltInWorldToObjectNVE"></span><span id="_CPPv2N11SpvBuiltIn_25SpvBuiltInWorldToObjectNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a1e13d6a07f6e403a1b08198264cb8c64"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInWorldToObjectNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_25SpvBuiltInWorldToObjectNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_16SpvBuiltInHitTNVE">
+<span id="_CPPv3N11SpvBuiltIn_16SpvBuiltInHitTNVE"></span><span id="_CPPv2N11SpvBuiltIn_16SpvBuiltInHitTNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81acba5e3d70c818d110437d826c18bf520"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInHitTNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_16SpvBuiltInHitTNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_20SpvBuiltInHitKindKHRE">
+<span id="_CPPv3N11SpvBuiltIn_20SpvBuiltInHitKindKHRE"></span><span id="_CPPv2N11SpvBuiltIn_20SpvBuiltInHitKindKHRE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81abb26aba38a01d564eb89022435aa7136"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInHitKindKHR</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_20SpvBuiltInHitKindKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_19SpvBuiltInHitKindNVE">
+<span id="_CPPv3N11SpvBuiltIn_19SpvBuiltInHitKindNVE"></span><span id="_CPPv2N11SpvBuiltIn_19SpvBuiltInHitKindNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81af218266addde7e4a3bff78bbc2e1a08b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInHitKindNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_19SpvBuiltInHitKindNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_26SpvBuiltInCurrentRayTimeNVE">
+<span id="_CPPv3N11SpvBuiltIn_26SpvBuiltInCurrentRayTimeNVE"></span><span id="_CPPv2N11SpvBuiltIn_26SpvBuiltInCurrentRayTimeNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81ad2bf36297e79cdaa750a03a2032aea5e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInCurrentRayTimeNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_26SpvBuiltInCurrentRayTimeNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_29SpvBuiltInIncomingRayFlagsKHRE">
+<span id="_CPPv3N11SpvBuiltIn_29SpvBuiltInIncomingRayFlagsKHRE"></span><span id="_CPPv2N11SpvBuiltIn_29SpvBuiltInIncomingRayFlagsKHRE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a61be5217220e7e9e42d691969e6889c4"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInIncomingRayFlagsKHR</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_29SpvBuiltInIncomingRayFlagsKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_28SpvBuiltInIncomingRayFlagsNVE">
+<span id="_CPPv3N11SpvBuiltIn_28SpvBuiltInIncomingRayFlagsNVE"></span><span id="_CPPv2N11SpvBuiltIn_28SpvBuiltInIncomingRayFlagsNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a2e6dbe355975aaa445fcad775e445781"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInIncomingRayFlagsNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_28SpvBuiltInIncomingRayFlagsNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_29SpvBuiltInRayGeometryIndexKHRE">
+<span id="_CPPv3N11SpvBuiltIn_29SpvBuiltInRayGeometryIndexKHRE"></span><span id="_CPPv2N11SpvBuiltIn_29SpvBuiltInRayGeometryIndexKHRE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a2a2e3d796851251f4865505b67c6acf3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInRayGeometryIndexKHR</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_29SpvBuiltInRayGeometryIndexKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_22SpvBuiltInWarpsPerSMNVE">
+<span id="_CPPv3N11SpvBuiltIn_22SpvBuiltInWarpsPerSMNVE"></span><span id="_CPPv2N11SpvBuiltIn_22SpvBuiltInWarpsPerSMNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a39a1bfb46c5e7c92df43b6a6d5c0c6bd"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInWarpsPerSMNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_22SpvBuiltInWarpsPerSMNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_19SpvBuiltInSMCountNVE">
+<span id="_CPPv3N11SpvBuiltIn_19SpvBuiltInSMCountNVE"></span><span id="_CPPv2N11SpvBuiltIn_19SpvBuiltInSMCountNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81af76e003dce0cc68a431ca4ec41c3ecbb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInSMCountNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_19SpvBuiltInSMCountNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_18SpvBuiltInWarpIDNVE">
+<span id="_CPPv3N11SpvBuiltIn_18SpvBuiltInWarpIDNVE"></span><span id="_CPPv2N11SpvBuiltIn_18SpvBuiltInWarpIDNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81adcae97cd9608439ae444fe79cf493b2c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInWarpIDNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_18SpvBuiltInWarpIDNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_16SpvBuiltInSMIDNVE">
+<span id="_CPPv3N11SpvBuiltIn_16SpvBuiltInSMIDNVE"></span><span id="_CPPv2N11SpvBuiltIn_16SpvBuiltInSMIDNVE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81aad4382d36bcdae976022f865716605fd"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInSMIDNV</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_16SpvBuiltInSMIDNVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_21SpvBuiltInCullMaskKHRE">
+<span id="_CPPv3N11SpvBuiltIn_21SpvBuiltInCullMaskKHRE"></span><span id="_CPPv2N11SpvBuiltIn_21SpvBuiltInCullMaskKHRE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a36a487f78603c6e148cf04ca6d3d4506"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInCullMaskKHR</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_21SpvBuiltInCullMaskKHRE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N11SpvBuiltIn_13SpvBuiltInMaxE">
+<span id="_CPPv3N11SpvBuiltIn_13SpvBuiltInMaxE"></span><span id="_CPPv2N11SpvBuiltIn_13SpvBuiltInMaxE"></span><span class="target" id="spirv_8h_1a1c316733655adb91aee8348eab9ebc81a46d006beec9d6cb5cec72d6f65c35d73"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SpvBuiltInMax</span></span></span><a class="headerlink" href="#_CPPv4N11SpvBuiltIn_13SpvBuiltInMaxE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="enum_spirv_8h_1ab5fb458dcb45aa0fb04ba35c23c9b90e.html" class="btn btn-neutral float-left" title="Enum SpvAddressingModel_" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="enum_spirv__cross__c_8h_1a1c6ba9542fa28e0b0e823b20ead282f4.html" class="btn btn-neutral float-right" title="Enum spvc_backend" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

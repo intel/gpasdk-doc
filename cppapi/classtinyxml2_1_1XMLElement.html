@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class XMLElement &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Class XMLHandle" href="classtinyxml2_1_1XMLHandle.html" />
+    <link rel="prev" title="Class XMLDocument::DepthTracker" href="classtinyxml2_1_1XMLDocument_1_1DepthTracker.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">'Helloworld' Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">'Helloworld' Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">API-Debug-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">Device-Override</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#unions">Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#sept-21-2023">2023.3 (Sept 21 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id35">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id36">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id40">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id41">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2023.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id5">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id8">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id11">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id12">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id13">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id14">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id15">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id16">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id17">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id18">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id19">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../src/reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">C++ Interfaces</a></li>
+      <li class="breadcrumb-item active">Class XMLElement</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-xmlelement">
+<span id="exhale-class-classtinyxml2-1-1xmlelement"></span><h1>Class XMLElement<a class="headerlink" href="#class-xmlelement" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_tinyxml2_tinyxml2.h.html#file-include-tinyxml2-tinyxml2-h"><span class="std std-ref">File tinyxml2.h</span></a></p></li>
+</ul>
+<section id="inheritance-relationships">
+<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline"></a></h2>
+<section id="base-type">
+<h3>Base Type<a class="headerlink" href="#base-type" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">tinyxml2::XMLNode</span></code> (<a class="reference internal" href="classtinyxml2_1_1XMLNode.html#exhale-class-classtinyxml2-1-1xmlnode"><span class="std std-ref">Class XMLNode</span></a>)</p></li>
+</ul>
+</section>
+</section>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElementE">
+<span id="_CPPv3N8tinyxml210XMLElementE"></span><span id="_CPPv2N8tinyxml210XMLElementE"></span><span id="tinyxml2::XMLElement"></span><span class="target" id="classtinyxml2_1_1XMLElement"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">XMLElement</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">tinyxml2</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classtinyxml2_1_1XMLNode.html#_CPPv4N8tinyxml27XMLNodeE" title="tinyxml2::XMLNode"><span class="n"><span class="pre">XMLNode</span></span></a><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElementE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>The element is a container class. It has a value, the element name, and can contain other elements, text, comments, and unknowns. Elements also contain an arbitrary number of attributes. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement18ElementClosingTypeE">
+<span id="_CPPv3N8tinyxml210XMLElement18ElementClosingTypeE"></span><span id="_CPPv2N8tinyxml210XMLElement18ElementClosingTypeE"></span><span class="target" id="classtinyxml2_1_1XMLElement_1ab5f90e2493c35702175235127e2935b4"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ElementClosingType</span></span></span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement18ElementClosingTypeE" title="Permalink to this definition"></a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement18ElementClosingType4OPENE">
+<span id="_CPPv3N8tinyxml210XMLElement18ElementClosingType4OPENE"></span><span id="_CPPv2N8tinyxml210XMLElement18ElementClosingType4OPENE"></span><span class="target" id="classtinyxml2_1_1XMLElement_1ab5f90e2493c35702175235127e2935b4a78cf277c55b4655c86458dfecb11d349"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OPEN</span></span></span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement18ElementClosingType4OPENE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement18ElementClosingType6CLOSEDE">
+<span id="_CPPv3N8tinyxml210XMLElement18ElementClosingType6CLOSEDE"></span><span id="_CPPv2N8tinyxml210XMLElement18ElementClosingType6CLOSEDE"></span><span class="target" id="classtinyxml2_1_1XMLElement_1ab5f90e2493c35702175235127e2935b4aa2f1f384020d2d4538ad2ec84930a028"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CLOSED</span></span></span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement18ElementClosingType6CLOSEDE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement18ElementClosingType7CLOSINGE">
+<span id="_CPPv3N8tinyxml210XMLElement18ElementClosingType7CLOSINGE"></span><span id="_CPPv2N8tinyxml210XMLElement18ElementClosingType7CLOSINGE"></span><span class="target" id="classtinyxml2_1_1XMLElement_1ab5f90e2493c35702175235127e2935b4aa2857344b98a931536c443cd0cadc4b7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CLOSING</span></span></span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement18ElementClosingType7CLOSINGE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement4NameEv">
+<span id="_CPPv3NK8tinyxml210XMLElement4NameEv"></span><span id="_CPPv2NK8tinyxml210XMLElement4NameEv"></span><span id="tinyxml2::XMLElement::NameC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1abd36e34e4428a8eeeffbe87eab0b124d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">Name</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement4NameEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get the name of an element (which is the <a class="reference internal" href="classtinyxml2_1_1XMLNode.html#classtinyxml2_1_1XMLNode_1a0485e51c670e741884cfd8362274d680"><span class="std std-ref">Value()</span></a> of the node.) </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement7SetNameEPKcb">
+<span id="_CPPv3N8tinyxml210XMLElement7SetNameEPKcb"></span><span id="_CPPv2N8tinyxml210XMLElement7SetNameEPKcb"></span><span id="tinyxml2::XMLElement::SetName__cCP.b"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a97712009a530d8cb8a63bf705f02b4f1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetName</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">str</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">staticMem</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement7SetNameEPKcb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Set the name of the element. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement9ToElementEv">
+<span id="_CPPv3N8tinyxml210XMLElement9ToElementEv"></span><span id="_CPPv2N8tinyxml210XMLElement9ToElementEv"></span><span id="tinyxml2::XMLElement::ToElement"></span><span class="target" id="classtinyxml2_1_1XMLElement_1abade4c59bd6f16c85caa42d3c9eb617d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N8tinyxml210XMLElementE" title="tinyxml2::XMLElement"><span class="n"><span class="pre">XMLElement</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">ToElement</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement9ToElementEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Safely cast to an Element, or null. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement9ToElementEv">
+<span id="_CPPv3NK8tinyxml210XMLElement9ToElementEv"></span><span id="_CPPv2NK8tinyxml210XMLElement9ToElementEv"></span><span id="tinyxml2::XMLElement::ToElementC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a97ac0e6fd96705fd151481a8f5f67c56"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N8tinyxml210XMLElementE" title="tinyxml2::XMLElement"><span class="n"><span class="pre">XMLElement</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">ToElement</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement9ToElementEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement6AcceptEP10XMLVisitor">
+<span id="_CPPv3NK8tinyxml210XMLElement6AcceptEP10XMLVisitor"></span><span id="_CPPv2NK8tinyxml210XMLElement6AcceptEP10XMLVisitor"></span><span id="tinyxml2::XMLElement::Accept__XMLVisitorPC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a9b2119831e8b85827d5d3e5076788e4a"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Accept</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classtinyxml2_1_1XMLVisitor.html#_CPPv4N8tinyxml210XMLVisitorE" title="tinyxml2::XMLVisitor"><span class="n"><span class="pre">XMLVisitor</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">visitor</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement6AcceptEP10XMLVisitor" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Accept a hierarchical visit of the nodes in the TinyXML-2 DOM. Every node in the XML tree will be conditionally visited and the host will be called back via the <a class="reference internal" href="classtinyxml2_1_1XMLVisitor.html#classtinyxml2_1_1XMLVisitor"><span class="std std-ref">XMLVisitor</span></a> interface.</p>
+<p>This is essentially a SAX interface for TinyXML-2. (Note however it doesn't re-parse the XML for the callbacks, so the performance of TinyXML-2 is unchanged by using this interface versus any other.)</p>
+<p>The interface has been based on ideas from:</p>
+<p><ul class="simple">
+<li><p><a class="reference external" href="http://www.saxproject.org/">http://www.saxproject.org/</a></p></li>
+<li><p><a class="reference external" href="http://c2.com/cgi/wiki?HierarchicalVisitorPattern">http://c2.com/cgi/wiki?HierarchicalVisitorPattern</a></p></li>
+</ul>
+</p>
+<p>Which are both good references for &quot;visiting&quot;.</p>
+<p>An example of using <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a9b2119831e8b85827d5d3e5076788e4a"><span class="std std-ref">Accept()</span></a>: <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">XMLPrinter</span><span class="w"> </span><span class="n">printer</span><span class="p">;</span>
+<span class="n">tinyxmlDoc</span><span class="p">.</span><span class="n">Accept</span><span class="p">(</span><span class="w"> </span><span class="o">&amp;</span><span class="n">printer</span><span class="w"> </span><span class="p">);</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">xmlcstr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">printer</span><span class="p">.</span><span class="n">CStr</span><span class="p">();</span>
+</pre></div>
+</div>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement9AttributeEPKcPKc">
+<span id="_CPPv3NK8tinyxml210XMLElement9AttributeEPKcPKc"></span><span id="_CPPv2NK8tinyxml210XMLElement9AttributeEPKcPKc"></span><span id="tinyxml2::XMLElement::Attribute__cCP.cCPC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a48cf4a315cfbac7d74cd0d5ff2c5df51"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">Attribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement9AttributeEPKcPKc" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Given an attribute name, <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a48cf4a315cfbac7d74cd0d5ff2c5df51"><span class="std std-ref">Attribute()</span></a> returns the value for the attribute of that name, or null if none exists. For example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ele</span><span class="o">-&gt;</span><span class="n">Attribute</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;foo&quot;</span><span class="w"> </span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The 'value' parameter is normally null. However, if specified, the attribute will only be returned if the 'name' and 'value' match. This allow you to write code:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">ele</span><span class="o">-&gt;</span><span class="n">Attribute</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;foo&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;bar&quot;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="n">callFooIsBar</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>rather than: <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">ele</span><span class="o">-&gt;</span><span class="n">Attribute</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;foo&quot;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">strcmp</span><span class="p">(</span><span class="w"> </span><span class="n">ele</span><span class="o">-&gt;</span><span class="n">Attribute</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;foo&quot;</span><span class="w"> </span><span class="p">),</span><span class="w"> </span><span class="s">&quot;bar&quot;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="n">callFooIsBar</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement12IntAttributeEPKci">
+<span id="_CPPv3NK8tinyxml210XMLElement12IntAttributeEPKci"></span><span id="_CPPv2NK8tinyxml210XMLElement12IntAttributeEPKci"></span><span id="tinyxml2::XMLElement::IntAttribute__cCP.iC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a95a89b13bb14a2d4655e2b5b406c00d4"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IntAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">defaultValue</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement12IntAttributeEPKci" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Given an attribute name, <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a95a89b13bb14a2d4655e2b5b406c00d4"><span class="std std-ref">IntAttribute()</span></a> returns the value of the attribute interpreted as an integer. The default value will be returned if the attribute isn't present, or if there is an error. (For a method with error checking, see <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a8a78bc1187c1c45ad89f2690eab567b1"><span class="std std-ref">QueryIntAttribute()</span></a>). </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement17UnsignedAttributeEPKcj">
+<span id="_CPPv3NK8tinyxml210XMLElement17UnsignedAttributeEPKcj"></span><span id="_CPPv2NK8tinyxml210XMLElement17UnsignedAttributeEPKcj"></span><span id="tinyxml2::XMLElement::UnsignedAttribute__cCP.unsignedC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1afea43a1d4aa33e3703ddee5fc9adc26c"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UnsignedAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">defaultValue</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement17UnsignedAttributeEPKcj" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a95a89b13bb14a2d4655e2b5b406c00d4"><span class="std std-ref">IntAttribute()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement14Int64AttributeEPKc7int64_t">
+<span id="_CPPv3NK8tinyxml210XMLElement14Int64AttributeEPKc7int64_t"></span><span id="_CPPv2NK8tinyxml210XMLElement14Int64AttributeEPKc7int64_t"></span><span id="tinyxml2::XMLElement::Int64Attribute__cCP.int64_tC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a66d96972adecd816194191f13cc4a0a0"></span><span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Int64Attribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">defaultValue</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement14Int64AttributeEPKc7int64_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a95a89b13bb14a2d4655e2b5b406c00d4"><span class="std std-ref">IntAttribute()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement19Unsigned64AttributeEPKc8uint64_t">
+<span id="_CPPv3NK8tinyxml210XMLElement19Unsigned64AttributeEPKc8uint64_t"></span><span id="_CPPv2NK8tinyxml210XMLElement19Unsigned64AttributeEPKc8uint64_t"></span><span id="tinyxml2::XMLElement::Unsigned64Attribute__cCP.uint64_tC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a226502bab8f1be7ede1fdd255398eb85"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Unsigned64Attribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">defaultValue</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement19Unsigned64AttributeEPKc8uint64_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a95a89b13bb14a2d4655e2b5b406c00d4"><span class="std std-ref">IntAttribute()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement13BoolAttributeEPKcb">
+<span id="_CPPv3NK8tinyxml210XMLElement13BoolAttributeEPKcb"></span><span id="_CPPv2NK8tinyxml210XMLElement13BoolAttributeEPKcb"></span><span id="tinyxml2::XMLElement::BoolAttribute__cCP.bC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a53eda26131e1ad1031ef8ec8adb51bd8"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BoolAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">defaultValue</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement13BoolAttributeEPKcb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a95a89b13bb14a2d4655e2b5b406c00d4"><span class="std std-ref">IntAttribute()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement15DoubleAttributeEPKcd">
+<span id="_CPPv3NK8tinyxml210XMLElement15DoubleAttributeEPKcd"></span><span id="_CPPv2NK8tinyxml210XMLElement15DoubleAttributeEPKcd"></span><span id="tinyxml2::XMLElement::DoubleAttribute__cCP.doubleC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a10a90c505aea716bf073eea1c97f33b5"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DoubleAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">defaultValue</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement15DoubleAttributeEPKcd" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a95a89b13bb14a2d4655e2b5b406c00d4"><span class="std std-ref">IntAttribute()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement14FloatAttributeEPKcf">
+<span id="_CPPv3NK8tinyxml210XMLElement14FloatAttributeEPKcf"></span><span id="_CPPv2NK8tinyxml210XMLElement14FloatAttributeEPKcf"></span><span id="tinyxml2::XMLElement::FloatAttribute__cCP.floatC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1ab1f4be2332e27dc640e9b6abd01d64dd"></span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FloatAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">defaultValue</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement14FloatAttributeEPKcf" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a95a89b13bb14a2d4655e2b5b406c00d4"><span class="std std-ref">IntAttribute()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement17QueryIntAttributeEPKcPi">
+<span id="_CPPv3NK8tinyxml210XMLElement17QueryIntAttributeEPKcPi"></span><span id="_CPPv2NK8tinyxml210XMLElement17QueryIntAttributeEPKcPi"></span><span id="tinyxml2::XMLElement::QueryIntAttribute__cCP.iPC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a8a78bc1187c1c45ad89f2690eab567b1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="enum_tinyxml2_8h_1a1fbf88509c3ac88c09117b1947414e08.html#_CPPv4N8tinyxml28XMLErrorE" title="tinyxml2::XMLError"><span class="n"><span class="pre">XMLError</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryIntAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement17QueryIntAttributeEPKcPi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Given an attribute name, <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a8a78bc1187c1c45ad89f2690eab567b1"><span class="std std-ref">QueryIntAttribute()</span></a> returns XML_SUCCESS, XML_WRONG_ATTRIBUTE_TYPE if the conversion can't be performed, or XML_NO_ATTRIBUTE if the attribute doesn't exist. If successful, the result of the conversion will be written to 'value'. If not successful, nothing will be written to 'value'. This allows you to provide default value:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="n">QueryIntAttribute</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;foo&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">value</span><span class="w"> </span><span class="p">);</span><span class="w">     </span><span class="c1">// if &quot;foo&quot; isn&#39;t found, value will still be 10</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement22QueryUnsignedAttributeEPKcPj">
+<span id="_CPPv3NK8tinyxml210XMLElement22QueryUnsignedAttributeEPKcPj"></span><span id="_CPPv2NK8tinyxml210XMLElement22QueryUnsignedAttributeEPKcPj"></span><span id="tinyxml2::XMLElement::QueryUnsignedAttribute__cCP.unsigned-iPC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a26fc84cbfba6769dafcfbf256c05e22f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="enum_tinyxml2_8h_1a1fbf88509c3ac88c09117b1947414e08.html#_CPPv4N8tinyxml28XMLErrorE" title="tinyxml2::XMLError"><span class="n"><span class="pre">XMLError</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryUnsignedAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement22QueryUnsignedAttributeEPKcPj" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a8a78bc1187c1c45ad89f2690eab567b1"><span class="std std-ref">QueryIntAttribute()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement19QueryInt64AttributeEPKcP7int64_t">
+<span id="_CPPv3NK8tinyxml210XMLElement19QueryInt64AttributeEPKcP7int64_t"></span><span id="_CPPv2NK8tinyxml210XMLElement19QueryInt64AttributeEPKcP7int64_t"></span><span id="tinyxml2::XMLElement::QueryInt64Attribute__cCP.int64_tPC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a7c0955d80b6f8d196744eacb0f6e90a8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="enum_tinyxml2_8h_1a1fbf88509c3ac88c09117b1947414e08.html#_CPPv4N8tinyxml28XMLErrorE" title="tinyxml2::XMLError"><span class="n"><span class="pre">XMLError</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryInt64Attribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement19QueryInt64AttributeEPKcP7int64_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a8a78bc1187c1c45ad89f2690eab567b1"><span class="std std-ref">QueryIntAttribute()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement24QueryUnsigned64AttributeEPKcP8uint64_t">
+<span id="_CPPv3NK8tinyxml210XMLElement24QueryUnsigned64AttributeEPKcP8uint64_t"></span><span id="_CPPv2NK8tinyxml210XMLElement24QueryUnsigned64AttributeEPKcP8uint64_t"></span><span id="tinyxml2::XMLElement::QueryUnsigned64Attribute__cCP.uint64_tPC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a13dd590b5d3958ce2ed79844aacd9405"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="enum_tinyxml2_8h_1a1fbf88509c3ac88c09117b1947414e08.html#_CPPv4N8tinyxml28XMLErrorE" title="tinyxml2::XMLError"><span class="n"><span class="pre">XMLError</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryUnsigned64Attribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement24QueryUnsigned64AttributeEPKcP8uint64_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a8a78bc1187c1c45ad89f2690eab567b1"><span class="std std-ref">QueryIntAttribute()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement18QueryBoolAttributeEPKcPb">
+<span id="_CPPv3NK8tinyxml210XMLElement18QueryBoolAttributeEPKcPb"></span><span id="_CPPv2NK8tinyxml210XMLElement18QueryBoolAttributeEPKcPb"></span><span id="tinyxml2::XMLElement::QueryBoolAttribute__cCP.bPC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a14c1bb77c39689838be01838d86ca872"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="enum_tinyxml2_8h_1a1fbf88509c3ac88c09117b1947414e08.html#_CPPv4N8tinyxml28XMLErrorE" title="tinyxml2::XMLError"><span class="n"><span class="pre">XMLError</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryBoolAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement18QueryBoolAttributeEPKcPb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a8a78bc1187c1c45ad89f2690eab567b1"><span class="std std-ref">QueryIntAttribute()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement20QueryDoubleAttributeEPKcPd">
+<span id="_CPPv3NK8tinyxml210XMLElement20QueryDoubleAttributeEPKcPd"></span><span id="_CPPv2NK8tinyxml210XMLElement20QueryDoubleAttributeEPKcPd"></span><span id="tinyxml2::XMLElement::QueryDoubleAttribute__cCP.doublePC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a5f0964e2dbd8e2ee7fce9beab689443c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="enum_tinyxml2_8h_1a1fbf88509c3ac88c09117b1947414e08.html#_CPPv4N8tinyxml28XMLErrorE" title="tinyxml2::XMLError"><span class="n"><span class="pre">XMLError</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryDoubleAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement20QueryDoubleAttributeEPKcPd" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a8a78bc1187c1c45ad89f2690eab567b1"><span class="std std-ref">QueryIntAttribute()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement19QueryFloatAttributeEPKcPf">
+<span id="_CPPv3NK8tinyxml210XMLElement19QueryFloatAttributeEPKcPf"></span><span id="_CPPv2NK8tinyxml210XMLElement19QueryFloatAttributeEPKcPf"></span><span id="tinyxml2::XMLElement::QueryFloatAttribute__cCP.floatPC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1acd5eeddf6002ef90806af794b9d9a5a5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="enum_tinyxml2_8h_1a1fbf88509c3ac88c09117b1947414e08.html#_CPPv4N8tinyxml28XMLErrorE" title="tinyxml2::XMLError"><span class="n"><span class="pre">XMLError</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryFloatAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement19QueryFloatAttributeEPKcPf" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a8a78bc1187c1c45ad89f2690eab567b1"><span class="std std-ref">QueryIntAttribute()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement20QueryStringAttributeEPKcPPKc">
+<span id="_CPPv3NK8tinyxml210XMLElement20QueryStringAttributeEPKcPPKc"></span><span id="_CPPv2NK8tinyxml210XMLElement20QueryStringAttributeEPKcPPKc"></span><span id="tinyxml2::XMLElement::QueryStringAttribute__cCP.cCPPC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1adb8ae765f98d0c5037faec48deea78bc"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="enum_tinyxml2_8h_1a1fbf88509c3ac88c09117b1947414e08.html#_CPPv4N8tinyxml28XMLErrorE" title="tinyxml2::XMLError"><span class="n"><span class="pre">XMLError</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryStringAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement20QueryStringAttributeEPKcPPKc" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a8a78bc1187c1c45ad89f2690eab567b1"><span class="std std-ref">QueryIntAttribute()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement14QueryAttributeEPKcPi">
+<span id="_CPPv3NK8tinyxml210XMLElement14QueryAttributeEPKcPi"></span><span id="_CPPv2NK8tinyxml210XMLElement14QueryAttributeEPKcPi"></span><span id="tinyxml2::XMLElement::QueryAttribute__cCP.iPC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a5b7df3bed2b8954eabf227fa204522eb"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="enum_tinyxml2_8h_1a1fbf88509c3ac88c09117b1947414e08.html#_CPPv4N8tinyxml28XMLErrorE" title="tinyxml2::XMLError"><span class="n"><span class="pre">XMLError</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement14QueryAttributeEPKcPi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Given an attribute name, <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a5b7df3bed2b8954eabf227fa204522eb"><span class="std std-ref">QueryAttribute()</span></a> returns XML_SUCCESS, XML_WRONG_ATTRIBUTE_TYPE if the conversion can't be performed, or XML_NO_ATTRIBUTE if the attribute doesn't exist. It is overloaded for the primitive types, and is a generally more convenient replacement of <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a8a78bc1187c1c45ad89f2690eab567b1"><span class="std std-ref">QueryIntAttribute()</span></a> and related functions.</p>
+<p>If successful, the result of the conversion will be written to 'value'. If not successful, nothing will be written to 'value'. This allows you to provide default value:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="n">QueryAttribute</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;foo&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">value</span><span class="w"> </span><span class="p">);</span><span class="w">        </span><span class="c1">// if &quot;foo&quot; isn&#39;t found, value will still be 10</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement14QueryAttributeEPKcPj">
+<span id="_CPPv3NK8tinyxml210XMLElement14QueryAttributeEPKcPj"></span><span id="_CPPv2NK8tinyxml210XMLElement14QueryAttributeEPKcPj"></span><span id="tinyxml2::XMLElement::QueryAttribute__cCP.unsigned-iPC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a432276ea6e034cad19ad66de887ee13c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="enum_tinyxml2_8h_1a1fbf88509c3ac88c09117b1947414e08.html#_CPPv4N8tinyxml28XMLErrorE" title="tinyxml2::XMLError"><span class="n"><span class="pre">XMLError</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement14QueryAttributeEPKcPj" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement14QueryAttributeEPKcP7int64_t">
+<span id="_CPPv3NK8tinyxml210XMLElement14QueryAttributeEPKcP7int64_t"></span><span id="_CPPv2NK8tinyxml210XMLElement14QueryAttributeEPKcP7int64_t"></span><span id="tinyxml2::XMLElement::QueryAttribute__cCP.int64_tPC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a4867aea7a812acf7f00a915e4eaeaf3e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="enum_tinyxml2_8h_1a1fbf88509c3ac88c09117b1947414e08.html#_CPPv4N8tinyxml28XMLErrorE" title="tinyxml2::XMLError"><span class="n"><span class="pre">XMLError</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement14QueryAttributeEPKcP7int64_t" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement14QueryAttributeEPKcP8uint64_t">
+<span id="_CPPv3NK8tinyxml210XMLElement14QueryAttributeEPKcP8uint64_t"></span><span id="_CPPv2NK8tinyxml210XMLElement14QueryAttributeEPKcP8uint64_t"></span><span id="tinyxml2::XMLElement::QueryAttribute__cCP.uint64_tPC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1ad2175dd6a927f7b0c5bfcde727da2b35"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="enum_tinyxml2_8h_1a1fbf88509c3ac88c09117b1947414e08.html#_CPPv4N8tinyxml28XMLErrorE" title="tinyxml2::XMLError"><span class="n"><span class="pre">XMLError</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement14QueryAttributeEPKcP8uint64_t" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement14QueryAttributeEPKcPb">
+<span id="_CPPv3NK8tinyxml210XMLElement14QueryAttributeEPKcPb"></span><span id="_CPPv2NK8tinyxml210XMLElement14QueryAttributeEPKcPb"></span><span id="tinyxml2::XMLElement::QueryAttribute__cCP.bPC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a17139a22f2552439a7c2780e8e901522"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="enum_tinyxml2_8h_1a1fbf88509c3ac88c09117b1947414e08.html#_CPPv4N8tinyxml28XMLErrorE" title="tinyxml2::XMLError"><span class="n"><span class="pre">XMLError</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement14QueryAttributeEPKcPb" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement14QueryAttributeEPKcPd">
+<span id="_CPPv3NK8tinyxml210XMLElement14QueryAttributeEPKcPd"></span><span id="_CPPv2NK8tinyxml210XMLElement14QueryAttributeEPKcPd"></span><span id="tinyxml2::XMLElement::QueryAttribute__cCP.doublePC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a4f4da49900e82e25d163a7c0325fcc5f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="enum_tinyxml2_8h_1a1fbf88509c3ac88c09117b1947414e08.html#_CPPv4N8tinyxml28XMLErrorE" title="tinyxml2::XMLError"><span class="n"><span class="pre">XMLError</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement14QueryAttributeEPKcPd" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement14QueryAttributeEPKcPf">
+<span id="_CPPv3NK8tinyxml210XMLElement14QueryAttributeEPKcPf"></span><span id="_CPPv2NK8tinyxml210XMLElement14QueryAttributeEPKcPf"></span><span id="tinyxml2::XMLElement::QueryAttribute__cCP.floatPC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1ac85b18ccd9ee8a79a2fd97cc593aae43"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="enum_tinyxml2_8h_1a1fbf88509c3ac88c09117b1947414e08.html#_CPPv4N8tinyxml28XMLErrorE" title="tinyxml2::XMLError"><span class="n"><span class="pre">XMLError</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement14QueryAttributeEPKcPf" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement14QueryAttributeEPKcPPKc">
+<span id="_CPPv3NK8tinyxml210XMLElement14QueryAttributeEPKcPPKc"></span><span id="_CPPv2NK8tinyxml210XMLElement14QueryAttributeEPKcPPKc"></span><span id="tinyxml2::XMLElement::QueryAttribute__cCP.cCPPC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1ae6a3656a3af23b2c265b8fed8e888e30"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="enum_tinyxml2_8h_1a1fbf88509c3ac88c09117b1947414e08.html#_CPPv4N8tinyxml28XMLErrorE" title="tinyxml2::XMLError"><span class="n"><span class="pre">XMLError</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement14QueryAttributeEPKcPPKc" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement12SetAttributeEPKcPKc">
+<span id="_CPPv3N8tinyxml210XMLElement12SetAttributeEPKcPKc"></span><span id="_CPPv2N8tinyxml210XMLElement12SetAttributeEPKcPKc"></span><span id="tinyxml2::XMLElement::SetAttribute__cCP.cCP"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a11943abf2d0831548c3790dd5d9f119c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement12SetAttributeEPKcPKc" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Sets the named attribute to value. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement12SetAttributeEPKci">
+<span id="_CPPv3N8tinyxml210XMLElement12SetAttributeEPKci"></span><span id="_CPPv2N8tinyxml210XMLElement12SetAttributeEPKci"></span><span id="tinyxml2::XMLElement::SetAttribute__cCP.i"></span><span class="target" id="classtinyxml2_1_1XMLElement_1aae6568c64c7f1cc88be8461ba41a79cf"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement12SetAttributeEPKci" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Sets the named attribute to value. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement12SetAttributeEPKcj">
+<span id="_CPPv3N8tinyxml210XMLElement12SetAttributeEPKcj"></span><span id="_CPPv2N8tinyxml210XMLElement12SetAttributeEPKcj"></span><span id="tinyxml2::XMLElement::SetAttribute__cCP.unsigned"></span><span class="target" id="classtinyxml2_1_1XMLElement_1ae143997e90064ba82326b29a9930ea8f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement12SetAttributeEPKcj" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Sets the named attribute to value. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement12SetAttributeEPKc7int64_t">
+<span id="_CPPv3N8tinyxml210XMLElement12SetAttributeEPKc7int64_t"></span><span id="_CPPv2N8tinyxml210XMLElement12SetAttributeEPKc7int64_t"></span><span id="tinyxml2::XMLElement::SetAttribute__cCP.int64_t"></span><span class="target" id="classtinyxml2_1_1XMLElement_1aaeefdf9171fec91b13a776b42299b0dd"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement12SetAttributeEPKc7int64_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Sets the named attribute to value. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement12SetAttributeEPKc8uint64_t">
+<span id="_CPPv3N8tinyxml210XMLElement12SetAttributeEPKc8uint64_t"></span><span id="_CPPv2N8tinyxml210XMLElement12SetAttributeEPKc8uint64_t"></span><span id="tinyxml2::XMLElement::SetAttribute__cCP.uint64_t"></span><span class="target" id="classtinyxml2_1_1XMLElement_1ad598868c0599ddc4695dab18552c308d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement12SetAttributeEPKc8uint64_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Sets the named attribute to value. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement12SetAttributeEPKcb">
+<span id="_CPPv3N8tinyxml210XMLElement12SetAttributeEPKcb"></span><span id="_CPPv2N8tinyxml210XMLElement12SetAttributeEPKcb"></span><span id="tinyxml2::XMLElement::SetAttribute__cCP.b"></span><span class="target" id="classtinyxml2_1_1XMLElement_1aa848b696e6a75e4e545c6da9893b11e1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement12SetAttributeEPKcb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Sets the named attribute to value. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement12SetAttributeEPKcd">
+<span id="_CPPv3N8tinyxml210XMLElement12SetAttributeEPKcd"></span><span id="_CPPv2N8tinyxml210XMLElement12SetAttributeEPKcd"></span><span id="tinyxml2::XMLElement::SetAttribute__cCP.double"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a233397ee81e70eb5d4b814c5f8698533"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement12SetAttributeEPKcd" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Sets the named attribute to value. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement12SetAttributeEPKcf">
+<span id="_CPPv3N8tinyxml210XMLElement12SetAttributeEPKcf"></span><span id="_CPPv2N8tinyxml210XMLElement12SetAttributeEPKcf"></span><span id="tinyxml2::XMLElement::SetAttribute__cCP.float"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a554b70d882e65b28fc084b23df9b9759"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement12SetAttributeEPKcf" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Sets the named attribute to value. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement15DeleteAttributeEPKc">
+<span id="_CPPv3N8tinyxml210XMLElement15DeleteAttributeEPKc"></span><span id="_CPPv2N8tinyxml210XMLElement15DeleteAttributeEPKc"></span><span id="tinyxml2::XMLElement::DeleteAttribute__cCP"></span><span class="target" id="classtinyxml2_1_1XMLElement_1aebd45aa7118964c30b32fe12e944628a"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DeleteAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement15DeleteAttributeEPKc" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Delete an attribute. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement14FirstAttributeEv">
+<span id="_CPPv3NK8tinyxml210XMLElement14FirstAttributeEv"></span><span id="_CPPv2NK8tinyxml210XMLElement14FirstAttributeEv"></span><span id="tinyxml2::XMLElement::FirstAttributeC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a4a7c4392658833bb8138c474d15a805a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="classtinyxml2_1_1XMLAttribute.html#_CPPv4N8tinyxml212XMLAttributeE" title="tinyxml2::XMLAttribute"><span class="n"><span class="pre">XMLAttribute</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">FirstAttribute</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement14FirstAttributeEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Return the first attribute in the list. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement13FindAttributeEPKc">
+<span id="_CPPv3NK8tinyxml210XMLElement13FindAttributeEPKc"></span><span id="_CPPv2NK8tinyxml210XMLElement13FindAttributeEPKc"></span><span id="tinyxml2::XMLElement::FindAttribute__cCPC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a157750dac8037a316fd1af1a973dfa2c"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="classtinyxml2_1_1XMLAttribute.html#_CPPv4N8tinyxml212XMLAttributeE" title="tinyxml2::XMLAttribute"><span class="n"><span class="pre">XMLAttribute</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">FindAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement13FindAttributeEPKc" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Query a specific attribute in the list. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement7GetTextEv">
+<span id="_CPPv3NK8tinyxml210XMLElement7GetTextEv"></span><span id="_CPPv2NK8tinyxml210XMLElement7GetTextEv"></span><span id="tinyxml2::XMLElement::GetTextC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a0fa5bea0a4daf3ddd503dcabb823eba6"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetText</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement7GetTextEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Convenience function for easy access to the text inside an element. Although easy and concise, <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a0fa5bea0a4daf3ddd503dcabb823eba6"><span class="std std-ref">GetText()</span></a> is limited compared to getting the <a class="reference internal" href="classtinyxml2_1_1XMLText.html#classtinyxml2_1_1XMLText"><span class="std std-ref">XMLText</span></a> child and accessing it directly.</p>
+<p>If the first child of 'this' is a <a class="reference internal" href="classtinyxml2_1_1XMLText.html#classtinyxml2_1_1XMLText"><span class="std std-ref">XMLText</span></a>, the <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a0fa5bea0a4daf3ddd503dcabb823eba6"><span class="std std-ref">GetText()</span></a> returns the character string of the Text node, else null is returned.</p>
+<p>This is a convenient method for getting the text of simple contained text: <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">foo</span><span class="o">&gt;</span><span class="n">This</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">text</span><span class="o">&lt;/</span><span class="n">foo</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fooElement</span><span class="o">-&gt;</span><span class="n">GetText</span><span class="p">();</span>
+</pre></div>
+</div>
+</p>
+<p>'str' will be a pointer to &quot;This is text&quot;.</p>
+<p>Note that this function can be misleading. If the element foo was created from this XML: <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="o">&lt;</span><span class="n">foo</span><span class="o">&gt;&lt;</span><span class="n">b</span><span class="o">&gt;</span><span class="n">This</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">text</span><span class="o">&lt;/</span><span class="n">b</span><span class="o">&gt;&lt;/</span><span class="n">foo</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</p>
+<p>then the value of str would be null. The first child node isn't a text node, it is another element. From this XML: <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="o">&lt;</span><span class="n">foo</span><span class="o">&gt;</span><span class="n">This</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="o">&lt;</span><span class="n">b</span><span class="o">&gt;</span><span class="n">text</span><span class="o">&lt;/</span><span class="n">b</span><span class="o">&gt;&lt;/</span><span class="n">foo</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+ <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a0fa5bea0a4daf3ddd503dcabb823eba6"><span class="std std-ref">GetText()</span></a> will return &quot;This is &quot;. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement7SetTextEPKc">
+<span id="_CPPv3N8tinyxml210XMLElement7SetTextEPKc"></span><span id="_CPPv2N8tinyxml210XMLElement7SetTextEPKc"></span><span id="tinyxml2::XMLElement::SetText__cCP"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a1f9c2cd61b72af5ae708d37b7ad283ce"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetText</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">inText</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement7SetTextEPKc" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Convenience function for easy access to the text inside an element. Although easy and concise, <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a1f9c2cd61b72af5ae708d37b7ad283ce"><span class="std std-ref">SetText()</span></a> is limited compared to creating an <a class="reference internal" href="classtinyxml2_1_1XMLText.html#classtinyxml2_1_1XMLText"><span class="std std-ref">XMLText</span></a> child and mutating it directly.</p>
+<p>If the first child of 'this' is a <a class="reference internal" href="classtinyxml2_1_1XMLText.html#classtinyxml2_1_1XMLText"><span class="std std-ref">XMLText</span></a>, <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a1f9c2cd61b72af5ae708d37b7ad283ce"><span class="std std-ref">SetText()</span></a> sets its value to the given string, otherwise it will create a first child that is an <a class="reference internal" href="classtinyxml2_1_1XMLText.html#classtinyxml2_1_1XMLText"><span class="std std-ref">XMLText</span></a>.</p>
+<p>This is a convenient method for setting the text of simple contained text: <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">foo</span><span class="o">&gt;</span><span class="n">This</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">text</span><span class="o">&lt;/</span><span class="n">foo</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="n">fooElement</span><span class="o">-&gt;</span><span class="n">SetText</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;Hullaballoo!&quot;</span><span class="w"> </span><span class="p">);</span>
+<span class="o">&lt;</span><span class="n">foo</span><span class="o">&gt;</span><span class="n">Hullaballoo</span><span class="o">!&lt;/</span><span class="n">foo</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</p>
+<p>Note that this function can be misleading. If the element foo was created from this XML: <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="o">&lt;</span><span class="n">foo</span><span class="o">&gt;&lt;</span><span class="n">b</span><span class="o">&gt;</span><span class="n">This</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">text</span><span class="o">&lt;/</span><span class="n">b</span><span class="o">&gt;&lt;/</span><span class="n">foo</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</p>
+<p>then it will not change &quot;This is text&quot;, but rather prefix it with a text element: <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="o">&lt;</span><span class="n">foo</span><span class="o">&gt;</span><span class="n">Hullaballoo</span><span class="o">!&lt;</span><span class="n">b</span><span class="o">&gt;</span><span class="n">This</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">text</span><span class="o">&lt;/</span><span class="n">b</span><span class="o">&gt;&lt;/</span><span class="n">foo</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</p>
+<p>For this XML: <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="o">&lt;</span><span class="n">foo</span><span class="w"> </span><span class="o">/&gt;</span>
+</pre></div>
+</div>
+ <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a1f9c2cd61b72af5ae708d37b7ad283ce"><span class="std std-ref">SetText()</span></a> will generate <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="o">&lt;</span><span class="n">foo</span><span class="o">&gt;</span><span class="n">Hullaballoo</span><span class="o">!&lt;/</span><span class="n">foo</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement7SetTextEi">
+<span id="_CPPv3N8tinyxml210XMLElement7SetTextEi"></span><span id="_CPPv2N8tinyxml210XMLElement7SetTextEi"></span><span id="tinyxml2::XMLElement::SetText__i"></span><span class="target" id="classtinyxml2_1_1XMLElement_1aeae8917b5ea6060b3c08d4e3d8d632d7"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetText</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement7SetTextEi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Convenience method for setting text inside an element. See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a1f9c2cd61b72af5ae708d37b7ad283ce"><span class="std std-ref">SetText()</span></a> for important limitations. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement7SetTextEj">
+<span id="_CPPv3N8tinyxml210XMLElement7SetTextEj"></span><span id="_CPPv2N8tinyxml210XMLElement7SetTextEj"></span><span id="tinyxml2::XMLElement::SetText__unsigned"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a7bbfcc11d516598bc924a8fba4d08597"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetText</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement7SetTextEj" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Convenience method for setting text inside an element. See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a1f9c2cd61b72af5ae708d37b7ad283ce"><span class="std std-ref">SetText()</span></a> for important limitations. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement7SetTextE7int64_t">
+<span id="_CPPv3N8tinyxml210XMLElement7SetTextE7int64_t"></span><span id="_CPPv2N8tinyxml210XMLElement7SetTextE7int64_t"></span><span id="tinyxml2::XMLElement::SetText__int64_t"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a7b62cd33acdfeff7ea2b1b330d4368e4"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetText</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement7SetTextE7int64_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Convenience method for setting text inside an element. See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a1f9c2cd61b72af5ae708d37b7ad283ce"><span class="std std-ref">SetText()</span></a> for important limitations. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement7SetTextE8uint64_t">
+<span id="_CPPv3N8tinyxml210XMLElement7SetTextE8uint64_t"></span><span id="_CPPv2N8tinyxml210XMLElement7SetTextE8uint64_t"></span><span id="tinyxml2::XMLElement::SetText__uint64_t"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a6e615bc745afd1ca8ded56d7aac02657"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetText</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement7SetTextE8uint64_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Convenience method for setting text inside an element. See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a1f9c2cd61b72af5ae708d37b7ad283ce"><span class="std std-ref">SetText()</span></a> for important limitations. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement7SetTextEb">
+<span id="_CPPv3N8tinyxml210XMLElement7SetTextEb"></span><span id="_CPPv2N8tinyxml210XMLElement7SetTextEb"></span><span id="tinyxml2::XMLElement::SetText__b"></span><span class="target" id="classtinyxml2_1_1XMLElement_1ae4b543d6770de76fb6ab68e541c192a4"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetText</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement7SetTextEb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Convenience method for setting text inside an element. See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a1f9c2cd61b72af5ae708d37b7ad283ce"><span class="std std-ref">SetText()</span></a> for important limitations. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement7SetTextEd">
+<span id="_CPPv3N8tinyxml210XMLElement7SetTextEd"></span><span id="_CPPv2N8tinyxml210XMLElement7SetTextEd"></span><span id="tinyxml2::XMLElement::SetText__double"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a67bd77ac9aaeff58ff20b4275a65ba4e"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetText</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement7SetTextEd" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Convenience method for setting text inside an element. See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a1f9c2cd61b72af5ae708d37b7ad283ce"><span class="std std-ref">SetText()</span></a> for important limitations. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement7SetTextEf">
+<span id="_CPPv3N8tinyxml210XMLElement7SetTextEf"></span><span id="_CPPv2N8tinyxml210XMLElement7SetTextEf"></span><span id="tinyxml2::XMLElement::SetText__float"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a51d560da5ae3ad6b75e0ab9ffb2ae42a"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetText</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement7SetTextEf" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Convenience method for setting text inside an element. See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a1f9c2cd61b72af5ae708d37b7ad283ce"><span class="std std-ref">SetText()</span></a> for important limitations. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement12QueryIntTextEPi">
+<span id="_CPPv3NK8tinyxml210XMLElement12QueryIntTextEPi"></span><span id="_CPPv2NK8tinyxml210XMLElement12QueryIntTextEPi"></span><span id="tinyxml2::XMLElement::QueryIntText__iPC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a926357996bef633cb736e1a558419632"></span><a class="reference internal" href="enum_tinyxml2_8h_1a1fbf88509c3ac88c09117b1947414e08.html#_CPPv4N8tinyxml28XMLErrorE" title="tinyxml2::XMLError"><span class="n"><span class="pre">XMLError</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryIntText</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ival</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement12QueryIntTextEPi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Convenience method to query the value of a child text node. This is probably best shown by example. Given you have a document is this form: <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="o">&lt;</span><span class="n">point</span><span class="o">&gt;</span>
+<span class="w">        </span><span class="o">&lt;</span><span class="n">x</span><span class="o">&gt;</span><span class="mi">1</span><span class="o">&lt;/</span><span class="n">x</span><span class="o">&gt;</span>
+<span class="w">        </span><span class="o">&lt;</span><span class="n">y</span><span class="o">&gt;</span><span class="mf">1.4</span><span class="o">&lt;/</span><span class="n">y</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">&lt;/</span><span class="n">point</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</p>
+<p>The <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a926357996bef633cb736e1a558419632"><span class="std std-ref">QueryIntText()</span></a> and similar functions provide a safe and easier way to get to the &quot;value&quot; of x and y.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">    </span><span class="c1">// types of x and y are contrived for example</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">XMLElement</span><span class="o">*</span><span class="w"> </span><span class="n">xElement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pointElement</span><span class="o">-&gt;</span><span class="n">FirstChildElement</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;x&quot;</span><span class="w"> </span><span class="p">);</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">XMLElement</span><span class="o">*</span><span class="w"> </span><span class="n">yElement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pointElement</span><span class="o">-&gt;</span><span class="n">FirstChildElement</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;y&quot;</span><span class="w"> </span><span class="p">);</span>
+<span class="w">    </span><span class="n">xElement</span><span class="o">-&gt;</span><span class="n">QueryIntText</span><span class="p">(</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x</span><span class="w"> </span><span class="p">);</span>
+<span class="w">    </span><span class="n">yElement</span><span class="o">-&gt;</span><span class="n">QueryFloatText</span><span class="p">(</span><span class="w"> </span><span class="o">&amp;</span><span class="n">y</span><span class="w"> </span><span class="p">);</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>XML_SUCCESS (0) on success, XML_CAN_NOT_CONVERT_TEXT if the text cannot be converted to the requested type, and XML_NO_TEXT_NODE if there is no child text to query. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement17QueryUnsignedTextEPj">
+<span id="_CPPv3NK8tinyxml210XMLElement17QueryUnsignedTextEPj"></span><span id="_CPPv2NK8tinyxml210XMLElement17QueryUnsignedTextEPj"></span><span id="tinyxml2::XMLElement::QueryUnsignedText__unsignedPC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a14d38aa4b5e18a46274a27425188a6a1"></span><a class="reference internal" href="enum_tinyxml2_8h_1a1fbf88509c3ac88c09117b1947414e08.html#_CPPv4N8tinyxml28XMLErrorE" title="tinyxml2::XMLError"><span class="n"><span class="pre">XMLError</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryUnsignedText</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">uval</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement17QueryUnsignedTextEPj" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a926357996bef633cb736e1a558419632"><span class="std std-ref">QueryIntText()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement14QueryInt64TextEP7int64_t">
+<span id="_CPPv3NK8tinyxml210XMLElement14QueryInt64TextEP7int64_t"></span><span id="_CPPv2NK8tinyxml210XMLElement14QueryInt64TextEP7int64_t"></span><span id="tinyxml2::XMLElement::QueryInt64Text__int64_tPC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a120c538c8eead169e635dbc70fb226d8"></span><a class="reference internal" href="enum_tinyxml2_8h_1a1fbf88509c3ac88c09117b1947414e08.html#_CPPv4N8tinyxml28XMLErrorE" title="tinyxml2::XMLError"><span class="n"><span class="pre">XMLError</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryInt64Text</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">uval</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement14QueryInt64TextEP7int64_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a926357996bef633cb736e1a558419632"><span class="std std-ref">QueryIntText()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement19QueryUnsigned64TextEP8uint64_t">
+<span id="_CPPv3NK8tinyxml210XMLElement19QueryUnsigned64TextEP8uint64_t"></span><span id="_CPPv2NK8tinyxml210XMLElement19QueryUnsigned64TextEP8uint64_t"></span><span id="tinyxml2::XMLElement::QueryUnsigned64Text__uint64_tPC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1ac2239b3bd172ad8f5b78d04d4236144b"></span><a class="reference internal" href="enum_tinyxml2_8h_1a1fbf88509c3ac88c09117b1947414e08.html#_CPPv4N8tinyxml28XMLErrorE" title="tinyxml2::XMLError"><span class="n"><span class="pre">XMLError</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryUnsigned64Text</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">uval</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement19QueryUnsigned64TextEP8uint64_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a926357996bef633cb736e1a558419632"><span class="std std-ref">QueryIntText()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement13QueryBoolTextEPb">
+<span id="_CPPv3NK8tinyxml210XMLElement13QueryBoolTextEPb"></span><span id="_CPPv2NK8tinyxml210XMLElement13QueryBoolTextEPb"></span><span id="tinyxml2::XMLElement::QueryBoolText__bPC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a3fe5417d59eb8f5c4afe924b7d332736"></span><a class="reference internal" href="enum_tinyxml2_8h_1a1fbf88509c3ac88c09117b1947414e08.html#_CPPv4N8tinyxml28XMLErrorE" title="tinyxml2::XMLError"><span class="n"><span class="pre">XMLError</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryBoolText</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">bval</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement13QueryBoolTextEPb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a926357996bef633cb736e1a558419632"><span class="std std-ref">QueryIntText()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement15QueryDoubleTextEPd">
+<span id="_CPPv3NK8tinyxml210XMLElement15QueryDoubleTextEPd"></span><span id="_CPPv2NK8tinyxml210XMLElement15QueryDoubleTextEPd"></span><span id="tinyxml2::XMLElement::QueryDoubleText__doublePC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a684679c99bb036a25652744cec6c4d96"></span><a class="reference internal" href="enum_tinyxml2_8h_1a1fbf88509c3ac88c09117b1947414e08.html#_CPPv4N8tinyxml28XMLErrorE" title="tinyxml2::XMLError"><span class="n"><span class="pre">XMLError</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryDoubleText</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">dval</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement15QueryDoubleTextEPd" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a926357996bef633cb736e1a558419632"><span class="std std-ref">QueryIntText()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement14QueryFloatTextEPf">
+<span id="_CPPv3NK8tinyxml210XMLElement14QueryFloatTextEPf"></span><span id="_CPPv2NK8tinyxml210XMLElement14QueryFloatTextEPf"></span><span id="tinyxml2::XMLElement::QueryFloatText__floatPC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1afa332afedd93210daa6d44b88eb11e29"></span><a class="reference internal" href="enum_tinyxml2_8h_1a1fbf88509c3ac88c09117b1947414e08.html#_CPPv4N8tinyxml28XMLErrorE" title="tinyxml2::XMLError"><span class="n"><span class="pre">XMLError</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">QueryFloatText</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">fval</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement14QueryFloatTextEPf" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a926357996bef633cb736e1a558419632"><span class="std std-ref">QueryIntText()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement7IntTextEi">
+<span id="_CPPv3NK8tinyxml210XMLElement7IntTextEi"></span><span id="_CPPv2NK8tinyxml210XMLElement7IntTextEi"></span><span id="tinyxml2::XMLElement::IntText__iC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a37b0636adebb8a1a1bc965f60824cb3e"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IntText</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">defaultValue</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement7IntTextEi" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement12UnsignedTextEj">
+<span id="_CPPv3NK8tinyxml210XMLElement12UnsignedTextEj"></span><span id="_CPPv2NK8tinyxml210XMLElement12UnsignedTextEj"></span><span id="tinyxml2::XMLElement::UnsignedText__unsignedC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a49bad014ffcc17b0b6119d5b2c97dfb5"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UnsignedText</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">defaultValue</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement12UnsignedTextEj" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a926357996bef633cb736e1a558419632"><span class="std std-ref">QueryIntText()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement9Int64TextE7int64_t">
+<span id="_CPPv3NK8tinyxml210XMLElement9Int64TextE7int64_t"></span><span id="_CPPv2NK8tinyxml210XMLElement9Int64TextE7int64_t"></span><span id="tinyxml2::XMLElement::Int64Text__int64_tC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1aab6151f7e3b4c2c0a8234e262d7b6b8a"></span><span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Int64Text</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">defaultValue</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement9Int64TextE7int64_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a926357996bef633cb736e1a558419632"><span class="std std-ref">QueryIntText()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement14Unsigned64TextE8uint64_t">
+<span id="_CPPv3NK8tinyxml210XMLElement14Unsigned64TextE8uint64_t"></span><span id="_CPPv2NK8tinyxml210XMLElement14Unsigned64TextE8uint64_t"></span><span id="tinyxml2::XMLElement::Unsigned64Text__uint64_tC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1af48c1023abbac1acdf4927c51c3a5f0c"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Unsigned64Text</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">defaultValue</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement14Unsigned64TextE8uint64_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a926357996bef633cb736e1a558419632"><span class="std std-ref">QueryIntText()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement8BoolTextEb">
+<span id="_CPPv3NK8tinyxml210XMLElement8BoolTextEb"></span><span id="_CPPv2NK8tinyxml210XMLElement8BoolTextEb"></span><span id="tinyxml2::XMLElement::BoolText__bC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a68569f59f6382bcea7f5013ec59736d2"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BoolText</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">defaultValue</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement8BoolTextEb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a926357996bef633cb736e1a558419632"><span class="std std-ref">QueryIntText()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement10DoubleTextEd">
+<span id="_CPPv3NK8tinyxml210XMLElement10DoubleTextEd"></span><span id="_CPPv2NK8tinyxml210XMLElement10DoubleTextEd"></span><span id="tinyxml2::XMLElement::DoubleText__doubleC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a81b1ff0cf2f2cd09be8badc08b39a2b7"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DoubleText</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">defaultValue</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement10DoubleTextEd" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a926357996bef633cb736e1a558419632"><span class="std std-ref">QueryIntText()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement9FloatTextEf">
+<span id="_CPPv3NK8tinyxml210XMLElement9FloatTextEf"></span><span id="_CPPv2NK8tinyxml210XMLElement9FloatTextEf"></span><span id="tinyxml2::XMLElement::FloatText__floatC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a45444eb21f99ca46101545992dc2e927"></span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FloatText</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">defaultValue</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement9FloatTextEf" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1a926357996bef633cb736e1a558419632"><span class="std std-ref">QueryIntText()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement21InsertNewChildElementEPKc">
+<span id="_CPPv3N8tinyxml210XMLElement21InsertNewChildElementEPKc"></span><span id="_CPPv2N8tinyxml210XMLElement21InsertNewChildElementEPKc"></span><span id="tinyxml2::XMLElement::InsertNewChildElement__cCP"></span><span class="target" id="classtinyxml2_1_1XMLElement_1abf01fdeb702165fddbc97bcc8af8a1ad"></span><a class="reference internal" href="#_CPPv4N8tinyxml210XMLElementE" title="tinyxml2::XMLElement"><span class="n"><span class="pre">XMLElement</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">InsertNewChildElement</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement21InsertNewChildElementEPKc" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Convenience method to create a new <a class="reference internal" href="#classtinyxml2_1_1XMLElement"><span class="std std-ref">XMLElement</span></a> and add it as last (right) child of this node. Returns the created and inserted element. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement16InsertNewCommentEPKc">
+<span id="_CPPv3N8tinyxml210XMLElement16InsertNewCommentEPKc"></span><span id="_CPPv2N8tinyxml210XMLElement16InsertNewCommentEPKc"></span><span id="tinyxml2::XMLElement::InsertNewComment__cCP"></span><span class="target" id="classtinyxml2_1_1XMLElement_1aaed36d3a8082b083ec4f1de55ee68cc2"></span><a class="reference internal" href="classtinyxml2_1_1XMLComment.html#_CPPv4N8tinyxml210XMLCommentE" title="tinyxml2::XMLComment"><span class="n"><span class="pre">XMLComment</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">InsertNewComment</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comment</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement16InsertNewCommentEPKc" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1abf01fdeb702165fddbc97bcc8af8a1ad"><span class="std std-ref">InsertNewChildElement()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement13InsertNewTextEPKc">
+<span id="_CPPv3N8tinyxml210XMLElement13InsertNewTextEPKc"></span><span id="_CPPv2N8tinyxml210XMLElement13InsertNewTextEPKc"></span><span id="tinyxml2::XMLElement::InsertNewText__cCP"></span><span class="target" id="classtinyxml2_1_1XMLElement_1ac30367a5e25ff30e178b56e0e1456d23"></span><a class="reference internal" href="classtinyxml2_1_1XMLText.html#_CPPv4N8tinyxml27XMLTextE" title="tinyxml2::XMLText"><span class="n"><span class="pre">XMLText</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">InsertNewText</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">text</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement13InsertNewTextEPKc" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1abf01fdeb702165fddbc97bcc8af8a1ad"><span class="std std-ref">InsertNewChildElement()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement20InsertNewDeclarationEPKc">
+<span id="_CPPv3N8tinyxml210XMLElement20InsertNewDeclarationEPKc"></span><span id="_CPPv2N8tinyxml210XMLElement20InsertNewDeclarationEPKc"></span><span id="tinyxml2::XMLElement::InsertNewDeclaration__cCP"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a7f11671a928649add7e3e18de7adf84a"></span><a class="reference internal" href="classtinyxml2_1_1XMLDeclaration.html#_CPPv4N8tinyxml214XMLDeclarationE" title="tinyxml2::XMLDeclaration"><span class="n"><span class="pre">XMLDeclaration</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">InsertNewDeclaration</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">text</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement20InsertNewDeclarationEPKc" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1abf01fdeb702165fddbc97bcc8af8a1ad"><span class="std std-ref">InsertNewChildElement()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement16InsertNewUnknownEPKc">
+<span id="_CPPv3N8tinyxml210XMLElement16InsertNewUnknownEPKc"></span><span id="_CPPv2N8tinyxml210XMLElement16InsertNewUnknownEPKc"></span><span id="tinyxml2::XMLElement::InsertNewUnknown__cCP"></span><span class="target" id="classtinyxml2_1_1XMLElement_1afe6cfefb48f8fbcb29a790f2042b55a4"></span><a class="reference internal" href="classtinyxml2_1_1XMLUnknown.html#_CPPv4N8tinyxml210XMLUnknownE" title="tinyxml2::XMLUnknown"><span class="n"><span class="pre">XMLUnknown</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">InsertNewUnknown</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">text</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement16InsertNewUnknownEPKc" title="Permalink to this definition"></a><br /></dt>
+<dd><p>See <a class="reference internal" href="#classtinyxml2_1_1XMLElement_1abf01fdeb702165fddbc97bcc8af8a1ad"><span class="std std-ref">InsertNewChildElement()</span></a></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement11ClosingTypeEv">
+<span id="_CPPv3NK8tinyxml210XMLElement11ClosingTypeEv"></span><span id="_CPPv2NK8tinyxml210XMLElement11ClosingTypeEv"></span><span id="tinyxml2::XMLElement::ClosingTypeC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a6965ff89557f27d4082d7043d5145555"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N8tinyxml210XMLElement18ElementClosingTypeE" title="tinyxml2::XMLElement::ElementClosingType"><span class="n"><span class="pre">ElementClosingType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ClosingType</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement11ClosingTypeEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement12ShallowCloneEP11XMLDocument">
+<span id="_CPPv3NK8tinyxml210XMLElement12ShallowCloneEP11XMLDocument"></span><span id="_CPPv2NK8tinyxml210XMLElement12ShallowCloneEP11XMLDocument"></span><span id="tinyxml2::XMLElement::ShallowClone__XMLDocumentPC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1aafa2807a45b28fe096b29d76e6a13b7c"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="classtinyxml2_1_1XMLNode.html#_CPPv4N8tinyxml27XMLNodeE" title="tinyxml2::XMLNode"><span class="n"><span class="pre">XMLNode</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">ShallowClone</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classtinyxml2_1_1XMLDocument.html#_CPPv4N8tinyxml211XMLDocumentE" title="tinyxml2::XMLDocument"><span class="n"><span class="pre">XMLDocument</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">document</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement12ShallowCloneEP11XMLDocument" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Make a copy of this node, but not its children. You may pass in a Document pointer that will be the owner of the new Node. If the 'document' is null, then the node returned will be allocated from the current Document. (this-&gt;<a class="reference internal" href="classtinyxml2_1_1XMLNode.html#classtinyxml2_1_1XMLNode_1a48d1695f7c834129e072548957a50501"><span class="std std-ref">GetDocument()</span></a>)</p>
+<p>Note: if called on a <a class="reference internal" href="classtinyxml2_1_1XMLDocument.html#classtinyxml2_1_1XMLDocument"><span class="std std-ref">XMLDocument</span></a>, this will return null. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8tinyxml210XMLElement12ShallowEqualEPK7XMLNode">
+<span id="_CPPv3NK8tinyxml210XMLElement12ShallowEqualEPK7XMLNode"></span><span id="_CPPv2NK8tinyxml210XMLElement12ShallowEqualEPK7XMLNode"></span><span id="tinyxml2::XMLElement::ShallowEqual__XMLNodeCPC"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a61ffd7bf918a9db4aa6203d855ac5ec2"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ShallowEqual</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="classtinyxml2_1_1XMLNode.html#_CPPv4N8tinyxml27XMLNodeE" title="tinyxml2::XMLNode"><span class="n"><span class="pre">XMLNode</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">compare</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8tinyxml210XMLElement12ShallowEqualEPK7XMLNode" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Test if 2 nodes are the same, but don't test children. The 2 nodes do not need to be in the same Document.</p>
+<p>Note: if called on a <a class="reference internal" href="classtinyxml2_1_1XMLDocument.html#classtinyxml2_1_1XMLDocument"><span class="std std-ref">XMLDocument</span></a>, this will return false. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-functions">Protected Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N8tinyxml210XMLElement9ParseDeepEPcP7StrPairPi">
+<span id="_CPPv3N8tinyxml210XMLElement9ParseDeepEPcP7StrPairPi"></span><span id="_CPPv2N8tinyxml210XMLElement9ParseDeepEPcP7StrPairPi"></span><span id="tinyxml2::XMLElement::ParseDeep__cP.StrPairP.iP"></span><span class="target" id="classtinyxml2_1_1XMLElement_1a072998100b7d0ba5e8aeac6dd6dfb31b"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">ParseDeep</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">p</span></span>, <a class="reference internal" href="classtinyxml2_1_1StrPair.html#_CPPv4N8tinyxml27StrPairE" title="tinyxml2::StrPair"><span class="n"><span class="pre">StrPair</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">parentEndTag</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">curLineNumPtr</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N8tinyxml210XMLElement9ParseDeepEPcP7StrPairPi" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="classtinyxml2_1_1XMLDocument_1_1DepthTracker.html" class="btn btn-neutral float-left" title="Class XMLDocument::DepthTracker" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="classtinyxml2_1_1XMLHandle.html" class="btn btn-neutral float-right" title="Class XMLHandle" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Namespace SPIRV_CROSS_NAMESPACE &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Namespace SPIRV_CROSS_NAMESPACE::inner" href="namespace_SPIRV_CROSS_NAMESPACE__inner.html" />
+    <link rel="prev" title="Namespace simple_json" href="namespace_simple_json.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">'Helloworld' Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">'Helloworld' Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">API-Debug-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">Device-Override</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#unions">Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#sept-21-2023">2023.3 (Sept 21 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id35">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id36">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id40">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id41">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2023.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id5">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id8">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id11">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id12">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id13">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id14">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id15">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id16">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id17">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id18">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id19">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../src/reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">C++ Interfaces</a></li>
+      <li class="breadcrumb-item active">Namespace SPIRV_CROSS_NAMESPACE</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="namespace-spirv-cross-namespace">
+<span id="id1"></span><h1>Namespace SPIRV_CROSS_NAMESPACE<a class="headerlink" href="#namespace-spirv-cross-namespace" title="Permalink to this headline"></a></h1>
+<div class="contents local topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#namespaces" id="id2">Namespaces</a></p></li>
+<li><p><a class="reference internal" href="#classes" id="id3">Classes</a></p></li>
+<li><p><a class="reference internal" href="#enums" id="id4">Enums</a></p></li>
+<li><p><a class="reference internal" href="#functions" id="id5">Functions</a></p></li>
+<li><p><a class="reference internal" href="#typedefs" id="id6">Typedefs</a></p></li>
+<li><p><a class="reference internal" href="#unions" id="id7">Unions</a></p></li>
+<li><p><a class="reference internal" href="#variables" id="id8">Variables</a></p></li>
+</ul>
+</div>
+<section id="namespaces">
+<h2>Namespaces<a class="headerlink" href="#namespaces" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="namespace_SPIRV_CROSS_NAMESPACE__inner.html#namespace-spirv-cross-namespace-inner"><span class="std std-ref">Namespace SPIRV_CROSS_NAMESPACE::inner</span></a></p></li>
+</ul>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1AccessChainMeta.html#exhale-struct-structspirv-cross-namespace-1-1accesschainmeta"><span class="std std-ref">Struct AccessChainMeta</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1BufferRange.html#exhale-struct-structspirv-cross-namespace-1-1bufferrange"><span class="std std-ref">Struct BufferRange</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1BuiltInResource.html#exhale-struct-structspirv-cross-namespace-1-1builtinresource"><span class="std std-ref">Struct BuiltInResource</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1CFG_1_1VisitOrder.html#exhale-struct-structspirv-cross-namespace-1-1cfg-1-1visitorder"><span class="std std-ref">Struct CFG::VisitOrder</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1CombinedImageSampler.html#exhale-struct-structspirv-cross-namespace-1-1combinedimagesampler"><span class="std std-ref">Struct CombinedImageSampler</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1Compiler_1_1ActiveBuiltinHandler.html#exhale-struct-structspirv-cross-namespace-1-1compiler-1-1activebuiltinhandler"><span class="std std-ref">Struct Compiler::ActiveBuiltinHandler</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1Compiler_1_1AnalyzeVariableScopeAccessHandler.html#exhale-struct-structspirv-cross-namespace-1-1compiler-1-1analyzevariablescopeaccesshandler"><span class="std std-ref">Struct Compiler::AnalyzeVariableScopeAccessHandler</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1Compiler_1_1BufferAccessHandler.html#exhale-struct-structspirv-cross-namespace-1-1compiler-1-1bufferaccesshandler"><span class="std std-ref">Struct Compiler::BufferAccessHandler</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1Compiler_1_1CFGBuilder.html#exhale-struct-structspirv-cross-namespace-1-1compiler-1-1cfgbuilder"><span class="std std-ref">Struct Compiler::CFGBuilder</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1Compiler_1_1CombinedImageSamplerDrefHandler.html#exhale-struct-structspirv-cross-namespace-1-1compiler-1-1combinedimagesamplerdrefhandler"><span class="std std-ref">Struct Compiler::CombinedImageSamplerDrefHandler</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1Compiler_1_1CombinedImageSamplerHandler.html#exhale-struct-structspirv-cross-namespace-1-1compiler-1-1combinedimagesamplerhandler"><span class="std std-ref">Struct Compiler::CombinedImageSamplerHandler</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1Compiler_1_1CombinedImageSamplerUsageHandler.html#exhale-struct-structspirv-cross-namespace-1-1compiler-1-1combinedimagesamplerusagehandler"><span class="std std-ref">Struct Compiler::CombinedImageSamplerUsageHandler</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1Compiler_1_1DummySamplerForCombinedImageHandler.html#exhale-struct-structspirv-cross-namespace-1-1compiler-1-1dummysamplerforcombinedimagehandler"><span class="std std-ref">Struct Compiler::DummySamplerForCombinedImageHandler</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1Compiler_1_1InterfaceVariableAccessHandler.html#exhale-struct-structspirv-cross-namespace-1-1compiler-1-1interfacevariableaccesshandler"><span class="std std-ref">Struct Compiler::InterfaceVariableAccessHandler</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1Compiler_1_1InterlockedResourceAccessHandler.html#exhale-struct-structspirv-cross-namespace-1-1compiler-1-1interlockedresourceaccesshandler"><span class="std std-ref">Struct Compiler::InterlockedResourceAccessHandler</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1Compiler_1_1InterlockedResourceAccessPrepassHandler.html#exhale-struct-structspirv-cross-namespace-1-1compiler-1-1interlockedresourceaccessprepasshandler"><span class="std std-ref">Struct Compiler::InterlockedResourceAccessPrepassHandler</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1Compiler_1_1OpcodeHandler.html#exhale-struct-structspirv-cross-namespace-1-1compiler-1-1opcodehandler"><span class="std std-ref">Struct Compiler::OpcodeHandler</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1Compiler_1_1PhysicalBlockMeta.html#exhale-struct-structspirv-cross-namespace-1-1compiler-1-1physicalblockmeta"><span class="std std-ref">Struct Compiler::PhysicalBlockMeta</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1Compiler_1_1PhysicalStorageBufferPointerHandler.html#exhale-struct-structspirv-cross-namespace-1-1compiler-1-1physicalstoragebufferpointerhandler"><span class="std std-ref">Struct Compiler::PhysicalStorageBufferPointerHandler</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1Compiler_1_1StaticExpressionAccessHandler.html#exhale-struct-structspirv-cross-namespace-1-1compiler-1-1staticexpressionaccesshandler"><span class="std std-ref">Struct Compiler::StaticExpressionAccessHandler</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1BackendVariations.html#exhale-struct-structspirv-cross-namespace-1-1compilerglsl-1-1backendvariations"><span class="std std-ref">Struct CompilerGLSL::BackendVariations</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options.html#exhale-struct-structspirv-cross-namespace-1-1compilerglsl-1-1options"><span class="std std-ref">Struct CompilerGLSL::Options</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1_1FragmentOptions.html#exhale-struct-structspirv-cross-namespace-1-1compilerglsl-1-1options-1-1fragmentoptions"><span class="std std-ref">Struct Options::FragmentOptions</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1Options_1_1VertexOptions.html#exhale-struct-structspirv-cross-namespace-1-1compilerglsl-1-1options-1-1vertexoptions"><span class="std std-ref">Struct Options::VertexOptions</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper.html#exhale-struct-structspirv-cross-namespace-1-1compilerglsl-1-1shadersubgroupsupporthelper"><span class="std std-ref">Struct CompilerGLSL::ShaderSubgroupSupportHelper</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1ShaderSubgroupSupportHelper_1_1Result.html#exhale-struct-structspirv-cross-namespace-1-1compilerglsl-1-1shadersubgroupsupporthelper-1-1result"><span class="std std-ref">Struct ShaderSubgroupSupportHelper::Result</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1TemporaryCopy.html#exhale-struct-structspirv-cross-namespace-1-1compilerglsl-1-1temporarycopy"><span class="std std-ref">Struct CompilerGLSL::TemporaryCopy</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1TextureFunctionArguments.html#exhale-struct-structspirv-cross-namespace-1-1compilerglsl-1-1texturefunctionarguments"><span class="std std-ref">Struct CompilerGLSL::TextureFunctionArguments</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1TextureFunctionBaseArguments.html#exhale-struct-structspirv-cross-namespace-1-1compilerglsl-1-1texturefunctionbasearguments"><span class="std std-ref">Struct CompilerGLSL::TextureFunctionBaseArguments</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL_1_1TextureFunctionNameArguments.html#exhale-struct-structspirv-cross-namespace-1-1compilerglsl-1-1texturefunctionnamearguments"><span class="std std-ref">Struct CompilerGLSL::TextureFunctionNameArguments</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1CompilerHLSL_1_1Options.html#exhale-struct-structspirv-cross-namespace-1-1compilerhlsl-1-1options"><span class="std std-ref">Struct CompilerHLSL::Options</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1CompilerHLSL_1_1TextureSizeVariants.html#exhale-struct-structspirv-cross-namespace-1-1compilerhlsl-1-1texturesizevariants"><span class="std std-ref">Struct CompilerHLSL::TextureSizeVariants</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1CompilerMSL_1_1InterfaceBlockMeta.html#exhale-struct-structspirv-cross-namespace-1-1compilermsl-1-1interfaceblockmeta"><span class="std std-ref">Struct CompilerMSL::InterfaceBlockMeta</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1CompilerMSL_1_1InterfaceBlockMeta_1_1LocationMeta.html#exhale-struct-structspirv-cross-namespace-1-1compilermsl-1-1interfaceblockmeta-1-1locationmeta"><span class="std std-ref">Struct InterfaceBlockMeta::LocationMeta</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1CompilerMSL_1_1MemberSorter.html#exhale-struct-structspirv-cross-namespace-1-1compilermsl-1-1membersorter"><span class="std std-ref">Struct CompilerMSL::MemberSorter</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1CompilerMSL_1_1OpCodePreprocessor.html#exhale-struct-structspirv-cross-namespace-1-1compilermsl-1-1opcodepreprocessor"><span class="std std-ref">Struct CompilerMSL::OpCodePreprocessor</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1CompilerMSL_1_1Options.html#exhale-struct-structspirv-cross-namespace-1-1compilermsl-1-1options"><span class="std std-ref">Struct CompilerMSL::Options</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1CompilerMSL_1_1SampledImageScanner.html#exhale-struct-structspirv-cross-namespace-1-1compilermsl-1-1sampledimagescanner"><span class="std std-ref">Struct CompilerMSL::SampledImageScanner</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1EmbeddedInstruction.html#exhale-struct-structspirv-cross-namespace-1-1embeddedinstruction"><span class="std std-ref">Struct EmbeddedInstruction</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1EntryPoint.html#exhale-struct-structspirv-cross-namespace-1-1entrypoint"><span class="std std-ref">Struct EntryPoint</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1HLSLResourceBinding.html#exhale-struct-structspirv-cross-namespace-1-1hlslresourcebinding"><span class="std std-ref">Struct HLSLResourceBinding</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1HLSLResourceBinding_1_1Binding.html#exhale-struct-structspirv-cross-namespace-1-1hlslresourcebinding-1-1binding"><span class="std std-ref">Struct HLSLResourceBinding::Binding</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1HLSLVertexAttributeRemap.html#exhale-struct-structspirv-cross-namespace-1-1hlslvertexattributeremap"><span class="std std-ref">Struct HLSLVertexAttributeRemap</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1Instruction.html#exhale-struct-structspirv-cross-namespace-1-1instruction"><span class="std std-ref">Struct Instruction</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1InternalHasher.html#exhale-struct-structspirv-cross-namespace-1-1internalhasher"><span class="std std-ref">Struct InternalHasher</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1IVariant.html#exhale-struct-structspirv-cross-namespace-1-1ivariant"><span class="std std-ref">Struct IVariant</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1LocationComponentPair.html#exhale-struct-structspirv-cross-namespace-1-1locationcomponentpair"><span class="std std-ref">Struct LocationComponentPair</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1Meta.html#exhale-struct-structspirv-cross-namespace-1-1meta"><span class="std std-ref">Struct Meta</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1Meta_1_1Decoration.html#exhale-struct-structspirv-cross-namespace-1-1meta-1-1decoration"><span class="std std-ref">Struct Meta::Decoration</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1Meta_1_1Decoration_1_1Extended.html#exhale-struct-structspirv-cross-namespace-1-1meta-1-1decoration-1-1extended"><span class="std std-ref">Struct Decoration::Extended</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1MSLConstexprSampler.html#exhale-struct-structspirv-cross-namespace-1-1mslconstexprsampler"><span class="std std-ref">Struct MSLConstexprSampler</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1MSLResourceBinding.html#exhale-struct-structspirv-cross-namespace-1-1mslresourcebinding"><span class="std std-ref">Struct MSLResourceBinding</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1MSLShaderInterfaceVariable.html#exhale-struct-structspirv-cross-namespace-1-1mslshaderinterfacevariable"><span class="std std-ref">Struct MSLShaderInterfaceVariable</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1ObjectPool_1_1MallocDeleter.html#exhale-struct-structspirv-cross-namespace-1-1objectpool-1-1mallocdeleter"><span class="std std-ref">Struct ObjectPool::MallocDeleter</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1ObjectPoolGroup.html#exhale-struct-structspirv-cross-namespace-1-1objectpoolgroup"><span class="std std-ref">Struct ObjectPoolGroup</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1_1Source.html#exhale-struct-structspirv-cross-namespace-1-1parsedir-1-1source"><span class="std std-ref">Struct ParsedIR::Source</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1PlsRemap.html#exhale-struct-structspirv-cross-namespace-1-1plsremap"><span class="std std-ref">Struct PlsRemap</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1Resource.html#exhale-struct-structspirv-cross-namespace-1-1resource"><span class="std std-ref">Struct Resource</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1RootConstants.html#exhale-struct-structspirv-cross-namespace-1-1rootconstants"><span class="std std-ref">Struct RootConstants</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SetBindingPair.html#exhale-struct-structspirv-cross-namespace-1-1setbindingpair"><span class="std std-ref">Struct SetBindingPair</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1ShaderResources.html#exhale-struct-structspirv-cross-namespace-1-1shaderresources"><span class="std std-ref">Struct ShaderResources</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SpecializationConstant.html#exhale-struct-structspirv-cross-namespace-1-1specializationconstant"><span class="std std-ref">Struct SpecializationConstant</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRAccessChain.html#exhale-struct-structspirv-cross-namespace-1-1spiraccesschain"><span class="std std-ref">Struct SPIRAccessChain</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock.html#exhale-struct-structspirv-cross-namespace-1-1spirblock"><span class="std std-ref">Struct SPIRBlock</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1_1Case.html#exhale-struct-structspirv-cross-namespace-1-1spirblock-1-1case"><span class="std std-ref">Struct SPIRBlock::Case</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1_1Phi.html#exhale-struct-structspirv-cross-namespace-1-1spirblock-1-1phi"><span class="std std-ref">Struct SPIRBlock::Phi</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRCombinedImageSampler.html#exhale-struct-structspirv-cross-namespace-1-1spircombinedimagesampler"><span class="std std-ref">Struct SPIRCombinedImageSampler</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRConstant.html#exhale-struct-structspirv-cross-namespace-1-1spirconstant"><span class="std std-ref">Struct SPIRConstant</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRConstant_1_1ConstantMatrix.html#exhale-struct-structspirv-cross-namespace-1-1spirconstant-1-1constantmatrix"><span class="std std-ref">Struct SPIRConstant::ConstantMatrix</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRConstant_1_1ConstantVector.html#exhale-struct-structspirv-cross-namespace-1-1spirconstant-1-1constantvector"><span class="std std-ref">Struct SPIRConstant::ConstantVector</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRConstantOp.html#exhale-struct-structspirv-cross-namespace-1-1spirconstantop"><span class="std std-ref">Struct SPIRConstantOp</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIREntryPoint.html#exhale-struct-structspirv-cross-namespace-1-1spirentrypoint"><span class="std std-ref">Struct SPIREntryPoint</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIREntryPoint_1_1WorkgroupSize.html#exhale-struct-structspirv-cross-namespace-1-1spirentrypoint-1-1workgroupsize"><span class="std std-ref">Struct SPIREntryPoint::WorkgroupSize</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRExpression.html#exhale-struct-structspirv-cross-namespace-1-1spirexpression"><span class="std std-ref">Struct SPIRExpression</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRExtension.html#exhale-struct-structspirv-cross-namespace-1-1spirextension"><span class="std std-ref">Struct SPIRExtension</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRFunction.html#exhale-struct-structspirv-cross-namespace-1-1spirfunction"><span class="std std-ref">Struct SPIRFunction</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRFunction_1_1CombinedImageSamplerParameter.html#exhale-struct-structspirv-cross-namespace-1-1spirfunction-1-1combinedimagesamplerparameter"><span class="std std-ref">Struct SPIRFunction::CombinedImageSamplerParameter</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRFunction_1_1EntryLine.html#exhale-struct-structspirv-cross-namespace-1-1spirfunction-1-1entryline"><span class="std std-ref">Struct SPIRFunction::EntryLine</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRFunction_1_1Parameter.html#exhale-struct-structspirv-cross-namespace-1-1spirfunction-1-1parameter"><span class="std std-ref">Struct SPIRFunction::Parameter</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRFunctionPrototype.html#exhale-struct-structspirv-cross-namespace-1-1spirfunctionprototype"><span class="std std-ref">Struct SPIRFunctionPrototype</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRString.html#exhale-struct-structspirv-cross-namespace-1-1spirstring"><span class="std std-ref">Struct SPIRString</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRType.html#exhale-struct-structspirv-cross-namespace-1-1spirtype"><span class="std std-ref">Struct SPIRType</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRType_1_1ImageType.html#exhale-struct-structspirv-cross-namespace-1-1spirtype-1-1imagetype"><span class="std std-ref">Struct SPIRType::ImageType</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRUndef.html#exhale-struct-structspirv-cross-namespace-1-1spirundef"><span class="std std-ref">Struct SPIRUndef</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRVariable.html#exhale-struct-structspirv-cross-namespace-1-1spirvariable"><span class="std std-ref">Struct SPIRVariable</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1StageSetBinding.html#exhale-struct-structspirv-cross-namespace-1-1stagesetbinding"><span class="std std-ref">Struct StageSetBinding</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1StringStream_1_1Buffer.html#exhale-struct-structspirv-cross-namespace-1-1stringstream-1-1buffer"><span class="std std-ref">Struct StringStream::Buffer</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1ValueSaver.html#exhale-struct-structspirv-cross-namespace-1-1valuesaver"><span class="std std-ref">Template Struct ValueSaver</span></a></p></li>
+<li><p><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1AlignedBuffer.html#exhale-class-classspirv-cross-namespace-1-1alignedbuffer"><span class="std std-ref">Template Class AlignedBuffer</span></a></p></li>
+<li><p><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1AlignedBuffer_3_01T_00_010_01_4.html#exhale-class-classspirv-cross-namespace-1-1alignedbuffer-3-01t-00-010-01-4"><span class="std std-ref">Template Class AlignedBuffer&lt; T, 0 &gt;</span></a></p></li>
+<li><p><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1Bitset.html#exhale-class-classspirv-cross-namespace-1-1bitset"><span class="std std-ref">Class Bitset</span></a></p></li>
+<li><p><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CFG.html#exhale-class-classspirv-cross-namespace-1-1cfg"><span class="std std-ref">Class CFG</span></a></p></li>
+<li><p><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1Compiler.html#exhale-class-classspirv-cross-namespace-1-1compiler"><span class="std std-ref">Class Compiler</span></a></p></li>
+<li><p><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerCPP.html#exhale-class-classspirv-cross-namespace-1-1compilercpp"><span class="std std-ref">Class CompilerCPP</span></a></p></li>
+<li><p><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerError.html#exhale-class-classspirv-cross-namespace-1-1compilererror"><span class="std std-ref">Class CompilerError</span></a></p></li>
+<li><p><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerGLSL.html#exhale-class-classspirv-cross-namespace-1-1compilerglsl"><span class="std std-ref">Class CompilerGLSL</span></a></p></li>
+<li><p><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerHLSL.html#exhale-class-classspirv-cross-namespace-1-1compilerhlsl"><span class="std std-ref">Class CompilerHLSL</span></a></p></li>
+<li><p><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerMSL.html#exhale-class-classspirv-cross-namespace-1-1compilermsl"><span class="std std-ref">Class CompilerMSL</span></a></p></li>
+<li><p><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1CompilerReflection.html#exhale-class-classspirv-cross-namespace-1-1compilerreflection"><span class="std std-ref">Class CompilerReflection</span></a></p></li>
+<li><p><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1DominatorBuilder.html#exhale-class-classspirv-cross-namespace-1-1dominatorbuilder"><span class="std std-ref">Class DominatorBuilder</span></a></p></li>
+<li><p><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1Hasher.html#exhale-class-classspirv-cross-namespace-1-1hasher"><span class="std std-ref">Class Hasher</span></a></p></li>
+<li><p><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1ObjectPool.html#exhale-class-classspirv-cross-namespace-1-1objectpool"><span class="std std-ref">Template Class ObjectPool</span></a></p></li>
+<li><p><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1ObjectPoolBase.html#exhale-class-classspirv-cross-namespace-1-1objectpoolbase"><span class="std std-ref">Class ObjectPoolBase</span></a></p></li>
+<li><p><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR.html#exhale-class-classspirv-cross-namespace-1-1parsedir"><span class="std std-ref">Class ParsedIR</span></a></p></li>
+<li><p><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1_1LoopLock.html#exhale-class-classspirv-cross-namespace-1-1parsedir-1-1looplock"><span class="std std-ref">Class ParsedIR::LoopLock</span></a></p></li>
+<li><p><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1Parser.html#exhale-class-classspirv-cross-namespace-1-1parser"><span class="std std-ref">Class Parser</span></a></p></li>
+<li><p><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1SmallVector.html#exhale-class-classspirv-cross-namespace-1-1smallvector"><span class="std std-ref">Template Class SmallVector</span></a></p></li>
+<li><p><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1StringStream.html#exhale-class-classspirv-cross-namespace-1-1stringstream"><span class="std std-ref">Template Class StringStream</span></a></p></li>
+<li><p><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1TypedID.html#exhale-class-classspirv-cross-namespace-1-1typedid"><span class="std std-ref">Template Class TypedID</span></a></p></li>
+<li><p><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1TypedID_3_01TypeNone_01_4.html#exhale-class-classspirv-cross-namespace-1-1typedid-3-01typenone-01-4"><span class="std std-ref">Template Class TypedID&lt; TypeNone &gt;</span></a></p></li>
+<li><p><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1Variant.html#exhale-class-classspirv-cross-namespace-1-1variant"><span class="std std-ref">Class Variant</span></a></p></li>
+<li><p><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1VectorView.html#exhale-class-classspirv-cross-namespace-1-1vectorview"><span class="std std-ref">Template Class VectorView</span></a></p></li>
+</ul>
+</section>
+<section id="enums">
+<h2>Enums<a class="headerlink" href="#enums" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="enum_spirv__glsl_8hpp_1af3168a93404c2709b7f10c4b291c92b7.html#exhale-enum-spirv-glsl-8hpp-1af3168a93404c2709b7f10c4b291c92b7"><span class="std std-ref">Enum AccessChainFlagBits</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__cross_8hpp_1a8b8d9b86528618f9cc171d4e73bcee7c.html#exhale-enum-spirv-cross-8hpp-1a8b8d9b86528618f9cc171d4e73bcee7c"><span class="std std-ref">Enum BufferPackingStandard</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__common_8hpp_1a08b24875d86f9422e44de6da38ca4a9f.html#exhale-enum-spirv-common-8hpp-1a08b24875d86f9422e44de6da38ca4a9f"><span class="std std-ref">Enum ExtendedDecorations</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__hlsl_8hpp_1a2d043e220778f9979f2fde63e775d088.html#exhale-enum-spirv-hlsl-8hpp-1a2d043e220778f9979f2fde63e775d088"><span class="std std-ref">Enum HLSLAuxBinding</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__hlsl_8hpp_1a1d94ab9c38e11b099e6ff1bf27856dc1.html#exhale-enum-spirv-hlsl-8hpp-1a1d94ab9c38e11b099e6ff1bf27856dc1"><span class="std std-ref">Enum HLSLBindingFlagBits</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__msl_8hpp_1a762c5e346a27fe123a235b71534934da.html#exhale-enum-spirv-msl-8hpp-1a762c5e346a27fe123a235b71534934da"><span class="std std-ref">Enum MSLChromaLocation</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__msl_8hpp_1a25b0b4bc4b4cb60dd5214603c31575a2.html#exhale-enum-spirv-msl-8hpp-1a25b0b4bc4b4cb60dd5214603c31575a2"><span class="std std-ref">Enum MSLComponentSwizzle</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__msl_8hpp_1acc0f1f6f4bedb2b9f9fbf0296408a6e5.html#exhale-enum-spirv-msl-8hpp-1acc0f1f6f4bedb2b9f9fbf0296408a6e5"><span class="std std-ref">Enum MSLFormatResolution</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__msl_8hpp_1a8bfe9aecd9e9825e770ffb99944f1817.html#exhale-enum-spirv-msl-8hpp-1a8bfe9aecd9e9825e770ffb99944f1817"><span class="std std-ref">Enum MSLSamplerAddress</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__msl_8hpp_1a2970dad8a84e717c0b4e17a5ce8f0622.html#exhale-enum-spirv-msl-8hpp-1a2970dad8a84e717c0b4e17a5ce8f0622"><span class="std std-ref">Enum MSLSamplerBorderColor</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__msl_8hpp_1a2e025a7aa56f590914b491c6a0e0395e.html#exhale-enum-spirv-msl-8hpp-1a2e025a7aa56f590914b491c6a0e0395e"><span class="std std-ref">Enum MSLSamplerCompareFunc</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__msl_8hpp_1a5ff543be42f9bcdf4ed33b9ba2ac439e.html#exhale-enum-spirv-msl-8hpp-1a5ff543be42f9bcdf4ed33b9ba2ac439e"><span class="std std-ref">Enum MSLSamplerCoord</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__msl_8hpp_1a80d2c4644cc20b9f3ac455915e047140.html#exhale-enum-spirv-msl-8hpp-1a80d2c4644cc20b9f3ac455915e047140"><span class="std std-ref">Enum MSLSamplerFilter</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__msl_8hpp_1a4d6eba06b221416e8d06931c9a610f6f.html#exhale-enum-spirv-msl-8hpp-1a4d6eba06b221416e8d06931c9a610f6f"><span class="std std-ref">Enum MSLSamplerMipFilter</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__msl_8hpp_1ae5e09a790c549be52b8b43e99f6804d9.html#exhale-enum-spirv-msl-8hpp-1ae5e09a790c549be52b8b43e99f6804d9"><span class="std std-ref">Enum MSLSamplerYCbCrModelConversion</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__msl_8hpp_1a9b3dc514f57d5eec18cd638c7afc75a8.html#exhale-enum-spirv-msl-8hpp-1a9b3dc514f57d5eec18cd638c7afc75a8"><span class="std std-ref">Enum MSLSamplerYCbCrRange</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__msl_8hpp_1a0d2555220857e84cac99eda5bf1d4855.html#exhale-enum-spirv-msl-8hpp-1a0d2555220857e84cac99eda5bf1d4855"><span class="std std-ref">Enum MSLShaderVariableFormat</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__msl_8hpp_1ad2b2cf44d7f10480c3a55ca64e12189c.html#exhale-enum-spirv-msl-8hpp-1ad2b2cf44d7f10480c3a55ca64e12189c"><span class="std std-ref">Enum MSLShaderVariableRate</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__glsl_8hpp_1a9e9efbdd12ea9d2538765eabf501bcc9.html#exhale-enum-spirv-glsl-8hpp-1a9e9efbdd12ea9d2538765eabf501bcc9"><span class="std std-ref">Enum PlsFormat</span></a></p></li>
+<li><p><a class="reference internal" href="enum_spirv__common_8hpp_1a878513c0b00f55e36825afc2e93989c4.html#exhale-enum-spirv-common-8hpp-1a878513c0b00f55e36825afc2e93989c4"><span class="std std-ref">Enum Types</span></a></p></li>
+</ul>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="function_spirv__common_8hpp_1a3db82bd912d520fb79f8717229b845a7.html#exhale-function-spirv-common-8hpp-1a3db82bd912d520fb79f8717229b845a7"><span class="std std-ref">Template Function SPIRV_CROSS_NAMESPACE::convert_to_string(const T&amp;)</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__common_8hpp_1a1ea624b250e68bd0069406bc6c7fc647.html#exhale-function-spirv-common-8hpp-1a1ea624b250e68bd0069406bc6c7fc647"><span class="std std-ref">Function SPIRV_CROSS_NAMESPACE::convert_to_string(int32_t)</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__common_8hpp_1a7717b6d0a7d6c8241b3e64ce5853c30b.html#exhale-function-spirv-common-8hpp-1a7717b6d0a7d6c8241b3e64ce5853c30b"><span class="std std-ref">Function SPIRV_CROSS_NAMESPACE::convert_to_string(int64_t, const std::string&amp;, bool)</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__common_8hpp_1a0fbc1bf43247b274bbe58a67f5c5cba2.html#exhale-function-spirv-common-8hpp-1a0fbc1bf43247b274bbe58a67f5c5cba2"><span class="std std-ref">Function SPIRV_CROSS_NAMESPACE::convert_to_string(float, char)</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__common_8hpp_1ac10aeda0b43706c025644171a3539b58.html#exhale-function-spirv-common-8hpp-1ac10aeda0b43706c025644171a3539b58"><span class="std std-ref">Function SPIRV_CROSS_NAMESPACE::convert_to_string(double, char)</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__common_8hpp_1ad0638e7ed86db925b87501f65adcce63.html#exhale-function-spirv-common-8hpp-1ad0638e7ed86db925b87501f65adcce63"><span class="std std-ref">Function SPIRV_CROSS_NAMESPACE::fixup_radix_point</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__common_8hpp_1ad749adf7c4ebeb70c99c1608e59826b0.html#exhale-function-spirv-common-8hpp-1ad749adf7c4ebeb70c99c1608e59826b0"><span class="std std-ref">Template Function SPIRV_CROSS_NAMESPACE::join</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__common_8hpp_1a2e6cce1ed95d365362c3df5922890dec.html#exhale-function-spirv-common-8hpp-1a2e6cce1ed95d365362c3df5922890dec"><span class="std std-ref">Function SPIRV_CROSS_NAMESPACE::merge</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__common_8hpp_1a16ccf6612a0e7a07e402ee24fc3b3903.html#exhale-function-spirv-common-8hpp-1a16ccf6612a0e7a07e402ee24fc3b3903"><span class="std std-ref">Function SPIRV_CROSS_NAMESPACE::opcode_can_promote_integer_implicitly</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__common_8hpp_1a51bba4a179e3a112da32bc8d05c23a0f.html#exhale-function-spirv-common-8hpp-1a51bba4a179e3a112da32bc8d05c23a0f"><span class="std std-ref">Function SPIRV_CROSS_NAMESPACE::opcode_is_sign_invariant</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__common_8hpp_1a49dc1b4fad2984ac5440eb4658bfd4ad.html#exhale-function-spirv-common-8hpp-1a49dc1b4fad2984ac5440eb4658bfd4ad"><span class="std std-ref">Function SPIRV_CROSS_NAMESPACE::to_signed_basetype</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__common_8hpp_1a38b64cf637ca27fa0783e42200166c06.html#exhale-function-spirv-common-8hpp-1a38b64cf637ca27fa0783e42200166c06"><span class="std std-ref">Function SPIRV_CROSS_NAMESPACE::to_unsigned_basetype</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__common_8hpp_1ab75897d2ddbd6f51268332b7bc7c3378.html#exhale-function-spirv-common-8hpp-1ab75897d2ddbd6f51268332b7bc7c3378"><span class="std std-ref">Function SPIRV_CROSS_NAMESPACE::type_is_floating_point</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__common_8hpp_1af1d9723cff0c35a73bd25046cdd7992f.html#exhale-function-spirv-common-8hpp-1af1d9723cff0c35a73bd25046cdd7992f"><span class="std std-ref">Function SPIRV_CROSS_NAMESPACE::type_is_integral</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__common_8hpp_1a9e3bb19a0184b55fe9ab21f00912a2fa.html#exhale-function-spirv-common-8hpp-1a9e3bb19a0184b55fe9ab21f00912a2fa"><span class="std std-ref">Template Function SPIRV_CROSS_NAMESPACE::variant_get(Variant&amp;)</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__common_8hpp_1a6bf36602b75754dbf8c65714d9f342c9.html#exhale-function-spirv-common-8hpp-1a6bf36602b75754dbf8c65714d9f342c9"><span class="std std-ref">Template Function SPIRV_CROSS_NAMESPACE::variant_get(const Variant&amp;)</span></a></p></li>
+<li><p><a class="reference internal" href="function_spirv__common_8hpp_1a5a0249502438a279e6d6299a858b58af.html#exhale-function-spirv-common-8hpp-1a5a0249502438a279e6d6299a858b58af"><span class="std std-ref">Template Function SPIRV_CROSS_NAMESPACE::variant_set</span></a></p></li>
+</ul>
+</section>
+<section id="typedefs">
+<h2>Typedefs<a class="headerlink" href="#typedefs" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="typedef_spirv__glsl_8hpp_1a9adefa7e8289db56ef5ff47135b62479.html#exhale-typedef-spirv-glsl-8hpp-1a9adefa7e8289db56ef5ff47135b62479"><span class="std std-ref">Typedef SPIRV_CROSS_NAMESPACE::AccessChainFlags</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__common_8hpp_1a3f9de4e01743fb5bb875f521a74549eb.html#exhale-typedef-spirv-common-8hpp-1a3f9de4e01743fb5bb875f521a74549eb"><span class="std std-ref">Typedef SPIRV_CROSS_NAMESPACE::BlockID</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__common_8hpp_1a0e73d2ad40390e7b8336898f8c34ef7c.html#exhale-typedef-spirv-common-8hpp-1a0e73d2ad40390e7b8336898f8c34ef7c"><span class="std std-ref">Typedef SPIRV_CROSS_NAMESPACE::ConstantID</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__common_8hpp_1ad2fb94d6d4f1ea8198ed3c3e6e6b7252.html#exhale-typedef-spirv-common-8hpp-1ad2fb94d6d4f1ea8198ed3c3e6e6b7252"><span class="std std-ref">Typedef SPIRV_CROSS_NAMESPACE::FunctionID</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__hlsl_8hpp_1a792c306a18ffd216f0c0e9c555bd3f47.html#exhale-typedef-spirv-hlsl-8hpp-1a792c306a18ffd216f0c0e9c555bd3f47"><span class="std std-ref">Typedef SPIRV_CROSS_NAMESPACE::HLSLBindingFlags</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#exhale-typedef-spirv-common-8hpp-1a5b2731e8e9f1883b88a8b7319621fcf3"><span class="std std-ref">Typedef SPIRV_CROSS_NAMESPACE::ID</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__common_8hpp_1a069c02cd36e33a539104ac7752e9dd20.html#exhale-typedef-spirv-common-8hpp-1a069c02cd36e33a539104ac7752e9dd20"><span class="std std-ref">Typedef SPIRV_CROSS_NAMESPACE::TypeID</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__common_8hpp_1a9d0244f82e6acff98667344a0ec5b03c.html#exhale-typedef-spirv-common-8hpp-1a9d0244f82e6acff98667344a0ec5b03c"><span class="std std-ref">Typedef SPIRV_CROSS_NAMESPACE::VariableID</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__common_8hpp_1a7e2e82c3461be66e51b71a7883cec590.html#exhale-typedef-spirv-common-8hpp-1a7e2e82c3461be66e51b71a7883cec590"><span class="std std-ref">Typedef SPIRV_CROSS_NAMESPACE::VariableTypeRemapCallback</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_spirv__cross__containers_8hpp_1af9b8eb4ebabcc25f204f7074919e4ffc.html#exhale-typedef-spirv-cross-containers-8hpp-1af9b8eb4ebabcc25f204f7074919e4ffc"><span class="std std-ref">Typedef SPIRV_CROSS_NAMESPACE::Vector</span></a></p></li>
+</ul>
+</section>
+<section id="unions">
+<h2>Unions<a class="headerlink" href="#unions" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="unionSPIRV__CROSS__NAMESPACE_1_1SPIRConstant_1_1Constant.html#exhale-union-unionspirv-cross-namespace-1-1spirconstant-1-1constant"><span class="std std-ref">Union SPIRConstant::Constant</span></a></p></li>
+</ul>
+</section>
+<section id="variables">
+<h2>Variables<a class="headerlink" href="#variables" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="variable_spirv__msl_8hpp_1a05cb8df8363e98fd035d9a7959c32311.html#exhale-variable-spirv-msl-8hpp-1a05cb8df8363e98fd035d9a7959c32311"><span class="std std-ref">Variable SPIRV_CROSS_NAMESPACE::kArgumentBufferBinding</span></a></p></li>
+<li><p><a class="reference internal" href="variable_spirv__msl_8hpp_1ad0f529ce6dccc321e730a6795afe0211.html#exhale-variable-spirv-msl-8hpp-1ad0f529ce6dccc321e730a6795afe0211"><span class="std std-ref">Variable SPIRV_CROSS_NAMESPACE::kArrayCopyMultidimMax</span></a></p></li>
+<li><p><a class="reference internal" href="variable_spirv__msl_8hpp_1a83f42a7eb8e491a436afe7aa4bc4111f.html#exhale-variable-spirv-msl-8hpp-1a83f42a7eb8e491a436afe7aa4bc4111f"><span class="std std-ref">Variable SPIRV_CROSS_NAMESPACE::kBufferSizeBufferBinding</span></a></p></li>
+<li><p><a class="reference internal" href="variable_spirv__msl_8hpp_1aa144ce973fda3b2883195684c894d3fe.html#exhale-variable-spirv-msl-8hpp-1aa144ce973fda3b2883195684c894d3fe"><span class="std std-ref">Variable SPIRV_CROSS_NAMESPACE::kMaxArgumentBuffers</span></a></p></li>
+<li><p><a class="reference internal" href="variable_spirv__msl_8hpp_1a13067fd8c61d6a768fd4923b5c122ebb.html#exhale-variable-spirv-msl-8hpp-1a13067fd8c61d6a768fd4923b5c122ebb"><span class="std std-ref">Variable SPIRV_CROSS_NAMESPACE::kPushConstBinding</span></a></p></li>
+<li><p><a class="reference internal" href="variable_spirv__msl_8hpp_1a3e45a6f68e865df7ad3900851e7e7505.html#exhale-variable-spirv-msl-8hpp-1a3e45a6f68e865df7ad3900851e7e7505"><span class="std std-ref">Variable SPIRV_CROSS_NAMESPACE::kPushConstDescSet</span></a></p></li>
+<li><p><a class="reference internal" href="variable_spirv__msl_8hpp_1af97f0fa3b44f6b326072136ea20a0bc2.html#exhale-variable-spirv-msl-8hpp-1af97f0fa3b44f6b326072136ea20a0bc2"><span class="std std-ref">Variable SPIRV_CROSS_NAMESPACE::kSwizzleBufferBinding</span></a></p></li>
+<li><p><a class="reference internal" href="variable_spirv__common_8hpp_1a5f5faf875d463ad1d1eb57f0ca406d81.html#exhale-variable-spirv-common-8hpp-1a5f5faf875d463ad1d1eb57f0ca406d81"><span class="std std-ref">Variable SPIRV_CROSS_NAMESPACE::ResourceBindingPushConstantBinding</span></a></p></li>
+<li><p><a class="reference internal" href="variable_spirv__common_8hpp_1a1be993c64001f9bc46b150825104a6c4.html#exhale-variable-spirv-common-8hpp-1a1be993c64001f9bc46b150825104a6c4"><span class="std std-ref">Variable SPIRV_CROSS_NAMESPACE::ResourceBindingPushConstantDescriptorSet</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="namespace_simple_json.html" class="btn btn-neutral float-left" title="Namespace simple_json" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="namespace_SPIRV_CROSS_NAMESPACE__inner.html" class="btn btn-neutral float-right" title="Namespace SPIRV_CROSS_NAMESPACE::inner" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

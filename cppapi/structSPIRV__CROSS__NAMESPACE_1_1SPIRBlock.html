@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Struct SPIRBlock &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Struct SPIRBlock::Case" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1_1Case.html" />
+    <link rel="prev" title="Struct SPIRAccessChain" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRAccessChain.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">'Helloworld' Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">'Helloworld' Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">API-Debug-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">Device-Override</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#unions">Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#sept-21-2023">2023.3 (Sept 21 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id35">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id36">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id40">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id41">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2023.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id5">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id8">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id11">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id12">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id13">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id14">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id15">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id16">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id17">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id18">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id19">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../src/reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">C++ Interfaces</a></li>
+      <li class="breadcrumb-item active">Struct SPIRBlock</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="struct-spirblock">
+<span id="exhale-struct-structspirv-cross-namespace-1-1spirblock"></span><h1>Struct SPIRBlock<a class="headerlink" href="#struct-spirblock" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_spirv_cross_spirv_common.hpp.html#file-include-spirv-cross-spirv-common-hpp"><span class="std std-ref">File spirv_common.hpp</span></a></p></li>
+</ul>
+<section id="nested-relationships">
+<h2>Nested Relationships<a class="headerlink" href="#nested-relationships" title="Permalink to this headline"></a></h2>
+<section id="nested-types">
+<h3>Nested Types<a class="headerlink" href="#nested-types" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1_1Case.html#exhale-struct-structspirv-cross-namespace-1-1spirblock-1-1case"><span class="std std-ref">Struct SPIRBlock::Case</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1_1Phi.html#exhale-struct-structspirv-cross-namespace-1-1spirblock-1-1phi"><span class="std std-ref">Struct SPIRBlock::Phi</span></a></p></li>
+</ul>
+</section>
+</section>
+<section id="inheritance-relationships">
+<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline"></a></h2>
+<section id="base-type">
+<h3>Base Type<a class="headerlink" href="#base-type" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">SPIRV_CROSS_NAMESPACE::IVariant</span></code> (<a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1IVariant.html#exhale-struct-structspirv-cross-namespace-1-1ivariant"><span class="std std-ref">Struct IVariant</span></a>)</p></li>
+</ul>
+</section>
+</section>
+<section id="struct-documentation">
+<h2>Struct Documentation<a class="headerlink" href="#struct-documentation" title="Permalink to this headline"></a></h2>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlockE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlockE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlockE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPIRBlock</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">SPIRV_CROSS_NAMESPACE</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1IVariant.html#_CPPv4N21SPIRV_CROSS_NAMESPACE8IVariantE" title="SPIRV_CROSS_NAMESPACE::IVariant"><span class="n"><span class="pre">IVariant</span></span></a><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlockE" title="Permalink to this definition"></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlockUt2_41E">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlockUt2_41E"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a5ae78f300f1fdb78f11d4bfab15f337c"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">[anonymous]</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlockUt2_41E" title="Permalink to this definition"></a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlockUt2_414typeE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlockUt2_414typeE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a5ae78f300f1fdb78f11d4bfab15f337cad5558cdc0c84aaaf7c41dfe4a3b0a04e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">type</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlockUt2_414typeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10TerminatorE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock10TerminatorE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock10TerminatorE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1aa908e8a9ca43cc040018a5a8f7aa4331"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Terminator</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10TerminatorE" title="Permalink to this definition"></a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator7UnknownE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator7UnknownE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator7UnknownE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1aa908e8a9ca43cc040018a5a8f7aa4331a372f3dcebd668db66461ac61c33b285f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Unknown</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator7UnknownE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator6DirectE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator6DirectE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator6DirectE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1aa908e8a9ca43cc040018a5a8f7aa4331ad21a90f3051b69a29665474d3d7ecc65"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Direct</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator6DirectE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator6SelectE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator6SelectE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator6SelectE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1aa908e8a9ca43cc040018a5a8f7aa4331a56b61b70d1f5c35a928b9c3fcdbf0188"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Select</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator6SelectE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator11MultiSelectE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator11MultiSelectE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator11MultiSelectE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1aa908e8a9ca43cc040018a5a8f7aa4331a90f0ef2a84f5a4ce31c4ff82d9650f85"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MultiSelect</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator11MultiSelectE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator6ReturnE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator6ReturnE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator6ReturnE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1aa908e8a9ca43cc040018a5a8f7aa4331aff6b0882539492b9f45eb38e4b2eb796"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Return</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator6ReturnE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator11UnreachableE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator11UnreachableE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator11UnreachableE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1aa908e8a9ca43cc040018a5a8f7aa4331a4716414ef9b9a75a91174fd2dd0373be"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Unreachable</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator11UnreachableE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator4KillE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator4KillE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator4KillE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1aa908e8a9ca43cc040018a5a8f7aa4331ad05df15cedac837609048547a2cd88bc"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Kill</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator4KillE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator18IgnoreIntersectionE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator18IgnoreIntersectionE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator18IgnoreIntersectionE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1aa908e8a9ca43cc040018a5a8f7aa4331a6c12ae537a74b1851b8a397cb00a9a9b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IgnoreIntersection</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator18IgnoreIntersectionE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator12TerminateRayE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator12TerminateRayE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator12TerminateRayE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1aa908e8a9ca43cc040018a5a8f7aa4331a6faa4dd7a73dab8a2d4e6266fbbe41ec"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TerminateRay</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator12TerminateRayE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator13EmitMeshTasksE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator13EmitMeshTasksE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator13EmitMeshTasksE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1aa908e8a9ca43cc040018a5a8f7aa4331a73ff45040fe975978c27410a796e6b25"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EmitMeshTasks</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator13EmitMeshTasksE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5MergeE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock5MergeE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock5MergeE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1aacd765350c522bbbc3fed8e318117cdf"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Merge</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5MergeE" title="Permalink to this definition"></a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Merge9MergeNoneE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Merge9MergeNoneE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Merge9MergeNoneE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1aacd765350c522bbbc3fed8e318117cdfa6462cf61bf4d499e6f198b9813e79eac"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MergeNone</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Merge9MergeNoneE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Merge9MergeLoopE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Merge9MergeLoopE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Merge9MergeLoopE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1aacd765350c522bbbc3fed8e318117cdfa59b2b07f8025afb6317ced21fc73956c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MergeLoop</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Merge9MergeLoopE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Merge14MergeSelectionE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Merge14MergeSelectionE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Merge14MergeSelectionE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1aacd765350c522bbbc3fed8e318117cdfa52e2819692d659935d28c8737eb1233d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MergeSelection</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Merge14MergeSelectionE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5HintsE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock5HintsE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock5HintsE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1afefd8851ebf3e50996591a6104927758"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Hints</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5HintsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Hints8HintNoneE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Hints8HintNoneE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Hints8HintNoneE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1afefd8851ebf3e50996591a6104927758ac2539b5a67df13735440b3683fb174fa"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HintNone</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Hints8HintNoneE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Hints10HintUnrollE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Hints10HintUnrollE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Hints10HintUnrollE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1afefd8851ebf3e50996591a6104927758a4092022c7aa54e652841e444f3e88322"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HintUnroll</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Hints10HintUnrollE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Hints14HintDontUnrollE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Hints14HintDontUnrollE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Hints14HintDontUnrollE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1afefd8851ebf3e50996591a6104927758a23174421a4919495f7519b589b7f3c55"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HintDontUnroll</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Hints14HintDontUnrollE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Hints11HintFlattenE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Hints11HintFlattenE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Hints11HintFlattenE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1afefd8851ebf3e50996591a6104927758ae13bcab816cf1815de8990cfb77fa439"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HintFlatten</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Hints11HintFlattenE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Hints15HintDontFlattenE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Hints15HintDontFlattenE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Hints15HintDontFlattenE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1afefd8851ebf3e50996591a6104927758ac0fa55efbb5a908881a680fbfb6b205e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HintDontFlatten</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Hints15HintDontFlattenE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock6MethodE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock6MethodE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock6MethodE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1ac4953d59b8e611611b7ea1ed11906696"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Method</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock6MethodE" title="Permalink to this definition"></a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock6Method20MergeToSelectForLoopE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock6Method20MergeToSelectForLoopE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock6Method20MergeToSelectForLoopE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1ac4953d59b8e611611b7ea1ed11906696a7dc3ce50a12a903a0f470ef5ef3844b5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MergeToSelectForLoop</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock6Method20MergeToSelectForLoopE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock6Method20MergeToDirectForLoopE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock6Method20MergeToDirectForLoopE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock6Method20MergeToDirectForLoopE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1ac4953d59b8e611611b7ea1ed11906696a740ddc0d461824d087e8ab7893a6f44c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MergeToDirectForLoop</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock6Method20MergeToDirectForLoopE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock6Method28MergeToSelectContinueForLoopE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock6Method28MergeToSelectContinueForLoopE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock6Method28MergeToSelectContinueForLoopE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1ac4953d59b8e611611b7ea1ed11906696a9236fdf9aad3cb78b0972d84336c548d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MergeToSelectContinueForLoop</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock6Method28MergeToSelectContinueForLoopE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock17ContinueBlockTypeE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock17ContinueBlockTypeE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock17ContinueBlockTypeE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a018eb6b8c5e41385c24c043aec0f50b0"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ContinueBlockType</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock17ContinueBlockTypeE" title="Permalink to this definition"></a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock17ContinueBlockType12ContinueNoneE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock17ContinueBlockType12ContinueNoneE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock17ContinueBlockType12ContinueNoneE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a018eb6b8c5e41385c24c043aec0f50b0a957175252afd2337d6322e2de1bd4525"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ContinueNone</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock17ContinueBlockType12ContinueNoneE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock17ContinueBlockType7ForLoopE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock17ContinueBlockType7ForLoopE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock17ContinueBlockType7ForLoopE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a018eb6b8c5e41385c24c043aec0f50b0a9ce8a428d73c22e89acb0e2ad4b70569"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ForLoop</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock17ContinueBlockType7ForLoopE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock17ContinueBlockType9WhileLoopE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock17ContinueBlockType9WhileLoopE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock17ContinueBlockType9WhileLoopE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a018eb6b8c5e41385c24c043aec0f50b0a762f55309afa587ea6ce30cc9464e457"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">WhileLoop</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock17ContinueBlockType9WhileLoopE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock17ContinueBlockType11DoWhileLoopE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock17ContinueBlockType11DoWhileLoopE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock17ContinueBlockType11DoWhileLoopE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a018eb6b8c5e41385c24c043aec0f50b0a1f1410e3ba02659bcd2af798b378b291"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DoWhileLoop</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock17ContinueBlockType11DoWhileLoopE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock17ContinueBlockType11ComplexLoopE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock17ContinueBlockType11ComplexLoopE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock17ContinueBlockType11ComplexLoopE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a018eb6b8c5e41385c24c043aec0f50b0a0fcab19c20b8558bbfce3df727b5121d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ComplexLoop</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock17ContinueBlockType11ComplexLoopE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlockUt2_42E">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlockUt2_42E"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a2517525a5b371e42288de0554d1c1030"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">[anonymous]</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlockUt2_42E" title="Permalink to this definition"></a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlockUt2_4211NoDominatorE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlockUt2_4211NoDominatorE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a2517525a5b371e42288de0554d1c1030afe9e35f532a522021366564554b169d4"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NoDominator</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlockUt2_4211NoDominatorE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10terminatorE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock10terminatorE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock10terminatorE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::terminator__Terminator"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a83a8d19ae3929bd36333d6303f582a17"></span><a class="reference internal" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10TerminatorE" title="SPIRV_CROSS_NAMESPACE::SPIRBlock::Terminator"><span class="n"><span class="pre">Terminator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">terminator</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10Terminator7UnknownE" title="SPIRV_CROSS_NAMESPACE::SPIRBlock::Unknown"><span class="n"><span class="pre">Unknown</span></span></a><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10terminatorE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5mergeE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock5mergeE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock5mergeE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::merge__Merge"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1aa14d221f90fdfd4c9a2c14c97b1f05a4"></span><a class="reference internal" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5MergeE" title="SPIRV_CROSS_NAMESPACE::SPIRBlock::Merge"><span class="n"><span class="pre">Merge</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">merge</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Merge9MergeNoneE" title="SPIRV_CROSS_NAMESPACE::SPIRBlock::MergeNone"><span class="n"><span class="pre">MergeNone</span></span></a><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5mergeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock4hintE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock4hintE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock4hintE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::hint__Hints"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a3191a1b71b3ca4d2fb33aab2338d2e3a"></span><a class="reference internal" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5HintsE" title="SPIRV_CROSS_NAMESPACE::SPIRBlock::Hints"><span class="n"><span class="pre">Hints</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hint</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock5Hints8HintNoneE" title="SPIRV_CROSS_NAMESPACE::SPIRBlock::HintNone"><span class="n"><span class="pre">HintNone</span></span></a><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock4hintE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10next_blockE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock10next_blockE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock10next_blockE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::next_block__BlockID"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a3da4693f0a159672a25cefdb4e6ad838"></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a3f9de4e01743fb5bb875f521a74549eb.html#_CPPv4N21SPIRV_CROSS_NAMESPACE7BlockIDE" title="SPIRV_CROSS_NAMESPACE::BlockID"><span class="n"><span class="pre">BlockID</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">next_block</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10next_blockE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock11merge_blockE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock11merge_blockE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock11merge_blockE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::merge_block__BlockID"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a148b2b28d4cd5597cdeb9ae497e5cfdf"></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a3f9de4e01743fb5bb875f521a74549eb.html#_CPPv4N21SPIRV_CROSS_NAMESPACE7BlockIDE" title="SPIRV_CROSS_NAMESPACE::BlockID"><span class="n"><span class="pre">BlockID</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">merge_block</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock11merge_blockE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock14continue_blockE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock14continue_blockE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock14continue_blockE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::continue_block__BlockID"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a9cf82328622db168ce45b19b1c1f1586"></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a3f9de4e01743fb5bb875f521a74549eb.html#_CPPv4N21SPIRV_CROSS_NAMESPACE7BlockIDE" title="SPIRV_CROSS_NAMESPACE::BlockID"><span class="n"><span class="pre">BlockID</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">continue_block</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock14continue_blockE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock12return_valueE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock12return_valueE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock12return_valueE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::return_value__ID"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a8b4f3f4e44c645e6bb3eb262e3c6e841"></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">return_value</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock12return_valueE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock9conditionE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock9conditionE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock9conditionE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::condition__ID"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1afac38a7d55e18818fdbd8b13e5803dfd"></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">condition</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock9conditionE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10true_blockE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock10true_blockE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock10true_blockE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::true_block__BlockID"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1ac7e78634c286858098af1278a3b5e8c6"></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a3f9de4e01743fb5bb875f521a74549eb.html#_CPPv4N21SPIRV_CROSS_NAMESPACE7BlockIDE" title="SPIRV_CROSS_NAMESPACE::BlockID"><span class="n"><span class="pre">BlockID</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">true_block</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock10true_blockE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock11false_blockE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock11false_blockE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock11false_blockE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::false_block__BlockID"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1ab2f0451a42983856ba32c6bcec2ad0f4"></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a3f9de4e01743fb5bb875f521a74549eb.html#_CPPv4N21SPIRV_CROSS_NAMESPACE7BlockIDE" title="SPIRV_CROSS_NAMESPACE::BlockID"><span class="n"><span class="pre">BlockID</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">false_block</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock11false_blockE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock13default_blockE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock13default_blockE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock13default_blockE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::default_block__BlockID"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a227e188e6d25d838c4df08f061e2d62d"></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a3f9de4e01743fb5bb875f521a74549eb.html#_CPPv4N21SPIRV_CROSS_NAMESPACE7BlockIDE" title="SPIRV_CROSS_NAMESPACE::BlockID"><span class="n"><span class="pre">BlockID</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">default_block</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock13default_blockE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock6groupsE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock6groupsE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock6groupsE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::groups__IDA"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a94f5ffe18e1789c4f8e2fe64990b05c3"></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">groups</span></span></span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock6groupsE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock7payloadE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock7payloadE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock7payloadE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::payload__ID"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1ae440becc7de8edbd854f71b38eeaa52b"></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">payload</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock7payloadE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock4meshE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock4meshE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock4meshE"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a126a341c522988f771b114ceb4d3deaf"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">SPIRV_CROSS_NAMESPACE</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlockE" title="SPIRV_CROSS_NAMESPACE::SPIRBlock"><span class="n"><span class="pre">SPIRBlock</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">[anonymous]</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mesh</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock4meshE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock3opsE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock3opsE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock3opsE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::ops__SmallVector:Instruction:"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a6e3e3af97266d3f7527c0a254fa06751"></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1SmallVector.html#_CPPv4I0_6size_tEN21SPIRV_CROSS_NAMESPACE11SmallVectorE" title="SPIRV_CROSS_NAMESPACE::SmallVector"><span class="n"><span class="pre">SmallVector</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1Instruction.html#_CPPv4N21SPIRV_CROSS_NAMESPACE11InstructionE" title="SPIRV_CROSS_NAMESPACE::Instruction"><span class="n"><span class="pre">Instruction</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ops</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock3opsE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock13phi_variablesE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock13phi_variablesE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock13phi_variablesE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::phi_variables__SmallVector:Phi:"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1aa206247ab6a852066b525dd4bd0b978f"></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1SmallVector.html#_CPPv4I0_6size_tEN21SPIRV_CROSS_NAMESPACE11SmallVectorE" title="SPIRV_CROSS_NAMESPACE::SmallVector"><span class="n"><span class="pre">SmallVector</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock3PhiE" title="SPIRV_CROSS_NAMESPACE::SPIRBlock::Phi"><span class="n"><span class="pre">Phi</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">phi_variables</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock13phi_variablesE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock17declare_temporaryE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock17declare_temporaryE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock17declare_temporaryE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::declare_temporary__SmallVector:std::pair:TypeID.ID::"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1ae30da1acbc4193532a7ca5d97a774886"></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1SmallVector.html#_CPPv4I0_6size_tEN21SPIRV_CROSS_NAMESPACE11SmallVectorE" title="SPIRV_CROSS_NAMESPACE::SmallVector"><span class="n"><span class="pre">SmallVector</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a069c02cd36e33a539104ac7752e9dd20.html#_CPPv4N21SPIRV_CROSS_NAMESPACE6TypeIDE" title="SPIRV_CROSS_NAMESPACE::TypeID"><span class="n"><span class="pre">TypeID</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">declare_temporary</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock17declare_temporaryE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock27potential_declare_temporaryE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock27potential_declare_temporaryE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock27potential_declare_temporaryE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::potential_declare_temporary__SmallVector:std::pair:TypeID.ID::"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1aec87ddf5dba9cd1a248f2accbe7959d1"></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1SmallVector.html#_CPPv4I0_6size_tEN21SPIRV_CROSS_NAMESPACE11SmallVectorE" title="SPIRV_CROSS_NAMESPACE::SmallVector"><span class="n"><span class="pre">SmallVector</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a069c02cd36e33a539104ac7752e9dd20.html#_CPPv4N21SPIRV_CROSS_NAMESPACE6TypeIDE" title="SPIRV_CROSS_NAMESPACE::TypeID"><span class="n"><span class="pre">TypeID</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">potential_declare_temporary</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock27potential_declare_temporaryE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock11cases_32bitE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock11cases_32bitE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock11cases_32bitE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::cases_32bit__SmallVector:Case:"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1ae5c5c081d779b99e215e2637c76efe0c"></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1SmallVector.html#_CPPv4I0_6size_tEN21SPIRV_CROSS_NAMESPACE11SmallVectorE" title="SPIRV_CROSS_NAMESPACE::SmallVector"><span class="n"><span class="pre">SmallVector</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock4CaseE" title="SPIRV_CROSS_NAMESPACE::SPIRBlock::Case"><span class="n"><span class="pre">Case</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cases_32bit</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock11cases_32bitE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock11cases_64bitE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock11cases_64bitE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock11cases_64bitE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::cases_64bit__SmallVector:Case:"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a33432dafefbab0cc13a6780e1786dd51"></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1SmallVector.html#_CPPv4I0_6size_tEN21SPIRV_CROSS_NAMESPACE11SmallVectorE" title="SPIRV_CROSS_NAMESPACE::SmallVector"><span class="n"><span class="pre">SmallVector</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock4CaseE" title="SPIRV_CROSS_NAMESPACE::SPIRBlock::Case"><span class="n"><span class="pre">Case</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cases_64bit</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock11cases_64bitE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock26disable_block_optimizationE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock26disable_block_optimizationE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock26disable_block_optimizationE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::disable_block_optimization__b"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a96c4bd9d88e5cab1bf2dd1c36969d5b9"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">disable_block_optimization</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock26disable_block_optimizationE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock16complex_continueE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock16complex_continueE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock16complex_continueE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::complex_continue__b"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1ae70b10062fb28ab8da484117b8afbf79"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">complex_continue</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock16complex_continueE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock17need_ladder_breakE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock17need_ladder_breakE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock17need_ladder_breakE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::need_ladder_break__b"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a2c96b87a6fb647ce53e8601a06378948"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">need_ladder_break</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock17need_ladder_breakE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock21ignore_phi_from_blockE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock21ignore_phi_from_blockE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock21ignore_phi_from_blockE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::ignore_phi_from_block__BlockID"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a932a65ef9ddc403189d7ee0ad2095375"></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a3f9de4e01743fb5bb875f521a74549eb.html#_CPPv4N21SPIRV_CROSS_NAMESPACE7BlockIDE" title="SPIRV_CROSS_NAMESPACE::BlockID"><span class="n"><span class="pre">BlockID</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ignore_phi_from_block</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock21ignore_phi_from_blockE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock14loop_dominatorE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock14loop_dominatorE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock14loop_dominatorE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::loop_dominator__BlockID"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a281bfa619ae6aa2e02797c514bfdfee8"></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a3f9de4e01743fb5bb875f521a74549eb.html#_CPPv4N21SPIRV_CROSS_NAMESPACE7BlockIDE" title="SPIRV_CROSS_NAMESPACE::BlockID"><span class="n"><span class="pre">BlockID</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">loop_dominator</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock14loop_dominatorE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock19dominated_variablesE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock19dominated_variablesE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock19dominated_variablesE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::dominated_variables__SmallVector:VariableID:"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1aa80581fcea28e21c4e219265089df2da"></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1SmallVector.html#_CPPv4I0_6size_tEN21SPIRV_CROSS_NAMESPACE11SmallVectorE" title="SPIRV_CROSS_NAMESPACE::SmallVector"><span class="n"><span class="pre">SmallVector</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a9d0244f82e6acff98667344a0ec5b03c.html#_CPPv4N21SPIRV_CROSS_NAMESPACE10VariableIDE" title="SPIRV_CROSS_NAMESPACE::VariableID"><span class="n"><span class="pre">VariableID</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">dominated_variables</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock19dominated_variablesE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock14loop_variablesE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock14loop_variablesE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock14loop_variablesE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::loop_variables__SmallVector:VariableID:"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1a37a964921b87f86b81a5adce21ece9a9"></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1SmallVector.html#_CPPv4I0_6size_tEN21SPIRV_CROSS_NAMESPACE11SmallVectorE" title="SPIRV_CROSS_NAMESPACE::SmallVector"><span class="n"><span class="pre">SmallVector</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a9d0244f82e6acff98667344a0ec5b03c.html#_CPPv4N21SPIRV_CROSS_NAMESPACE10VariableIDE" title="SPIRV_CROSS_NAMESPACE::VariableID"><span class="n"><span class="pre">VariableID</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">loop_variables</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock14loop_variablesE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock22invalidate_expressionsE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock22invalidate_expressionsE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock22invalidate_expressionsE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::invalidate_expressions__SmallVector:ID:"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1ac419457ce8b4c1355a7f893d352c36f5"></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1SmallVector.html#_CPPv4I0_6size_tEN21SPIRV_CROSS_NAMESPACE11SmallVectorE" title="SPIRV_CROSS_NAMESPACE::SmallVector"><span class="n"><span class="pre">SmallVector</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">invalidate_expressions</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock22invalidate_expressionsE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock4CaseE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock4CaseE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock4CaseE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::Case"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1_1Case"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Case</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock4CaseE" title="Permalink to this definition"></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock4Case5valueE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock4Case5valueE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock4Case5valueE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::Case::value__uint64_t"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1_1Case_1a03160bda1809519649e988ce0afa0152"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">value</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock4Case5valueE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock4Case5blockE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock4Case5blockE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock4Case5blockE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::Case::block__BlockID"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1_1Case_1aa87a3b91566060306255f1c0ded24e2c"></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a3f9de4e01743fb5bb875f521a74549eb.html#_CPPv4N21SPIRV_CROSS_NAMESPACE7BlockIDE" title="SPIRV_CROSS_NAMESPACE::BlockID"><span class="n"><span class="pre">BlockID</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">block</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock4Case5blockE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock3PhiE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock3PhiE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock3PhiE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::Phi"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1_1Phi"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Phi</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock3PhiE" title="Permalink to this definition"></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock3Phi14local_variableE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock3Phi14local_variableE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock3Phi14local_variableE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::Phi::local_variable__ID"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1_1Phi_1a8d198793c62664b09dbd693d12da7c74"></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">local_variable</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock3Phi14local_variableE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock3Phi6parentE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock3Phi6parentE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock3Phi6parentE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::Phi::parent__BlockID"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1_1Phi_1a194aa23247cd4aba28b53578c1dc5e14"></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a3f9de4e01743fb5bb875f521a74549eb.html#_CPPv4N21SPIRV_CROSS_NAMESPACE7BlockIDE" title="SPIRV_CROSS_NAMESPACE::BlockID"><span class="n"><span class="pre">BlockID</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">parent</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock3Phi6parentE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock3Phi17function_variableE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE9SPIRBlock3Phi17function_variableE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE9SPIRBlock3Phi17function_variableE"></span><span id="SPIRV_CROSS_NAMESPACE::SPIRBlock::Phi::function_variable__VariableID"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1_1Phi_1a6f21dfa0f30da500007b20ca856df66b"></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a9d0244f82e6acff98667344a0ec5b03c.html#_CPPv4N21SPIRV_CROSS_NAMESPACE10VariableIDE" title="SPIRV_CROSS_NAMESPACE::VariableID"><span class="n"><span class="pre">VariableID</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">function_variable</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE9SPIRBlock3Phi17function_variableE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="structSPIRV__CROSS__NAMESPACE_1_1SPIRAccessChain.html" class="btn btn-neutral float-left" title="Struct SPIRAccessChain" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="structSPIRV__CROSS__NAMESPACE_1_1SPIRBlock_1_1Case.html" class="btn btn-neutral float-right" title="Struct SPIRBlock::Case" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

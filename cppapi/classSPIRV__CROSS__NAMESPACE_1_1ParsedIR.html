@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class ParsedIR &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Class ParsedIR::LoopLock" href="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1_1LoopLock.html" />
+    <link rel="prev" title="Class ObjectPoolBase" href="classSPIRV__CROSS__NAMESPACE_1_1ObjectPoolBase.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">'Helloworld' Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">'Helloworld' Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">API-Debug-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">Device-Override</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#unions">Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#sept-21-2023">2023.3 (Sept 21 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id35">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id36">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id40">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id41">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2023.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id5">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id8">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id11">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id12">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id13">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id14">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id15">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id16">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id17">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id18">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id19">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../src/reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">C++ Interfaces</a></li>
+      <li class="breadcrumb-item active">Class ParsedIR</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-parsedir">
+<span id="exhale-class-classspirv-cross-namespace-1-1parsedir"></span><h1>Class ParsedIR<a class="headerlink" href="#class-parsedir" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_spirv_cross_spirv_cross_parsed_ir.hpp.html#file-include-spirv-cross-spirv-cross-parsed-ir-hpp"><span class="std std-ref">File spirv_cross_parsed_ir.hpp</span></a></p></li>
+</ul>
+<section id="nested-relationships">
+<h2>Nested Relationships<a class="headerlink" href="#nested-relationships" title="Permalink to this headline"></a></h2>
+<section id="nested-types">
+<h3>Nested Types<a class="headerlink" href="#nested-types" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1_1LoopLock.html#exhale-class-classspirv-cross-namespace-1-1parsedir-1-1looplock"><span class="std std-ref">Class ParsedIR::LoopLock</span></a></p></li>
+<li><p><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1_1Source.html#exhale-struct-structspirv-cross-namespace-1-1parsedir-1-1source"><span class="std std-ref">Struct ParsedIR::Source</span></a></p></li>
+</ul>
+</section>
+</section>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIRE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIRE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIRE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ParsedIR</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIRE" title="Permalink to this definition"></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR17BlockMetaFlagBitsE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR17BlockMetaFlagBitsE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR17BlockMetaFlagBitsE"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a1fde372ab3ef4fe42a9ff6ac9287c940"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BlockMetaFlagBits</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR17BlockMetaFlagBitsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR17BlockMetaFlagBits26BLOCK_META_LOOP_HEADER_BITE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR17BlockMetaFlagBits26BLOCK_META_LOOP_HEADER_BITE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR17BlockMetaFlagBits26BLOCK_META_LOOP_HEADER_BITE"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a1fde372ab3ef4fe42a9ff6ac9287c940a3ca4ec5e4635f426fc832fff411b2961"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BLOCK_META_LOOP_HEADER_BIT</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR17BlockMetaFlagBits26BLOCK_META_LOOP_HEADER_BITE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR17BlockMetaFlagBits23BLOCK_META_CONTINUE_BITE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR17BlockMetaFlagBits23BLOCK_META_CONTINUE_BITE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR17BlockMetaFlagBits23BLOCK_META_CONTINUE_BITE"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a1fde372ab3ef4fe42a9ff6ac9287c940acaccd5138502046fdea1a742fb85202b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BLOCK_META_CONTINUE_BIT</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR17BlockMetaFlagBits23BLOCK_META_CONTINUE_BITE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR17BlockMetaFlagBits25BLOCK_META_LOOP_MERGE_BITE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR17BlockMetaFlagBits25BLOCK_META_LOOP_MERGE_BITE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR17BlockMetaFlagBits25BLOCK_META_LOOP_MERGE_BITE"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a1fde372ab3ef4fe42a9ff6ac9287c940a6784a92fddb82c59f0b50f913da0e852"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BLOCK_META_LOOP_MERGE_BIT</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR17BlockMetaFlagBits25BLOCK_META_LOOP_MERGE_BITE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR17BlockMetaFlagBits30BLOCK_META_SELECTION_MERGE_BITE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR17BlockMetaFlagBits30BLOCK_META_SELECTION_MERGE_BITE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR17BlockMetaFlagBits30BLOCK_META_SELECTION_MERGE_BITE"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a1fde372ab3ef4fe42a9ff6ac9287c940ac3d60c3581b063546f4dc3a6b6d76322"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BLOCK_META_SELECTION_MERGE_BIT</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR17BlockMetaFlagBits30BLOCK_META_SELECTION_MERGE_BITE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR17BlockMetaFlagBits32BLOCK_META_MULTISELECT_MERGE_BITE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR17BlockMetaFlagBits32BLOCK_META_MULTISELECT_MERGE_BITE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR17BlockMetaFlagBits32BLOCK_META_MULTISELECT_MERGE_BITE"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a1fde372ab3ef4fe42a9ff6ac9287c940aa11a694b2eecad86cc20eef6318ab19f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BLOCK_META_MULTISELECT_MERGE_BIT</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR17BlockMetaFlagBits32BLOCK_META_MULTISELECT_MERGE_BITE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR14BlockMetaFlagsE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR14BlockMetaFlagsE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR14BlockMetaFlagsE"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a008c60bff8f55f9514db30bc1ac14d66"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BlockMetaFlags</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR14BlockMetaFlagsE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR8ParsedIREv">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR8ParsedIREv"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR8ParsedIREv"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::ParsedIR"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a671342431bb9db4e7ed59049790c4263"></span><span class="sig-name descname"><span class="n"><span class="pre">ParsedIR</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR8ParsedIREv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR8ParsedIRERK8ParsedIR">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR8ParsedIRERK8ParsedIR"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR8ParsedIRERK8ParsedIR"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::ParsedIR__ParsedIRCR"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1aeea4991c6a81e34aef3e467cf7299f96"></span><span class="sig-name descname"><span class="n"><span class="pre">ParsedIR</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR8ParsedIRERK8ParsedIR" title="SPIRV_CROSS_NAMESPACE::ParsedIR::ParsedIR"><span class="n"><span class="pre">ParsedIR</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR8ParsedIRERK8ParsedIR" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIRaSERK8ParsedIR">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIRaSERK8ParsedIR"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIRaSERK8ParsedIR"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::assign-operator__ParsedIRCR"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1af37c99256ac0e409851b17e19c2dfc32"></span><a class="reference internal" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIRE" title="SPIRV_CROSS_NAMESPACE::ParsedIR"><span class="n"><span class="pre">ParsedIR</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIRE" title="SPIRV_CROSS_NAMESPACE::ParsedIR"><span class="n"><span class="pre">ParsedIR</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIRaSERK8ParsedIR" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a8d2d81628538484a0b6c244097648280"></span><span class="sig-name descname"><span class="pre">ParsedIR</span> <span class="pre">(ParsedIR</span> <span class="pre">&amp;&amp;other)</span> <span class="pre">SPIRV_CROSS_NOEXCEPT</span></span></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1ab62b8103d55e9913a351768e452f70b3"></span><span class="sig-name descname"><span class="pre">ParsedIR</span> <span class="pre">&amp;</span> <span class="pre">operator=</span> <span class="pre">(ParsedIR</span> <span class="pre">&amp;&amp;other)</span> <span class="pre">SPIRV_CROSS_NOEXCEPT</span></span></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR13set_id_boundsE8uint32_t">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR13set_id_boundsE8uint32_t"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR13set_id_boundsE8uint32_t"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::set_id_bounds__uint32_t"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1ae23ade6cedd3af4ad66f3731de31bb4c"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_id_bounds</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">bounds</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR13set_id_boundsE8uint32_t" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR8set_nameE2IDRKNSt6stringE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR8set_nameE2IDRKNSt6stringE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR8set_nameE2IDRKNSt6stringE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::set_name__ID.ssCR"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1aeb976b54a3f661cb6eba6ae26da3fdfd"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_name</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR8set_nameE2IDRKNSt6stringE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR8get_nameE2ID">
+<span id="_CPPv3NK21SPIRV_CROSS_NAMESPACE8ParsedIR8get_nameE2ID"></span><span id="_CPPv2NK21SPIRV_CROSS_NAMESPACE8ParsedIR8get_nameE2ID"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::get_name__IDC"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1aaf8256c995cbebb540bfc3a056deb20f"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">get_name</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR8get_nameE2ID" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR14set_decorationE2IDN3spv10DecorationE8uint32_t">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR14set_decorationE2IDN3spv10DecorationE8uint32_t"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR14set_decorationE2IDN3spv10DecorationE8uint32_t"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::set_decoration__ID.spv::Decoration.uint32_t"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a30f4973df0aff8d0230ebadc123087e2"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_decoration</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span>, <span class="n"><span class="pre">spv</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="enum_spirv_8hpp_1ae613902552cc82dd8c58397263c76356.html#_CPPv4N3spv10DecorationE" title="spv::Decoration"><span class="n"><span class="pre">Decoration</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">decoration</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">argument</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR14set_decorationE2IDN3spv10DecorationE8uint32_t" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR21set_decoration_stringE2IDN3spv10DecorationERKNSt6stringE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR21set_decoration_stringE2IDN3spv10DecorationERKNSt6stringE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR21set_decoration_stringE2IDN3spv10DecorationERKNSt6stringE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::set_decoration_string__ID.spv::Decoration.ssCR"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a5c7b0c9f45020ba3ceb40f8feff5bd1b"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_decoration_string</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span>, <span class="n"><span class="pre">spv</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="enum_spirv_8hpp_1ae613902552cc82dd8c58397263c76356.html#_CPPv4N3spv10DecorationE" title="spv::Decoration"><span class="n"><span class="pre">Decoration</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">decoration</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">argument</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR21set_decoration_stringE2IDN3spv10DecorationERKNSt6stringE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR14has_decorationE2IDN3spv10DecorationE">
+<span id="_CPPv3NK21SPIRV_CROSS_NAMESPACE8ParsedIR14has_decorationE2IDN3spv10DecorationE"></span><span id="_CPPv2NK21SPIRV_CROSS_NAMESPACE8ParsedIR14has_decorationE2IDN3spv10DecorationE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::has_decoration__ID.spv::DecorationC"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1ad558b9b4e44e908c64a1b9c0c306211e"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">has_decoration</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span>, <span class="n"><span class="pre">spv</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="enum_spirv_8hpp_1ae613902552cc82dd8c58397263c76356.html#_CPPv4N3spv10DecorationE" title="spv::Decoration"><span class="n"><span class="pre">Decoration</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">decoration</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR14has_decorationE2IDN3spv10DecorationE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR14get_decorationE2IDN3spv10DecorationE">
+<span id="_CPPv3NK21SPIRV_CROSS_NAMESPACE8ParsedIR14get_decorationE2IDN3spv10DecorationE"></span><span id="_CPPv2NK21SPIRV_CROSS_NAMESPACE8ParsedIR14get_decorationE2IDN3spv10DecorationE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::get_decoration__ID.spv::DecorationC"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a3c5073e4dfe4cdb004e3b6c4bf80901d"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_decoration</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span>, <span class="n"><span class="pre">spv</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="enum_spirv_8hpp_1ae613902552cc82dd8c58397263c76356.html#_CPPv4N3spv10DecorationE" title="spv::Decoration"><span class="n"><span class="pre">Decoration</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">decoration</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR14get_decorationE2IDN3spv10DecorationE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR21get_decoration_stringE2IDN3spv10DecorationE">
+<span id="_CPPv3NK21SPIRV_CROSS_NAMESPACE8ParsedIR21get_decoration_stringE2IDN3spv10DecorationE"></span><span id="_CPPv2NK21SPIRV_CROSS_NAMESPACE8ParsedIR21get_decoration_stringE2IDN3spv10DecorationE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::get_decoration_string__ID.spv::DecorationC"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1aa6f6a3e3f0777aac86440855f55dc6cb"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">get_decoration_string</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span>, <span class="n"><span class="pre">spv</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="enum_spirv_8hpp_1ae613902552cc82dd8c58397263c76356.html#_CPPv4N3spv10DecorationE" title="spv::Decoration"><span class="n"><span class="pre">Decoration</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">decoration</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR21get_decoration_stringE2IDN3spv10DecorationE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR21get_decoration_bitsetE2ID">
+<span id="_CPPv3NK21SPIRV_CROSS_NAMESPACE8ParsedIR21get_decoration_bitsetE2ID"></span><span id="_CPPv2NK21SPIRV_CROSS_NAMESPACE8ParsedIR21get_decoration_bitsetE2ID"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::get_decoration_bitset__IDC"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1aa9c6fa4eee885632b1206a641a5e2e43"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1Bitset.html#_CPPv4N21SPIRV_CROSS_NAMESPACE6BitsetE" title="SPIRV_CROSS_NAMESPACE::Bitset"><span class="n"><span class="pre">Bitset</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">get_decoration_bitset</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR21get_decoration_bitsetE2ID" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR16unset_decorationE2IDN3spv10DecorationE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR16unset_decorationE2IDN3spv10DecorationE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR16unset_decorationE2IDN3spv10DecorationE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::unset_decoration__ID.spv::Decoration"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a7f74bade573c5e20a6265b36bf010ac4"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">unset_decoration</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span>, <span class="n"><span class="pre">spv</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="enum_spirv_8hpp_1ae613902552cc82dd8c58397263c76356.html#_CPPv4N3spv10DecorationE" title="spv::Decoration"><span class="n"><span class="pre">Decoration</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">decoration</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR16unset_decorationE2IDN3spv10DecorationE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR15set_member_nameE6TypeID8uint32_tRKNSt6stringE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR15set_member_nameE6TypeID8uint32_tRKNSt6stringE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR15set_member_nameE6TypeID8uint32_tRKNSt6stringE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::set_member_name__TypeID.uint32_t.ssCR"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a682e0502d786efb92ad48fe74dcf2785"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_member_name</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="typedef_spirv__common_8hpp_1a069c02cd36e33a539104ac7752e9dd20.html#_CPPv4N21SPIRV_CROSS_NAMESPACE6TypeIDE" title="SPIRV_CROSS_NAMESPACE::TypeID"><span class="n"><span class="pre">TypeID</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">index</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR15set_member_nameE6TypeID8uint32_tRKNSt6stringE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR15get_member_nameE6TypeID8uint32_t">
+<span id="_CPPv3NK21SPIRV_CROSS_NAMESPACE8ParsedIR15get_member_nameE6TypeID8uint32_t"></span><span id="_CPPv2NK21SPIRV_CROSS_NAMESPACE8ParsedIR15get_member_nameE6TypeID8uint32_t"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::get_member_name__TypeID.uint32_tC"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1ae5e1e1b0ca91b40a72801f05938d85e6"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">get_member_name</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="typedef_spirv__common_8hpp_1a069c02cd36e33a539104ac7752e9dd20.html#_CPPv4N21SPIRV_CROSS_NAMESPACE6TypeIDE" title="SPIRV_CROSS_NAMESPACE::TypeID"><span class="n"><span class="pre">TypeID</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">index</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR15get_member_nameE6TypeID8uint32_t" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR21set_member_decorationE6TypeID8uint32_tN3spv10DecorationE8uint32_t">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR21set_member_decorationE6TypeID8uint32_tN3spv10DecorationE8uint32_t"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR21set_member_decorationE6TypeID8uint32_tN3spv10DecorationE8uint32_t"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::set_member_decoration__TypeID.uint32_t.spv::Decoration.uint32_t"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1ad1675b901deadc4b0edec88d09e34b99"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_member_decoration</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="typedef_spirv__common_8hpp_1a069c02cd36e33a539104ac7752e9dd20.html#_CPPv4N21SPIRV_CROSS_NAMESPACE6TypeIDE" title="SPIRV_CROSS_NAMESPACE::TypeID"><span class="n"><span class="pre">TypeID</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">index</span></span>, <span class="n"><span class="pre">spv</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="enum_spirv_8hpp_1ae613902552cc82dd8c58397263c76356.html#_CPPv4N3spv10DecorationE" title="spv::Decoration"><span class="n"><span class="pre">Decoration</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">decoration</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">argument</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR21set_member_decorationE6TypeID8uint32_tN3spv10DecorationE8uint32_t" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR28set_member_decoration_stringE6TypeID8uint32_tN3spv10DecorationERKNSt6stringE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR28set_member_decoration_stringE6TypeID8uint32_tN3spv10DecorationERKNSt6stringE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR28set_member_decoration_stringE6TypeID8uint32_tN3spv10DecorationERKNSt6stringE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::set_member_decoration_string__TypeID.uint32_t.spv::Decoration.ssCR"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a9f7a142bfcd33e5270c83b2aeb55b00d"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_member_decoration_string</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="typedef_spirv__common_8hpp_1a069c02cd36e33a539104ac7752e9dd20.html#_CPPv4N21SPIRV_CROSS_NAMESPACE6TypeIDE" title="SPIRV_CROSS_NAMESPACE::TypeID"><span class="n"><span class="pre">TypeID</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">index</span></span>, <span class="n"><span class="pre">spv</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="enum_spirv_8hpp_1ae613902552cc82dd8c58397263c76356.html#_CPPv4N3spv10DecorationE" title="spv::Decoration"><span class="n"><span class="pre">Decoration</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">decoration</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">argument</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR28set_member_decoration_stringE6TypeID8uint32_tN3spv10DecorationERKNSt6stringE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR21get_member_decorationE6TypeID8uint32_tN3spv10DecorationE">
+<span id="_CPPv3NK21SPIRV_CROSS_NAMESPACE8ParsedIR21get_member_decorationE6TypeID8uint32_tN3spv10DecorationE"></span><span id="_CPPv2NK21SPIRV_CROSS_NAMESPACE8ParsedIR21get_member_decorationE6TypeID8uint32_tN3spv10DecorationE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::get_member_decoration__TypeID.uint32_t.spv::DecorationC"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a6de611bf757c5fcf1c303db28e2e1cfa"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_member_decoration</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="typedef_spirv__common_8hpp_1a069c02cd36e33a539104ac7752e9dd20.html#_CPPv4N21SPIRV_CROSS_NAMESPACE6TypeIDE" title="SPIRV_CROSS_NAMESPACE::TypeID"><span class="n"><span class="pre">TypeID</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">index</span></span>, <span class="n"><span class="pre">spv</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="enum_spirv_8hpp_1ae613902552cc82dd8c58397263c76356.html#_CPPv4N3spv10DecorationE" title="spv::Decoration"><span class="n"><span class="pre">Decoration</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">decoration</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR21get_member_decorationE6TypeID8uint32_tN3spv10DecorationE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR28get_member_decoration_stringE6TypeID8uint32_tN3spv10DecorationE">
+<span id="_CPPv3NK21SPIRV_CROSS_NAMESPACE8ParsedIR28get_member_decoration_stringE6TypeID8uint32_tN3spv10DecorationE"></span><span id="_CPPv2NK21SPIRV_CROSS_NAMESPACE8ParsedIR28get_member_decoration_stringE6TypeID8uint32_tN3spv10DecorationE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::get_member_decoration_string__TypeID.uint32_t.spv::DecorationC"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a0a02bee793104f4879a55bfcd9973dd4"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">get_member_decoration_string</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="typedef_spirv__common_8hpp_1a069c02cd36e33a539104ac7752e9dd20.html#_CPPv4N21SPIRV_CROSS_NAMESPACE6TypeIDE" title="SPIRV_CROSS_NAMESPACE::TypeID"><span class="n"><span class="pre">TypeID</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">index</span></span>, <span class="n"><span class="pre">spv</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="enum_spirv_8hpp_1ae613902552cc82dd8c58397263c76356.html#_CPPv4N3spv10DecorationE" title="spv::Decoration"><span class="n"><span class="pre">Decoration</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">decoration</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR28get_member_decoration_stringE6TypeID8uint32_tN3spv10DecorationE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR21has_member_decorationE6TypeID8uint32_tN3spv10DecorationE">
+<span id="_CPPv3NK21SPIRV_CROSS_NAMESPACE8ParsedIR21has_member_decorationE6TypeID8uint32_tN3spv10DecorationE"></span><span id="_CPPv2NK21SPIRV_CROSS_NAMESPACE8ParsedIR21has_member_decorationE6TypeID8uint32_tN3spv10DecorationE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::has_member_decoration__TypeID.uint32_t.spv::DecorationC"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a32f6af1d58fd874516cfb222987ef8ab"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">has_member_decoration</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="typedef_spirv__common_8hpp_1a069c02cd36e33a539104ac7752e9dd20.html#_CPPv4N21SPIRV_CROSS_NAMESPACE6TypeIDE" title="SPIRV_CROSS_NAMESPACE::TypeID"><span class="n"><span class="pre">TypeID</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">index</span></span>, <span class="n"><span class="pre">spv</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="enum_spirv_8hpp_1ae613902552cc82dd8c58397263c76356.html#_CPPv4N3spv10DecorationE" title="spv::Decoration"><span class="n"><span class="pre">Decoration</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">decoration</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR21has_member_decorationE6TypeID8uint32_tN3spv10DecorationE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR28get_member_decoration_bitsetE6TypeID8uint32_t">
+<span id="_CPPv3NK21SPIRV_CROSS_NAMESPACE8ParsedIR28get_member_decoration_bitsetE6TypeID8uint32_t"></span><span id="_CPPv2NK21SPIRV_CROSS_NAMESPACE8ParsedIR28get_member_decoration_bitsetE6TypeID8uint32_t"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::get_member_decoration_bitset__TypeID.uint32_tC"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1acd1123a6dea911317682f363b4860f4b"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1Bitset.html#_CPPv4N21SPIRV_CROSS_NAMESPACE6BitsetE" title="SPIRV_CROSS_NAMESPACE::Bitset"><span class="n"><span class="pre">Bitset</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">get_member_decoration_bitset</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="typedef_spirv__common_8hpp_1a069c02cd36e33a539104ac7752e9dd20.html#_CPPv4N21SPIRV_CROSS_NAMESPACE6TypeIDE" title="SPIRV_CROSS_NAMESPACE::TypeID"><span class="n"><span class="pre">TypeID</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">index</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR28get_member_decoration_bitsetE6TypeID8uint32_t" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR23unset_member_decorationE6TypeID8uint32_tN3spv10DecorationE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR23unset_member_decorationE6TypeID8uint32_tN3spv10DecorationE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR23unset_member_decorationE6TypeID8uint32_tN3spv10DecorationE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::unset_member_decoration__TypeID.uint32_t.spv::Decoration"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1ad6e8c6e4575bfcb6127043e8b33b7bd2"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">unset_member_decoration</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="typedef_spirv__common_8hpp_1a069c02cd36e33a539104ac7752e9dd20.html#_CPPv4N21SPIRV_CROSS_NAMESPACE6TypeIDE" title="SPIRV_CROSS_NAMESPACE::TypeID"><span class="n"><span class="pre">TypeID</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">index</span></span>, <span class="n"><span class="pre">spv</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="enum_spirv_8hpp_1ae613902552cc82dd8c58397263c76356.html#_CPPv4N3spv10DecorationE" title="spv::Decoration"><span class="n"><span class="pre">Decoration</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">decoration</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR23unset_member_decorationE6TypeID8uint32_tN3spv10DecorationE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR25mark_used_as_array_lengthE2ID">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR25mark_used_as_array_lengthE2ID"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR25mark_used_as_array_lengthE2ID"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::mark_used_as_array_length__ID"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1aac0b4c04f20103d4a238a3187c15b8f7"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mark_used_as_array_length</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR25mark_used_as_array_lengthE2ID" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR17increase_bound_byE8uint32_t">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR17increase_bound_byE8uint32_t"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR17increase_bound_byE8uint32_t"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::increase_bound_by__uint32_t"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a1e961b458ee725c4037155da3b8bac27"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">increase_bound_by</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">count</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR17increase_bound_byE8uint32_t" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR22get_buffer_block_flagsERK12SPIRVariable">
+<span id="_CPPv3NK21SPIRV_CROSS_NAMESPACE8ParsedIR22get_buffer_block_flagsERK12SPIRVariable"></span><span id="_CPPv2NK21SPIRV_CROSS_NAMESPACE8ParsedIR22get_buffer_block_flagsERK12SPIRVariable"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::get_buffer_block_flags__SPIRVariableCRC"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a0dc3eddcd9388372f8ea2402deea1f4f"></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1Bitset.html#_CPPv4N21SPIRV_CROSS_NAMESPACE6BitsetE" title="SPIRV_CROSS_NAMESPACE::Bitset"><span class="n"><span class="pre">Bitset</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_buffer_block_flags</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRVariable.html#_CPPv4N21SPIRV_CROSS_NAMESPACE12SPIRVariableE" title="SPIRV_CROSS_NAMESPACE::SPIRVariable"><span class="n"><span class="pre">SPIRVariable</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">var</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR22get_buffer_block_flagsERK12SPIRVariable" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR27get_buffer_block_type_flagsERK8SPIRType">
+<span id="_CPPv3NK21SPIRV_CROSS_NAMESPACE8ParsedIR27get_buffer_block_type_flagsERK8SPIRType"></span><span id="_CPPv2NK21SPIRV_CROSS_NAMESPACE8ParsedIR27get_buffer_block_type_flagsERK8SPIRType"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::get_buffer_block_type_flags__SPIRTypeCRC"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a220d48f2a4e29b66e8af4ecf2c179864"></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1Bitset.html#_CPPv4N21SPIRV_CROSS_NAMESPACE6BitsetE" title="SPIRV_CROSS_NAMESPACE::Bitset"><span class="n"><span class="pre">Bitset</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_buffer_block_type_flags</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIRType.html#_CPPv4N21SPIRV_CROSS_NAMESPACE8SPIRTypeE" title="SPIRV_CROSS_NAMESPACE::SPIRType"><span class="n"><span class="pre">SPIRType</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">type</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR27get_buffer_block_type_flagsERK8SPIRType" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR12add_typed_idE5Types2ID">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR12add_typed_idE5Types2ID"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR12add_typed_idE5Types2ID"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::add_typed_id__Types.ID"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a908730bc98d953a6500582c79693b1d6"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">add_typed_id</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="enum_spirv__common_8hpp_1a878513c0b00f55e36825afc2e93989c4.html#_CPPv4N21SPIRV_CROSS_NAMESPACE5TypesE" title="SPIRV_CROSS_NAMESPACE::Types"><span class="n"><span class="pre">Types</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR12add_typed_idE5Types2ID" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR15remove_typed_idE5Types2ID">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR15remove_typed_idE5Types2ID"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR15remove_typed_idE5Types2ID"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::remove_typed_id__Types.ID"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a65dbb644693614ebcc93139164c75285"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">remove_typed_id</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="enum_spirv__common_8hpp_1a878513c0b00f55e36825afc2e93989c4.html#_CPPv4N21SPIRV_CROSS_NAMESPACE5TypesE" title="SPIRV_CROSS_NAMESPACE::Types"><span class="n"><span class="pre">Types</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR15remove_typed_idE5Types2ID" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR21create_loop_hard_lockEv">
+<span id="_CPPv3NK21SPIRV_CROSS_NAMESPACE8ParsedIR21create_loop_hard_lockEv"></span><span id="_CPPv2NK21SPIRV_CROSS_NAMESPACE8ParsedIR21create_loop_hard_lockEv"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::create_loop_hard_lockC"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a79aaeb774681fc133a26bbabb71b5242"></span><a class="reference internal" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR8LoopLockE" title="SPIRV_CROSS_NAMESPACE::ParsedIR::LoopLock"><span class="n"><span class="pre">LoopLock</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">create_loop_hard_lock</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR21create_loop_hard_lockEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR21create_loop_soft_lockEv">
+<span id="_CPPv3NK21SPIRV_CROSS_NAMESPACE8ParsedIR21create_loop_soft_lockEv"></span><span id="_CPPv2NK21SPIRV_CROSS_NAMESPACE8ParsedIR21create_loop_soft_lockEv"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::create_loop_soft_lockC"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a4436e0c8a4d5bfe195fb377aeefc89c7"></span><a class="reference internal" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR8LoopLockE" title="SPIRV_CROSS_NAMESPACE::ParsedIR::LoopLock"><span class="n"><span class="pre">LoopLock</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">create_loop_soft_lock</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR21create_loop_soft_lockEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I00EN21SPIRV_CROSS_NAMESPACE8ParsedIR17for_each_typed_idEvRK2Op">
+<span id="_CPPv3I00EN21SPIRV_CROSS_NAMESPACE8ParsedIR17for_each_typed_idERK2Op"></span><span id="_CPPv2I00EN21SPIRV_CROSS_NAMESPACE8ParsedIR17for_each_typed_idERK2Op"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Op</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a325027efb0bd041d94feef7ba8cea19e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">for_each_typed_id</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I00EN21SPIRV_CROSS_NAMESPACE8ParsedIR17for_each_typed_idEvRK2Op" title="SPIRV_CROSS_NAMESPACE::ParsedIR::for_each_typed_id::Op"><span class="n"><span class="pre">Op</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">op</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN21SPIRV_CROSS_NAMESPACE8ParsedIR17for_each_typed_idEvRK2Op" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I00ENK21SPIRV_CROSS_NAMESPACE8ParsedIR17for_each_typed_idEvRK2Op">
+<span id="_CPPv3I00ENK21SPIRV_CROSS_NAMESPACE8ParsedIR17for_each_typed_idERK2Op"></span><span id="_CPPv2I00ENK21SPIRV_CROSS_NAMESPACE8ParsedIR17for_each_typed_idERK2Op"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Op</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1aedd8fea8478a697d59fcaa4eebf69407"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">for_each_typed_id</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I00ENK21SPIRV_CROSS_NAMESPACE8ParsedIR17for_each_typed_idEvRK2Op" title="SPIRV_CROSS_NAMESPACE::ParsedIR::for_each_typed_id::Op"><span class="n"><span class="pre">Op</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">op</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I00ENK21SPIRV_CROSS_NAMESPACE8ParsedIR17for_each_typed_idEvRK2Op" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN21SPIRV_CROSS_NAMESPACE8ParsedIR17reset_all_of_typeEvv">
+<span id="_CPPv3I0EN21SPIRV_CROSS_NAMESPACE8ParsedIR17reset_all_of_typeEv"></span><span id="_CPPv2I0EN21SPIRV_CROSS_NAMESPACE8ParsedIR17reset_all_of_typeEv"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1adabcabb20888a8791f5ba3d46cb5c5fe"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reset_all_of_type</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN21SPIRV_CROSS_NAMESPACE8ParsedIR17reset_all_of_typeEvv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR17reset_all_of_typeE5Types">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR17reset_all_of_typeE5Types"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR17reset_all_of_typeE5Types"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::reset_all_of_type__Types"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a322d3b9778558b8f894813ba60832bb9"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reset_all_of_type</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="enum_spirv__common_8hpp_1a878513c0b00f55e36825afc2e93989c4.html#_CPPv4N21SPIRV_CROSS_NAMESPACE5TypesE" title="SPIRV_CROSS_NAMESPACE::Types"><span class="n"><span class="pre">Types</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR17reset_all_of_typeE5Types" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR9find_metaE2ID">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR9find_metaE2ID"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR9find_metaE2ID"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::find_meta__ID"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a28265dc097a0247375c5e09178fc4337"></span><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1Meta.html#_CPPv4N21SPIRV_CROSS_NAMESPACE4MetaE" title="SPIRV_CROSS_NAMESPACE::Meta"><span class="n"><span class="pre">Meta</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">find_meta</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR9find_metaE2ID" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR9find_metaE2ID">
+<span id="_CPPv3NK21SPIRV_CROSS_NAMESPACE8ParsedIR9find_metaE2ID"></span><span id="_CPPv2NK21SPIRV_CROSS_NAMESPACE8ParsedIR9find_metaE2ID"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::find_meta__IDC"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1ad335df0eefb9f7cfb55dcba2b8463e45"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1Meta.html#_CPPv4N21SPIRV_CROSS_NAMESPACE4MetaE" title="SPIRV_CROSS_NAMESPACE::Meta"><span class="n"><span class="pre">Meta</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">find_meta</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR9find_metaE2ID" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR16get_empty_stringEv">
+<span id="_CPPv3NK21SPIRV_CROSS_NAMESPACE8ParsedIR16get_empty_stringEv"></span><span id="_CPPv2NK21SPIRV_CROSS_NAMESPACE8ParsedIR16get_empty_stringEv"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::get_empty_stringC"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a4a96182a8d2a2b50f248b6c4fe33e56c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">get_empty_string</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR16get_empty_stringEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR18make_constant_nullE8uint32_t8uint32_tb">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR18make_constant_nullE8uint32_t8uint32_tb"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR18make_constant_nullE8uint32_t8uint32_tb"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::make_constant_null__uint32_t.uint32_t.b"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1aca0a70080d80aacfd5b32a4a5dad3059"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">make_constant_null</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">id</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">add_to_typed_id_set</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR18make_constant_nullE8uint32_t8uint32_tb" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR20fixup_reserved_namesEv">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR20fixup_reserved_namesEv"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR20fixup_reserved_namesEv"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::fixup_reserved_names"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1ac50745efa1355c4184d2023d4ecaf288"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fixup_reserved_names</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR20fixup_reserved_namesEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR17get_spirv_versionEv">
+<span id="_CPPv3NK21SPIRV_CROSS_NAMESPACE8ParsedIR17get_spirv_versionEv"></span><span id="_CPPv2NK21SPIRV_CROSS_NAMESPACE8ParsedIR17get_spirv_versionEv"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::get_spirv_versionC"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1afd0877d3aaadb7dd1fc518d310dc5c97"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_spirv_version</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK21SPIRV_CROSS_NAMESPACE8ParsedIR17get_spirv_versionEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR5spirvE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR5spirvE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR5spirvE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::spirv__std::vector:uint32_t:"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1aebe1e410569556f77f3e3993039dc3a7"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">uint32_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spirv</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR5spirvE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR3idsE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR3idsE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR3idsE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::ids__SmallVector:Variant:"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a2e2a7c5fa3c53d9929cf9c2cb9156a34"></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1SmallVector.html#_CPPv4I0_6size_tEN21SPIRV_CROSS_NAMESPACE11SmallVectorE" title="SPIRV_CROSS_NAMESPACE::SmallVector"><span class="n"><span class="pre">SmallVector</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1Variant.html#_CPPv4N21SPIRV_CROSS_NAMESPACE7VariantE" title="SPIRV_CROSS_NAMESPACE::Variant"><span class="n"><span class="pre">Variant</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ids</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR3idsE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR4metaE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR4metaE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR4metaE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::meta__std::unordered_map:ID.Meta:"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a0f282aa3d12931688c5d6f74f2d9f66d"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unordered_map</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1Meta.html#_CPPv4N21SPIRV_CROSS_NAMESPACE4MetaE" title="SPIRV_CROSS_NAMESPACE::Meta"><span class="n"><span class="pre">Meta</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">meta</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR4metaE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR12ids_for_typeE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR12ids_for_typeE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR12ids_for_typeE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::ids_for_type__SmallVector:ID:A"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a8e67419c5e581a17d7d12332f5ad6405"></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1SmallVector.html#_CPPv4I0_6size_tEN21SPIRV_CROSS_NAMESPACE11SmallVectorE" title="SPIRV_CROSS_NAMESPACE::SmallVector"><span class="n"><span class="pre">SmallVector</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ids_for_type</span></span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="enum_spirv__common_8hpp_1a878513c0b00f55e36825afc2e93989c4.html#_CPPv4N21SPIRV_CROSS_NAMESPACE5Types9TypeCountE" title="SPIRV_CROSS_NAMESPACE::TypeCount"><span class="n"><span class="pre">TypeCount</span></span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR12ids_for_typeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR30ids_for_constant_undef_or_typeE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR30ids_for_constant_undef_or_typeE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR30ids_for_constant_undef_or_typeE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::ids_for_constant_undef_or_type__SmallVector:ID:"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a9389341199dcf85e8b54b78c1e208f85"></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1SmallVector.html#_CPPv4I0_6size_tEN21SPIRV_CROSS_NAMESPACE11SmallVectorE" title="SPIRV_CROSS_NAMESPACE::SmallVector"><span class="n"><span class="pre">SmallVector</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ids_for_constant_undef_or_type</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR30ids_for_constant_undef_or_typeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR28ids_for_constant_or_variableE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR28ids_for_constant_or_variableE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR28ids_for_constant_or_variableE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::ids_for_constant_or_variable__SmallVector:ID:"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1acc4aa0f469eb4e626ad55d1a6e2aacc8"></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1SmallVector.html#_CPPv4I0_6size_tEN21SPIRV_CROSS_NAMESPACE11SmallVectorE" title="SPIRV_CROSS_NAMESPACE::SmallVector"><span class="n"><span class="pre">SmallVector</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ids_for_constant_or_variable</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR28ids_for_constant_or_variableE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR15load_type_widthE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR15load_type_widthE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR15load_type_widthE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::load_type_width__std::unordered_map:ID.uint32_t:"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1af0157e599fd9f6353b057ec3bab3b0b8"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unordered_map</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a5b2731e8e9f1883b88a8b7319621fcf3.html#_CPPv4N21SPIRV_CROSS_NAMESPACE2IDE" title="SPIRV_CROSS_NAMESPACE::ID"><span class="n"><span class="pre">ID</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">load_type_width</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR15load_type_widthE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR21declared_capabilitiesE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR21declared_capabilitiesE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR21declared_capabilitiesE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::declared_capabilities__SmallVector:spv::Capability:"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a37282377b975db1887dd49504699e305"></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1SmallVector.html#_CPPv4I0_6size_tEN21SPIRV_CROSS_NAMESPACE11SmallVectorE" title="SPIRV_CROSS_NAMESPACE::SmallVector"><span class="n"><span class="pre">SmallVector</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">spv</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="enum_spirv_8hpp_1a7072848fdb37bcd284898636d55bb70e.html#_CPPv4N3spv10CapabilityE" title="spv::Capability"><span class="n"><span class="pre">Capability</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">declared_capabilities</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR21declared_capabilitiesE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR19declared_extensionsE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR19declared_extensionsE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR19declared_extensionsE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::declared_extensions__SmallVector:ss:"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1ae4c2222d65540eabe9728af637640b8c"></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1SmallVector.html#_CPPv4I0_6size_tEN21SPIRV_CROSS_NAMESPACE11SmallVectorE" title="SPIRV_CROSS_NAMESPACE::SmallVector"><span class="n"><span class="pre">SmallVector</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">declared_extensions</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR19declared_extensionsE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR10block_metaE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR10block_metaE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR10block_metaE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::block_meta__SmallVector:BlockMetaFlags:"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1aa1eee1992a824617c9f3550bb88c14ac"></span><a class="reference internal" href="classSPIRV__CROSS__NAMESPACE_1_1SmallVector.html#_CPPv4I0_6size_tEN21SPIRV_CROSS_NAMESPACE11SmallVectorE" title="SPIRV_CROSS_NAMESPACE::SmallVector"><span class="n"><span class="pre">SmallVector</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR14BlockMetaFlagsE" title="SPIRV_CROSS_NAMESPACE::ParsedIR::BlockMetaFlags"><span class="n"><span class="pre">BlockMetaFlags</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">block_meta</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR10block_metaE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR29continue_block_to_loop_headerE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR29continue_block_to_loop_headerE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR29continue_block_to_loop_headerE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::continue_block_to_loop_header__std::unordered_map:BlockID.BlockID:"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a509409125a84580411c5414f1ba15c23"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unordered_map</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="typedef_spirv__common_8hpp_1a3f9de4e01743fb5bb875f521a74549eb.html#_CPPv4N21SPIRV_CROSS_NAMESPACE7BlockIDE" title="SPIRV_CROSS_NAMESPACE::BlockID"><span class="n"><span class="pre">BlockID</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="typedef_spirv__common_8hpp_1a3f9de4e01743fb5bb875f521a74549eb.html#_CPPv4N21SPIRV_CROSS_NAMESPACE7BlockIDE" title="SPIRV_CROSS_NAMESPACE::BlockID"><span class="n"><span class="pre">BlockID</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">continue_block_to_loop_header</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR29continue_block_to_loop_headerE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR12entry_pointsE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR12entry_pointsE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR12entry_pointsE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::entry_points__std::unordered_map:FunctionID.SPIREntryPoint:"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a69227b85d3fa8f8cb2ad77b43adeb168"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unordered_map</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="typedef_spirv__common_8hpp_1ad2fb94d6d4f1ea8198ed3c3e6e6b7252.html#_CPPv4N21SPIRV_CROSS_NAMESPACE10FunctionIDE" title="SPIRV_CROSS_NAMESPACE::FunctionID"><span class="n"><span class="pre">FunctionID</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="structSPIRV__CROSS__NAMESPACE_1_1SPIREntryPoint.html#_CPPv4N21SPIRV_CROSS_NAMESPACE14SPIREntryPointE" title="SPIRV_CROSS_NAMESPACE::SPIREntryPoint"><span class="n"><span class="pre">SPIREntryPoint</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">entry_points</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR12entry_pointsE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR19default_entry_pointE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR19default_entry_pointE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR19default_entry_pointE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::default_entry_point__FunctionID"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1ae41d4390f65182fd1682ae4ba27d2a6a"></span><a class="reference internal" href="typedef_spirv__common_8hpp_1ad2fb94d6d4f1ea8198ed3c3e6e6b7252.html#_CPPv4N21SPIRV_CROSS_NAMESPACE10FunctionIDE" title="SPIRV_CROSS_NAMESPACE::FunctionID"><span class="n"><span class="pre">FunctionID</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">default_entry_point</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR19default_entry_pointE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR6sourceE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR6sourceE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR6sourceE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::source__Source"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a607043719915d2d915993b4ea321614b"></span><a class="reference internal" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR6SourceE" title="SPIRV_CROSS_NAMESPACE::ParsedIR::Source"><span class="n"><span class="pre">Source</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">source</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR6sourceE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR16addressing_modelE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR16addressing_modelE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR16addressing_modelE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::addressing_model__spv::AddressingModel"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1ad2ad124eaa9eab5ccd575b4ced1011eb"></span><span class="n"><span class="pre">spv</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="enum_spirv_8hpp_1aef069dec092efbe12be3b6b24f0fed00.html#_CPPv4N3spv15AddressingModelE" title="spv::AddressingModel"><span class="n"><span class="pre">AddressingModel</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">addressing_model</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">spv</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="enum_spirv_8hpp_1aef069dec092efbe12be3b6b24f0fed00.html#_CPPv4N3spv15AddressingModel18AddressingModelMaxE" title="spv::AddressingModelMax"><span class="n"><span class="pre">AddressingModelMax</span></span></a><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR16addressing_modelE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR12memory_modelE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR12memory_modelE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR12memory_modelE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::memory_model__spv::MemoryModel"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1ad78f8b65325d32d20633502eb32634ba"></span><span class="n"><span class="pre">spv</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="enum_spirv_8hpp_1ad95be6021bf0c434f976e21b9a784da1.html#_CPPv4N3spv11MemoryModelE" title="spv::MemoryModel"><span class="n"><span class="pre">MemoryModel</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">memory_model</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">spv</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="enum_spirv_8hpp_1ad95be6021bf0c434f976e21b9a784da1.html#_CPPv4N3spv11MemoryModel14MemoryModelMaxE" title="spv::MemoryModelMax"><span class="n"><span class="pre">MemoryModelMax</span></span></a><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR12memory_modelE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR20sanitize_underscoresERNSt6stringE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR20sanitize_underscoresERNSt6stringE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR20sanitize_underscoresERNSt6stringE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::sanitize_underscores__ssR"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a42127e2a0dc269c32329e328bd862b29"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sanitize_underscores</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">str</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR20sanitize_underscoresERNSt6stringE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR19sanitize_identifierERNSt6stringEbb">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR19sanitize_identifierERNSt6stringEbb"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR19sanitize_identifierERNSt6stringEbb"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::sanitize_identifier__ssR.b.b"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a525a7cddf075c0c998858a06c3ee197d"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sanitize_identifier</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">str</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">member</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">allow_reserved_prefixes</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR19sanitize_identifierERNSt6stringEbb" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR31is_globally_reserved_identifierERNSt6stringEb">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR31is_globally_reserved_identifierERNSt6stringEb"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR31is_globally_reserved_identifierERNSt6stringEb"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::is_globally_reserved_identifier__ssR.b"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1a82244cea8f8ac41d7c24ce91e154cb74"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_globally_reserved_identifier</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">str</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">allow_reserved_prefixes</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR31is_globally_reserved_identifierERNSt6stringEb" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR8LoopLockE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR8LoopLockE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR8LoopLockE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::LoopLock"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1_1LoopLock"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LoopLock</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR8LoopLockE" title="Permalink to this definition"></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR8LoopLock8LoopLockEP8uint32_t">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR8LoopLock8LoopLockEP8uint32_t"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR8LoopLock8LoopLockEP8uint32_t"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::LoopLock::LoopLock__uint32_tP"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1_1LoopLock_1a403dce03f7053cce67ffd613956983fe"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LoopLock</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">counter</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR8LoopLock8LoopLockEP8uint32_t" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR8LoopLock8LoopLockERK8LoopLock">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR8LoopLock8LoopLockERK8LoopLock"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR8LoopLock8LoopLockERK8LoopLock"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::LoopLock::LoopLock__LoopLockCR"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1_1LoopLock_1ae099619ed34496f78536a0f05205db85"></span><span class="sig-name descname"><span class="n"><span class="pre">LoopLock</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR8LoopLock8LoopLockERK8LoopLock" title="SPIRV_CROSS_NAMESPACE::ParsedIR::LoopLock::LoopLock"><span class="n"><span class="pre">LoopLock</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR8LoopLock8LoopLockERK8LoopLock" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR8LoopLockaSERK8LoopLock">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR8LoopLockaSERK8LoopLock"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR8LoopLockaSERK8LoopLock"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::LoopLock::assign-operator__LoopLockCR"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1_1LoopLock_1ac318aee3e15c9b34da7dafb8b7a1a31d"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR8LoopLockE" title="SPIRV_CROSS_NAMESPACE::ParsedIR::LoopLock"><span class="n"><span class="pre">LoopLock</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR8LoopLockaSERK8LoopLock" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1_1LoopLock_1a2da53cbe7587b29b1030047d0c10e657"></span><span class="sig-name descname"><span class="pre">LoopLock</span> <span class="pre">(LoopLock</span> <span class="pre">&amp;&amp;other)</span> <span class="pre">SPIRV_CROSS_NOEXCEPT</span></span></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1_1LoopLock_1ad1fcde6b86e43dc2ce3dd7fc089fb468"></span><span class="sig-name descname"><span class="pre">LoopLock</span> <span class="pre">&amp;</span> <span class="pre">operator=</span> <span class="pre">(LoopLock</span> <span class="pre">&amp;&amp;other)</span> <span class="pre">SPIRV_CROSS_NOEXCEPT</span></span></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR8LoopLockD0Ev">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR8LoopLockD0Ev"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR8LoopLockD0Ev"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::LoopLock::~LoopLock"></span><span class="target" id="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1_1LoopLock_1a5b1cea28b3808f3ba00bad64cbc32039"></span><span class="sig-name descname"><span class="n"><span class="pre">~LoopLock</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR8LoopLockD0Ev" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR6SourceE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR6SourceE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR6SourceE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::Source"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1_1Source"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Source</span></span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR6SourceE" title="Permalink to this definition"></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR6Source6SourceEv">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR6Source6SourceEv"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR6Source6SourceEv"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::Source::Source"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1_1Source_1aea5b2a0a502e01b5ace69dd87feb8f03"></span><span class="sig-name descname"><span class="n"><span class="pre">Source</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR6Source6SourceEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR6Source7versionE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR6Source7versionE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR6Source7versionE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::Source::version__uint32_t"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1_1Source_1a6328e67b2338b513ea45d920942fc4f3"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">version</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR6Source7versionE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR6Source2esE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR6Source2esE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR6Source2esE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::Source::es__b"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1_1Source_1a04d9dd0292cce18952c405fe2db6411a"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">es</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR6Source2esE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR6Source5knownE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR6Source5knownE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR6Source5knownE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::Source::known__b"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1_1Source_1a5b46de65d9eae36bbf4b7abeead108be"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">known</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR6Source5knownE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR6Source4hlslE">
+<span id="_CPPv3N21SPIRV_CROSS_NAMESPACE8ParsedIR6Source4hlslE"></span><span id="_CPPv2N21SPIRV_CROSS_NAMESPACE8ParsedIR6Source4hlslE"></span><span id="SPIRV_CROSS_NAMESPACE::ParsedIR::Source::hlsl__b"></span><span class="target" id="structSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1_1Source_1ac21899a30893b66576787556bc92f6df"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hlsl</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N21SPIRV_CROSS_NAMESPACE8ParsedIR6Source4hlslE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="classSPIRV__CROSS__NAMESPACE_1_1ObjectPoolBase.html" class="btn btn-neutral float-left" title="Class ObjectPoolBase" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="classSPIRV__CROSS__NAMESPACE_1_1ParsedIR_1_1LoopLock.html" class="btn btn-neutral float-right" title="Class ParsedIR::LoopLock" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

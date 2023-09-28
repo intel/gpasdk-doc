@@ -74,6 +74,7 @@ Program Listing for File argument.h
            , mUnionDef(unionDef)
            , mType(BasicType::kPointer)
            , mReferencedType(referencedType)
+           , mOutParam(false)
        {
        }
    
@@ -90,6 +91,7 @@ Program Listing for File argument.h
            , mUnionDef(unionDef)
            , mType(BasicType::kPointer)
            , mReferencedType(referencedType)
+           , mOutParam(false)
        {
        }
    
@@ -97,7 +99,7 @@ Program Listing for File argument.h
        // that are filled in by the API call)
        template<typename T>
        Argument(char const* name, char const* typeString, size_t index, size_t constElemCount, T* /*valueRef*/,
-                Argument const* elementCountArg)
+                Argument const* elementCountArg, bool isOutParam)
            : mName(name)
            , mTypeString(typeString)
            , mIndex(index)
@@ -107,12 +109,14 @@ Program Listing for File argument.h
            , mEnumDef(nullptr)
            , mUnionDef(nullptr)
            , mType(BasicType::kHandle)
+           , mReferencedType(BasicType::kUndefined)
+           , mOutParam(isOutParam)
        {
        }
    
        template<typename T>
        Argument(char const* name, char const* typeString, size_t index, size_t constElemCount, T const* /*valueRef*/,
-                Argument const* elementCountArg)
+                Argument const* elementCountArg, bool isOutParam)
            : mName(name)
            , mTypeString(typeString)
            , mIndex(index)
@@ -122,6 +126,8 @@ Program Listing for File argument.h
            , mEnumDef(nullptr)
            , mUnionDef(nullptr)
            , mType(BasicType::kHandle)
+           , mReferencedType(BasicType::kUndefined)
+           , mOutParam(isOutParam)
        {
        }
    
@@ -142,6 +148,8 @@ Program Listing for File argument.h
            , mEnumDef(enumDef)
            , mUnionDef(unionDef)
            , mType(BasicType::kPointer)
+           , mReferencedType(BasicType::kUndefined)
+           , mOutParam(false)
        {
        }
    
@@ -157,6 +165,8 @@ Program Listing for File argument.h
            , mEnumDef(enumDef)
            , mUnionDef(unionDef)
            , mType(BasicType::kPointer)
+           , mReferencedType(BasicType::kUndefined)
+           , mOutParam(false)
        {
        }
    
@@ -174,6 +184,8 @@ Program Listing for File argument.h
            , mEnumDef(enumDef)
            , mUnionDef(unionDef)
            , mType(BasicType::kEmbedded)
+           , mReferencedType(BasicType::kUndefined)
+           , mOutParam(false)
        {
        }
    
@@ -207,6 +219,8 @@ Program Listing for File argument.h
    
        bool IsIntegralPrimitive() const;
    
+       bool IsOutParam() const;
+   
    protected:
        char const* mName{};
        char const* mTypeString{};
@@ -218,6 +232,7 @@ Program Listing for File argument.h
        Union const* mUnionDef{};
        BasicType mType{};
        BasicType mReferencedType{};
+       bool mOutParam{};
    };
    
    }  // namespace serialization

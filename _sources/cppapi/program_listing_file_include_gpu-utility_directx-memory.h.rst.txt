@@ -64,6 +64,8 @@ Program Listing for File directx-memory.h
    {
    public:
        ScopedMappableBuffer() = default;
+       ScopedMappableBuffer(ScopedMappableBuffer const&) = delete;
+       ScopedMappableBuffer& operator=(ScopedMappableBuffer const&) = delete;
    
        // Construction for an existing mapped buffer.
        explicit ScopedMappableBuffer(void* mappedPointer)
@@ -160,6 +162,9 @@ Program Listing for File directx-memory.h
        uint64_t mOffset;
        uint64_t mSize;
        bool mValid;
+   
+       MemoryRange(MemoryRange<MemoryType> const&) = delete;
+       MemoryRange<MemoryType>& operator=(MemoryRange<MemoryType> const&) = delete;
    };
    
    template<typename MemoryType>

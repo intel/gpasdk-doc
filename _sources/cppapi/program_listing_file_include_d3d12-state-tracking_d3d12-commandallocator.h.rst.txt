@@ -50,6 +50,8 @@ Program Listing for File d3d12-commandallocator.h
    public:
        using D3D12ObjectState::D3D12ObjectState;
        D3D12CommandAllocatorState(ID3D12Object* runtimeObj, D3D12_COMMAND_LIST_TYPE type);
+       D3D12CommandAllocatorState(D3D12CommandAllocatorState const&) = delete;
+       D3D12CommandAllocatorState& operator=(D3D12CommandAllocatorState const&) = delete;
        virtual ~D3D12CommandAllocatorState();
    
        GUID GetGUID() override;

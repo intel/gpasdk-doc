@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enum spvc_compiler_option &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Enum spvc_hlsl_binding_flag_bits" href="enum_spirv__cross__c_8h_1ae2ce3d2eeb3630457f82475c08710658.html" />
+    <link rel="prev" title="Enum spvc_capture_mode" href="enum_spirv__cross__c_8h_1a0a91fa98f00989a0ac70bab033a62a9b.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">'Helloworld' Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">'Helloworld' Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">HUD-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">API-Debug-Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">Device-Override</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#unions">Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#sept-21-2023">2023.3 (Sept 21 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id35">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id36">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id40">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id41">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2023.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id5">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id8">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id11">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id12">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id13">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id14">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id15">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id16">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id17">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id18">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id19">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../src/reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">C++ Interfaces</a></li>
+      <li class="breadcrumb-item active">Enum spvc_compiler_option</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="enum-spvc-compiler-option">
+<span id="exhale-enum-spirv-cross-c-8h-1a474c5812447e39e0fad54b861000e183"></span><h1>Enum spvc_compiler_option<a class="headerlink" href="#enum-spvc-compiler-option" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_spirv_cross_spirv_cross_c.h.html#file-include-spirv-cross-spirv-cross-c-h"><span class="std std-ref">File spirv_cross_c.h</span></a></p></li>
+</ul>
+<section id="enum-documentation">
+<h2>Enum Documentation<a class="headerlink" href="#enum-documentation" title="Permalink to this headline"></a></h2>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv420spvc_compiler_option">
+<span id="_CPPv320spvc_compiler_option"></span><span id="_CPPv220spvc_compiler_option"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spvc_compiler_option</span></span></span><a class="headerlink" href="#_CPPv420spvc_compiler_option" title="Permalink to this definition"></a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option28SPVC_COMPILER_OPTION_UNKNOWNE">
+<span id="_CPPv3N20spvc_compiler_option28SPVC_COMPILER_OPTION_UNKNOWNE"></span><span id="_CPPv2N20spvc_compiler_option28SPVC_COMPILER_OPTION_UNKNOWNE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a0059fbd1bfb63bbacf58a2223d2847f9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_UNKNOWN</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option28SPVC_COMPILER_OPTION_UNKNOWNE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option36SPVC_COMPILER_OPTION_FORCE_TEMPORARYE">
+<span id="_CPPv3N20spvc_compiler_option36SPVC_COMPILER_OPTION_FORCE_TEMPORARYE"></span><span id="_CPPv2N20spvc_compiler_option36SPVC_COMPILER_OPTION_FORCE_TEMPORARYE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a9da7ec52e06e43f7aac17eb99cf77206"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_FORCE_TEMPORARY</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option36SPVC_COMPILER_OPTION_FORCE_TEMPORARYE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option52SPVC_COMPILER_OPTION_FLATTEN_MULTIDIMENSIONAL_ARRAYSE">
+<span id="_CPPv3N20spvc_compiler_option52SPVC_COMPILER_OPTION_FLATTEN_MULTIDIMENSIONAL_ARRAYSE"></span><span id="_CPPv2N20spvc_compiler_option52SPVC_COMPILER_OPTION_FLATTEN_MULTIDIMENSIONAL_ARRAYSE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183acc3998890893c55b9ef59ce271fd682c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_FLATTEN_MULTIDIMENSIONAL_ARRAYS</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option52SPVC_COMPILER_OPTION_FLATTEN_MULTIDIMENSIONAL_ARRAYSE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option43SPVC_COMPILER_OPTION_FIXUP_DEPTH_CONVENTIONE">
+<span id="_CPPv3N20spvc_compiler_option43SPVC_COMPILER_OPTION_FIXUP_DEPTH_CONVENTIONE"></span><span id="_CPPv2N20spvc_compiler_option43SPVC_COMPILER_OPTION_FIXUP_DEPTH_CONVENTIONE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183ae9630815ef2bb8037558218991a510a1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_FIXUP_DEPTH_CONVENTION</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option43SPVC_COMPILER_OPTION_FIXUP_DEPTH_CONVENTIONE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option34SPVC_COMPILER_OPTION_FLIP_VERTEX_YE">
+<span id="_CPPv3N20spvc_compiler_option34SPVC_COMPILER_OPTION_FLIP_VERTEX_YE"></span><span id="_CPPv2N20spvc_compiler_option34SPVC_COMPILER_OPTION_FLIP_VERTEX_YE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a472c44d04bb6c2131569ff2ddffd0e98"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_FLIP_VERTEX_Y</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option34SPVC_COMPILER_OPTION_FLIP_VERTEX_YE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option55SPVC_COMPILER_OPTION_GLSL_SUPPORT_NONZERO_BASE_INSTANCEE">
+<span id="_CPPv3N20spvc_compiler_option55SPVC_COMPILER_OPTION_GLSL_SUPPORT_NONZERO_BASE_INSTANCEE"></span><span id="_CPPv2N20spvc_compiler_option55SPVC_COMPILER_OPTION_GLSL_SUPPORT_NONZERO_BASE_INSTANCEE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183ab9ec30cbe711f30032dfc648db38b2f0"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_GLSL_SUPPORT_NONZERO_BASE_INSTANCE</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option55SPVC_COMPILER_OPTION_GLSL_SUPPORT_NONZERO_BASE_INSTANCEE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option49SPVC_COMPILER_OPTION_GLSL_SEPARATE_SHADER_OBJECTSE">
+<span id="_CPPv3N20spvc_compiler_option49SPVC_COMPILER_OPTION_GLSL_SEPARATE_SHADER_OBJECTSE"></span><span id="_CPPv2N20spvc_compiler_option49SPVC_COMPILER_OPTION_GLSL_SEPARATE_SHADER_OBJECTSE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183aa6c92fcdf744992d4760c33ed282e408"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_GLSL_SEPARATE_SHADER_OBJECTS</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option49SPVC_COMPILER_OPTION_GLSL_SEPARATE_SHADER_OBJECTSE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option50SPVC_COMPILER_OPTION_GLSL_ENABLE_420PACK_EXTENSIONE">
+<span id="_CPPv3N20spvc_compiler_option50SPVC_COMPILER_OPTION_GLSL_ENABLE_420PACK_EXTENSIONE"></span><span id="_CPPv2N20spvc_compiler_option50SPVC_COMPILER_OPTION_GLSL_ENABLE_420PACK_EXTENSIONE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183afed62b35c1af6850053397fa038f7fce"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_GLSL_ENABLE_420PACK_EXTENSION</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option50SPVC_COMPILER_OPTION_GLSL_ENABLE_420PACK_EXTENSIONE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option33SPVC_COMPILER_OPTION_GLSL_VERSIONE">
+<span id="_CPPv3N20spvc_compiler_option33SPVC_COMPILER_OPTION_GLSL_VERSIONE"></span><span id="_CPPv2N20spvc_compiler_option33SPVC_COMPILER_OPTION_GLSL_VERSIONE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a7889563f8fffe38e782f495ac798028a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_GLSL_VERSION</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option33SPVC_COMPILER_OPTION_GLSL_VERSIONE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option28SPVC_COMPILER_OPTION_GLSL_ESE">
+<span id="_CPPv3N20spvc_compiler_option28SPVC_COMPILER_OPTION_GLSL_ESE"></span><span id="_CPPv2N20spvc_compiler_option28SPVC_COMPILER_OPTION_GLSL_ESE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183ad5ab20441e486616cb2de7f4fd5fe2fb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_GLSL_ES</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option28SPVC_COMPILER_OPTION_GLSL_ESE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option42SPVC_COMPILER_OPTION_GLSL_VULKAN_SEMANTICSE">
+<span id="_CPPv3N20spvc_compiler_option42SPVC_COMPILER_OPTION_GLSL_VULKAN_SEMANTICSE"></span><span id="_CPPv2N20spvc_compiler_option42SPVC_COMPILER_OPTION_GLSL_VULKAN_SEMANTICSE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a474158c0aeab10c90bc8c93e07250436"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_GLSL_VULKAN_SEMANTICS</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option42SPVC_COMPILER_OPTION_GLSL_VULKAN_SEMANTICSE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option58SPVC_COMPILER_OPTION_GLSL_ES_DEFAULT_FLOAT_PRECISION_HIGHPE">
+<span id="_CPPv3N20spvc_compiler_option58SPVC_COMPILER_OPTION_GLSL_ES_DEFAULT_FLOAT_PRECISION_HIGHPE"></span><span id="_CPPv2N20spvc_compiler_option58SPVC_COMPILER_OPTION_GLSL_ES_DEFAULT_FLOAT_PRECISION_HIGHPE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a5c8dedc1f71b5190e40edd86735d1456"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_GLSL_ES_DEFAULT_FLOAT_PRECISION_HIGHP</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option58SPVC_COMPILER_OPTION_GLSL_ES_DEFAULT_FLOAT_PRECISION_HIGHPE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option56SPVC_COMPILER_OPTION_GLSL_ES_DEFAULT_INT_PRECISION_HIGHPE">
+<span id="_CPPv3N20spvc_compiler_option56SPVC_COMPILER_OPTION_GLSL_ES_DEFAULT_INT_PRECISION_HIGHPE"></span><span id="_CPPv2N20spvc_compiler_option56SPVC_COMPILER_OPTION_GLSL_ES_DEFAULT_INT_PRECISION_HIGHPE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a48ebd347accff60e6b55411f484cb3e0"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_GLSL_ES_DEFAULT_INT_PRECISION_HIGHP</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option56SPVC_COMPILER_OPTION_GLSL_ES_DEFAULT_INT_PRECISION_HIGHPE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option38SPVC_COMPILER_OPTION_HLSL_SHADER_MODELE">
+<span id="_CPPv3N20spvc_compiler_option38SPVC_COMPILER_OPTION_HLSL_SHADER_MODELE"></span><span id="_CPPv2N20spvc_compiler_option38SPVC_COMPILER_OPTION_HLSL_SHADER_MODELE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a126abbd7fa008b7221104a6734b8d283"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_HLSL_SHADER_MODEL</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option38SPVC_COMPILER_OPTION_HLSL_SHADER_MODELE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option43SPVC_COMPILER_OPTION_HLSL_POINT_SIZE_COMPATE">
+<span id="_CPPv3N20spvc_compiler_option43SPVC_COMPILER_OPTION_HLSL_POINT_SIZE_COMPATE"></span><span id="_CPPv2N20spvc_compiler_option43SPVC_COMPILER_OPTION_HLSL_POINT_SIZE_COMPATE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a1c9dc3b36fff6bc9882ae4fdf2f383e8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_HLSL_POINT_SIZE_COMPAT</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option43SPVC_COMPILER_OPTION_HLSL_POINT_SIZE_COMPATE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option44SPVC_COMPILER_OPTION_HLSL_POINT_COORD_COMPATE">
+<span id="_CPPv3N20spvc_compiler_option44SPVC_COMPILER_OPTION_HLSL_POINT_COORD_COMPATE"></span><span id="_CPPv2N20spvc_compiler_option44SPVC_COMPILER_OPTION_HLSL_POINT_COORD_COMPATE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a451038121f388e6438ee0285727a380a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_HLSL_POINT_COORD_COMPAT</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option44SPVC_COMPILER_OPTION_HLSL_POINT_COORD_COMPATE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option67SPVC_COMPILER_OPTION_HLSL_SUPPORT_NONZERO_BASE_VERTEX_BASE_INSTANCEE">
+<span id="_CPPv3N20spvc_compiler_option67SPVC_COMPILER_OPTION_HLSL_SUPPORT_NONZERO_BASE_VERTEX_BASE_INSTANCEE"></span><span id="_CPPv2N20spvc_compiler_option67SPVC_COMPILER_OPTION_HLSL_SUPPORT_NONZERO_BASE_VERTEX_BASE_INSTANCEE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a4e5152edb36c948582d5b7da1c016fe9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_HLSL_SUPPORT_NONZERO_BASE_VERTEX_BASE_INSTANCE</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option67SPVC_COMPILER_OPTION_HLSL_SUPPORT_NONZERO_BASE_VERTEX_BASE_INSTANCEE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option32SPVC_COMPILER_OPTION_MSL_VERSIONE">
+<span id="_CPPv3N20spvc_compiler_option32SPVC_COMPILER_OPTION_MSL_VERSIONE"></span><span id="_CPPv2N20spvc_compiler_option32SPVC_COMPILER_OPTION_MSL_VERSIONE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a67b627ad515abd15d8ad3d941238478e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_VERSION</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option32SPVC_COMPILER_OPTION_MSL_VERSIONE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option51SPVC_COMPILER_OPTION_MSL_TEXEL_BUFFER_TEXTURE_WIDTHE">
+<span id="_CPPv3N20spvc_compiler_option51SPVC_COMPILER_OPTION_MSL_TEXEL_BUFFER_TEXTURE_WIDTHE"></span><span id="_CPPv2N20spvc_compiler_option51SPVC_COMPILER_OPTION_MSL_TEXEL_BUFFER_TEXTURE_WIDTHE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183aacada92fb91d60459dcc4f2afb70efd3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_TEXEL_BUFFER_TEXTURE_WIDTH</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option51SPVC_COMPILER_OPTION_MSL_TEXEL_BUFFER_TEXTURE_WIDTHE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option41SPVC_COMPILER_OPTION_MSL_AUX_BUFFER_INDEXE">
+<span id="_CPPv3N20spvc_compiler_option41SPVC_COMPILER_OPTION_MSL_AUX_BUFFER_INDEXE"></span><span id="_CPPv2N20spvc_compiler_option41SPVC_COMPILER_OPTION_MSL_AUX_BUFFER_INDEXE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a63eb6efc74674f4da71bb3e0a0c3e659"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_AUX_BUFFER_INDEX</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option41SPVC_COMPILER_OPTION_MSL_AUX_BUFFER_INDEXE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option45SPVC_COMPILER_OPTION_MSL_SWIZZLE_BUFFER_INDEXE">
+<span id="_CPPv3N20spvc_compiler_option45SPVC_COMPILER_OPTION_MSL_SWIZZLE_BUFFER_INDEXE"></span><span id="_CPPv2N20spvc_compiler_option45SPVC_COMPILER_OPTION_MSL_SWIZZLE_BUFFER_INDEXE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a3c6624aa4bbba655cfde05569998d7e7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_SWIZZLE_BUFFER_INDEX</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option45SPVC_COMPILER_OPTION_MSL_SWIZZLE_BUFFER_INDEXE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option53SPVC_COMPILER_OPTION_MSL_INDIRECT_PARAMS_BUFFER_INDEXE">
+<span id="_CPPv3N20spvc_compiler_option53SPVC_COMPILER_OPTION_MSL_INDIRECT_PARAMS_BUFFER_INDEXE"></span><span id="_CPPv2N20spvc_compiler_option53SPVC_COMPILER_OPTION_MSL_INDIRECT_PARAMS_BUFFER_INDEXE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a2494d29f0e032a404f0fe4e4a75ed34c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_INDIRECT_PARAMS_BUFFER_INDEX</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option53SPVC_COMPILER_OPTION_MSL_INDIRECT_PARAMS_BUFFER_INDEXE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option51SPVC_COMPILER_OPTION_MSL_SHADER_OUTPUT_BUFFER_INDEXE">
+<span id="_CPPv3N20spvc_compiler_option51SPVC_COMPILER_OPTION_MSL_SHADER_OUTPUT_BUFFER_INDEXE"></span><span id="_CPPv2N20spvc_compiler_option51SPVC_COMPILER_OPTION_MSL_SHADER_OUTPUT_BUFFER_INDEXE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183ac5275563d46d7b867f98883a3e090050"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_SHADER_OUTPUT_BUFFER_INDEX</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option51SPVC_COMPILER_OPTION_MSL_SHADER_OUTPUT_BUFFER_INDEXE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option57SPVC_COMPILER_OPTION_MSL_SHADER_PATCH_OUTPUT_BUFFER_INDEXE">
+<span id="_CPPv3N20spvc_compiler_option57SPVC_COMPILER_OPTION_MSL_SHADER_PATCH_OUTPUT_BUFFER_INDEXE"></span><span id="_CPPv2N20spvc_compiler_option57SPVC_COMPILER_OPTION_MSL_SHADER_PATCH_OUTPUT_BUFFER_INDEXE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a977431ab566526d763940265ed781bc5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_SHADER_PATCH_OUTPUT_BUFFER_INDEX</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option57SPVC_COMPILER_OPTION_MSL_SHADER_PATCH_OUTPUT_BUFFER_INDEXE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option63SPVC_COMPILER_OPTION_MSL_SHADER_TESS_FACTOR_OUTPUT_BUFFER_INDEXE">
+<span id="_CPPv3N20spvc_compiler_option63SPVC_COMPILER_OPTION_MSL_SHADER_TESS_FACTOR_OUTPUT_BUFFER_INDEXE"></span><span id="_CPPv2N20spvc_compiler_option63SPVC_COMPILER_OPTION_MSL_SHADER_TESS_FACTOR_OUTPUT_BUFFER_INDEXE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a3eae5d1640a2d2c4df56af1f62d0daad"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_SHADER_TESS_FACTOR_OUTPUT_BUFFER_INDEX</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option63SPVC_COMPILER_OPTION_MSL_SHADER_TESS_FACTOR_OUTPUT_BUFFER_INDEXE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option53SPVC_COMPILER_OPTION_MSL_SHADER_INPUT_WORKGROUP_INDEXE">
+<span id="_CPPv3N20spvc_compiler_option53SPVC_COMPILER_OPTION_MSL_SHADER_INPUT_WORKGROUP_INDEXE"></span><span id="_CPPv2N20spvc_compiler_option53SPVC_COMPILER_OPTION_MSL_SHADER_INPUT_WORKGROUP_INDEXE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a782abdb9e38688e912855bb9bc047823"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_SHADER_INPUT_WORKGROUP_INDEX</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option53SPVC_COMPILER_OPTION_MSL_SHADER_INPUT_WORKGROUP_INDEXE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_ENABLE_POINT_SIZE_BUILTINE">
+<span id="_CPPv3N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_ENABLE_POINT_SIZE_BUILTINE"></span><span id="_CPPv2N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_ENABLE_POINT_SIZE_BUILTINE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183ac492df6520d8d36809c154682051b2c8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_ENABLE_POINT_SIZE_BUILTIN</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_ENABLE_POINT_SIZE_BUILTINE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_DISABLE_RASTERIZATIONE">
+<span id="_CPPv3N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_DISABLE_RASTERIZATIONE"></span><span id="_CPPv2N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_DISABLE_RASTERIZATIONE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a9512911ec19b7246e883c054e0060568"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_DISABLE_RASTERIZATION</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_DISABLE_RASTERIZATIONE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option49SPVC_COMPILER_OPTION_MSL_CAPTURE_OUTPUT_TO_BUFFERE">
+<span id="_CPPv3N20spvc_compiler_option49SPVC_COMPILER_OPTION_MSL_CAPTURE_OUTPUT_TO_BUFFERE"></span><span id="_CPPv2N20spvc_compiler_option49SPVC_COMPILER_OPTION_MSL_CAPTURE_OUTPUT_TO_BUFFERE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a5abee1b1e2ee0e788fa12005f0cd0ef1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_CAPTURE_OUTPUT_TO_BUFFER</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option49SPVC_COMPILER_OPTION_MSL_CAPTURE_OUTPUT_TO_BUFFERE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option48SPVC_COMPILER_OPTION_MSL_SWIZZLE_TEXTURE_SAMPLESE">
+<span id="_CPPv3N20spvc_compiler_option48SPVC_COMPILER_OPTION_MSL_SWIZZLE_TEXTURE_SAMPLESE"></span><span id="_CPPv2N20spvc_compiler_option48SPVC_COMPILER_OPTION_MSL_SWIZZLE_TEXTURE_SAMPLESE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183aa749c263f31b9d2d0cee8282bb1d7cf8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_SWIZZLE_TEXTURE_SAMPLES</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option48SPVC_COMPILER_OPTION_MSL_SWIZZLE_TEXTURE_SAMPLESE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option55SPVC_COMPILER_OPTION_MSL_PAD_FRAGMENT_OUTPUT_COMPONENTSE">
+<span id="_CPPv3N20spvc_compiler_option55SPVC_COMPILER_OPTION_MSL_PAD_FRAGMENT_OUTPUT_COMPONENTSE"></span><span id="_CPPv2N20spvc_compiler_option55SPVC_COMPILER_OPTION_MSL_PAD_FRAGMENT_OUTPUT_COMPONENTSE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a6860435f2b4a5a4f69b429a9e6264914"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_PAD_FRAGMENT_OUTPUT_COMPONENTS</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option55SPVC_COMPILER_OPTION_MSL_PAD_FRAGMENT_OUTPUT_COMPONENTSE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option54SPVC_COMPILER_OPTION_MSL_TESS_DOMAIN_ORIGIN_LOWER_LEFTE">
+<span id="_CPPv3N20spvc_compiler_option54SPVC_COMPILER_OPTION_MSL_TESS_DOMAIN_ORIGIN_LOWER_LEFTE"></span><span id="_CPPv2N20spvc_compiler_option54SPVC_COMPILER_OPTION_MSL_TESS_DOMAIN_ORIGIN_LOWER_LEFTE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a43d2a2aebd69fce8a376ad6199fae4f2"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_TESS_DOMAIN_ORIGIN_LOWER_LEFT</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option54SPVC_COMPILER_OPTION_MSL_TESS_DOMAIN_ORIGIN_LOWER_LEFTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option33SPVC_COMPILER_OPTION_MSL_PLATFORME">
+<span id="_CPPv3N20spvc_compiler_option33SPVC_COMPILER_OPTION_MSL_PLATFORME"></span><span id="_CPPv2N20spvc_compiler_option33SPVC_COMPILER_OPTION_MSL_PLATFORME"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a66ac88eda4cc81986ec3b5da905ae1df"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_PLATFORM</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option33SPVC_COMPILER_OPTION_MSL_PLATFORME" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option41SPVC_COMPILER_OPTION_MSL_ARGUMENT_BUFFERSE">
+<span id="_CPPv3N20spvc_compiler_option41SPVC_COMPILER_OPTION_MSL_ARGUMENT_BUFFERSE"></span><span id="_CPPv2N20spvc_compiler_option41SPVC_COMPILER_OPTION_MSL_ARGUMENT_BUFFERSE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183ae07ed3c2ea0509d2492c75c0b9a416f1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_ARGUMENT_BUFFERS</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option41SPVC_COMPILER_OPTION_MSL_ARGUMENT_BUFFERSE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option62SPVC_COMPILER_OPTION_GLSL_EMIT_PUSH_CONSTANT_AS_UNIFORM_BUFFERE">
+<span id="_CPPv3N20spvc_compiler_option62SPVC_COMPILER_OPTION_GLSL_EMIT_PUSH_CONSTANT_AS_UNIFORM_BUFFERE"></span><span id="_CPPv2N20spvc_compiler_option62SPVC_COMPILER_OPTION_GLSL_EMIT_PUSH_CONSTANT_AS_UNIFORM_BUFFERE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a74e1f08062ad404591f70d862661dd68"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_GLSL_EMIT_PUSH_CONSTANT_AS_UNIFORM_BUFFER</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option62SPVC_COMPILER_OPTION_GLSL_EMIT_PUSH_CONSTANT_AS_UNIFORM_BUFFERE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_TEXTURE_BUFFER_NATIVEE">
+<span id="_CPPv3N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_TEXTURE_BUFFER_NATIVEE"></span><span id="_CPPv2N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_TEXTURE_BUFFER_NATIVEE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a442375be22e55fbe669bf1cead08a092"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_TEXTURE_BUFFER_NATIVE</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_TEXTURE_BUFFER_NATIVEE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option63SPVC_COMPILER_OPTION_GLSL_EMIT_UNIFORM_BUFFER_AS_PLAIN_UNIFORMSE">
+<span id="_CPPv3N20spvc_compiler_option63SPVC_COMPILER_OPTION_GLSL_EMIT_UNIFORM_BUFFER_AS_PLAIN_UNIFORMSE"></span><span id="_CPPv2N20spvc_compiler_option63SPVC_COMPILER_OPTION_GLSL_EMIT_UNIFORM_BUFFER_AS_PLAIN_UNIFORMSE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183ac369cf461627b943b86019fe84db5eb4"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_GLSL_EMIT_UNIFORM_BUFFER_AS_PLAIN_UNIFORMS</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option63SPVC_COMPILER_OPTION_GLSL_EMIT_UNIFORM_BUFFER_AS_PLAIN_UNIFORMSE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option49SPVC_COMPILER_OPTION_MSL_BUFFER_SIZE_BUFFER_INDEXE">
+<span id="_CPPv3N20spvc_compiler_option49SPVC_COMPILER_OPTION_MSL_BUFFER_SIZE_BUFFER_INDEXE"></span><span id="_CPPv2N20spvc_compiler_option49SPVC_COMPILER_OPTION_MSL_BUFFER_SIZE_BUFFER_INDEXE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a0db45849f749ff28102a9a67f0ceb789"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_BUFFER_SIZE_BUFFER_INDEX</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option49SPVC_COMPILER_OPTION_MSL_BUFFER_SIZE_BUFFER_INDEXE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option41SPVC_COMPILER_OPTION_EMIT_LINE_DIRECTIVESE">
+<span id="_CPPv3N20spvc_compiler_option41SPVC_COMPILER_OPTION_EMIT_LINE_DIRECTIVESE"></span><span id="_CPPv2N20spvc_compiler_option41SPVC_COMPILER_OPTION_EMIT_LINE_DIRECTIVESE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a93d0ae20d429fc2d7d5f2c222bf9269f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_EMIT_LINE_DIRECTIVES</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option41SPVC_COMPILER_OPTION_EMIT_LINE_DIRECTIVESE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option34SPVC_COMPILER_OPTION_MSL_MULTIVIEWE">
+<span id="_CPPv3N20spvc_compiler_option34SPVC_COMPILER_OPTION_MSL_MULTIVIEWE"></span><span id="_CPPv2N20spvc_compiler_option34SPVC_COMPILER_OPTION_MSL_MULTIVIEWE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a7b5aa57bad05c657360a526cc2c178d4"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_MULTIVIEW</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option34SPVC_COMPILER_OPTION_MSL_MULTIVIEWE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option47SPVC_COMPILER_OPTION_MSL_VIEW_MASK_BUFFER_INDEXE">
+<span id="_CPPv3N20spvc_compiler_option47SPVC_COMPILER_OPTION_MSL_VIEW_MASK_BUFFER_INDEXE"></span><span id="_CPPv2N20spvc_compiler_option47SPVC_COMPILER_OPTION_MSL_VIEW_MASK_BUFFER_INDEXE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a5f031329eed982915d233bdc5858cf90"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_VIEW_MASK_BUFFER_INDEX</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option47SPVC_COMPILER_OPTION_MSL_VIEW_MASK_BUFFER_INDEXE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option37SPVC_COMPILER_OPTION_MSL_DEVICE_INDEXE">
+<span id="_CPPv3N20spvc_compiler_option37SPVC_COMPILER_OPTION_MSL_DEVICE_INDEXE"></span><span id="_CPPv2N20spvc_compiler_option37SPVC_COMPILER_OPTION_MSL_DEVICE_INDEXE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a34ab0cc8ea79aad942c56c89f28bbc84"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_DEVICE_INDEX</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option37SPVC_COMPILER_OPTION_MSL_DEVICE_INDEXE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option53SPVC_COMPILER_OPTION_MSL_VIEW_INDEX_FROM_DEVICE_INDEXE">
+<span id="_CPPv3N20spvc_compiler_option53SPVC_COMPILER_OPTION_MSL_VIEW_INDEX_FROM_DEVICE_INDEXE"></span><span id="_CPPv2N20spvc_compiler_option53SPVC_COMPILER_OPTION_MSL_VIEW_INDEX_FROM_DEVICE_INDEXE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183acc6b4fd6850be50da8d243d56aba1fed"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_VIEW_INDEX_FROM_DEVICE_INDEX</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option53SPVC_COMPILER_OPTION_MSL_VIEW_INDEX_FROM_DEVICE_INDEXE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option38SPVC_COMPILER_OPTION_MSL_DISPATCH_BASEE">
+<span id="_CPPv3N20spvc_compiler_option38SPVC_COMPILER_OPTION_MSL_DISPATCH_BASEE"></span><span id="_CPPv2N20spvc_compiler_option38SPVC_COMPILER_OPTION_MSL_DISPATCH_BASEE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a4da9959c5b4880f882794b7758190976"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_DISPATCH_BASE</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option38SPVC_COMPILER_OPTION_MSL_DISPATCH_BASEE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option53SPVC_COMPILER_OPTION_MSL_DYNAMIC_OFFSETS_BUFFER_INDEXE">
+<span id="_CPPv3N20spvc_compiler_option53SPVC_COMPILER_OPTION_MSL_DYNAMIC_OFFSETS_BUFFER_INDEXE"></span><span id="_CPPv2N20spvc_compiler_option53SPVC_COMPILER_OPTION_MSL_DYNAMIC_OFFSETS_BUFFER_INDEXE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a263efa58447b0841e7cc5d408955696b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_DYNAMIC_OFFSETS_BUFFER_INDEX</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option53SPVC_COMPILER_OPTION_MSL_DYNAMIC_OFFSETS_BUFFER_INDEXE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option41SPVC_COMPILER_OPTION_MSL_TEXTURE_1D_AS_2DE">
+<span id="_CPPv3N20spvc_compiler_option41SPVC_COMPILER_OPTION_MSL_TEXTURE_1D_AS_2DE"></span><span id="_CPPv2N20spvc_compiler_option41SPVC_COMPILER_OPTION_MSL_TEXTURE_1D_AS_2DE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183ac29581ebc99215cf6be27462d1d09b2c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_TEXTURE_1D_AS_2D</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option41SPVC_COMPILER_OPTION_MSL_TEXTURE_1D_AS_2DE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option47SPVC_COMPILER_OPTION_MSL_ENABLE_BASE_INDEX_ZEROE">
+<span id="_CPPv3N20spvc_compiler_option47SPVC_COMPILER_OPTION_MSL_ENABLE_BASE_INDEX_ZEROE"></span><span id="_CPPv2N20spvc_compiler_option47SPVC_COMPILER_OPTION_MSL_ENABLE_BASE_INDEX_ZEROE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a4447c6c27eb1676462abdeb9061d81d4"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_ENABLE_BASE_INDEX_ZERO</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option47SPVC_COMPILER_OPTION_MSL_ENABLE_BASE_INDEX_ZEROE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option54SPVC_COMPILER_OPTION_MSL_IOS_FRAMEBUFFER_FETCH_SUBPASSE">
+<span id="_CPPv3N20spvc_compiler_option54SPVC_COMPILER_OPTION_MSL_IOS_FRAMEBUFFER_FETCH_SUBPASSE"></span><span id="_CPPv2N20spvc_compiler_option54SPVC_COMPILER_OPTION_MSL_IOS_FRAMEBUFFER_FETCH_SUBPASSE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183aad91ce99ec198cda1ccde5b1ef3c54e1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_IOS_FRAMEBUFFER_FETCH_SUBPASS</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option54SPVC_COMPILER_OPTION_MSL_IOS_FRAMEBUFFER_FETCH_SUBPASSE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_FRAMEBUFFER_FETCH_SUBPASSE">
+<span id="_CPPv3N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_FRAMEBUFFER_FETCH_SUBPASSE"></span><span id="_CPPv2N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_FRAMEBUFFER_FETCH_SUBPASSE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183abcc858975468f10d377008462103bed2"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_FRAMEBUFFER_FETCH_SUBPASS</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_FRAMEBUFFER_FETCH_SUBPASSE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option42SPVC_COMPILER_OPTION_MSL_INVARIANT_FP_MATHE">
+<span id="_CPPv3N20spvc_compiler_option42SPVC_COMPILER_OPTION_MSL_INVARIANT_FP_MATHE"></span><span id="_CPPv2N20spvc_compiler_option42SPVC_COMPILER_OPTION_MSL_INVARIANT_FP_MATHE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a92b7cd50e80899822480d797d7eb95ad"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_INVARIANT_FP_MATH</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option42SPVC_COMPILER_OPTION_MSL_INVARIANT_FP_MATHE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_EMULATE_CUBEMAP_ARRAYE">
+<span id="_CPPv3N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_EMULATE_CUBEMAP_ARRAYE"></span><span id="_CPPv2N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_EMULATE_CUBEMAP_ARRAYE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a29c4ba450d749852b29c770f23c4d4d1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_EMULATE_CUBEMAP_ARRAY</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_EMULATE_CUBEMAP_ARRAYE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_ENABLE_DECORATION_BINDINGE">
+<span id="_CPPv3N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_ENABLE_DECORATION_BINDINGE"></span><span id="_CPPv2N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_ENABLE_DECORATION_BINDINGE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183ac4e4b9422dcd5a16fd3db5397bee75fd"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_ENABLE_DECORATION_BINDING</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_ENABLE_DECORATION_BINDINGE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option63SPVC_COMPILER_OPTION_MSL_FORCE_ACTIVE_ARGUMENT_BUFFER_RESOURCESE">
+<span id="_CPPv3N20spvc_compiler_option63SPVC_COMPILER_OPTION_MSL_FORCE_ACTIVE_ARGUMENT_BUFFER_RESOURCESE"></span><span id="_CPPv2N20spvc_compiler_option63SPVC_COMPILER_OPTION_MSL_FORCE_ACTIVE_ARGUMENT_BUFFER_RESOURCESE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a579ba3c145d1cae4b5147157b68096fa"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_FORCE_ACTIVE_ARGUMENT_BUFFER_RESOURCES</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option63SPVC_COMPILER_OPTION_MSL_FORCE_ACTIVE_ARGUMENT_BUFFER_RESOURCESE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option44SPVC_COMPILER_OPTION_MSL_FORCE_NATIVE_ARRAYSE">
+<span id="_CPPv3N20spvc_compiler_option44SPVC_COMPILER_OPTION_MSL_FORCE_NATIVE_ARRAYSE"></span><span id="_CPPv2N20spvc_compiler_option44SPVC_COMPILER_OPTION_MSL_FORCE_NATIVE_ARRAYSE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a6ce2fef98f6bf630de26f418adaab3e0"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_FORCE_NATIVE_ARRAYS</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option44SPVC_COMPILER_OPTION_MSL_FORCE_NATIVE_ARRAYSE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option61SPVC_COMPILER_OPTION_ENABLE_STORAGE_IMAGE_QUALIFIER_DEDUCTIONE">
+<span id="_CPPv3N20spvc_compiler_option61SPVC_COMPILER_OPTION_ENABLE_STORAGE_IMAGE_QUALIFIER_DEDUCTIONE"></span><span id="_CPPv2N20spvc_compiler_option61SPVC_COMPILER_OPTION_ENABLE_STORAGE_IMAGE_QUALIFIER_DEDUCTIONE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183afbb533defd90aa17744f3bace74b67f5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_ENABLE_STORAGE_IMAGE_QUALIFIER_DEDUCTION</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option61SPVC_COMPILER_OPTION_ENABLE_STORAGE_IMAGE_QUALIFIER_DEDUCTIONE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option53SPVC_COMPILER_OPTION_HLSL_FORCE_STORAGE_BUFFER_AS_UAVE">
+<span id="_CPPv3N20spvc_compiler_option53SPVC_COMPILER_OPTION_HLSL_FORCE_STORAGE_BUFFER_AS_UAVE"></span><span id="_CPPv2N20spvc_compiler_option53SPVC_COMPILER_OPTION_HLSL_FORCE_STORAGE_BUFFER_AS_UAVE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183aedf456bb738d6b821d940d1c8cd51dca"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_HLSL_FORCE_STORAGE_BUFFER_AS_UAV</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option53SPVC_COMPILER_OPTION_HLSL_FORCE_STORAGE_BUFFER_AS_UAVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option53SPVC_COMPILER_OPTION_FORCE_ZERO_INITIALIZED_VARIABLESE">
+<span id="_CPPv3N20spvc_compiler_option53SPVC_COMPILER_OPTION_FORCE_ZERO_INITIALIZED_VARIABLESE"></span><span id="_CPPv2N20spvc_compiler_option53SPVC_COMPILER_OPTION_FORCE_ZERO_INITIALIZED_VARIABLESE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183adebb61ab82e64a94996a4f9de6cf9572"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_FORCE_ZERO_INITIALIZED_VARIABLES</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option53SPVC_COMPILER_OPTION_FORCE_ZERO_INITIALIZED_VARIABLESE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option56SPVC_COMPILER_OPTION_HLSL_NONWRITABLE_UAV_TEXTURE_AS_SRVE">
+<span id="_CPPv3N20spvc_compiler_option56SPVC_COMPILER_OPTION_HLSL_NONWRITABLE_UAV_TEXTURE_AS_SRVE"></span><span id="_CPPv2N20spvc_compiler_option56SPVC_COMPILER_OPTION_HLSL_NONWRITABLE_UAV_TEXTURE_AS_SRVE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183aed95eb38860592dac3872c49afea1025"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_HLSL_NONWRITABLE_UAV_TEXTURE_AS_SRV</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option56SPVC_COMPILER_OPTION_HLSL_NONWRITABLE_UAV_TEXTURE_AS_SRVE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option48SPVC_COMPILER_OPTION_MSL_ENABLE_FRAG_OUTPUT_MASKE">
+<span id="_CPPv3N20spvc_compiler_option48SPVC_COMPILER_OPTION_MSL_ENABLE_FRAG_OUTPUT_MASKE"></span><span id="_CPPv2N20spvc_compiler_option48SPVC_COMPILER_OPTION_MSL_ENABLE_FRAG_OUTPUT_MASKE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183abc60a1b56cf3c9def8f5e48b3f13cc2b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_ENABLE_FRAG_OUTPUT_MASK</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option48SPVC_COMPILER_OPTION_MSL_ENABLE_FRAG_OUTPUT_MASKE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_ENABLE_FRAG_DEPTH_BUILTINE">
+<span id="_CPPv3N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_ENABLE_FRAG_DEPTH_BUILTINE"></span><span id="_CPPv2N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_ENABLE_FRAG_DEPTH_BUILTINE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183ad7bd826dbf74946c5d156f1f3d3d7b1e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_ENABLE_FRAG_DEPTH_BUILTIN</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_ENABLE_FRAG_DEPTH_BUILTINE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option56SPVC_COMPILER_OPTION_MSL_ENABLE_FRAG_STENCIL_REF_BUILTINE">
+<span id="_CPPv3N20spvc_compiler_option56SPVC_COMPILER_OPTION_MSL_ENABLE_FRAG_STENCIL_REF_BUILTINE"></span><span id="_CPPv2N20spvc_compiler_option56SPVC_COMPILER_OPTION_MSL_ENABLE_FRAG_STENCIL_REF_BUILTINE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a8ea35cd824688e92916f6723f733660d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_ENABLE_FRAG_STENCIL_REF_BUILTIN</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option56SPVC_COMPILER_OPTION_MSL_ENABLE_FRAG_STENCIL_REF_BUILTINE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option58SPVC_COMPILER_OPTION_MSL_ENABLE_CLIP_DISTANCE_USER_VARYINGE">
+<span id="_CPPv3N20spvc_compiler_option58SPVC_COMPILER_OPTION_MSL_ENABLE_CLIP_DISTANCE_USER_VARYINGE"></span><span id="_CPPv2N20spvc_compiler_option58SPVC_COMPILER_OPTION_MSL_ENABLE_CLIP_DISTANCE_USER_VARYINGE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a69baad35f683b5086fdeff5282d7916b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_ENABLE_CLIP_DISTANCE_USER_VARYING</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option58SPVC_COMPILER_OPTION_MSL_ENABLE_CLIP_DISTANCE_USER_VARYINGE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option44SPVC_COMPILER_OPTION_HLSL_ENABLE_16BIT_TYPESE">
+<span id="_CPPv3N20spvc_compiler_option44SPVC_COMPILER_OPTION_HLSL_ENABLE_16BIT_TYPESE"></span><span id="_CPPv2N20spvc_compiler_option44SPVC_COMPILER_OPTION_HLSL_ENABLE_16BIT_TYPESE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183ae75a8cec240d513c640434ec3adf67b5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_HLSL_ENABLE_16BIT_TYPES</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option44SPVC_COMPILER_OPTION_HLSL_ENABLE_16BIT_TYPESE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_MULTI_PATCH_WORKGROUPE">
+<span id="_CPPv3N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_MULTI_PATCH_WORKGROUPE"></span><span id="_CPPv2N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_MULTI_PATCH_WORKGROUPE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183aae6c2a60d893f0d51bf8b877ff83151f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_MULTI_PATCH_WORKGROUP</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_MULTI_PATCH_WORKGROUPE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_SHADER_INPUT_BUFFER_INDEXE">
+<span id="_CPPv3N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_SHADER_INPUT_BUFFER_INDEXE"></span><span id="_CPPv2N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_SHADER_INPUT_BUFFER_INDEXE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183ab08c287769aa63d771f3f6dcc9af1351"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_SHADER_INPUT_BUFFER_INDEX</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_SHADER_INPUT_BUFFER_INDEXE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_SHADER_INDEX_BUFFER_INDEXE">
+<span id="_CPPv3N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_SHADER_INDEX_BUFFER_INDEXE"></span><span id="_CPPv2N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_SHADER_INDEX_BUFFER_INDEXE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a3872f584c46e2f33ac489d1a9a7f490f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_SHADER_INDEX_BUFFER_INDEX</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_SHADER_INDEX_BUFFER_INDEXE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option48SPVC_COMPILER_OPTION_MSL_VERTEX_FOR_TESSELLATIONE">
+<span id="_CPPv3N20spvc_compiler_option48SPVC_COMPILER_OPTION_MSL_VERTEX_FOR_TESSELLATIONE"></span><span id="_CPPv2N20spvc_compiler_option48SPVC_COMPILER_OPTION_MSL_VERTEX_FOR_TESSELLATIONE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a56111d7bcef9e70c5fd1a0c633182698"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_VERTEX_FOR_TESSELLATION</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option48SPVC_COMPILER_OPTION_MSL_VERTEX_FOR_TESSELLATIONE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option42SPVC_COMPILER_OPTION_MSL_VERTEX_INDEX_TYPEE">
+<span id="_CPPv3N20spvc_compiler_option42SPVC_COMPILER_OPTION_MSL_VERTEX_INDEX_TYPEE"></span><span id="_CPPv2N20spvc_compiler_option42SPVC_COMPILER_OPTION_MSL_VERTEX_INDEX_TYPEE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183ad0919d236012c04fed67bd07680a0548"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_VERTEX_INDEX_TYPE</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option42SPVC_COMPILER_OPTION_MSL_VERTEX_INDEX_TYPEE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option51SPVC_COMPILER_OPTION_GLSL_FORCE_FLATTENED_IO_BLOCKSE">
+<span id="_CPPv3N20spvc_compiler_option51SPVC_COMPILER_OPTION_GLSL_FORCE_FLATTENED_IO_BLOCKSE"></span><span id="_CPPv2N20spvc_compiler_option51SPVC_COMPILER_OPTION_GLSL_FORCE_FLATTENED_IO_BLOCKSE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a45f2af16f6a3e4631d5616650bc5dc84"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_GLSL_FORCE_FLATTENED_IO_BLOCKS</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option51SPVC_COMPILER_OPTION_GLSL_FORCE_FLATTENED_IO_BLOCKSE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option52SPVC_COMPILER_OPTION_MSL_MULTIVIEW_LAYERED_RENDERINGE">
+<span id="_CPPv3N20spvc_compiler_option52SPVC_COMPILER_OPTION_MSL_MULTIVIEW_LAYERED_RENDERINGE"></span><span id="_CPPv2N20spvc_compiler_option52SPVC_COMPILER_OPTION_MSL_MULTIVIEW_LAYERED_RENDERINGE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183aa277dced479cdaf5ecf7f48ae5ce2fd9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_MULTIVIEW_LAYERED_RENDERING</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option52SPVC_COMPILER_OPTION_MSL_MULTIVIEW_LAYERED_RENDERINGE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_ARRAYED_SUBPASS_INPUTE">
+<span id="_CPPv3N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_ARRAYED_SUBPASS_INPUTE"></span><span id="_CPPv2N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_ARRAYED_SUBPASS_INPUTE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183abdc43e17c1c5fc39fc73d1e737fbf2b6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_ARRAYED_SUBPASS_INPUT</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_ARRAYED_SUBPASS_INPUTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option55SPVC_COMPILER_OPTION_MSL_R32UI_LINEAR_TEXTURE_ALIGNMENTE">
+<span id="_CPPv3N20spvc_compiler_option55SPVC_COMPILER_OPTION_MSL_R32UI_LINEAR_TEXTURE_ALIGNMENTE"></span><span id="_CPPv2N20spvc_compiler_option55SPVC_COMPILER_OPTION_MSL_R32UI_LINEAR_TEXTURE_ALIGNMENTE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183aa5b3edea6ddb77f1ef07d280d6a353c6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_R32UI_LINEAR_TEXTURE_ALIGNMENT</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option55SPVC_COMPILER_OPTION_MSL_R32UI_LINEAR_TEXTURE_ALIGNMENTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option52SPVC_COMPILER_OPTION_MSL_R32UI_ALIGNMENT_CONSTANT_IDE">
+<span id="_CPPv3N20spvc_compiler_option52SPVC_COMPILER_OPTION_MSL_R32UI_ALIGNMENT_CONSTANT_IDE"></span><span id="_CPPv2N20spvc_compiler_option52SPVC_COMPILER_OPTION_MSL_R32UI_ALIGNMENT_CONSTANT_IDE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a2a7836b499b0383dfe62f7494c260586"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_R32UI_ALIGNMENT_CONSTANT_ID</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option52SPVC_COMPILER_OPTION_MSL_R32UI_ALIGNMENT_CONSTANT_IDE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option63SPVC_COMPILER_OPTION_HLSL_FLATTEN_MATRIX_VERTEX_INPUT_SEMANTICSE">
+<span id="_CPPv3N20spvc_compiler_option63SPVC_COMPILER_OPTION_HLSL_FLATTEN_MATRIX_VERTEX_INPUT_SEMANTICSE"></span><span id="_CPPv2N20spvc_compiler_option63SPVC_COMPILER_OPTION_HLSL_FLATTEN_MATRIX_VERTEX_INPUT_SEMANTICSE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a82fb505619b99c00aaa28de79e51864e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_HLSL_FLATTEN_MATRIX_VERTEX_INPUT_SEMANTICS</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option63SPVC_COMPILER_OPTION_HLSL_FLATTEN_MATRIX_VERTEX_INPUT_SEMANTICSE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option52SPVC_COMPILER_OPTION_MSL_IOS_USE_SIMDGROUP_FUNCTIONSE">
+<span id="_CPPv3N20spvc_compiler_option52SPVC_COMPILER_OPTION_MSL_IOS_USE_SIMDGROUP_FUNCTIONSE"></span><span id="_CPPv2N20spvc_compiler_option52SPVC_COMPILER_OPTION_MSL_IOS_USE_SIMDGROUP_FUNCTIONSE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a08b94579bc957eb16ec182ae4a6a92b8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_IOS_USE_SIMDGROUP_FUNCTIONS</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option52SPVC_COMPILER_OPTION_MSL_IOS_USE_SIMDGROUP_FUNCTIONSE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option42SPVC_COMPILER_OPTION_MSL_EMULATE_SUBGROUPSE">
+<span id="_CPPv3N20spvc_compiler_option42SPVC_COMPILER_OPTION_MSL_EMULATE_SUBGROUPSE"></span><span id="_CPPv2N20spvc_compiler_option42SPVC_COMPILER_OPTION_MSL_EMULATE_SUBGROUPSE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183af95c9cc57e2abeedd6b5406ad25d567d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_EMULATE_SUBGROUPS</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option42SPVC_COMPILER_OPTION_MSL_EMULATE_SUBGROUPSE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option44SPVC_COMPILER_OPTION_MSL_FIXED_SUBGROUP_SIZEE">
+<span id="_CPPv3N20spvc_compiler_option44SPVC_COMPILER_OPTION_MSL_FIXED_SUBGROUP_SIZEE"></span><span id="_CPPv2N20spvc_compiler_option44SPVC_COMPILER_OPTION_MSL_FIXED_SUBGROUP_SIZEE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a261da3e30680c845513f9638a5006899"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_FIXED_SUBGROUP_SIZE</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option44SPVC_COMPILER_OPTION_MSL_FIXED_SUBGROUP_SIZEE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_FORCE_SAMPLE_RATE_SHADINGE">
+<span id="_CPPv3N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_FORCE_SAMPLE_RATE_SHADINGE"></span><span id="_CPPv2N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_FORCE_SAMPLE_RATE_SHADINGE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183aa18c381580a7c569eebb63fda5ebeba3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_FORCE_SAMPLE_RATE_SHADING</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option50SPVC_COMPILER_OPTION_MSL_FORCE_SAMPLE_RATE_SHADINGE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option57SPVC_COMPILER_OPTION_MSL_IOS_SUPPORT_BASE_VERTEX_INSTANCEE">
+<span id="_CPPv3N20spvc_compiler_option57SPVC_COMPILER_OPTION_MSL_IOS_SUPPORT_BASE_VERTEX_INSTANCEE"></span><span id="_CPPv2N20spvc_compiler_option57SPVC_COMPILER_OPTION_MSL_IOS_SUPPORT_BASE_VERTEX_INSTANCEE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a5922322a761612e44e2c2e1c94becaaa"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_IOS_SUPPORT_BASE_VERTEX_INSTANCE</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option57SPVC_COMPILER_OPTION_MSL_IOS_SUPPORT_BASE_VERTEX_INSTANCEE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option50SPVC_COMPILER_OPTION_GLSL_OVR_MULTIVIEW_VIEW_COUNTE">
+<span id="_CPPv3N20spvc_compiler_option50SPVC_COMPILER_OPTION_GLSL_OVR_MULTIVIEW_VIEW_COUNTE"></span><span id="_CPPv2N20spvc_compiler_option50SPVC_COMPILER_OPTION_GLSL_OVR_MULTIVIEW_VIEW_COUNTE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183aa14f811dd26e9137fe82676d2ed2ed3a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_GLSL_OVR_MULTIVIEW_VIEW_COUNT</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option50SPVC_COMPILER_OPTION_GLSL_OVR_MULTIVIEW_VIEW_COUNTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option37SPVC_COMPILER_OPTION_RELAX_NAN_CHECKSE">
+<span id="_CPPv3N20spvc_compiler_option37SPVC_COMPILER_OPTION_RELAX_NAN_CHECKSE"></span><span id="_CPPv2N20spvc_compiler_option37SPVC_COMPILER_OPTION_RELAX_NAN_CHECKSE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a5bc80dc3e915bfb075fe3ba0ff6ae249"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_RELAX_NAN_CHECKS</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option37SPVC_COMPILER_OPTION_RELAX_NAN_CHECKSE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_RAW_BUFFER_TESE_INPUTE">
+<span id="_CPPv3N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_RAW_BUFFER_TESE_INPUTE"></span><span id="_CPPv2N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_RAW_BUFFER_TESE_INPUTE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a372f1d9150b1adb5cb9971051a6c4366"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_RAW_BUFFER_TESE_INPUT</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_RAW_BUFFER_TESE_INPUTE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option56SPVC_COMPILER_OPTION_MSL_SHADER_PATCH_INPUT_BUFFER_INDEXE">
+<span id="_CPPv3N20spvc_compiler_option56SPVC_COMPILER_OPTION_MSL_SHADER_PATCH_INPUT_BUFFER_INDEXE"></span><span id="_CPPv2N20spvc_compiler_option56SPVC_COMPILER_OPTION_MSL_SHADER_PATCH_INPUT_BUFFER_INDEXE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183afd2d1f775b6794fdb5da62480c9d9437"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_SHADER_PATCH_INPUT_BUFFER_INDEX</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option56SPVC_COMPILER_OPTION_MSL_SHADER_PATCH_INPUT_BUFFER_INDEXE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option57SPVC_COMPILER_OPTION_MSL_MANUAL_HELPER_INVOCATION_UPDATESE">
+<span id="_CPPv3N20spvc_compiler_option57SPVC_COMPILER_OPTION_MSL_MANUAL_HELPER_INVOCATION_UPDATESE"></span><span id="_CPPv2N20spvc_compiler_option57SPVC_COMPILER_OPTION_MSL_MANUAL_HELPER_INVOCATION_UPDATESE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a17dddaebbd12d58bc0dd2d2f28fd744c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_MANUAL_HELPER_INVOCATION_UPDATES</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option57SPVC_COMPILER_OPTION_MSL_MANUAL_HELPER_INVOCATION_UPDATESE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option52SPVC_COMPILER_OPTION_MSL_CHECK_DISCARDED_FRAG_STORESE">
+<span id="_CPPv3N20spvc_compiler_option52SPVC_COMPILER_OPTION_MSL_CHECK_DISCARDED_FRAG_STORESE"></span><span id="_CPPv2N20spvc_compiler_option52SPVC_COMPILER_OPTION_MSL_CHECK_DISCARDED_FRAG_STORESE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a0ed8230ea517d2f15a6fc258ca18a7be"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_CHECK_DISCARDED_FRAG_STORES</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option52SPVC_COMPILER_OPTION_MSL_CHECK_DISCARDED_FRAG_STORESE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option58SPVC_COMPILER_OPTION_GLSL_ENABLE_ROW_MAJOR_LOAD_WORKAROUNDE">
+<span id="_CPPv3N20spvc_compiler_option58SPVC_COMPILER_OPTION_GLSL_ENABLE_ROW_MAJOR_LOAD_WORKAROUNDE"></span><span id="_CPPv2N20spvc_compiler_option58SPVC_COMPILER_OPTION_GLSL_ENABLE_ROW_MAJOR_LOAD_WORKAROUNDE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a4de536eb47c01c8366f46a0668724327"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_GLSL_ENABLE_ROW_MAJOR_LOAD_WORKAROUND</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option58SPVC_COMPILER_OPTION_GLSL_ENABLE_ROW_MAJOR_LOAD_WORKAROUNDE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_ARGUMENT_BUFFERS_TIERE">
+<span id="_CPPv3N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_ARGUMENT_BUFFERS_TIERE"></span><span id="_CPPv2N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_ARGUMENT_BUFFERS_TIERE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a148d6e02417ec496cccd636a38af86bd"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_ARGUMENT_BUFFERS_TIER</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option46SPVC_COMPILER_OPTION_MSL_ARGUMENT_BUFFERS_TIERE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option54SPVC_COMPILER_OPTION_MSL_SAMPLE_DREF_LOD_ARRAY_AS_GRADE">
+<span id="_CPPv3N20spvc_compiler_option54SPVC_COMPILER_OPTION_MSL_SAMPLE_DREF_LOD_ARRAY_AS_GRADE"></span><span id="_CPPv2N20spvc_compiler_option54SPVC_COMPILER_OPTION_MSL_SAMPLE_DREF_LOD_ARRAY_AS_GRADE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a309fd7f3868136e905590970ea1e6a62"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_MSL_SAMPLE_DREF_LOD_ARRAY_AS_GRAD</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option54SPVC_COMPILER_OPTION_MSL_SAMPLE_DREF_LOD_ARRAY_AS_GRADE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N20spvc_compiler_option28SPVC_COMPILER_OPTION_INT_MAXE">
+<span id="_CPPv3N20spvc_compiler_option28SPVC_COMPILER_OPTION_INT_MAXE"></span><span id="_CPPv2N20spvc_compiler_option28SPVC_COMPILER_OPTION_INT_MAXE"></span><span class="target" id="spirv__cross__c_8h_1a474c5812447e39e0fad54b861000e183a4fc53ec53802dd537ee1c0efb3e7f7b2"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SPVC_COMPILER_OPTION_INT_MAX</span></span></span><a class="headerlink" href="#_CPPv4N20spvc_compiler_option28SPVC_COMPILER_OPTION_INT_MAXE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="enum_spirv__cross__c_8h_1a0a91fa98f00989a0ac70bab033a62a9b.html" class="btn btn-neutral float-left" title="Enum spvc_capture_mode" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="enum_spirv__cross__c_8h_1ae2ce3d2eeb3630457f82475c08710658.html" class="btn btn-neutral float-right" title="Enum spvc_hlsl_binding_flag_bits" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

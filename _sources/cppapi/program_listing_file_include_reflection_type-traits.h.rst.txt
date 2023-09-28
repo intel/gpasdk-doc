@@ -1,0 +1,113 @@
+
+.. _program_listing_file_include_reflection_type-traits.h:
+
+Program Listing for File type-traits.h
+======================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_reflection_type-traits.h>` (``include\reflection\type-traits.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   (c) 2023 Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "igpa-config.h"
+   #include "reflection/enum.h"
+   #include "reflection/struct.h"
+   #include <type_traits>
+   
+   #if HAVE_DIRECTX
+   #include "directx-structs.h"
+   #include "directx-enums.h"
+   #include "directx-type-traits.h"
+   #endif
+   
+   #if HAVE_VULKAN
+   #include "vulkan-structs.h"
+   #include "vulkan-enums.h"
+   #include "vulkan-type-traits.h"
+   #endif
+   
+   namespace gpa {
+   namespace serialization {
+   
+   // @brief Obtains all possible values for given enum type
+   // @param pValues (optional) memory region for values; If not null, needs to hold at least *pValuesCount
+   // @param pValuesCount (in, out) required memory region size
+   template<typename EnumT>
+   bool GetAllEnumValues(EnumT* pValues, uint64_t* pValuesCount)
+   {
+       // EnumT must be an enum type
+       static_assert(std::is_enum<EnumT>::value);
+   
+       if (!pValuesCount) {
+           return false;
+       }
+   
+       Enum const* enumDef = GetEnumDefFromType<EnumT>();
+       if (!enumDef) {
+           *pValuesCount = 0;
+           return false;
+       }
+   
+       uint64_t enumCount = enumDef->ElementCount();
+       uint64_t valuesCount = *pValuesCount;
+   
+       *pValuesCount = enumCount;
+   
+       if (!pValues) {
+           return true;
+       }
+   
+       if (valuesCount < enumCount) {
+           return false;
+       }
+   
+       for (uint64_t ii = 0; ii < enumCount; ++ii) {
+           pValues[ii] = (EnumT)enumDef->GetElement(ii)->value;
+       }
+   
+       return true;
+   }
+   
+   // @brief Fills the std::vector with all enum values for given enum type
+   // @param pVecT pointer to an object with vector interface. Will be resized, if necessary to hold all values.
+   template<typename enumT, typename V>
+   bool GetAllEnumValues(V* pVecT)
+   {
+       if (!pVecT) {
+           return false;
+       }
+   
+       uint64_t count = 0;
+       if (!GetAllEnumValues<enumT>(nullptr, &count)) {
+           return false;
+       }
+   
+       if (pVecT->size() < count) {
+           pVecT->resize(count);
+       }
+   
+       return GetAllEnumValues<enumT>(pVecT->data(), &count);
+   }
+   
+   }  // namespace serialization
+   }  // namespace gpa

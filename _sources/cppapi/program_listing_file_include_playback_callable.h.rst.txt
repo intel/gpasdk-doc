@@ -57,9 +57,6 @@ Program Listing for File callable.h
    struct Context;
    class IPlayable;
    
-   extern const char* const sCallableTypes[];
-   extern const size_t sNumCallableTypes;
-   
    class Callable : public playback_common::ICallable
    {
    public:
@@ -177,11 +174,10 @@ Program Listing for File callable.h
        gpa::playback_common::CallableType mCategory;
        uint64_t mStorageID;
        uint64_t mStorageOffset;
+       AssociatedDataHelper mAssociatedData;
    
        void Initialize();
        bool IsActualDelimiter();
-   
-       AssociatedDataHelper mAssociatedData;
    
    public:
        void Load(serialization::MemoryBackedSerializer* resourceSerializer, bool force = false);
