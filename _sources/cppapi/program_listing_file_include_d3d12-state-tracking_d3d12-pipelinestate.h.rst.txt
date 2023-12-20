@@ -1,0 +1,102 @@
+
+.. _program_listing_file_include_d3d12-state-tracking_d3d12-pipelinestate.h:
+
+Program Listing for File d3d12-pipelinestate.h
+==============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_d3d12-state-tracking_d3d12-pipelinestate.h>` (``include\d3d12-state-tracking\d3d12-pipelinestate.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   #include "d3d12-object.h"
+   #include <guiddef.h>
+   #include <d3d12.h>
+   
+   struct CD3DX12_PIPELINE_STATE_STREAM_PARSE_HELPER;
+   
+   namespace gpa {
+   
+   namespace serialization {
+   namespace directx {
+   class ParsedPipelineStreamStructContainer;
+   }
+   class Struct;
+   class StructDataManager;
+   }  // namespace serialization
+   
+   namespace d3d12_state_tracker {
+   
+   struct CMShader
+   {
+       std::string sourceCode;
+       std::string compileOptions;
+       std::string internalOptions;
+   };
+   
+   enum D3D12_PIPELINE_STATE_TYPE {
+       D3D12_PIPELINE_STATE_GRAPHICS,
+       D3D12_PIPELINE_STATE_COMPUTE,
+   };
+   
+   class D3D12PipelineStateState : public D3D12ObjectState
+   {
+   private:
+       std::unique_ptr<serialization::directx::ParsedPipelineStreamStructContainer> mPipelineStreamStruct;
+       std::unique_ptr<CD3DX12_PIPELINE_STATE_STREAM_PARSE_HELPER> mPipelineStreamHelper;
+   
+       std::unique_ptr<serialization::StructDataManager> mPipelineDescDataManager;
+       D3D12_PIPELINE_STATE_TYPE mType;
+       bool mIsCreatedFromPipelineStateStream;
+       bool mPipelineStreamHelperInitialized = false;
+   
+       std::vector<uint8_t> mRootSignatureBlob;
+       uint32_t mNodeMask = 0;
+   
+       std::unique_ptr<CMShader> mCMShader;
+   
+   public:
+       static constexpr GUID sGUID = {0x2d774415, 0xedb0, 0x443a, {0x8d, 0xe, 0xd5, 0xdd, 0x93, 0x2a, 0xa3, 0x2f}};
+   
+   public:
+       D3D12PipelineStateState(ID3D12PipelineState* runtimeObj, const D3D12_GRAPHICS_PIPELINE_STATE_DESC* pDesc);
+       D3D12PipelineStateState(ID3D12PipelineState* runtimeObj, const D3D12_COMPUTE_PIPELINE_STATE_DESC* pDesc);
+       D3D12PipelineStateState(ID3D12PipelineState* runtimeObj, const D3D12_PIPELINE_STATE_STREAM_DESC* pDesc);
+       virtual ~D3D12PipelineStateState();
+   
+       GUID GetGUID() override;
+       D3D12_PIPELINE_STATE_TYPE GetType() const;
+       bool IsCreatedFromPipelineStateStream() const;
+   
+       D3D12_GRAPHICS_PIPELINE_STATE_DESC GetGraphicsPipelineStateDesc();
+       D3D12_COMPUTE_PIPELINE_STATE_DESC GetComputePipelineStateDesc();
+       D3D12_PIPELINE_STATE_STREAM_DESC GetPipelineStateStreamDesc() const;
+       gpa::serialization::Struct const* GetPipelineStateStreamDescStructDef() const;
+   
+       ID3D12RootSignature* GetRootSignature();
+   
+       void SetCMShader(CMShader const& cmShader);
+       CMShader const* GetCMShader() const;
+   };
+   
+   }  // namespace d3d12_state_tracker
+   }  // namespace gpa

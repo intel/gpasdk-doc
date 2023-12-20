@@ -1,0 +1,66 @@
+
+.. _program_listing_file_include_d3d12-raytracing-support_d3d12-raytracing-support.h:
+
+Program Listing for File d3d12-raytracing-support.h
+===================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_d3d12-raytracing-support_d3d12-raytracing-support.h>` (``include\d3d12-raytracing-support\d3d12-raytracing-support.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   #include "dispatch-table/dispatch-table.h"
+   #include "d3d12-state-tracking/d3d12-graphicscommandlist.h"
+   #include <vector>
+   #include <d3d12.h>
+   
+   namespace gpa {
+   namespace raytracing {
+   namespace directx {
+   
+   struct ReplacedResource
+   {
+       ID3D12Resource* pResource;
+       uint32_t OffsetFromResource;
+       D3D12_RESOURCE_STATES InitialState;
+   };
+   
+   // {B21A6C6C-C59F-4FF7-B02E-5DF785D100DE}
+   static const GUID sReplacedStateObjectGuid = {0xb21a6c6c, 0xc59f, 0x4ff7, {0xb0, 0x2e, 0x5d, 0xf7, 0x85, 0xd1, 0x0, 0xde}};
+   
+   namespace playback {
+   void PreDispatchRays(ID3D12GraphicsCommandList4* self, D3D12_DISPATCH_RAYS_DESC& desc, GPADispatchTable& table);
+   void PreBuildRaytracingAccelerationStructure(ID3D12GraphicsCommandList4* self, D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC& desc, GPADispatchTable& table, ReplacedResource* pReplacedInstanceDescs);
+   void PreCopyRaytracingAccelerationStructure(ID3D12GraphicsCommandList4* self, D3D12_GPU_VIRTUAL_ADDRESS& sourceAccelerationStructureData, D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE mode, GPADispatchTable& table);
+   void PreExecuteCommandLists(ID3D12CommandQueue* queue, UINT NumCommandLists, ID3D12CommandList* const* ppCommandLists, GPADispatchTable& table);
+   void PostExecuteCommandList(ID3D12CommandQueue* queue);
+   void PreReset(ID3D12GraphicsCommandList* self);
+   
+   void PreExecuteIndirect(ID3D12GraphicsCommandList* self, ID3D12CommandSignature* sig, uint32_t maxCommandCount, GPADispatchTable& table);
+   void ReplaceResourcesInExecuteIndirectDispatchRays(ID3D12GraphicsCommandList4* self, D3D12_DISPATCH_RAYS_DESC& desc, uint32_t cmdListStateCallIndex, ID3D12StateObject* stateObject, GPADispatchTable& table);
+   void ProcessExecuteIndirectDispatchRaysBatch(ID3D12CommandQueue* queue, ID3D12GraphicsCommandList4* cmdList, std::vector<d3d12_state_tracker::DispatchRaysCommand> const& dispatchRaysCommands, GPADispatchTable& table);
+   
+   }  // namespace playback
+   
+   }  // namespace directx
+   }  // namespace raytracing
+   }  // namespace gpa

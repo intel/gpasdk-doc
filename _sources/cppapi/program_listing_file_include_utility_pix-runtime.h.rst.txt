@@ -1,0 +1,105 @@
+
+.. _program_listing_file_include_utility_pix-runtime.h:
+
+Program Listing for File pix-runtime.h
+======================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_utility_pix-runtime.h>` (``include\utility\pix-runtime.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   (c) Intel Corporation
+   
+   SPDX-License-Identifier: MIT
+   
+   ******************************************************************************/
+   #pragma once
+   
+   #include "instrumentation/gpa-secure.h"
+   
+   #include <d3d12.h>
+   #include <Windows.h>
+   
+   namespace gpa {
+   namespace utility {
+   
+   struct PIXRuntimeHelper
+   {
+       using PIXBeginEventOnCommandList = void(WINAPI*)(ID3D12GraphicsCommandList* commandList, UINT64 color, PCSTR formatString);
+       using PIXEndEventOnCommandList = void(WINAPI*)(ID3D12GraphicsCommandList* commandList);
+       using PIXSetMarkerOnCommandList = void(WINAPI*)(ID3D12GraphicsCommandList* commandList, UINT64 color, PCSTR formatString);
+   
+       PIXBeginEventOnCommandList beginEventOnCommandList = nullptr;
+       PIXEndEventOnCommandList endEventOnCommandList = nullptr;
+       PIXSetMarkerOnCommandList setMarkerOnCommandList = nullptr;
+   
+       HMODULE pixRuntimeModule = 0;
+       char msgBuffer[MAX_PACKAGE_NAME];
+   
+       PIXRuntimeHelper()
+       {
+           pixRuntimeModule = secure::LoadLibrarySDL(L"WinPixEventRuntime.dll");
+           if (!pixRuntimeModule) {
+               return;
+           }
+   
+           beginEventOnCommandList = (PIXBeginEventOnCommandList)GetProcAddress(pixRuntimeModule, "PIXBeginEventOnCommandList");
+           endEventOnCommandList = (PIXEndEventOnCommandList)GetProcAddress(pixRuntimeModule, "PIXEndEventOnCommandList");
+           setMarkerOnCommandList = (PIXSetMarkerOnCommandList)GetProcAddress(pixRuntimeModule, "PIXSetMarkerOnCommandList");
+   
+           memset(msgBuffer, 0, MAX_PACKAGE_NAME);
+       }
+   
+       PIXRuntimeHelper(PIXRuntimeHelper const&) = delete;
+       PIXRuntimeHelper& operator=(PIXRuntimeHelper const&) = delete;
+   
+       ~PIXRuntimeHelper()
+       {
+           FreeModule(pixRuntimeModule);
+       }
+   
+       void BeginEventOnCommandList(ID3D12GraphicsCommandList* commandList, UINT64 color, PCSTR formatString, ...)
+       {
+           if (!beginEventOnCommandList) {
+               return;
+           }
+   
+           msgBuffer[0] = '\0';
+   
+           va_list args;
+           va_start(args, formatString);
+           vsnprintf(msgBuffer, MAX_PATH, formatString, args);
+           va_end(args);
+   
+           beginEventOnCommandList(commandList, color, msgBuffer);
+       }
+   
+       void EndEventOnCommandList(ID3D12GraphicsCommandList* commandList)
+       {
+           if (endEventOnCommandList) {
+               endEventOnCommandList(commandList);
+           }
+       }
+   
+       void SetMarkerOnCommandList(ID3D12GraphicsCommandList* commandList, UINT64 color, PCSTR formatString, ...)
+       {
+           if (!setMarkerOnCommandList) {
+               return;
+           }
+   
+           msgBuffer[0] = '\0';
+   
+           va_list args;
+           va_start(args, formatString);
+           vsnprintf(msgBuffer, MAX_PATH, formatString, args);
+           va_end(args);
+   
+           setMarkerOnCommandList(commandList, color, msgBuffer);
+       }
+   };
+   
+   }  // namespace utility
+   }  // namespace gpa

@@ -11,7 +11,7 @@ Program Listing for File metrics-query-result.h
 .. code-block:: cpp
 
    /******************************************************************************
-   © Intel Corporation.
+   Copyright (c) 2018 Intel Corporation
     
    This software and the related documents are Intel copyrighted materials,
    and your use of them is governed by the express license under which they
@@ -20,8 +20,7 @@ Program Listing for File metrics-query-result.h
    this software or the related documents without Intel's prior written
    permission.
    
-   
-    This software and the related documents are provided as is, with no express
+   This software and the related documents are provided as is, with no express
    or implied warranties, other than those that are expressly stated in the
    License.
    
@@ -30,6 +29,7 @@ Program Listing for File metrics-query-result.h
    #pragma once
    
    #include "metrics/types.h"
+   
    #include <cstdint>
    
    struct ResultsData;
@@ -38,7 +38,8 @@ Program Listing for File metrics-query-result.h
    
    namespace metrics {
    class IMetricGroup;
-   }
+   struct QueryReport;
+   }  // namespace metrics
    
    namespace data_collection {
    
@@ -53,6 +54,7 @@ Program Listing for File metrics-query-result.h
        MetricsQueryResult(MetricsQueryResult&& other);
        ~MetricsQueryResult();
    
+       uint32_t const* QueryReports(metrics::QueryReport const* const** ppQueryReportPointerArray) const;
        metrics::MetricValue const* RangeResults(uint64_t groupIndex, uint64_t metricIndexInGroup) const;
        metrics::MetricValue const* RangeResults(uint64_t compositeMetricIndex) const;
    
@@ -64,6 +66,8 @@ Program Listing for File metrics-query-result.h
        uint64_t* mMetricsPerGroup;
        uint64_t* mStartingCompositeMetricIndexPerGroup;
        ResultsData* mResultsData;
+       metrics::QueryReport** mQueryReportPointerArray;
+       uint32_t mQueryReportPointersUsedCount;
    
        MetricsQueryResult(MetricsQueryResult const& other) = delete;
        MetricsQueryResult& operator=(MetricsQueryResult const& other) = delete;

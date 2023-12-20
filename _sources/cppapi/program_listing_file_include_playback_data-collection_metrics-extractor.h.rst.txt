@@ -11,7 +11,7 @@ Program Listing for File metrics-extractor.h
 .. code-block:: cpp
 
    /******************************************************************************
-   © Intel Corporation.
+   Copyright (c) 2018 Intel Corporation
     
    This software and the related documents are Intel copyrighted materials,
    and your use of them is governed by the express license under which they
@@ -20,8 +20,7 @@ Program Listing for File metrics-extractor.h
    this software or the related documents without Intel's prior written
    permission.
    
-   
-    This software and the related documents are provided as is, with no express
+   This software and the related documents are provided as is, with no express
    or implied warranties, other than those that are expressly stated in the
    License.
    
@@ -31,6 +30,8 @@ Program Listing for File metrics-extractor.h
    
    #include "igpa-config.h"
    
+   #include "metrics/query-manager.h"
+   #include "metrics/types.h"
    #include "playback/callable-receiver.h"
    #include "playback/callable-broadcaster.h"
    #include "playback/data-collection/metrics-query-result.h"
@@ -49,15 +50,9 @@ Program Listing for File metrics-extractor.h
    }  // namespace data_collection
    
    namespace metrics {
-   enum class GraphicsApi;
-   enum class QueryManagerType;
-   
-   struct CommandBufferData;
-   
    class IMetric;
    class IMetricsSource;
    class IMetricsSourceComposite;
-   class IQueryManager;
    }  // namespace metrics
    
    namespace playback {
@@ -102,6 +97,9 @@ Program Listing for File metrics-extractor.h
    
        bool SetRangeAndApiForCollection(CallableCache* range, uint32_t graphicsApi);
        void SetRequest(data_collection::MetricsRequest const* request);
+       void SetQueryReportOfInterestEvaluationCallback(
+           metrics::QueryReportOfInterestEvaluationCallback* pCallback = nullptr,
+           void* userData = nullptr);
        data_collection::MetricsQueryResult GetResult();
        data_collection::MetricsRequests GetRequestsForMetrics(
            metrics::IMetric const** metrics, uint64_t nMetrics,
@@ -122,19 +120,21 @@ Program Listing for File metrics-extractor.h
    
        class DeviceContextGuard;
    
-       CallableCache* mRange;                                                 
-       std::vector<MetricsResources> mMetricsResourcesVector;                 
-       metrics::GraphicsApi mMetricsResourcesGraphicsApi;                     
-       MetricsResources* mMetricsResources;                                   
-       data_collection::MetricsRequest const* mRequest;                       
-       QueuesRequiringGpuSynchronization mQueuesRequiringGpuSynchronization;  
-       std::unique_ptr<metrics::CommandBufferData> mCommandBufferData;        
-       std::unique_ptr<DeviceContextGuard> mDeviceContextGuard;               
-       std::unique_ptr<data_collection::MetricsQueryResult> mResult;          
-       metrics::IQueryManager* mSubscribedQueryManager;                       
-       uint32_t mSubscriptionStartingMetricIndex;                             
-       bool mBeganQuery;                                                      
-       std::vector<QueryConfig> mUnsupportedQueryConfigurations;              
+       CallableCache* mRange;                                                   
+       std::vector<MetricsResources> mMetricsResourcesVector;                   
+       metrics::GraphicsApi mMetricsResourcesGraphicsApi;                       
+       MetricsResources* mMetricsResources;                                     
+       data_collection::MetricsRequest const* mRequest;                         
+       metrics::QueryReportOfInterestEvaluationCallback* mQueryReportCallback;  
+       void* mQueryReportCallbackUserData;                                      
+       QueuesRequiringGpuSynchronization mQueuesRequiringGpuSynchronization;    
+       std::unique_ptr<metrics::CommandBufferData> mCommandBufferData;          
+       std::unique_ptr<DeviceContextGuard> mDeviceContextGuard;                 
+       std::unique_ptr<data_collection::MetricsQueryResult> mResult;            
+       metrics::IQueryManager* mSubscribedQueryManager;                         
+       uint32_t mSubscriptionStartingMetricIndex;                               
+       bool mBeganQuery;                                                        
+       std::vector<QueryConfig> mUnsupportedQueryConfigurations;                
    
        bool QueryConfigurationIsSupported(
            metrics::IQueryManager const* const queryManager,

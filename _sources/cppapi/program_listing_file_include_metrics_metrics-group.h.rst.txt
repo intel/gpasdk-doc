@@ -11,7 +11,7 @@ Program Listing for File metrics-group.h
 .. code-block:: cpp
 
    /*
-       © Intel Corporation.
+       Copyright (c) 2018 Intel Corporation.
    
        This software and the related documents are Intel copyrighted materials,
        and your use of them is governed by the express license under which they
@@ -27,10 +27,19 @@ Program Listing for File metrics-group.h
    
    #pragma once
    
+   #include <cstdint>
+   
    namespace gpa {
    namespace metrics {
    
    class IMetric;
+   
+   struct QueryReportDescription
+   {
+       uint32_t flagCount = 0u;                         
+       char const** ppFlagSymbolicNameArray = nullptr;  
+       char const** ppFlagDescriptionArray = nullptr;   
+   };
    
    class IMetricGroup
    {
@@ -43,6 +52,9 @@ Program Listing for File metrics-group.h
        virtual unsigned int ID() const = 0;                          
        virtual IMetric const* Metric(unsigned int index) const = 0;  
        virtual unsigned int StartMetricIndex() const = 0;            
+   
+       // Note that adding struct to the return type is necessary to avoid a GCC compilation failure.
+       virtual struct metrics::QueryReportDescription const& QueryReportDescription() const = 0;  
    };
    
    }  // namespace metrics

@@ -11,7 +11,7 @@ Program Listing for File query-manager.h
 .. code-block:: cpp
 
    /*
-       © Intel Corporation.
+       Copyright (c) 2018 Intel Corporation.
    
        This software and the related documents are Intel copyrighted materials,
        and your use of them is governed by the express license under which they
@@ -139,6 +139,17 @@ Program Listing for File query-manager.h
                                               QueryMetricValue const* pResultElements,
                                               uint64_t const resultElementCount);
    
+   struct QueryReport
+   {
+       uint32_t index;  
+       uint64_t flags;  
+   };
+   
+   typedef bool(QueryReportOfInterestEvaluationCallback)(
+       void* const userData,
+       QueryReport const& queryReport,
+       bool& completeQueryFailure);
+   
    struct CommandBufferData
    {
        void* commandQueue = nullptr;         
@@ -165,7 +176,11 @@ Program Listing for File query-manager.h
                                 uint32_t metricGroup,
                                 uint32_t numQueries) = 0;
    
-       virtual Result Unsubscribe(void* commandQueue) = 0;
+       virtual Result Unsubscribe(void* commandQueue,
+                                  uint32_t* pQueryReportPointerCount = nullptr,
+                                  QueryReport const** pQueryReportPointerArray = nullptr,
+                                  QueryReportOfInterestEvaluationCallback* pCallback = nullptr,
+                                  void* userData = nullptr) = 0;
    
        virtual Result BeginQuery(CommandBufferData const& bufferData, uint32_t queryId) = 0;
    

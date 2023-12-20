@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Program Listing for File d3d12-graphicscommandlist.h &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">'Helloworld' Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">'Helloworld' Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/reference.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">hud-layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">api-debug-layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">device-override</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#dump-resources-layer">dump-resources-layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#dump-state-layer">dump-state-layer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#unions">Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#dec-14-2023">2023.4 (Dec 14 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#sept-21-2023">2023.3 (Sept 21 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id35">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id36">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id38">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id39">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id40">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id43">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id44">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2023.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id7">2023.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id10">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id13">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id16">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id17">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id18">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id19">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id20">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id21">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id22">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id23">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id24">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Program Listing for File d3d12-graphicscommandlist.h</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="program-listing-for-file-d3d12-graphicscommandlist-h">
+<span id="program-listing-file-include-d3d12-state-tracking-d3d12-graphicscommandlist-h"></span><h1>Program Listing for File d3d12-graphicscommandlist.h<a class="headerlink" href="#program-listing-for-file-d3d12-graphicscommandlist-h" title="Permalink to this headline"></a></h1>
+<p>↰ <a class="reference internal" href="file_include_d3d12-state-tracking_d3d12-graphicscommandlist.h.html#file-include-d3d12-state-tracking-d3d12-graphicscommandlist-h"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">include\d3d12-state-tracking\d3d12-graphicscommandlist.h</span></code>)</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/******************************************************************************</span>
+<span class="cm">© Intel Corporation.</span>
+
+<span class="cm">This software and the related documents are Intel copyrighted materials,</span>
+<span class="cm">and your use of them is governed by the express license under which they</span>
+<span class="cm">were provided to you (&quot;License&quot;). Unless the License provides otherwise,</span>
+<span class="cm">you may not use, modify, copy, publish, distribute, disclose or transmit</span>
+<span class="cm">this software or the related documents without Intel&#39;s prior written</span>
+<span class="cm">permission.</span>
+
+
+<span class="cm"> This software and the related documents are provided as is, with no express</span>
+<span class="cm">or implied warranties, other than those that are expressly stated in the</span>
+<span class="cm">License.</span>
+
+<span class="cm">******************************************************************************/</span>
+
+<span class="cp">#pragma once</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;d3d12-object.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;d3d12-descriptorheap.h&quot;</span><span class="c1">  // DX12Descriptor</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;d3d12-commandallocator.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;concurrent/critical-section.h&quot;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;map&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unordered_map&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unordered_set&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;set&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;d3d12.h&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;array&gt;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">gpa</span><span class="w"> </span><span class="p">{</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">serialization</span><span class="w"> </span><span class="p">{</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">StructDataManager</span><span class="p">;</span>
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace serialization</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">d3d12_state_tracker</span><span class="w"> </span><span class="p">{</span>
+
+<span class="k">enum</span><span class="w"> </span><span class="nc">DX12DescriptorType</span><span class="p">;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">DX12Descriptor</span><span class="p">;</span>
+
+<span class="k">enum</span><span class="w"> </span><span class="nc">PipelineType</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">PipelineTypeCompute</span><span class="p">,</span>
+<span class="w">    </span><span class="n">PipelineTypeGraphics</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="kt">size_t</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">kMaxContants</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">64</span><span class="p">;</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">RootParamRecord</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">D3D12_ROOT_PARAMETER_TYPE</span><span class="w"> </span><span class="n">type</span><span class="p">;</span>
+<span class="w">    </span><span class="k">union</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">D3D12_GPU_VIRTUAL_ADDRESS</span><span class="w"> </span><span class="n">bufferLocation</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="n">descriptor</span><span class="p">;</span>
+<span class="w">        </span><span class="k">struct</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">D3D12_GPU_DESCRIPTOR_HANDLE</span><span class="w"> </span><span class="n">baseDescriptor</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="n">descriptorTable</span><span class="p">;</span>
+<span class="w">        </span><span class="k">struct</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">srcData</span><span class="p">[</span><span class="n">kMaxContants</span><span class="p">];</span>
+<span class="w">            </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">numValues</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="n">constants</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">ResourceBindingInfo</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">hasDescriptor</span><span class="p">;</span><span class="w">  </span><span class="c1">//&lt;! Use descriptor if true, use bareResource otherwise</span>
+<span class="w">    </span><span class="k">union</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">DX12Descriptor</span><span class="w"> </span><span class="o">*</span><span class="n">descriptor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w">  </span><span class="c1">// If the resource was bound because of Set..RootDescriptorTable, this will be populated</span>
+<span class="w">        </span><span class="k">struct</span><span class="w">                                 </span><span class="c1">// If the resource was bound with ID3D12GraphicsCommanList::Set..Root..View, this will be populated</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">DX12DescriptorType</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D3D12_DESCRIPTOR_TYPE_EMPTY</span><span class="p">;</span>
+<span class="w">            </span><span class="n">ID3D12Resource</span><span class="w"> </span><span class="o">*</span><span class="n">resource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="n">bareBinding</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">CopyAccelerationStructureInfo</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">D3D12_GPU_VIRTUAL_ADDRESS</span><span class="w"> </span><span class="n">destAccelerationStructureData</span><span class="p">;</span>
+<span class="w">    </span><span class="n">D3D12_GPU_VIRTUAL_ADDRESS</span><span class="w"> </span><span class="n">sourceAccelerationStructureData</span><span class="p">;</span>
+<span class="w">    </span><span class="n">D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE</span><span class="w"> </span><span class="n">mode</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">CopyBufferInfo</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">ID3D12Resource</span><span class="w"> </span><span class="o">*</span><span class="n">destResource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">destOffset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ID3D12Resource</span><span class="w"> </span><span class="o">*</span><span class="n">srcResource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">srcOffset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">numBytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">ArgumentsType</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Command</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">index</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ArgumentsType</span><span class="w"> </span><span class="n">arguments</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">Command</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">index</span><span class="p">,</span><span class="w"> </span><span class="n">ArgumentsType</span><span class="w"> </span><span class="n">arguments</span><span class="p">)</span>
+<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">index</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+<span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">arguments</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">using</span><span class="w"> </span><span class="n">BuildASCommand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Command</span><span class="o">&lt;</span><span class="n">D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">*&gt;</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="n">CopyASCommand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Command</span><span class="o">&lt;</span><span class="n">CopyAccelerationStructureInfo</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="n">DispatchRaysCommand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Command</span><span class="o">&lt;</span><span class="n">D3D12_DISPATCH_RAYS_DESC</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="n">CopyBufferCommand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Command</span><span class="o">&lt;</span><span class="n">CopyBufferInfo</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="n">CopyBufferCommands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">CopyBufferCommand</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="n">RootSignatureRecord</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">uint32_t</span><span class="p">,</span><span class="w"> </span><span class="n">RootParamRecord</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">D3D12GraphicsCommandListState</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">D3D12ObjectState</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="n">GUID</span><span class="w"> </span><span class="n">sGUID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">0xe2d63967</span><span class="p">,</span><span class="w"> </span><span class="mh">0xb577</span><span class="p">,</span><span class="w"> </span><span class="mh">0x4054</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mh">0xa8</span><span class="p">,</span><span class="w"> </span><span class="mh">0x1d</span><span class="p">,</span><span class="w"> </span><span class="mh">0xb6</span><span class="p">,</span><span class="w"> </span><span class="mh">0x5e</span><span class="p">,</span><span class="w"> </span><span class="mh">0xad</span><span class="p">,</span><span class="w"> </span><span class="mh">0xfe</span><span class="p">,</span><span class="w"> </span><span class="mh">0x87</span><span class="p">,</span><span class="w"> </span><span class="mh">0x78</span><span class="p">}};</span>
+
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">ScissorRects</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">D3D12_RECT</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">Viewports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">D3D12_VIEWPORT</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">DescriptorHeaps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">ID3D12DescriptorHeap</span><span class="w"> </span><span class="o">*&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">RenderTargets</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">D3D12_CPU_DESCRIPTOR_HANDLE</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">IndexBuffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">D3D12_INDEX_BUFFER_VIEW</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">VertexBuffers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">UINT</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_VERTEX_BUFFER_VIEW</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">DepthStencil</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D3D12_CPU_DESCRIPTOR_HANDLE</span><span class="p">;</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">Topology</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D3D12_PRIMITIVE_TOPOLOGY</span><span class="p">;</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">StreamOutTargets</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">UINT</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_STREAM_OUTPUT_BUFFER_VIEW</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">mNodeMask</span><span class="p">;</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_COMMAND_LIST_TYPE</span><span class="w"> </span><span class="n">mType</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">gpa</span><span class="o">::</span><span class="n">concurrent</span><span class="o">::</span><span class="n">CriticalSection</span><span class="w"> </span><span class="n">mCriticalSection</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">mCommandIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">ID3D12CommandAllocator</span><span class="w"> </span><span class="o">*</span><span class="n">mCommandAllocator</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ID3D12PipelineState</span><span class="w"> </span><span class="o">*</span><span class="n">mPipelineState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w">                 </span><span class="c1">// TODO: replace with a weak_ptr to the state object</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">uint32_t</span><span class="p">,</span><span class="w"> </span><span class="n">ID3D12StateObject</span><span class="w"> </span><span class="o">*&gt;</span><span class="w"> </span><span class="n">mStateObjectsHistory</span><span class="p">;</span><span class="w">  </span><span class="c1">// TODO: replace with a weak_ptr to the state object</span>
+<span class="w">    </span><span class="n">ID3D12StateObject</span><span class="w"> </span><span class="o">*</span><span class="n">mStateObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ID3D12RootSignature</span><span class="w"> </span><span class="o">*</span><span class="n">mRootSignature</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">ID3D12Resource</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">D3D12_RESOURCE_STATES</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">mPendingStateTransitions</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">ID3D12Resource</span><span class="w"> </span><span class="o">*&gt;</span><span class="w"> </span><span class="n">mPendingDirtyResources</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">RootSignatureRecord</span><span class="w"> </span><span class="n">mRootBindingState</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">serialization</span><span class="o">::</span><span class="n">StructDataManager</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">mAllBuildASDescDataManagers</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Command</span><span class="o">&lt;</span><span class="n">serialization</span><span class="o">::</span><span class="n">StructDataManager</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">*&gt;&gt;</span><span class="w"> </span><span class="n">mCurrentBuildASDescDataManagers</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">DispatchRaysCommand</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mDispatchRaysDescs</span><span class="p">;</span>
+<span class="w">    </span><span class="n">CopyBufferCommands</span><span class="w"> </span><span class="n">mPendingCopyBuffers</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">CopyASCommand</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mPendingCopyAccelerationStructures</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">DescriptorHeaps</span><span class="w"> </span><span class="n">mDescriptorHeaps</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// IA state</span>
+<span class="w">    </span><span class="n">IndexBuffer</span><span class="w"> </span><span class="n">mIndexBuffer</span><span class="p">;</span>
+<span class="w">    </span><span class="n">VertexBuffers</span><span class="w"> </span><span class="n">mVertexBuffers</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">mTopologySet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Topology</span><span class="w"> </span><span class="n">mTopology</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// OM state</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">mStencilRefSet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">mStencilRef</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">RenderTargets</span><span class="w"> </span><span class="n">mRenderTargetsRuntime</span><span class="p">;</span><span class="w">       </span><span class="c1">//&lt;! Runtime ready rendertarget CPU Descriptor Heap handles</span>
+<span class="w">    </span><span class="n">RenderTargets</span><span class="w"> </span><span class="n">mRenderTargetsUntranslated</span><span class="p">;</span><span class="w">  </span><span class="c1">//&lt;! Untranslated handles - use this value, if the call containing this value will go through d3d12-state-tracking layer</span>
+<span class="w">    </span><span class="n">DepthStencil</span><span class="w"> </span><span class="n">mDepthRuntime</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span><span class="w">             </span><span class="c1">//&lt;! Runtime ready depthstencil CPU Descriptor Heap handle</span>
+<span class="w">    </span><span class="n">DepthStencil</span><span class="w"> </span><span class="n">mDepthUntranslated</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span><span class="w">        </span><span class="c1">//&lt;! Untranslated handle - use this value, if the call containing this value will go through d3d12-state-tracking layer</span>
+
+<span class="w">    </span><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">BlendFactorState</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">NOT_SET</span><span class="p">,</span>
+<span class="w">        </span><span class="n">SET_NULL</span><span class="p">,</span>
+<span class="w">        </span><span class="n">SET</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="n">BlendFactorState</span><span class="w"> </span><span class="n">mBlendFactorState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BlendFactorState</span><span class="o">::</span><span class="n">NOT_SET</span><span class="p">;</span>
+<span class="w">    </span><span class="n">FLOAT</span><span class="w"> </span><span class="n">mBlendFactor</span><span class="p">[</span><span class="mi">4</span><span class="p">]{};</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">mDepthBoundSet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="n">FLOAT</span><span class="w"> </span><span class="n">mDepthBounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]{</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">};</span>
+
+<span class="w">    </span><span class="c1">// RS state</span>
+<span class="w">    </span><span class="n">ScissorRects</span><span class="w"> </span><span class="n">mScissorRects</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Viewports</span><span class="w"> </span><span class="n">mViewports</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// SO</span>
+<span class="w">    </span><span class="n">StreamOutTargets</span><span class="w"> </span><span class="n">mSOTargets</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Query</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">ID3D12QueryHeap</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_QUERY_TYPE</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">mQueries</span><span class="p">;</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">PredicationState</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">        </span><span class="n">ID3D12Resource</span><span class="w"> </span><span class="o">*</span><span class="n">pBuffer</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">alignedBufferOffset</span><span class="p">;</span>
+<span class="w">        </span><span class="n">D3D12_PREDICATION_OP</span><span class="w"> </span><span class="n">operation</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="n">PredicationState</span><span class="w"> </span><span class="n">mPredication</span><span class="p">{};</span>
+
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">SamplePositionsState</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">        </span><span class="n">UINT</span><span class="w"> </span><span class="n">numSamplesPerPixel</span><span class="p">;</span>
+<span class="w">        </span><span class="n">UINT</span><span class="w"> </span><span class="n">numPixels</span><span class="p">;</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">D3D12_SAMPLE_POSITION</span><span class="o">&gt;</span><span class="w"> </span><span class="n">samplePositions</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="n">SamplePositionsState</span><span class="w"> </span><span class="n">mSamplePositions</span><span class="p">{};</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">mViewInstanceMaskSet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">mViewInstanceMask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">ID3D12ProtectedResourceSession</span><span class="w"> </span><span class="o">*</span><span class="n">mProtectedResourceSession</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">RenderPass</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">D3D12_RENDER_PASS_RENDER_TARGET_DESC</span><span class="o">&gt;</span><span class="w"> </span><span class="n">renderTargets</span><span class="p">;</span>
+<span class="w">        </span><span class="n">D3D12_RENDER_PASS_DEPTH_STENCIL_DESC</span><span class="w"> </span><span class="n">depthStencil</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">depthStencilSet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">        </span><span class="n">D3D12_RENDER_PASS_FLAGS</span><span class="w"> </span><span class="n">flags</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="n">RenderPass</span><span class="w"> </span><span class="n">mRenderPass</span><span class="p">{};</span>
+
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">ShadingRate</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">        </span><span class="n">D3D12_SHADING_RATE</span><span class="w"> </span><span class="n">baseShadingRate</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">combinersSet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">        </span><span class="n">D3D12_SHADING_RATE_COMBINER</span><span class="w"> </span><span class="n">combiners</span><span class="p">[</span><span class="n">D3D12_RS_SET_SHADING_RATE_COMBINER_COUNT</span><span class="p">];</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="n">ShadingRate</span><span class="w"> </span><span class="n">mShadingRate</span><span class="p">{};</span>
+
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">ShadingRateImage</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">setToNull</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">        </span><span class="n">ID3D12Resource</span><span class="w"> </span><span class="o">*</span><span class="n">shadingRateImage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="n">ShadingRateImage</span><span class="w"> </span><span class="n">mShadingRateImage</span><span class="p">{};</span>
+
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">mRtvIncrementSize</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">mIsRecording</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">D3D12GraphicsCommandListState</span><span class="p">(</span><span class="n">ID3D12GraphicsCommandList</span><span class="w"> </span><span class="o">*</span><span class="n">pList</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">nodeMask</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_COMMAND_LIST_TYPE</span><span class="w"> </span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="n">ID3D12CommandAllocator</span><span class="w"> </span><span class="o">*</span><span class="n">pCommandAllocator</span><span class="p">,</span><span class="w"> </span><span class="n">ID3D12PipelineState</span><span class="w"> </span><span class="o">*</span><span class="n">pInitialState</span><span class="p">);</span>
+<span class="w">    </span><span class="n">D3D12GraphicsCommandListState</span><span class="p">(</span><span class="n">D3D12GraphicsCommandListState</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
+<span class="w">    </span><span class="n">D3D12GraphicsCommandListState</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">D3D12GraphicsCommandListState</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
+<span class="w">    </span><span class="o">~</span><span class="n">D3D12GraphicsCommandListState</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">GUID</span><span class="w"> </span><span class="nf">GetGUID</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnResourceBarrier</span><span class="p">(</span><span class="n">UINT</span><span class="w"> </span><span class="n">NumBarriers</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_RESOURCE_BARRIER</span><span class="w"> </span><span class="o">*</span><span class="n">pBarriers</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnReset</span><span class="p">(</span><span class="n">ID3D12CommandAllocator</span><span class="w"> </span><span class="o">*</span><span class="n">allocator</span><span class="p">,</span><span class="w"> </span><span class="n">ID3D12PipelineState</span><span class="w"> </span><span class="o">*</span><span class="n">pipelineState</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnClose</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnSetPipelineState</span><span class="p">(</span><span class="n">ID3D12PipelineState</span><span class="w"> </span><span class="o">*</span><span class="n">pipelineState</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnSetPipelineState1</span><span class="p">(</span><span class="n">ID3D12StateObject</span><span class="w"> </span><span class="o">*</span><span class="n">stateObject</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnClearState</span><span class="p">(</span><span class="n">ID3D12PipelineState</span><span class="w"> </span><span class="o">*</span><span class="n">stateObject</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnSetComputeRootSignature</span><span class="p">(</span><span class="n">ID3D12RootSignature</span><span class="w"> </span><span class="o">*</span><span class="n">rootSignature</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnSetGraphicsRootSignature</span><span class="p">(</span><span class="n">ID3D12RootSignature</span><span class="w"> </span><span class="o">*</span><span class="n">rootSignature</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnSetComputeRootDescriptorTable</span><span class="p">(</span><span class="n">UINT</span><span class="w"> </span><span class="n">RootParameterIndex</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_GPU_DESCRIPTOR_HANDLE</span><span class="w"> </span><span class="n">BaseDescriptor</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnSetGraphicsRootDescriptorTable</span><span class="p">(</span><span class="n">UINT</span><span class="w"> </span><span class="n">RootParameterIndex</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_GPU_DESCRIPTOR_HANDLE</span><span class="w"> </span><span class="n">BaseDescriptor</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnSetComputeRoot32BitConstant</span><span class="p">(</span><span class="n">UINT</span><span class="w"> </span><span class="n">RootParameterIndex</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">SrcData</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">DestOffsetIn32BitValues</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnSetGraphicsRoot32BitConstant</span><span class="p">(</span><span class="n">UINT</span><span class="w"> </span><span class="n">RootParameterIndex</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">SrcData</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">DestOffsetIn32BitValues</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnSetComputeRoot32BitConstants</span><span class="p">(</span><span class="n">UINT</span><span class="w"> </span><span class="n">RootParameterIndex</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">Num32BitValuesToSet</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">pSrcData</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">DestOffsetIn32BitValues</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnSetGraphicsRoot32BitConstants</span><span class="p">(</span><span class="n">UINT</span><span class="w"> </span><span class="n">RootParameterIndex</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">Num32BitValuesToSet</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">pSrcData</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">DestOffsetIn32BitValues</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnSetComputeRootConstantBufferView</span><span class="p">(</span><span class="n">UINT</span><span class="w"> </span><span class="n">RootParameterIndex</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_GPU_VIRTUAL_ADDRESS</span><span class="w"> </span><span class="n">BufferLocation</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnSetGraphicsRootConstantBufferView</span><span class="p">(</span><span class="n">UINT</span><span class="w"> </span><span class="n">RootParameterIndex</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_GPU_VIRTUAL_ADDRESS</span><span class="w"> </span><span class="n">BufferLocation</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnSetComputeRootShaderResourceView</span><span class="p">(</span><span class="n">UINT</span><span class="w"> </span><span class="n">RootParameterIndex</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_GPU_VIRTUAL_ADDRESS</span><span class="w"> </span><span class="n">BufferLocation</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnSetGraphicsRootShaderResourceView</span><span class="p">(</span><span class="n">UINT</span><span class="w"> </span><span class="n">RootParameterIndex</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_GPU_VIRTUAL_ADDRESS</span><span class="w"> </span><span class="n">BufferLocation</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnSetComputeRootUnorderedAccessView</span><span class="p">(</span><span class="n">UINT</span><span class="w"> </span><span class="n">RootParameterIndex</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_GPU_VIRTUAL_ADDRESS</span><span class="w"> </span><span class="n">BufferLocation</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnSetGraphicsRootUnorderedAccessView</span><span class="p">(</span><span class="n">UINT</span><span class="w"> </span><span class="n">RootParameterIndex</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_GPU_VIRTUAL_ADDRESS</span><span class="w"> </span><span class="n">BufferLocation</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnIASetIndexBuffer</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_INDEX_BUFFER_VIEW</span><span class="w"> </span><span class="o">*</span><span class="n">pView</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnIASetPrimitiveTopology</span><span class="p">(</span><span class="n">D3D12_PRIMITIVE_TOPOLOGY</span><span class="w"> </span><span class="n">PrimitiveTopology</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnIASetVertexBuffers</span><span class="p">(</span><span class="n">UINT</span><span class="w"> </span><span class="n">StartSlot</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">NumViews</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_VERTEX_BUFFER_VIEW</span><span class="w"> </span><span class="o">*</span><span class="n">pViews</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnOMSetBlendFactor</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FLOAT</span><span class="w"> </span><span class="n">BlendFactor</span><span class="p">[</span><span class="mi">4</span><span class="p">]);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnOMSetRenderTargets</span><span class="p">(</span>
+<span class="w">        </span><span class="n">UINT</span><span class="w"> </span><span class="n">NumRenderTargetDescriptors</span><span class="p">,</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_CPU_DESCRIPTOR_HANDLE</span><span class="w"> </span><span class="o">*</span><span class="n">pRenderTargetDescriptors</span><span class="p">,</span>
+<span class="w">        </span><span class="n">BOOL</span><span class="w"> </span><span class="n">RTsSingleHandleToDescriptorRange</span><span class="p">,</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_CPU_DESCRIPTOR_HANDLE</span><span class="w"> </span><span class="o">*</span><span class="n">pDepthStencilDescriptor</span><span class="p">,</span>
+<span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">runtimeCPUDescriptorHandles</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnOMSetStencilRef</span><span class="p">(</span><span class="n">UINT</span><span class="w"> </span><span class="n">StencilRef</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnOMSetDepthBounds</span><span class="p">(</span><span class="n">FLOAT</span><span class="w"> </span><span class="n">Min</span><span class="p">,</span><span class="w"> </span><span class="n">FLOAT</span><span class="w"> </span><span class="n">Max</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnSOSetTargets</span><span class="p">(</span><span class="n">UINT</span><span class="w"> </span><span class="n">StartSlot</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">NumViews</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_STREAM_OUTPUT_BUFFER_VIEW</span><span class="w"> </span><span class="o">*</span><span class="n">pViews</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnRSSetScissorRects</span><span class="p">(</span><span class="n">UINT</span><span class="w"> </span><span class="n">NumRects</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_RECT</span><span class="w"> </span><span class="o">*</span><span class="n">pRects</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnRSSetViewports</span><span class="p">(</span><span class="n">UINT</span><span class="w"> </span><span class="n">NumViewports</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_VIEWPORT</span><span class="w"> </span><span class="o">*</span><span class="n">pViewports</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnSetDescriptorHeaps</span><span class="p">(</span><span class="n">UINT</span><span class="w"> </span><span class="n">NumDescriptorHeaps</span><span class="p">,</span><span class="w"> </span><span class="n">ID3D12DescriptorHeap</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">ppDescriptorHeaps</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnAllocatorReset</span><span class="p">(</span><span class="n">ID3D12CommandAllocator</span><span class="w"> </span><span class="o">*</span><span class="n">allocator</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnExecute</span><span class="p">(</span><span class="n">ID3D12CommandQueue</span><span class="w"> </span><span class="o">*</span><span class="n">queue</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnExecuteBundle</span><span class="p">(</span><span class="n">ID3D12GraphicsCommandList</span><span class="w"> </span><span class="o">*</span><span class="n">pCommandList</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnResourceUpdate</span><span class="p">(</span><span class="n">ID3D12Resource</span><span class="w"> </span><span class="o">*</span><span class="n">resource</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnCopyBufferRegion</span><span class="p">(</span><span class="n">ID3D12Resource</span><span class="w"> </span><span class="o">*</span><span class="n">pDstBuffer</span><span class="p">,</span><span class="w"> </span><span class="n">UINT64</span><span class="w"> </span><span class="n">DstOffset</span><span class="p">,</span><span class="w"> </span><span class="n">ID3D12Resource</span><span class="w"> </span><span class="o">*</span><span class="n">pSrcBuffer</span><span class="p">,</span><span class="w"> </span><span class="n">UINT64</span><span class="w"> </span><span class="n">SrcOffset</span><span class="p">,</span><span class="w"> </span><span class="n">UINT64</span><span class="w"> </span><span class="n">NumBytes</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnCopyResource</span><span class="p">(</span><span class="n">ID3D12Resource</span><span class="w"> </span><span class="o">*</span><span class="n">pDstResource</span><span class="p">,</span><span class="w"> </span><span class="n">ID3D12Resource</span><span class="w"> </span><span class="o">*</span><span class="n">pSrcResource</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnCopyRaytracingAccelerationStructure</span><span class="p">(</span><span class="n">D3D12_GPU_VIRTUAL_ADDRESS</span><span class="w"> </span><span class="n">DestAccelerationStructureData</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_GPU_VIRTUAL_ADDRESS</span><span class="w"> </span><span class="n">SourceAccelerationStructureData</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE</span><span class="w"> </span><span class="n">Mode</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnBuildRaytracingAccelerationStructure</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC</span><span class="w"> </span><span class="o">&amp;</span><span class="n">desc</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnDispatchRays</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_DISPATCH_RAYS_DESC</span><span class="w"> </span><span class="o">&amp;</span><span class="n">desc</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnBeginQuery</span><span class="p">(</span><span class="n">ID3D12QueryHeap</span><span class="w"> </span><span class="o">*</span><span class="n">pQueryHeap</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_QUERY_TYPE</span><span class="w"> </span><span class="n">Type</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">Index</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnEndQuery</span><span class="p">(</span><span class="n">ID3D12QueryHeap</span><span class="w"> </span><span class="o">*</span><span class="n">pQueryHeap</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_QUERY_TYPE</span><span class="w"> </span><span class="n">Type</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">Index</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnSetPredication</span><span class="p">(</span><span class="n">ID3D12Resource</span><span class="w"> </span><span class="o">*</span><span class="n">pBuffer</span><span class="p">,</span><span class="w"> </span><span class="n">UINT64</span><span class="w"> </span><span class="n">AlignedBufferOffset</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_PREDICATION_OP</span><span class="w"> </span><span class="n">Operation</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnSetSamplePositions</span><span class="p">(</span><span class="n">UINT</span><span class="w"> </span><span class="n">NumSamplesPerPixel</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">NumPixels</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_SAMPLE_POSITION</span><span class="w"> </span><span class="o">*</span><span class="n">pSamplePositions</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnSetViewInstanceMask</span><span class="p">(</span><span class="n">UINT</span><span class="w"> </span><span class="n">Mask</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnSetProtectedResourceSession</span><span class="p">(</span><span class="n">ID3D12ProtectedResourceSession</span><span class="w"> </span><span class="o">*</span><span class="n">pProtectedResourceSession</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnBeginRenderPass</span><span class="p">(</span><span class="n">UINT</span><span class="w"> </span><span class="n">NumRenderTargets</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_RENDER_PASS_RENDER_TARGET_DESC</span><span class="w"> </span><span class="o">*</span><span class="n">pRenderTargets</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_RENDER_PASS_DEPTH_STENCIL_DESC</span><span class="w"> </span><span class="o">*</span><span class="n">pDepthStencil</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_RENDER_PASS_FLAGS</span><span class="w"> </span><span class="n">Flags</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnEndRenderPass</span><span class="p">();</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnRSSetShadingRate</span><span class="p">(</span><span class="n">D3D12_SHADING_RATE</span><span class="w"> </span><span class="n">baseShadingRate</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_SHADING_RATE_COMBINER</span><span class="w"> </span><span class="o">*</span><span class="n">combiners</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnRSSetShadingRateImage</span><span class="p">(</span><span class="n">ID3D12Resource</span><span class="w"> </span><span class="o">*</span><span class="n">shadingRateImage</span><span class="p">);</span>
+
+<span class="cp">#ifdef __ID3D12GraphicsCommandList7_INTERFACE_DEFINED__</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnBarrier</span><span class="p">(</span><span class="n">UINT32</span><span class="w"> </span><span class="n">NumBarrierGroups</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_BARRIER_GROUP</span><span class="w"> </span><span class="o">*</span><span class="n">pBarrierGroups</span><span class="p">);</span>
+<span class="cp">#endif</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">IsRecording</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="nf">GetNodeMask</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ID3D12PipelineState</span><span class="w"> </span><span class="o">*</span><span class="nf">GetPipelineState</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ID3D12StateObject</span><span class="w"> </span><span class="o">*</span><span class="nf">GetRaytracingState</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ID3D12CommandAllocator</span><span class="w"> </span><span class="o">*</span><span class="nf">GetCommandAllocator</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ID3D12RootSignature</span><span class="w"> </span><span class="o">*</span><span class="nf">GetCurrentRootSignature</span><span class="p">(</span><span class="n">PipelineType</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">pipelineType</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ID3D12StateObject</span><span class="w"> </span><span class="o">*</span><span class="nf">GetStateObjectAtCommand</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">commandIndex</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">BuildASCommand</span><span class="o">&gt;</span><span class="w"> </span><span class="n">GetRaytracingASDescs</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">DispatchRaysCommand</span><span class="o">&gt;</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">&amp;</span><span class="n">GetDispatchRaysDescs</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">CopyBufferCommands</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">&amp;</span><span class="n">GetCopyBufferCommands</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">CopyASCommand</span><span class="o">&gt;</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">&amp;</span><span class="n">GetCopyAccelerationStructures</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">D3D12_RESOURCE_STATES</span><span class="o">&gt;</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">GetPendingResourceState</span><span class="p">(</span><span class="n">ID3D12Resource</span><span class="w"> </span><span class="o">*</span><span class="n">resource</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">ID3D12DescriptorHeap</span><span class="w"> </span><span class="o">*&gt;</span><span class="w"> </span><span class="n">GetDescriptorHeaps</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">VertexBuffers</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">&amp;</span><span class="n">GetVertexBuffers</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">IndexBuffer</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">&amp;</span><span class="n">GetIndexBuffer</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Viewports</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">&amp;</span><span class="n">GetViewports</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ScissorRects</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">&amp;</span><span class="n">GetScissorRects</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">StreamOutTargets</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">&amp;</span><span class="n">GetStreamOutTargets</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="nf">GetStencilRef</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">GetDepthBounds</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Topology</span><span class="w"> </span><span class="nf">GetTopology</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">uint32_t</span><span class="p">,</span><span class="w"> </span><span class="n">RootParamRecord</span><span class="o">&gt;</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">&amp;</span><span class="n">GetRootSignatureRecord</span><span class="p">(</span><span class="n">PipelineType</span><span class="w"> </span><span class="n">pipelineType</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">RenderTargets</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">&amp;</span><span class="n">GetRenderTargets</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">requestUntranslatedHandle</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">    </span><span class="n">DepthStencil</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">&amp;</span><span class="n">GetDepthStencil</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">requestUntranslatedHandle</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">EnumerateCurrentBindings</span><span class="p">(</span><span class="n">PipelineType</span><span class="w"> </span><span class="n">pipelineType</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">bool</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">shaderRegister</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">registerSpace</span><span class="p">,</span><span class="w"> </span><span class="n">ResourceBindingInfo</span><span class="w"> </span><span class="n">resourceBindingInfo</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_SHADER_VISIBILITY</span><span class="w"> </span><span class="n">visibility</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">belongsToUnboundedRange</span><span class="p">)</span><span class="o">&gt;</span><span class="w"> </span><span class="n">callback</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">RestoreState</span><span class="p">(</span><span class="n">ID3D12GraphicsCommandList</span><span class="w"> </span><span class="o">*</span><span class="n">cmdList</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">useUntranslated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">RestoreComputeBindings</span><span class="p">(</span><span class="n">ID3D12GraphicsCommandList</span><span class="w"> </span><span class="o">*</span><span class="n">cmdList</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">RestoreComputeState</span><span class="p">(</span><span class="n">ID3D12GraphicsCommandList</span><span class="w"> </span><span class="o">*</span><span class="n">cmdList</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">RestoreGraphicsState</span><span class="p">(</span><span class="n">ID3D12GraphicsCommandList</span><span class="w"> </span><span class="o">*</span><span class="n">cmdList</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">restoreCommon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">useUntranslated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="nf">NextCommandIndex</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="nf">CurrentCommandIndex</span><span class="p">();</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">OnSetRootResourceView</span><span class="p">(</span><span class="n">PipelineType</span><span class="w"> </span><span class="n">pipelineType</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_ROOT_PARAMETER_TYPE</span><span class="w"> </span><span class="n">viewType</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">RootParameterIndex</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_GPU_VIRTUAL_ADDRESS</span><span class="w"> </span><span class="n">BufferLocation</span><span class="p">);</span>
+<span class="w">    </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnSetRootDescriptorTable</span><span class="p">(</span><span class="n">PipelineType</span><span class="w"> </span><span class="n">pipelineType</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">RootParameterIndex</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_GPU_DESCRIPTOR_HANDLE</span><span class="w"> </span><span class="n">BaseDescriptor</span><span class="p">);</span>
+<span class="w">    </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnSetRoot32BitConstants</span><span class="p">(</span><span class="n">PipelineType</span><span class="w"> </span><span class="n">pipelineType</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">RootParameterIndex</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">Num32BitValuesToSet</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">pSrcData</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">DestOffsetIn32BitValues</span><span class="p">);</span>
+<span class="w">    </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">OnSetRootSignature</span><span class="p">(</span><span class="n">PipelineType</span><span class="w"> </span><span class="n">pipelineType</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">BelongsToCurrentlySetDescriptorHeaps</span><span class="p">(</span><span class="n">D3D12_GPU_DESCRIPTOR_HANDLE</span><span class="w"> </span><span class="n">handle</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">UnregisterFromCurrentAllocator</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace d3d12_state_tracker</span>
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace gpa</span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

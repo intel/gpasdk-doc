@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class D3D12GraphicsCommandListState &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Class D3D12HeapState" href="classgpa_1_1d3d12__state__tracker_1_1D3D12HeapState.html" />
+    <link rel="prev" title="Class D3D12FenceState" href="classgpa_1_1d3d12__state__tracker_1_1D3D12FenceState.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">'Helloworld' Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">'Helloworld' Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#sampler-extractor">Sampler Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#advanced-stream-playback">Advanced Stream Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">hud-layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">api-debug-layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">device-override</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#dump-resources-layer">dump-resources-layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#dump-state-layer">dump-state-layer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#unions">Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#keyframing-capture">Keyframing Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#dec-14-2023">2023.4 (Dec 14 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#sept-21-2023">2023.3 (Sept 21 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id35">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id36">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id38">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id39">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id40">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id43">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id44">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2023.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id7">2023.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id10">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id13">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id16">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id17">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id18">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id19">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id20">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id21">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id22">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id23">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id24">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../src/reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">C++ Interfaces</a></li>
+      <li class="breadcrumb-item active">Class D3D12GraphicsCommandListState</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-d3d12graphicscommandliststate">
+<span id="exhale-class-classgpa-1-1d3d12-state-tracker-1-1d3d12graphicscommandliststate"></span><h1>Class D3D12GraphicsCommandListState<a class="headerlink" href="#class-d3d12graphicscommandliststate" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_d3d12-state-tracking_d3d12-graphicscommandlist.h.html#file-include-d3d12-state-tracking-d3d12-graphicscommandlist-h"><span class="std std-ref">File d3d12-graphicscommandlist.h</span></a></p></li>
+</ul>
+<section id="nested-relationships">
+<h2>Nested Relationships<a class="headerlink" href="#nested-relationships" title="Permalink to this headline"></a></h2>
+<section id="nested-types">
+<h3>Nested Types<a class="headerlink" href="#nested-types" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="structgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1_1PredicationState.html#exhale-struct-structgpa-1-1d3d12-state-tracker-1-1d3d12graphicscommandliststate-1-1predicationstate"><span class="std std-ref">Struct D3D12GraphicsCommandListState::PredicationState</span></a></p></li>
+<li><p><a class="reference internal" href="structgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1_1RenderPass.html#exhale-struct-structgpa-1-1d3d12-state-tracker-1-1d3d12graphicscommandliststate-1-1renderpass"><span class="std std-ref">Struct D3D12GraphicsCommandListState::RenderPass</span></a></p></li>
+<li><p><a class="reference internal" href="structgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1_1SamplePositionsState.html#exhale-struct-structgpa-1-1d3d12-state-tracker-1-1d3d12graphicscommandliststate-1-1samplepositionsstate"><span class="std std-ref">Struct D3D12GraphicsCommandListState::SamplePositionsState</span></a></p></li>
+<li><p><a class="reference internal" href="structgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1_1ShadingRate.html#exhale-struct-structgpa-1-1d3d12-state-tracker-1-1d3d12graphicscommandliststate-1-1shadingrate"><span class="std std-ref">Struct D3D12GraphicsCommandListState::ShadingRate</span></a></p></li>
+<li><p><a class="reference internal" href="structgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1_1ShadingRateImage.html#exhale-struct-structgpa-1-1d3d12-state-tracker-1-1d3d12graphicscommandliststate-1-1shadingrateimage"><span class="std std-ref">Struct D3D12GraphicsCommandListState::ShadingRateImage</span></a></p></li>
+</ul>
+</section>
+</section>
+<section id="inheritance-relationships">
+<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline"></a></h2>
+<section id="base-type">
+<h3>Base Type<a class="headerlink" href="#base-type" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::d3d12_state_tracker::D3D12ObjectState</span></code> (<a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12ObjectState.html#exhale-class-classgpa-1-1d3d12-state-tracker-1-1d3d12objectstate"><span class="std std-ref">Class D3D12ObjectState</span></a>)</p></li>
+</ul>
+</section>
+</section>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListStateE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListStateE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListStateE"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">D3D12GraphicsCommandListState</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">gpa</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">d3d12_state_tracker</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12ObjectState.html#_CPPv4N3gpa19d3d12_state_tracker16D3D12ObjectStateE" title="gpa::d3d12_state_tracker::D3D12ObjectState"><span class="n"><span class="pre">D3D12ObjectState</span></span></a><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListStateE" title="Permalink to this definition"></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12ScissorRectsE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12ScissorRectsE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12ScissorRectsE"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a33e4eb7101ea1f4d110550bead4f9aa5"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ScissorRects</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">D3D12_RECT</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12ScissorRectsE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState9ViewportsE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState9ViewportsE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState9ViewportsE"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a7cb8c28002f5d055c9fb16f94c83f2a8"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Viewports</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">D3D12_VIEWPORT</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState9ViewportsE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState15DescriptorHeapsE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState15DescriptorHeapsE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState15DescriptorHeapsE"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a94cd9334515152dad22bcc26facc70b0"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DescriptorHeaps</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">ID3D12DescriptorHeap</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState15DescriptorHeapsE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState13RenderTargetsE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState13RenderTargetsE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState13RenderTargetsE"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a1da7eab048bff8edeef4475c77c7c3f3"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RenderTargets</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">D3D12_CPU_DESCRIPTOR_HANDLE</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState13RenderTargetsE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState11IndexBufferE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState11IndexBufferE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState11IndexBufferE"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a814a6d0d4ed1ac61fcc522f48f80ccd3"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IndexBuffer</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">D3D12_INDEX_BUFFER_VIEW</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState11IndexBufferE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState13VertexBuffersE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState13VertexBuffersE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState13VertexBuffersE"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1aaa3cf5fd1f274021416fec97177feabd"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VertexBuffers</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">UINT</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">D3D12_VERTEX_BUFFER_VIEW</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState13VertexBuffersE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12DepthStencilE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12DepthStencilE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12DepthStencilE"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1afd3a332b3b18d95675baf17566eacd89"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DepthStencil</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">D3D12_CPU_DESCRIPTOR_HANDLE</span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12DepthStencilE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState8TopologyE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState8TopologyE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState8TopologyE"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a6efd15abb48e30715f285b6f21b65445"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Topology</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">D3D12_PRIMITIVE_TOPOLOGY</span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState8TopologyE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16StreamOutTargetsE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16StreamOutTargetsE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16StreamOutTargetsE"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a700acb161c12f315a6d06c8e894fd802"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StreamOutTargets</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">UINT</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">D3D12_STREAM_OUTPUT_BUFFER_VIEW</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16StreamOutTargetsE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState29D3D12GraphicsCommandListStateEP25ID3D12GraphicsCommandList4UINT23D3D12_COMMAND_LIST_TYPEP22ID3D12CommandAllocatorP19ID3D12PipelineState">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState29D3D12GraphicsCommandListStateEP25ID3D12GraphicsCommandList4UINT23D3D12_COMMAND_LIST_TYPEP22ID3D12CommandAllocatorP19ID3D12PipelineState"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState29D3D12GraphicsCommandListStateEP25ID3D12GraphicsCommandList4UINT23D3D12_COMMAND_LIST_TYPEP22ID3D12CommandAllocatorP19ID3D12PipelineState"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::D3D12GraphicsCommandListState__ID3D12GraphicsCommandListP.UINT.D3D12_COMMAND_LIST_TYPE.ID3D12CommandAllocatorP.ID3D12PipelineStateP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a66e27595f65a1f243a14b128578ec713"></span><span class="sig-name descname"><span class="n"><span class="pre">D3D12GraphicsCommandListState</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12GraphicsCommandList</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pList</span></span>, <span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nodeMask</span></span>, <span class="n"><span class="pre">D3D12_COMMAND_LIST_TYPE</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">ID3D12CommandAllocator</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pCommandAllocator</span></span>, <span class="n"><span class="pre">ID3D12PipelineState</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pInitialState</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState29D3D12GraphicsCommandListStateEP25ID3D12GraphicsCommandList4UINT23D3D12_COMMAND_LIST_TYPEP22ID3D12CommandAllocatorP19ID3D12PipelineState" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState29D3D12GraphicsCommandListStateERK29D3D12GraphicsCommandListState">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState29D3D12GraphicsCommandListStateERK29D3D12GraphicsCommandListState"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState29D3D12GraphicsCommandListStateERK29D3D12GraphicsCommandListState"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::D3D12GraphicsCommandListState__D3D12GraphicsCommandListStateCR"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1aeb2598bf900a81fb3e76ee72d12c6642"></span><span class="sig-name descname"><span class="n"><span class="pre">D3D12GraphicsCommandListState</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState29D3D12GraphicsCommandListStateERK29D3D12GraphicsCommandListState" title="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::D3D12GraphicsCommandListState"><span class="n"><span class="pre">D3D12GraphicsCommandListState</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState29D3D12GraphicsCommandListStateERK29D3D12GraphicsCommandListState" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListStateaSERK29D3D12GraphicsCommandListState">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListStateaSERK29D3D12GraphicsCommandListState"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListStateaSERK29D3D12GraphicsCommandListState"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::assign-operator__D3D12GraphicsCommandListStateCR"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a56d510e8942f080ec55d9f8094afbc99"></span><a class="reference internal" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListStateE" title="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState"><span class="n"><span class="pre">D3D12GraphicsCommandListState</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListStateE" title="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState"><span class="n"><span class="pre">D3D12GraphicsCommandListState</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListStateaSERK29D3D12GraphicsCommandListState" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListStateD0Ev">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListStateD0Ev"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListStateD0Ev"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::~D3D12GraphicsCommandListState"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1ab0db581212b9ecc8197f74e93247576f"></span><span class="sig-name descname"><span class="n"><span class="pre">~D3D12GraphicsCommandListState</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListStateD0Ev" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState7GetGUIDEv">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState7GetGUIDEv"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState7GetGUIDEv"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::GetGUID"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1ad19014bb1037f5508ac6b66fca7c5034"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">GUID</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetGUID</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState7GetGUIDEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState17OnResourceBarrierE4UINTPK22D3D12_RESOURCE_BARRIER">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState17OnResourceBarrierE4UINTPK22D3D12_RESOURCE_BARRIER"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState17OnResourceBarrierE4UINTPK22D3D12_RESOURCE_BARRIER"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnResourceBarrier__UINT.D3D12_RESOURCE_BARRIERCP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a1668ae64ffe25d33782ee803c6e2e831"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnResourceBarrier</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">NumBarriers</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">D3D12_RESOURCE_BARRIER</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pBarriers</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState17OnResourceBarrierE4UINTPK22D3D12_RESOURCE_BARRIER" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState7OnResetEP22ID3D12CommandAllocatorP19ID3D12PipelineState">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState7OnResetEP22ID3D12CommandAllocatorP19ID3D12PipelineState"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState7OnResetEP22ID3D12CommandAllocatorP19ID3D12PipelineState"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnReset__ID3D12CommandAllocatorP.ID3D12PipelineStateP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a256a58696521fcb4c8df17ea5a4aea4e"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnReset</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12CommandAllocator</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">allocator</span></span>, <span class="n"><span class="pre">ID3D12PipelineState</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pipelineState</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState7OnResetEP22ID3D12CommandAllocatorP19ID3D12PipelineState" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState7OnCloseEv">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState7OnCloseEv"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState7OnCloseEv"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnClose"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a32ba425e5b1249d151fe72ca7f45949f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnClose</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState7OnCloseEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18OnSetPipelineStateEP19ID3D12PipelineState">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18OnSetPipelineStateEP19ID3D12PipelineState"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18OnSetPipelineStateEP19ID3D12PipelineState"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnSetPipelineState__ID3D12PipelineStateP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1ac5725e595e58741ca34de6badf65d5f4"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnSetPipelineState</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12PipelineState</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pipelineState</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18OnSetPipelineStateEP19ID3D12PipelineState" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState19OnSetPipelineState1EP17ID3D12StateObject">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState19OnSetPipelineState1EP17ID3D12StateObject"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState19OnSetPipelineState1EP17ID3D12StateObject"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnSetPipelineState1__ID3D12StateObjectP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a45b7bc023c294c5e66881662507a1ca0"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnSetPipelineState1</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12StateObject</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">stateObject</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState19OnSetPipelineState1EP17ID3D12StateObject" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12OnClearStateEP19ID3D12PipelineState">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12OnClearStateEP19ID3D12PipelineState"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12OnClearStateEP19ID3D12PipelineState"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnClearState__ID3D12PipelineStateP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1ae0a6f74cdb2793614d3b7728d292d801"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnClearState</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12PipelineState</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">stateObject</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12OnClearStateEP19ID3D12PipelineState" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState25OnSetComputeRootSignatureEP19ID3D12RootSignature">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState25OnSetComputeRootSignatureEP19ID3D12RootSignature"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState25OnSetComputeRootSignatureEP19ID3D12RootSignature"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnSetComputeRootSignature__ID3D12RootSignatureP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a8f8656afe847d66e81d543538c6f6b2f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnSetComputeRootSignature</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12RootSignature</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">rootSignature</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState25OnSetComputeRootSignatureEP19ID3D12RootSignature" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState26OnSetGraphicsRootSignatureEP19ID3D12RootSignature">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState26OnSetGraphicsRootSignatureEP19ID3D12RootSignature"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState26OnSetGraphicsRootSignatureEP19ID3D12RootSignature"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnSetGraphicsRootSignature__ID3D12RootSignatureP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1ac780804848a41aeedff9ddd9e2097cfa"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnSetGraphicsRootSignature</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12RootSignature</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">rootSignature</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState26OnSetGraphicsRootSignatureEP19ID3D12RootSignature" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState31OnSetComputeRootDescriptorTableE4UINT27D3D12_GPU_DESCRIPTOR_HANDLE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState31OnSetComputeRootDescriptorTableE4UINT27D3D12_GPU_DESCRIPTOR_HANDLE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState31OnSetComputeRootDescriptorTableE4UINT27D3D12_GPU_DESCRIPTOR_HANDLE"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnSetComputeRootDescriptorTable__UINT.D3D12_GPU_DESCRIPTOR_HANDLE"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a20874f424ff3c9f29d43a7189487be4c"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnSetComputeRootDescriptorTable</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">RootParameterIndex</span></span>, <span class="n"><span class="pre">D3D12_GPU_DESCRIPTOR_HANDLE</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">BaseDescriptor</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState31OnSetComputeRootDescriptorTableE4UINT27D3D12_GPU_DESCRIPTOR_HANDLE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState32OnSetGraphicsRootDescriptorTableE4UINT27D3D12_GPU_DESCRIPTOR_HANDLE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState32OnSetGraphicsRootDescriptorTableE4UINT27D3D12_GPU_DESCRIPTOR_HANDLE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState32OnSetGraphicsRootDescriptorTableE4UINT27D3D12_GPU_DESCRIPTOR_HANDLE"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnSetGraphicsRootDescriptorTable__UINT.D3D12_GPU_DESCRIPTOR_HANDLE"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a2cd7ee7ff921140131887120080b43f7"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnSetGraphicsRootDescriptorTable</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">RootParameterIndex</span></span>, <span class="n"><span class="pre">D3D12_GPU_DESCRIPTOR_HANDLE</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">BaseDescriptor</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState32OnSetGraphicsRootDescriptorTableE4UINT27D3D12_GPU_DESCRIPTOR_HANDLE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState29OnSetComputeRoot32BitConstantE4UINT4UINT4UINT">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState29OnSetComputeRoot32BitConstantE4UINT4UINT4UINT"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState29OnSetComputeRoot32BitConstantE4UINT4UINT4UINT"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnSetComputeRoot32BitConstant__UINT.UINT.UINT"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a936a45fa028101e609b61a5e54cd89ca"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnSetComputeRoot32BitConstant</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">RootParameterIndex</span></span>, <span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">SrcData</span></span>, <span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">DestOffsetIn32BitValues</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState29OnSetComputeRoot32BitConstantE4UINT4UINT4UINT" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState30OnSetGraphicsRoot32BitConstantE4UINT4UINT4UINT">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState30OnSetGraphicsRoot32BitConstantE4UINT4UINT4UINT"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState30OnSetGraphicsRoot32BitConstantE4UINT4UINT4UINT"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnSetGraphicsRoot32BitConstant__UINT.UINT.UINT"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a0f99f2bb9e0cdef8811ec315b37571c9"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnSetGraphicsRoot32BitConstant</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">RootParameterIndex</span></span>, <span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">SrcData</span></span>, <span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">DestOffsetIn32BitValues</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState30OnSetGraphicsRoot32BitConstantE4UINT4UINT4UINT" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState30OnSetComputeRoot32BitConstantsE4UINT4UINTPKv4UINT">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState30OnSetComputeRoot32BitConstantsE4UINT4UINTPKv4UINT"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState30OnSetComputeRoot32BitConstantsE4UINT4UINTPKv4UINT"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnSetComputeRoot32BitConstants__UINT.UINT.voidCP.UINT"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a5cae0499b9241ac02441c345dfab9a74"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnSetComputeRoot32BitConstants</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">RootParameterIndex</span></span>, <span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Num32BitValuesToSet</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pSrcData</span></span>, <span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">DestOffsetIn32BitValues</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState30OnSetComputeRoot32BitConstantsE4UINT4UINTPKv4UINT" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState31OnSetGraphicsRoot32BitConstantsE4UINT4UINTPKv4UINT">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState31OnSetGraphicsRoot32BitConstantsE4UINT4UINTPKv4UINT"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState31OnSetGraphicsRoot32BitConstantsE4UINT4UINTPKv4UINT"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnSetGraphicsRoot32BitConstants__UINT.UINT.voidCP.UINT"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a4b3c7ca2247486d8fd0f7017da938585"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnSetGraphicsRoot32BitConstants</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">RootParameterIndex</span></span>, <span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Num32BitValuesToSet</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pSrcData</span></span>, <span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">DestOffsetIn32BitValues</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState31OnSetGraphicsRoot32BitConstantsE4UINT4UINTPKv4UINT" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState34OnSetComputeRootConstantBufferViewE4UINT25D3D12_GPU_VIRTUAL_ADDRESS">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState34OnSetComputeRootConstantBufferViewE4UINT25D3D12_GPU_VIRTUAL_ADDRESS"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState34OnSetComputeRootConstantBufferViewE4UINT25D3D12_GPU_VIRTUAL_ADDRESS"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnSetComputeRootConstantBufferView__UINT.D3D12_GPU_VIRTUAL_ADDRESS"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1af8a3ac6dd4336487bab3103e2e5f3394"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnSetComputeRootConstantBufferView</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">RootParameterIndex</span></span>, <span class="n"><span class="pre">D3D12_GPU_VIRTUAL_ADDRESS</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">BufferLocation</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState34OnSetComputeRootConstantBufferViewE4UINT25D3D12_GPU_VIRTUAL_ADDRESS" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState35OnSetGraphicsRootConstantBufferViewE4UINT25D3D12_GPU_VIRTUAL_ADDRESS">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState35OnSetGraphicsRootConstantBufferViewE4UINT25D3D12_GPU_VIRTUAL_ADDRESS"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState35OnSetGraphicsRootConstantBufferViewE4UINT25D3D12_GPU_VIRTUAL_ADDRESS"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnSetGraphicsRootConstantBufferView__UINT.D3D12_GPU_VIRTUAL_ADDRESS"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a7dadbcf2bba6244a744e0d19125ce58f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnSetGraphicsRootConstantBufferView</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">RootParameterIndex</span></span>, <span class="n"><span class="pre">D3D12_GPU_VIRTUAL_ADDRESS</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">BufferLocation</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState35OnSetGraphicsRootConstantBufferViewE4UINT25D3D12_GPU_VIRTUAL_ADDRESS" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState34OnSetComputeRootShaderResourceViewE4UINT25D3D12_GPU_VIRTUAL_ADDRESS">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState34OnSetComputeRootShaderResourceViewE4UINT25D3D12_GPU_VIRTUAL_ADDRESS"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState34OnSetComputeRootShaderResourceViewE4UINT25D3D12_GPU_VIRTUAL_ADDRESS"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnSetComputeRootShaderResourceView__UINT.D3D12_GPU_VIRTUAL_ADDRESS"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1abfd1a23055440cfd251f2e3a22bdc5d0"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnSetComputeRootShaderResourceView</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">RootParameterIndex</span></span>, <span class="n"><span class="pre">D3D12_GPU_VIRTUAL_ADDRESS</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">BufferLocation</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState34OnSetComputeRootShaderResourceViewE4UINT25D3D12_GPU_VIRTUAL_ADDRESS" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState35OnSetGraphicsRootShaderResourceViewE4UINT25D3D12_GPU_VIRTUAL_ADDRESS">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState35OnSetGraphicsRootShaderResourceViewE4UINT25D3D12_GPU_VIRTUAL_ADDRESS"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState35OnSetGraphicsRootShaderResourceViewE4UINT25D3D12_GPU_VIRTUAL_ADDRESS"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnSetGraphicsRootShaderResourceView__UINT.D3D12_GPU_VIRTUAL_ADDRESS"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a84672a42b1c3e78e129fd539a299ac0b"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnSetGraphicsRootShaderResourceView</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">RootParameterIndex</span></span>, <span class="n"><span class="pre">D3D12_GPU_VIRTUAL_ADDRESS</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">BufferLocation</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState35OnSetGraphicsRootShaderResourceViewE4UINT25D3D12_GPU_VIRTUAL_ADDRESS" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState35OnSetComputeRootUnorderedAccessViewE4UINT25D3D12_GPU_VIRTUAL_ADDRESS">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState35OnSetComputeRootUnorderedAccessViewE4UINT25D3D12_GPU_VIRTUAL_ADDRESS"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState35OnSetComputeRootUnorderedAccessViewE4UINT25D3D12_GPU_VIRTUAL_ADDRESS"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnSetComputeRootUnorderedAccessView__UINT.D3D12_GPU_VIRTUAL_ADDRESS"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1ac698b1e4e11f975a897a3385f3e5f979"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnSetComputeRootUnorderedAccessView</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">RootParameterIndex</span></span>, <span class="n"><span class="pre">D3D12_GPU_VIRTUAL_ADDRESS</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">BufferLocation</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState35OnSetComputeRootUnorderedAccessViewE4UINT25D3D12_GPU_VIRTUAL_ADDRESS" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState36OnSetGraphicsRootUnorderedAccessViewE4UINT25D3D12_GPU_VIRTUAL_ADDRESS">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState36OnSetGraphicsRootUnorderedAccessViewE4UINT25D3D12_GPU_VIRTUAL_ADDRESS"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState36OnSetGraphicsRootUnorderedAccessViewE4UINT25D3D12_GPU_VIRTUAL_ADDRESS"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnSetGraphicsRootUnorderedAccessView__UINT.D3D12_GPU_VIRTUAL_ADDRESS"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1ace5b930bf585a56c2b0c678901decf6b"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnSetGraphicsRootUnorderedAccessView</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">RootParameterIndex</span></span>, <span class="n"><span class="pre">D3D12_GPU_VIRTUAL_ADDRESS</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">BufferLocation</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState36OnSetGraphicsRootUnorderedAccessViewE4UINT25D3D12_GPU_VIRTUAL_ADDRESS" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18OnIASetIndexBufferEPK23D3D12_INDEX_BUFFER_VIEW">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18OnIASetIndexBufferEPK23D3D12_INDEX_BUFFER_VIEW"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18OnIASetIndexBufferEPK23D3D12_INDEX_BUFFER_VIEW"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnIASetIndexBuffer__D3D12_INDEX_BUFFER_VIEWCP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1aa3e6d1c4de1c98f7c8d63b63b458bcae"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnIASetIndexBuffer</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">D3D12_INDEX_BUFFER_VIEW</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pView</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18OnIASetIndexBufferEPK23D3D12_INDEX_BUFFER_VIEW" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState24OnIASetPrimitiveTopologyE24D3D12_PRIMITIVE_TOPOLOGY">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState24OnIASetPrimitiveTopologyE24D3D12_PRIMITIVE_TOPOLOGY"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState24OnIASetPrimitiveTopologyE24D3D12_PRIMITIVE_TOPOLOGY"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnIASetPrimitiveTopology__D3D12_PRIMITIVE_TOPOLOGY"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a7f5dcb29ac425a9c8d0d8e73ce4a6317"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnIASetPrimitiveTopology</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">D3D12_PRIMITIVE_TOPOLOGY</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">PrimitiveTopology</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState24OnIASetPrimitiveTopologyE24D3D12_PRIMITIVE_TOPOLOGY" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20OnIASetVertexBuffersE4UINT4UINTPK24D3D12_VERTEX_BUFFER_VIEW">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20OnIASetVertexBuffersE4UINT4UINTPK24D3D12_VERTEX_BUFFER_VIEW"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20OnIASetVertexBuffersE4UINT4UINTPK24D3D12_VERTEX_BUFFER_VIEW"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnIASetVertexBuffers__UINT.UINT.D3D12_VERTEX_BUFFER_VIEWCP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a6efa4e1f97e658318f821e0ce9b1350f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnIASetVertexBuffers</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">StartSlot</span></span>, <span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">NumViews</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">D3D12_VERTEX_BUFFER_VIEW</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pViews</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20OnIASetVertexBuffersE4UINT4UINTPK24D3D12_VERTEX_BUFFER_VIEW" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18OnOMSetBlendFactorEAL4E_K5FLOAT">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18OnOMSetBlendFactorEAL4E_K5FLOAT"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18OnOMSetBlendFactorEA4_K5FLOAT"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnOMSetBlendFactor__FLOATCA"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a8d933e51d9b048d77e064b0e6ebc36f3"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnOMSetBlendFactor</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">FLOAT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">BlendFactor</span></span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">4</span></span><span class="p"><span class="pre">]</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18OnOMSetBlendFactorEAL4E_K5FLOAT" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20OnOMSetRenderTargetsE4UINTPK27D3D12_CPU_DESCRIPTOR_HANDLE4BOOLPK27D3D12_CPU_DESCRIPTOR_HANDLEb">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20OnOMSetRenderTargetsE4UINTPK27D3D12_CPU_DESCRIPTOR_HANDLE4BOOLPK27D3D12_CPU_DESCRIPTOR_HANDLEb"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20OnOMSetRenderTargetsE4UINTPK27D3D12_CPU_DESCRIPTOR_HANDLE4BOOLPK27D3D12_CPU_DESCRIPTOR_HANDLEb"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnOMSetRenderTargets__UINT.D3D12_CPU_DESCRIPTOR_HANDLECP.BOOL.D3D12_CPU_DESCRIPTOR_HANDLECP.b"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a84e5528560d9f126c915bd22a5dbe301"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnOMSetRenderTargets</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">NumRenderTargetDescriptors</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">D3D12_CPU_DESCRIPTOR_HANDLE</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pRenderTargetDescriptors</span></span>, <span class="n"><span class="pre">BOOL</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">RTsSingleHandleToDescriptorRange</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">D3D12_CPU_DESCRIPTOR_HANDLE</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pDepthStencilDescriptor</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">runtimeCPUDescriptorHandles</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20OnOMSetRenderTargetsE4UINTPK27D3D12_CPU_DESCRIPTOR_HANDLE4BOOLPK27D3D12_CPU_DESCRIPTOR_HANDLEb" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState17OnOMSetStencilRefE4UINT">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState17OnOMSetStencilRefE4UINT"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState17OnOMSetStencilRefE4UINT"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnOMSetStencilRef__UINT"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a32ff7803efd1c018fa39625703f1f2a1"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnOMSetStencilRef</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">StencilRef</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState17OnOMSetStencilRefE4UINT" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18OnOMSetDepthBoundsE5FLOAT5FLOAT">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18OnOMSetDepthBoundsE5FLOAT5FLOAT"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18OnOMSetDepthBoundsE5FLOAT5FLOAT"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnOMSetDepthBounds__FLOAT.FLOAT"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1ad8400a3d20a83e2aa0bf8a159a37f9d9"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnOMSetDepthBounds</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">FLOAT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Min</span></span>, <span class="n"><span class="pre">FLOAT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Max</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18OnOMSetDepthBoundsE5FLOAT5FLOAT" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState14OnSOSetTargetsE4UINT4UINTPK31D3D12_STREAM_OUTPUT_BUFFER_VIEW">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState14OnSOSetTargetsE4UINT4UINTPK31D3D12_STREAM_OUTPUT_BUFFER_VIEW"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState14OnSOSetTargetsE4UINT4UINTPK31D3D12_STREAM_OUTPUT_BUFFER_VIEW"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnSOSetTargets__UINT.UINT.D3D12_STREAM_OUTPUT_BUFFER_VIEWCP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1aec5b9b01a1ece9215682cd0c2ba898b1"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnSOSetTargets</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">StartSlot</span></span>, <span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">NumViews</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">D3D12_STREAM_OUTPUT_BUFFER_VIEW</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pViews</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState14OnSOSetTargetsE4UINT4UINTPK31D3D12_STREAM_OUTPUT_BUFFER_VIEW" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState19OnRSSetScissorRectsE4UINTPK10D3D12_RECT">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState19OnRSSetScissorRectsE4UINTPK10D3D12_RECT"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState19OnRSSetScissorRectsE4UINTPK10D3D12_RECT"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnRSSetScissorRects__UINT.D3D12_RECTCP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a7af51146e8ea9f2b083542d104fafe9a"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnRSSetScissorRects</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">NumRects</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">D3D12_RECT</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pRects</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState19OnRSSetScissorRectsE4UINTPK10D3D12_RECT" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16OnRSSetViewportsE4UINTPK14D3D12_VIEWPORT">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16OnRSSetViewportsE4UINTPK14D3D12_VIEWPORT"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16OnRSSetViewportsE4UINTPK14D3D12_VIEWPORT"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnRSSetViewports__UINT.D3D12_VIEWPORTCP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a3217cfe3ed23f4061da5d977fce59313"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnRSSetViewports</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">NumViewports</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">D3D12_VIEWPORT</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pViewports</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16OnRSSetViewportsE4UINTPK14D3D12_VIEWPORT" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20OnSetDescriptorHeapsE4UINTPPC20ID3D12DescriptorHeap">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20OnSetDescriptorHeapsE4UINTPPC20ID3D12DescriptorHeap"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20OnSetDescriptorHeapsE4UINTPPC20ID3D12DescriptorHeap"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnSetDescriptorHeaps__UINT.ID3D12DescriptorHeapPCP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a9b790f8bbacb24fd7fa8b446ebe8275d"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnSetDescriptorHeaps</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">NumDescriptorHeaps</span></span>, <span class="n"><span class="pre">ID3D12DescriptorHeap</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ppDescriptorHeaps</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20OnSetDescriptorHeapsE4UINTPPC20ID3D12DescriptorHeap" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16OnAllocatorResetEP22ID3D12CommandAllocator">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16OnAllocatorResetEP22ID3D12CommandAllocator"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16OnAllocatorResetEP22ID3D12CommandAllocator"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnAllocatorReset__ID3D12CommandAllocatorP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a714c50ae1879522259bbd4ad8b8aa521"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnAllocatorReset</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12CommandAllocator</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">allocator</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16OnAllocatorResetEP22ID3D12CommandAllocator" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState9OnExecuteEP18ID3D12CommandQueue">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState9OnExecuteEP18ID3D12CommandQueue"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState9OnExecuteEP18ID3D12CommandQueue"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnExecute__ID3D12CommandQueueP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a3a147aa892e92dfa456bb20f02b66d03"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnExecute</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12CommandQueue</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">queue</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState9OnExecuteEP18ID3D12CommandQueue" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState15OnExecuteBundleEP25ID3D12GraphicsCommandList">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState15OnExecuteBundleEP25ID3D12GraphicsCommandList"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState15OnExecuteBundleEP25ID3D12GraphicsCommandList"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnExecuteBundle__ID3D12GraphicsCommandListP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1ae975faa6bdc38e7c0f057cba88ba4cc6"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnExecuteBundle</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12GraphicsCommandList</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pCommandList</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState15OnExecuteBundleEP25ID3D12GraphicsCommandList" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16OnResourceUpdateEP14ID3D12Resource">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16OnResourceUpdateEP14ID3D12Resource"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16OnResourceUpdateEP14ID3D12Resource"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnResourceUpdate__ID3D12ResourceP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a9aedfeef8d17420b4bc0236d50c7d471"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnResourceUpdate</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12Resource</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">resource</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16OnResourceUpdateEP14ID3D12Resource" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18OnCopyBufferRegionEP14ID3D12Resource6UINT64P14ID3D12Resource6UINT646UINT64">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18OnCopyBufferRegionEP14ID3D12Resource6UINT64P14ID3D12Resource6UINT646UINT64"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18OnCopyBufferRegionEP14ID3D12Resource6UINT64P14ID3D12Resource6UINT646UINT64"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnCopyBufferRegion__ID3D12ResourceP.UINT64.ID3D12ResourceP.UINT64.UINT64"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1ac37e7cb7f11ab5a3a3218488fb57ec08"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnCopyBufferRegion</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12Resource</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pDstBuffer</span></span>, <span class="n"><span class="pre">UINT64</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">DstOffset</span></span>, <span class="n"><span class="pre">ID3D12Resource</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pSrcBuffer</span></span>, <span class="n"><span class="pre">UINT64</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">SrcOffset</span></span>, <span class="n"><span class="pre">UINT64</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">NumBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18OnCopyBufferRegionEP14ID3D12Resource6UINT64P14ID3D12Resource6UINT646UINT64" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState14OnCopyResourceEP14ID3D12ResourceP14ID3D12Resource">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState14OnCopyResourceEP14ID3D12ResourceP14ID3D12Resource"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState14OnCopyResourceEP14ID3D12ResourceP14ID3D12Resource"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnCopyResource__ID3D12ResourceP.ID3D12ResourceP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a95a2783b4733ef60b21250a07dc43ca2"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnCopyResource</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12Resource</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pDstResource</span></span>, <span class="n"><span class="pre">ID3D12Resource</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pSrcResource</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState14OnCopyResourceEP14ID3D12ResourceP14ID3D12Resource" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState37OnCopyRaytracingAccelerationStructureE25D3D12_GPU_VIRTUAL_ADDRESS25D3D12_GPU_VIRTUAL_ADDRESS49D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState37OnCopyRaytracingAccelerationStructureE25D3D12_GPU_VIRTUAL_ADDRESS25D3D12_GPU_VIRTUAL_ADDRESS49D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState37OnCopyRaytracingAccelerationStructureE25D3D12_GPU_VIRTUAL_ADDRESS25D3D12_GPU_VIRTUAL_ADDRESS49D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnCopyRaytracingAccelerationStructure__D3D12_GPU_VIRTUAL_ADDRESS.D3D12_GPU_VIRTUAL_ADDRESS.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a6654ea41ade36ed2bd7e0a75dca6af06"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnCopyRaytracingAccelerationStructure</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">D3D12_GPU_VIRTUAL_ADDRESS</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">DestAccelerationStructureData</span></span>, <span class="n"><span class="pre">D3D12_GPU_VIRTUAL_ADDRESS</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">SourceAccelerationStructureData</span></span>, <span class="n"><span class="pre">D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Mode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState37OnCopyRaytracingAccelerationStructureE25D3D12_GPU_VIRTUAL_ADDRESS25D3D12_GPU_VIRTUAL_ADDRESS49D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState38OnBuildRaytracingAccelerationStructureERK50D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState38OnBuildRaytracingAccelerationStructureERK50D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState38OnBuildRaytracingAccelerationStructureERK50D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnBuildRaytracingAccelerationStructure__D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESCCR"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1ac7ef81ce7be428e55a531632c44c2836"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnBuildRaytracingAccelerationStructure</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">desc</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState38OnBuildRaytracingAccelerationStructureERK50D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState14OnDispatchRaysERK24D3D12_DISPATCH_RAYS_DESC">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState14OnDispatchRaysERK24D3D12_DISPATCH_RAYS_DESC"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState14OnDispatchRaysERK24D3D12_DISPATCH_RAYS_DESC"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnDispatchRays__D3D12_DISPATCH_RAYS_DESCCR"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1aeb7af2a168d863d471f9432e5bedc1a1"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnDispatchRays</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">D3D12_DISPATCH_RAYS_DESC</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">desc</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState14OnDispatchRaysERK24D3D12_DISPATCH_RAYS_DESC" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12OnBeginQueryEP15ID3D12QueryHeap16D3D12_QUERY_TYPE4UINT">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12OnBeginQueryEP15ID3D12QueryHeap16D3D12_QUERY_TYPE4UINT"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12OnBeginQueryEP15ID3D12QueryHeap16D3D12_QUERY_TYPE4UINT"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnBeginQuery__ID3D12QueryHeapP.D3D12_QUERY_TYPE.UINT"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a028ab334930069e4a3d491e257e14075"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnBeginQuery</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12QueryHeap</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pQueryHeap</span></span>, <span class="n"><span class="pre">D3D12_QUERY_TYPE</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Type</span></span>, <span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Index</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12OnBeginQueryEP15ID3D12QueryHeap16D3D12_QUERY_TYPE4UINT" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState10OnEndQueryEP15ID3D12QueryHeap16D3D12_QUERY_TYPE4UINT">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState10OnEndQueryEP15ID3D12QueryHeap16D3D12_QUERY_TYPE4UINT"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState10OnEndQueryEP15ID3D12QueryHeap16D3D12_QUERY_TYPE4UINT"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnEndQuery__ID3D12QueryHeapP.D3D12_QUERY_TYPE.UINT"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1ad199f66d61a8903fc44cc0a934e0e9a3"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnEndQuery</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12QueryHeap</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pQueryHeap</span></span>, <span class="n"><span class="pre">D3D12_QUERY_TYPE</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Type</span></span>, <span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Index</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState10OnEndQueryEP15ID3D12QueryHeap16D3D12_QUERY_TYPE4UINT" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16OnSetPredicationEP14ID3D12Resource6UINT6420D3D12_PREDICATION_OP">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16OnSetPredicationEP14ID3D12Resource6UINT6420D3D12_PREDICATION_OP"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16OnSetPredicationEP14ID3D12Resource6UINT6420D3D12_PREDICATION_OP"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnSetPredication__ID3D12ResourceP.UINT64.D3D12_PREDICATION_OP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a242af6426559c65c146d02babfb99e53"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnSetPredication</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12Resource</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pBuffer</span></span>, <span class="n"><span class="pre">UINT64</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">AlignedBufferOffset</span></span>, <span class="n"><span class="pre">D3D12_PREDICATION_OP</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Operation</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16OnSetPredicationEP14ID3D12Resource6UINT6420D3D12_PREDICATION_OP" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20OnSetSamplePositionsE4UINT4UINTP21D3D12_SAMPLE_POSITION">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20OnSetSamplePositionsE4UINT4UINTP21D3D12_SAMPLE_POSITION"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20OnSetSamplePositionsE4UINT4UINTP21D3D12_SAMPLE_POSITION"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnSetSamplePositions__UINT.UINT.D3D12_SAMPLE_POSITIONP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a8d7e13ffd1192b9be1a5ae66e555c8fb"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnSetSamplePositions</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">NumSamplesPerPixel</span></span>, <span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">NumPixels</span></span>, <span class="n"><span class="pre">D3D12_SAMPLE_POSITION</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pSamplePositions</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20OnSetSamplePositionsE4UINT4UINTP21D3D12_SAMPLE_POSITION" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState21OnSetViewInstanceMaskE4UINT">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState21OnSetViewInstanceMaskE4UINT"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState21OnSetViewInstanceMaskE4UINT"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnSetViewInstanceMask__UINT"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a8f62a86accd7a3fef58d6d75bc1e9f73"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnSetViewInstanceMask</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Mask</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState21OnSetViewInstanceMaskE4UINT" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState29OnSetProtectedResourceSessionEP30ID3D12ProtectedResourceSession">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState29OnSetProtectedResourceSessionEP30ID3D12ProtectedResourceSession"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState29OnSetProtectedResourceSessionEP30ID3D12ProtectedResourceSession"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnSetProtectedResourceSession__ID3D12ProtectedResourceSessionP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1af22017db7093a21a86bc90f85630facd"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnSetProtectedResourceSession</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12ProtectedResourceSession</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pProtectedResourceSession</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState29OnSetProtectedResourceSessionEP30ID3D12ProtectedResourceSession" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState17OnBeginRenderPassE4UINTPK36D3D12_RENDER_PASS_RENDER_TARGET_DESCPK36D3D12_RENDER_PASS_DEPTH_STENCIL_DESC23D3D12_RENDER_PASS_FLAGS">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState17OnBeginRenderPassE4UINTPK36D3D12_RENDER_PASS_RENDER_TARGET_DESCPK36D3D12_RENDER_PASS_DEPTH_STENCIL_DESC23D3D12_RENDER_PASS_FLAGS"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState17OnBeginRenderPassE4UINTPK36D3D12_RENDER_PASS_RENDER_TARGET_DESCPK36D3D12_RENDER_PASS_DEPTH_STENCIL_DESC23D3D12_RENDER_PASS_FLAGS"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnBeginRenderPass__UINT.D3D12_RENDER_PASS_RENDER_TARGET_DESCCP.D3D12_RENDER_PASS_DEPTH_STENCIL_DESCCP.D3D12_RENDER_PASS_FLAGS"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a77792bae7c340f92256c852c4076e933"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnBeginRenderPass</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">UINT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">NumRenderTargets</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">D3D12_RENDER_PASS_RENDER_TARGET_DESC</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pRenderTargets</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">D3D12_RENDER_PASS_DEPTH_STENCIL_DESC</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pDepthStencil</span></span>, <span class="n"><span class="pre">D3D12_RENDER_PASS_FLAGS</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Flags</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState17OnBeginRenderPassE4UINTPK36D3D12_RENDER_PASS_RENDER_TARGET_DESCPK36D3D12_RENDER_PASS_DEPTH_STENCIL_DESC23D3D12_RENDER_PASS_FLAGS" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState15OnEndRenderPassEv">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState15OnEndRenderPassEv"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState15OnEndRenderPassEv"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnEndRenderPass"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a9fb24c626e938689d12b67cade9289e8"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnEndRenderPass</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState15OnEndRenderPassEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18OnRSSetShadingRateE18D3D12_SHADING_RATEPK27D3D12_SHADING_RATE_COMBINER">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18OnRSSetShadingRateE18D3D12_SHADING_RATEPK27D3D12_SHADING_RATE_COMBINER"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18OnRSSetShadingRateE18D3D12_SHADING_RATEPK27D3D12_SHADING_RATE_COMBINER"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnRSSetShadingRate__D3D12_SHADING_RATE.D3D12_SHADING_RATE_COMBINERCP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a621ece81f1f3bf4be70347f78c14aa48"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnRSSetShadingRate</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">D3D12_SHADING_RATE</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">baseShadingRate</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">D3D12_SHADING_RATE_COMBINER</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">combiners</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18OnRSSetShadingRateE18D3D12_SHADING_RATEPK27D3D12_SHADING_RATE_COMBINER" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState23OnRSSetShadingRateImageEP14ID3D12Resource">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState23OnRSSetShadingRateImageEP14ID3D12Resource"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState23OnRSSetShadingRateImageEP14ID3D12Resource"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::OnRSSetShadingRateImage__ID3D12ResourceP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1ac76e69d5498dad39185c6a718e889635"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnRSSetShadingRateImage</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12Resource</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shadingRateImage</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState23OnRSSetShadingRateImageEP14ID3D12Resource" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState11IsRecordingEv">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState11IsRecordingEv"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState11IsRecordingEv"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::IsRecordingC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a3f9224af4396e84748959716878762ac"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsRecording</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState11IsRecordingEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState11GetNodeMaskEv">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState11GetNodeMaskEv"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState11GetNodeMaskEv"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::GetNodeMaskC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a376ae20030144b3c5d92a6e0e56c4370"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetNodeMask</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState11GetNodeMaskEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16GetPipelineStateEv">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16GetPipelineStateEv"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16GetPipelineStateEv"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::GetPipelineStateC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a3863f0d7b9a204c9336228f0d57b76f9"></span><span class="n"><span class="pre">ID3D12PipelineState</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetPipelineState</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16GetPipelineStateEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18GetRaytracingStateEv">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18GetRaytracingStateEv"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18GetRaytracingStateEv"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::GetRaytracingStateC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a2934f3dff834120c316e541f657d25d2"></span><span class="n"><span class="pre">ID3D12StateObject</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetRaytracingState</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18GetRaytracingStateEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState19GetCommandAllocatorEv">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState19GetCommandAllocatorEv"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState19GetCommandAllocatorEv"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::GetCommandAllocatorC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a3108d4b359744c36f2d8bfa6f53f98b9"></span><span class="n"><span class="pre">ID3D12CommandAllocator</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetCommandAllocator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState19GetCommandAllocatorEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState23GetCurrentRootSignatureEK12PipelineType">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState23GetCurrentRootSignatureEK12PipelineType"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState23GetCurrentRootSignatureEK12PipelineType"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::GetCurrentRootSignature__PipelineTypeCC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1ae4c2cfd89ade25a829728e8d9521ddfd"></span><span class="n"><span class="pre">ID3D12RootSignature</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetCurrentRootSignature</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="enum_d3d12-graphicscommandlist_8h_1a3e78f12571dbc4b1ac685baa85538113.html#_CPPv4N3gpa19d3d12_state_tracker12PipelineTypeE" title="gpa::d3d12_state_tracker::PipelineType"><span class="n"><span class="pre">PipelineType</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">pipelineType</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState23GetCurrentRootSignatureEK12PipelineType" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState23GetStateObjectAtCommandE8uint32_t">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState23GetStateObjectAtCommandE8uint32_t"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState23GetStateObjectAtCommandE8uint32_t"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::GetStateObjectAtCommand__uint32_tC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a4dbdabc71eb069429777f9392c4c3525"></span><span class="n"><span class="pre">ID3D12StateObject</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetStateObjectAtCommand</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">commandIndex</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState23GetStateObjectAtCommandE8uint32_t" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20GetRaytracingASDescsEv">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20GetRaytracingASDescsEv"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20GetRaytracingASDescsEv"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::GetRaytracingASDescsC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a4642740064ff34a3f5e313e27756b59f"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="typedef_d3d12-graphicscommandlist_8h_1a483db8f181bbe6e177a0270a5143b712.html#_CPPv4N3gpa19d3d12_state_tracker14BuildASCommandE" title="gpa::d3d12_state_tracker::BuildASCommand"><span class="n"><span class="pre">BuildASCommand</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetRaytracingASDescs</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20GetRaytracingASDescsEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20GetDispatchRaysDescsEv">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20GetDispatchRaysDescsEv"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20GetDispatchRaysDescsEv"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::GetDispatchRaysDescsC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a3451bb8fdce348d5c5c6d0c4d0fcbf2d"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="typedef_d3d12-graphicscommandlist_8h_1aa2e70e72dd15985f148f1f7b996f5813.html#_CPPv4N3gpa19d3d12_state_tracker19DispatchRaysCommandE" title="gpa::d3d12_state_tracker::DispatchRaysCommand"><span class="n"><span class="pre">DispatchRaysCommand</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetDispatchRaysDescs</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20GetDispatchRaysDescsEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState21GetCopyBufferCommandsEv">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState21GetCopyBufferCommandsEv"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState21GetCopyBufferCommandsEv"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::GetCopyBufferCommandsC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1adaaa9a68458618d6231bee59943ca2f2"></span><a class="reference internal" href="typedef_d3d12-graphicscommandlist_8h_1a9ce7fa6159f66919d719ededb4a13517.html#_CPPv4N3gpa19d3d12_state_tracker18CopyBufferCommandsE" title="gpa::d3d12_state_tracker::CopyBufferCommands"><span class="n"><span class="pre">CopyBufferCommands</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetCopyBufferCommands</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState21GetCopyBufferCommandsEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState29GetCopyAccelerationStructuresEv">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState29GetCopyAccelerationStructuresEv"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState29GetCopyAccelerationStructuresEv"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::GetCopyAccelerationStructuresC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1ad48901a1a7adda7410f86e54a238a952"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="typedef_d3d12-graphicscommandlist_8h_1a6ccfbeeb5de36cf729a4478fc16cc96e.html#_CPPv4N3gpa19d3d12_state_tracker13CopyASCommandE" title="gpa::d3d12_state_tracker::CopyASCommand"><span class="n"><span class="pre">CopyASCommand</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetCopyAccelerationStructures</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState29GetCopyAccelerationStructuresEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState23GetPendingResourceStateEP14ID3D12Resource">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState23GetPendingResourceStateEP14ID3D12Resource"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState23GetPendingResourceStateEP14ID3D12Resource"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::GetPendingResourceState__ID3D12ResourcePC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a338204bc5e94fc79d6752becef232a9b"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">D3D12_RESOURCE_STATES</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetPendingResourceState</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12Resource</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">resource</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState23GetPendingResourceStateEP14ID3D12Resource" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18GetDescriptorHeapsEv">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18GetDescriptorHeapsEv"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18GetDescriptorHeapsEv"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::GetDescriptorHeapsC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1aa697ea7eabe7f1a106b5228f501bd7ad"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">ID3D12DescriptorHeap</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetDescriptorHeaps</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState18GetDescriptorHeapsEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16GetVertexBuffersEv">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16GetVertexBuffersEv"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16GetVertexBuffersEv"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::GetVertexBuffersC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a3099ed095f76ebcdbd172b0b0193a472"></span><a class="reference internal" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState13VertexBuffersE" title="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::VertexBuffers"><span class="n"><span class="pre">VertexBuffers</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetVertexBuffers</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16GetVertexBuffersEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState14GetIndexBufferEv">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState14GetIndexBufferEv"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState14GetIndexBufferEv"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::GetIndexBufferC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1aeaf9df0baf1819c37e855d8c1fd3f9b9"></span><a class="reference internal" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState11IndexBufferE" title="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::IndexBuffer"><span class="n"><span class="pre">IndexBuffer</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetIndexBuffer</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState14GetIndexBufferEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12GetViewportsEv">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12GetViewportsEv"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12GetViewportsEv"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::GetViewportsC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1aeeeeb1f5d91ca7e9a2221edca706916a"></span><a class="reference internal" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState9ViewportsE" title="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::Viewports"><span class="n"><span class="pre">Viewports</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetViewports</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12GetViewportsEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState15GetScissorRectsEv">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState15GetScissorRectsEv"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState15GetScissorRectsEv"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::GetScissorRectsC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a09ca28c277743cc2d0a87bda97620b2a"></span><a class="reference internal" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12ScissorRectsE" title="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::ScissorRects"><span class="n"><span class="pre">ScissorRects</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetScissorRects</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState15GetScissorRectsEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState19GetStreamOutTargetsEv">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState19GetStreamOutTargetsEv"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState19GetStreamOutTargetsEv"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::GetStreamOutTargetsC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a9ae3bb9ed94eaa4f1ce5609811fd5d95"></span><a class="reference internal" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16StreamOutTargetsE" title="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::StreamOutTargets"><span class="n"><span class="pre">StreamOutTargets</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetStreamOutTargets</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState19GetStreamOutTargetsEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState13GetStencilRefEv">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState13GetStencilRefEv"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState13GetStencilRefEv"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::GetStencilRefC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a14b4c067c124c128ddeb5d82b4cf87e7"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetStencilRef</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState13GetStencilRefEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState14GetDepthBoundsEv">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState14GetDepthBoundsEv"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState14GetDepthBoundsEv"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::GetDepthBoundsC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1aa6eb3c46075959f16ac2edb7ef72217e"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetDepthBounds</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState14GetDepthBoundsEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState11GetTopologyEv">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState11GetTopologyEv"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState11GetTopologyEv"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::GetTopologyC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a582524b305079b4349215d434b06a6c1"></span><a class="reference internal" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState8TopologyE" title="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::Topology"><span class="n"><span class="pre">Topology</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetTopology</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState11GetTopologyEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState22GetRootSignatureRecordE12PipelineType">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState22GetRootSignatureRecordE12PipelineType"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState22GetRootSignatureRecordE12PipelineType"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::GetRootSignatureRecord__PipelineTypeC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a81aea50d364ae942df5f12c03d352612"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unordered_map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">uint32_t</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="structgpa_1_1d3d12__state__tracker_1_1RootParamRecord.html#_CPPv4N3gpa19d3d12_state_tracker15RootParamRecordE" title="gpa::d3d12_state_tracker::RootParamRecord"><span class="n"><span class="pre">RootParamRecord</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetRootSignatureRecord</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="enum_d3d12-graphicscommandlist_8h_1a3e78f12571dbc4b1ac685baa85538113.html#_CPPv4N3gpa19d3d12_state_tracker12PipelineTypeE" title="gpa::d3d12_state_tracker::PipelineType"><span class="n"><span class="pre">PipelineType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">pipelineType</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState22GetRootSignatureRecordE12PipelineType" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16GetRenderTargetsEb">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16GetRenderTargetsEb"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16GetRenderTargetsEb"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::GetRenderTargets__bC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1af047a6b15a0e3f8959c550b1bd1860a4"></span><a class="reference internal" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState13RenderTargetsE" title="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::RenderTargets"><span class="n"><span class="pre">RenderTargets</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetRenderTargets</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">requestUntranslatedHandle</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16GetRenderTargetsEb" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState15GetDepthStencilEb">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState15GetDepthStencilEb"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState15GetDepthStencilEb"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::GetDepthStencil__bC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1ae3bb76e8b3de6eca05113f31de0e117c"></span><a class="reference internal" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12DepthStencilE" title="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::DepthStencil"><span class="n"><span class="pre">DepthStencil</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetDepthStencil</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">requestUntranslatedHandle</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState15GetDepthStencilEb" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState24EnumerateCurrentBindingsE12PipelineTypeNSt8functionIFb8uint32_t8uint32_t19ResourceBindingInfo23D3D12_SHADER_VISIBILITYbEEE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState24EnumerateCurrentBindingsE12PipelineTypeNSt8functionIFb8uint32_t8uint32_t19ResourceBindingInfo23D3D12_SHADER_VISIBILITYbEEE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState24EnumerateCurrentBindingsE12PipelineTypeNSt8functionIFb8uint32_t8uint32_t19ResourceBindingInfo23D3D12_SHADER_VISIBILITYbEEE"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a74ee3d013bd5fb3f363082bebf9c2f03"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EnumerateCurrentBindings</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="enum_d3d12-graphicscommandlist_8h_1a3e78f12571dbc4b1ac685baa85538113.html#_CPPv4N3gpa19d3d12_state_tracker12PipelineTypeE" title="gpa::d3d12_state_tracker::PipelineType"><span class="n"><span class="pre">PipelineType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">pipelineType</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">shaderRegister</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n"><span class="pre">registerSpace</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="structgpa_1_1d3d12__state__tracker_1_1ResourceBindingInfo.html#_CPPv4N3gpa19d3d12_state_tracker19ResourceBindingInfoE" title="gpa::d3d12_state_tracker::ResourceBindingInfo"><span class="n"><span class="pre">ResourceBindingInfo</span></span></a><span class="w"> </span><span class="n"><span class="pre">resourceBindingInfo</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">D3D12_SHADER_VISIBILITY</span></span><span class="w"> </span><span class="n"><span class="pre">visibility</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n"><span class="pre">belongsToUnboundedRange</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">callback</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState24EnumerateCurrentBindingsE12PipelineTypeNSt8functionIFb8uint32_t8uint32_t19ResourceBindingInfo23D3D12_SHADER_VISIBILITYbEEE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Enumarated through currently bound resources. </p>
+<p>The callback parameter belongsToUnboundedRange tells the client that currently iterated range of descriptors has unbounded size. In such case even whole descriptor heap can be iterated through. The client can stop iteration through a range with unbounded size by returning false. In all other cases the callback return value is ignored. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12RestoreStateEP25ID3D12GraphicsCommandListb">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12RestoreStateEP25ID3D12GraphicsCommandListb"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12RestoreStateEP25ID3D12GraphicsCommandListb"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::RestoreState__ID3D12GraphicsCommandListP.b"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a9cf44ffa4c2ae1b72495add7890cf636"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RestoreState</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12GraphicsCommandList</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">cmdList</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">useUntranslated</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState12RestoreStateEP25ID3D12GraphicsCommandListb" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState22RestoreComputeBindingsEP25ID3D12GraphicsCommandList">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState22RestoreComputeBindingsEP25ID3D12GraphicsCommandList"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState22RestoreComputeBindingsEP25ID3D12GraphicsCommandList"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::RestoreComputeBindings__ID3D12GraphicsCommandListP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a33bea62cec203b5d9c039800a0dc2ca9"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RestoreComputeBindings</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12GraphicsCommandList</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">cmdList</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState22RestoreComputeBindingsEP25ID3D12GraphicsCommandList" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState19RestoreComputeStateEP25ID3D12GraphicsCommandList">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState19RestoreComputeStateEP25ID3D12GraphicsCommandList"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState19RestoreComputeStateEP25ID3D12GraphicsCommandList"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::RestoreComputeState__ID3D12GraphicsCommandListP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a0b7bd71a29f3c22f0fb8f2229ea1fa90"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RestoreComputeState</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12GraphicsCommandList</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">cmdList</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState19RestoreComputeStateEP25ID3D12GraphicsCommandList" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20RestoreGraphicsStateEP25ID3D12GraphicsCommandListbb">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20RestoreGraphicsStateEP25ID3D12GraphicsCommandListbb"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20RestoreGraphicsStateEP25ID3D12GraphicsCommandListbb"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::RestoreGraphicsState__ID3D12GraphicsCommandListP.b.b"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1ad13350fc360147c40734f115bfbdce7c"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RestoreGraphicsState</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ID3D12GraphicsCommandList</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">cmdList</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">restoreCommon</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">useUntranslated</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState20RestoreGraphicsStateEP25ID3D12GraphicsCommandListbb" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16NextCommandIndexEv">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16NextCommandIndexEv"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16NextCommandIndexEv"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::NextCommandIndex"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a6b5202cf8b52125c43c0db23456c8701"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NextCommandIndex</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState16NextCommandIndexEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState19CurrentCommandIndexEv">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState19CurrentCommandIndexEv"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState19CurrentCommandIndexEv"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::CurrentCommandIndex"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a031c7c28395908da19326f6db41de530"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CurrentCommandIndex</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState19CurrentCommandIndexEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState5sGUIDE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState5sGUIDE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState5sGUIDE"></span><span id="gpa::d3d12_state_tracker::D3D12GraphicsCommandListState::sGUID__GUID"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState_1a358ebbd4f12050c2963f84534b239a58"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="n"><span class="pre">GUID</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sGUID</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0xe2d63967</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0xb577</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0x4054</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0xa8</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0x1d</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0xb6</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0x5e</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0xad</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0xfe</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0x87</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0x78</span></span><span class="p"><span class="pre">}</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker29D3D12GraphicsCommandListState5sGUIDE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="classgpa_1_1d3d12__state__tracker_1_1D3D12FenceState.html" class="btn btn-neutral float-left" title="Class D3D12FenceState" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="classgpa_1_1d3d12__state__tracker_1_1D3D12HeapState.html" class="btn btn-neutral float-right" title="Class D3D12HeapState" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

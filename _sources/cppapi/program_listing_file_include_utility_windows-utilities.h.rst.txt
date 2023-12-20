@@ -1,0 +1,154 @@
+
+.. _program_listing_file_include_utility_windows-utilities.h:
+
+Program Listing for File windows-utilities.h
+============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_utility_windows-utilities.h>` (``include\utility\windows-utilities.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   #pragma once
+   
+   #include <Windows.h>
+   #include <string>
+   #include <vector>
+   #include <map>
+   #include <set>
+   #include <functional>
+   #include <tlhelp32.h>
+   
+   namespace gpa {
+   namespace utility {
+   
+   std::wstring ASCIIToUTF16(const char* ascii, int ascii_size);
+   
+   std::wstring GetProcessNameFromCMDLine(const std::wstring& cmdLine);
+   
+   bool IsProcessInSkipList(const wchar_t* skipListFilePath, const wchar_t* processName, bool reReadFile = false);
+   
+   void EmitGpuViewEvent(TCHAR* pDesc);
+   
+   bool GetDLLPath(LPCWSTR moduleName, bool address, wchar_t* const path, size_t pathSize, bool silent = false);
+   
+   std::wstring GetCurrentApplicationPath();
+   
+   std::wstring GetCurrentModulePath();
+   
+   std::wstring GetCurrentDllDirectory();
+   
+   class DllDirectoryGuard
+   {
+   public:
+       DllDirectoryGuard(const std::wstring& path)
+           : mDllDirectory(GetCurrentDllDirectory())
+       {
+           SetDllDirectoryW(path.c_str());
+       }
+   
+       ~DllDirectoryGuard()
+       {
+           SetDllDirectoryW(mDllDirectory.c_str());
+       }
+   
+   private:
+       std::wstring mDllDirectory;
+   };
+   
+   //Lightweight process listener that allows to get notifications about started and ended processes
+   class CProcessListener
+   {
+   protected:
+       typedef std::set<DWORD> TPids;
+       TPids mPids;
+   
+       std::vector<DWORD> mPidBuffer;  //for eEnumProcess
+   
+       //OnStart is called when first encountered in the process list, doesn't mean 'just started' for the first Refresh call
+       virtual void OnStart(const PROCESSENTRY32W& pe)  // explicitely include winternl.h in the cpp that uses this struct
+       {
+           (void)(pe);
+       }
+   
+       virtual void OnEnd(DWORD pid)  //when pid is no more in the cached list
+       {
+           (void)(pid);
+       }
+   
+   public:
+       enum EApproach { eSnapshot,
+                        eEnumProcess };
+       CProcessListener(EApproach ea = eSnapshot)
+           : mApproach(ea)
+           , mPidBuffer(eEnumProcess == ea ? 512 : 0)
+       {
+       }
+   
+       //call as often as you need and subscribe to OnStart/OnEnd - changes will be notified since last Refresh()
+       //for the first call will get names of all processes, on next calls is cheap as it tracks the changes and works only on changed processes
+       size_t Refresh();  //returns ~0x0 on failure OR how many started and finished since last call to Refresh, 0 means good moment to yeild/switch to other thread/sleep
+   private:
+       EApproach mApproach;
+       size_t RefreshSnapshot();
+   
+       size_t RefreshEnumProcess();
+       size_t UpdatePidsEnumProcess(size_t returned);
+   };
+   
+   //handle must have SYNCHRONIZE access
+   HRESULT PauseResumeProcess(HANDLE proc, bool bPause);
+   
+   //walk thru all the running processes
+   HRESULT WalkProcesses(const std::function<bool(const PROCESSENTRY32&)>& callback);  //see ProcessParents() below for example
+   
+   //gets full map of pid->parent running at the moment
+   inline std::map<DWORD, DWORD> ProcessParents()
+   {
+       decltype(ProcessParents()) pid2parent;
+       gpa::utility::WalkProcesses([&](const PROCESSENTRY32& pe) {
+           pid2parent[pe.th32ProcessID] = pe.th32ParentProcessID;
+           return true;
+       });
+       return pid2parent;
+   }
+   
+   //full family chain from given pid up to last living forefather. Every time does fresh WalkProcesses. So cache the result to avoid if not necessary.
+   std::vector<DWORD> ProcessAncestry(DWORD pid);
+   
+   //lists all threads of given process, pass ~0x0 for all threads
+   HRESULT WalkThreads(DWORD pid, const std::function<bool(const THREADENTRY32&)>& callback);
+   
+   //just a helper for ExecuteCommand, use like ExecuteCommand(Shell("dir"), &output)
+   inline std::string Shell(const std::string& command)
+   {
+       return "cmd.exe /C " + command;
+   }
+   
+   //launch process, wait, get output and exit code
+   int ExecuteCommand(
+       const std::string& command,
+       std::string* pOutput = nullptr,
+       LPCSTR lpCurrentDirectory = nullptr,
+       LPVOID lpEnvironment = nullptr  //null delimited, double null terminated string or pairs (name=value\0name=value\0\0) MUST BE UNICODE! Consider gpa::secure::GetSafeEnvironment
+   );
+   
+   }  // namespace utility
+   }  // namespace gpa

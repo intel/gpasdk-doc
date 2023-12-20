@@ -1,0 +1,614 @@
+
+.. _program_listing_file_include_utility_directx-utilities.h:
+
+Program Listing for File directx-utilities.h
+============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_utility_directx-utilities.h>` (``include\utility\directx-utilities.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   #pragma once
+   
+   #include "assert.h"
+   #include "guid_hash.h"
+   
+   #include <d3d9.h>
+   #include <d3d10_1.h>
+   #include <d3d11_4.h>
+   #include <d3d12.h>
+   #include <dxgi1_6.h>
+   
+   #include <atlbase.h>
+   
+   #include <cstdint>
+   #include <functional>
+   #include <map>
+   #include <memory>
+   #include <string>
+   #include <type_traits>
+   #include <unordered_map>
+   #include <vector>
+   
+   // @brief Generic test for success on any directx creation call
+   #define UNSUCCESSFUL(hr) (FAILED(hr) || hr == S_FALSE)
+   
+   void AssertIfFailed(HRESULT result);
+   
+   namespace gpa {
+   namespace utility {
+   namespace directx {
+   
+   CComPtr<ID3D12Device> GetDevice(ID3D12DeviceChild* deviceChild);
+   
+   class DirectXPrivateData : virtual public IUnknown
+   {
+   public:
+       virtual ~DirectXPrivateData();
+   
+       virtual HRESULT STDMETHODCALLTYPE QueryInterface(REFIID riid, void** ppvObject);
+       virtual ULONG STDMETHODCALLTYPE AddRef();
+       virtual ULONG STDMETHODCALLTYPE Release();
+   };
+   
+   // {374D3F62-2ACE-4DF6-B605-9A62B2EA793A}
+   static const GUID sAssociatedCaptureKeyGUID = {0x374d3f62, 0x2ace, 0x4df6, {0xb6, 0x5, 0x9a, 0x62, 0xb2, 0xea, 0x79, 0x3a}};
+   
+   // {90455112-A6EC-415F-8CE0-2830405824BF}
+   static const GUID sOutObjectCaptureKeyGUID = {0x90455112, 0xa6ec, 0x415f, {0x8c, 0xe0, 0x28, 0x30, 0x40, 0x58, 0x24, 0xbf}};
+   
+   // {0ED71FEC-DF0F-4C69-A809-80FF4B8B53F8}
+   static const GUID sHwndSwapChainGUID = {0xed71fec, 0xdf0f, 0x4c69, {0xa8, 0x9, 0x80, 0xff, 0x4b, 0x8b, 0x53, 0xf8}};
+   
+   // {2ED93005-E5AC-4EFC-90F7-091EE2D7884F}
+   static const GUID sExtensionResourceDataContainerGUID = {0x2ed93005, 0xe5ac, 0x4efc, {0x90, 0xf7, 0x9, 0x1e, 0xe2, 0xd7, 0x88, 0x4f}};
+   
+   // {2ED93005-E5AC-4EFC-90F7-091EE2D6884F}
+   static const GUID sResourceAllocationInfoGUID = {0x2ed93005, 0xe5ac, 0x4efc, {0x90, 0xf7, 0x9, 0x1e, 0xe2, 0xd6, 0x88, 0x4f}};
+   
+   template<class Type>
+   constexpr bool has_private_data =
+       std::is_convertible<Type, ID3D11Device*>::value ||
+       std::is_convertible<Type, ID3D11DeviceChild*>::value ||
+       std::is_convertible<Type, IDXGIObject*>::value ||
+       std::is_convertible<Type, ID3D12Object*>::value;
+   
+   struct D3DResourceDesc
+   {
+       uint32_t Width;
+       uint32_t Height;
+       uint32_t Depth;
+       uint32_t MipLevels;
+       uint32_t ArraySize;
+       DXGI_FORMAT Format;
+       DXGI_SAMPLE_DESC SampleDesc;
+   
+       uint32_t CompressedWidth;
+       uint32_t CompressedHeight;
+       uint32_t FormatStride;
+   };
+   
+   struct D3D10ResourceDesc : public D3DResourceDesc
+   {
+       D3D10_RESOURCE_DIMENSION Dimension;
+       D3D10_USAGE Usage;
+       uint32_t BindFlags;
+       uint32_t CPUAccessFlags;
+       uint32_t MiscFlags;
+   };
+   
+   struct D3D11ResourceDesc : public D3DResourceDesc
+   {
+       D3D11_RESOURCE_DIMENSION Dimension;
+       D3D11_USAGE Usage;
+       uint32_t BindFlags;
+       uint32_t CPUAccessFlags;
+       uint32_t MiscFlags;
+   };
+   
+   struct D3D12ResourceDesc : public D3DResourceDesc
+   {
+       D3D12_RESOURCE_DIMENSION Dimension;
+       UINT64 Alignment;
+       D3D12_TEXTURE_LAYOUT Layout;
+       D3D12_RESOURCE_FLAGS Flags;
+   };
+   
+   class D3DPrivateDataInterface : public IUnknown
+   {
+   public:
+       virtual ~D3DPrivateDataInterface() = default;
+   
+   private:
+       HRESULT STDMETHODCALLTYPE QueryInterface(REFIID, void**) override
+       {
+           return E_NOINTERFACE;
+       }
+   
+       ULONG STDMETHODCALLTYPE AddRef() override
+       {
+           return 1;
+       }
+   
+       ULONG STDMETHODCALLTYPE Release() override
+       {
+           delete this;
+           return 0;
+       }
+   };
+   
+   // @brief Basic implementation of IUnknown
+   //        Can be used with any class that derives from IUnknown ( specify IUnknownDerivedClass )
+   template<class IUnknownDerivedClass = IUnknown>
+   class IUnknownImpl : public IUnknownDerivedClass
+   {
+       ULONG mRefCount = 1;
+   
+   public:
+       virtual ~IUnknownImpl() = default;
+   
+       virtual HRESULT STDMETHODCALLTYPE QueryInterface(REFIID riid, void** ppvObject)
+       {
+           if (!ppvObject) {
+               return E_INVALIDARG;
+           }
+   
+           if (InlineIsEqualGUID(riid, __uuidof(IUnknownDerivedClass)) || InlineIsEqualGUID(riid, __uuidof(IUnknown))) {
+               ++mRefCount;
+               *ppvObject = (void*)this;
+               return S_OK;
+           }
+   
+           return E_FAIL;
+       }
+   
+       virtual ULONG STDMETHODCALLTYPE AddRef()
+       {
+           return ++mRefCount;
+       }
+   
+       virtual ULONG STDMETHODCALLTYPE Release()
+       {
+           if (--mRefCount == 0) {
+               delete this;
+               return 0;
+           }
+           return mRefCount;
+       }
+   };
+   
+   // @brief Basic implementation of ID3D12Object
+   //        Can be used with any class that derives from ID3D12Object ( specify ID3D12ObjectDerivedClass )
+   template<class ID3D12ObjectDerivedClass = ID3D12Object>
+   class ID3D12ObjectImpl : public IUnknownImpl<ID3D12ObjectDerivedClass>
+   {
+       struct PrivateDataEntry
+       {
+           std::vector<uint8_t> privateDataBlob;
+           IUnknown* privateDataInterface = nullptr;
+       };
+       std::unordered_map<GUID, PrivateDataEntry> mPrivateData;
+   
+   public:
+       virtual HRESULT STDMETHODCALLTYPE GetPrivateData(REFGUID guid, UINT* pDataSize, void* pData)
+       {
+           if (!pDataSize) {
+               return E_INVALIDARG;
+           }
+   
+           auto found = mPrivateData.find(guid);
+           if (found == mPrivateData.end()) {
+               *pDataSize = 0;
+               return DXGI_ERROR_NOT_FOUND;
+           }
+   
+           PrivateDataEntry& foundEntry = found->second;
+           uint32_t dataToCopySize = 0;
+           void* dataToCopy = nullptr;
+           if (foundEntry.privateDataInterface) {
+               dataToCopySize = sizeof(IUnknown*);
+               dataToCopy = &foundEntry.privateDataInterface;
+               ASSERT(foundEntry.privateDataBlob.empty());
+           } else {
+               dataToCopySize = (uint32_t)foundEntry.privateDataBlob.size();
+               dataToCopy = (void*)foundEntry.privateDataBlob.data();
+           }
+   
+           uint32_t pDataAvailableSize = *pDataSize;
+           *pDataSize = dataToCopySize;
+   
+           if (!pData) {
+               return S_OK;
+           }
+   
+           if (pDataAvailableSize < dataToCopySize) {
+               return DXGI_ERROR_MORE_DATA;
+           }
+   
+           memcpy(pData, dataToCopy, dataToCopySize);
+           if (foundEntry.privateDataInterface) {
+               foundEntry.privateDataInterface->AddRef();
+           }
+   
+           return S_OK;
+       }
+   
+       virtual HRESULT STDMETHODCALLTYPE SetPrivateData(REFGUID guid, UINT DataSize, const void* pData)
+       {
+           if (pData == nullptr) {
+               // SetPrivateData with null pData returns S_FALSE, if entry had not been provided earlier
+               return mPrivateData.erase(guid) ? S_OK : S_FALSE;
+           }
+   
+           auto& entry = mPrivateData[guid];
+           entry.privateDataBlob.resize(DataSize);
+           memcpy(entry.privateDataBlob.data(), pData, DataSize);
+           if (entry.privateDataInterface) {
+               entry.privateDataInterface->Release();
+               entry.privateDataInterface = nullptr;
+           }
+           return S_OK;
+       }
+   
+       virtual HRESULT STDMETHODCALLTYPE SetPrivateDataInterface(REFGUID guid, const IUnknown* pData)
+       {
+           auto& entry = mPrivateData[guid];
+           entry.privateDataBlob.clear();
+   
+           // No idea why the argument is const. Makes no sense, since the object needs to accept AddRef and Release calls
+           IUnknown* mutablePData = const_cast<IUnknown*>(pData);
+           if (mutablePData) {
+               mutablePData->AddRef();
+           }
+           if (entry.privateDataInterface) {
+               entry.privateDataInterface->Release();
+           }
+           entry.privateDataInterface = mutablePData;
+           return S_OK;
+       }
+   
+       virtual HRESULT STDMETHODCALLTYPE SetName(LPCWSTR Name)
+       {
+           return SetPrivateData(WKPDID_D3DDebugObjectNameW, (uint32_t)wcslen(Name), Name);
+       }
+   };
+   
+   /*
+   This class exists solely to facilitate deferred capture (and, by extension, subcapture)
+   of Intel D3D12 extensions. The extension mechanism can and does overwrite the data contained
+   in the resources it uses, so if we wait until a state capture is performed to extract resource
+   data from the driver, it's too late -- the data has already been altered. So for extension 
+   resources only, we save a copy of the original data into one of these, which is attached to
+   the resource via SetPrivateDataInterface. If one of these is present during writing of the 
+   state capture, we use this data instead of data obtained from the current state of the 
+   resource. 
+   
+   Additionally, some extension scenarios (such as 64-bit emulated atomics) delete the 
+   resource once the extension has been initialized, and so there would not be data available
+   at state capture time to copy down from the GPU, and so this object is used to keep the resource
+   data around for those extension scenarios as well. 
+   */
+   struct DataUpdate
+   {
+       std::vector<uint8_t> data;
+       uint64_t timestamp;
+   };
+   
+   typedef std::vector<DataUpdate> DataUpdates;
+   typedef DataUpdates::iterator UpdateIter;
+   typedef DataUpdates::const_iterator UpdateIterConst;
+   
+   class D3DResourceDataContainerImpl
+   {
+   public:
+       D3DResourceDataContainerImpl(D3D12_RESOURCE_DESC const& desc);
+   
+       void AppendDataUpdate(uint64_t timestamp, void* data, size_t byteLen);
+       size_t UpdateCount() const;
+       D3D12_RESOURCE_DESC const& Desc() const;
+   
+       UpdateIter begin() { return mDataUpdates.begin(); }
+       UpdateIterConst cbegin() const { return mDataUpdates.cbegin(); }
+       UpdateIter end() { return mDataUpdates.end(); }
+       UpdateIterConst cend() const { return mDataUpdates.cend(); }
+   
+   private:
+       DataUpdates mDataUpdates;
+       D3D12_RESOURCE_DESC mDesc;
+   };
+   
+   class D3DResourceDataContainer : public D3DPrivateDataInterface
+   {
+   public:
+       D3DResourceDataContainer(D3D12_RESOURCE_DESC const& desc);
+       std::shared_ptr<D3DResourceDataContainerImpl> mImpl;
+   
+       void AppendDataUpdate(uint64_t timestamp, void* data, size_t byteLen);
+       size_t UpdateCount() const;
+       D3D12_RESOURCE_DESC const& Desc() const;
+   
+       UpdateIter begin() { return mImpl->begin(); }
+       UpdateIterConst cbegin() const { return mImpl->cbegin(); }
+       UpdateIter end() { return mImpl->end(); }
+       UpdateIterConst cend() const { return mImpl->cend(); }
+   };
+   
+   template<typename DeviceType>
+   void DoWithDevice(ID3D12DeviceChild* object, std::function<void(DeviceType*)> callback)
+   {
+       CComPtr<DeviceType> device;
+       object->GetDevice(IID_PPV_ARGS(&device));
+       if (device) {
+           callback(device);
+       }
+   }
+   
+   // Unique identifier for a shader that can be used in Shader records.
+   // This is only valid for Ray generation shaders, Hit groups, Miss shaders and Callable shaders.
+   struct D3D12ShaderIdentifier
+   {
+       uint64_t id[4] = {};
+   
+       explicit D3D12ShaderIdentifier(uint64_t* data);
+       D3D12ShaderIdentifier& operator=(const D3D12ShaderIdentifier& other);
+       bool operator<(const D3D12ShaderIdentifier& other) const;
+       bool operator==(const D3D12ShaderIdentifier& other) const;
+       bool operator!=(const D3D12ShaderIdentifier& other) const;
+       explicit operator bool() const;
+   };
+   static_assert(D3D12_SHADER_IDENTIFIER_SIZE_IN_BYTES == sizeof(D3D12ShaderIdentifier), "Shader identifier size must be equal 32 bytes");
+   
+   uint64_t GetCaptureKey(ID3D12Object* object, const GUID& guid);
+   uint64_t GetCaptureKey(ID3D12Object* object);
+   uint64_t GetCreatingObjectCaptureKey(ID3D12Device* device);
+   
+   void GetSubresourceDesc(ID3D10Resource* resource, uint32_t subresource, D3D10ResourceDesc* desc);
+   void GetSubresourceDesc(ID3D11Resource* resource, uint32_t subresource, D3D11ResourceDesc* desc);
+   void GetSubresourceDesc(ID3D12Resource* resource, uint32_t subresource, D3D12ResourceDesc* desc);
+   size_t GetD3D11SubresourceDataSize(D3D11ResourceDesc const& desc, uint32_t rowPitch, uint32_t depthPitch);
+   size_t GetD3D11SubresourceDataSize(ID3D11Resource* resource, uint32_t subresource, uint32_t rowPitch, uint32_t depthPitch);
+   uint32_t CalculateMipLevels(uint32_t const width, uint32_t const height, uint32_t const depth);
+   uint32_t GetFormatBitCount(DXGI_FORMAT const format);
+   uint32_t GetFormatByteCount(DXGI_FORMAT const format);
+   uint32_t GetFormatStride(DXGI_FORMAT const format, uint32_t const width);
+   uint32_t GetFormatComponentSize(DXGI_FORMAT const format);
+   uint32_t Align(uint32_t value, uint32_t alignment);
+   uint64_t Align(uint64_t value, uint64_t alignment);
+   uint32_t CalculateSubresourceSize(uint32_t width, uint32_t height, uint32_t depth, DXGI_FORMAT format, uint32_t alignment);
+   bool IsFormatCompressed(DXGI_FORMAT const format);
+   void GetCompressedSize(uint32_t* width, uint32_t* height);
+   bool IsSRGBFormat(DXGI_FORMAT const format);
+   D3D12_RESOURCE_STATES TruncateResourceState(D3D12_COMMAND_LIST_TYPE commandListType, D3D12_RESOURCE_STATES state);
+   UINT GetVendorId(decltype(&CreateDXGIFactory1) createDXGIFactory1, ID3D12Device* device);
+   
+   void CopyTextureRegion(decltype(&CreateDXGIFactory1) createDXGIFactory1, ID3D12Device* device, ID3D12GraphicsCommandList* commandList,
+                          D3D12_TEXTURE_COPY_LOCATION* src, D3D12_TEXTURE_COPY_LOCATION* dst, D3D12_RESOURCE_DIMENSION dimension);
+   
+   std::wstring GetObjectName(ID3D12Object* object);
+   std::wstring GetObjectName(ID3D11DeviceChild* object);
+   
+   template<typename DescType>
+   inline uint32_t GetArraySize(DescType const* desc)
+   {
+       return desc->ArraySize;
+   }
+   template<>
+   inline uint32_t GetArraySize(D3D10_BUFFER_DESC const* /*desc*/)
+   {
+       return 1;
+   }
+   template<>
+   inline uint32_t GetArraySize(D3D11_BUFFER_DESC const* /*desc*/)
+   {
+       return 1;
+   }
+   template<>
+   inline uint32_t GetArraySize(D3D10_TEXTURE3D_DESC const* /*desc*/)
+   {
+       return 1;
+   }
+   template<>
+   inline uint32_t GetArraySize(D3D11_TEXTURE3D_DESC const* /*desc*/)
+   {
+       return 1;
+   }
+   template<>
+   inline uint32_t GetArraySize(D3D11_TEXTURE3D_DESC1 const* /*desc*/)
+   {
+       return 1;
+   }
+   
+   template<typename DescType>
+   inline uint32_t GetMipLevels(DescType const* desc)
+   {
+       return desc->MipLevels;
+   }
+   template<>
+   inline uint32_t GetMipLevels(D3D10_BUFFER_DESC const* /*desc*/)
+   {
+       return 1;
+   }
+   template<>
+   inline uint32_t GetMipLevels(D3D11_BUFFER_DESC const* /*desc*/)
+   {
+       return 1;
+   }
+   
+   template<typename DescType>
+   inline uint32_t GetWidth(DescType const* desc)
+   {
+       return desc->Width;
+   }
+   template<>
+   inline uint32_t GetWidth(D3D10_BUFFER_DESC const* desc)
+   {
+       return desc->ByteWidth;
+   }
+   template<>
+   inline uint32_t GetWidth(D3D11_BUFFER_DESC const* desc)
+   {
+       return desc->ByteWidth;
+   }
+   
+   template<typename DescType>
+   inline uint32_t GetHeight(DescType const* desc)
+   {
+       return desc->Height;
+   }
+   template<>
+   inline uint32_t GetHeight(D3D10_BUFFER_DESC const* /*desc*/)
+   {
+       return 1;
+   }
+   template<>
+   inline uint32_t GetHeight(D3D11_BUFFER_DESC const* /*desc*/)
+   {
+       return 1;
+   }
+   template<>
+   inline uint32_t GetHeight(D3D10_TEXTURE1D_DESC const* /*desc*/)
+   {
+       return 1;
+   }
+   template<>
+   inline uint32_t GetHeight(D3D11_TEXTURE1D_DESC const* /*desc*/)
+   {
+       return 1;
+   }
+   
+   template<typename DescType>
+   inline uint32_t GetDepth(DescType const* /*desc*/)
+   {
+       return 1;
+   }
+   template<>
+   inline uint32_t GetDepth(D3D10_TEXTURE3D_DESC const* desc)
+   {
+       return desc->Depth;
+   }
+   template<>
+   inline uint32_t GetDepth(D3D11_TEXTURE3D_DESC const* desc)
+   {
+       return desc->Depth;
+   }
+   template<>
+   inline uint32_t GetDepth(D3D11_TEXTURE3D_DESC1 const* desc)
+   {
+       return desc->Depth;
+   }
+   
+   template<typename DescType>
+   inline DXGI_FORMAT GetFormat(DescType const* desc)
+   {
+       return desc->Format;
+   }
+   template<>
+   inline DXGI_FORMAT GetFormat(D3D10_BUFFER_DESC const* /*desc*/)
+   {
+       return DXGI_FORMAT_R8_TYPELESS;
+   }
+   template<>
+   inline DXGI_FORMAT GetFormat(D3D11_BUFFER_DESC const* /*desc*/)
+   {
+       return DXGI_FORMAT_R8_TYPELESS;
+   }
+   
+   std::string ConvertPIXEventDataToString(UINT metadataType, const void* pData, UINT size);
+   
+   template<typename DataType, typename ObjectType>
+   DataType* GetPrivateObject(ObjectType* object, bool force)
+   {
+       static_assert(std::is_base_of<IUnknown, DataType>::value, "data must be inherited from IUnknown");
+       static_assert(std::is_base_of<IUnknown, ObjectType>::value, "object must be inherited from IUnknown");
+   
+       if (!object) {
+           return nullptr;
+       }
+   
+       DataType* data = nullptr;
+       UINT size = sizeof(data);
+       HRESULT hr = object->GetPrivateData(__uuidof(DataType), &size, &data);
+       if (FAILED(hr) && force) {
+           data = new DataType(object);
+           object->SetPrivateDataInterface(__uuidof(DataType), data);
+       }
+       return data;
+   }
+   
+   inline size_t AlignTo(size_t value)
+   {
+       return ((value + sizeof(uint64_t) - 1) / sizeof(uint64_t)) * sizeof(uint64_t);
+   };
+   
+   struct RootSignaturePatchTable
+   {
+       enum ParamType {
+           INVALID = 0,
+           DESCRIPTOR_TABLE = 1,
+           RESOURCE_VIEW = 2,
+       };
+   
+       struct PatchableParam
+       {
+           ParamType type;
+           uint32_t offset;
+           std::vector<D3D12_DESCRIPTOR_RANGE1> descriptorRanges;  // Available if type is DESCRIPTOR_TABLE
+       };
+   
+       std::vector<PatchableParam> patchableParams;
+   };
+   
+   class __declspec(uuid("483863D0-A5FC-4CED-A38D-3B093CF950DC"))
+       D3D12StateObjectExportDataFromDDI : public D3DPrivateDataInterface
+   {
+   public:
+       D3D12StateObjectExportDataFromDDI(ID3D12StateObject*) {}
+   
+       std::map<std::wstring, RootSignaturePatchTable>& GetExportNameToPatchTable()
+       {
+           return mExportNameToPatchTable;
+       }
+   
+       std::map<std::wstring, RootSignaturePatchTable> const& GetExportNameToPatchTable() const
+       {
+           return mExportNameToPatchTable;
+       }
+   
+   private:
+       std::map<std::wstring, RootSignaturePatchTable> mExportNameToPatchTable;
+   };
+   
+   // Aligns the |address| to the nearest multiple of |alignment| then returns the number of alignment bytes needed for alignment.
+   D3D12_GPU_VIRTUAL_ADDRESS AlignVATo(D3D12_GPU_VIRTUAL_ADDRESS address, uint64_t alignment, uint64_t* bytesToAlign = nullptr);
+   
+   // Helper to get pointer to D3D12_RAYTRACING_GEOMETRY_DESC regardless of the geometry layout specified in the AS input.
+   // https://microsoft.github.io/DirectX-Specs/d3d/Raytracing.html#d3d12_raytracing_geometry_desc
+   D3D12_RAYTRACING_GEOMETRY_DESC const* GetRaytracingGeometryDescAtIndex(const D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS& blasInputs, uint32_t indexOfGeometryDesc);
+   
+   }  // namespace directx
+   }  // namespace utility
+   }  // namespace gpa
+   
+   // Intel D3D12 extensions mark committed resource data as extension-
+   // specific by setting the top bit to 1 -- we need to filter that out
+   // when creating page tracking data structures
+   #define INTC_EXT_MASK 0x8000000000000000
+   #define INTC_EXT_FILTER(s) ((s) & ~(INTC_EXT_MASK))

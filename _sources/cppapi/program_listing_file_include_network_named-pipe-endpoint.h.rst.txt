@@ -1,0 +1,90 @@
+
+.. _program_listing_file_include_network_named-pipe-endpoint.h:
+
+Program Listing for File named-pipe-endpoint.h
+==============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_network_named-pipe-endpoint.h>` (``include\network\named-pipe-endpoint.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   #pragma once
+   
+   #include "igpa-config.h"
+   
+   #include "network/endpoint.h"
+   
+   #include <Windows.h>
+   
+   #include <string>
+   #include <vector>
+   
+   namespace gpa {
+   namespace network {
+   
+   class NamedPipeEndpoint : public Endpoint
+   {
+   public:
+       NamedPipeEndpoint();
+       NamedPipeEndpoint(HANDLE pipe, TCHAR const* pathname);
+       NamedPipeEndpoint(HANDLE pipe, HANDLE hEvent, TCHAR const* pathname);
+       NamedPipeEndpoint(NamedPipeEndpoint const&) = delete;
+       NamedPipeEndpoint& operator=(NamedPipeEndpoint const&) = delete;
+       virtual ~NamedPipeEndpoint();
+   
+       void Listen(TCHAR const* pathname);
+   
+       void Connect(TCHAR const* pathname);
+   
+       // Endpoint implementation
+       bool WaitRead(uint64_t readLengthInBytes) override;
+   
+       bool WaitRead(void* destBuffer, uint64_t readLengthInBytes);
+   
+       bool IsWaitingOnRead() override;
+       uint64_t Read(void* destBuffer, uint64_t readLengthInBytes) override;
+   
+       uint64_t Write(void const* srcBuffer, uint64_t writeLengthInBytes) override;
+   
+       Endpoint* Accept(uint64_t timeoutMS) override;
+       void Shutdown() override;
+       uint64_t Handle() const override;
+       uint64_t EventHandle() const override;
+   
+       // If we get a broken pipe ?or other? error and this has been disconnected or otherwise rendered invalid, return false
+       bool IsEndpointBroken() const override;
+       void HandlePipeError();
+   
+   private:
+       STD_STRING mIpcName;
+       HANDLE mPipe;
+       HANDLE mEvent;
+       OVERLAPPED mOverlapped;
+       bool mListening;
+       bool mWaitingOnRead;
+       std::vector<BYTE> asyncStorage;
+       DWORD mPipeError;
+   
+       NamedPipeEndpoint* CloneAndReset();
+   };
+   
+   }  // namespace network
+   }  // namespace gpa

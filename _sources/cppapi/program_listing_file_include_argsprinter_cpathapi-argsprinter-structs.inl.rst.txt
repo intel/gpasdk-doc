@@ -25,6 +25,12 @@ Program Listing for File cpathapi-argsprinter-structs.inl
    #pragma once
    template <> void Print<StructWithPrimitiveMember>(StructWithPrimitiveMember const& src, std::string srcName, std::ostream & os, size_t indent );
    template <> void Print<StructWithArray>(StructWithArray const& src, std::string srcName, std::ostream & os, size_t indent );
+   template <> void Print<StructWithInterface>(StructWithInterface const& src, std::string srcName, std::ostream & os, size_t indent );
+   template <> void Print<StructWithCOMInterface>(StructWithCOMInterface const& src, std::string srcName, std::ostream & os, size_t indent );
+   template <> void Print<StructTwoInterfaces>(StructTwoInterfaces const& src, std::string srcName, std::ostream & os, size_t indent );
+   template <> void Print<StructTwoCOMInterfaces>(StructTwoCOMInterfaces const& src, std::string srcName, std::ostream & os, size_t indent );
+   template <> void Print<StructWithUnion>(StructWithUnion const& src, std::string srcName, std::ostream & os, size_t indent );
+   template <> void Print<StructWithUnionCOMInterfaces>(StructWithUnionCOMInterfaces const& src, std::string srcName, std::ostream & os, size_t indent );
    template <> void Print<SizeStruct>(SizeStruct const& src, std::string srcName, std::ostream & os, size_t indent );
    template <> void Print<DataStruct>(DataStruct const& src, std::string srcName, std::ostream & os, size_t indent );
    template <> void Print<NameStruct>(NameStruct const& src, std::string srcName, std::ostream & os, size_t indent );
@@ -54,6 +60,58 @@ Program Listing for File cpathapi-argsprinter-structs.inl
            PrintPointer(src.array, "void * array", os, indent +1);
                }
    
+   }
+   
+   template <>
+   inline void Print<StructWithInterface>(StructWithInterface const& src, std::string srcName, std::ostream & os, size_t indent ){
+       (void) src;
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName << std::endl;
+           PrintInterfacePointer(src.barPtr, "struct IResource * barPtr", os, indent +1);
+   }
+   
+   template <>
+   inline void Print<StructWithCOMInterface>(StructWithCOMInterface const& src, std::string srcName, std::ostream & os, size_t indent ){
+       (void) src;
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName << std::endl;
+           PrintInterfacePointer(src.barPtr, "struct ICOMResource * barPtr", os, indent +1);
+   }
+   
+   template <>
+   inline void Print<StructTwoInterfaces>(StructTwoInterfaces const& src, std::string srcName, std::ostream & os, size_t indent ){
+       (void) src;
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName << std::endl;
+           PrintInterfacePointer(src.barPtr, "struct IResource * barPtr", os, indent +1);
+           PrintInterfacePointer(src.otherBarPtr, "struct IResource * otherBarPtr", os, indent +1);
+   }
+   
+   template <>
+   inline void Print<StructTwoCOMInterfaces>(StructTwoCOMInterfaces const& src, std::string srcName, std::ostream & os, size_t indent ){
+       (void) src;
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName << std::endl;
+           PrintInterfacePointer(src.barPtr, "struct ICOMResource * barPtr", os, indent +1);
+           PrintInterfacePointer(src.otherBarPtr, "struct ICOMResource * otherBarPtr", os, indent +1);
+   }
+   
+   template <>
+   inline void Print<StructWithUnion>(StructWithUnion const& src, std::string srcName, std::ostream & os, size_t indent ){
+       (void) src;
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName << std::endl;
+       Print(src.type, "int type", os, indent +1);
+           // handle union AnonymousUnion0
+   }
+   
+   template <>
+   inline void Print<StructWithUnionCOMInterfaces>(StructWithUnionCOMInterfaces const& src, std::string srcName, std::ostream & os, size_t indent ){
+       (void) src;
+       std::string indentString(indent * 4, ' ');
+       os << indentString << srcName << std::endl;
+       Print(src.type, "int type", os, indent +1);
+           // handle union AnonymousUnion1
    }
    
    template <>
@@ -110,10 +168,10 @@ Program Listing for File cpathapi-argsprinter-structs.inl
        (void) src;
        std::string indentString(indent * 4, ' ');
        os << indentString << srcName << std::endl;
-       PrintArray(src.someBuf, 256, "char [256] someBuf", os, indent + 1);
+       PrintArray(src.someBuf, 256, "char[256] someBuf", os, indent + 1);
        Print(src.someValue, "int someValue", os, indent +1);
        Print(src.someOtherValue, "int someOtherValue", os, indent +1);
-       PrintArray(src.someOtherBuf, 256, "char [256] someOtherBuf", os, indent + 1);
+       PrintArray(src.someOtherBuf, 256, "char[256] someOtherBuf", os, indent + 1);
    }
    
    template <>
