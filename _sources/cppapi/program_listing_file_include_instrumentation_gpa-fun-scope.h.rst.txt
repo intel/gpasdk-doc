@@ -1,0 +1,61 @@
+
+.. _program_listing_file_include_instrumentation_gpa-fun-scope.h:
+
+Program Listing for File gpa-fun-scope.h
+========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_instrumentation_gpa-fun-scope.h>` (``include\instrumentation\gpa-fun-scope.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   (c) Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include <functional>
+   
+   namespace gpa {
+   namespace instrumentation {
+   
+   struct OnScopeEnd
+   {
+       std::function<void()> todo;
+       OnScopeEnd(OnScopeEnd const&) = delete;
+       OnScopeEnd& operator=(OnScopeEnd const&) = delete;
+       OnScopeEnd(std::function<void()> todo)
+           : todo(todo)
+       {
+       }
+       ~OnScopeEnd() { todo(); }
+   };
+   
+   #define GPA_CONCAT2(x, y) x##y
+   #define GPA_CONCAT(x, y) GPA_CONCAT2(x, y)
+   
+   //GPA_ON_SCOPE_END can be used many times, and will execute in backward order at scope exit
+   #define GPA_ON_SCOPE_END(code) gpa::instrumentation::OnScopeEnd GPA_CONCAT(gpa_defer, __LINE__)([&]() { code; });
+   /*Example:
+       HANDLE h = OpenHandle();
+       GPA_ON_SCOPE_END(CloseHandle(h));
+       //feel free to exit any time, CloseHandle will be callsed
+   */
+   
+   }  // namespace instrumentation
+   }  // namespace gpa

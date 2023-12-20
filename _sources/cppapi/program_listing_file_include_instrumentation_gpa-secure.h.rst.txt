@@ -1,0 +1,72 @@
+
+.. _program_listing_file_include_instrumentation_gpa-secure.h:
+
+Program Listing for File gpa-secure.h
+=====================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_instrumentation_gpa-secure.h>` (``include\instrumentation\gpa-secure.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   Copyright (c) 2023 Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   #ifdef _WIN32
+   #include <Windows.h>
+   #endif
+   
+   #include <cstdio>
+   #include <malloc.h>
+   #include <stdlib.h>
+   #include <vector>
+   
+   #if !defined(GPA_SPRINTF)
+   #ifdef _WIN32
+   #define GPA_SPRINTF(dst, count, fmt, ...) sprintf_s(dst, count, fmt, __VA_ARGS__)
+   #else
+   #define GPA_SPRINTF(dst, count, fmt, ...) snprintf(dst, count, fmt, __VA_ARGS__)
+   #endif
+   #endif
+   
+   namespace gpa {
+   namespace secure {
+   
+   enum SignatureVerifyStatus {
+       SIGNATURE_STATUS_UNKNOWN,  
+       SIGNATURE_VALID,           
+       SIGNATURE_MISSING,         
+       SIGNATURE_NOT_TRUSTED,     
+       SIGNATURE_TRUST_DISABLED,  
+       SIGNATURE_ERROR,           
+   };
+   
+   #ifdef _WIN32
+   SignatureVerifyStatus VerifyEmbeddedSignature(const TCHAR* filePath, const TCHAR** pVerificationFailureMessage = nullptr);
+   
+   typedef bool (*FSysEnvVarCallBack)(const wchar_t* key, const wchar_t* val, void* context);
+   bool GetSystemEnvironmentVariables(FSysEnvVarCallBack callback, void* context);
+   bool GetSafeEnvironment(std::vector<wchar_t>& buffer);  //Only system environment, without user's or process inherited to avoid hacks
+   
+   HMODULE LoadLibrarySDL(const wchar_t* libFileName, HANDLE fileHandle = nullptr, DWORD flags = 0);
+   HMODULE LoadLibrarySDL(const char* libFileName, HANDLE fileHandle = nullptr, DWORD flags = 0);
+   #endif
+   
+   }  // namespace secure
+   }  // namespace gpa

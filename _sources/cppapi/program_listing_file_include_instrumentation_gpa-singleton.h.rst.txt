@@ -1,0 +1,70 @@
+
+.. _program_listing_file_include_instrumentation_gpa-singleton.h:
+
+Program Listing for File gpa-singleton.h
+========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_instrumentation_gpa-singleton.h>` (``include\instrumentation\gpa-singleton.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   Copyright (c) 2023 Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   #include "gpa-secure.h"
+   #include <stdlib.h>
+   
+   namespace gpa {
+   
+   //Since environment is shared across all the process, we can piggyback on it to store "key/value" pairs for intra-process sharing
+   struct ProcessWideSingletonRegistry
+   {
+       static void* Get(const char* name, void* fallback = nullptr)  //Gets item by name
+       {
+           char prefix[256] = {};
+           GPA_SPRINTF(prefix, sizeof(prefix), "GPA:%s", name);
+           unsigned long long addr = 0;
+   #ifdef _WIN32
+           char val[256] = {};
+           size_t res = 0;
+           if (0 != getenv_s(&res, val, sizeof(val), prefix) || !res)
+               return fallback;
+           sscanf_s(val, "%llx", &addr);
+   #else
+           const char* val = getenv(prefix);
+           if (!val) return fallback;
+           sscanf(val, "%llx", &addr);
+   #endif
+           return (void*)addr;
+       }
+   
+       static bool Set(const char* name, const void* ptr)  //Stores item by name. ATTENTION: must set to nullptr before previously set object is destroyed!
+       {
+           char env[256] = {};
+           GPA_SPRINTF(env, sizeof(env), "GPA:%s=%llx", name, (unsigned long long)ptr);
+   #ifdef _WIN32
+           return 0 == _putenv(env);
+   #else
+           return 0 == putenv(env);
+   #endif
+       }
+   };
+   
+   }  // namespace gpa

@@ -30,6 +30,7 @@ Program Listing for File metadata-index.h
    #pragma once
    
    #include "metadata/queue-header.h"
+   #include "metadata/stream-capture-args-info.h"
    
    #include <cstdint>
    #include <map>
@@ -47,6 +48,7 @@ Program Listing for File metadata-index.h
    struct ProcessInfo;
    struct StreamInfoHeader;
    struct TimestampHeader;
+   struct DeviceFeatureInfo;
    
    class MetadataIndex
    {
@@ -67,6 +69,9 @@ Program Listing for File metadata-index.h
    
        typedef void (*EnumerateKeyframesCallback)(Keyframe*, double /*parameter*/, void*);
        void EnumerateKeyframes(EnumerateKeyframesCallback callback, void* userData);
+       serialization::metadata::StreamCaptureArgsInfo const* GetStreamCaptureArgsInfo(size_t index) const;
+       size_t GetStreamCaptureArgsHistoryCount() const;
+       DeviceFeatureInfo* GetDeviceFeatureInfo() const;
    
    private:
        void OnReadStreamInfo(StreamInfoHeader const* streamInfoHeader);
@@ -74,13 +79,17 @@ Program Listing for File metadata-index.h
        void OnReadKeyframe(std::unique_ptr<Keyframe> keyframe);
        void OnReadQueue(QueueHeader const* queueHeader);
        void OnReadProcessInfo(ProcessInfo const* processInfo);
+       void OnReadStreamArgsHistory(StreamArgsHistory* streamArgsInfo);
+       void OnReadDeviceFeatureInfo(DeviceFeatureInfo* deviceFeatureInfo);
    
        std::unique_ptr<StreamInfoHeader> mStreamInfoHeader;
        uint64_t mStartTimestamp;
        uint64_t mEndTimestamp;
        std::map<uint64_t /*timestamp*/, std::unique_ptr<Keyframe>> mKeyframes;
        std::vector<QueueHeader> mQueues;
+       std::vector<StreamCaptureArgsInfo> mStreamCaptureArgs;
        std::unique_ptr<ProcessInfo> mProcessInfo;
+       std::unique_ptr<DeviceFeatureInfo> mDeviceFeatureInfo;
    };
    
    }  // namespace metadata

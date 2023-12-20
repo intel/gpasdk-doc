@@ -34,6 +34,7 @@ Program Listing for File stream-data.h
    
    #include <cstddef>
    #include <vector>
+   #include <string>
    
    namespace gpa {
    
@@ -43,6 +44,8 @@ Program Listing for File stream-data.h
    class Keyframe;
    struct StreamInfoHeader;
    struct QueueHeader;
+   struct StreamCaptureArgsInfo;
+   struct DeviceFeatureInfo;
    }  // namespace metadata
    
    class Stream;
@@ -89,6 +92,9 @@ Program Listing for File stream-data.h
        uint64_t GetKeyframeCount(bool includeDeferred) const;
        std::vector<serialization::metadata::QueueHeader> const& GetQueuesMetadata() const;
        char const* GetCapturedProcessName() const;
+       serialization::metadata::StreamCaptureArgsInfo const* GetStreamCaptureArgInfo(size_t index) const;
+       size_t GetStreamCaptureHistoryCount() const;
+       serialization::metadata::DeviceFeatureInfo* GetDeviceFeatureInfo() const;
    
    private:
        gpa::serialization::Stream* mStream;

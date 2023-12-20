@@ -1,0 +1,125 @@
+
+.. _program_listing_file_include_metrics_gpu-device.h:
+
+Program Listing for File gpu-device.h
+=====================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_metrics_gpu-device.h>` (``include\metrics\gpu-device.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /*
+       Copyright (c) 2023 Intel Corporation.
+   
+       This software and the related documents are Intel copyrighted materials,
+       and your use of them is governed by the express license under which they
+       were provided to you ("License"). Unless the License provides otherwise,
+       you may not use, modify, copy, publish, distribute, disclose or transmit
+       this software or the related documents without Intel's prior written
+       permission.
+   
+       This software and the related documents are provided as is, with no express
+       or implied warranties, other than those that are expressly stated in the
+       License.
+   */
+   
+   #pragma once
+   
+   #include "metrics/metrics-config.h"
+   
+   #include "metrics/gpu-id.h"
+   #include "metrics/gpu-id-helpers.h"
+   #include "metrics/types.h"
+   
+   #include <cstdint>
+   
+   namespace gpa {
+   namespace metrics {
+   
+   struct GPA_METRICS_CLASS_EXPORT GlobalSymbol
+   {
+       enum StringLength : uint16_t {
+           kSymbolicNameLength = 128,
+       };
+   
+       // Stucture that contains a global symbol value.
+       struct Value
+       {
+           enum class Type {
+               kArrayUint8,
+               kBool,
+               kFloat,
+               kRangeUint32,
+               kRangeUint64,
+               kString,
+               kUint32,
+               kUint64,
+   
+               kCount,                  
+               kInvalid = Type::kCount  
+           };
+   
+           struct ArrayUint8
+           {
+               uint32_t count;  
+               uint8_t* pData;  
+           };
+   
+           struct RangeUint32
+           {
+               uint32_t min;
+               uint32_t max;
+           };
+   
+           struct RangeUint64
+           {
+               uint32_t min;
+               uint32_t max;
+           };
+   
+           Type type;  
+           union
+           {
+               ArrayUint8 arrayUint8;  
+               bool bool32;
+               char* pString;  
+               float float32;
+               RangeUint32 rangeUint32;
+               RangeUint64 rangeUint64;
+               uint32_t uint32;
+               uint64_t uint64;
+           } data;  
+       };
+   
+       char symbolicName[StringLength::kSymbolicNameLength];  //<! Name of the global symbol.
+       Value value;                                           
+   };
+   
+   class GPA_METRICS_CLASS_EXPORT IGpuDevice
+   {
+   public:
+       virtual ~IGpuDevice();
+   
+       virtual uint32_t NumGlobalSymbols() const = 0;
+   
+       virtual Result GetGlobalSymbol(
+           uint32_t const symbolIndex,
+           GlobalSymbol* const pSymbol) const = 0;
+   
+       virtual Result GetGpuInfo(GpuInfo* pGpuInfo) const = 0;
+   
+       // TODO: Move MDAPIMetricsSource's EnableGpuFrequencyOverride and DisableGpuFrequencyOverride functions here to make them globally available. Then Use the actual override at a higher level than on each MdApi query manager initialization.
+       // Result EnableFrequencyOverride(float percentOfMaximumMHz, bool* pWasPreviouslyEnabled);
+       // Result DisableFrequencyOverride();
+   };
+   
+   GPA_METRICS_EXPORT
+   IGpuDevice* CreateGpuDevice(gpa::metrics::GpuId const& gpuId);
+   
+   GPA_METRICS_EXPORT
+   void DestroyGpuDevice(IGpuDevice* pGpuDevice);
+   
+   }  // namespace metrics
+   }  // namespace gpa

@@ -39,6 +39,10 @@ Program Listing for File endpoint.h
    public:
        virtual ~Endpoint();
    
+       virtual bool WaitRead(uint64_t readLengthInBytes) = 0;
+   
+       virtual bool IsWaitingOnRead() = 0;
+   
        virtual uint64_t Read(void* destBuffer, uint64_t readLengthInBytes) = 0;
    
        virtual uint64_t Write(void const* srcBuffer, uint64_t writeLengthInBytes) = 0;
@@ -48,6 +52,10 @@ Program Listing for File endpoint.h
        virtual void Shutdown() = 0;
    
        virtual uint64_t Handle() const = 0;
+   
+       virtual uint64_t EventHandle() const = 0;
+   
+       virtual bool IsEndpointBroken() const = 0;
    };
    
    }  // namespace network

@@ -58,7 +58,7 @@ Program Listing for File shader-profile-extractor.h
    {
    }
    
-   inline ShaderStage ResolveShaderStage(gpa::shader_profiler::ShaderStage type)
+   inline ShaderStage ConvertShaderStageSPToRainier(gpa::shader_profiler::ShaderStage type)
    {
        switch (type) {
        case gpa::shader_profiler::ShaderStage::kVertex:
@@ -84,7 +84,33 @@ Program Listing for File shader-profile-extractor.h
        }
    }
    
-   inline api_types::ShaderLanguage ResolveShaderLanguage(gpa::shader_profiler::ShaderLanguage type)
+   inline gpa::shader_profiler::ShaderStage ConvertShaderStageFlagBitsRainierToSP(gpa::api_types::ShaderStageFlagBits type)
+   {
+       switch (type) {
+       case gpa::api_types::ShaderStageFlagBits::GPA_SHADER_STAGE_VERTEX:
+           return gpa::shader_profiler::ShaderStage::kVertex;
+       case gpa::api_types::ShaderStageFlagBits::GPA_SHADER_STAGE_HULL:
+           return gpa::shader_profiler::ShaderStage::kHull;
+       case gpa::api_types::ShaderStageFlagBits::GPA_SHADER_STAGE_DOMAIN:
+           return gpa::shader_profiler::ShaderStage::kDomain;
+       case gpa::api_types::ShaderStageFlagBits::GPA_SHADER_STAGE_GEOMETRY:
+           return gpa::shader_profiler::ShaderStage::kGeometry;
+       case gpa::api_types::ShaderStageFlagBits::GPA_SHADER_STAGE_MESH:
+           return gpa::shader_profiler::ShaderStage::kMesh;
+       case gpa::api_types::ShaderStageFlagBits::GPA_SHADER_STAGE_FRAGMENT:
+           return gpa::shader_profiler::ShaderStage::kFragment;
+       case gpa::api_types::ShaderStageFlagBits::GPA_SHADER_STAGE_COMPUTE:
+           return gpa::shader_profiler::ShaderStage::kCompute;
+       case gpa::api_types::ShaderStageFlagBits::GPA_SHADER_STAGE_DXIL_LIBRARY:
+           return gpa::shader_profiler::ShaderStage::kLibrary;
+       case gpa::api_types::ShaderStageFlagBits::GPA_SHADER_STAGE_AMPLIFICATION:
+           return gpa::shader_profiler::ShaderStage::kAmplification;
+       default:
+           return gpa::shader_profiler::ShaderStage::kShaderStageInvalid;
+       }
+   }
+   
+   inline api_types::ShaderLanguage ConvertShaderLanguageSPToRainier(gpa::shader_profiler::ShaderLanguage type)
    {
        switch (type) {
        case gpa::shader_profiler::ShaderLanguage::kDXBC:

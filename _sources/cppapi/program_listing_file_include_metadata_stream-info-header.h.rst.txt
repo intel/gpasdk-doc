@@ -81,9 +81,14 @@ Program Listing for File stream-info-header.h
        uint64_t tscHz;
    };
    
-   struct StreamInfoHeader : public StreamInfoHeaderVer1
+   struct StreamInfoHeaderVer2 : public StreamInfoHeaderVer1
    {
        uint64_t streamFlags;
+   };
+   
+   struct StreamInfoHeader : public StreamInfoHeaderVer2
+   {
+       char gpaBuildName[16];
    };
    
    enum StreamFlagBits : uint64_t {

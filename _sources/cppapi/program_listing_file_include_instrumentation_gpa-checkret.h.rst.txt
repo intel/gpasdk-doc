@@ -1,0 +1,119 @@
+
+.. _program_listing_file_include_instrumentation_gpa-checkret.h:
+
+Program Listing for File gpa-checkret.h
+=======================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_instrumentation_gpa-checkret.h>` (``include\instrumentation\gpa-checkret.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   Copyright (c) 2023 Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   #ifdef _WIN32
+   #include "windows.h"
+   #include "debugapi.h"
+   #else
+   #include <syslog.h>
+   #include <string>
+   #include <algorithm>
+   #endif
+   
+   #include "gpa-singleton.h"
+   #include "gpa-secure.h"
+   #include <cstdlib>
+   #include <iostream>
+   #include <string.h>
+   
+   #ifdef _MSC_VER
+   #define __PRETTY_FUNCTION__ __FUNCSIG__
+   #endif
+   
+   namespace gpa {
+   namespace checkret {
+   struct IReporter
+   {
+       virtual void Report(const char* message) = 0;
+       static IReporter& DefaultReporter()
+       {
+           class CDefaultReporter : public IReporter
+           {
+               void DebugString(const char* message)
+               {
+   #ifdef _WIN32
+                   OutputDebugStringA(message);
+   #else
+                   openlog("GPA", LOG_PID | LOG_CONS, LOG_USER);
+                   syslog(LOG_DEBUG, "%s", message);
+                   closelog();
+   #endif
+               }
+               virtual void Report(const char* message)
+               {
+                   DebugString(message);
+                   const char* env = std::getenv("GPA_CHECKRET");
+                   if (!env) {
+                       return;
+                   }
+                   if (strstr(env, "stderr")) {
+                       std::cerr << message;
+                   }
+                   if (strstr(env, "stdout")) {
+                       std::cout << message;
+                   }
+                   if (strstr(env, "assert")) {
+   #ifdef _WIN32
+                       ::MessageBoxA(nullptr, message, "GPA_CHECKRET", MB_OK);
+   #else
+                       std::string msg = message;
+                       std::replace(msg.begin(), msg.end(), '"', '\'');
+                       msg = std::string("xmessage -center \"") + msg + "\"";
+                       int res = system(msg.c_str());  //FIXME: fallback on zenity
+                       (void)res;
+   #endif
+                   }
+               }
+           };
+           static CDefaultReporter reporter;
+           return reporter;
+       }
+   };
+   
+   #define GPA_REPORT(fmt, ...)                                                                                                                                          \
+       {                                                                                                                                                                 \
+           gpa::checkret::IReporter* pReporter = (gpa::checkret::IReporter*)ProcessWideSingletonRegistry::Get("Reporter", &gpa::checkret::IReporter::DefaultReporter()); \
+           char* buff = (char*)alloca(1024);                                                                                                                             \
+           GPA_SPRINTF(buff, 1024, fmt, ##__VA_ARGS__);                                                                                                                  \
+           pReporter->Report(buff);                                                                                                                                      \
+       }
+   
+   #define GPA_CR_NRV ;
+   
+   #define GPA_CHECK_DO(cond, todo)                                                                  \
+       if (!(cond)) {                                                                                \
+           GPA_REPORT("%s(%d): error: %s | \t %s\n", __FILE__, __LINE__, __PRETTY_FUNCTION__, #cond) \
+           todo;                                                                                     \
+       }
+   
+   #define GPA_CHECK_RET(cond, ret) GPA_CHECK_DO(cond, return ret)
+   
+   }  // namespace checkret
+   }  // namespace gpa

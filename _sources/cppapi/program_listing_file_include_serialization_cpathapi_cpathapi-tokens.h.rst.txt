@@ -31,7 +31,6 @@ Program Listing for File cpathapi-tokens.h
    namespace serialization {
    namespace cpathapi {
    enum ClassToken : uint16_t {
-       kIResource = 0xc21f,
    };
    enum FunctionToken : uint32_t {
        kNoParameter = 0x39556429,
@@ -57,22 +56,11 @@ Program Listing for File cpathapi-tokens.h
        kNullTerminatedPointerToPrimitiveStructParameter = 0xc7a3e4fa,
        kEndElementTerminatedPointerToPrimitiveStructParameter = 0x87b87b88,
        kEndElementTerminatedPointerToPrimitiveStructParameterNoAnnotation = 0xdecbb98a,
-       kOutputInterfaceParameter = 0x7c528104,
-       kOutputInterfaceParameter1 = 0xb9e1197d,
-       kOutputInterfaceParameter2 = 0xb9e1197e,
-       kOutputInterfaceParameterWithEnum = 0x6da2d4bb,
-       kInterfaceParameter = 0x95bbaa43,
-       kInterfaceParameterArrayWithSize = 0xc4596d5,
-       kOutputArrayInterfaceParameter = 0x73055537,
        kBlobParameter = 0xabab334d,
        kConstBlobParameter = 0xf003cc8c,
        kNullTerminatedStringParameter = 0x33f7c40b,
        kOutputPointerWithSizeParameter = 0x593fdff,
-       kDataPointerParameter_DependentOnResource = 0x6609e2fe,
-       kArrayParameterWithLengthToCalculate = 0x330c89d2,
        kPointerToStructWithArrayParameter = 0xa8334160,
-       kPointerToStructWithInterfaceParameter = 0xeb889f06,
-       kPointerToStructWithUnionWithSizeParameter = 0x13aa1b13,
        kDataPointerInStructArrayCountInStructPointerParameter = 0x672f76f4,
        kNullTerminatedStringInStructArrayInStructInPointerStructParameter = 0x5813d315,
        kEnumInFunctionCallParameter = 0xf7ce77fc,
@@ -80,12 +68,6 @@ Program Listing for File cpathapi-tokens.h
        kReferencedEnumInReferencedStructCallParameter = 0x4f9d54cd,
        kPrimitiveReturnValue = 0x713a0721,
        kPritiveStructReturnValue = 0x39e6c202,
-       kInterfaceReturnValue = 0xbbffc253,
-       kGetSize = 0x97cbb78,
-       kGetHeight = 0xad1b7f9a,
-       kMap = 0x3e2ff325,
-       kUnmap = 0xcfcd4902,
-       kPrintContent = 0x118d9b3d,
    };
    inline char const* FunctionTokenToString(FunctionToken functionToken)
    {
@@ -114,22 +96,11 @@ Program Listing for File cpathapi-tokens.h
            case kNullTerminatedPointerToPrimitiveStructParameter: return "kNullTerminatedPointerToPrimitiveStructParameter"; break;
            case kEndElementTerminatedPointerToPrimitiveStructParameter: return "kEndElementTerminatedPointerToPrimitiveStructParameter"; break;
            case kEndElementTerminatedPointerToPrimitiveStructParameterNoAnnotation: return "kEndElementTerminatedPointerToPrimitiveStructParameterNoAnnotation"; break;
-           case kOutputInterfaceParameter: return "kOutputInterfaceParameter"; break;
-           case kOutputInterfaceParameter1: return "kOutputInterfaceParameter1"; break;
-           case kOutputInterfaceParameter2: return "kOutputInterfaceParameter2"; break;
-           case kOutputInterfaceParameterWithEnum: return "kOutputInterfaceParameterWithEnum"; break;
-           case kInterfaceParameter: return "kInterfaceParameter"; break;
-           case kInterfaceParameterArrayWithSize: return "kInterfaceParameterArrayWithSize"; break;
-           case kOutputArrayInterfaceParameter: return "kOutputArrayInterfaceParameter"; break;
            case kBlobParameter: return "kBlobParameter"; break;
            case kConstBlobParameter: return "kConstBlobParameter"; break;
            case kNullTerminatedStringParameter: return "kNullTerminatedStringParameter"; break;
            case kOutputPointerWithSizeParameter: return "kOutputPointerWithSizeParameter"; break;
-           case kDataPointerParameter_DependentOnResource: return "kDataPointerParameter_DependentOnResource"; break;
-           case kArrayParameterWithLengthToCalculate: return "kArrayParameterWithLengthToCalculate"; break;
            case kPointerToStructWithArrayParameter: return "kPointerToStructWithArrayParameter"; break;
-           case kPointerToStructWithInterfaceParameter: return "kPointerToStructWithInterfaceParameter"; break;
-           case kPointerToStructWithUnionWithSizeParameter: return "kPointerToStructWithUnionWithSizeParameter"; break;
            case kDataPointerInStructArrayCountInStructPointerParameter: return "kDataPointerInStructArrayCountInStructPointerParameter"; break;
            case kNullTerminatedStringInStructArrayInStructInPointerStructParameter: return "kNullTerminatedStringInStructArrayInStructInPointerStructParameter"; break;
            case kEnumInFunctionCallParameter: return "kEnumInFunctionCallParameter"; break;
@@ -137,12 +108,6 @@ Program Listing for File cpathapi-tokens.h
            case kReferencedEnumInReferencedStructCallParameter: return "kReferencedEnumInReferencedStructCallParameter"; break;
            case kPrimitiveReturnValue: return "kPrimitiveReturnValue"; break;
            case kPritiveStructReturnValue: return "kPritiveStructReturnValue"; break;
-           case kInterfaceReturnValue: return "kInterfaceReturnValue"; break;
-           case kGetSize: return "kGetSize"; break;
-           case kGetHeight: return "kGetHeight"; break;
-           case kMap: return "kMap"; break;
-           case kUnmap: return "kUnmap"; break;
-           case kPrintContent: return "kPrintContent"; break;
            default: return "Unknown cpathapi::FunctionToken";
        }
    
@@ -151,11 +116,6 @@ Program Listing for File cpathapi-tokens.h
    inline bool IsValidClassToken(ClassToken token)
    {
        (void)token;
-       switch (token)
-       {
-           case kIResource: return true;
-       }
-   
        return false;
    }
    
@@ -186,22 +146,11 @@ Program Listing for File cpathapi-tokens.h
            case kNullTerminatedPointerToPrimitiveStructParameter: return true;
            case kEndElementTerminatedPointerToPrimitiveStructParameter: return true;
            case kEndElementTerminatedPointerToPrimitiveStructParameterNoAnnotation: return true;
-           case kOutputInterfaceParameter: return true;
-           case kOutputInterfaceParameter1: return true;
-           case kOutputInterfaceParameter2: return true;
-           case kOutputInterfaceParameterWithEnum: return true;
-           case kInterfaceParameter: return true;
-           case kInterfaceParameterArrayWithSize: return true;
-           case kOutputArrayInterfaceParameter: return true;
            case kBlobParameter: return true;
            case kConstBlobParameter: return true;
            case kNullTerminatedStringParameter: return true;
            case kOutputPointerWithSizeParameter: return true;
-           case kDataPointerParameter_DependentOnResource: return true;
-           case kArrayParameterWithLengthToCalculate: return true;
            case kPointerToStructWithArrayParameter: return true;
-           case kPointerToStructWithInterfaceParameter: return true;
-           case kPointerToStructWithUnionWithSizeParameter: return true;
            case kDataPointerInStructArrayCountInStructPointerParameter: return true;
            case kNullTerminatedStringInStructArrayInStructInPointerStructParameter: return true;
            case kEnumInFunctionCallParameter: return true;
@@ -209,12 +158,6 @@ Program Listing for File cpathapi-tokens.h
            case kReferencedEnumInReferencedStructCallParameter: return true;
            case kPrimitiveReturnValue: return true;
            case kPritiveStructReturnValue: return true;
-           case kInterfaceReturnValue: return true;
-           case kGetSize: return true;
-           case kGetHeight: return true;
-           case kMap: return true;
-           case kUnmap: return true;
-           case kPrintContent: return true;
        }
    
        return false;

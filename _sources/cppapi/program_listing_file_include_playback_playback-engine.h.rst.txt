@@ -64,6 +64,11 @@ Program Listing for File playback-engine.h
        ShaderProfileExtractor* shaderProfileExtractor = nullptr;
    };
    
+   struct PlaybackEngineParameters
+   {
+       bool isShaderProfilerEnabled = true;
+   };
+   
    class PlaybackEngine
    {
    public:
@@ -72,6 +77,8 @@ Program Listing for File playback-engine.h
        ~PlaybackEngine();
    
        PlaybackEngine(RangePlayer* rangePlayer, Services* serviceOverrides);
+   
+       PlaybackEngine(RangePlayer* rangePlayer, Services* serviceOverrides, const PlaybackEngineParameters& parameters);
    
    public:
        MetadataExtractorEx const& GetMetadataExtractor() const;
