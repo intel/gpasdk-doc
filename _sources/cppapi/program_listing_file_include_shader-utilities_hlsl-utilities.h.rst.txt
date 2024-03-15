@@ -83,6 +83,13 @@ Program Listing for File hlsl-utilities.h
                     _Out_ ID3DBlob **ppDisassembly);
    
    /*
+    * @brief Function to extract shader ISA from a given shaderObject(D3D12PipelineState or ID3D11Shader*) 
+    * @details If successful, outShaderISA is populated with vendor specific isa string data for a requested shaderStage
+    * @returns true on success
+    */
+   bool ExtractShaderISA(IUnknown *shaderObject, api_types::ShaderStageFlagBits requestedShaderStage, std::string *outShaderISA);
+   
+   /*
     * @brief Helper function to determine the shading language of compiled DX shader bytecode.
     * @return An shader_utilities::ShaderLanguageType value representing the language of the bytecode
     */

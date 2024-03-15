@@ -120,6 +120,13 @@ Program Listing for File d3d12-resource.h
        bool mHasOptimizedClearValue = false;
        D3D12_CLEAR_VALUE const mOptimizedClearValue;
    
+       // enhanced barrier support
+       D3D12_BARRIER_LAYOUT mInitialLayout = D3D12_BARRIER_LAYOUT_UNDEFINED;
+       ID3D12ProtectedResourceSession* mProtectedSession = nullptr;
+       UINT32 mNumCastableFormats = 0;
+       std::vector<DXGI_FORMAT> mCastableFormats;
+       bool mHasEnhancedBarriers = false;
+   
        std::vector<std::function<void(ID3D12Resource*)>> mDirtyCallbacks;
        gpa::concurrent::CriticalSection mCriticalSection;
    
@@ -129,7 +136,17 @@ Program Listing for File d3d12-resource.h
    #if defined(NTDDI_WIN10_VB) && (NTDDI_VERSION >= NTDDI_WIN10_VB)
        D3D12ResourceState(ID3D12Resource* pResource, ID3D12Heap* pHeap, UINT64 HeapOffset, D3D12_RESOURCE_DESC1 const* pDesc, D3D12_RESOURCE_STATES initialResourceState, D3D12_CLEAR_VALUE const* pOptimizedClearValue, ResourceType type);
        D3D12ResourceState(ID3D12Resource* pResource, D3D12_RESOURCE_DESC1 const* pDesc, D3D12_RESOURCE_STATES initialResourceState, D3D12_CLEAR_VALUE const* pOptimizedClearValue, ResourceType type, IDXGISwapChain* parentSwapChain = nullptr, uint32_t backBufferIndex = UINT32_MAX);
-   #endif
+   #endif  // NTDDI_WIN10_VB
+   
+   #if defined(__ID3D12Device10_INTERFACE_DEFINED__)
+       // CreateCommittedResource3 support for enhanced barriers
+       D3D12ResourceState(ID3D12Resource* pResource, const D3D12_HEAP_PROPERTIES* pheapproperties, D3D12_HEAP_FLAGS HeapFlags, const D3D12_RESOURCE_DESC1* pDesc, D3D12_BARRIER_LAYOUT InitialLayout, const D3D12_CLEAR_VALUE* pOptimizedClearValue, ID3D12ProtectedResourceSession* pProtectedSession, UINT32 NumCastableFormats, DXGI_FORMAT const* pCastableFormats);
+       // CreatePlacedResource2 support for enhanced barriers
+       D3D12ResourceState(ID3D12Resource* pResource, ID3D12Heap* pHeap, UINT64 HeapOffset, const D3D12_RESOURCE_DESC1* pDesc, D3D12_BARRIER_LAYOUT InitialLayout, const D3D12_CLEAR_VALUE* pOptimizedClearValue, UINT32 NumCastableFormats, DXGI_FORMAT const* pCastableFormats);
+       // CreateReservedResource2 support for enhanced barriers
+       D3D12ResourceState(ID3D12Resource* pResource, const D3D12_RESOURCE_DESC* pDesc, D3D12_BARRIER_LAYOUT InitialLayout, const D3D12_CLEAR_VALUE* pOptimizedClearValue, ID3D12ProtectedResourceSession* pProtectedSession, UINT32 NumCastableFormats, DXGI_FORMAT const* pCastableFormats);
+   #endif  // __ID3D12Device10_INTERFACE_DEFINED__
+   
        ~D3D12ResourceState();
    
        GUID GetGUID() override;
@@ -175,6 +192,10 @@ Program Listing for File d3d12-resource.h
    
        bool IsResident();
    
+       bool IsTexture() const;
+   
+       bool IsCompressed() const;
+   
        D3D12_RESOURCE_STATES GetInitialResourceState();
    
        D3D12_CLEAR_VALUE const* GetOptimizedClearValue();
@@ -183,6 +204,12 @@ Program Listing for File d3d12-resource.h
    
        bool GPUVirtualAddressObtained() const;
        void GPUVirtualAddressObtained(bool val);
+   
+       bool HasEnhancedBarriers() const;
+       D3D12_BARRIER_LAYOUT GetInitialBarrierLayout() const;
+       UINT32 GetCastableFormatCount() const;
+       DXGI_FORMAT* GetCastableFormats();
+       ID3D12ProtectedResourceSession* GetProtectedResourceSession() const;
    };
    
    }  // namespace d3d12_state_tracker

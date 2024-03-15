@@ -28,50 +28,119 @@ Program Listing for File metrics-query-result.h
    
    #pragma once
    
+   #include "metrics/query-manager.h"
    #include "metrics/types.h"
    
    #include <cstdint>
+   #include <memory>
+   #include <vector>
    
    struct ResultsData;
    
    namespace gpa {
    
-   namespace metrics {
-   class IMetricGroup;
-   struct QueryReport;
-   }  // namespace metrics
-   
    namespace data_collection {
+   
+   class MetricsQueryResultCompatible;
    
    class MetricsQueryResult
    {
    public:
+       typedef std::shared_ptr<MetricsQueryResult> Ptr;
+   
        MetricsQueryResult(
-           metrics::IMetricGroup const** metricGroups,
-           uint64_t const* startingCompositeMetricIndexForMetricsSourcePerGroup,
-           uint64_t nGroups,
-           uint64_t nRanges);
+           uint64_t metricCountForMetricGroup,  // Note: A zero can be specified to create an empty MetricsQueryResult instance.
+           uint64_t startingGlobalMetricIndexForMetricGroup,
+           uint64_t const startingCompositeMetricIndexForMetricsSource,
+           uint64_t const rangeCount);
        MetricsQueryResult(MetricsQueryResult&& other);
-       ~MetricsQueryResult();
+       virtual ~MetricsQueryResult();
    
        uint32_t const* QueryReports(metrics::QueryReport const* const** ppQueryReportPointerArray) const;
-       metrics::MetricValue const* RangeResults(uint64_t groupIndex, uint64_t metricIndexInGroup) const;
-       metrics::MetricValue const* RangeResults(uint64_t compositeMetricIndex) const;
    
        uint64_t GetRangeCount();
+       metrics::MetricValue const* RangeResults(uint64_t metricIndex,
+                                                bool isCompositeMetricIndex = true) const;
+   
+   protected:
+       uint64_t mMetricCount;                                   
+       uint64_t mStartingGlobalMetricIndex;                     
+       uint64_t mStartingCompositeMetricIndexForMetricsSource;  
+       uint64_t mRangeCount;                                    
+       metrics::MetricValue* mpMetricValueResultsArray;         
+       metrics::QueryReport** mpQueryReportPointerArray;        
+       uint32_t mQueryReportPointersUsedCount;                  
+   
+       MetricsQueryResult() = delete;
+       MetricsQueryResult(MetricsQueryResult const&) = delete;
+       MetricsQueryResult& operator=(MetricsQueryResult const&) = delete;
+   
+       friend class MetricsQueryResultCompatible;
+   };
+   
+   class MetricsQueryResultCompatible : virtual public MetricsQueryResult
+   {
+   public:
+       typedef std::shared_ptr<MetricsQueryResultCompatible> Ptr;
+   
+       MetricsQueryResultCompatible(MetricsQueryResult const& other);
+       virtual ~MetricsQueryResultCompatible();
+   
+       bool AddQueryReport(metrics::QueryReport const& queryReport);
+       void RemoveAllQueryReports();
+   
+       uint32_t* QueryReports(metrics::QueryReport*** ppQueryReportPointerArray);
+   
+       metrics::MetricValue* RangeResults(uint64_t metricIndex, bool isCompositeMetricIndex = true);
    
    private:
-       uint64_t mGroupCount;
-       uint64_t mRangeCount;
-       uint64_t* mMetricsPerGroup;
-       uint64_t* mStartingCompositeMetricIndexPerGroup;
-       ResultsData* mResultsData;
-       metrics::QueryReport** mQueryReportPointerArray;
-       uint32_t mQueryReportPointersUsedCount;
+       std::vector<metrics::QueryReport> mQueryReportVector;  
    
-       MetricsQueryResult(MetricsQueryResult const& other) = delete;
-       MetricsQueryResult& operator=(MetricsQueryResult const& other) = delete;
+       MetricsQueryResultCompatible() = delete;
+       MetricsQueryResultCompatible(MetricsQueryResultCompatible const&) = delete;
+       MetricsQueryResultCompatible& operator=(MetricsQueryResultCompatible const&) = delete;
    };
+   
+   inline MetricsQueryResultCompatible::MetricsQueryResultCompatible(MetricsQueryResult const& other)
+       : MetricsQueryResult(
+             other.mMetricCount,
+             other.mStartingGlobalMetricIndex,
+             other.mStartingCompositeMetricIndexForMetricsSource,
+             other.mRangeCount)
+   {
+       mQueryReportVector.reserve(other.mRangeCount);
+   }
+   
+   inline MetricsQueryResultCompatible::~MetricsQueryResultCompatible()
+   {
+   }
+   
+   inline bool MetricsQueryResultCompatible::AddQueryReport(metrics::QueryReport const& queryReport)
+   {
+       if (mQueryReportPointersUsedCount < mRangeCount) {
+           mQueryReportVector.push_back(queryReport);
+           mpQueryReportPointerArray[mQueryReportPointersUsedCount++] = &mQueryReportVector[mQueryReportVector.size() - 1];
+           return true;
+       }
+   
+       return false;
+   }
+   
+   inline void MetricsQueryResultCompatible::RemoveAllQueryReports()
+   {
+       mQueryReportPointersUsedCount = 0;
+       mQueryReportVector.clear();
+   }
+   
+   inline uint32_t* MetricsQueryResultCompatible::QueryReports(metrics::QueryReport*** ppQueryReportPointerArray)
+   {
+       return const_cast<uint32_t*>(MetricsQueryResult::QueryReports(const_cast<metrics::QueryReport const* const**>(ppQueryReportPointerArray)));
+   }
+   
+   inline metrics::MetricValue* MetricsQueryResultCompatible::RangeResults(uint64_t metricIndex, bool isCompositeMetricIndex)
+   {
+       return const_cast<metrics::MetricValue*>(MetricsQueryResult::RangeResults(metricIndex, isCompositeMetricIndex));
+   }
    
    }  // namespace data_collection
    }  // namespace gpa

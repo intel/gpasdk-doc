@@ -57,6 +57,10 @@ Program Listing for File playback/resource-info/to-string.h
    #include "playback/resource-info/texture-info.h"
    #include "playback/resource-info/view-info.h"
    
+   #if defined(HAVE_DIRECTX)
+   #include "shader-utilities/shader-utilities-dx.h"
+   #endif
+   
    namespace gpa {
    namespace detail {
    
@@ -220,7 +224,23 @@ Program Listing for File playback/resource-info/to-string.h
        WriteArrayFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pEntryPoints", obj.entryPointCount, obj.pEntryPoints) << "," << NewLineStr(strFmtFlags);
        WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pSourceCode", obj.pSourceCode) << "," << NewLineStr(strFmtFlags);
        WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "byteCodeSize", obj.byteCodeSize) << "," << NewLineStr(strFmtFlags);
-       WriteBinaryDataFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pByteCode", obj.byteCodeSize, obj.pByteCode);
+       WriteBinaryDataFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pByteCode", obj.byteCodeSize, obj.pByteCode) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "compilationFlags", obj.compilationFlags);
+   
+   #if defined(HAVE_DIRECTX)
+       strStr << "," << NewLineStr(strFmtFlags);
+   
+       std::vector<std::string> readableFlags = gpa::shader_utilities::StringifyDirectXShaderCompilerFlags(obj.compilationFlags);
+   
+       strStr << TabStr(strFmtFlags, tabCount, tabSize) << "\"Decoded Flags (not in original datastructure, for readability only)\":{" << NewLineStr(strFmtFlags);
+       for (auto flag : readableFlags) {
+           strStr << TabStr(strFmtFlags, tabCount + 1, tabSize) << flag << "," << NewLineStr(strFmtFlags);
+       }
+       strStr << TabStr(strFmtFlags, tabCount, tabSize) << "}";
+   #else
+       strStr << NewLineStr(strFmtFlags);
+   #endif
+   
        return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
    }
    
@@ -910,8 +930,6 @@ Program Listing for File playback/resource-info/to-string.h
        WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "blendState", obj.blendState) << "," << NewLineStr(strFmtFlags);
        WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "rasterizerState", obj.rasterizerState) << "," << NewLineStr(strFmtFlags);
        WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "depthStencilState", obj.depthStencilState) << "," << NewLineStr(strFmtFlags);
-       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "viewportState", obj.viewportState) << "," << NewLineStr(strFmtFlags);
-       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "scissorRectState", obj.scissorRectState) << "," << NewLineStr(strFmtFlags);
        WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "primitiveTopology", obj.primitiveTopology) << "," << NewLineStr(strFmtFlags);
        return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
    }
@@ -1002,10 +1020,6 @@ Program Listing for File playback/resource-info/to-string.h
            auto pResourceTransferInfo = obj.As<ResourceTransferInfo>();
            return pResourceTransferInfo ? ToString(*pResourceTransferInfo, strFmtFlags, tabCount, tabSize) : "{ }";
        }
-       case ResourceInfo::Ex::GetTypeId<ScissorRectInfo>(): {
-           auto pScissorRectInfo = obj.As<ScissorRectInfo>();
-           return pScissorRectInfo ? ToString(*pScissorRectInfo, strFmtFlags, tabCount, tabSize) : "{ }";
-       }
        case ResourceInfo::Ex::GetTypeId<ShadingRateImageInfo>(): {
            auto pShadingRateImageInfo = obj.As<ShadingRateImageInfo>();
            return pShadingRateImageInfo ? ToString(*pShadingRateImageInfo, strFmtFlags, tabCount, tabSize) : "{ }";
@@ -1017,10 +1031,6 @@ Program Listing for File playback/resource-info/to-string.h
        case ResourceInfo::Ex::GetTypeId<VertexBufferInfo>(): {
            auto pVertexBufferInfo = obj.As<VertexBufferInfo>();
            return pVertexBufferInfo ? ToString(*pVertexBufferInfo, strFmtFlags, tabCount, tabSize) : "{ }";
-       }
-       case ResourceInfo::Ex::GetTypeId<ViewportInfo>(): {
-           auto pViewportInfo = obj.As<ViewportInfo>();
-           return pViewportInfo ? ToString(*pViewportInfo, strFmtFlags, tabCount, tabSize) : "{ }";
        }
        case ResourceInfo::Ex::GetTypeId<RaygenShaderTableInfo>(): {
            auto pShaderTableInfo = obj.As<ShaderTableInfo>();

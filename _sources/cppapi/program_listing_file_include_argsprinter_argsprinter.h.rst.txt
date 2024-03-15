@@ -137,6 +137,10 @@ Program Listing for File argsprinter.h
    inline void PrintPrimitiveArray(T* array, size_t size, std::string srcName, std::ostream& os, size_t indent)
    {
        std::string indentString(indent * 4, ' ');
+       if (array == nullptr) {
+           os << "nullptr instead of array" << std::endl;
+           return;
+       }
        os << indentString << srcName << ": [ ";
        for (size_t ii = 0; ii < size; ++ii) {
            os << array[ii] << ", ";

@@ -31,6 +31,7 @@ Program Listing for File d3d12-graphicscommandlist.h
    #include "d3d12-object.h"
    #include "d3d12-descriptorheap.h"  // DX12Descriptor
    #include "d3d12-commandallocator.h"
+   #include "d3d12-commandlist-debug.h"
    #include "concurrent/critical-section.h"
    
    #include <vector>
@@ -263,6 +264,8 @@ Program Listing for File d3d12-graphicscommandlist.h
    
        bool mIsRecording = false;
    
+       std::unique_ptr<D3D12GraphicsCommandListExtendedState> mExtendedState = nullptr;
+   
    public:
        D3D12GraphicsCommandListState(ID3D12GraphicsCommandList *pList, UINT nodeMask, D3D12_COMMAND_LIST_TYPE type, ID3D12CommandAllocator *pCommandAllocator, ID3D12PipelineState *pInitialState);
        D3D12GraphicsCommandListState(D3D12GraphicsCommandListState const &) = delete;
@@ -270,6 +273,9 @@ Program Listing for File d3d12-graphicscommandlist.h
        ~D3D12GraphicsCommandListState() override;
    
        GUID GetGUID() override;
+   
+       D3D12GraphicsCommandListExtendedState *GetExtendedState();
+       void InitializeExtendedState();
    
        void OnResourceBarrier(UINT NumBarriers, const D3D12_RESOURCE_BARRIER *pBarriers);
        void OnReset(ID3D12CommandAllocator *allocator, ID3D12PipelineState *pipelineState);

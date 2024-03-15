@@ -1,0 +1,98 @@
+
+.. _program_listing_file_include_d3d12-state-tracking_d3d12-commandlist-debug.h:
+
+Program Listing for File d3d12-commandlist-debug.h
+==================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_d3d12-state-tracking_d3d12-commandlist-debug.h>` (``include\d3d12-state-tracking\d3d12-commandlist-debug.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   2023 (c) Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   #pragma once
+   #include "d3d12-object.h"
+   #include "d3d12-commandsignature.h"
+   #include <guiddef.h>
+   #include <d3d12.h>
+   #include <map>
+   
+   namespace gpa {
+   namespace d3d12_state_tracker {
+   
+   enum D3D12CmdListCallType {
+       EXECUTE_INDIRECT,
+       DISPATCH_RAYS
+   };
+   
+   struct ExecuteIndirectExtendedData
+   {
+       ID3D12CommandSignature *pCmdSignature;
+   };
+   
+   struct D3D12CommandListCallExtendedData
+   {
+       D3D12CmdListCallType CallType;
+       union
+       {
+           ExecuteIndirectExtendedData ExecuteIndirectData;
+       };
+   };
+   
+   class D3D12GraphicsCommandListExtendedState : public D3D12ObjectState
+   {
+   private:
+       using TimestampValue = uint64_t;
+       using StreamCallIndex = uint64_t;
+       using FenceValue = uint64_t;
+   
+       std::map<StreamCallIndex, D3D12CommandListCallExtendedData> mCmdListCalls;
+       struct Boundary
+       {
+           StreamCallIndex streamCallIndex;
+           FenceValue fenceValue;
+       };
+       std::map<TimestampValue, Boundary> mCmdListBoundaries;
+   
+       ID3D12Fence *mFence = nullptr;
+       uint64_t mFenceValue = 0;
+   
+   public:
+       static constexpr GUID sGUID = {0x5826d1e1, 0x5c8c, 0x4fab, {0x82, 0xfa, 0xb1, 0x34, 0xf9, 0x8e, 0xea, 0x7c}};
+   
+   private:
+       void TrimHistory();
+   
+   public:
+       D3D12GraphicsCommandListExtendedState(ID3D12GraphicsCommandList *pList);
+       virtual ~D3D12GraphicsCommandListExtendedState();
+   
+       GUID GetGUID() override;
+   
+       void OnExecuteIndirect(uint64_t globalIndex, ID3D12CommandSignature *pCommandSignature, UINT MaxCommandCount, ID3D12Resource *pArgumentBuffer, UINT64 ArgumentBufferOffset, ID3D12Resource *pCountBuffer, UINT64 CountBufferOffset);
+       void OnClose(uint64_t globalIndex);
+       void OnReset(uint64_t globalIndex);
+       void PostExecute(uint64_t globalIndex, ID3D12CommandQueue *queue);
+       void OnCompleted(uint64_t submissionTimestamp);
+   
+       D3D12CommandListCallExtendedData const *GetExtendedCallData(uint64_t globalCallIndex);
+   };
+   
+   }  // namespace d3d12_state_tracker
+   }  // namespace gpa

@@ -29,8 +29,12 @@ Program Listing for File d3d12-commandqueue.h
    
    #pragma once
    #include "d3d12-object.h"
+   #include "concurrent/critical-section.h"
+   #include <atlbase.h>
    #include <guiddef.h>
    #include <d3d12.h>
+   #include <map>
+   #include <vector>
    
    namespace gpa {
    namespace d3d12_state_tracker {
@@ -42,14 +46,36 @@ Program Listing for File d3d12-commandqueue.h
    private:
        D3D12DeviceState* mDeviceStateObj = nullptr;
    
+       using SignalValue = uint64_t;
+   
+       struct ExecutionEntry
+       {
+           uint64_t timestamp;
+   
+           std::vector<WeakPtr<ID3D12CommandList>> commandLists;
+       };
+   
+       std::map<SignalValue, ExecutionEntry> mExecutions;
+   
+       CComPtr<ID3D12Fence> mFence;
+       SignalValue mFenceValue = 0;
+   
+       concurrent::CriticalSection mCmdListsCriticalSection;
+   
    public:
        static constexpr GUID sGUID = {0x898876b1, 0x7ff1, 0x4ca7, {0x99, 0x40, 0x82, 0xab, 0xde, 0x9, 0x76, 0x31}};
+   
+   private:
+       void ClearCompletedExecutions();
    
    public:
        D3D12CommandQueueState(ID3D12CommandQueue* runtimeObj);
        D3D12CommandQueueState(D3D12CommandQueueState const&) = delete;
        D3D12CommandQueueState& operator=(D3D12CommandQueueState const&) = delete;
        virtual ~D3D12CommandQueueState();
+   
+       void PostExecuteCommandLists(UINT NumCommandLists, ID3D12CommandList* const* ppCommandLists);
+       void EnumerateCommandListsInExecution(std::function<void(ID3D12CommandList*)>);
    };
    
    }  // namespace d3d12_state_tracker
