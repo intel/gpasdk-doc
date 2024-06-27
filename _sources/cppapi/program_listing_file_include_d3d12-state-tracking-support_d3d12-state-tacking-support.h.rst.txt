@@ -34,6 +34,14 @@ Program Listing for File d3d12-state-tacking-support.h
    namespace gpa {
    namespace d3d12_state_tracker {
    
+   enum D3D12StateTrackerFeature : uint32_t {
+       D3D12ST_FEATURE_TRACK_DESCRIPTORS = 0x1,
+       D3D12ST_ALL_FEATURES = (uint32_t)-1
+   };
+   
+   GPA_EXPORT void EnableStateTrackerFeature(D3D12StateTrackerFeature feature);
+   GPA_EXPORT bool IsStateTrackerFeatureEnabled(D3D12StateTrackerFeature feature);
+   
    class D3D12DescriptorHeapState;
    class D3D12ResourceState;
    

@@ -34,6 +34,7 @@ Program Listing for File d3d12-playback-support.h
    #include <atomic>
    #include <vector>
    #include <map>
+   #include <unordered_map>
    #include <array>
    #include <memory>
    #include <string>
@@ -88,6 +89,7 @@ Program Listing for File d3d12-playback-support.h
        {
            uint32_t uniqueSequentialID = 0;
            uint32_t incrementSize = 0;
+           uint32_t captureIncrementSize = 0;
            D3D12_DESCRIPTOR_HEAP_TYPE descriptorHeapType = D3D12_DESCRIPTOR_HEAP_TYPE_NUM_TYPES;
            D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle{};
            D3D12_GPU_DESCRIPTOR_HANDLE gpuHandle{};
@@ -145,6 +147,8 @@ Program Listing for File d3d12-playback-support.h
        void MutePlaybackSizeMismatchMessages();
    
        // Suboptimal cross platform related
+       bool UseAccelerationStructureReplacements() const;
+       void EnableAccelerationStructureReplacements();
        void RegisterAccelerationStructureReplacement(D3D12_GPU_VIRTUAL_ADDRESS org, D3D12_GPU_VIRTUAL_ADDRESS replacement);
        void UnregisterAccelerationStructureReplacement(D3D12_GPU_VIRTUAL_ADDRESS org);
        void TranslateD3D12GPUVirtualAddressSkipASReplacement(D3D12_GPU_VIRTUAL_ADDRESS& address);
@@ -152,7 +156,7 @@ Program Listing for File d3d12-playback-support.h
        std::map<D3D12_GPU_VIRTUAL_ADDRESS, D3D12_GPU_VIRTUAL_ADDRESS> const& D3D12PlaybackSupport::GetGpuVirtualAddressASReplacementMap() const;
        uint64_t D3D12PlaybackSupport::GetGpuVirtualAddressASReplacementMapUpdateTimestamp() const;
        // End of suboptimal
-       
+   
        // Optimal cross platform related
        cross_gpu::playback::D3D12ResourcePlacementManager* GetOrCreateResourcePlacementManager(cross_gpu::TObjectKey deviceKey);
        cross_gpu::playback::D3D12AccelerationStructurePlacementManager* GetAccelerationStructurePlacementManager();
@@ -160,7 +164,7 @@ Program Listing for File d3d12-playback-support.h
    
    private:
        bool TranslateAccelerationStructureGPUVirtualAddress(D3D12_GPU_VIRTUAL_ADDRESS& address);
-       void TranslateD3D12GPUVirtualAddressInternal(D3D12_GPU_VIRTUAL_ADDRESS& address, bool skipASreplacementMap);
+       void TranslateD3D12GPUVirtualAddressInternal(D3D12_GPU_VIRTUAL_ADDRESS& address, bool useASreplacementMap);
    
        struct HandleTypeAndValue
        {
@@ -183,6 +187,8 @@ Program Listing for File d3d12-playback-support.h
        RWLock mResourceByCaptureAddressLock;
    
        std::map<uint64_t, D3D12_GPU_VIRTUAL_ADDRESS_RANGE> mResourceByCaptureAddress;
+       std::unordered_map<uint64_t, uint64_t> mResourceByCaptureAddressCache;
+   
        uint64_t mResourceByCaptureAddressUpdateTimestamp = 0;
        std::map<D3D12_GPU_VIRTUAL_ADDRESS, uint64_t> mHeapVirtualAddressToHeapKey;
    
@@ -195,6 +201,7 @@ Program Listing for File d3d12-playback-support.h
    
        bool sUseOldRaytracingPatching = false;
    
+       bool sUseAccelerationStructureReplacements = false;
        RWLock mAccelerationStructureReplacementsLock;
        std::map<D3D12_GPU_VIRTUAL_ADDRESS, D3D12_GPU_VIRTUAL_ADDRESS> mAccelerationStructureReplacements;  // For suboptimal x-platform solution
        uint64_t mAccelerationStructureReplacementsUpdateTimestamp = 0;

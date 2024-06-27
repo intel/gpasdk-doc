@@ -1,0 +1,101 @@
+
+.. _program_listing_file_include_playback_experiments_experiment-error.h:
+
+Program Listing for File experiment-error.h
+===========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_experiments_experiment-error.h>` (``include\playback\experiments\experiment-error.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   (c) 2024 Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   #include <limits>
+   #include <string>
+   #include <vector>
+   #include <unordered_map>
+   
+   namespace gpa {
+   namespace playback {
+   
+   constexpr uint64_t kExperimentErrorReceiverGroupIDUndefined = std::numeric_limits<uint64_t>::max();
+   
+   enum class ExperimentErrorType {
+       kGeneral, 
+       kCreatePipelineFailed
+   };
+   
+   struct ExperimentError
+   {
+       ExperimentErrorType errorType;
+       std::string         errorDescription;
+   };
+   
+   class ExperimentErrorReceiver;
+   
+   struct ExperimentErrorReceiverState
+   {
+       bool                     isActive = true;
+       bool                     isErrorFoundDuringExperiment = false;
+       std::string              errorDescription;
+       uint64_t                 uniqueId = 0;
+       uint64_t                 groupId = kExperimentErrorReceiverGroupIDUndefined;
+       ExperimentErrorReceiver* receiver = nullptr;
+   };
+   
+   struct ExperimentErrorReceiverStates
+   {
+       std::unordered_map<uint64_t, ExperimentErrorReceiverState> idToReceiverStateMap;
+       bool isNotifyReceiversInProgress = false;
+   };
+   
+   class ExperimentErrorReceiver
+   {
+   public:
+       ExperimentErrorReceiver(ExperimentErrorReceiverStates& receiverStates);
+   
+       void StartReceivingExperimentErrors();
+   
+       void StopReceivingExperimentErrors();
+   
+       static void NotifyReceiversAboutErrors(ExperimentErrorReceiverStates& receiverStates, 
+                                              const std::vector<ExperimentError>& errors, 
+                                              uint64_t notifyGroupId = kExperimentErrorReceiverGroupIDUndefined);
+   
+       virtual void OnExperimentErrors(const std::vector<ExperimentError>& errors) = 0;
+   
+       virtual uint64_t GetReceiverUniqueId() const = 0;
+   
+       virtual uint64_t GetReceiverGroupId() const;
+   
+       bool GetIsErrorFoundDuringExperiment() const;
+       void SetIsErrorFoundDuringExperiment(bool isErrorFound);
+       std::string GetErrorDescription() const; 
+       void SetErrorDescription(const std::string& errorDescription);
+   
+   private:
+       void UpdateReceiverStateCache();
+       ExperimentErrorReceiverState mState;
+       ExperimentErrorReceiverStates& mReceiverStates;
+   };
+   
+   } // namespace playback
+   } // namespace gpa

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Template Class ObjectState &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Class StateObjectParser" href="classgpa_1_1d3d12__state__tracker_1_1StateObjectParser.html" />
+    <link rel="prev" title="Class DXGISwapChainState" href="classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">hud-layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">api-debug-layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">device-override</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#dump-resources-layer">dump-resources-layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#dump-state-layer">dump-state-layer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#unions">Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-13-2024">2024.2 (June 13 2024)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-15-2024">2024.1 (March 15 2024)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#dec-14-2023">2023.4 (Dec 14 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#sept-21-2023">2023.3 (Sept 21 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id35">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id36">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id38">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id39">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id40">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id41">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id42">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id43">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id44">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id45">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id46">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id49">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id50">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2024.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id7">2024.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id12">2023.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id17">2023.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id20">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id23">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id26">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id27">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id28">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id29">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id30">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id31">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id32">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id33">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id34">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../src/reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">C++ Interfaces</a></li>
+      <li class="breadcrumb-item active">Template Class ObjectState</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="template-class-objectstate">
+<span id="exhale-class-classgpa-1-1d3d12-state-tracker-1-1objectstate"></span><h1>Template Class ObjectState<a class="headerlink" href="#template-class-objectstate" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_d3d12-state-tracking_d3d12-object.h.html#file-include-d3d12-state-tracking-d3d12-object-h"><span class="std std-ref">File d3d12-object.h</span></a></p></li>
+</ul>
+<section id="inheritance-relationships">
+<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline"></a></h2>
+<section id="base-type">
+<h3>Base Type<a class="headerlink" href="#base-type" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">IUnknown</span></code></p></li>
+</ul>
+</section>
+<section id="derived-types">
+<h3>Derived Types<a class="headerlink" href="#derived-types" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::d3d12_state_tracker::D3D12CommandAllocatorState</span></code> (<a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12CommandAllocatorState.html#exhale-class-classgpa-1-1d3d12-state-tracker-1-1d3d12commandallocatorstate"><span class="std std-ref">Class D3D12CommandAllocatorState</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::d3d12_state_tracker::D3D12CommandQueueState</span></code> (<a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12CommandQueueState.html#exhale-class-classgpa-1-1d3d12-state-tracker-1-1d3d12commandqueuestate"><span class="std std-ref">Class D3D12CommandQueueState</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::d3d12_state_tracker::D3D12CommandSignatureState</span></code> (<a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12CommandSignatureState.html#exhale-class-classgpa-1-1d3d12-state-tracker-1-1d3d12commandsignaturestate"><span class="std std-ref">Class D3D12CommandSignatureState</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::d3d12_state_tracker::D3D12DescriptorHeapState</span></code> (<a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12DescriptorHeapState.html#exhale-class-classgpa-1-1d3d12-state-tracker-1-1d3d12descriptorheapstate"><span class="std std-ref">Class D3D12DescriptorHeapState</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::d3d12_state_tracker::D3D12DeviceState</span></code> (<a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12DeviceState.html#exhale-class-classgpa-1-1d3d12-state-tracker-1-1d3d12devicestate"><span class="std std-ref">Class D3D12DeviceState</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::d3d12_state_tracker::D3D12FenceState</span></code> (<a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12FenceState.html#exhale-class-classgpa-1-1d3d12-state-tracker-1-1d3d12fencestate"><span class="std std-ref">Class D3D12FenceState</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::d3d12_state_tracker::D3D12GraphicsCommandListExtendedState</span></code> (<a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListExtendedState.html#exhale-class-classgpa-1-1d3d12-state-tracker-1-1d3d12graphicscommandlistextendedstate"><span class="std std-ref">Class D3D12GraphicsCommandListExtendedState</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::d3d12_state_tracker::D3D12GraphicsCommandListState</span></code> (<a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState.html#exhale-class-classgpa-1-1d3d12-state-tracker-1-1d3d12graphicscommandliststate"><span class="std std-ref">Class D3D12GraphicsCommandListState</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::d3d12_state_tracker::D3D12HeapState</span></code> (<a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12HeapState.html#exhale-class-classgpa-1-1d3d12-state-tracker-1-1d3d12heapstate"><span class="std std-ref">Class D3D12HeapState</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::d3d12_state_tracker::D3D12MetaCommandState</span></code> (<a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12MetaCommandState.html#exhale-class-classgpa-1-1d3d12-state-tracker-1-1d3d12metacommandstate"><span class="std std-ref">Class D3D12MetaCommandState</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::d3d12_state_tracker::D3D12PipelineStateState</span></code> (<a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12PipelineStateState.html#exhale-class-classgpa-1-1d3d12-state-tracker-1-1d3d12pipelinestatestate"><span class="std std-ref">Class D3D12PipelineStateState</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::d3d12_state_tracker::D3D12ResourceState</span></code> (<a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12ResourceState.html#exhale-class-classgpa-1-1d3d12-state-tracker-1-1d3d12resourcestate"><span class="std std-ref">Class D3D12ResourceState</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::d3d12_state_tracker::D3D12RootSignatureState</span></code> (<a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12RootSignatureState.html#exhale-class-classgpa-1-1d3d12-state-tracker-1-1d3d12rootsignaturestate"><span class="std std-ref">Class D3D12RootSignatureState</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::d3d12_state_tracker::D3D12StateObjectState</span></code> (<a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12StateObjectState.html#exhale-class-classgpa-1-1d3d12-state-tracker-1-1d3d12stateobjectstate"><span class="std std-ref">Class D3D12StateObjectState</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::d3d12_state_tracker::DXGISwapChainState</span></code> (<a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState.html#exhale-class-classgpa-1-1d3d12-state-tracker-1-1dxgiswapchainstate"><span class="std std-ref">Class DXGISwapChainState</span></a>)</p></li>
+</ul>
+</section>
+</section>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3gpa19d3d12_state_tracker11ObjectStateE">
+<span id="_CPPv3I0EN3gpa19d3d12_state_tracker11ObjectStateE"></span><span id="_CPPv2I0EN3gpa19d3d12_state_tracker11ObjectStateE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1ObjectState"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ObjectState</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">IUnknown</span></span><a class="headerlink" href="#_CPPv4I0EN3gpa19d3d12_state_tracker11ObjectStateE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Subclassed by <a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12CommandAllocatorState.html#classgpa_1_1d3d12__state__tracker_1_1D3D12CommandAllocatorState"><span class="std std-ref">gpa::d3d12_state_tracker::D3D12CommandAllocatorState</span></a>, <a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12CommandQueueState.html#classgpa_1_1d3d12__state__tracker_1_1D3D12CommandQueueState"><span class="std std-ref">gpa::d3d12_state_tracker::D3D12CommandQueueState</span></a>, <a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12CommandSignatureState.html#classgpa_1_1d3d12__state__tracker_1_1D3D12CommandSignatureState"><span class="std std-ref">gpa::d3d12_state_tracker::D3D12CommandSignatureState</span></a>, <a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12DescriptorHeapState.html#classgpa_1_1d3d12__state__tracker_1_1D3D12DescriptorHeapState"><span class="std std-ref">gpa::d3d12_state_tracker::D3D12DescriptorHeapState</span></a>, <a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12DeviceState.html#classgpa_1_1d3d12__state__tracker_1_1D3D12DeviceState"><span class="std std-ref">gpa::d3d12_state_tracker::D3D12DeviceState</span></a>, <a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12FenceState.html#classgpa_1_1d3d12__state__tracker_1_1D3D12FenceState"><span class="std std-ref">gpa::d3d12_state_tracker::D3D12FenceState</span></a>, <a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListExtendedState.html#classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListExtendedState"><span class="std std-ref">gpa::d3d12_state_tracker::D3D12GraphicsCommandListExtendedState</span></a>, <a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState.html#classgpa_1_1d3d12__state__tracker_1_1D3D12GraphicsCommandListState"><span class="std std-ref">gpa::d3d12_state_tracker::D3D12GraphicsCommandListState</span></a>, <a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12HeapState.html#classgpa_1_1d3d12__state__tracker_1_1D3D12HeapState"><span class="std std-ref">gpa::d3d12_state_tracker::D3D12HeapState</span></a>, <a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12MetaCommandState.html#classgpa_1_1d3d12__state__tracker_1_1D3D12MetaCommandState"><span class="std std-ref">gpa::d3d12_state_tracker::D3D12MetaCommandState</span></a>, <a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12PipelineStateState.html#classgpa_1_1d3d12__state__tracker_1_1D3D12PipelineStateState"><span class="std std-ref">gpa::d3d12_state_tracker::D3D12PipelineStateState</span></a>, <a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12ResourceState.html#classgpa_1_1d3d12__state__tracker_1_1D3D12ResourceState"><span class="std std-ref">gpa::d3d12_state_tracker::D3D12ResourceState</span></a>, <a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12RootSignatureState.html#classgpa_1_1d3d12__state__tracker_1_1D3D12RootSignatureState"><span class="std std-ref">gpa::d3d12_state_tracker::D3D12RootSignatureState</span></a>, <a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1D3D12StateObjectState.html#classgpa_1_1d3d12__state__tracker_1_1D3D12StateObjectState"><span class="std std-ref">gpa::d3d12_state_tracker::D3D12StateObjectState</span></a>, <a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState.html#classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState"><span class="std std-ref">gpa::d3d12_state_tracker::DXGISwapChainState</span></a></p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker11ObjectState15OnDeathCallbackE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker11ObjectState15OnDeathCallbackE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker11ObjectState15OnDeathCallbackE"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1ObjectState_1a320cd1ee738da56c5286049ebff6fe66"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnDeathCallback</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I0EN3gpa19d3d12_state_tracker11ObjectStateE" title="gpa::d3d12_state_tracker::ObjectState::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">deadObjectPointer</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker11ObjectState15OnDeathCallbackE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker11ObjectState11ObjectStateEP1T">
+<span id="_CPPv3N3gpa19d3d12_state_tracker11ObjectState11ObjectStateEP1T"></span><span id="_CPPv2N3gpa19d3d12_state_tracker11ObjectState11ObjectStateEP1T"></span><span id="gpa::d3d12_state_tracker::ObjectState::ObjectState__TP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1ObjectState_1abefd3027725259db990c8bfba730e0f4"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ObjectState</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN3gpa19d3d12_state_tracker11ObjectStateE" title="gpa::d3d12_state_tracker::ObjectState::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">runtimeObj</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker11ObjectState11ObjectStateEP1T" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker11ObjectStateD0Ev">
+<span id="_CPPv3N3gpa19d3d12_state_tracker11ObjectStateD0Ev"></span><span id="_CPPv2N3gpa19d3d12_state_tracker11ObjectStateD0Ev"></span><span id="gpa::d3d12_state_tracker::ObjectState::~ObjectState"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1ObjectState_1a88f2d07d2b2b659a951083db2604158a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~ObjectState</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker11ObjectStateD0Ev" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classgpa_1_1d3d12__state__tracker_1_1ObjectState_1a1292b6c75289d2c62634241008960522"></span><span class="sig-name descname"><span class="pre">inline</span> <span class="pre">HRESULT</span> <span class="pre">STDMETHODCALLTYPE</span> <span class="pre">QueryInterface</span> <span class="pre">(REFIID,</span> <span class="pre">void</span> <span class="pre">**ppvObject)</span> <span class="pre">override</span></span></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classgpa_1_1d3d12__state__tracker_1_1ObjectState_1a1133434e3ba04bec4391fc708dec4ded"></span><span class="sig-name descname"><span class="pre">inline</span> <span class="pre">ULONG</span> <span class="pre">STDMETHODCALLTYPE</span> <span class="pre">AddRef</span> <span class="pre">()</span> <span class="pre">override</span></span></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classgpa_1_1d3d12__state__tracker_1_1ObjectState_1a81afe3896a62d971dc5972b01d4dfd89"></span><span class="sig-name descname"><span class="pre">inline</span> <span class="pre">ULONG</span> <span class="pre">STDMETHODCALLTYPE</span> <span class="pre">Release</span> <span class="pre">()</span> <span class="pre">override</span></span></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker11ObjectState7GetGUIDEv">
+<span id="_CPPv3N3gpa19d3d12_state_tracker11ObjectState7GetGUIDEv"></span><span id="_CPPv2N3gpa19d3d12_state_tracker11ObjectState7GetGUIDEv"></span><span id="gpa::d3d12_state_tracker::ObjectState::GetGUID"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1ObjectState_1a57b6067d7a2d4683a7f94f26f6a0e277"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">GUID</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetGUID</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker11ObjectState7GetGUIDEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker11ObjectState7SetNameE7LPCWSTR">
+<span id="_CPPv3N3gpa19d3d12_state_tracker11ObjectState7SetNameE7LPCWSTR"></span><span id="_CPPv2N3gpa19d3d12_state_tracker11ObjectState7SetNameE7LPCWSTR"></span><span id="gpa::d3d12_state_tracker::ObjectState::SetName__LPCWSTR"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1ObjectState_1aa8c02ee3490266fae5596410cf790ca1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetName</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">LPCWSTR</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker11ObjectState7SetNameE7LPCWSTR" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker11ObjectState7GetNameEv">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker11ObjectState7GetNameEv"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker11ObjectState7GetNameEv"></span><span id="gpa::d3d12_state_tracker::ObjectState::GetNameC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1ObjectState_1a9484d5b2a5e55f55a566d575ef635b3f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">wstring</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetName</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker11ObjectState7GetNameEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker11ObjectState16GetRuntimeObjectEv">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker11ObjectState16GetRuntimeObjectEv"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker11ObjectState16GetRuntimeObjectEv"></span><span id="gpa::d3d12_state_tracker::ObjectState::GetRuntimeObjectC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1ObjectState_1a0ea049528398f0e1055dbf85eec1ab3a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3gpa19d3d12_state_tracker11ObjectStateE" title="gpa::d3d12_state_tracker::ObjectState::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetRuntimeObject</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker11ObjectState16GetRuntimeObjectEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker11ObjectState20GetCreationTimestampEv">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker11ObjectState20GetCreationTimestampEv"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker11ObjectState20GetCreationTimestampEv"></span><span id="gpa::d3d12_state_tracker::ObjectState::GetCreationTimestampC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1ObjectState_1a5d68db0401fa5e9c16c5f2f085c613dc"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetCreationTimestamp</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker11ObjectState20GetCreationTimestampEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker11ObjectState33RegisterDeathNotificationCallbackE15OnDeathCallback">
+<span id="_CPPv3N3gpa19d3d12_state_tracker11ObjectState33RegisterDeathNotificationCallbackE15OnDeathCallback"></span><span id="_CPPv2N3gpa19d3d12_state_tracker11ObjectState33RegisterDeathNotificationCallbackE15OnDeathCallback"></span><span id="gpa::d3d12_state_tracker::ObjectState::RegisterDeathNotificationCallback__OnDeathCallback"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1ObjectState_1ab3e889210c67893da14513ca66977c5f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RegisterDeathNotificationCallback</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa19d3d12_state_tracker11ObjectState15OnDeathCallbackE" title="gpa::d3d12_state_tracker::ObjectState::OnDeathCallback"><span class="n"><span class="pre">OnDeathCallback</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">cb</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker11ObjectState33RegisterDeathNotificationCallbackE15OnDeathCallback" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker11ObjectState5sGUIDE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker11ObjectState5sGUIDE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker11ObjectState5sGUIDE"></span><span id="gpa::d3d12_state_tracker::ObjectState::sGUID__GUID"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1ObjectState_1aa1bd5a86751dcfab0ee21d774dfd4514"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="n"><span class="pre">GUID</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sGUID</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0x69a84fd0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0xb106</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0x4496</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0xbe</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0x30</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0xd6</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0xac</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0x1e</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0x30</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0x55</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0x2b</span></span><span class="p"><span class="pre">}</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker11ObjectState5sGUIDE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-attributes">Protected Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker11ObjectState14mRuntimeObjectE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker11ObjectState14mRuntimeObjectE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker11ObjectState14mRuntimeObjectE"></span><span id="gpa::d3d12_state_tracker::ObjectState::mRuntimeObject__TP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1ObjectState_1af5fe061ce282234ffdb5468aa782e392"></span><a class="reference internal" href="#_CPPv4I0EN3gpa19d3d12_state_tracker11ObjectStateE" title="gpa::d3d12_state_tracker::ObjectState::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mRuntimeObject</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker11ObjectState14mRuntimeObjectE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker11ObjectState18mCreationTimestampE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker11ObjectState18mCreationTimestampE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker11ObjectState18mCreationTimestampE"></span><span id="gpa::d3d12_state_tracker::ObjectState::mCreationTimestamp__uint64_t"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1ObjectState_1ac6dec1a457aaf4ec64c130b19be0387b"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mCreationTimestamp</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">RDTSC</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker11ObjectState18mCreationTimestampE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState.html" class="btn btn-neutral float-left" title="Class DXGISwapChainState" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="classgpa_1_1d3d12__state__tracker_1_1StateObjectParser.html" class="btn btn-neutral float-right" title="Class StateObjectParser" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

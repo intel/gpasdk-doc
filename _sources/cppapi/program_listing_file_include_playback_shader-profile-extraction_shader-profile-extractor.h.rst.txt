@@ -39,6 +39,16 @@ Program Listing for File shader-profile-extractor.h
    struct ProfileShaderRequestWithType : ProfileShaderRequest
    {
        gpa::shader_profiler::ProfilingMode profilingType{gpa::shader_profiler::ProfilingMode::kOverview};
+       std::vector<gpa::shader_profiler::ShaderStage> stagesForProfiling{
+           gpa::shader_profiler::ShaderStage::kVertex,
+           gpa::shader_profiler::ShaderStage::kHull,
+           gpa::shader_profiler::ShaderStage::kDomain,
+           gpa::shader_profiler::ShaderStage::kGeometry,
+           gpa::shader_profiler::ShaderStage::kAmplification,
+           gpa::shader_profiler::ShaderStage::kMesh,
+           gpa::shader_profiler::ShaderStage::kFragment,  
+           gpa::shader_profiler::ShaderStage::kCompute,
+           gpa::shader_profiler::ShaderStage::kLibrary};
    };
    
    class ShaderProfileExtractor

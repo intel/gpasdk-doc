@@ -79,6 +79,22 @@ Program Listing for File directx12-range-repeat-cache-resource.h
        void OnGetGPUVirtualAddress(Callable* callable);
    };
    
+   class ID3D12BackBufferResourceRangeRepeatCache : public RangeRepeatCacheCOM
+   {
+   public:
+       typedef std::shared_ptr<ID3D12BackBufferResourceRangeRepeatCache> Ptr;
+   
+       ID3D12BackBufferResourceRangeRepeatCache(playback::Context* context, playback::Callable* callable);
+       virtual ~ID3D12BackBufferResourceRangeRepeatCache();
+   
+       void OnRangeEnter(GPADispatchTable const*& table) override;
+       void OnRangeCollected(GPADispatchTable const*& table) override;
+       void OnRangeRepeatDestroyObject(GPADispatchTable const*& table, uint64_t repeatPass) override;
+       void OnRangeRepeatRecreateObject(GPADispatchTable const*& table, uint64_t repeatPass) override;
+       void OnRangeRepeatRestoreState(GPADispatchTable const*& table, uint64_t repeatPass) override;
+       void OnRangeExit(GPADispatchTable const*& table) override;
+   };
+   
    }  // namespace directx
    }  // namespace repeat
    }  // namespace playback

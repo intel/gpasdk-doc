@@ -32,9 +32,11 @@ Program Listing for File d3d12-object.h
    #include "utility/rdtsc.h"
    #include <concurrent/critical-section.h>
    
+   #include <assert.h>
    #include <functional>
    #include <list>
    #include <d3d12.h>
+   #include <dxgi1_6.h>
    #include <string>
    #include <memory>
    
@@ -43,35 +45,93 @@ Program Listing for File d3d12-object.h
    
    using DeathNotificationCallback = std::function<void(ID3D12Object* deadObjectPointer)>;
    
-   class D3D12ObjectState : public IUnknown
+   template<typename T>
+   class ObjectState : public IUnknown
    {
    public:
        static constexpr GUID sGUID = {0x69a84fd0, 0xb106, 0x4496, {0xbe, 0x30, 0xd6, 0xac, 0x1e, 0x30, 0x55, 0x2b}};
+       using OnDeathCallback = std::function<void(T* deadObjectPointer)>;
    
    private:
-       std::list<DeathNotificationCallback> mDeathCallbacks;
+       std::list<OnDeathCallback> mDeathCallbacks;
        std::wstring mName;
    
    protected:
-       ID3D12Object* mRuntimeObject = nullptr;
+       T* mRuntimeObject = nullptr;
        uint64_t mCreationTimestamp = RDTSC();
    
    public:
-       D3D12ObjectState(ID3D12Object* runtimeObj);
-       virtual ~D3D12ObjectState();
+       ObjectState(T* runtimeObj)
+           : mRuntimeObject(runtimeObj)
+       {
+           assert(runtimeObj && "runtimeObj must not be null");
+       }
    
-       HRESULT STDMETHODCALLTYPE QueryInterface(REFIID riid, void** ppvObject) override;
-       ULONG STDMETHODCALLTYPE AddRef() override;
-       ULONG STDMETHODCALLTYPE Release() override;
+       virtual ~ObjectState()
+       {
+       }
    
-       virtual GUID GetGUID();
-       void SetName(LPCWSTR name);
-       std::wstring GetName() const;
-       ID3D12Object* GetRuntimeObject() const;
-       uint64_t GetCreationTimestamp() const;
+       HRESULT STDMETHODCALLTYPE QueryInterface(REFIID /*riid*/, void** ppvObject) override
+       {
+           if (ppvObject == nullptr) {
+               return E_INVALIDARG;
+           }
+           return E_NOINTERFACE;
+       }
    
-       void RegisterDeathNotificationCallback(DeathNotificationCallback cb);
+       ULONG STDMETHODCALLTYPE AddRef() override
+       {
+           // Reference counting is not required
+           return 1;
+       }
+   
+       ULONG STDMETHODCALLTYPE Release() override
+       {
+           // Just first Release call means that the object is being deleted
+           // The AddRef is called multiple times for whatever reason, but there
+           // is only one release
+   
+           for (auto deathCallback : mDeathCallbacks) {
+               deathCallback(mRuntimeObject);
+           }
+   
+           delete this;
+           return 0;
+       }
+   
+       virtual GUID GetGUID()
+       {
+           return sGUID;
+       }
+   
+       void SetName(LPCWSTR name)
+       {
+           mName = name;
+       }
+   
+       std::wstring GetName() const
+       {
+           return mName;
+       }
+   
+       T* GetRuntimeObject() const
+       {
+           return mRuntimeObject;
+       }
+   
+       uint64_t GetCreationTimestamp() const
+       {
+           return mCreationTimestamp;
+       }
+   
+       void RegisterDeathNotificationCallback(OnDeathCallback cb)
+       {
+           mDeathCallbacks.push_back(cb);
+       }
    };
+   
+   using D3D12ObjectState = ObjectState<ID3D12Object>;
+   using DXGIObjectState = ObjectState<IDXGIObject>;
    
    namespace detail {
    

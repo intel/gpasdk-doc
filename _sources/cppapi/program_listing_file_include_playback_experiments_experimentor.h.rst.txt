@@ -35,6 +35,7 @@ Program Listing for File experimentor.h
    #include "playback/experiments/experiment.h"
    #include "playback/experiments/experiment-collection.h"
    #include "playback/experiments/shader-compiler.h"
+   #include "playback/experiments/experiment-error.h"
    
    namespace gpa {
    namespace playback {
@@ -91,6 +92,8 @@ Program Listing for File experimentor.h
    
        void GetMessages(size_t* pMessageCount, char const** pMessages) const;
    
+       std::vector<ExperimentError> const& GetExperimentErrors() const;
+   
    protected:
        virtual void ApplyPrefabs(
            uint64_t startIndex,
@@ -112,9 +115,12 @@ Program Listing for File experimentor.h
    
        struct Messages;
    
+       virtual void AddExperimentError(ExperimentError const& experimentError);
+   
        Collection<PipelineExperiment> mGraphicsPipelineExperiments;
        Collection<ResourceExperiment> mResourceExperiments;
        Messages* mMessages = nullptr;
+       std::vector<ExperimentError> mExperimentErrors;
    
    private:
        void PostSetupRange(CallableCache* range) override final;

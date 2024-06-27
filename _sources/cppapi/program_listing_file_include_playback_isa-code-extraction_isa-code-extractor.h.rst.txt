@@ -1,0 +1,82 @@
+
+.. _program_listing_file_include_playback_isa-code-extraction_isa-code-extractor.h:
+
+Program Listing for File isa-code-extractor.h
+=============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_isa-code-extraction_isa-code-extractor.h>` (``include\playback\isa-code-extraction\isa-code-extractor.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "playback/callable-receiver.h"
+   #include "api-types/api-types.h"
+   
+   #include <map>
+   #include <vector>
+   
+   namespace gpa {
+   namespace playback {
+   
+   class Experimentor;
+   
+   using ShaderStageFlag = uint32_t;
+   
+   class ISACodeExtractor
+       : public CallableReceiver
+   {
+   public:
+       struct Result final
+       {
+           std::string isa_code;
+       };
+   
+       struct Request final
+       {
+           uint64_t call_idx;
+           ShaderStageFlag shader_type{gpa::api_types::GPA_SHADER_STAGE_UNKNOWN};
+       };
+   
+       ISACodeExtractor() = default;
+   
+       virtual ~ISACodeExtractor();
+   
+       virtual void SetExperimentor(Experimentor* experimentor) = 0;
+       virtual void SetResultContainer(ISACodeExtractor::Result& result);
+       virtual void SetCallableIndex(uint64_t call_idx);
+       virtual void SetShaderType(ShaderStageFlag type);
+   
+       virtual void PostExecuteRange(CallableCache* pCallableCache) = 0;
+   
+   protected:
+       uint64_t callable_index;
+       ShaderStageFlag shader_type;
+   
+       ISACodeExtractor::Result* mResult{nullptr};
+   
+       ISACodeExtractor(ISACodeExtractor const&) = delete;
+       ISACodeExtractor& operator=(ISACodeExtractor const&) = delete;
+   };
+   
+   }  // namespace playback
+   }  // namespace gpa

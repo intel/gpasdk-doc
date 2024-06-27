@@ -30,6 +30,9 @@ Program Listing for File gpa-singleton.h
    #pragma once
    #include "gpa-secure.h"
    #include <stdlib.h>
+   #ifndef _WIN32
+   #include <unistd.h>
+   #endif
    
    namespace gpa {
    
@@ -38,8 +41,13 @@ Program Listing for File gpa-singleton.h
    {
        static void* Get(const char* name, void* fallback = nullptr)  //Gets item by name
        {
+   #ifdef _WIN32
+           static auto gPID = GetCurrentProcessId();
+   #else
+           static auto gPID = getpid();
+   #endif
            char prefix[256] = {};
-           GPA_SPRINTF(prefix, sizeof(prefix), "GPA:%s", name);
+           GPA_SPRINTF(prefix, sizeof(prefix), "GPA:%x:%s", gPID, name);
            unsigned long long addr = 0;
    #ifdef _WIN32
            char val[256] = {};
@@ -57,8 +65,13 @@ Program Listing for File gpa-singleton.h
    
        static bool Set(const char* name, const void* ptr)  //Stores item by name. ATTENTION: must set to nullptr before previously set object is destroyed!
        {
+   #ifdef _WIN32
+           static auto gPID = GetCurrentProcessId();
+   #else
+           static auto gPID = getpid();
+   #endif
            char env[256] = {};
-           GPA_SPRINTF(env, sizeof(env), "GPA:%s=%llx", name, (unsigned long long)ptr);
+           GPA_SPRINTF(env, sizeof(env), "GPA:%x:%s=%llx", gPID, name, (unsigned long long)ptr);
    #ifdef _WIN32
            return 0 == _putenv(env);
    #else

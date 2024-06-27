@@ -1,0 +1,80 @@
+
+.. _program_listing_file_include_playback_vulkan-range-repeat-cache-instance.h:
+
+Program Listing for File vulkan-range-repeat-cache-instance.h
+=============================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_vulkan-range-repeat-cache-instance.h>` (``include\playback\vulkan-range-repeat-cache-instance.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   
+   /******************************************************************************
+   (c) Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "playback/vulkan-range-repeat-cache.h"
+   
+   #include <filesystem>
+   
+   namespace gpa {
+   namespace playback {
+   
+   class Callable;
+   
+   namespace repeat {
+   namespace vulkan {
+   
+   class RangeRepeatCacheVkInstance final
+       : public RangeRepeatCacheVK
+   {
+   public:
+       RangeRepeatCacheVkInstance(VkInstance vkInstance, uint64_t captureKey, Context* pContext, Callable* pCallable);
+       void OnRangeEnter(GPADispatchTable const*& pDispatchTable) override;
+       void OnRangeRepeatRestoreState(GPADispatchTable const*& pDispatchTable, uint64_t repeatPass) override;
+       void OnRangeExit(GPADispatchTable const*& pDispatchTable) override;
+   
+   private:
+       static RangeRepeatCacheVkInstance*& GetInstance();
+       static void RegisterLiveObject(const GvkStateTrackedObject* pCapturedObject, const GvkStateTrackedObject* pRestoredObject);
+       static void UpdateObjectMap();
+   
+       VkInstance mVkInstance{};
+       GvkRestorePoint mGvkRestorePoint{};
+       std::filesystem::path mRestorePointPath;
+       std::map<uint64_t, uint64_t> mRestoredObjects;
+       std::vector<GvkStateTrackedObject> mRestorePointObjects;
+       std::vector<GvkStateTrackedObject> mRestorePointCommandBuffers;
+       ObjectMap mObjectMap;
+   };
+   
+   class RangeRepeatCacheVkQueue
+       : public RangeRepeatCacheVK
+   {
+   public:
+       // typedef std::shared_ptr<RangeRepeatCacheVkQueue> Ptr;
+       RangeRepeatCacheVkQueue(void* object, uint64_t captureKey, Context* pContext, Callable* pCallable);
+       void OnQueueSynchronizationRequired(GPADispatchTable const*& pGpaDispatchTable) override;
+   };
+   
+   }  // namespace vulkan
+   }  // namespace repeat
+   }  // namespace playback
+   }  // namespace gpa

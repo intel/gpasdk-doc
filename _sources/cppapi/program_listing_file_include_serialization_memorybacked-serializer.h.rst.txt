@@ -89,6 +89,13 @@ Program Listing for File memorybacked-serializer.h
        }
    
        template<typename T>
+       void ReadUnsafe(T& dst)
+       {
+           dst = *(T*)mCurr;
+           mCurr += sizeof(dst);
+       }
+   
+       template<typename T>
        size_t Peek(T& dst)
        {
            size_t const size = sizeof(dst);
