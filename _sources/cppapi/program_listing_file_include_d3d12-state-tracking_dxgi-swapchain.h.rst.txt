@@ -1,0 +1,90 @@
+
+.. _program_listing_file_include_d3d12-state-tracking_dxgi-swapchain.h:
+
+Program Listing for File dxgi-swapchain.h
+=========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_d3d12-state-tracking_dxgi-swapchain.h>` (``include\d3d12-state-tracking\dxgi-swapchain.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   #include "d3d12-object.h"
+   #include <guiddef.h>
+   #include <dxgi1_6.h>
+   #include <vector>
+   
+   namespace gpa {
+   namespace d3d12_state_tracker {
+   
+   class DXGISwapChainState : public DXGIObjectState
+   {
+   public:
+       enum SwapChainType : uint32_t {
+           kInvalid = 0,
+           kDefault,
+           kSwapChainForComposition,
+           kSwapChainForCoreWindow,
+           kSwapChainForHwnd,
+           kMaxTypes
+       };
+   
+       struct BackBufferEntry
+       {
+           WeakPtr<ID3D12Resource> backBuffer;
+           bool obtained = false;
+       };
+   
+   private:
+       std::vector<IUnknown *> mPresentQueues;
+       IDXGIOutput *mRestrictToOutput = nullptr;
+       HWND mHwnd = 0;
+       bool mHasFullscreenDesc = false;
+       DXGI_SWAP_CHAIN_FULLSCREEN_DESC mFullscreenDesc{};
+       SwapChainType mType = kInvalid;
+       std::vector<BackBufferEntry> mBackBuffers;
+   
+   public:
+       static constexpr GUID sGUID = {0x17e90e57, 0x3481, 0x4b6d, {0x83, 0x79, 0x81, 0xe1, 0x5f, 0xf9, 0x48, 0xc2}};
+   
+   public:
+       DXGISwapChainState(IDXGISwapChain *, IUnknown *pDevice, const DXGI_SWAP_CHAIN_DESC *pDesc);
+       DXGISwapChainState(IDXGISwapChain1 *, IUnknown *pDevice, const DXGI_SWAP_CHAIN_DESC1 *pDesc, IDXGIOutput *pRestrictToOutput);
+       DXGISwapChainState(IDXGISwapChain1 *, IUnknown *pDevice, IUnknown *pWindow, const DXGI_SWAP_CHAIN_DESC1 *pDesc, IDXGIOutput *pRestrictToOutput);
+       DXGISwapChainState(IDXGISwapChain1 *, IUnknown *pDevice, HWND hWnd, const DXGI_SWAP_CHAIN_DESC1 *pDesc, const DXGI_SWAP_CHAIN_FULLSCREEN_DESC *pFullscreenDesc, IDXGIOutput *pRestrictToOutput);
+   
+       virtual ~DXGISwapChainState();
+   
+       GUID GetGUID() override;
+   
+       SwapChainType GetType() const;
+       BackBufferEntry const *GetBackBufferState(uint32_t bufferIndex) const;
+   
+       std::vector<IUnknown *> const &GetPresentQueues() const;
+   
+       void OnGetBuffer(uint32_t bufferIndex, void **ppBuffer);
+       void OnResizeBuffers(uint32_t BufferCount, uint32_t Width, uint32_t Height, DXGI_FORMAT NewFormat, uint32_t SwapChainFlags);
+       void OnResizeBuffers1(uint32_t BufferCount, uint32_t Width, uint32_t Height, DXGI_FORMAT Format, uint32_t SwapChainFlags, const uint32_t *pCreationNodeMask, IUnknown *const *ppPresentQueue);
+   };
+   
+   }  // namespace d3d12_state_tracker
+   }  // namespace gpa

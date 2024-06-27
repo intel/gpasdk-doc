@@ -62,8 +62,11 @@ Program Listing for File surface.h
        int32_t height = 0;  
    };
    
+   void InitializeDefaultSurfaceContext(bool dpiAware);
    gpa::Surface* CreateDefaultSurface(gpa::SurfaceCreateInfo const* info);
-   void DestroyDefaultSurface(gpa::Surface* handle);
-   void OnDefaultSurfaceYield(gpa::Surface* handle);
+   void ResizeDefaultSurface(gpa::Surface* surface, int32_t width, int32_t height);
+   bool DefaultSurfaceShutdownRequested();
+   void DestroyDefaultSurface(gpa::Surface* surface);
+   void OnDefaultSurfaceYield(gpa::Surface* surface);
    
    }  // namespace gpa

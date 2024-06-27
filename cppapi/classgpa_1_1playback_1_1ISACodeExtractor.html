@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class ISACodeExtractor &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Class KeyframeApplier" href="classgpa_1_1playback_1_1KeyframeApplier.html" />
+    <link rel="prev" title="Class IPlaybackListener" href="classgpa_1_1playback_1_1IPlaybackListener.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">hud-layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">api-debug-layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">device-override</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#dump-resources-layer">dump-resources-layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#dump-state-layer">dump-state-layer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#unions">Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-13-2024">2024.2 (June 13 2024)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-15-2024">2024.1 (March 15 2024)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#dec-14-2023">2023.4 (Dec 14 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#sept-21-2023">2023.3 (Sept 21 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id35">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id36">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id38">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id39">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id40">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id41">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id42">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id43">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id44">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id45">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id46">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id49">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id50">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2024.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id7">2024.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id12">2023.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id17">2023.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id20">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id23">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id26">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id27">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id28">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id29">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id30">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id31">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id32">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id33">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id34">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../src/reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">C++ Interfaces</a></li>
+      <li class="breadcrumb-item active">Class ISACodeExtractor</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-isacodeextractor">
+<span id="exhale-class-classgpa-1-1playback-1-1isacodeextractor"></span><h1>Class ISACodeExtractor<a class="headerlink" href="#class-isacodeextractor" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_playback_isa-code-extraction_isa-code-extractor.h.html#file-include-playback-isa-code-extraction-isa-code-extractor-h"><span class="std std-ref">File isa-code-extractor.h</span></a></p></li>
+</ul>
+<section id="nested-relationships">
+<h2>Nested Relationships<a class="headerlink" href="#nested-relationships" title="Permalink to this headline"></a></h2>
+<section id="nested-types">
+<h3>Nested Types<a class="headerlink" href="#nested-types" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="structgpa_1_1playback_1_1ISACodeExtractor_1_1Request.html#exhale-struct-structgpa-1-1playback-1-1isacodeextractor-1-1request"><span class="std std-ref">Struct ISACodeExtractor::Request</span></a></p></li>
+<li><p><a class="reference internal" href="structgpa_1_1playback_1_1ISACodeExtractor_1_1Result.html#exhale-struct-structgpa-1-1playback-1-1isacodeextractor-1-1result"><span class="std std-ref">Struct ISACodeExtractor::Result</span></a></p></li>
+</ul>
+</section>
+</section>
+<section id="inheritance-relationships">
+<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline"></a></h2>
+<section id="base-type">
+<h3>Base Type<a class="headerlink" href="#base-type" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::playback::CallableReceiver</span></code> (<a class="reference internal" href="classgpa_1_1playback_1_1CallableReceiver.html#exhale-class-classgpa-1-1playback-1-1callablereceiver"><span class="std std-ref">Class CallableReceiver</span></a>)</p></li>
+</ul>
+</section>
+</section>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback16ISACodeExtractorE">
+<span id="_CPPv3N3gpa8playback16ISACodeExtractorE"></span><span id="_CPPv2N3gpa8playback16ISACodeExtractorE"></span><span id="gpa::playback::ISACodeExtractor"></span><span class="target" id="classgpa_1_1playback_1_1ISACodeExtractor"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ISACodeExtractor</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">gpa</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">playback</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classgpa_1_1playback_1_1CallableReceiver.html#_CPPv4N3gpa8playback16CallableReceiverE" title="gpa::playback::CallableReceiver"><span class="n"><span class="pre">CallableReceiver</span></span></a><a class="headerlink" href="#_CPPv4N3gpa8playback16ISACodeExtractorE" title="Permalink to this definition"></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback16ISACodeExtractor16ISACodeExtractorEv">
+<span id="_CPPv3N3gpa8playback16ISACodeExtractor16ISACodeExtractorEv"></span><span id="_CPPv2N3gpa8playback16ISACodeExtractor16ISACodeExtractorEv"></span><span id="gpa::playback::ISACodeExtractor::ISACodeExtractor"></span><span class="target" id="classgpa_1_1playback_1_1ISACodeExtractor_1aa4ef9b69e89ef2be5d5f57b2c5548204"></span><span class="sig-name descname"><span class="n"><span class="pre">ISACodeExtractor</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback16ISACodeExtractor16ISACodeExtractorEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Constructs an instance of <a class="reference internal" href="#classgpa_1_1playback_1_1ISACodeExtractor"><span class="std std-ref">ISACodeExtractor</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback16ISACodeExtractorD0Ev">
+<span id="_CPPv3N3gpa8playback16ISACodeExtractorD0Ev"></span><span id="_CPPv2N3gpa8playback16ISACodeExtractorD0Ev"></span><span id="gpa::playback::ISACodeExtractor::~ISACodeExtractor"></span><span class="target" id="classgpa_1_1playback_1_1ISACodeExtractor_1a65aa75777b369385eb665f3798d176ef"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~ISACodeExtractor</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback16ISACodeExtractorD0Ev" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Destroys this instance of <a class="reference internal" href="#classgpa_1_1playback_1_1ISACodeExtractor"><span class="std std-ref">ISACodeExtractor</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback16ISACodeExtractor15SetExperimentorEP12Experimentor">
+<span id="_CPPv3N3gpa8playback16ISACodeExtractor15SetExperimentorEP12Experimentor"></span><span id="_CPPv2N3gpa8playback16ISACodeExtractor15SetExperimentorEP12Experimentor"></span><span id="gpa::playback::ISACodeExtractor::SetExperimentor__ExperimentorP"></span><span class="target" id="classgpa_1_1playback_1_1ISACodeExtractor_1a389c4c4205c4ccc07b39e6658c0d3e5d"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetExperimentor</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classgpa_1_1playback_1_1Experimentor.html#_CPPv4N3gpa8playback12ExperimentorE" title="gpa::playback::Experimentor"><span class="n"><span class="pre">Experimentor</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">experimentor</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback16ISACodeExtractor15SetExperimentorEP12Experimentor" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback16ISACodeExtractor18SetResultContainerERN16ISACodeExtractor6ResultE">
+<span id="_CPPv3N3gpa8playback16ISACodeExtractor18SetResultContainerERN16ISACodeExtractor6ResultE"></span><span id="_CPPv2N3gpa8playback16ISACodeExtractor18SetResultContainerERN16ISACodeExtractor6ResultE"></span><span id="gpa::playback::ISACodeExtractor::SetResultContainer__ISACodeExtractor::ResultR"></span><span class="target" id="classgpa_1_1playback_1_1ISACodeExtractor_1a17bd4898a070f3c8dfe6583886aaa921"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetResultContainer</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa8playback16ISACodeExtractorE" title="gpa::playback::ISACodeExtractor"><span class="n"><span class="pre">ISACodeExtractor</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3gpa8playback16ISACodeExtractor6ResultE" title="gpa::playback::ISACodeExtractor::Result"><span class="n"><span class="pre">Result</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">result</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback16ISACodeExtractor18SetResultContainerERN16ISACodeExtractor6ResultE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback16ISACodeExtractor16SetCallableIndexE8uint64_t">
+<span id="_CPPv3N3gpa8playback16ISACodeExtractor16SetCallableIndexE8uint64_t"></span><span id="_CPPv2N3gpa8playback16ISACodeExtractor16SetCallableIndexE8uint64_t"></span><span id="gpa::playback::ISACodeExtractor::SetCallableIndex__uint64_t"></span><span class="target" id="classgpa_1_1playback_1_1ISACodeExtractor_1ac533b711e68cb184a20901da82e24ae7"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetCallableIndex</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">call_idx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback16ISACodeExtractor16SetCallableIndexE8uint64_t" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback16ISACodeExtractor13SetShaderTypeE15ShaderStageFlag">
+<span id="_CPPv3N3gpa8playback16ISACodeExtractor13SetShaderTypeE15ShaderStageFlag"></span><span id="_CPPv2N3gpa8playback16ISACodeExtractor13SetShaderTypeE15ShaderStageFlag"></span><span id="gpa::playback::ISACodeExtractor::SetShaderType__ShaderStageFlag"></span><span class="target" id="classgpa_1_1playback_1_1ISACodeExtractor_1afa6bd6ca2bbd421ddd3e506bc8acd0e4"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetShaderType</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="typedef_isa-code-extractor_8h_1ac51fe77283e656f8950617f2b866a577.html#_CPPv4N3gpa8playback15ShaderStageFlagE" title="gpa::playback::ShaderStageFlag"><span class="n"><span class="pre">ShaderStageFlag</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa8playback16ISACodeExtractor13SetShaderTypeE15ShaderStageFlag" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback16ISACodeExtractor16PostExecuteRangeEP13CallableCache">
+<span id="_CPPv3N3gpa8playback16ISACodeExtractor16PostExecuteRangeEP13CallableCache"></span><span id="_CPPv2N3gpa8playback16ISACodeExtractor16PostExecuteRangeEP13CallableCache"></span><span id="gpa::playback::ISACodeExtractor::PostExecuteRange__CallableCacheP"></span><span class="target" id="classgpa_1_1playback_1_1ISACodeExtractor_1a74beac76866d123f21413afb48a8a9f7"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PostExecuteRange</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classgpa_1_1playback_1_1CallableCache.html#_CPPv4N3gpa8playback13CallableCacheE" title="gpa::playback::CallableCache"><span class="n"><span class="pre">CallableCache</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pCallableCache</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback16ISACodeExtractor16PostExecuteRangeEP13CallableCache" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-functions">Protected Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback16ISACodeExtractor16ISACodeExtractorERK16ISACodeExtractor">
+<span id="_CPPv3N3gpa8playback16ISACodeExtractor16ISACodeExtractorERK16ISACodeExtractor"></span><span id="_CPPv2N3gpa8playback16ISACodeExtractor16ISACodeExtractorERK16ISACodeExtractor"></span><span id="gpa::playback::ISACodeExtractor::ISACodeExtractor__ISACodeExtractorCR"></span><span class="target" id="classgpa_1_1playback_1_1ISACodeExtractor_1a49df8beee8943a728063a0b59e4c3749"></span><span class="sig-name descname"><span class="n"><span class="pre">ISACodeExtractor</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa8playback16ISACodeExtractor16ISACodeExtractorERK16ISACodeExtractor" title="gpa::playback::ISACodeExtractor::ISACodeExtractor"><span class="n"><span class="pre">ISACodeExtractor</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback16ISACodeExtractor16ISACodeExtractorERK16ISACodeExtractor" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback16ISACodeExtractoraSERK16ISACodeExtractor">
+<span id="_CPPv3N3gpa8playback16ISACodeExtractoraSERK16ISACodeExtractor"></span><span id="_CPPv2N3gpa8playback16ISACodeExtractoraSERK16ISACodeExtractor"></span><span id="gpa::playback::ISACodeExtractor::assign-operator__ISACodeExtractorCR"></span><span class="target" id="classgpa_1_1playback_1_1ISACodeExtractor_1a332deea99dcef809f5dd193f5858f90f"></span><a class="reference internal" href="#_CPPv4N3gpa8playback16ISACodeExtractorE" title="gpa::playback::ISACodeExtractor"><span class="n"><span class="pre">ISACodeExtractor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3gpa8playback16ISACodeExtractorE" title="gpa::playback::ISACodeExtractor"><span class="n"><span class="pre">ISACodeExtractor</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback16ISACodeExtractoraSERK16ISACodeExtractor" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-attributes">Protected Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback16ISACodeExtractor14callable_indexE">
+<span id="_CPPv3N3gpa8playback16ISACodeExtractor14callable_indexE"></span><span id="_CPPv2N3gpa8playback16ISACodeExtractor14callable_indexE"></span><span id="gpa::playback::ISACodeExtractor::callable_index__uint64_t"></span><span class="target" id="classgpa_1_1playback_1_1ISACodeExtractor_1ae1157fd0dd0fb7096cab3587f452062a"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">callable_index</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback16ISACodeExtractor14callable_indexE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback16ISACodeExtractor11shader_typeE">
+<span id="_CPPv3N3gpa8playback16ISACodeExtractor11shader_typeE"></span><span id="_CPPv2N3gpa8playback16ISACodeExtractor11shader_typeE"></span><span id="gpa::playback::ISACodeExtractor::shader_type__ShaderStageFlag"></span><span class="target" id="classgpa_1_1playback_1_1ISACodeExtractor_1ab7f9a71ca688fe85c860857453d91612"></span><a class="reference internal" href="typedef_isa-code-extractor_8h_1ac51fe77283e656f8950617f2b866a577.html#_CPPv4N3gpa8playback15ShaderStageFlagE" title="gpa::playback::ShaderStageFlag"><span class="n"><span class="pre">ShaderStageFlag</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">shader_type</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback16ISACodeExtractor11shader_typeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback16ISACodeExtractor7mResultE">
+<span id="_CPPv3N3gpa8playback16ISACodeExtractor7mResultE"></span><span id="_CPPv2N3gpa8playback16ISACodeExtractor7mResultE"></span><span id="gpa::playback::ISACodeExtractor::mResult__ISACodeExtractor::ResultP"></span><span class="target" id="classgpa_1_1playback_1_1ISACodeExtractor_1a7bba07324b1eb73d8f4b0e7e0528ddb8"></span><a class="reference internal" href="#_CPPv4N3gpa8playback16ISACodeExtractorE" title="gpa::playback::ISACodeExtractor"><span class="n"><span class="pre">ISACodeExtractor</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3gpa8playback16ISACodeExtractor6ResultE" title="gpa::playback::ISACodeExtractor::Result"><span class="n"><span class="pre">Result</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mResult</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="k"><span class="pre">nullptr</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback16ISACodeExtractor7mResultE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback16ISACodeExtractor7RequestE">
+<span id="_CPPv3N3gpa8playback16ISACodeExtractor7RequestE"></span><span id="_CPPv2N3gpa8playback16ISACodeExtractor7RequestE"></span><span id="gpa::playback::ISACodeExtractor::Request"></span><span class="target" id="structgpa_1_1playback_1_1ISACodeExtractor_1_1Request"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Request</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback16ISACodeExtractor7RequestE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Parameters for epxeriment run for obtaining resulting isa code. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback16ISACodeExtractor7Request8call_idxE">
+<span id="_CPPv3N3gpa8playback16ISACodeExtractor7Request8call_idxE"></span><span id="_CPPv2N3gpa8playback16ISACodeExtractor7Request8call_idxE"></span><span id="gpa::playback::ISACodeExtractor::Request::call_idx__uint64_t"></span><span class="target" id="structgpa_1_1playback_1_1ISACodeExtractor_1_1Request_1a04e8bd280e39758f680949c90d672975"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">call_idx</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback16ISACodeExtractor7Request8call_idxE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback16ISACodeExtractor7Request11shader_typeE">
+<span id="_CPPv3N3gpa8playback16ISACodeExtractor7Request11shader_typeE"></span><span id="_CPPv2N3gpa8playback16ISACodeExtractor7Request11shader_typeE"></span><span id="gpa::playback::ISACodeExtractor::Request::shader_type__ShaderStageFlag"></span><span class="target" id="structgpa_1_1playback_1_1ISACodeExtractor_1_1Request_1aa18a838ee8683f8332696bd26b8950fc"></span><a class="reference internal" href="typedef_isa-code-extractor_8h_1ac51fe77283e656f8950617f2b866a577.html#_CPPv4N3gpa8playback15ShaderStageFlagE" title="gpa::playback::ShaderStageFlag"><span class="n"><span class="pre">ShaderStageFlag</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">shader_type</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="n"><span class="pre">gpa</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">api_types</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="enumerations_8h_1a07ff3ce976f3a00e51aae8e38d8ead6f.html#_CPPv4N3gpa9api_types19ShaderStageFlagBits24GPA_SHADER_STAGE_UNKNOWNE" title="gpa::api_types::GPA_SHADER_STAGE_UNKNOWN"><span class="n"><span class="pre">GPA_SHADER_STAGE_UNKNOWN</span></span></a><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3gpa8playback16ISACodeExtractor7Request11shader_typeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback16ISACodeExtractor6ResultE">
+<span id="_CPPv3N3gpa8playback16ISACodeExtractor6ResultE"></span><span id="_CPPv2N3gpa8playback16ISACodeExtractor6ResultE"></span><span id="gpa::playback::ISACodeExtractor::Result"></span><span class="target" id="structgpa_1_1playback_1_1ISACodeExtractor_1_1Result"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Result</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback16ISACodeExtractor6ResultE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Parameters for resulting isa code after experiment run. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa8playback16ISACodeExtractor6Result8isa_codeE">
+<span id="_CPPv3N3gpa8playback16ISACodeExtractor6Result8isa_codeE"></span><span id="_CPPv2N3gpa8playback16ISACodeExtractor6Result8isa_codeE"></span><span id="gpa::playback::ISACodeExtractor::Result::isa_code__ss"></span><span class="target" id="structgpa_1_1playback_1_1ISACodeExtractor_1_1Result_1a022450b033c06b8ca7b2233c4917c1cb"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isa_code</span></span></span><a class="headerlink" href="#_CPPv4N3gpa8playback16ISACodeExtractor6Result8isa_codeE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="classgpa_1_1playback_1_1IPlaybackListener.html" class="btn btn-neutral float-left" title="Class IPlaybackListener" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="classgpa_1_1playback_1_1KeyframeApplier.html" class="btn btn-neutral float-right" title="Class KeyframeApplier" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

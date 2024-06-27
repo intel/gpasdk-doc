@@ -1,0 +1,76 @@
+
+.. _program_listing_file_include_playback_dxgi-range-repeat-cache.h:
+
+Program Listing for File dxgi-range-repeat-cache.h
+==================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_dxgi-range-repeat-cache.h>` (``include\playback\dxgi-range-repeat-cache.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "playback/directx-range-repeat-cache.h"
+   
+   namespace gpa {
+   namespace playback {
+   
+   class Callable;
+   
+   namespace repeat {
+   namespace directx {
+   
+   class DXGISwapChainRangeRepeatCache : public RangeRepeatCacheCOM
+   {
+   private:
+       DXGI_SWAP_CHAIN_DESC1 mDesc1{};
+       uint32_t mBackBufferIndexAtRangeStart = 0;
+   
+       struct BackBufferEntry
+       {
+           ID3D12Resource* resource = nullptr;
+           uint64_t key = 0;
+           uint64_t refCount = 0;
+           bool obtained = false;
+       };
+   
+       std::vector<BackBufferEntry> mBackBuffers;
+       uint64_t mStateRestoredRepeatPass = (uint64_t)-1;
+   
+   public:
+       using Ptr = std::shared_ptr<DXGISwapChainRangeRepeatCache>;
+   
+       using RangeRepeatCacheCOM::RangeRepeatCacheCOM;
+   
+       void OnRangeEnter(GPADispatchTable const*& table) override;
+       void OnRangeRepeatRecreateObject(GPADispatchTable const*& table, uint64_t repeatPass) override;
+       void OnRangeRepeatRestoreState(GPADispatchTable const*& table, uint64_t repeatPass) override;
+   
+       void OnGetBuffer(uint32_t bufferIndex);
+       void OnResizeBuffers();
+       bool IsBufferObtained(uint32_t bufferIndex) const;
+   };
+   
+   }  // namespace directx
+   }  // namespace repeat
+   }  // namespace playback
+   }  // namespace gpa

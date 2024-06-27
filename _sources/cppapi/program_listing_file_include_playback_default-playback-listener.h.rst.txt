@@ -43,7 +43,7 @@ Program Listing for File default-playback-listener.h
    class DefaultPlaybackListener : public gpa::playback::IPlaybackListener
    {
    public:
-       DefaultPlaybackListener();
+       DefaultPlaybackListener(bool dpiAware = false);
        ~DefaultPlaybackListener();
    
        gpa::Surface* OnSurfaceRequest(uint64_t key, gpa::SurfaceCreateInfo const* createInfo) override;
@@ -51,6 +51,7 @@ Program Listing for File default-playback-listener.h
        void OnYield() override;
        void OnStreamEnd() override;
        bool ShutdownRequested() override;
+       void SetAppName(const char* title) override;
    
    private:
        std::unordered_map<uint64_t /*key*/, gpa::Surface* /*handle*/> mSurfaces;

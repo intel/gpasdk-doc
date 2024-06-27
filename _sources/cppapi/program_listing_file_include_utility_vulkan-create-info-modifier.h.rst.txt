@@ -30,9 +30,11 @@ Program Listing for File vulkan-create-info-modifier.h
    #pragma once
    
    #include "igpa-config.h"
+   #include "utility/assert.h"
    
    #include <vulkan/vulkan.h>
    
+   #include <map>
    #include <set>
    #include <string>
    #include <vector>
@@ -269,6 +271,190 @@ Program Listing for File vulkan-create-info-modifier.h
            }
        }
    };
+   
+   class NamedEntryCollection final
+   {
+   public:
+       inline std::set<std::string> Validate(uint32_t layerPropertyCount, VkLayerProperties const* pLayerProperties)
+       {
+           std::set<std::string> availableEntries;
+           for (uint32_t i = 0; i < layerPropertyCount; ++i) {
+               availableEntries.insert(pLayerProperties[i].layerName);
+           }
+           return Validate(availableEntries);
+       }
+   
+       inline std::set<std::string> Validate(uint32_t extensionPropertyCount, VkExtensionProperties const* pExtensionProperties)
+       {
+           std::set<std::string> availableEntries;
+           for (uint32_t i = 0; i < extensionPropertyCount; ++i) {
+               availableEntries.insert(pExtensionProperties[i].extensionName);
+           }
+           return Validate(availableEntries);
+       }
+   
+       inline void Add(const char* pEntry, bool force = false)
+       {
+           GPA_ASSERT(pEntry);
+           if (force) {
+               Erase(pEntry);
+           }
+           if (mEntryIndices.insert({pEntry, (uint32_t)mEntries.size()}).second) {
+               mEntries.push_back(pEntry);
+           }
+       }
+   
+       inline void Add(uint32_t entryCount, const char* const* pEntries, bool force = false)
+       {
+           if (pEntries) {
+               for (uint32_t i = 0; i < entryCount; ++i) {
+                   Add(pEntries[i], force);
+               }
+           }
+       }
+   
+       inline void Erase(const char* pEntry)
+       {
+           GPA_ASSERT(pEntry);
+           auto itr = mEntryIndices.find(pEntry);
+           if (itr != mEntryIndices.end()) {
+               auto index = itr->second;
+               GPA_ASSERT(index < mEntries.size());
+               GPA_ASSERT(mEntries[index]);
+               GPA_ASSERT(!strcmp(mEntries[index], pEntry));
+               mEntryIndices.erase(itr);
+               mEntries.erase(mEntries.begin() + index);
+               for (; index < mEntries.size(); ++index) {
+                   itr = mEntryIndices.find(mEntries[index]);
+                   GPA_ASSERT(itr != mEntryIndices.end());
+                   itr->second = index;
+               }
+           }
+       }
+   
+       inline void Clear()
+       {
+           mEntryIndices.clear();
+           mEntries.clear();
+       }
+   
+       inline uint32_t Count() const
+       {
+           return (uint32_t)mEntries.size();
+       }
+   
+       inline const char* const* Data() const
+       {
+           return !mEntries.empty() ? mEntries.data() : nullptr;
+       }
+   
+   private:
+       inline std::set<std::string> Validate(std::set<std::string> const& availableEntries)
+       {
+           std::set<std::string> invalidEntries;
+           for (uint32_t i = 0; i < mEntries.size();) {
+               GPA_ASSERT(mEntries[i]);
+               if (!availableEntries.count(mEntries[i])) {
+                   invalidEntries.insert(mEntries[i]);
+                   Erase(mEntries[i]);
+               } else {
+                   ++i;
+               }
+           }
+           return invalidEntries;
+       }
+   
+       std::map<std::string, uint32_t> mEntryIndices;
+       std::vector<char const*> mEntries;
+   };
+   
+   using LayerCollection = NamedEntryCollection;
+   using ExtensionCollection = NamedEntryCollection;
+   
+   inline std::vector<VkLayerProperties> GetInstanceLayerProperties(PFN_vkEnumerateInstanceLayerProperties pfnEnumerateInstanceLayerProperties)
+   {
+       GPA_ASSERT(pfnEnumerateInstanceLayerProperties);
+       uint32_t propertyCount = 0;
+       auto vkResult = pfnEnumerateInstanceLayerProperties(&propertyCount, nullptr);
+       (void)vkResult;
+       GPA_ASSERT(vkResult == VK_SUCCESS);
+       std::vector<VkLayerProperties> properties(propertyCount);
+       vkResult = pfnEnumerateInstanceLayerProperties(&propertyCount, properties.data());
+       GPA_ASSERT(vkResult == VK_SUCCESS);
+       return properties;
+   }
+   
+   inline std::vector<VkExtensionProperties> GetInstanceExtensionProperties(PFN_vkEnumerateInstanceExtensionProperties pfnEnumerateInstanceExtensionProperties)
+   {
+       GPA_ASSERT(pfnEnumerateInstanceExtensionProperties);
+       uint32_t propertyCount = 0;
+       auto vkResult = pfnEnumerateInstanceExtensionProperties(nullptr, &propertyCount, nullptr);
+       (void)vkResult;
+       GPA_ASSERT(vkResult == VK_SUCCESS);
+       std::vector<VkExtensionProperties> properties(propertyCount);
+       vkResult = pfnEnumerateInstanceExtensionProperties(nullptr, &propertyCount, properties.data());
+       GPA_ASSERT(vkResult == VK_SUCCESS);
+       return properties;
+   }
+   
+   inline std::vector<VkExtensionProperties> GetDeviceExtensionProperties(VkPhysicalDevice physicalDevice, PFN_vkEnumerateDeviceExtensionProperties pfnEnumerateDeviceExtensionProperties)
+   {
+       GPA_ASSERT(pfnEnumerateDeviceExtensionProperties);
+       uint32_t propertyCount = 0;
+       auto vkResult = pfnEnumerateDeviceExtensionProperties(physicalDevice, nullptr, &propertyCount, nullptr);
+       (void)vkResult;
+       GPA_ASSERT(vkResult == VK_SUCCESS);
+       std::vector<VkExtensionProperties> properties(propertyCount);
+       vkResult = pfnEnumerateDeviceExtensionProperties(physicalDevice, nullptr, &propertyCount, properties.data());
+       GPA_ASSERT(vkResult == VK_SUCCESS);
+       return properties;
+   }
+   
+   inline const std::vector<std::string>& GetValidationLayerSettingNames()
+   {
+       static const std::vector<std::string> sValidationLayerSettingNames{
+           /* BOOL      : true                                            */ "VK_LAYER_FINE_GRAINED_LOCKING",
+           /* BOOL      : true                                            */ "VK_KHRONOS_VALIDATION_VALIDATE_CORE",
+           /* BOOL      : true                                            */ "VK_KHRONOS_VALIDATION_CHECK_IMAGE_LAYOUT",
+           /* BOOL      : true                                            */ "VK_KHRONOS_VALIDATION_CHECK_COMMAND_BUFFER",
+           /* BOOL      : true                                            */ "VK_KHRONOS_VALIDATION_CHECK_OBJECT_IN_USE",
+           /* BOOL      : true                                            */ "VK_KHRONOS_VALIDATION_CHECK_QUERY",
+           /* BOOL      : true                                            */ "VK_KHRONOS_VALIDATION_CHECK_SHADERS",
+           /* BOOL      : true                                            */ "VK_KHRONOS_VALIDATION_CHECK_SHADERS_CACHING",
+           /* BOOL      : true                                            */ "VK_KHRONOS_VALIDATION_UNIQUE_HANDLES",
+           /* BOOL      : true                                            */ "VK_KHRONOS_VALIDATION_OBJECT_LIFETIME",
+           /* BOOL      : true                                            */ "VK_KHRONOS_VALIDATION_STATELESS_PARAM",
+           /* BOOL      : true                                            */ "VK_KHRONOS_VALIDATION_THREAD_SAFETY",
+           /* BOOL      : true                                            */ "VK_KHRONOS_VALIDATION_VALIDATE_SYNC",
+           /* BOOL      : true                                            */ "VK_KHRONOS_VALIDATION_SYNC_QUEUE_SUBMIT",
+           /* ENUM      : GPU_BASED_NONE                                  */  // "VK_KHRONOS_VALIDATION_VALIDATE_GPU_BASED",
+           /* BOOL      : true                                            */  // "VK_KHRONOS_VALIDATION_PRINTF_TO_STDOUT",
+           /* BOOL      : false                                           */  // "VK_KHRONOS_VALIDATION_PRINTF_VERBOSE",
+           /* INT       : 1024                                            */  // "VK_KHRONOS_VALIDATION_PRINTF_BUFFER_SIZE",
+           /* BOOL      : true                                            */ "VK_KHRONOS_VALIDATION_RESERVE_BINDING_SLOT",
+           /* BOOL      : true                                            */ "VK_KHRONOS_VALIDATION_VMA_LINEAR_OUTPUT",
+           /* BOOL      : true                                            */ "VK_KHRONOS_VALIDATION_GPUAV_DESCRIPTOR_CHECKS",
+           /* BOOL      : true                                            */ "VK_KHRONOS_VALIDATION_WARN_ON_ROBUST_OOB",
+           /* BOOL      : true                                            */ "VK_KHRONOS_VALIDATION_VALIDATE_INDIRECT_BUFFER",
+           /* BOOL      : true                                            */ "VK_KHRONOS_VALIDATION_USE_INSTRUMENTED_SHADER_CACHE",
+           /* BOOL      : false                                           */  // "VK_KHRONOS_VALIDATION_SELECT_INSTRUMENTED_SHADERS",
+           /* INT       : 10000                                           */  // "VK_KHRONOS_VALIDATION_GPUAV_MAX_BUFFER_DEVICE_ADDRESSES",
+           /* BOOL      : false                                           */  // "VK_KHRONOS_VALIDATION_VALIDATE_BEST_PRACTICES",
+           /* BOOL      : false                                           */  // "VK_KHRONOS_VALIDATION_VALIDATE_BEST_PRACTICES_ARM",
+           /* BOOL      : false                                           */  // "VK_KHRONOS_VALIDATION_VALIDATE_BEST_PRACTICES_AMD",
+           /* BOOL      : false                                           */  // "VK_KHRONOS_VALIDATION_VALIDATE_BEST_PRACTICES_IMG",
+           /* BOOL      : false                                           */  // "VK_KHRONOS_VALIDATION_VALIDATE_BEST_PRACTICES_NVIDIA",
+           /* FLAGS     : VK_DBG_LAYER_ACTION_LOG_MSG                     */  // "VK_KHRONOS_VALIDATION_DEBUG_ACTION",
+           /* SAVE_FILE : stdout                                          */  // "VK_KHRONOS_VALIDATION_LOG_FILENAME",
+           /* FLAGS     : error                                           */  // "VK_KHRONOS_VALIDATION_REPORT_FLAGS",
+           /* BOOL      : true                                            */  // "VK_KHRONOS_VALIDATION_ENABLE_MESSAGE_LIMIT",
+           /* INT       : 10                                              */  // "VK_LAYER_DUPLICATE_MESSAGE_LIMIT",
+           /* LIST      :                                                 */  // "VK_LAYER_MESSAGE_ID_FILTER",
+           /* FLAGS     : VK_VALIDATION_FEATURE_DISABLE_THREAD_SAFETY_EXT */  // "VK_LAYER_DISABLES",
+           /* FLAGS     :                                                 */  // "VK_LAYER_ENABLES",
+       };
+       return sValidationLayerSettingNames;
+   }
    
    }  // namespace vulkan
    }  // namespace utility

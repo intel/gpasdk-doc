@@ -37,6 +37,7 @@ Program Listing for File playback-engine.h
    #include "playback/range-player.h"
    #include "playback/resource-extraction/resource-extractor.h"
    #include "playback/geometry-extraction/geometry-extractor.h"
+   #include "playback/isa-code-extraction/isa-code-extractor.h"
    
    #include <unordered_set>
    #include <vector>
@@ -51,6 +52,7 @@ Program Listing for File playback-engine.h
    class MetricsExtractor;
    class ResourceExtractor;
    class ShaderProfileExtractor;
+   class ISACodeExtractor;
    
    struct Services
    {
@@ -62,6 +64,7 @@ Program Listing for File playback-engine.h
        ResourceExtractor* resourceExtractorEx = nullptr;
        MetricsExtractor* metricsExtractor = nullptr;
        ShaderProfileExtractor* shaderProfileExtractor = nullptr;
+       ISACodeExtractor* isaCodeExtractor = nullptr;
    };
    
    struct PlaybackEngineParameters
@@ -119,6 +122,8 @@ Program Listing for File playback-engine.h
    
        void Execute(GeometryExtractor::Request& request);
    
+       void Execute(ISACodeExtractor::Request& request, ISACodeExtractor::Result& result);
+   
    private:
        bool ExecuteCallCondition(Callable* callable, uint64_t callIndex) const;
        ExecutionCallbacks CreateExecutionCallbacks(CallableReceiver* receiver, CallableCallbacks* callbacks = nullptr);
@@ -132,6 +137,7 @@ Program Listing for File playback-engine.h
        std::unique_ptr<MetricsExtractor> mMetricsExtractor;
        std::unique_ptr<ShaderProfileExtractor> mShaderProfileExtractor;
        std::unique_ptr<GeometryExtractor> mGeometryExtractor;
+       std::unique_ptr<ISACodeExtractor> mISACodeExtractor;
        std::unordered_set<uint64_t> mDisabledCalls;
        bool mAssistedDisable{false};
    };

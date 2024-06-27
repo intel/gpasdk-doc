@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class DXGISwapChainState &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Template Class ObjectState" href="classgpa_1_1d3d12__state__tracker_1_1ObjectState.html" />
+    <link rel="prev" title="Template Class D3D12LivetimeTracker" href="classgpa_1_1d3d12__state__tracker_1_1detail_1_1D3D12LivetimeTracker.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../src/reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">hud-layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">api-debug-layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">device-override</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#dump-resources-layer">dump-resources-layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#dump-state-layer">dump-state-layer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#unions">Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-13-2024">2024.2 (June 13 2024)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-15-2024">2024.1 (March 15 2024)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id2">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id3">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#dec-14-2023">2023.4 (Dec 14 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id7">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#sept-21-2023">2023.3 (Sept 21 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id35">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id36">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id38">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id39">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id40">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id41">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id42">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id43">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id44">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id45">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id46">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id49">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id50">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2024.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id7">2024.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id12">2023.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id17">2023.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id20">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id23">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id26">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id27">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id28">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id29">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id30">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id31">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id32">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id33">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id34">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../src/reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">C++ Interfaces</a></li>
+      <li class="breadcrumb-item active">Class DXGISwapChainState</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-dxgiswapchainstate">
+<span id="exhale-class-classgpa-1-1d3d12-state-tracker-1-1dxgiswapchainstate"></span><h1>Class DXGISwapChainState<a class="headerlink" href="#class-dxgiswapchainstate" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_d3d12-state-tracking_dxgi-swapchain.h.html#file-include-d3d12-state-tracking-dxgi-swapchain-h"><span class="std std-ref">File dxgi-swapchain.h</span></a></p></li>
+</ul>
+<section id="nested-relationships">
+<h2>Nested Relationships<a class="headerlink" href="#nested-relationships" title="Permalink to this headline"></a></h2>
+<section id="nested-types">
+<h3>Nested Types<a class="headerlink" href="#nested-types" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="structgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState_1_1BackBufferEntry.html#exhale-struct-structgpa-1-1d3d12-state-tracker-1-1dxgiswapchainstate-1-1backbufferentry"><span class="std std-ref">Struct DXGISwapChainState::BackBufferEntry</span></a></p></li>
+</ul>
+</section>
+</section>
+<section id="inheritance-relationships">
+<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline"></a></h2>
+<section id="base-type">
+<h3>Base Type<a class="headerlink" href="#base-type" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">gpa::d3d12_state_tracker::ObjectState&lt;</span> <span class="pre">IDXGIObject</span> <span class="pre">&gt;</span></code> (<a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1ObjectState.html#exhale-class-classgpa-1-1d3d12-state-tracker-1-1objectstate"><span class="std std-ref">Template Class ObjectState</span></a>)</p></li>
+</ul>
+</section>
+</section>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainStateE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker18DXGISwapChainStateE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker18DXGISwapChainStateE"></span><span id="gpa::d3d12_state_tracker::DXGISwapChainState"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DXGISwapChainState</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">gpa</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">d3d12_state_tracker</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1ObjectState.html#_CPPv4I0EN3gpa19d3d12_state_tracker11ObjectStateE" title="gpa::d3d12_state_tracker::ObjectState"><span class="n"><span class="pre">ObjectState</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">IDXGIObject</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainStateE" title="Permalink to this definition"></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainTypeE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainTypeE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainTypeE"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState_1ab0dbb22f7851004f5d105fa1610b8031"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SwapChainType</span></span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainTypeE" title="Permalink to this definition"></a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainType8kInvalidE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainType8kInvalidE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainType8kInvalidE"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState_1ab0dbb22f7851004f5d105fa1610b8031a65fb7b33f5031fb94108c3275f262ae3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kInvalid</span></span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainType8kInvalidE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainType8kDefaultE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainType8kDefaultE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainType8kDefaultE"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState_1ab0dbb22f7851004f5d105fa1610b8031ab0a35d81cbe71f478003b7f863de90d8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kDefault</span></span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainType8kDefaultE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainType24kSwapChainForCompositionE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainType24kSwapChainForCompositionE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainType24kSwapChainForCompositionE"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState_1ab0dbb22f7851004f5d105fa1610b8031a301bd8dd252beb8b8479b8a2506cbf5a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kSwapChainForComposition</span></span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainType24kSwapChainForCompositionE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainType23kSwapChainForCoreWindowE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainType23kSwapChainForCoreWindowE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainType23kSwapChainForCoreWindowE"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState_1ab0dbb22f7851004f5d105fa1610b8031a734b0df8e48440a9d232ff166d56d234"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kSwapChainForCoreWindow</span></span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainType23kSwapChainForCoreWindowE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainType17kSwapChainForHwndE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainType17kSwapChainForHwndE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainType17kSwapChainForHwndE"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState_1ab0dbb22f7851004f5d105fa1610b8031a9c580def8f785f38a53530dfbbbda775"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kSwapChainForHwnd</span></span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainType17kSwapChainForHwndE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainType9kMaxTypesE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainType9kMaxTypesE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainType9kMaxTypesE"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState_1ab0dbb22f7851004f5d105fa1610b8031a17f2185ea6d99770bbd0ff03a6c53e75"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kMaxTypes</span></span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainType9kMaxTypesE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState18DXGISwapChainStateEP14IDXGISwapChainP8IUnknownPK20DXGI_SWAP_CHAIN_DESC">
+<span id="_CPPv3N3gpa19d3d12_state_tracker18DXGISwapChainState18DXGISwapChainStateEP14IDXGISwapChainP8IUnknownPK20DXGI_SWAP_CHAIN_DESC"></span><span id="_CPPv2N3gpa19d3d12_state_tracker18DXGISwapChainState18DXGISwapChainStateEP14IDXGISwapChainP8IUnknownPK20DXGI_SWAP_CHAIN_DESC"></span><span id="gpa::d3d12_state_tracker::DXGISwapChainState::DXGISwapChainState__IDXGISwapChainP.IUnknownP.DXGI_SWAP_CHAIN_DESCCP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState_1a11fcdd51b6a034c1a9e47f383988c3fb"></span><span class="sig-name descname"><span class="n"><span class="pre">DXGISwapChainState</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">IDXGISwapChain</span></span><span class="p"><span class="pre">*</span></span>, <span class="n"><span class="pre">IUnknown</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pDevice</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">DXGI_SWAP_CHAIN_DESC</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pDesc</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState18DXGISwapChainStateEP14IDXGISwapChainP8IUnknownPK20DXGI_SWAP_CHAIN_DESC" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState18DXGISwapChainStateEP15IDXGISwapChain1P8IUnknownPK21DXGI_SWAP_CHAIN_DESC1P11IDXGIOutput">
+<span id="_CPPv3N3gpa19d3d12_state_tracker18DXGISwapChainState18DXGISwapChainStateEP15IDXGISwapChain1P8IUnknownPK21DXGI_SWAP_CHAIN_DESC1P11IDXGIOutput"></span><span id="_CPPv2N3gpa19d3d12_state_tracker18DXGISwapChainState18DXGISwapChainStateEP15IDXGISwapChain1P8IUnknownPK21DXGI_SWAP_CHAIN_DESC1P11IDXGIOutput"></span><span id="gpa::d3d12_state_tracker::DXGISwapChainState::DXGISwapChainState__IDXGISwapChain1P.IUnknownP.DXGI_SWAP_CHAIN_DESC1CP.IDXGIOutputP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState_1a787d2fb82627c3aa448944c905b06b09"></span><span class="sig-name descname"><span class="n"><span class="pre">DXGISwapChainState</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">IDXGISwapChain1</span></span><span class="p"><span class="pre">*</span></span>, <span class="n"><span class="pre">IUnknown</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pDevice</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">DXGI_SWAP_CHAIN_DESC1</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pDesc</span></span>, <span class="n"><span class="pre">IDXGIOutput</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pRestrictToOutput</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState18DXGISwapChainStateEP15IDXGISwapChain1P8IUnknownPK21DXGI_SWAP_CHAIN_DESC1P11IDXGIOutput" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState18DXGISwapChainStateEP15IDXGISwapChain1P8IUnknownP8IUnknownPK21DXGI_SWAP_CHAIN_DESC1P11IDXGIOutput">
+<span id="_CPPv3N3gpa19d3d12_state_tracker18DXGISwapChainState18DXGISwapChainStateEP15IDXGISwapChain1P8IUnknownP8IUnknownPK21DXGI_SWAP_CHAIN_DESC1P11IDXGIOutput"></span><span id="_CPPv2N3gpa19d3d12_state_tracker18DXGISwapChainState18DXGISwapChainStateEP15IDXGISwapChain1P8IUnknownP8IUnknownPK21DXGI_SWAP_CHAIN_DESC1P11IDXGIOutput"></span><span id="gpa::d3d12_state_tracker::DXGISwapChainState::DXGISwapChainState__IDXGISwapChain1P.IUnknownP.IUnknownP.DXGI_SWAP_CHAIN_DESC1CP.IDXGIOutputP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState_1a590390c78ee398ed0ae8242f631ed6d6"></span><span class="sig-name descname"><span class="n"><span class="pre">DXGISwapChainState</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">IDXGISwapChain1</span></span><span class="p"><span class="pre">*</span></span>, <span class="n"><span class="pre">IUnknown</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pDevice</span></span>, <span class="n"><span class="pre">IUnknown</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pWindow</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">DXGI_SWAP_CHAIN_DESC1</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pDesc</span></span>, <span class="n"><span class="pre">IDXGIOutput</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pRestrictToOutput</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState18DXGISwapChainStateEP15IDXGISwapChain1P8IUnknownP8IUnknownPK21DXGI_SWAP_CHAIN_DESC1P11IDXGIOutput" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState18DXGISwapChainStateEP15IDXGISwapChain1P8IUnknown4HWNDPK21DXGI_SWAP_CHAIN_DESC1PK31DXGI_SWAP_CHAIN_FULLSCREEN_DESCP11IDXGIOutput">
+<span id="_CPPv3N3gpa19d3d12_state_tracker18DXGISwapChainState18DXGISwapChainStateEP15IDXGISwapChain1P8IUnknown4HWNDPK21DXGI_SWAP_CHAIN_DESC1PK31DXGI_SWAP_CHAIN_FULLSCREEN_DESCP11IDXGIOutput"></span><span id="_CPPv2N3gpa19d3d12_state_tracker18DXGISwapChainState18DXGISwapChainStateEP15IDXGISwapChain1P8IUnknown4HWNDPK21DXGI_SWAP_CHAIN_DESC1PK31DXGI_SWAP_CHAIN_FULLSCREEN_DESCP11IDXGIOutput"></span><span id="gpa::d3d12_state_tracker::DXGISwapChainState::DXGISwapChainState__IDXGISwapChain1P.IUnknownP.HWND.DXGI_SWAP_CHAIN_DESC1CP.DXGI_SWAP_CHAIN_FULLSCREEN_DESCCP.IDXGIOutputP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState_1a35773bba58abaf15857906cfda8f8281"></span><span class="sig-name descname"><span class="n"><span class="pre">DXGISwapChainState</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">IDXGISwapChain1</span></span><span class="p"><span class="pre">*</span></span>, <span class="n"><span class="pre">IUnknown</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pDevice</span></span>, <span class="n"><span class="pre">HWND</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">hWnd</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">DXGI_SWAP_CHAIN_DESC1</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pDesc</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">DXGI_SWAP_CHAIN_FULLSCREEN_DESC</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pFullscreenDesc</span></span>, <span class="n"><span class="pre">IDXGIOutput</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pRestrictToOutput</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState18DXGISwapChainStateEP15IDXGISwapChain1P8IUnknown4HWNDPK21DXGI_SWAP_CHAIN_DESC1PK31DXGI_SWAP_CHAIN_FULLSCREEN_DESCP11IDXGIOutput" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainStateD0Ev">
+<span id="_CPPv3N3gpa19d3d12_state_tracker18DXGISwapChainStateD0Ev"></span><span id="_CPPv2N3gpa19d3d12_state_tracker18DXGISwapChainStateD0Ev"></span><span id="gpa::d3d12_state_tracker::DXGISwapChainState::~DXGISwapChainState"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState_1a92d15f7f316612c5d2d3a67c392bf997"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~DXGISwapChainState</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainStateD0Ev" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState7GetGUIDEv">
+<span id="_CPPv3N3gpa19d3d12_state_tracker18DXGISwapChainState7GetGUIDEv"></span><span id="_CPPv2N3gpa19d3d12_state_tracker18DXGISwapChainState7GetGUIDEv"></span><span id="gpa::d3d12_state_tracker::DXGISwapChainState::GetGUID"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState_1ac8fecd756ac823a7e2cc3605459eb345"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">GUID</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetGUID</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState7GetGUIDEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker18DXGISwapChainState7GetTypeEv">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker18DXGISwapChainState7GetTypeEv"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker18DXGISwapChainState7GetTypeEv"></span><span id="gpa::d3d12_state_tracker::DXGISwapChainState::GetTypeC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState_1a895c490969d88565a612789dccca1f29"></span><a class="reference internal" href="#_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState13SwapChainTypeE" title="gpa::d3d12_state_tracker::DXGISwapChainState::SwapChainType"><span class="n"><span class="pre">SwapChainType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetType</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker18DXGISwapChainState7GetTypeEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker18DXGISwapChainState18GetBackBufferStateE8uint32_t">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker18DXGISwapChainState18GetBackBufferStateE8uint32_t"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker18DXGISwapChainState18GetBackBufferStateE8uint32_t"></span><span id="gpa::d3d12_state_tracker::DXGISwapChainState::GetBackBufferState__uint32_tC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState_1abe0a8cf5151629090c80574ba3b36045"></span><a class="reference internal" href="#_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState15BackBufferEntryE" title="gpa::d3d12_state_tracker::DXGISwapChainState::BackBufferEntry"><span class="n"><span class="pre">BackBufferEntry</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetBackBufferState</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">bufferIndex</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker18DXGISwapChainState18GetBackBufferStateE8uint32_t" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3gpa19d3d12_state_tracker18DXGISwapChainState16GetPresentQueuesEv">
+<span id="_CPPv3NK3gpa19d3d12_state_tracker18DXGISwapChainState16GetPresentQueuesEv"></span><span id="_CPPv2NK3gpa19d3d12_state_tracker18DXGISwapChainState16GetPresentQueuesEv"></span><span id="gpa::d3d12_state_tracker::DXGISwapChainState::GetPresentQueuesC"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState_1a2a2875d16ac2642bf7d8296d10999f36"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">IUnknown</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetPresentQueues</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3gpa19d3d12_state_tracker18DXGISwapChainState16GetPresentQueuesEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState11OnGetBufferE8uint32_tPPv">
+<span id="_CPPv3N3gpa19d3d12_state_tracker18DXGISwapChainState11OnGetBufferE8uint32_tPPv"></span><span id="_CPPv2N3gpa19d3d12_state_tracker18DXGISwapChainState11OnGetBufferE8uint32_tPPv"></span><span id="gpa::d3d12_state_tracker::DXGISwapChainState::OnGetBuffer__uint32_t.voidPP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState_1a8396c6d81eb1a58af7d2b84f4bb07597"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnGetBuffer</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">bufferIndex</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ppBuffer</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState11OnGetBufferE8uint32_tPPv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState15OnResizeBuffersE8uint32_t8uint32_t8uint32_t11DXGI_FORMAT8uint32_t">
+<span id="_CPPv3N3gpa19d3d12_state_tracker18DXGISwapChainState15OnResizeBuffersE8uint32_t8uint32_t8uint32_t11DXGI_FORMAT8uint32_t"></span><span id="_CPPv2N3gpa19d3d12_state_tracker18DXGISwapChainState15OnResizeBuffersE8uint32_t8uint32_t8uint32_t11DXGI_FORMAT8uint32_t"></span><span id="gpa::d3d12_state_tracker::DXGISwapChainState::OnResizeBuffers__uint32_t.uint32_t.uint32_t.DXGI_FORMAT.uint32_t"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState_1a8ac6a6ac4fe7ef266fd45771eb7e353c"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnResizeBuffers</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">BufferCount</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Width</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Height</span></span>, <span class="n"><span class="pre">DXGI_FORMAT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">NewFormat</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">SwapChainFlags</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState15OnResizeBuffersE8uint32_t8uint32_t8uint32_t11DXGI_FORMAT8uint32_t" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState16OnResizeBuffers1E8uint32_t8uint32_t8uint32_t11DXGI_FORMAT8uint32_tPK8uint32_tPPC8IUnknown">
+<span id="_CPPv3N3gpa19d3d12_state_tracker18DXGISwapChainState16OnResizeBuffers1E8uint32_t8uint32_t8uint32_t11DXGI_FORMAT8uint32_tPK8uint32_tPPC8IUnknown"></span><span id="_CPPv2N3gpa19d3d12_state_tracker18DXGISwapChainState16OnResizeBuffers1E8uint32_t8uint32_t8uint32_t11DXGI_FORMAT8uint32_tPK8uint32_tPPC8IUnknown"></span><span id="gpa::d3d12_state_tracker::DXGISwapChainState::OnResizeBuffers1__uint32_t.uint32_t.uint32_t.DXGI_FORMAT.uint32_t.uint32_tCP.IUnknownPCP"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState_1accf19d32592f7db7f56f9f8b8471455f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OnResizeBuffers1</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">BufferCount</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Width</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Height</span></span>, <span class="n"><span class="pre">DXGI_FORMAT</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Format</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">SwapChainFlags</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pCreationNodeMask</span></span>, <span class="n"><span class="pre">IUnknown</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ppPresentQueue</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState16OnResizeBuffers1E8uint32_t8uint32_t8uint32_t11DXGI_FORMAT8uint32_tPK8uint32_tPPC8IUnknown" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState5sGUIDE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker18DXGISwapChainState5sGUIDE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker18DXGISwapChainState5sGUIDE"></span><span id="gpa::d3d12_state_tracker::DXGISwapChainState::sGUID__GUID"></span><span class="target" id="classgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState_1ab43c5e8450fd45cbf4a29a26f57ebe2d"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="n"><span class="pre">GUID</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sGUID</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0x17e90e57</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0x3481</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0x4b6d</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0x83</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0x79</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0x81</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0xe1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0x5f</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0xf9</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0x48</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0xc2</span></span><span class="p"><span class="pre">}</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState5sGUIDE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState15BackBufferEntryE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker18DXGISwapChainState15BackBufferEntryE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker18DXGISwapChainState15BackBufferEntryE"></span><span id="gpa::d3d12_state_tracker::DXGISwapChainState::BackBufferEntry"></span><span class="target" id="structgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState_1_1BackBufferEntry"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BackBufferEntry</span></span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState15BackBufferEntryE" title="Permalink to this definition"></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState15BackBufferEntry10backBufferE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker18DXGISwapChainState15BackBufferEntry10backBufferE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker18DXGISwapChainState15BackBufferEntry10backBufferE"></span><span id="gpa::d3d12_state_tracker::DXGISwapChainState::BackBufferEntry::backBuffer__WeakPtr:ID3D12Resource:"></span><span class="target" id="structgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState_1_1BackBufferEntry_1a3249f48b89f685287d8a78e37a3dacc2"></span><a class="reference internal" href="classgpa_1_1d3d12__state__tracker_1_1WeakPtr.html#_CPPv4I0EN3gpa19d3d12_state_tracker7WeakPtrE" title="gpa::d3d12_state_tracker::WeakPtr"><span class="n"><span class="pre">WeakPtr</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">ID3D12Resource</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">backBuffer</span></span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState15BackBufferEntry10backBufferE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState15BackBufferEntry8obtainedE">
+<span id="_CPPv3N3gpa19d3d12_state_tracker18DXGISwapChainState15BackBufferEntry8obtainedE"></span><span id="_CPPv2N3gpa19d3d12_state_tracker18DXGISwapChainState15BackBufferEntry8obtainedE"></span><span id="gpa::d3d12_state_tracker::DXGISwapChainState::BackBufferEntry::obtained__b"></span><span class="target" id="structgpa_1_1d3d12__state__tracker_1_1DXGISwapChainState_1_1BackBufferEntry_1a5bca910a6dee4cfcf7388718297af9e2"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">obtained</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N3gpa19d3d12_state_tracker18DXGISwapChainState15BackBufferEntry8obtainedE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="classgpa_1_1d3d12__state__tracker_1_1detail_1_1D3D12LivetimeTracker.html" class="btn btn-neutral float-left" title="Template Class D3D12LivetimeTracker" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="classgpa_1_1d3d12__state__tracker_1_1ObjectState.html" class="btn btn-neutral float-right" title="Template Class ObjectState" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

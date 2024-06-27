@@ -1,0 +1,100 @@
+
+.. _program_listing_file_include_stream-metadata-parser_stream-metadata-parser.h:
+
+Program Listing for File stream-metadata-parser.h
+=================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_stream-metadata-parser_stream-metadata-parser.h>` (``include\stream-metadata-parser\stream-metadata-parser.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   Copyright (c) 2023 Intel Corporation
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once 
+   #ifndef GPA_SERIALIZER_SUPPORT
+   #define GPA_SERIALIZER_SUPPORT 0
+   #endif
+   
+   #include <functional>
+   #include <iosfwd>
+   #include <map>
+   #include <memory>
+   #include <vector>
+   #include "stream-metadata-types/metadata-types.h"
+   
+   namespace gpa {
+   namespace serialization {
+           
+   class RandomAccessSerializer;
+   
+   namespace metadata {
+   
+   
+   class StreamMetadataParser
+   {
+   public:
+       enum class CallbackState
+       {
+           SUCCESS,  //Custom parsing is a success, keep going. 
+           FAILED,   //Custom parsing failed. Serializer/Inputstream could be in unknown state
+           STOP,     //Stop parsing after this and exit. 
+       };
+   
+       typedef std::function<CallbackState(uint64_t headerType, void* header, void* input, bool isGPASerializerType)> CustomParserCallback;
+   
+       StreamMetadataParser();
+       StreamMetadataParser(CustomParserCallback callback);
+   #if GPA_SERIALIZER_SUPPORT
+       bool Parse(RandomAccessSerializer* serializer);
+   #endif
+       bool Parse(std::istream* inputStream);
+   
+       StreamInfoHeader const* GetStreamInfoHeader() const;
+       char const* GetCapturedProcessName() const;
+       DeviceFeatureInfo const* GetDeviceFeatureInfo() const;
+       void GetStreamCaptureArgsInfo(size_t* argsCount, StreamCaptureArgsInfo* streamCaptureArgsInfo) const;    
+       void GetErrorMessages(size_t* errorCount, char const** messages) const;
+       void GetQueues(size_t* queueCount, QueueHeader* queuesHeaders) const;
+       void GetKeyframeMetadata(size_t* keyframeCount, KeyframeHeader* keyframeHeader);
+       uint64_t StartTimestamp() const;
+       uint64_t EndTimestamp() const;
+   
+   private: 
+       StreamMetadataParser(StreamMetadataParser& ) = delete; 
+       StreamMetadataParser& operator=(const StreamMetadataParser& other) = delete;  
+   
+       void OnReadTimestampHeader(TimestampHeader const& timeStampHeader);
+       void OnCustomParse(uint64_t headerType, void* header, void* input, bool isGPASerializerType = false);
+   
+       uint64_t mStartTimestamp;
+       uint64_t mEndTimestamp;
+       CustomParserCallback mCallback;
+       StreamInfoHeader mStreamInfoHeader;
+       ProcessInfo mProcessInfo;
+       DeviceFeatureInfo mDeviceFeatureInfo;
+       std::vector<KeyframeHeader> mKeyframeInfos;
+       std::vector<QueueHeader> mQueues;
+       StreamArgsHistory mStreamArgsHistory;
+       std::vector<std::string> mErrorMessages; 
+       CallbackState mParserCallbackState;
+   };
+   
+   }
+   }
+   }

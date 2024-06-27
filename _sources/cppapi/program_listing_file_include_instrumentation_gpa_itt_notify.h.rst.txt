@@ -29,8 +29,13 @@ Program Listing for File gpa_itt_notify.h
    
    #pragma once
    
+   #if defined(FRAMEWORK_INTEL_NO_ITTNOTIFY_API)
    #define INTEL_NO_ITTNOTIFY_API 1
-   #define ITT_DOMAIN(arg)
+   #define ITT_DOMAIN(arg) typedef char ITT_DOMAIN_UNUSED_TYPEDEF
    #define ITT_FUNCTION_TASK()
    #define ITT_SCOPE_TASK(name)
    #define ITT_ARG(name, arg)
+   #define ITT_MARKER(name, scope)
+   #else
+   #include "itt_notify.hpp"
+   #endif

@@ -1,0 +1,93 @@
+
+.. _program_listing_file_include_stream-metadata-types_metadata-header.h:
+
+Program Listing for File metadata-header.h
+==========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_stream-metadata-types_metadata-header.h>` (``include\stream-metadata-types\metadata-header.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   (c) Intel Corporation.
+    
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include <cstdint>
+   
+   namespace gpa {
+   namespace serialization {
+   namespace metadata {
+   
+   enum HeaderType : uint64_t {
+       // DO **NOT** ADD NEW ENTRIES TO THIS LIST
+       kInvalid,  
+       kStreamInfo,
+       kTimestamp,     
+       kKeyframe,      
+       kStreamInfoEx,  
+       kQueue,         
+       kProcessInfo,   
+   
+       // aliasing prior style (k-names) to current style (all-caps)
+       // DO **NOT** ADD NEW ENTRIES TO THIS LIST
+       INVALID = kInvalid,
+       STREAM_INFO,
+       TIMESTAMP,
+       KEYFRAME,
+       STREAM_INFO_EX,
+       QUEUE,
+       PROCESS_INFO,
+       STREAM_INFO_EX2,
+       STREAM_ARGS_HISTORY_INFO,
+       DEVICE_FEATURE_LEVEL_INFO,
+       STREAM_INFO_EX3,
+   
+       // flag to indicate that the header contains information that allows it
+       // to be bypassed without parsing it, if it is an unknown type; if this
+       // flag is present, the header type must inherit from HeaderEx, or behavior is
+       // undefined.
+       OPAQUE_HEADER_MASK = 0x100000000,
+   
+       // APPEND NEW ENTRIES TO THIS LIST
+   
+       // Indicates a list of zero or more variable-length metadata entries
+       DICTIONARY,
+       MAX_METADATA_HEADER_TYPE,
+   };
+   
+   struct Header
+   {
+       HeaderType type{};
+   };
+   
+   struct HeaderEx : public Header
+   {
+       uint64_t byteLength{};
+   };
+   
+   // use to get the type only, without any mask bits
+   #define HEADER_TYPE(s) (s.type & 0x00000000FFFFFFFF)
+   
+   // use to determine if the header can be bypassed
+   #define CAN_BYPASS(s) (s.type > OPAQUE_HEADER_MASK && s.type < MAX_METADATA_HEADER_TYPE)
+   
+   }  // namespace metadata
+   }  // namespace serialization
+   }  // namespace gpa

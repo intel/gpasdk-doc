@@ -33,15 +33,17 @@ Program Listing for File gpa-checkret.h
    #include "debugapi.h"
    #else
    #include <syslog.h>
-   #include <string>
-   #include <algorithm>
+   #include <stdlib.h>
+   #include <string.h>
    #endif
    
    #include "gpa-singleton.h"
    #include "gpa-secure.h"
    #include <cstdlib>
    #include <iostream>
-   #include <string.h>
+   #include <string>
+   #include <algorithm>
+   #include <filesystem>
    
    #ifdef _MSC_VER
    #define __PRETTY_FUNCTION__ __FUNCSIG__
@@ -49,60 +51,104 @@ Program Listing for File gpa-checkret.h
    
    namespace gpa {
    namespace checkret {
+   
    struct IReporter
    {
        virtual void Report(const char* message) = 0;
+   };
+   
+   class CDefaultReporter : public IReporter
+   {
+       bool mWriteToTemp = false;
+   
+       CDefaultReporter()
+           : mWriteToTemp(true)
+       {
+       }
+   
+   public:
+       void SetWriteToTemp(bool bWriteToTemp) { mWriteToTemp = bWriteToTemp; }
+       void DebugString(const char* message)
+       {
+   #ifdef _WIN32
+           OutputDebugStringA(message);
+   #else
+           openlog("GPA", LOG_PID | LOG_CONS, LOG_USER);
+           syslog(LOG_DEBUG, "%s", message);
+           closelog();
+   #endif
+       }
+   
+       void WriteToTemp(const char* message)
+       {
+           static char path[1024] = {};
+           const char* szPath = (char*)gpa::ProcessWideSingletonRegistry::Get("GPA_REPORTER_FILE", path);
+           if (!szPath[0]) {
+               try {
+                   std::filesystem::path tmp = std::filesystem::temp_directory_path();
+                   tmp /= "GPA_REPORTER_FILE.txt";
+                   strcpy(path, tmp.string().c_str());
+                   gpa::ProcessWideSingletonRegistry::Set("GPA_REPORTER_FILE", path);
+                   std::filesystem::remove(tmp);
+               } catch (const std::filesystem::filesystem_error& e) {
+                   std::cerr << "Error retrieving temporary directory: " << e.what() << std::endl;
+                   return;
+               }
+           }
+   
+           FILE* file = fopen(szPath, "a");
+           if (!file) {
+               return;
+           }
+   
+           // Use fprintf to append text to the file
+           fprintf(file, "%s\n", message);
+   
+           // Close the file
+           fclose(file);
+       }
+   
+       virtual void Report(const char* message)
+       {
+           DebugString(message);
+           if (mWriteToTemp) {
+               WriteToTemp(message);
+           }
+           const char* env = std::getenv("GPA_CHECKRET");
+           if (!env) {
+               return;
+           }
+           if (strstr(env, "stderr")) {
+               std::cerr << message;
+           }
+           if (strstr(env, "stdout")) {
+               std::cout << message;
+           }
+           if (strstr(env, "assert")) {
+   #ifdef _WIN32
+               ::MessageBoxA(nullptr, message, "GPA_CHECKRET", MB_OK);
+   #else
+               std::string msg = message;
+               std::replace(msg.begin(), msg.end(), '"', '\'');
+               msg = std::string("xmessage -center \"") + msg + "\"";
+               int res = ::system(msg.c_str());  //FIXME: fallback on zenity
+               (void)res;
+   #endif
+           }
+       }
        static IReporter& DefaultReporter()
        {
-           class CDefaultReporter : public IReporter
-           {
-               void DebugString(const char* message)
-               {
-   #ifdef _WIN32
-                   OutputDebugStringA(message);
-   #else
-                   openlog("GPA", LOG_PID | LOG_CONS, LOG_USER);
-                   syslog(LOG_DEBUG, "%s", message);
-                   closelog();
-   #endif
-               }
-               virtual void Report(const char* message)
-               {
-                   DebugString(message);
-                   const char* env = std::getenv("GPA_CHECKRET");
-                   if (!env) {
-                       return;
-                   }
-                   if (strstr(env, "stderr")) {
-                       std::cerr << message;
-                   }
-                   if (strstr(env, "stdout")) {
-                       std::cout << message;
-                   }
-                   if (strstr(env, "assert")) {
-   #ifdef _WIN32
-                       ::MessageBoxA(nullptr, message, "GPA_CHECKRET", MB_OK);
-   #else
-                       std::string msg = message;
-                       std::replace(msg.begin(), msg.end(), '"', '\'');
-                       msg = std::string("xmessage -center \"") + msg + "\"";
-                       int res = system(msg.c_str());  //FIXME: fallback on zenity
-                       (void)res;
-   #endif
-                   }
-               }
-           };
            static CDefaultReporter reporter;
            return reporter;
        }
    };
    
-   #define GPA_REPORT(fmt, ...)                                                                                                                                          \
-       {                                                                                                                                                                 \
-           gpa::checkret::IReporter* pReporter = (gpa::checkret::IReporter*)ProcessWideSingletonRegistry::Get("Reporter", &gpa::checkret::IReporter::DefaultReporter()); \
-           char* buff = (char*)alloca(1024);                                                                                                                             \
-           GPA_SPRINTF(buff, 1024, fmt, ##__VA_ARGS__);                                                                                                                  \
-           pReporter->Report(buff);                                                                                                                                      \
+   #define GPA_REPORT(fmt, ...)                                                                                                                                                                 \
+       {                                                                                                                                                                                        \
+           gpa::checkret::IReporter* pGPA_REPORT_Reporter = (gpa::checkret::IReporter*)gpa::ProcessWideSingletonRegistry::Get("Reporter", &gpa::checkret::CDefaultReporter::DefaultReporter()); \
+           char* GPA_REPORT_buff = (char*)alloca(1024);                                                                                                                                         \
+           GPA_SPRINTF(GPA_REPORT_buff, 1024, fmt, ##__VA_ARGS__);                                                                                                                              \
+           pGPA_REPORT_Reporter->Report(GPA_REPORT_buff);                                                                                                                                       \
        }
    
    #define GPA_CR_NRV ;

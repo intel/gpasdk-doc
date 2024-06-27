@@ -32,15 +32,15 @@ Program Listing for File vulkan-range-repeat-cache-cmdbuffer.h
    #include "playback/range-repeat-cache.h"
    #include "playback/vulkan-range-repeat-cache.h"
    
+   #define VK_NO_PROTOTYPES
+   #include <vulkan/vulkan.h>
+   #undef VK_NO_PROTOTYPES
+   
    #include <vector>
    #include <list>
    #include <atomic>
    #include <map>
    #include <set>
-   
-   #define VK_NO_PROTOTYPES
-   #include <vulkan/vulkan.h>
-   #undef VK_NO_PROTOTYPES
    
    namespace gpa {
    namespace playback {
@@ -62,28 +62,25 @@ Program Listing for File vulkan-range-repeat-cache-cmdbuffer.h
        std::map<VkImage, MemoryBarrierChange> imageBarrierChanges;
    };
    
-   // =============================== RangeRepeatCacheVkCommandBuffer ==============================
-   class RangeRepeatCacheVkCommandBuffer : public RangeRepeatCacheVKForCommandBufers
+   class RangeRepeatCacheVkCommandBuffer final
+       : public RangeRepeatCacheVKForCommandBufers
    {
    public:
        typedef std::shared_ptr<RangeRepeatCacheVkCommandBuffer> Ptr;
-       RangeRepeatCacheVkCommandBuffer(void* object, uint64_t captureKey,
-                                       playback::Context* context, playback::Callable* callable);
-       virtual ~RangeRepeatCacheVkCommandBuffer();
+       RangeRepeatCacheVkCommandBuffer(void* object, uint64_t captureKey, Context* context, Callable* callable);
+       ~RangeRepeatCacheVkCommandBuffer() override final;
    
-       void OnRangeRepeatRecreateObject(GPADispatchTable const*& table, uint64_t repeatPass) override;
-       void OnRangeRepeatRestoreState(GPADispatchTable const*& table, uint64_t repeatPass) override;
-       void OnRangeExit(GPADispatchTable const*& table) override;
+       void OnRangeRepeatRecreateObject(GPADispatchTable const*& table, uint64_t repeatPass) override final;
+       void OnRangeRepeatRestoreState(GPADispatchTable const*& table, uint64_t repeatPass) override final;
+       void OnRangeExit(GPADispatchTable const*& table) override final;
    
-       void AddCall(Callable* callable) override;
-       void SetUsedInRange(bool value) override;
-       void ClearCallables() override;
+       void AddCall(Callable* callable) override final;
+       void SetUsedInRange(bool value) override final;
+       void ClearCallables() override final;
    
        void OnReset();
-       void OnReincarnation(playback::Context* context, playback::Callable* callable);
-       void EnumerateCallablesFromIncarnation(uint64_t timestamp,
-                                              CallableCache::EnumerateCallablesCallback callback,
-                                              void* userData);
+       void OnReincarnation(playback::Context* context, Callable* callable);
+       void EnumerateCallablesFromIncarnation(uint64_t timestamp, CallableCache::EnumerateCallablesCallback callback, void* userData);
    
        MemoryBarrierUpdates& GetMemoryBarrierUpdates();
        void AddModifiedBuffer(VkBuffer buffer);
@@ -95,15 +92,13 @@ Program Listing for File vulkan-range-repeat-cache-cmdbuffer.h
        void FreeUsedReplacements(GPADispatchTable const*& table);
    
        VkCommandBufferAllocateInfo mCommandBufferInfo;
-       VkDevice mDevice = VK_NULL_HANDLE;
-       VkCommandBuffer mCurrentCommandBuffer = VK_NULL_HANDLE;
-   
+       VkDevice mDevice{VK_NULL_HANDLE};
+       VkCommandBuffer mCurrentCommandBuffer{VK_NULL_HANDLE};
        std::vector<VkCommandBuffer> mSecondaryCommandBuffers;
-   
        std::vector<VkCommandBuffer> mUsedReplacements;
    
        // Tracking final barrier changes
-       struct MemoryBarrierUpdates mMemoryBarrierUpdates;
+       MemoryBarrierUpdates mMemoryBarrierUpdates;
        std::set<VkBuffer> mModifiedBuffers;
    
        std::vector<CmdBufferIncarnation> mIncarnations;
