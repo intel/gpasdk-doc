@@ -51,7 +51,7 @@ Program Listing for File metrics-request.h
        typedef std::shared_ptr<MetricsRequest> Ptr;
    
        MetricsRequest(uint32_t groupIndex, metrics::IMetricGroup const* group,
-                      CollectionRange const* ranges, uint64_t nRanges);
+                      CollectionRange const* ranges, uint64_t nRanges, bool freqOverrideEnabled = false, float freqOverrideVal = 1.0f);
        ~MetricsRequest();
    
        uint32_t GroupIndex() const;
@@ -60,6 +60,8 @@ Program Listing for File metrics-request.h
        uint64_t CollectionRangeCount() const;
        uint64_t GetRequestMetricCount() const;
        metrics::MetricId GetRequestMetric(uint64_t index) const;
+       bool IsFrequencyOverrideEnabled() const;
+       float GetFrequencyOverrideValue() const;
    
        void AddRequestMetric(metrics::MetricId metricId, bool insertAtStart = false);
    
@@ -71,6 +73,8 @@ Program Listing for File metrics-request.h
        CollectionRange const* mRanges;
        uint64_t mRangeCount;
        std::vector<metrics::MetricId> mMetricIDs;
+       bool mFrequencyOverrideEnabled = false;
+       float mFrequencyOverrideValue = 1.0f;
    
        MetricsRequest(MetricsRequest const& other) = delete;
        MetricsRequest& operator=(MetricsRequest const& other) = delete;

@@ -28,11 +28,15 @@ Program Listing for File system.h
    ******************************************************************************/
    
    #pragma once
+   #ifdef _WIN32
+   #include <Windows.h>
+   #endif
    
    #include "igpa-config.h"
    
    #include <cstddef>
    #include <cstdint>
+   #include <string>
    
    namespace gpa {
    namespace system {
@@ -50,6 +54,12 @@ Program Listing for File system.h
    bool IsDebuggerPresent();
    
    void WaitForDebugger();
+   
+   #ifdef _WIN32
+   std::string DumpStack(int skip = 0, EXCEPTION_POINTERS* pExceptionPointers = nullptr);  //default will unwind stack from current call
+   #else
+   std::string DumpStack(int skip = 0);  //stack from current call
+   #endif
    
    }  // namespace system
    }  // namespace gpa

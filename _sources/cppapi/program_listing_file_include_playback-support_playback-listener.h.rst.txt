@@ -40,6 +40,16 @@ Program Listing for File playback-listener.h
    
    namespace playback {
    
+   enum class ShutdownRequestReason {
+       NotRequested = 0,
+       Unknown,
+       SurfaceClosed,
+   
+       // Errorous reasons start here
+       Error = 0x1000,
+       RuntimeDeviceRemoved
+   };
+   
    class GPA_CLASS_EXPORT IPlaybackListener
    {
    public:
@@ -56,7 +66,13 @@ Program Listing for File playback-listener.h
    
        virtual bool ShutdownRequested() = 0;
    
+       virtual ShutdownRequestReason GetShutdownRequestReason();
+   
        virtual void SetAppName(const char*) {}  //optional
+   
+   private:
+       IPlaybackListener(IPlaybackListener const&) = delete;
+       IPlaybackListener& operator=(IPlaybackListener const&) = delete;
    };
    
    }  // namespace playback

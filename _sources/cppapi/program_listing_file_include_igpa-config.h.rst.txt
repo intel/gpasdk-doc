@@ -175,7 +175,7 @@ Program Listing for File igpa-config.h
    #if defined(NDEBUG)
        #define GPA_ASSERT_EQ(expected, actual) (void)actual
    #else
-       #define GPA_ASSERT_EQ(expected, actual) assert(expected == actual)
+       #define GPA_ASSERT_EQ(expected, actual) GPA_ASSERT(expected == actual)
    #endif // NDEBUG
    
    #if defined(GPA_FRAMEWORK_BUILD)
@@ -184,3 +184,4 @@ Program Listing for File igpa-config.h
        #define GPA_DEPRECATED(GPA_DEPRECATED_MESSAGE) [[deprecated(GPA_DEPRECATED_MESSAGE)]]
    #endif // GPA_FRAMEWORK_BUILD
    
+   #define GPA_UNUSED(expr) (void)expr

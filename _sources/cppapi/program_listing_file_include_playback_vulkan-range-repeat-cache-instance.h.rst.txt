@@ -31,6 +31,7 @@ Program Listing for File vulkan-range-repeat-cache-instance.h
    #pragma once
    
    #include "playback/vulkan-range-repeat-cache.h"
+   #include "VK_LAYER_INTEL_gvk_restore_point.hpp"
    
    #include <filesystem>
    
@@ -53,15 +54,12 @@ Program Listing for File vulkan-range-repeat-cache-instance.h
    
    private:
        static RangeRepeatCacheVkInstance*& GetInstance();
-       static void RegisterLiveObject(const GvkStateTrackedObject* pCapturedObject, const GvkStateTrackedObject* pRestoredObject);
-       static void UpdateObjectMap();
+       static void RegisterLiveObject(GvkStateTrackedObject const* pCapturedObject, GvkStateTrackedObject const* pRestoredObject);
    
        VkInstance mVkInstance{};
        GvkRestorePoint mGvkRestorePoint{};
        std::filesystem::path mRestorePointPath;
-       std::map<uint64_t, uint64_t> mRestoredObjects;
-       std::vector<GvkStateTrackedObject> mRestorePointObjects;
-       std::vector<GvkStateTrackedObject> mRestorePointCommandBuffers;
+       std::vector<GvkStateTrackedObject> mExcludeObjects;
        ObjectMap mObjectMap;
    };
    
@@ -69,7 +67,6 @@ Program Listing for File vulkan-range-repeat-cache-instance.h
        : public RangeRepeatCacheVK
    {
    public:
-       // typedef std::shared_ptr<RangeRepeatCacheVkQueue> Ptr;
        RangeRepeatCacheVkQueue(void* object, uint64_t captureKey, Context* pContext, Callable* pCallable);
        void OnQueueSynchronizationRequired(GPADispatchTable const*& pGpaDispatchTable) override;
    };

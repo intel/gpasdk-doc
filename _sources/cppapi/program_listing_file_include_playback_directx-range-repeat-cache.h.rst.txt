@@ -40,13 +40,13 @@ Program Listing for File directx-range-repeat-cache.h
    #include <d3d11_4.h>
    #include <map>
    #include <array>
-   #include <assert.h>
+   #include "utility/assert.h"
    
    namespace {
    void AdjustRefCount(void* object, uint32_t refCount)
    {
        if (object == nullptr) {
-           assert(false && "Argument required");
+           GPA_ASSERT(false && "Argument required");
            return;
        }
    
@@ -122,7 +122,7 @@ Program Listing for File directx-range-repeat-cache.h
            mCreationCallable.Execute(table, false);
            mContext->repeating = isRepeating;
            mObject = mContext->objMap->AcquireObject(mObjectKey);
-           assert(mObject && "Could not obtain object from object map");
+           GPA_ASSERT(mObject && "Could not obtain object from object map");
    
            GPA_LOG_TRACE("OnRangeRepeatRecreateObject - recreated obj %llx key %llx with call %s", mObject, mObjectKey,
                          mCreationCallable.Name());
@@ -183,7 +183,7 @@ Program Listing for File directx-range-repeat-cache.h
        ((ResourceType*)resource)->GetDesc(&desc);
        ResourceType* copy = nullptr;
        (device->*createMethod)(&desc, nullptr, &copy);
-       assert(copy && "Could not create resource copy");
+       GPA_ASSERT(copy && "Could not create resource copy");
        immediateContext->CopyResource(copy, resource);
        return copy;
    }

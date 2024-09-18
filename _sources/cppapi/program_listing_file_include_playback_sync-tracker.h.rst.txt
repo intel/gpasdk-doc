@@ -35,7 +35,7 @@ Program Listing for File sync-tracker.h
    #include <vector>
    #include <string>
    #include <deque>
-   #include <cassert>
+   #include "utility/assert.h"
    #include <map>
    
    namespace gpa {
@@ -117,13 +117,13 @@ Program Listing for File sync-tracker.h
        void EnumerateUnlockedCalls(CallableType& originalCall, SyncCommand& originalSyncCommand, CallableCallback callback = [](CallableType&) {})
        {
            std::deque<QueuePendingCall> unlockedCalls;
-           auto processCall = [&](CallableType& callable, SyncCommand& syncCommand) {
+           auto processCall = [&](CallableType& callable, SyncCommand& syncCommand) -> void {
                SyncStateUpdate state = this->UpdateState(callable, syncCommand);
                if (state.shouldPlay) {
                    callback(callable);
                    unlockedCalls.insert(unlockedCalls.begin(), state.unlockedCallables.begin(), state.unlockedCallables.end());
                } else {
-                   assert(state.unlockedCallables.empty());
+                   GPA_ASSERT(state.unlockedCallables.empty());
                }
            };
            processCall(originalCall, originalSyncCommand);

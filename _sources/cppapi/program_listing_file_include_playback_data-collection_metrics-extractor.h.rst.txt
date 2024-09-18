@@ -103,10 +103,12 @@ Program Listing for File metrics-extractor.h
        data_collection::MetricsQueryResult GetResult();
        data_collection::MetricsRequests GetRequestsForMetrics(
            metrics::IMetric const** metrics, uint64_t nMetrics,
-           data_collection::CollectionRange const* collectionRanges, uint64_t nRanges) const;
+           data_collection::CollectionRange const* collectionRanges, uint64_t nRanges,
+           bool freqOverrideEnabled = false, float freqOverrideVal = 1.0f) const;
        data_collection::MetricsRequests GetRequestsForMetrics(
            metrics::MetricId const* metricIDs, uint64_t nMetricIDs,
-           data_collection::CollectionRange const* collectionRanges, uint64_t nRanges) const;
+           data_collection::CollectionRange const* collectionRanges, uint64_t nRanges,
+           bool freqOverrideEnabled = false, float freqOverrideVal = 1.0f) const;
    
        metrics::IMetricsSource* GetMetricsSource();
        metrics::IMetricsSourceComposite* GetMetricsSourceComposite();

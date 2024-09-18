@@ -31,7 +31,7 @@ Program Listing for File span.h
    
    #include <algorithm>
    #include <array>
-   #include <cassert>
+   #include "utility/assert.h"
    #include <cstddef>
    #include <cstring>
    #include <vector>
@@ -77,15 +77,15 @@ Program Listing for File span.h
    
        inline T const& operator[](size_t index) const
        {
-           assert(!empty() && "operator[] called on empty Span<>");
-           assert(index < mCount && "Array subscript is out of range");
+           GPA_CHECK_RET(!empty() && "operator[] called on empty Span<>", GPA_DUMMY);
+           GPA_CHECK_RET(index < mCount && "Array subscript is out of range", GPA_DUMMY);
            return mData[index];
        }
    
        inline T& operator[](size_t index)
        {
-           assert(!empty() && "operator[] called on empty Span<>");
-           assert(index < mCount && "Array subscript is out of range");
+           GPA_CHECK_RET(!empty() && "operator[] called on empty Span<>", GPA_DUMMY);
+           GPA_CHECK_RET(index < mCount && "Array subscript is out of range", GPA_DUMMY);
            return mData[index];
        }
    
@@ -111,25 +111,25 @@ Program Listing for File span.h
    
        inline T const& front() const
        {
-           assert(!empty() && "front() called on empty Span<>");
+           GPA_CHECK_RET(!empty() && "front() called on empty Span<>", GPA_DUMMY);
            return operator[](0);
        }
    
        inline T& front()
        {
-           assert(!empty() && "front() called on empty Span<>");
+           GPA_CHECK_RET(!empty() && "front() called on empty Span<>", GPA_DUMMY);
            return operator[](0);
        }
    
        inline T const& back() const
        {
-           assert(!empty() && "back() called on empty Span<>");
+           GPA_CHECK_RET(!empty() && "back() called on empty Span<>", GPA_DUMMY);
            return operator[](mCount - 1);
        }
    
        inline T& back()
        {
-           assert(!empty() && "back() called on empty Span<>");
+           GPA_CHECK_RET(!empty() && "back() called on empty Span<>", GPA_DUMMY);
            return operator[](mCount - 1);
        }
    

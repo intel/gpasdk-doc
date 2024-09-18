@@ -29,6 +29,8 @@ Program Listing for File stream-data.h
    
    #pragma once
    
+   #include "igpa-config.h"
+   
    #include "playback/callable.h"
    #include "playback/stream-data-bookmark.h"
    
@@ -95,6 +97,7 @@ Program Listing for File stream-data.h
        serialization::metadata::StreamCaptureArgsInfo const* GetStreamCaptureArgInfo(size_t index) const;
        size_t GetStreamCaptureHistoryCount() const;
        serialization::metadata::DeviceFeatureInfo const* GetDeviceFeatureInfo() const;
+       TCHAR const* GetAgilitySDKPath() const;
    
    private:
        gpa::serialization::Stream* mStream;
@@ -103,6 +106,7 @@ Program Listing for File stream-data.h
        StoragePacketDeserializer* mPacketDeserializer;
        serialization::RandomAccessSerializer* mMetadataSerializer;
        serialization::metadata::MetadataIndex* mMetadataIndex;
+       STD_STRING mAgilitySDKPath;
    
        StreamData(StreamData const&) = delete;
        StreamData& operator=(StreamData const&) = delete;

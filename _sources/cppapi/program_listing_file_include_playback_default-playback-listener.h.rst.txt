@@ -32,6 +32,7 @@ Program Listing for File default-playback-listener.h
    #include <unordered_map>
    
    #include "playback-support/playback-listener.h"
+   #include "runtime/action-publisher.h"
    
    namespace gpa {
    
@@ -39,6 +40,16 @@ Program Listing for File default-playback-listener.h
    struct SurfaceCreateInfo;
    
    namespace playback {
+   
+   class DefaultPlaybackSubscriber : public gpa::runtime::EventPublisher::Subscriber
+   {
+   public:
+       void OnEvent(const char* topic, const gpa::runtime::EventData& event) override;
+       bool DeviceRemovedObserved() const;
+   
+   private:
+       bool mDeviceRemovedObserved = false;
+   };
    
    class DefaultPlaybackListener : public gpa::playback::IPlaybackListener
    {
@@ -51,10 +62,12 @@ Program Listing for File default-playback-listener.h
        void OnYield() override;
        void OnStreamEnd() override;
        bool ShutdownRequested() override;
+       ShutdownRequestReason GetShutdownRequestReason() override;
        void SetAppName(const char* title) override;
    
    private:
        std::unordered_map<uint64_t /*key*/, gpa::Surface* /*handle*/> mSurfaces;
+       DefaultPlaybackSubscriber* mSubscriber = nullptr;
    };
    
    }  // namespace playback

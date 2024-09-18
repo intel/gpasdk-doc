@@ -30,7 +30,7 @@ Program Listing for File allocator.h
    #pragma once
    
    #include <cstddef>
-   #include <cassert>
+   #include "utility/assert.h"
    
    namespace gpa {
    namespace memory {
@@ -54,8 +54,8 @@ Program Listing for File allocator.h
            if (dst) {
                object = new (dst) T(args...);
            }
-           assert(object == dst);
-           assert(object && "Allocator could not create object");
+           GPA_ASSERT(object == dst);
+           GPA_ASSERT(object && "Allocator could not create object");
            return object;
        }
    

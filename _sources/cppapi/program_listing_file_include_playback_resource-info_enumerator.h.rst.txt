@@ -29,7 +29,7 @@ Program Listing for File enumerator.h
    
    #pragma once
    
-   #include <cassert>
+   #include "utility/assert.h"
    
    namespace gpa {
    namespace playback {
@@ -83,7 +83,6 @@ Program Listing for File enumerator.h
            inline T const& operator*() const
            {
                auto pObj = operator->();
-               assert(pObj && "Can't dereference out of range Enumerator<>::Iterator");
                if (!pObj) {
                    static T sObj;
                    return sObj;

@@ -28,26 +28,36 @@ Program Listing for File gpa-singleton.h
    ******************************************************************************/
    
    #pragma once
-   #include "gpa-secure.h"
-   #include <stdlib.h>
-   #ifndef _WIN32
+   
+   #ifdef _WIN32
+   #include <windows.h>
+   #else
    #include <unistd.h>
    #endif
+   
+   #include <stdlib.h>
+   #include "instrumentation/gpa-secure.h"
+   #include <cstdint>
    
    namespace gpa {
    
    //Since environment is shared across all the process, we can piggyback on it to store "key/value" pairs for intra-process sharing
    struct ProcessWideSingletonRegistry
    {
-       static void* Get(const char* name, void* fallback = nullptr)  //Gets item by name
+       static uint32_t GetPid()
        {
    #ifdef _WIN32
-           static auto gPID = GetCurrentProcessId();
+           static auto pid = GetCurrentProcessId();
    #else
-           static auto gPID = getpid();
+           static auto pid = getpid();
    #endif
+           return (uint32_t)pid;
+       }
+   
+       static void* Get(const char* name, void* fallback = nullptr)  //Gets item by name
+       {
            char prefix[256] = {};
-           GPA_SPRINTF(prefix, sizeof(prefix), "GPA:%x:%s", gPID, name);
+           GPA_SPRINTF(prefix, sizeof(prefix), "GPA:%x:%s", GetPid(), name);
            unsigned long long addr = 0;
    #ifdef _WIN32
            char val[256] = {};
@@ -65,13 +75,8 @@ Program Listing for File gpa-singleton.h
    
        static bool Set(const char* name, const void* ptr)  //Stores item by name. ATTENTION: must set to nullptr before previously set object is destroyed!
        {
-   #ifdef _WIN32
-           static auto gPID = GetCurrentProcessId();
-   #else
-           static auto gPID = getpid();
-   #endif
            char env[256] = {};
-           GPA_SPRINTF(env, sizeof(env), "GPA:%x:%s=%llx", gPID, name, (unsigned long long)ptr);
+           GPA_SPRINTF(env, sizeof(env), "GPA:%x:%s=%llx", GetPid(), name, (unsigned long long)ptr);
    #ifdef _WIN32
            return 0 == _putenv(env);
    #else

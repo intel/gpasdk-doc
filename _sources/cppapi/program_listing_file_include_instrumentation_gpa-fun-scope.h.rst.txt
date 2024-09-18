@@ -30,6 +30,7 @@ Program Listing for File gpa-fun-scope.h
    #pragma once
    
    #include <functional>
+   #include "instrumentation/gpa-checkret.h"
    
    namespace gpa {
    namespace instrumentation {
@@ -45,9 +46,6 @@ Program Listing for File gpa-fun-scope.h
        }
        ~OnScopeEnd() { todo(); }
    };
-   
-   #define GPA_CONCAT2(x, y) x##y
-   #define GPA_CONCAT(x, y) GPA_CONCAT2(x, y)
    
    //GPA_ON_SCOPE_END can be used many times, and will execute in backward order at scope exit
    #define GPA_ON_SCOPE_END(code) gpa::instrumentation::OnScopeEnd GPA_CONCAT(gpa_defer, __LINE__)([&]() { code; });

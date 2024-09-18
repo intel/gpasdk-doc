@@ -42,14 +42,14 @@ Program Listing for File vulkan-range-repeat-cache.h
    #endif
    #include "gvk-defines.hpp"
    #include "gvk-restore-info.hpp"
-   #include "VK_LAYER_INTEL_gvk_restore_point.hpp"
+   #include "gvk-structures.hpp"
    #include "VK_LAYER_INTEL_gvk_state_tracker.hpp"
    
    #define VK_NO_PROTOTYPES
    #include <vulkan/vulkan.h>
    #undef VK_NO_PROTOTYPES
    
-   #include <cassert>
+   #include "utility/assert.h"
    #include <vector>
    
    #define GVK_RESTORE_POINT_REPEAT_ENABLED 1
@@ -68,15 +68,16 @@ Program Listing for File vulkan-range-repeat-cache.h
    {
    public:
        typedef std::shared_ptr<RangeRepeatCacheVKInternal<BaseClass>> Ptr;
-       RangeRepeatCacheVKInternal(void* object, uint64_t captureKey, Context* pContext, Callable* pCallable)
+       RangeRepeatCacheVKInternal(VkObjectType objectType, void* object, uint64_t captureKey, Context* pContext, Callable* pCallable)
            : BaseClass(pContext, pCallable)
+           , mObjectType{objectType}
        {
-           assert(pCallable);
+           GPA_ASSERT(pCallable);
            mCreationCallable = *pCallable;
            BaseClass::SetObject(captureKey, object);
            uint64_t* pParentHandle = nullptr;
            auto const* pPossiblyParentHandleArgument = pCallable->Argument(0, (const void**)&pParentHandle);
-           assert(pPossiblyParentHandleArgument);
+           GPA_ASSERT(pPossiblyParentHandleArgument);
            if (pPossiblyParentHandleArgument->Type() == serialization::BasicType::kHandle && pParentHandle) {
                mParentHandle = *pParentHandle;
            }
@@ -89,11 +90,31 @@ Program Listing for File vulkan-range-repeat-cache.h
        {
            (void)pDispatchTable;
            (void)repeatPass;
-   #if 0
-           // TODO : Should be hanlded by RangeRepeatCacheVkInstance
+           // TODO : Maybe better to do during RangeRepeatCacheVkInstance objMap update
            BaseClass::mObject = BaseClass::mContext->objMap->AcquireObject(BaseClass::mObjectKey);
-           assert(BaseClass::mObject && "Could not obtain object from object map");
-   #endif
+           GPA_ASSERT(BaseClass::mObject && "Could not obtain object from object map");
+       }
+   
+       virtual void OnRangeRepeatDestroyObject(GPADispatchTable const*& table, uint64_t repeatPass) override
+       {
+           (void)table;
+           (void)repeatPass;
+           auto stateTrackedObject = gvk::get_default<GvkStateTrackedObject>();
+           stateTrackedObject.type = mObjectType;
+           stateTrackedObject.handle = (uint64_t)BaseClass::Object();
+           switch (stateTrackedObject.type) {
+           case VK_OBJECT_TYPE_INSTANCE:
+           case VK_OBJECT_TYPE_PHYSICAL_DEVICE:
+           case VK_OBJECT_TYPE_DEVICE:
+           case VK_OBJECT_TYPE_QUEUE:
+           case VK_OBJECT_TYPE_COMMAND_BUFFER: {
+               stateTrackedObject.dispatchableHandle = stateTrackedObject.handle;
+           } break;
+           default: {
+               stateTrackedObject.dispatchableHandle = mParentHandle;
+           } break;
+           }
+           MarkObjectForDestruction(stateTrackedObject);
        }
    
        virtual void OnRangeRepeatRestoreState(GPADispatchTable const*& pDispatchTable, uint64_t repeatPass)
@@ -118,9 +139,28 @@ Program Listing for File vulkan-range-repeat-cache.h
        bool ObjectRecreatedInThisPass(uint64_t pass) { return (pass == mLastRecreateObjectPass); }
        bool StateRestoredInThisPass(uint64_t pass) { return (pass == mLastRestoreStatePass); }
    
+       static std::vector<GvkStateTrackedObject>& GetObjectsMarkedForDestruction()
+       {
+           static std::vector<GvkStateTrackedObject> sObjectsMarkedForDestruction;
+           return sObjectsMarkedForDestruction;
+       }
+   
+       static void MarkObjectForDestruction(GvkStateTrackedObject const& stateTrackedObject)
+       {
+           GPA_ASSERT(stateTrackedObject.type);
+           GPA_ASSERT(stateTrackedObject.handle);
+           GPA_ASSERT(stateTrackedObject.dispatchableHandle);
+           auto& objectsMarkedForDestruction = GetObjectsMarkedForDestruction();
+           auto itr = std::lower_bound(objectsMarkedForDestruction.begin(), objectsMarkedForDestruction.end(), stateTrackedObject);
+           if (itr == objectsMarkedForDestruction.end() || *itr != stateTrackedObject) {
+               objectsMarkedForDestruction.insert(itr, stateTrackedObject);
+           }
+       }
+   
    private:
        Callable mCreationCallable;
        bool mRangeEntered{};
+       VkObjectType mObjectType{};
    
    protected:
        uint64_t mLastRecreateObjectPass{UINT64_MAX};

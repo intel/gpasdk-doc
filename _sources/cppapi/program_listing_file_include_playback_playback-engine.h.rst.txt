@@ -77,7 +77,7 @@ Program Listing for File playback-engine.h
    public:
        PlaybackEngine(RangePlayer* rangePlayer);
    
-       ~PlaybackEngine();
+       virtual ~PlaybackEngine();
    
        PlaybackEngine(RangePlayer* rangePlayer, Services* serviceOverrides);
    
@@ -140,6 +140,9 @@ Program Listing for File playback-engine.h
        std::unique_ptr<ISACodeExtractor> mISACodeExtractor;
        std::unordered_set<uint64_t> mDisabledCalls;
        bool mAssistedDisable{false};
+   
+       PlaybackEngine(PlaybackEngine const&) = delete;
+       PlaybackEngine& operator=(PlaybackEngine const&) = delete;
    };
    
    }  // namespace playback

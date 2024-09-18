@@ -12,7 +12,7 @@ Program Listing for File playback-support.h
 
    /******************************************************************************
    © Intel Corporation.
-    
+   
    This software and the related documents are Intel copyrighted materials,
    and your use of them is governed by the express license under which they
    were provided to you ("License"). Unless the License provides otherwise,
@@ -83,6 +83,10 @@ Program Listing for File playback-support.h
    // use this key for setting and getting the d3d11 input layout create info
    GPA_EXPORT void* GetID3D11InputLayoutCreateInfoKey();
    
+   // these are for Agility SDK fallback
+   GPA_EXPORT unsigned int GetDefaultAgilitySDKVersion();
+   GPA_EXPORT char const* GetDefaultAgilitySDKPath();
+   
    struct Context
    {
        playback::ObjectMap* objMap = nullptr;
@@ -94,6 +98,7 @@ Program Listing for File playback-support.h
        uint64_t repeatPass = 0;
        playback::D3D12PlaybackSupport* d3d12Support = nullptr;
        bool shouldExecute = true;
+       char const* agilitySDKPath = nullptr;
    };
    
    }  // namespace playback

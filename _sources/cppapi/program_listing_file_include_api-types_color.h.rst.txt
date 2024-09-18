@@ -29,7 +29,7 @@ Program Listing for File color.h
    
    #pragma once
    
-   #include <cassert>
+   #include "utility/assert.h"
    #include <cstdint>
    #include <tuple>
    
@@ -70,8 +70,8 @@ Program Listing for File color.h
            case 3:
                return a;
            default: {
-               assert(index < ChannelCount && "Index out of range");
                static T dummy{};
+               GPA_CHECK_RET(index < ChannelCount && "Index out of range", dummy);
                return dummy;
            }
            }

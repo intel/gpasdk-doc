@@ -27,6 +27,10 @@ Program Listing for File assert.h
    
    ******************************************************************************/
    
+   #include "instrumentation/gpa-checkret.h"
+   #include <vector>
+   #include <assert.h>
+   
    /*
    assert.h replaces use of <assert> to enable better debugging. 
    
@@ -41,6 +45,7 @@ Program Listing for File assert.h
    // the compiler from complaining the loop is being controlled by a constant.
    #if defined(_MSC_VER)
    #define GPA_ASSERT_LOOP_CONDITION (0, 0)
+   #pragma warning(disable : 4127)
    #else
    #define GPA_ASSERT_LOOP_CONDITION (false)
    #endif
@@ -66,36 +71,27 @@ Program Listing for File assert.h
    #error "Unsupported architecture."
    #endif
    
-   // Generate the assertion code. When enabled, the assert handler is called. Else,
-   // tell the compiler the code is never reachable (so it can optimize it out).
-   #if defined(GPA_ALWAYS_ASSERT)
-   #define GPA_ASSERT_HELPER(file, func, line, condition)                   \
-       do {                                                                 \
-           if (!(condition)) {                                              \
-               gpa::utility::HandleAssertion(file, func, line, #condition); \
-           }                                                                \
-       } while (GPA_ASSERT_LOOP_CONDITION)
+   #ifndef GPA_ASSERT_RETURN
+   #ifdef _WIN32
+   #define GPA_ASSERT_RETURN 1
    #else
-   // MSVC optimizes out the |condition| code if we __assume(condition)
-   // but if that logic is reversed, assuming the condition is never true,
-   // is equivelent and cannot be optimized-out.
-   #if defined(_MSC_VER)
-   #define GPA_ASSERT_HELPER(file, func, line, condition) \
-       do {                                               \
-           if (!(condition)) {                            \
-               GPA_UNREACHABLE();                         \
-           }                                              \
-       } while (GPA_ASSERT_LOOP_CONDITION)
-   #else
-   
-   // For non-MSVC, casting the result of sizeof(condition) is a common workaround.
-   #define GPA_ASSERT_HELPER(file, func, line, condition) \
-       do {                                               \
-           GPA_UNUSED(sizeof(condition));                 \
-       } while (GPA_ASSERT_LOOP_CONDITION)
+   #define GPA_ASSERT_RETURN 0
+   #endif
    #endif
    
+   #if GPA_ASSERT_RETURN
+   #define GPA_ASSERT_CONDITIONAL_RETURN() GPA_EXIT_FUNCTION()
+   #else
+   #define GPA_ASSERT_CONDITIONAL_RETURN()
    #endif
+   
+   #define GPA_ASSERT_HELPER(cond)                                                                        \
+       do {                                                                                               \
+           if (!(cond)) {                                                                                 \
+               GPA_REPORT("%s(%d): error: %s | \t %s\n", __FILE__, __LINE__, __PRETTY_FUNCTION__, #cond); \
+               GPA_ASSERT_CONDITIONAL_RETURN();                                                           \
+           }                                                                                              \
+       } while (GPA_ASSERT_LOOP_CONDITION)
    
    #define GPA_ASSERT_UNREACHABLE()                                \
        do {                                                        \
@@ -104,7 +100,7 @@ Program Listing for File assert.h
        } while (GPA_ASSERT_LOOP_CONDITION)
    
    #define GPA_ASSERT(condition) \
-       GPA_ASSERT_HELPER(__FILE__, __func__, __LINE__, condition)
+       GPA_ASSERT_HELPER(condition)
    
    // Short-hand macros.
    #if !defined(ASSERT)
@@ -118,11 +114,3 @@ Program Listing for File assert.h
    #if !defined(UNUSED)
    #define UNUSED GPA_UNUSED
    #endif
-   
-   namespace gpa {
-   namespace utility {
-   
-   void HandleAssertion(const char* file, const char* function, int line, const char* condition);
-   
-   }  // namespace utility
-   }  // namespace gpa

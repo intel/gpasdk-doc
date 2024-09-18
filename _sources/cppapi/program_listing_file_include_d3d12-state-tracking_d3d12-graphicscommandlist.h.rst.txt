@@ -130,6 +130,7 @@ Program Listing for File d3d12-graphicscommandlist.h
    using DispatchRaysCommand = Command<D3D12_DISPATCH_RAYS_DESC>;
    using CopyBufferCommand = Command<CopyBufferInfo>;
    using CopyBufferCommands = std::vector<CopyBufferCommand>;
+   using ReferencedDescriptorHeaptoDescriptorMap = std::unordered_map<ID3D12DescriptorHeap *, std::vector<std::pair<SIZE_T, DX12Descriptor>>>;
    
    using RootSignatureRecord = std::array<std::unordered_map<uint32_t, RootParamRecord>, 2>;
    
@@ -266,6 +267,8 @@ Program Listing for File d3d12-graphicscommandlist.h
    
        std::unique_ptr<D3D12GraphicsCommandListExtendedState> mExtendedState = nullptr;
    
+       ReferencedDescriptorHeaptoDescriptorMap mReferencedRenderTargetDescriptors;
+   
    public:
        D3D12GraphicsCommandListState(ID3D12GraphicsCommandList *pList, UINT nodeMask, D3D12_COMMAND_LIST_TYPE type, ID3D12CommandAllocator *pCommandAllocator, ID3D12PipelineState *pInitialState);
        D3D12GraphicsCommandListState(D3D12GraphicsCommandListState const &) = delete;
@@ -374,6 +377,7 @@ Program Listing for File d3d12-graphicscommandlist.h
        std::unordered_map<uint32_t, RootParamRecord> const &GetRootSignatureRecord(PipelineType pipelineType) const;
        RenderTargets const &GetRenderTargets(bool requestUntranslatedHandle) const;
        DepthStencil const &GetDepthStencil(bool requestUntranslatedHandle) const;
+       ReferencedDescriptorHeaptoDescriptorMap const &GetReferencedRenderTargetDescriptors() const;
    
        void EnumerateCurrentBindings(PipelineType pipelineType, std::function<bool(uint32_t shaderRegister, uint32_t registerSpace, ResourceBindingInfo resourceBindingInfo, D3D12_SHADER_VISIBILITY visibility, bool belongsToUnboundedRange)> callback);
    
@@ -391,6 +395,8 @@ Program Listing for File d3d12-graphicscommandlist.h
        inline void OnSetRoot32BitConstants(PipelineType pipelineType, UINT RootParameterIndex, UINT Num32BitValuesToSet, const void *pSrcData, UINT DestOffsetIn32BitValues);
        inline void OnSetRootSignature(PipelineType pipelineType);
        bool BelongsToCurrentlySetDescriptorHeaps(D3D12_GPU_DESCRIPTOR_HANDLE handle);
+   
+       void UpdateReferencedDescriptorsHistory(D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle);
    
        void UnregisterFromCurrentAllocator();
    };

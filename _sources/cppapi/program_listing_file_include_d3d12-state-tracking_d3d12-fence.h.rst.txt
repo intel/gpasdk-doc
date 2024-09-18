@@ -28,12 +28,21 @@ Program Listing for File d3d12-fence.h
    ******************************************************************************/
    
    #pragma once
+   #include "concurrent/lock.h"
    #include "d3d12-object.h"
    #include <guiddef.h>
    #include <d3d12.h>
+   #include <atlbase.h>
    
    namespace gpa {
    namespace d3d12_state_tracker {
+   struct InFlightSignal
+   {
+       CComPtr<ID3D12Fence> fence{};
+       uint64_t value{};
+       HANDLE eventHandle;
+       HANDLE waitHandle;
+   };
    
    class D3D12FenceState : public D3D12ObjectState
    {
@@ -42,6 +51,8 @@ Program Listing for File d3d12-fence.h
        D3D12_FENCE_FLAGS mFlags;
        HANDLE mLastEvent;
        uint64_t mLastEventCompletionValue;
+       std::list<InFlightSignal> mInFlightSignals{};
+       RWLock mInFlightSignalsLock;
    
    public:
        static constexpr GUID sGUID = {0x1ffacc1d, 0x808e, 0x4907, {0xaa, 0x8b, 0x10, 0x85, 0x5f, 0x8c, 0x80, 0xa2}};
@@ -53,7 +64,10 @@ Program Listing for File d3d12-fence.h
        GUID GetGUID() override;
    
        void OnSignal(uint64_t value);
+       void OnCommandQueueSignal(ID3D12CommandQueue* commandQueue, uint64_t value);
+       void OnCommandQueueSignalCompleted();
        void OnSetEventOnCompletion(UINT64 value, HANDLE hEvent);
+       const InFlightSignal* findInFlightSignal(uint64_t value);
        uint64_t GetLastSignaledFenceValue() const;
        D3D12_FENCE_FLAGS GetFlags() const;
        HANDLE GetLastRegisteredEvent();

@@ -32,7 +32,7 @@ Program Listing for File d3d12-object.h
    #include "utility/rdtsc.h"
    #include <concurrent/critical-section.h>
    
-   #include <assert.h>
+   #include "utility/assert.h"
    #include <functional>
    #include <list>
    #include <d3d12.h>
@@ -64,7 +64,7 @@ Program Listing for File d3d12-object.h
        ObjectState(T* runtimeObj)
            : mRuntimeObject(runtimeObj)
        {
-           assert(runtimeObj && "runtimeObj must not be null");
+           GPA_ASSERT(runtimeObj && "runtimeObj must not be null");
        }
    
        virtual ~ObjectState()

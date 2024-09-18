@@ -32,6 +32,7 @@ Program Listing for File offscreen-playback-listener.h
    #include <unordered_map>
    
    #include "playback-support/playback-listener.h"
+   #include "playback/default-playback-listener.h"
    
    namespace gpa {
    
@@ -51,9 +52,11 @@ Program Listing for File offscreen-playback-listener.h
        void OnYield() override;
        void OnStreamEnd() override;
        bool ShutdownRequested() override;
+       ShutdownRequestReason GetShutdownRequestReason() override;
    
    private:
        std::unordered_map<uint64_t /*key*/, gpa::Surface* /*handle*/> mSurfaces;
+       DefaultPlaybackSubscriber* mSubscriber = nullptr;
    };
    
    }  // namespace playback

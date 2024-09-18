@@ -66,10 +66,16 @@ Program Listing for File apicallcontext.h
        bool operator!=(StreamPacketHeader const& other) const;
    
        bool IsOperation() const;
+       bool HasUserData() const;
    
        GPAToken token{};
        GPATimestamp timestamp{};
-       uint64_t version{};
+       uint32_t version{};
+       uint32_t flags{};
+   };
+   
+   enum StreamPacketHeaderFlags {
+       STREAM_PACKET_HAS_USER_DATA = 0x0001,
    };
    
    using ArgsLenType = uint64_t;

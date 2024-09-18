@@ -32,7 +32,8 @@ Program Listing for File vulkan-create-info-modifier.h
    #include "igpa-config.h"
    #include "utility/assert.h"
    
-   #include <vulkan/vulkan.h>
+   #include "gvk-environment.hpp"
+   #include "gvk-string.hpp"
    
    #include <map>
    #include <set>
@@ -315,21 +316,27 @@ Program Listing for File vulkan-create-info-modifier.h
    
        inline void Erase(const char* pEntry)
        {
-           GPA_ASSERT(pEntry);
-           auto itr = mEntryIndices.find(pEntry);
-           if (itr != mEntryIndices.end()) {
-               auto index = itr->second;
-               GPA_ASSERT(index < mEntries.size());
-               GPA_ASSERT(mEntries[index]);
-               GPA_ASSERT(!strcmp(mEntries[index], pEntry));
-               mEntryIndices.erase(itr);
-               mEntries.erase(mEntries.begin() + index);
-               for (; index < mEntries.size(); ++index) {
-                   itr = mEntryIndices.find(mEntries[index]);
-                   GPA_ASSERT(itr != mEntryIndices.end());
-                   itr->second = index;
+           if (pEntry) {
+               auto itr = mEntryIndices.find(pEntry);
+               if (itr != mEntryIndices.end()) {
+                   auto index = itr->second;
+                   GPA_ASSERT(index < mEntries.size());
+                   GPA_ASSERT(mEntries[index]);
+                   GPA_ASSERT(!strcmp(mEntries[index], pEntry));
+                   mEntryIndices.erase(itr);
+                   mEntries.erase(mEntries.begin() + index);
+                   for (; index < mEntries.size(); ++index) {
+                       itr = mEntryIndices.find(mEntries[index]);
+                       GPA_ASSERT(itr != mEntryIndices.end());
+                       itr->second = index;
+                   }
                }
            }
+       }
+   
+       inline bool Contains(const char* pEntry) const
+       {
+           return pEntry ? mEntryIndices.count(pEntry) : 0;
        }
    
        inline void Clear()
@@ -408,6 +415,35 @@ Program Listing for File vulkan-create-info-modifier.h
        vkResult = pfnEnumerateDeviceExtensionProperties(physicalDevice, nullptr, &propertyCount, properties.data());
        GPA_ASSERT(vkResult == VK_SUCCESS);
        return properties;
+   }
+   
+   inline std::set<std::string> RemoveLayerEnvVarValues(const std::string& key, const std::set<std::string>& layerValuesToRemove)
+   {
+   #if VK_USE_PLATFORM_WIN32_KHR
+       auto delimiter = ";";
+   #else
+       auto delimiter = ":";
+   #endif
+       std::string value;
+       std::set<std::string> removedLayerValues;
+       for (const auto& layer : gvk::string::split(gvk::get_env_var(key), delimiter)) {
+           if (layerValuesToRemove.count(layer)) {
+               removedLayerValues.insert(layer);
+           } else {
+               value += layer + delimiter;
+           }
+       }
+       gvk::set_env_var(key, value);
+       return removedLayerValues;
+   }
+   
+   inline std::set<std::string> RemoveApiDumpAndValidationLayersFromEnvironment()
+   {
+       std::set<std::string> layerValuesToRemove{"VK_LAYER_LUNARG_api_dump", "api_dump", "VK_LAYER_KHRONOS_validation", "validation"};
+       auto instanceLayers = RemoveLayerEnvVarValues("VK_INSTANCE_LAYERS", layerValuesToRemove);
+       auto loaderLayers = RemoveLayerEnvVarValues("VK_LOADER_LAYERS_ENABLE", layerValuesToRemove);
+       instanceLayers.insert(loaderLayers.begin(), loaderLayers.end());
+       return instanceLayers;
    }
    
    inline const std::vector<std::string>& GetValidationLayerSettingNames()

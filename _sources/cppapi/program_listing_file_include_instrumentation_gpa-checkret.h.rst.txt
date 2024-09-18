@@ -79,7 +79,7 @@ Program Listing for File gpa-checkret.h
    #endif
        }
    
-       void WriteToTemp(const char* message)
+       static void WriteToTemp(const char* message)
        {
            static char path[1024] = {};
            const char* szPath = (char*)gpa::ProcessWideSingletonRegistry::Get("GPA_REPORTER_FILE", path);
@@ -87,6 +87,9 @@ Program Listing for File gpa-checkret.h
                try {
                    std::filesystem::path tmp = std::filesystem::temp_directory_path();
                    tmp /= "GPA_REPORTER_FILE.txt";
+                   if (tmp.string().length() >= sizeof(path)) {
+                       throw std::filesystem::filesystem_error("buffer overflow. sizeof path exceeds buffer size", std::error_code());
+                   }
                    strcpy(path, tmp.string().c_str());
                    gpa::ProcessWideSingletonRegistry::Set("GPA_REPORTER_FILE", path);
                    std::filesystem::remove(tmp);
@@ -135,6 +138,16 @@ Program Listing for File gpa-checkret.h
                (void)res;
    #endif
            }
+   
+   #ifdef _WIN32
+           if (strstr(env, "break") || ::IsDebuggerPresent()) {
+               __debugbreak();
+           }
+   #else
+           if (strstr(env, "break")) {
+               __asm__ __volatile__("int $3\n\t");
+           }
+   #endif
        }
        static IReporter& DefaultReporter()
        {
@@ -151,15 +164,118 @@ Program Listing for File gpa-checkret.h
            pGPA_REPORT_Reporter->Report(GPA_REPORT_buff);                                                                                                                                       \
        }
    
-   #define GPA_CR_NRV ;
+   #define GPA_IN_VOID_FUNCTION() ((std::string_view(__PRETTY_FUNCTION__).substr(0, 11) == "const void " || std::string_view(__PRETTY_FUNCTION__).substr(0, 5) == "void ") && std::string_view(__PRETTY_FUNCTION__).substr(0, 6) != "void *")
+   #define GPA_IN_DESTRUCTOR() (std::string_view(__PRETTY_FUNCTION__).find("::~") != std::string_view::npos)
    
-   #define GPA_CHECK_DO(cond, todo)                                                                  \
-       if (!(cond)) {                                                                                \
-           GPA_REPORT("%s(%d): error: %s | \t %s\n", __FILE__, __LINE__, __PRETTY_FUNCTION__, #cond) \
-           todo;                                                                                     \
+   #ifdef _WIN32
+   #define GPA_IN_CONSTRUCTOR() (std::string_view(__FUNCDNAME__).substr(0, 3) == "??0")
+   #define GPA_NO_RET_VAL() (GPA_IN_VOID_FUNCTION() || GPA_IN_DESTRUCTOR() || GPA_IN_CONSTRUCTOR())
+   #else
+   static constexpr std::string_view concatenate(const std::string_view parts[], size_t count, char* buffer)
+   {
+       size_t index = 0;
+       for (size_t i = 0; i < count; ++i) {
+           for (char c : parts[i]) {
+               buffer[index++] = c;
+           }
+       }
+       buffer[index] = '\0';
+       return std::string_view(buffer, index);
+   }
+   
+   static constexpr bool is_constructor(std::string_view pretty_function)
+   {
+       constexpr size_t buffer_size = 256;
+       char buffer[buffer_size] = {};
+   
+       // Find the first occurrence of "::"
+       auto pos1 = pretty_function.find("::");
+       if (pos1 == std::string_view::npos) {
+           return false;
+       }
+       // Find the second occurrence of "::"
+       auto pos2 = pretty_function.find("::", pos1 + 2);
+       if (pos2 == std::string_view::npos) {
+           return false;
+       }
+       // Extract the class name
+       auto class_name = pretty_function.substr(0, pos2);
+       auto constructor_marker = pretty_function.substr(pos1 + 2, pos2 - pos1 - 2);  // Extract the constructor part (after the last "::")
+       // Construct the concatenated search pattern
+       std::string_view search_pattern[] = {class_name, "::", constructor_marker};
+       auto concatenated_pattern = concatenate(search_pattern, 3, buffer);
+       // Check if the function name matches the class name (constructor)
+       return pretty_function.find(concatenated_pattern) != std::string_view::npos;
+   }
+   #define GPA_NO_RET_VAL() (GPA_IN_VOID_FUNCTION() || GPA_IN_DESTRUCTOR() || gpa::checkret::is_constructor(__PRETTY_FUNCTION__))
+   #endif
+   
+   #define GPA_EXIT_FUNCTION()           \
+       if constexpr (GPA_NO_RET_VAL()) { \
+           return;                       \
+       } else {                          \
+           return {};                    \
        }
    
-   #define GPA_CHECK_RET(cond, ret) GPA_CHECK_DO(cond, return ret)
+   #define GPA_CHECK_DO(cond, todo)                                                                   \
+       if (!(cond)) {                                                                                 \
+           GPA_REPORT("%s(%d): error: %s | \t %s\n", __FILE__, __LINE__, __PRETTY_FUNCTION__, #cond); \
+           todo;                                                                                      \
+       }
+   
+   #define GPA_CONCAT2(x, y) x##y
+   #define GPA_CONCAT(x, y) GPA_CONCAT2(x, y)
+   #define GPA_EXPAND(x) x
+   
+   #define GPA_NARG(...) GPA_EXPAND(GPA_NARG1(__VA_ARGS__, GPA_RSEQN()))
+   #define GPA_NARG1(...) GPA_EXPAND(GPA_ARGSN(__VA_ARGS__))
+   #define GPA_ARGSN(_1, _2, _3, _4, _5, _6, _7, _8, _9, _10, N, ...) N
+   #define GPA_RSEQN() 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0
+   
+   #define GPA_GET_MACRO(func, ...)                        \
+       GPA_CONCAT(func, GPA_EXPAND(GPA_NARG(__VA_ARGS__))) \
+       (__VA_ARGS__)
+   
+   #define GPA_CHECK_RET(...) GPA_GET_MACRO(GPA_CHECK_RET, __VA_ARGS__)
+   #define GPA_CHECK_RET2(cond, ret) GPA_CHECK_DO(cond, return ret)
+   #define GPA_CHECK_RET1(cond) GPA_CHECK_DO(cond, return )
+   #define GPA_CHECK_ONLY(cond) GPA_CHECK_DO(cond, ;)
+   
+   struct Dummy
+   {
+       template<typename T>
+       operator T&()
+       {
+           static T dummy;
+           return dummy;
+       }
+   
+       template<typename T>
+       operator const T&() const
+       {
+           static T dummy;
+           return dummy;
+       }
+   };
+   
+   template<typename T>
+   struct DummyT
+   {
+       operator T&()
+       {
+           static T dummy;
+           return dummy;
+       }
+   
+       operator const T&() const
+       {
+           static T dummy;
+           return dummy;
+       }
+   };
+   
+   #define GPA_DUMMY gpa::checkret::Dummy()
+   #define GPA_DUMMY_T(the_type) (the_type) gpa::checkret::DummyT<the_type>()
    
    }  // namespace checkret
    }  // namespace gpa
