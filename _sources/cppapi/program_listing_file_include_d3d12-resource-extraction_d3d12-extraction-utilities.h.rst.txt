@@ -41,6 +41,26 @@ Program Listing for File d3d12-extraction-utilities.h
    
    bool DxCall(HRESULT result);
    
+   bool IsResourceATexture(D3D12_RESOURCE_DIMENSION resourceDimension);
+   
+   void GetCopyableFootprintsWrapper(
+       ID3D12Device* device,
+       ID3D12Resource* resource,
+       UINT subresourceCount,
+       UINT64* passedTotalSizeInBytes = nullptr,
+       std::vector<D3D12_PLACED_SUBRESOURCE_FOOTPRINT>* footprints = nullptr,
+       std::vector<UINT>* numRows = nullptr);
+   
+   template<typename T>
+   void RemoveUAVFlagForCompressedTextures(T& resourceDesc)
+   {
+       bool is_compressed = utility::directx::IsFormatCompressed(resourceDesc.Format);
+       bool is_texture = IsResourceATexture(resourceDesc.Dimension);
+       if (is_compressed && is_texture) {
+           resourceDesc.Flags &= (~D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS);
+       }
+   }
+   
    class ResourceTransition
    {
    public:

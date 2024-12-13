@@ -156,6 +156,37 @@ Program Listing for File api-types/to-string.h
        return strStr.str();
    }
    
+   template<typename T>
+   inline std::stringstream& WriteArrayFieldStr(
+       std::stringstream& strStr,
+       StrFmtFlags strFmtFlags,
+       uint32_t tabCount,
+       uint32_t tabSize,
+       char const* fieldName,
+       size_t count,
+       T const* pArray)
+   {
+       fieldName = fieldName ? fieldName : "unknown";
+       strStr << TabStr(strFmtFlags, tabCount++, tabSize) << "\"" << fieldName << "\":";
+       if (count && pArray) {
+           strStr << "[";
+           for (size_t i = 0; i < count; ++i) {
+               auto arrayElementStrFmtFlags = strFmtFlags;
+               if (i) {
+                   strStr << "," << NewLineStr(strFmtFlags);
+                   arrayElementStrFmtFlags &= ~((uint32_t)GPA_STR_FMT_SKIP_LEADING_TAB);
+               } else {
+                   arrayElementStrFmtFlags |= GPA_STR_FMT_SKIP_LEADING_TAB;
+               }
+               strStr << ToString(pArray[i], arrayElementStrFmtFlags, tabCount, tabSize);
+           }
+           strStr << NewLineStr(strFmtFlags) << TabStr(strFmtFlags, --tabCount, tabSize) << "]";
+       } else {
+           strStr << "null";
+       }
+       return strStr;
+   }
+   
    }  // namespace detail
    
    template<>
@@ -578,6 +609,53 @@ Program Listing for File api-types/to-string.h
    }
    
    template<>
+   inline std::string ToString<api_types::RaytracingGeometryType>(api_types::RaytracingGeometryType const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace api_types;
+       switch (value) {
+       case GPA_RAYTRACING_GEOMETRY_TRIANGLES:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_RAYTRACING_GEOMETRY_TRIANGLES", value);
+       case GPA_RAYTRACING_GEOMETRY_AABBS:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_RAYTRACING_GEOMETRY_AABBS", value);
+       }
+   }
+   
+   template<>
+   inline std::string ToString<api_types::RaytracingGeometryFlags>(api_types::RaytracingGeometryFlags const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace api_types;
+       switch (value) {
+       case GPA_RAYTRACING_GEOMETRY_FLAGS_NONE:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_RAYTRACING_GEOMETRY_FLAGS_NONE", value);
+       case GPA_RAYTRACING_GEOMETRY_FLAGS_OPAQUE:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_RAYTRACING_GEOMETRY_FLAGS_OPAQUE", value);
+       case GPA_RAYTRACING_GEOMETRY_FLAGS_NO_DUPLICATE_ANYHIT_INVOCATION:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_RAYTRACING_GEOMETRY_FLAGS_NO_DUPLICATE_ANYHIT_INVOCATION", value);
+       }
+   }
+   
+   template<>
+   inline std::string ToString<api_types::RaytracingInstanceFlags>(api_types::RaytracingInstanceFlags const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace api_types;
+       switch (value) {
+       case GPA_RAYTRACING_INSTANCE_FLAGS_NONE:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_RAYTRACING_INSTANCE_FLAGS_NONE", value);
+       case GPA_RAYTRACING_INSTANCE_FLAGS_TRIANGLE_CULL_DISABLE:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_RAYTRACING_INSTANCE_FLAGS_TRIANGLE_CULL_DISABLE", value);
+       case GPA_RAYTRACING_INSTANCE_FLAGS_TRIANGLE_FRONT_COUNTERCLOCKWISE:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_RAYTRACING_INSTANCE_FLAGS_TRIANGLE_FRONT_COUNTERCLOCKWISE", value);
+       case GPA_RAYTRACING_INSTANCE_FLAGS_FORCE_OPAQUE:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_RAYTRACING_INSTANCE_FLAGS_FORCE_OPAQUE", value);
+       case GPA_RAYTRACING_INSTANCE_FLAGS_FORCE_NON_OPAQUE:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_RAYTRACING_INSTANCE_FLAGS_FORCE_NON_OPAQUE", value);
+       }
+   }
+   
+   template<>
    inline std::string ToString<api_types::Color>(api_types::Color const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
    {
        using namespace detail;
@@ -786,6 +864,64 @@ Program Listing for File api-types/to-string.h
        auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
        WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pName", obj.pName) << "," << NewLineStr(strFmtFlags);
        WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "kind", obj.kind);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<api_types::RaytracingGeometryDesc::Triangles>(api_types::RaytracingGeometryDesc::Triangles const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "vertexCount", obj.vertexCount) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "vertexStride", obj.vertexStride) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "vertexFormat", obj.vertexFormat) << "," << NewLineStr(strFmtFlags);
+       //WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pVertexBuffer", (void*)obj.pVertexBuffer) << "," << NewLineStr(strFmtFlags);  // TODO: fix header circular dependency to display BufferInfo
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "indexCount", obj.indexCount) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "indexFormat", obj.indexFormat) << "," << NewLineStr(strFmtFlags);
+       //WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pIndexBuffer", (void*)obj.pIndexBuffer) << "," << NewLineStr(strFmtFlags);  // TODO: fix header circular dependency to display BufferInfo
+       //WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pTransform3x4", (void*)obj.pTransform3x4);                           // TODO: fix header circular dependency to display BufferInfo
+   
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<api_types::RaytracingGeometryDesc::AABBs>(api_types::RaytracingGeometryDesc::AABBs const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "aabbCount", obj.aabbCount) << "," << NewLineStr(strFmtFlags);
+       //WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "*pAABBBuffer", (void*)obj.pAABBBuffer); // TODO: fix header circular dependency to display BufferInfo
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<api_types::RaytracingGeometryDesc>(api_types::RaytracingGeometryDesc const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "type", obj.type) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "flags", obj.flags) << "," << NewLineStr(strFmtFlags);
+       if (obj.type == api_types::GPA_RAYTRACING_GEOMETRY_TRIANGLES) {
+           WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "triangles", obj.triangles);
+       }
+       if (obj.type == api_types::GPA_RAYTRACING_GEOMETRY_AABBS) {
+           WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "aabbs", obj.aabbs);
+       }
+   
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString<api_types::RaytracingInstanceDesc>(api_types::RaytracingInstanceDesc const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "instanceID", obj.instanceID) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "hitGroupIndex", obj.hitGroupIndex) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "instanceMask", obj.instanceMask) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "flags", obj.flags) << "," << NewLineStr(strFmtFlags);
+       //WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pAccelerationStructure", (void*)obj.pAccelerationStructure) << "," << NewLineStr(strFmtFlags);  // TODO: fix header circular dependency to display AccelerationStructureInfo
+       //WriteArrayFieldStr   (strStr, strFmtFlags, tabCount, tabSize, "transform", sizeof(obj.transform) / sizeof(obj.transform[0][0]), obj.transform);
        return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
    }
    

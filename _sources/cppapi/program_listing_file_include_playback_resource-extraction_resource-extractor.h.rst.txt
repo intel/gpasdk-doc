@@ -41,7 +41,7 @@ Program Listing for File resource-extractor.h
    namespace gpa {
    namespace playback {
    
-   class MetadataExtractorEx;
+   class MetadataExtractor;
    
    class ResourceExtractor
        : public CallableReceiver,
@@ -115,7 +115,7 @@ Program Listing for File resource-extractor.h
    
        // [deprecated]
        // NOTE : These members are to support resource extraction compatibility...
-       ResourceExtractor(MetadataExtractorEx const& metadataExtractor);
+       ResourceExtractor(MetadataExtractor const& metadataExtractor);
        virtual void SetRequest(ResourceDataRequest const& request);
        virtual ResourceDataResult GetResult();
        virtual void PostSetupRange(CallableCache* pCallableCache) override;
@@ -136,7 +136,7 @@ Program Listing for File resource-extractor.h
    
        void WriteRequestResultData(size_t dataSize, uint8_t const* pData, Result& result);
    
-       MetadataExtractorEx const* mMetadataExtractor{nullptr};  
+       MetadataExtractor const* mMetadataExtractor{nullptr};  
    
        // [deprecated]
        // NOTE : These members are to support resource extraction compatibility...

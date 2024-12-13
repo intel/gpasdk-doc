@@ -439,7 +439,14 @@ Program Listing for File vulkan-create-info-modifier.h
    
    inline std::set<std::string> RemoveApiDumpAndValidationLayersFromEnvironment()
    {
-       std::set<std::string> layerValuesToRemove{"VK_LAYER_LUNARG_api_dump", "api_dump", "VK_LAYER_KHRONOS_validation", "validation"};
+       std::set<std::string> layerValuesToRemove{
+           "VK_LAYER_LUNARG_api_dump",
+           "api_dump",
+           "VK_LAYER_KHRONOS_validation",
+           "validation",
+           "VK_LAYER_LUNARG_crash_diagnostic",
+           "crash_diagnostic",
+       };
        auto instanceLayers = RemoveLayerEnvVarValues("VK_INSTANCE_LAYERS", layerValuesToRemove);
        auto loaderLayers = RemoveLayerEnvVarValues("VK_LOADER_LAYERS_ENABLE", layerValuesToRemove);
        instanceLayers.insert(loaderLayers.begin(), loaderLayers.end());

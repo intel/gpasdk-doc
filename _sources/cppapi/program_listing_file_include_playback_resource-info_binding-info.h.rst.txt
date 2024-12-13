@@ -30,7 +30,7 @@ Program Listing for File binding-info.h
    #pragma once
    
    #include "api-types/api-types.h"
-   #include "playback/metadata-extraction/metadata-extractor-ex.h"
+   #include "playback/metadata-extraction/metadata-extractor.h"
    #include "playback/resource-info/detail/utilities.h"
    #include "playback/resource-info/resource-info-types.h"
    
@@ -62,7 +62,7 @@ Program Listing for File binding-info.h
        {
            computePipeline.Clear();
            graphicsPipeline.Clear();
-   
+           raytracingPipeline.Clear();
            graphicsDescriptors.clear();
            computeDescriptors.clear();
            indexBufferInfo = nullptr;
@@ -102,7 +102,7 @@ Program Listing for File binding-info.h
    namespace detail {
    
    inline void PopulatePipelineBindingInfo(
-       MetadataExtractorEx const& metadataExtractor,
+       MetadataExtractor const& metadataExtractor,
        ResourceInfo::Usage usage,
        uint64_t callIndex,
        PipelineStateInfo& pipelineInfo)
@@ -136,13 +136,14 @@ Program Listing for File binding-info.h
    }
    
    inline void PopulateDescriptors(
-       MetadataExtractorEx const& metadataExtractor,
+       MetadataExtractor const& metadataExtractor,
        ResourceInfo::Usage usage,
        uint64_t callIndex,
        Descriptors& descriptors)
    {
        for (auto const& resourceInfo : metadataExtractor.GetResourceInfos(usage, callIndex)) {
            switch (resourceInfo.GetTypeId()) {
+           case ResourceInfo::GetTypeId<AccelerationStructureInfo>():
            case ResourceInfo::GetTypeId<BufferInfo>():
            case ResourceInfo::GetTypeId<SamplerInfo>():
            case ResourceInfo::GetTypeId<TextureInfo>():
@@ -157,7 +158,7 @@ Program Listing for File binding-info.h
    }
    
    inline void PopulateInputAssemblyBindingInfo(
-       MetadataExtractorEx const& metadataExtractor,
+       MetadataExtractor const& metadataExtractor,
        uint64_t callIndex,
        BindingInfo& bindingInfo)
    {
@@ -186,7 +187,7 @@ Program Listing for File binding-info.h
    }
    
    inline void PopulateShadingRateImageBindingInfo(
-       MetadataExtractorEx const& metadataExtractor,
+       MetadataExtractor const& metadataExtractor,
        uint64_t callIndex,
        BindingInfo& bindingInfo)
    {
@@ -204,12 +205,11 @@ Program Listing for File binding-info.h
    }
    
    inline void PopulateRenderTargetBindingInfos(
-       MetadataExtractorEx const& metadataExtractor,
+       MetadataExtractor const& metadataExtractor,
+       ResourceInfo::Usage usage,
        uint64_t callIndex,
        BindingInfo& bindingInfo)
    {
-       bindingInfo.renderTargets.clear();
-       auto usage = ResourceInfo::Usage::GRAPHICS_OUTPUT;
        for (auto const& resourceInfo : metadataExtractor.GetResourceInfos(usage, callIndex)) {
            for (auto const& resourceInfoEx : resourceInfo.GetResourceInfoExs(usage, callIndex)) {
                detail::AddInfoPtrToVector(&resourceInfoEx, bindingInfo.renderTargets);
@@ -217,8 +217,19 @@ Program Listing for File binding-info.h
        }
    }
    
+   inline void PopulateRenderTargetBindingInfos(
+       MetadataExtractor const& metadataExtractor,
+       uint64_t callIndex,
+       BindingInfo& bindingInfo)
+   {
+       bindingInfo.renderTargets.clear();
+       PopulateRenderTargetBindingInfos(metadataExtractor, ResourceInfo::Usage::GRAPHICS_OUTPUT, callIndex, bindingInfo);
+       PopulateRenderTargetBindingInfos(metadataExtractor, ResourceInfo::Usage::RAYTRACING_OUTPUT, callIndex, bindingInfo);
+       sort(bindingInfo.renderTargets.begin(), bindingInfo.renderTargets.end(), [](RenderTargetInfo const* a, RenderTargetInfo const* b) { return a->renderTargetIndex < b->renderTargetIndex; });
+   }
+   
    inline void PopulateArgumentBindingInfos(
-       MetadataExtractorEx const& metadataExtractor,
+       MetadataExtractor const& metadataExtractor,
        uint64_t callIndex,
        BindingInfo& bindingInfo)
    {
@@ -260,7 +271,7 @@ Program Listing for File binding-info.h
    }  // namespace detail
    
    inline void PopulateBindingInfo(
-       MetadataExtractorEx const& metadataExtractor,
+       MetadataExtractor const& metadataExtractor,
        uint64_t callIndex,
        BindingInfo& bindingInfo)
    {

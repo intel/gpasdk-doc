@@ -42,6 +42,7 @@ Program Listing for File playback/resource-info/to-string.h
    #include "playback/resource-info/resource-info-ex/shading-rate-info.h"
    #include "playback/resource-info/resource-info-ex/vertex-buffer-info.h"
    #include "playback/resource-info/resource-info-ex/viewport-info.h"
+   #include "playback/resource-info/acceleration-structure-info.h"
    #include "playback/resource-info/buffer-info.h"
    #include "playback/resource-info/embedded-pipeline-info.h"
    #include "playback/resource-info/input-layout-info.h"
@@ -81,37 +82,6 @@ Program Listing for File playback/resource-info/to-string.h
            }
        } else {
            WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, fieldName, (char const*)"null");
-       }
-       return strStr;
-   }
-   
-   template<typename T>
-   inline std::stringstream& WriteArrayFieldStr(
-       std::stringstream& strStr,
-       StrFmtFlags strFmtFlags,
-       uint32_t tabCount,
-       uint32_t tabSize,
-       char const* fieldName,
-       size_t count,
-       T const* pArray)
-   {
-       fieldName = fieldName ? fieldName : "unknown";
-       strStr << TabStr(strFmtFlags, tabCount++, tabSize) << "\"" << fieldName << "\":";
-       if (count && pArray) {
-           strStr << "[";
-           for (size_t i = 0; i < count; ++i) {
-               auto arrayElementStrFmtFlags = strFmtFlags;
-               if (i) {
-                   strStr << "," << NewLineStr(strFmtFlags);
-                   arrayElementStrFmtFlags &= ~((uint32_t)GPA_STR_FMT_SKIP_LEADING_TAB);
-               } else {
-                   arrayElementStrFmtFlags |= GPA_STR_FMT_SKIP_LEADING_TAB;
-               }
-               strStr << ToString(pArray[i], arrayElementStrFmtFlags, tabCount, tabSize);
-           }
-           strStr << NewLineStr(strFmtFlags) << TabStr(strFmtFlags, --tabCount, tabSize) << "]";
-       } else {
-           strStr << "null";
        }
        return strStr;
    }
@@ -191,11 +161,60 @@ Program Listing for File playback/resource-info/to-string.h
            return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ResourceInfo::Usage::GRAPHICS_OUTPUT", value);
        case ResourceInfo::Usage::GRAPHICS_PIPELINE:
            return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ResourceInfo::Usage::GRAPHICS_PIPELINE", value);
+       case ResourceInfo::Usage::GRAPHICS_RASTERIZATION_STATE:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ResourceInfo::Usage::GRAPHICS_RASTERIZATION_STATE", value);
+       case ResourceInfo::Usage::RAYTRACING_DESCRIPTOR:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ResourceInfo::Usage::RAYTRACING_DESCRIPTOR", value);
+       case ResourceInfo::Usage::RAYTRACING_PIPELINE:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ResourceInfo::Usage::RAYTRACING_PIPELINE", value);
+       case ResourceInfo::Usage::RAYTRACING_OUTPUT:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ResourceInfo::Usage::RAYTRACING_OUTPUT", value);
        case ResourceInfo::Usage::COUNT:
            return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ResourceInfo::Usage::COUNT", value);
        default:
            return WriteEnumStr(strFmtFlags, tabCount, tabSize, "ResourceInfo::Usage::UNKNOWN", value);
        }
+   }
+   
+   template<>
+   inline std::string ToString<playback::AccelerationStructureInfo::Type>(playback::AccelerationStructureInfo::Type const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace playback;
+       switch (value) {
+       case AccelerationStructureInfo::Type::TopLevel:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "AccelerationStructureInfo::Type::TopLevel", value);
+       case AccelerationStructureInfo::Type::BottomLevel:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "AccelerationStructureInfo::Type::BottomLevel", value);
+       case AccelerationStructureInfo::Type::Generic:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "AccelerationStructureInfo::Type::Generic", value);
+       default:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "AccelerationStructureInfo::Type::Unknown", value);
+       }
+   }
+   
+   template<>
+   inline std::string ToString<playback::AccelerationStructureInfo>(playback::AccelerationStructureInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "id", (void*)obj.id) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "playbackHandle", (void*)obj.playbackHandle) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "gpuAddress", (uint64_t)obj.gpuAddress) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pName", obj.pName) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "type", obj.type) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "offset", obj.offset) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "size", obj.size) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "flags", obj.flags) << "," << NewLineStr(strFmtFlags);
+       if (obj.type == playback::AccelerationStructureInfo::Type::TopLevel) {
+           WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "instanceDescCount", obj.instanceDescCount) << "," << NewLineStr(strFmtFlags);
+           WriteArrayFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pInstanceDescs", obj.instanceDescCount, obj.pInstanceDescs);
+       }
+       if (obj.type == playback::AccelerationStructureInfo::Type::BottomLevel) {
+           WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "geometryDescCount", obj.geometryDescCount) << "," << NewLineStr(strFmtFlags);
+           WriteArrayFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pGeometryDescs", obj.geometryDescCount, obj.pGeometryDescs);
+       }
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
    }
    
    template<>
@@ -939,6 +958,10 @@ Program Listing for File playback/resource-info/to-string.h
    {
        using namespace playback;
        switch (obj.GetTypeId()) {
+       case ResourceInfo::GetTypeId<AccelerationStructureInfo>(): {
+           auto pAccelerationStructureInfo = obj.As<AccelerationStructureInfo>();
+           return pAccelerationStructureInfo ? ToString(*pAccelerationStructureInfo, strFmtFlags, tabCount, tabSize) : "{ }";
+       }
        case ResourceInfo::GetTypeId<BufferInfo>(): {
            auto pBufferInfo = obj.As<BufferInfo>();
            return pBufferInfo ? ToString(*pBufferInfo, strFmtFlags, tabCount, tabSize) : "{ }";

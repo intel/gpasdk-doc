@@ -36,6 +36,11 @@ Program Listing for File structures.h
    #include <cstdint>
    
    namespace gpa {
+   
+   namespace playback {
+   class BufferInfo;
+   class AccelerationStructureInfo;
+   }  // namespace playback
    namespace api_types {
    
    // BufferRegion
@@ -299,6 +304,52 @@ Program Listing for File structures.h
    bool operator!=(DepthStencilOp const& lhs, DepthStencilOp const& rhs);
    
    bool operator<(DepthStencilOp const& lhs, DepthStencilOp const& rhs);
+   
+   // RaytracingGeometryDesc
+   struct RaytracingGeometryDesc
+   {
+       RaytracingGeometryType type{GPA_RAYTRACING_GEOMETRY_TRIANGLES};
+       RaytracingGeometryFlags flags{GPA_RAYTRACING_GEOMETRY_FLAGS_NONE};
+       struct Triangles
+       {
+           uint32_t vertexStride{0};
+           uint32_t vertexCount{0};
+           uint32_t indexCount{0};
+           api_types::Format indexFormat{api_types::GPA_FORMAT_UNKNOWN};
+           api_types::Format vertexFormat{api_types::GPA_FORMAT_UNKNOWN};
+           playback::BufferInfo const* pTransform3x4{nullptr};
+           playback::BufferInfo const* pVertexBuffer{nullptr};
+           playback::BufferInfo const* pIndexBuffer{nullptr};
+       } triangles;
+       struct AABBs
+       {
+           uint32_t aabbCount{0};
+           playback::BufferInfo const* pAABBBuffer{nullptr};
+       } aabbs;
+   };
+   
+   bool operator==(RaytracingGeometryDesc const& lhs, RaytracingGeometryDesc const& rhs);
+   
+   bool operator!=(RaytracingGeometryDesc const& lhs, RaytracingGeometryDesc const& rhs);
+   
+   bool operator<(RaytracingGeometryDesc const& lhs, RaytracingGeometryDesc const& rhs);
+   
+   // RaytracingInstanceDesc
+   struct RaytracingInstanceDesc
+   {
+       uint32_t instanceID{0};
+       uint32_t hitGroupIndex{0};
+       uint32_t instanceMask{0};
+       RaytracingInstanceFlags flags{GPA_RAYTRACING_INSTANCE_FLAGS_NONE};
+       playback::AccelerationStructureInfo const* pAccelerationStructure{nullptr};
+       float transform[3][4] = {};
+   };
+   
+   bool operator==(RaytracingInstanceDesc const& lhs, RaytracingInstanceDesc const& rhs);
+   
+   bool operator!=(RaytracingInstanceDesc const& lhs, RaytracingInstanceDesc const& rhs);
+   
+   bool operator<(RaytracingInstanceDesc const& lhs, RaytracingInstanceDesc const& rhs);
    
    }  // namespace api_types
    }  // namespace gpa

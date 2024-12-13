@@ -399,9 +399,6 @@ Program Listing for File directx-utilities.h
    D3D12_RESOURCE_STATES TruncateResourceState(D3D12_COMMAND_LIST_TYPE commandListType, D3D12_RESOURCE_STATES state);
    UINT GetVendorId(decltype(&CreateDXGIFactory1) createDXGIFactory1, ID3D12Device* device);
    
-   void CopyTextureRegion(decltype(&CreateDXGIFactory1) createDXGIFactory1, ID3D12Device* device, ID3D12GraphicsCommandList* commandList,
-                          D3D12_TEXTURE_COPY_LOCATION* src, D3D12_TEXTURE_COPY_LOCATION* dst, D3D12_RESOURCE_DIMENSION dimension);
-   
    std::wstring GetObjectName(ID3D12Object* object);
    std::wstring GetObjectName(ID3D11DeviceChild* object);
    
@@ -557,6 +554,11 @@ Program Listing for File directx-utilities.h
    {
        return ((value + sizeof(uint64_t) - 1) / sizeof(uint64_t)) * sizeof(uint64_t);
    };
+   
+   inline size_t AlignTo(size_t value, size_t alignment)
+   {
+       return ((value + alignment - 1) / alignment) * alignment;
+   }
    
    struct RootSignaturePatchTable
    {
