@@ -103,6 +103,7 @@ Program Listing for File igpa-config.h
            #define TSCANF(str, fmt, ...) swscanf(str, fmt, __VA_ARGS__)
            #define STD_REGEX std::wregex
            #define STD_CMATCH std::wcmatch
+           #define STR_TO_UINT64 _wcstoui64
        #else
            #include <ctype.h>
    
@@ -120,11 +121,13 @@ Program Listing for File igpa-config.h
            #define TSCANF(str, fmt, ...) sscanf(str, fmt, __VA_ARGS__)
            #define STD_REGEX std::regex
            #define STD_CMATCH std::cmatch
+           #define STR_TO_UINT64 _strtoui64
        #endif
        #define STRTOUL(str, endPtr, base) _tcstoul(str, endPtr, base);
        #define STRLEN(str) _tcslen(str)
        #define TSCPY(dst, src, size) _tcscpy_s(dst, size, src)
        #define STRCPY(dst, src, dstSize) strncpy_s(dst, dstSize, src, dstSize - 1)
+       #define TFOPEN _tfopen
    #else
        #define GPA_EXPORT extern "C" __attribute__((visibility("default")))
        #define GPA_LAYER_EXPORT extern "C" __attribute__((visibility("default")))
@@ -146,6 +149,7 @@ Program Listing for File igpa-config.h
        #define _tmain main
        #define STD_STRING std::string
        #define STD_TO_STRING std::to_string
+       #define STD_SSTREAM std::stringstream
        #define SPRINTF(dst, count, fmt, ...) snprintf(dst, count, fmt, __VA_ARGS__)
        #define SNPRINTF(dst, count, maxCount, fmt, ...) snprintf(dst, count, fmt, __VA_ARGS__)
        #define STRCMP(a, b) strcmp(a, b)
@@ -154,12 +158,14 @@ Program Listing for File igpa-config.h
        #define TO_STRING std::to_string
        #define TO_LOWER(c) tolower(c)
        #define STRTOUL(str, endPtr, base) strtoul(str, endPtr, base);
+       #define STR_TO_UINT64 strtoull
        #define STRLEN(str) strlen(str)
        #define STRTOD(str, endptr) strtod(str, endptr)
        #define STRRCHR(str, c) strrchr(str, c)
        #define TSCANF(str, fmt, ...) sscanf(str, fmt, __VA_ARGS__)
        #define STD_REGEX std::regex
        #define STD_CMATCH std::cmatch
+       #define TFOPEN fopen
    
    #endif
    

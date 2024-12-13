@@ -52,6 +52,9 @@ Program Listing for File resource-info/resource-info.h
    
    using ResourceId = uint64_t;
    
+   using GPUAddress = uint64_t;
+   
+   class AccelerationStructureInfo;
    class BlendStateInfo;
    class BufferInfo;
    class DespthStencilStateInfo;
@@ -74,6 +77,7 @@ Program Listing for File resource-info/resource-info.h
    class ResourceInfo
        : public detail::Convertible<
              ResourceInfo,
+             AccelerationStructureInfo,
              BlendStateInfo,
              BufferInfo,
              DespthStencilStateInfo,
@@ -108,6 +112,7 @@ Program Listing for File resource-info/resource-info.h
            GRAPHICS_RASTERIZATION_STATE,
            RAYTRACING_DESCRIPTOR,
            RAYTRACING_PIPELINE,
+           RAYTRACING_OUTPUT,
            COUNT,
            BEGIN = UNKNOWN,
            END = COUNT,
@@ -125,6 +130,7 @@ Program Listing for File resource-info/resource-info.h
        ResourceId id{0};                  
        ResourceId playbackHandle{0};      
        ResourceId dispatchableHandle{0};  
+       GPUAddress gpuAddress{0};          
        char const* pName{nullptr};        
        CreateInfo createInfo{};           
    
@@ -134,7 +140,7 @@ Program Listing for File resource-info/resource-info.h
        ResourceInfo(ResourceInfo const&) = default;
        ResourceInfo& operator=(ResourceInfo const&) = default;
    
-       class Storage final
+       class Storage
        {
        public:
            using CreateInfoDeleter = std::function<void()>;

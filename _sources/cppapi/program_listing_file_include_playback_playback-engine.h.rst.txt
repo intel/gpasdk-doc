@@ -31,7 +31,7 @@ Program Listing for File playback-engine.h
    
    #include "igpa-config.h"
    #include "playback/experiments/experimentor.h"
-   #include "playback/metadata-extraction/metadata-extractor-ex.h"
+   #include "playback/metadata-extraction/metadata-extractor.h"
    #include "playback/metadata-extraction/metadata-types.h"
    #include "playback/data-collection/metrics-extractor.h"
    #include "playback/range-player.h"
@@ -48,7 +48,6 @@ Program Listing for File playback-engine.h
    class Experimentor;
    class GeometryExtractor;
    class MetadataExtractor;
-   class MetadataExtractorEx;
    class MetricsExtractor;
    class ResourceExtractor;
    class ShaderProfileExtractor;
@@ -58,10 +57,8 @@ Program Listing for File playback-engine.h
    {
        GeometryExtractor* geometryExtractor = nullptr;
        MetadataExtractor* metadataExtractor = nullptr;
-       MetadataExtractorEx* metadataExtractorEx = nullptr;
        Experimentor* experimentor = nullptr;
        ResourceExtractor* resourceExtractor = nullptr;
-       ResourceExtractor* resourceExtractorEx = nullptr;
        MetricsExtractor* metricsExtractor = nullptr;
        ShaderProfileExtractor* shaderProfileExtractor = nullptr;
        ISACodeExtractor* isaCodeExtractor = nullptr;
@@ -84,7 +81,7 @@ Program Listing for File playback-engine.h
        PlaybackEngine(RangePlayer* rangePlayer, Services* serviceOverrides, const PlaybackEngineParameters& parameters);
    
    public:
-       MetadataExtractorEx const& GetMetadataExtractor() const;
+       MetadataExtractor const& GetMetadataExtractor() const;
    
        Experimentor& GetExperimentor();
    
@@ -96,9 +93,9 @@ Program Listing for File playback-engine.h
    
        bool IsShaderProfilerAvailable() const;
    
-       ResourceExtractor const& GetResourceExtractor(bool getUpdatedResourceExtractor = true) const;
+       ResourceExtractor const& GetResourceExtractor() const;
    
-       ResourceExtractor& GetResourceExtractor(bool getUpdatedResourceExtractor = true);
+       ResourceExtractor& GetResourceExtractor();
    
        GeometryExtractor& GetGeometryExtractor();
    
@@ -130,10 +127,8 @@ Program Listing for File playback-engine.h
    
        RangePlayer* mRangePlayer{nullptr};
        std::unique_ptr<MetadataExtractor> mMetadataExtractor;
-       std::unique_ptr<MetadataExtractorEx> mMetadataExtractorEx;
        std::unique_ptr<Experimentor> mExperimentor;
        std::unique_ptr<ResourceExtractor> mResourceExtractor;
-       std::unique_ptr<ResourceExtractor> mResourceExtractorEx;
        std::unique_ptr<MetricsExtractor> mMetricsExtractor;
        std::unique_ptr<ShaderProfileExtractor> mShaderProfileExtractor;
        std::unique_ptr<GeometryExtractor> mGeometryExtractor;

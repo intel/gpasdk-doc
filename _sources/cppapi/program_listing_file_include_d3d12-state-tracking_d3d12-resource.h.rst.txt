@@ -82,6 +82,7 @@ Program Listing for File d3d12-resource.h
    {
        uint32_t index;                    
        D3D12_RESOURCE_STATES state;       
+       D3D12_BARRIER_LAYOUT layout;       
        SubresourceTilingInfo tilingInfo;  
        std::list<MapInfo> mapStack;       
    };
@@ -92,6 +93,30 @@ Program Listing for File d3d12-resource.h
        D3D12_PACKED_MIP_INFO packedMipDesc;                 
        D3D12_TILE_SHAPE standardTileShapeForNonPackedMips;  
        std::vector<TileMapInfo> packedMipsTileMappings;
+   };
+   
+   struct D3D12_RAYTRACING_ACCELERATION_STRUCTURE_DESC;
+   
+   //        DX12_RAYTRACING_INSTANCE_DESC without bitfields.
+   //        bitfields do not work well with offsetof when pulling reflection data.
+   struct DX12_RAYTRACING_INSTANCE_DESC
+   {
+       FLOAT Transform[3][4];
+       UINT InstanceID;
+       UINT InstanceMask;
+       UINT InstanceContributionToHitGroupIndex;
+       UINT Flags;
+       D3D12_RAYTRACING_ACCELERATION_STRUCTURE_DESC* AccelerationStructure{};
+   };
+   
+   //        raytracing acceleration structure object.
+   struct D3D12_RAYTRACING_ACCELERATION_STRUCTURE_DESC
+   {
+       D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE Type;
+       UINT NumDescs;
+       const DX12_RAYTRACING_INSTANCE_DESC* pInstanceDescs;
+       const D3D12_RAYTRACING_GEOMETRY_DESC* pGeometryDescs;
+       uint64_t Size;
    };
    
    class D3D12ResourceState : public D3D12ObjectState
@@ -125,10 +150,18 @@ Program Listing for File d3d12-resource.h
        ID3D12ProtectedResourceSession* mProtectedSession = nullptr;
        UINT32 mNumCastableFormats = 0;
        std::vector<DXGI_FORMAT> mCastableFormats;
-       bool mHasEnhancedBarriers = false;
+       // Need to track whether we're currently using enhanced barrier: they can interop with old style but only after
+       // specific sets of transitions are used. We need to know the type of the most recent barrier.
+       bool mUsingEnhancedBarriers = false;
+       bool mCreatedWithEnhancedBarriers = false;
    
        std::vector<std::function<void(ID3D12Resource*)>> mDirtyCallbacks;
        gpa::concurrent::CriticalSection mCriticalSection;
+   
+       std::vector<D3D12_RAYTRACING_GEOMETRY_DESC> mRaytracingGeometryDescs;
+       std::vector<DX12_RAYTRACING_INSTANCE_DESC> mRaytracingInstanceDescs;
+   
+       D3D12_RAYTRACING_ACCELERATION_STRUCTURE_DESC mD3D12RaytracingAccelerationStructure;
    
    public:
        D3D12ResourceState(ID3D12Resource* pResource, ID3D12Heap* pHeap, UINT64 HeapOffset, D3D12_RESOURCE_DESC const* pDesc, D3D12_RESOURCE_STATES initialResourceState, D3D12_CLEAR_VALUE const* pOptimizedClearValue, ResourceType type);
@@ -152,6 +185,7 @@ Program Listing for File d3d12-resource.h
        GUID GetGUID() override;
    
        void OnStateTransition(uint32_t subresource, D3D12_RESOURCE_STATES stateAfter);
+       void OnLayoutTransition(const D3D12_BARRIER_SUBRESOURCE_RANGE& subresource, D3D12_BARRIER_LAYOUT layoutAfter);
        void OnMap(uint32_t subresource, D3D12_RANGE const* pReadRange, void** ppData);
        void OnUnmap(uint32_t subresource, D3D12_RANGE const* pWrittenRange);
        void OnEvict();
@@ -162,6 +196,10 @@ Program Listing for File d3d12-resource.h
        D3D12_RESOURCE_STATES GetSubresourceState(uint32_t index) const;
    
        std::vector<D3D12_RESOURCE_STATES> GetStateOfAllSubresources(bool* allSubresourcesStateEqual) const;
+   
+       std::vector<D3D12_BARRIER_LAYOUT> GetLayoutOfAllSubresources(bool* allSubresourcesLayoutEqual) const;
+   
+       std::vector<D3D12_RESOURCE_STATES> D3D12ResourceState::GetLayoutOfAllSubresourcesAsState(bool* pAllSubresourcesLayoutEqual) const;
    
        std::vector<D3D12_RESOURCE_BARRIER> PrepareSetOfBarriersForWholeResource();
    
@@ -202,10 +240,23 @@ Program Listing for File d3d12-resource.h
    
        D3D12_GPU_VIRTUAL_ADDRESS GetGPUVirtualAddress();
    
+       void SetRaytracingGeometryDescs(std::vector<D3D12_RAYTRACING_GEOMETRY_DESC> const& descs);
+   
+       void SetRaytracingInstanceDescs(std::vector<D3D12_RAYTRACING_INSTANCE_DESC> const& descs);
+   
+       void SetRaytracingAccelerationStructureType(D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE accelerationStructureType);
+   
+       D3D12_RAYTRACING_ACCELERATION_STRUCTURE_DESC* GetRaytracingAccelerationStructure();
+   
+       void SetAccelerationStructureSize(uint64_t size);
+       uint64_t GetAccelerationStructureSize();
+   
        bool GPUVirtualAddressObtained() const;
        void GPUVirtualAddressObtained(bool val);
    
-       bool HasEnhancedBarriers() const;
+       void SetUsingEnhancedBarriers(bool enhancedBarrier);
+       bool UsingEnhancedBarriers() const;
+       bool CreatedWithEnhancedBarriers() const;
        D3D12_BARRIER_LAYOUT GetInitialBarrierLayout() const;
        UINT32 GetCastableFormatCount() const;
        DXGI_FORMAT* GetCastableFormats();

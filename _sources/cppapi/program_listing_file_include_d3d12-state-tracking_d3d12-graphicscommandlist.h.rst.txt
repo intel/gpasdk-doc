@@ -165,6 +165,27 @@ Program Listing for File d3d12-graphicscommandlist.h
        std::unordered_map<ID3D12Resource *, std::vector<D3D12_RESOURCE_STATES>> mPendingStateTransitions;
        std::unordered_set<ID3D12Resource *> mPendingDirtyResources;
    
+       struct EnhancedBarrier
+       {
+           EnhancedBarrier(D3D12_TEXTURE_BARRIER barrier)
+           {
+               mType = D3D12_BARRIER_TYPE_TEXTURE;
+               mTextureBarrier = barrier;
+           }
+           EnhancedBarrier(D3D12_BUFFER_BARRIER barrier)
+           {
+               mType = D3D12_BARRIER_TYPE_BUFFER;
+               mBufferBarrier = barrier;
+           }
+           D3D12_BARRIER_TYPE mType;
+           union
+           {
+               D3D12_TEXTURE_BARRIER mTextureBarrier;
+               D3D12_BUFFER_BARRIER mBufferBarrier;
+           };
+       };
+       std::unordered_map<ID3D12Resource *, std::vector<EnhancedBarrier>> mPendingEnhancedTransitions;
+   
        RootSignatureRecord mRootBindingState;
    
        std::vector<std::unique_ptr<serialization::StructDataManager>> mAllBuildASDescDataManagers;
@@ -365,6 +386,7 @@ Program Listing for File d3d12-graphicscommandlist.h
        CopyBufferCommands const &GetCopyBufferCommands() const;
        std::vector<CopyASCommand> const &GetCopyAccelerationStructures() const;
        std::vector<D3D12_RESOURCE_STATES> const *GetPendingResourceState(ID3D12Resource *resource) const;
+       std::vector<EnhancedBarrier> const *GetPendingEnhancedState(ID3D12Resource *resource) const;
        std::vector<ID3D12DescriptorHeap *> GetDescriptorHeaps() const;
        VertexBuffers const &GetVertexBuffers() const;
        IndexBuffer const &GetIndexBuffer() const;
