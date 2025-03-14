@@ -27,7 +27,48 @@ Program Listing for File environment.h
    
    ******************************************************************************/
    
-   #pragma once
+   //Can't just use the #pragma once because this header is included second time into environment.cpp for another expansion of GPA_PUBLIC_ENV_* family
+   
+   #ifndef GPA_ENVIRONMENT_HEADER
+   #define GPA_ENVIRONMENT_HEADER
+   
+   #ifndef GPA_PUBLIC_ENV_ITEM
+   #define GPA_PUBLIC_ENV_BEGIN(name) \
+       namespace gpa {                \
+       namespace system {             \
+       enum name {
+   #define GPA_PUBLIC_ENV_ITEM(name, help) e##name,
+   #define GPA_PUBLIC_ENV_END() \
+       }                        \
+       ;                        \
+       }                        \
+       }
+   #endif
+   
+   GPA_PUBLIC_ENV_BEGIN(EGPAPublicEnv)
+   
+   GPA_PUBLIC_ENV_ITEM(GPA_CHECK_RET, R"(Defines behavior for GPA_CHECK_RET, supports one or several (comma, space or | delimited):
+           stdout|stderr - dump message to one of outputs respectively
+           assert - show message box
+           break - generate debugger breakpoint
+       )")
+   
+   GPA_PUBLIC_ENV_ITEM(GPA_LOG_STACK, R"(Sets number that represents log severity to start dumping log from:
+           kTrace = 0,
+           kDebug = 1,
+           kInfo = 2,
+           kWarn = 3,
+           kError = 4,
+           kFatal = 5
+       )")
+   
+   GPA_PUBLIC_ENV_END()
+   
+   #undef GPA_PUBLIC_ENV_BEGIN
+   #undef GPA_PUBLIC_ENV_ITEM
+   #undef GPA_PUBLIC_ENV_END
+   
+   #if !defined(GPA_ENVIRONMENT_HEADER_EX)
    
    namespace gpa {
    namespace system {
@@ -39,7 +80,7 @@ Program Listing for File environment.h
    class Environment
    {
    public:
-       Environment();
+       Environment(bool bInit = false);
    
        Environment(char const* const* envp);
    
@@ -56,6 +97,9 @@ Program Listing for File environment.h
        bool Empty() const;
    
        char const* Get(char const* key) const;
+   
+       static char const* GetPublic(EGPAPublicEnv name);  //returns value of the publicly defined environment variable
+       static char const* GetPublicHelp();                //composes help from all the publicly defined variables in GPA_PUBLIC_ENV_BEGIN(EGPAPublicEnv)
    
        void GetAllKeysValues(char const** keys, char const** values, int* count) const;
    
@@ -88,3 +132,6 @@ Program Listing for File environment.h
    
    }  // namespace system
    }  // namespace gpa
+   
+   #endif
+   #endif

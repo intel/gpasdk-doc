@@ -1,0 +1,78 @@
+
+.. _program_listing_file_include_playback_resource-extraction_to-string.h:
+
+Program Listing for File playback/resource-extraction/to-string.h
+=================================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_resource-extraction_to-string.h>` (``include\playback\resource-extraction\to-string.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "api-types/to-string.h"
+   #include "resource-extractor.h"
+   
+   namespace gpa {
+   
+   template<>
+   inline std::string ToString<gpa::playback::ResourceExtractor::Request::Execution>(gpa::playback::ResourceExtractor::Request::Execution const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace gpa::playback;
+       switch (value) {
+       case ResourceExtractor::Request::Execution::PreCall:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "PreCall", value);
+       case ResourceExtractor::Request::Execution::PostCall:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "PostCall", value);
+       default:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "UNKNOWN", value);
+       }
+   }
+   
+   template<>
+   inline std::string ToString(gpa::playback::ResourceExtractor::Request::Info const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace gpa::detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "callIndex", obj.callIndex) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "stage", obj.stage) << "," << NewLineStr(strFmtFlags);
+       if (obj.pResourceInfo) {
+           WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pResourceInfo", *obj.pResourceInfo) << "," << NewLineStr(strFmtFlags);
+       }
+       if (obj.pResourceInfoEx) {
+           WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pResourceInfoEx", *obj.pResourceInfoEx) << NewLineStr(strFmtFlags);
+       }
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString(gpa::playback::ResourceExtractor::Request const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace gpa::detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "infoCount", obj.infoCount) << "," << NewLineStr(strFmtFlags);
+       WriteArrayFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pInfos", obj.infoCount, obj.pInfos);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   }  // namespace gpa

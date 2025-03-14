@@ -132,7 +132,7 @@ Program Listing for File d3d12-graphicscommandlist.h
    using CopyBufferCommands = std::vector<CopyBufferCommand>;
    using ReferencedDescriptorHeaptoDescriptorMap = std::unordered_map<ID3D12DescriptorHeap *, std::vector<std::pair<SIZE_T, DX12Descriptor>>>;
    
-   using RootSignatureRecord = std::array<std::unordered_map<uint32_t, RootParamRecord>, 2>;
+   using RootSignatureRecord = std::array<std::map<uint32_t, RootParamRecord>, 2>;
    
    class D3D12GraphicsCommandListState : public D3D12ObjectState
    {
@@ -337,6 +337,14 @@ Program Listing for File d3d12-graphicscommandlist.h
        void OnOMSetStencilRef(UINT StencilRef);
        void OnOMSetDepthBounds(FLOAT Min, FLOAT Max);
    
+       void OnClearUnorderedAccessViewUint(
+           D3D12_GPU_DESCRIPTOR_HANDLE ViewGPUHandleInCurrentHeap,
+           D3D12_CPU_DESCRIPTOR_HANDLE ViewCPUHandle,
+           ID3D12Resource *pResource,
+           const UINT Values[4],
+           UINT NumRects,
+           const D3D12_RECT *pRects);
+   
        void OnSOSetTargets(UINT StartSlot, UINT NumViews, const D3D12_STREAM_OUTPUT_BUFFER_VIEW *pViews);
    
        void OnRSSetScissorRects(UINT NumRects, const D3D12_RECT *pRects);
@@ -396,7 +404,7 @@ Program Listing for File d3d12-graphicscommandlist.h
        uint32_t GetStencilRef() const;
        std::vector<float> GetDepthBounds() const;
        Topology GetTopology() const;
-       std::unordered_map<uint32_t, RootParamRecord> const &GetRootSignatureRecord(PipelineType pipelineType) const;
+       std::map<uint32_t, RootParamRecord> const &GetRootSignatureRecord(PipelineType pipelineType) const;
        RenderTargets const &GetRenderTargets(bool requestUntranslatedHandle) const;
        DepthStencil const &GetDepthStencil(bool requestUntranslatedHandle) const;
        ReferencedDescriptorHeaptoDescriptorMap const &GetReferencedRenderTargetDescriptors() const;
@@ -419,6 +427,7 @@ Program Listing for File d3d12-graphicscommandlist.h
        bool BelongsToCurrentlySetDescriptorHeaps(D3D12_GPU_DESCRIPTOR_HANDLE handle);
    
        void UpdateReferencedDescriptorsHistory(D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle);
+       void UpdateReferencedDescriptorsHistory(D3D12_GPU_DESCRIPTOR_HANDLE gpuHandle);
    
        void UnregisterFromCurrentAllocator();
    };

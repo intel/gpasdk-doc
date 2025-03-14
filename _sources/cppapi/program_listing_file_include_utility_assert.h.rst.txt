@@ -28,7 +28,6 @@ Program Listing for File assert.h
    ******************************************************************************/
    
    #include "instrumentation/gpa-checkret.h"
-   #include <vector>
    #include <assert.h>
    
    /*
@@ -85,10 +84,31 @@ Program Listing for File assert.h
    #define GPA_ASSERT_CONDITIONAL_RETURN()
    #endif
    
+   #ifdef _DEBUG
+   #define GPA_ASSERT_DEBUG_MSGBOX(cond)                                                                           \
+       {                                                                                                           \
+           static bool GPA_ASSERT_DEBUG_MSGBOX_ignore = false;                                                     \
+           if (!GPA_ASSERT_DEBUG_MSGBOX_ignore) {                                                                  \
+               int GPA_ASSERT_DEBUG_MSGBOX_res = ::MessageBoxA(nullptr, #cond, "GPA_ASSERT", MB_ABORTRETRYIGNORE); \
+               if (IDIGNORE == GPA_ASSERT_DEBUG_MSGBOX_res) {                                                      \
+                   GPA_ASSERT_DEBUG_MSGBOX_ignore = true;                                                          \
+               } else if (IDRETRY == GPA_ASSERT_DEBUG_MSGBOX_res) {                                                \
+                   GPA_DEBUG_BREAKPOINT();                                                                         \
+               } else {                                                                                            \
+                   std::exit(-1);                                                                                  \
+               }                                                                                                   \
+           }                                                                                                       \
+       }
+   
+   #else
+   #define GPA_ASSERT_DEBUG_MSGBOX(cond)
+   #endif
+   
    #define GPA_ASSERT_HELPER(cond)                                                                        \
        do {                                                                                               \
            if (!(cond)) {                                                                                 \
                GPA_REPORT("%s(%d): error: %s | \t %s\n", __FILE__, __LINE__, __PRETTY_FUNCTION__, #cond); \
+               GPA_ASSERT_DEBUG_MSGBOX(#cond);                                                            \
                GPA_ASSERT_CONDITIONAL_RETURN();                                                           \
            }                                                                                              \
        } while (GPA_ASSERT_LOOP_CONDITION)

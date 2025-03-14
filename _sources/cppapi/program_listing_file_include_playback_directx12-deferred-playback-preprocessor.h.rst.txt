@@ -1,0 +1,96 @@
+
+.. _program_listing_file_include_playback_directx12-deferred-playback-preprocessor.h:
+
+Program Listing for File directx12-deferred-playback-preprocessor.h
+===================================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_directx12-deferred-playback-preprocessor.h>` (``include\playback\directx12-deferred-playback-preprocessor.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "playback/stream-preprocessor.h"
+   #include <map>
+   #include <set>
+   
+   namespace gpa {
+   namespace playback {
+   
+   class Callable;
+   
+   using TObjectKey = uint64_t;
+   using TCallableHash = uint64_t;
+   enum CmdListStatus {
+       NO_HISTORY = 0,  // Cmd list not used after restoration point
+       RESET,           // Cmd list is reset immediatelly after restoration point
+       RELEASED,        // Cmd list is released immediatelly after restoration point
+   
+       EXECUTED,             // Executed in or after restoration point
+       RECORDING_CONTINUED,  // Cmd list is being recorded onto (meaning it was not closed in restoration point)
+   };
+   
+   struct CommandListRecord
+   {
+       CmdListStatus Status = NO_HISTORY;
+       std::set<TCallableHash> DeferredCallables;
+       std::set<TObjectKey> Bundles;
+   
+       void UpdateStatus(CmdListStatus status)
+       {
+           if (Status == NO_HISTORY) {
+               Status = status;
+           }
+       }
+   };
+   
+   using CommandListUsageRecords = std::map<TObjectKey, CommandListRecord>;
+   
+   class D3D12DeferredPlaybackPreprocessor : public IStreamProcesssor
+   {
+   public:
+       D3D12DeferredPlaybackPreprocessor() = default;
+   
+       // IStreamProcesssor
+       void Process(Callable& callable) override;
+       void OnRestorationPointEnd() override;
+       void OnTargetRangeBegin() override;
+       void OnProcessingEnd() override;
+   
+       bool ShouldSkip(TCallableHash callableHash) const;
+   
+   private:
+       void OnCommandListCreated(TObjectKey key, bool isBundle);
+       void OnCommandListReset(TObjectKey key);
+       void OnCommandListExecuteBundle(TObjectKey key, TObjectKey bundle, Callable& callable);
+       void OnExecuteCommandList(uint32_t count, TObjectKey* pKeys);
+       void OnCommandListRelease(TObjectKey key);
+       void OnCommandListRecordedCall(TObjectKey key, Callable& callable);
+   
+       bool mInRestorationPoint = true;  // D3D12DeferredPlaybackPreprocessor is only used with deferred streams, so we start with true
+       CommandListUsageRecords mCmdListUsageRecords;
+   
+       std::set<TCallableHash> mDeferredSkipCalls;
+   };
+   
+   }  // namespace playback
+   }  // namespace gpa

@@ -60,6 +60,8 @@ Program Listing for File playback/resource-info/to-string.h
    
    #if defined(HAVE_DIRECTX)
    #include "shader-utilities/shader-utilities-dx.h"
+   #include "d3d12-state-tracking/common.h"
+   #include "d3d12-state-tracking/d3d12-resource.h"
    #endif
    
    namespace gpa {
@@ -141,6 +143,12 @@ Program Listing for File playback/resource-info/to-string.h
    
    }  // namespace detail
    
+   #if defined(HAVE_DIRECTX)
+   std::string ConvertStateTrackerResourceTypeToString(gpa::d3d12_state_tracker::ResourceType const& value);
+   #endif
+   
+   std::string GetResourceTypeAsString(gpa::playback::ResourceId playbackHandle);
+   
    template<>
    inline std::string ToString<playback::ResourceInfo::Usage>(playback::ResourceInfo::Usage const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
    {
@@ -221,9 +229,12 @@ Program Listing for File playback/resource-info/to-string.h
    inline std::string ToString<playback::BufferInfo>(playback::BufferInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
    {
        using namespace detail;
+       std::string resourceTypeStr = GetResourceTypeAsString(obj.playbackHandle);
+   
        auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
        WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "id", (void*)obj.id) << "," << NewLineStr(strFmtFlags);
        WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "playbackHandle", (void*)obj.playbackHandle) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "resourceType", resourceTypeStr.c_str()) << "," << NewLineStr(strFmtFlags);
        WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pName", obj.pName) << "," << NewLineStr(strFmtFlags);
        WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "size", obj.size);
        return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
@@ -326,9 +337,12 @@ Program Listing for File playback/resource-info/to-string.h
    inline std::string ToString<playback::TextureInfo>(playback::TextureInfo const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
    {
        using namespace detail;
+       std::string resourceTypeStr = GetResourceTypeAsString(obj.playbackHandle);
+   
        auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
        WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "id", (void*)obj.id) << "," << NewLineStr(strFmtFlags);
        WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "playbackHandle", (void*)obj.playbackHandle) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "resourceType", resourceTypeStr.c_str()) << "," << NewLineStr(strFmtFlags);
        WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pName", obj.pName) << "," << NewLineStr(strFmtFlags);
        WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "type", obj.type) << "," << NewLineStr(strFmtFlags);
        WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "format", obj.format) << "," << NewLineStr(strFmtFlags);

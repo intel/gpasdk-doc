@@ -54,6 +54,16 @@ Program Listing for File gpa-singleton.h
            return (uint32_t)pid;
        }
    
+       template<class T, class I = T>
+       static I& GetOrCreate(const char* name)
+       {
+           void* ptr = Get(name, nullptr);
+           if (ptr) {
+               return *(I*)ptr;
+           }
+           static T value;
+           return value;
+       }
        static void* Get(const char* name, void* fallback = nullptr)  //Gets item by name
        {
            char prefix[256] = {};
@@ -62,8 +72,12 @@ Program Listing for File gpa-singleton.h
    #ifdef _WIN32
            char val[256] = {};
            size_t res = 0;
-           if (0 != getenv_s(&res, val, sizeof(val), prefix) || !res)
+           if (0 != getenv_s(&res, val, sizeof(val), prefix) || !res) {
+               if (fallback) {
+                   Set(name, fallback);
+               }
                return fallback;
+           }
            sscanf_s(val, "%llx", &addr);
    #else
            const char* val = getenv(prefix);

@@ -30,6 +30,9 @@ Program Listing for File system.h
    #pragma once
    #ifdef _WIN32
    #include <Windows.h>
+   #else
+   #include <signal.h>
+   #include <ucontext.h>
    #endif
    
    #include "igpa-config.h"
@@ -58,7 +61,7 @@ Program Listing for File system.h
    #ifdef _WIN32
    std::string DumpStack(int skip = 0, EXCEPTION_POINTERS* pExceptionPointers = nullptr);  //default will unwind stack from current call
    #else
-   std::string DumpStack(int skip = 0);  //stack from current call
+   std::string DumpStack(int skip = 0, int sig = 0, siginfo_t* pInfo = nullptr, ucontext_t* pContext = nullptr);  //stack from current call
    #endif
    
    }  // namespace system

@@ -74,13 +74,16 @@ Program Listing for File d3d12-pipelinestate.h
    
        std::unique_ptr<CMShader> mCMShader;
    
+       WeakPtr<ID3D12PipelineLibrary> mParentLibrary;
+       bool mLoadedFromLibrary = false;
+   
    public:
        static constexpr GUID sGUID = {0x2d774415, 0xedb0, 0x443a, {0x8d, 0xe, 0xd5, 0xdd, 0x93, 0x2a, 0xa3, 0x2f}};
    
    public:
-       D3D12PipelineStateState(ID3D12PipelineState* runtimeObj, const D3D12_GRAPHICS_PIPELINE_STATE_DESC* pDesc);
-       D3D12PipelineStateState(ID3D12PipelineState* runtimeObj, const D3D12_COMPUTE_PIPELINE_STATE_DESC* pDesc);
-       D3D12PipelineStateState(ID3D12PipelineState* runtimeObj, const D3D12_PIPELINE_STATE_STREAM_DESC* pDesc);
+       D3D12PipelineStateState(ID3D12PipelineState* runtimeObj, const D3D12_GRAPHICS_PIPELINE_STATE_DESC* pDesc, ID3D12PipelineLibrary* parentLibrary = nullptr);
+       D3D12PipelineStateState(ID3D12PipelineState* runtimeObj, const D3D12_COMPUTE_PIPELINE_STATE_DESC* pDesc, ID3D12PipelineLibrary* parentLibrary = nullptr);
+       D3D12PipelineStateState(ID3D12PipelineState* runtimeObj, const D3D12_PIPELINE_STATE_STREAM_DESC* pDesc, ID3D12PipelineLibrary* parentLibrary = nullptr);
        virtual ~D3D12PipelineStateState();
    
        GUID GetGUID() override;
@@ -96,6 +99,9 @@ Program Listing for File d3d12-pipelinestate.h
    
        void SetCMShader(CMShader const& cmShader);
        CMShader const* GetCMShader() const;
+   
+       ID3D12PipelineLibrary* GetParentLibrary() const;
+       bool IsLoadedFromLibrary() const;
    };
    
    }  // namespace d3d12_state_tracker

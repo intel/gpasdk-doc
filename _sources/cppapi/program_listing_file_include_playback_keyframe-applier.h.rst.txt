@@ -67,7 +67,7 @@ Program Listing for File keyframe-applier.h
    
        StreamDataBookmark ResetToKeyframeStartPoint(serialization::metadata::Keyframe const* keyframe);
    
-       StreamDataBookmark Apply(serialization::metadata::Keyframe const* keyframe, Player* player, bool trackState);
+       StreamDataBookmark Apply(serialization::metadata::Keyframe const* keyframe, Player* player, bool trackState, std::function<void(Callable*)> playCallOverride = nullptr);
    
    private:
        StreamData* mStreamData = nullptr;

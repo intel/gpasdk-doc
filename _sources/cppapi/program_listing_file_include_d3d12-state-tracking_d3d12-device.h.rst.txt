@@ -66,7 +66,7 @@ Program Listing for File d3d12-device.h
    {
    private:
        D3D_FEATURE_LEVEL mFeatureLevel;
-       IUnknown* mAdapter;
+       CComPtr<IUnknown> mAdapter;  // Adapter needs to be kept alive for ResidencyManager
        CComPtr<gpgmm::d3d12::IResourceAllocator> mResourceAllocator;
        CComPtr<gpgmm::d3d12::IResidencyManager> mResidencyManager;
    

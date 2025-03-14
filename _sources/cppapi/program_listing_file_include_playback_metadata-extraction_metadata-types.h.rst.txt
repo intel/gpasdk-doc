@@ -487,8 +487,20 @@ Program Listing for File playback/metadata-extraction/metadata-types.h
        std::wstring stagesForProfiling;
    };
    
-   using ProfileShaderResult = std::vector<ProfiledShader>;
-   using ShaderMetricsResult = std::vector<ShaderMetrics>;
+   using ProfileShaderVector = std::vector<ProfiledShader>;
+   using ShaderMetricsVector = std::vector<ShaderMetrics>;
+   
+   struct ProfileShaderResult
+   {
+       bool isFatalErrorPresent = false;
+       ProfileShaderVector profiledShaders;
+   };
+   
+   struct ShaderMetricsResult
+   {
+       bool isFatalErrorPresent = false;
+       ShaderMetricsVector metricsPerShader;
+   };
    
    struct RequestedResource
    {
