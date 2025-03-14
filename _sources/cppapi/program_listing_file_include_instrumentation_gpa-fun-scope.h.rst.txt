@@ -40,12 +40,15 @@ Program Listing for File gpa-fun-scope.h
        std::function<void()> todo;
        OnScopeEnd(OnScopeEnd const&) = delete;
        OnScopeEnd& operator=(OnScopeEnd const&) = delete;
-       OnScopeEnd(std::function<void()> todo)
-           : todo(todo)
+       OnScopeEnd(std::function<void()>&& fn)
+           : todo(fn)
        {
        }
        ~OnScopeEnd() { todo(); }
    };
+   
+   }  // namespace instrumentation
+   }  // namespace gpa
    
    //GPA_ON_SCOPE_END can be used many times, and will execute in backward order at scope exit
    #define GPA_ON_SCOPE_END(code) gpa::instrumentation::OnScopeEnd GPA_CONCAT(gpa_defer, __LINE__)([&]() { code; });
@@ -55,5 +58,8 @@ Program Listing for File gpa-fun-scope.h
        //feel free to exit any time, CloseHandle will be callsed
    */
    
-   }  // namespace instrumentation
-   }  // namespace gpa
+   #define GPA_TRACE_SCOPE(scope)  \
+       GPA_REPORT(scope##" [[\n"); \
+       GPA_ON_SCOPE_END(GPA_REPORT("]] "##scope##"\n"))
+   
+   #define GPA_TRACE() GPA_TRACE_SCOPE(__PRETTY_FUNCTION__)

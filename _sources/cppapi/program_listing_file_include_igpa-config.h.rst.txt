@@ -32,13 +32,23 @@ Program Listing for File igpa-config.h
    
    #if defined(HAVE_VULKAN)
        #if defined(__ANDROID__)
+           #ifndef VK_USE_PLATFORM_ANDROID_KHR
            #define VK_USE_PLATFORM_ANDROID_KHR 1
+           #endif
        #elif defined(_WIN32) || defined(_WIN64)
+           #ifndef VK_USE_PLATFORM_WIN32_KHR
            #define VK_USE_PLATFORM_WIN32_KHR 1
+           #endif
        #elif defined(__linux__)
+           #ifndef VK_USE_PLATFORM_XLIB_KHR
            #define VK_USE_PLATFORM_XLIB_KHR 1
+           #endif
+           #ifndef VK_USE_PLATFORM_XCB_KHR
            #define VK_USE_PLATFORM_XCB_KHR 1
+           #endif
+           #ifndef VK_USE_PLATFORM_WAYLAND_KHR
            #define VK_USE_PLATFORM_WAYLAND_KHR 1
+           #endif
        #endif
        #ifndef VK_ENABLE_BETA_EXTENSIONS
        #define VK_ENABLE_BETA_EXTENSIONS 1

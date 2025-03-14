@@ -1,0 +1,50 @@
+
+.. _program_listing_file_include_playback_shader-profile-extraction_to-string.h:
+
+Program Listing for File playback/shader-profile-extraction/to-string.h
+=======================================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_shader-profile-extraction_to-string.h>` (``include\playback\shader-profile-extraction\to-string.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "api-types/to-string.h"
+   #include "playback/metadata-extraction/metadata-types.h"
+   #include "utility/unicode.h"
+   
+   namespace gpa {
+   
+   template<>
+   inline std::string ToString(gpa::playback::ProfileShaderRequest const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace gpa::detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       std::string stagesForProfilingUTF8 = gpa::utility::Narrow(obj.stagesForProfiling);
+   
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "stagesForProfiling", stagesForProfilingUTF8.c_str()) << "," << NewLineStr(strFmtFlags);
+       WriteArrayFieldStr(strStr, strFmtFlags, tabCount, tabSize, "profiledCalls", obj.profiledCalls.size(), obj.profiledCalls.data(), false) << NewLineStr(strFmtFlags);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   }  // namespace gpa

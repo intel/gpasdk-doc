@@ -30,6 +30,7 @@ Program Listing for File d3d12-playback-support.h
    #pragma once
    
    #include <d3d12.h>
+   #include <dstorage.h>
    #include <cstdint>
    #include <atomic>
    #include <vector>
@@ -122,6 +123,8 @@ Program Listing for File d3d12-playback-support.h
    
        void OnSetEventOnCompletion(ID3D12Fence* fence, UINT64 value, HANDLE* hEvent,
                                    ObjectMap* objMap);
+       void OnDStorageQueueEnqueueSetEvent(IDStorageQueue1* queue, HANDLE* pHandle,
+                                           ObjectMap* objMap);
    
        std::map<uint64_t, D3D12_GPU_VIRTUAL_ADDRESS_RANGE>& GetGpuVirtualAddressMap();
        uint64_t GetGpuVirtualAddressMapUpdateTimestamp();

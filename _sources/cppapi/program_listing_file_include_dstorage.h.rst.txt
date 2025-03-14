@@ -1,0 +1,481 @@
+
+.. _program_listing_file_include_dstorage.h:
+
+Program Listing for File dstorage.h
+===================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_dstorage.h>` (``include\dstorage.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /*-------------------------------------------------------------------------------------
+    *
+    * Copyright (c) Microsoft Corporation
+    * Licensed under the MIT license
+    *
+    *-------------------------------------------------------------------------------------*/
+   
+   #if !defined(__cplusplus)
+       #error C++11 required
+   #endif
+   
+   #pragma once
+   
+   #include <unknwn.h>
+   #include <d3d12.h>
+   #include <dstorageerr.h>
+   
+   #define DSTORAGE_SDK_VERSION 203
+   
+   interface ID3D12Resource;
+   interface ID3D12Fence;
+   interface IDStorageStatusArray;
+   
+   enum DSTORAGE_PRIORITY : INT8 {
+       DSTORAGE_PRIORITY_LOW      = -1,
+       DSTORAGE_PRIORITY_NORMAL   = 0,
+       DSTORAGE_PRIORITY_HIGH     = 1,
+       DSTORAGE_PRIORITY_REALTIME = 2,
+   
+       DSTORAGE_PRIORITY_FIRST    = DSTORAGE_PRIORITY_LOW,
+       DSTORAGE_PRIORITY_LAST     = DSTORAGE_PRIORITY_REALTIME,
+   
+       DSTORAGE_PRIORITY_COUNT    = 4
+   };
+   
+   #define DSTORAGE_MIN_QUEUE_CAPACITY             0x80
+   
+   #define DSTORAGE_MAX_QUEUE_CAPACITY             0x2000
+   
+   enum DSTORAGE_REQUEST_SOURCE_TYPE : UINT64 {
+       DSTORAGE_REQUEST_SOURCE_FILE = 0,
+   
+       DSTORAGE_REQUEST_SOURCE_MEMORY = 1,
+   };
+   
+   enum DSTORAGE_REQUEST_DESTINATION_TYPE : UINT64 {
+       DSTORAGE_REQUEST_DESTINATION_MEMORY = 0,
+   
+       DSTORAGE_REQUEST_DESTINATION_BUFFER = 1,
+   
+       DSTORAGE_REQUEST_DESTINATION_TEXTURE_REGION = 2,
+   
+       DSTORAGE_REQUEST_DESTINATION_MULTIPLE_SUBRESOURCES = 3,
+   
+       DSTORAGE_REQUEST_DESTINATION_TILES = 4
+   };
+   
+   struct DSTORAGE_QUEUE_DESC {
+       DSTORAGE_REQUEST_SOURCE_TYPE SourceType;
+   
+       UINT16 Capacity;
+   
+       DSTORAGE_PRIORITY Priority;
+   
+       _In_opt_z_ const CHAR *Name;
+   
+       ID3D12Device* Device;
+   };
+   
+   struct DSTORAGE_QUEUE_INFO {
+       DSTORAGE_QUEUE_DESC Desc;
+   
+       UINT16 EmptySlotCount;
+   
+       UINT16 RequestCountUntilAutoSubmit;
+   };
+   
+   enum DSTORAGE_COMPRESSION_FORMAT : UINT8 {
+       DSTORAGE_COMPRESSION_FORMAT_NONE     = 0,
+   
+       DSTORAGE_COMPRESSION_FORMAT_GDEFLATE = 1,
+   
+       DSTORAGE_CUSTOM_COMPRESSION_0        = 0x80,
+   };
+   
+   struct DSTORAGE_REQUEST_OPTIONS {
+       DSTORAGE_COMPRESSION_FORMAT CompressionFormat : 8;
+   
+       UINT8 Reserved1[7];
+   
+       DSTORAGE_REQUEST_SOURCE_TYPE SourceType : 1;
+   
+       DSTORAGE_REQUEST_DESTINATION_TYPE DestinationType : 7;
+   
+       UINT64 Reserved : 48;
+   };
+   
+   enum DSTORAGE_DEBUG {
+       DSTORAGE_DEBUG_NONE                 = 0x00,
+   
+       DSTORAGE_DEBUG_SHOW_ERRORS          = 0x01,
+   
+       DSTORAGE_DEBUG_BREAK_ON_ERROR       = 0x02,
+   
+       DSTORAGE_DEBUG_RECORD_OBJECT_NAMES  = 0x04
+   };
+   DEFINE_ENUM_FLAG_OPERATORS(DSTORAGE_DEBUG);
+   
+   DECLARE_INTERFACE_IID_(IDStorageFile, IUnknown, "5de95e7b-955a-4868-a73c-243b29f4b8da")
+   {
+       virtual void STDMETHODCALLTYPE Close() = 0;
+   
+       virtual HRESULT STDMETHODCALLTYPE GetFileInformation(_Out_ BY_HANDLE_FILE_INFORMATION* info) = 0;
+   };
+   
+   struct DSTORAGE_SOURCE_FILE {
+       IDStorageFile* Source;
+   
+       UINT64 Offset;
+   
+       UINT32 Size;
+   };
+   
+   struct DSTORAGE_SOURCE_MEMORY {
+       void const* Source;
+   
+       UINT32 Size;
+   };
+   
+   struct DSTORAGE_DESTINATION_MEMORY {
+       void* Buffer;
+   
+       UINT32 Size;
+   };
+   
+   struct DSTORAGE_DESTINATION_BUFFER {
+       ID3D12Resource* Resource;
+   
+       UINT64 Offset;
+   
+       UINT32 Size;
+   };
+   
+   struct DSTORAGE_DESTINATION_TEXTURE_REGION {
+       ID3D12Resource* Resource;
+   
+       UINT SubresourceIndex;
+   
+       D3D12_BOX Region;
+   };
+   
+   struct DSTORAGE_DESTINATION_MULTIPLE_SUBRESOURCES {
+       ID3D12Resource* Resource;
+   
+       UINT FirstSubresource;
+   };
+   
+   struct DSTORAGE_DESTINATION_TILES {
+       ID3D12Resource* Resource;
+   
+       D3D12_TILED_RESOURCE_COORDINATE TiledRegionStartCoordinate;
+   
+       D3D12_TILE_REGION_SIZE TileRegionSize;
+   };
+   
+   union DSTORAGE_SOURCE {
+       DSTORAGE_SOURCE_MEMORY Memory;
+       DSTORAGE_SOURCE_FILE File;
+   };
+   
+   union DSTORAGE_DESTINATION {
+       DSTORAGE_DESTINATION_MEMORY Memory;
+       DSTORAGE_DESTINATION_BUFFER Buffer;
+       DSTORAGE_DESTINATION_TEXTURE_REGION Texture;
+       DSTORAGE_DESTINATION_MULTIPLE_SUBRESOURCES MultipleSubresources;
+       DSTORAGE_DESTINATION_TILES Tiles;
+   };
+   
+   struct DSTORAGE_REQUEST {
+       DSTORAGE_REQUEST_OPTIONS Options;
+   
+       DSTORAGE_SOURCE Source;
+   
+       DSTORAGE_DESTINATION Destination;
+   
+       UINT32 UncompressedSize;
+   
+       UINT64 CancellationTag;
+   
+       _In_opt_z_ const CHAR *Name;
+   };
+   
+   #define DSTORAGE_REQUEST_MAX_NAME       64
+   
+   enum DSTORAGE_COMMAND_TYPE {
+       DSTORAGE_COMMAND_TYPE_NONE = -1,
+       DSTORAGE_COMMAND_TYPE_REQUEST = 0,
+       DSTORAGE_COMMAND_TYPE_STATUS = 1,
+       DSTORAGE_COMMAND_TYPE_SIGNAL = 2,
+       DSTORAGE_COMMAND_TYPE_EVENT = 3,
+   };
+   
+   struct DSTORAGE_ERROR_PARAMETERS_REQUEST {
+       WCHAR Filename[MAX_PATH];
+   
+       CHAR RequestName[DSTORAGE_REQUEST_MAX_NAME];
+   
+       DSTORAGE_REQUEST Request;
+   };
+   
+   struct DSTORAGE_ERROR_PARAMETERS_STATUS {
+       IDStorageStatusArray* StatusArray;
+       UINT32 Index;
+   };
+   
+   struct DSTORAGE_ERROR_PARAMETERS_SIGNAL {
+       ID3D12Fence* Fence;
+       UINT64 Value;
+   };
+   
+   struct DSTORAGE_ERROR_PARAMETERS_EVENT
+   {
+       HANDLE Handle;
+   };
+   
+   struct DSTORAGE_ERROR_FIRST_FAILURE {
+   
+       HRESULT HResult;
+   
+       DSTORAGE_COMMAND_TYPE CommandType;
+   
+       union
+       {
+           DSTORAGE_ERROR_PARAMETERS_REQUEST Request;
+           DSTORAGE_ERROR_PARAMETERS_STATUS Status;
+           DSTORAGE_ERROR_PARAMETERS_SIGNAL Signal;
+           DSTORAGE_ERROR_PARAMETERS_EVENT Event;
+       };
+   };
+   
+   struct DSTORAGE_ERROR_RECORD {
+       UINT32 FailureCount;
+   
+       DSTORAGE_ERROR_FIRST_FAILURE FirstFailure;
+   };
+   
+   
+   enum DSTORAGE_STAGING_BUFFER_SIZE : UINT32 {
+       DSTORAGE_STAGING_BUFFER_SIZE_0 = 0,
+   
+       DSTORAGE_STAGING_BUFFER_SIZE_32MB = 32 * 1048576,
+   };
+   
+   
+   enum DSTORAGE_GET_REQUEST_FLAGS : UINT32
+   {
+       DSTORAGE_GET_REQUEST_FLAG_SELECT_CUSTOM = 0x01,
+   
+       DSTORAGE_GET_REQUEST_FLAG_SELECT_BUILTIN = 0x02,
+   
+       DSTORAGE_GET_REQUEST_FLAG_SELECT_ALL = (DSTORAGE_GET_REQUEST_FLAG_SELECT_CUSTOM | DSTORAGE_GET_REQUEST_FLAG_SELECT_BUILTIN)
+   };
+   DEFINE_ENUM_FLAG_OPERATORS(DSTORAGE_GET_REQUEST_FLAGS);
+   
+   enum DSTORAGE_CUSTOM_DECOMPRESSION_FLAGS : UINT32
+   {
+       DSTORAGE_CUSTOM_DECOMPRESSION_FLAG_NONE = 0x00,
+   
+       DSTORAGE_CUSTOM_DECOMPRESSION_FLAG_DEST_IN_UPLOAD_HEAP = 0x01,
+   };
+   DEFINE_ENUM_FLAG_OPERATORS(DSTORAGE_CUSTOM_DECOMPRESSION_FLAGS);
+   
+   struct DSTORAGE_CUSTOM_DECOMPRESSION_REQUEST {
+       UINT64 Id;
+   
+       DSTORAGE_COMPRESSION_FORMAT CompressionFormat;
+   
+       UINT8 Reserved[3];
+   
+       DSTORAGE_CUSTOM_DECOMPRESSION_FLAGS Flags;
+   
+       UINT64 SrcSize;
+   
+       void const* SrcBuffer;
+   
+       UINT64 DstSize;
+   
+       void* DstBuffer;
+   };
+   
+   struct DSTORAGE_CUSTOM_DECOMPRESSION_RESULT {
+       UINT64 Id;
+   
+       HRESULT Result;
+   };
+   
+   DECLARE_INTERFACE_IID_(IDStorageCustomDecompressionQueue, IUnknown, "97179b2f-2c21-49ca-8291-4e1bf4a160df")
+   {
+       virtual HANDLE STDMETHODCALLTYPE GetEvent() = 0;
+   
+       virtual HRESULT STDMETHODCALLTYPE GetRequests(
+           _In_ UINT32 maxRequests,
+           _Out_writes_to_(maxRequests, *numRequests) DSTORAGE_CUSTOM_DECOMPRESSION_REQUEST* requests,
+           _Out_ UINT32* numRequests) = 0;
+   
+       virtual HRESULT STDMETHODCALLTYPE SetRequestResults(
+           _In_ UINT32 numResults,
+           _In_reads_(numResults) DSTORAGE_CUSTOM_DECOMPRESSION_RESULT* results) = 0;
+   };
+   
+   
+   DECLARE_INTERFACE_IID_(
+       IDStorageCustomDecompressionQueue1,
+       IDStorageCustomDecompressionQueue,
+       "0D47C6C9-E61A-4706-93B4-68BFE3F4AA4A")
+   {
+       virtual HRESULT STDMETHODCALLTYPE GetRequests1(
+           _In_ DSTORAGE_GET_REQUEST_FLAGS flags,
+           _In_ UINT32 maxRequests,
+           _Out_writes_to_(maxRequests, *numRequests) DSTORAGE_CUSTOM_DECOMPRESSION_REQUEST* requests,
+           _Out_ UINT32 * numRequests) = 0;
+   };
+   
+   DECLARE_INTERFACE_IID_(IDStorageFactory, IUnknown, "6924ea0c-c3cd-4826-b10a-f64f4ed927c1")
+   {
+       virtual HRESULT STDMETHODCALLTYPE CreateQueue(const DSTORAGE_QUEUE_DESC *desc, REFIID riid, _COM_Outptr_ void **ppv) = 0;
+   
+       virtual HRESULT STDMETHODCALLTYPE OpenFile(_In_z_ const WCHAR *path, REFIID riid, _COM_Outptr_ void **ppv) = 0;
+   
+       //  the ETW events if enabled through the debug layer. This is an optional
+       //  parameter.</param>
+       virtual HRESULT STDMETHODCALLTYPE CreateStatusArray(UINT32 capacity, _In_opt_ PCSTR name, REFIID riid, _COM_Outptr_ void **ppv) = 0;
+   
+       virtual void STDMETHODCALLTYPE SetDebugFlags(UINT32 flags) = 0;
+   
+       virtual HRESULT STDMETHODCALLTYPE SetStagingBufferSize(UINT32 size) = 0;
+   };
+   
+   DECLARE_INTERFACE_IID_(IDStorageStatusArray, IUnknown, "82397587-7cd5-453b-a02e-31379bd64656")
+   {
+       virtual bool STDMETHODCALLTYPE IsComplete(UINT32 index) = 0;
+   
+       virtual HRESULT STDMETHODCALLTYPE GetHResult(UINT32 index) = 0;
+   };
+   
+   DECLARE_INTERFACE_IID_(IDStorageQueue, IUnknown, "cfdbd83f-9e06-4fda-8ea5-69042137f49b")
+   {
+       virtual void STDMETHODCALLTYPE EnqueueRequest(const DSTORAGE_REQUEST *request) = 0;
+   
+       virtual void STDMETHODCALLTYPE EnqueueStatus(IDStorageStatusArray *statusArray, UINT32 index) = 0;
+   
+       virtual void STDMETHODCALLTYPE EnqueueSignal(ID3D12Fence *fence, UINT64 value) = 0;
+   
+       virtual void STDMETHODCALLTYPE Submit() = 0;
+   
+       virtual void STDMETHODCALLTYPE CancelRequestsWithTag(UINT64 mask, UINT64 value) = 0;
+   
+       virtual void STDMETHODCALLTYPE Close() = 0;
+   
+       virtual HANDLE STDMETHODCALLTYPE GetErrorEvent() = 0;
+   
+       virtual void STDMETHODCALLTYPE RetrieveErrorRecord(_Out_ DSTORAGE_ERROR_RECORD *record) = 0;
+   
+       virtual void STDMETHODCALLTYPE Query(_Out_ DSTORAGE_QUEUE_INFO *info) = 0;
+   };
+   
+   DECLARE_INTERFACE_IID_(IDStorageQueue1, IDStorageQueue, "dd2f482c-5eff-41e8-9c9e-d2374b278128")
+   {
+       virtual void STDMETHODCALLTYPE EnqueueSetEvent(HANDLE handle) = 0;
+   };
+   
+   enum DSTORAGE_COMPRESSION_SUPPORT : UINT32
+   {
+       DSTORAGE_COMPRESSION_SUPPORT_NONE = 0x0,
+   
+       DSTORAGE_COMPRESSION_SUPPORT_GPU_OPTIMIZED = 0x01,
+   
+       DSTORAGE_COMPRESSION_SUPPORT_GPU_FALLBACK = 0x02,
+   
+       DSTORAGE_COMPRESSION_SUPPORT_CPU_FALLBACK = 0x04,
+   
+       DSTORAGE_COMPRESSION_SUPPORT_USES_COMPUTE_QUEUE = 0x08,
+   
+       DSTORAGE_COMPRESSION_SUPPORT_USES_COPY_QUEUE = 0x010,
+   };
+   DEFINE_ENUM_FLAG_OPERATORS(DSTORAGE_COMPRESSION_SUPPORT);
+   
+   DECLARE_INTERFACE_IID_(IDStorageQueue2, IDStorageQueue1, "b1c9d643-3a49-44a2-b46f-653649470d18")
+   {
+       virtual DSTORAGE_COMPRESSION_SUPPORT STDMETHODCALLTYPE GetCompressionSupport(DSTORAGE_COMPRESSION_FORMAT format) = 0;
+   };
+   
+   #define DSTORAGE_DISABLE_BUILTIN_CPU_DECOMPRESSION -1
+   
+   struct DSTORAGE_CONFIGURATION {
+       UINT32 NumSubmitThreads;
+   
+       INT32 NumBuiltInCpuDecompressionThreads;
+   
+       BOOL ForceMappingLayer;
+   
+       BOOL DisableBypassIO;
+   
+       BOOL DisableTelemetry;
+   
+       BOOL DisableGpuDecompressionMetacommand;
+   
+       BOOL DisableGpuDecompression;
+   };
+   
+   struct DSTORAGE_CONFIGURATION1
+   {
+       UINT32 NumSubmitThreads;
+   
+       INT32 NumBuiltInCpuDecompressionThreads;
+   
+       BOOL ForceMappingLayer;
+   
+       BOOL DisableBypassIO;
+   
+       BOOL DisableTelemetry;
+   
+       BOOL DisableGpuDecompressionMetacommand;
+   
+       BOOL DisableGpuDecompression;
+   
+       BOOL ForceFileBuffering;
+   };
+   
+   enum DSTORAGE_COMPRESSION : INT32 {
+   
+       DSTORAGE_COMPRESSION_FASTEST = -1,
+   
+       DSTORAGE_COMPRESSION_DEFAULT = 0,
+   
+       DSTORAGE_COMPRESSION_BEST_RATIO = 1
+   };
+   
+   DECLARE_INTERFACE_IID_(IDStorageCompressionCodec, IUnknown, "84ef5121-9b43-4d03-b5c1-cc34606b262d")
+   {
+       virtual HRESULT STDMETHODCALLTYPE CompressBuffer(
+           const void* uncompressedData,
+           size_t uncompressedDataSize,
+           DSTORAGE_COMPRESSION compressionSetting,
+           void* compressedBuffer,
+           size_t compressedBufferSize,
+           size_t* compressedDataSize) = 0;
+   
+       virtual HRESULT STDMETHODCALLTYPE DecompressBuffer(
+           const void* compressedData,
+           size_t compressedDataSize,
+           void* uncompressedBuffer,
+           size_t uncompressedBufferSize,
+           size_t* uncompressedDataSize) = 0;
+   
+       virtual size_t STDMETHODCALLTYPE CompressBufferBound(size_t uncompressedDataSize) = 0;
+   };
+   
+   extern "C" {
+   
+   HRESULT WINAPI DStorageSetConfiguration(DSTORAGE_CONFIGURATION const* configuration);
+   
+   HRESULT WINAPI DStorageSetConfiguration1(DSTORAGE_CONFIGURATION1 const* configuration);
+   
+   HRESULT WINAPI DStorageGetFactory(REFIID riid, _COM_Outptr_ void** ppv);
+   
+   HRESULT WINAPI DStorageCreateCompressionCodec(DSTORAGE_COMPRESSION_FORMAT format, UINT32 numThreads, REFIID riid, _COM_Outptr_ void** ppv);
+   
+   }

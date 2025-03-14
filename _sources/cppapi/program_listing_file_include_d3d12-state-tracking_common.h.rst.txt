@@ -29,8 +29,13 @@ Program Listing for File d3d12-state-tracking/common.h
    
    #pragma once
    #include <d3d12.h>
-   #include <gpgmm_d3d12.h>
    #include <stdint.h>
+   
+   namespace gpgmm::d3d12 {
+   struct IResourceAllocator;
+   struct IResidencyManager;
+   struct IResourceAllocation;
+   }  // namespace gpgmm::d3d12
    
    namespace gpa {
    namespace d3d12_state_tracker {
@@ -105,10 +110,6 @@ Program Listing for File d3d12-state-tracking/common.h
    {
        return ((uint64_t)heapId << 32) + index;
    }
-   
-   gpgmm::d3d12::IResourceAllocator* GetResourceAllocator(ID3D12Device* device);
-   
-   gpgmm::d3d12::IResidencyManager* GetResidencyManager(ID3D12Device* device);
    
    D3D12_RESOURCE_STATES GetResourceStates(ID3D12GraphicsCommandList* commandList, ID3D12Resource* resource, uint32_t subresourceIndex);
    

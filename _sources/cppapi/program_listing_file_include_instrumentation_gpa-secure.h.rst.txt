@@ -39,7 +39,7 @@ Program Listing for File gpa-secure.h
    
    #if !defined(GPA_SPRINTF)
    #ifdef _WIN32
-   #define GPA_SPRINTF(dst, count, fmt, ...) sprintf_s(dst, count, fmt, __VA_ARGS__)
+   #define GPA_SPRINTF(dst, count, fmt, ...) _snprintf_s(dst, count, _TRUNCATE, fmt, __VA_ARGS__)
    #else
    #define GPA_SPRINTF(dst, count, fmt, ...) snprintf(dst, count, fmt, __VA_ARGS__)
    #endif
@@ -55,6 +55,7 @@ Program Listing for File gpa-secure.h
        SIGNATURE_NOT_TRUSTED,     
        SIGNATURE_TRUST_DISABLED,  
        SIGNATURE_ERROR,           
+       FILE_ERROR                 
    };
    
    #ifdef _WIN32
@@ -64,8 +65,8 @@ Program Listing for File gpa-secure.h
    bool GetSystemEnvironmentVariables(FSysEnvVarCallBack callback, void* context);
    bool GetSafeEnvironment(std::vector<wchar_t>& buffer);  //Only system environment, without user's or process inherited to avoid hacks
    
-   HMODULE LoadLibrarySDL(const wchar_t* libFileName, HANDLE fileHandle = nullptr, DWORD flags = 0);
-   HMODULE LoadLibrarySDL(const char* libFileName, HANDLE fileHandle = nullptr, DWORD flags = 0);
+   HMODULE LoadLibrarySDL(const wchar_t* libFileName, HANDLE fileHandle = nullptr, DWORD flags = 0, bool silentNonTrustErrors = false);
+   HMODULE LoadLibrarySDL(const char* libFileName, HANDLE fileHandle = nullptr, DWORD flags = 0, bool silentNonTrustErrors = false);
    #endif
    
    }  // namespace secure

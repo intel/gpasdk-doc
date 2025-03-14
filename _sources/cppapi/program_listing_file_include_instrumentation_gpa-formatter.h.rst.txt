@@ -1,0 +1,71 @@
+
+.. _program_listing_file_include_instrumentation_gpa-formatter.h:
+
+Program Listing for File gpa-formatter.h
+========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_instrumentation_gpa-formatter.h>` (``include\instrumentation\gpa-formatter.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #include <iostream>
+   #include <sstream>
+   #include <string>
+   #include <vector>
+   
+   /*
+       $ is defined as string formatter, use cases:
+       std::cout << $(1) << std::endl;
+       std::cout << $("%f", 1e100) << std::endl;
+   
+       $ is using TLS, so every thread (once $ used) gets own buffer.
+       every $ returns copy of the string, so the same buffer is reused, and its size can only grow
+       On every new $ that doesn't require bigger buffer we skip the memory allocation and thus the crt mutex
+   */
+   
+   namespace gpa {
+   namespace formatter {
+   
+   class Formatter
+   {
+       std::vector<char> mBuffer;
+   
+       Formatter()
+           : mBuffer(1024)
+       {
+       }
+   
+   public:
+       static Formatter& TLSingleton()
+       {
+           static thread_local Formatter fmt;
+           return fmt;
+       }
+   
+       template<typename... Args>
+       static std::string print(const char* fmt, Args... args)
+       {
+           std::vector<char>& buffer = Formatter::TLSingleton().mBuffer;
+           while (true) {
+               int res = std::snprintf(buffer.data(), buffer.size(), fmt, args...);
+               if (res >= 0 && size_t(res) < buffer.size()) break;
+               buffer.resize((res > 0) ? size_t(res) + 1 : buffer.size() * 2);
+           }
+           return buffer.data();
+       }
+   
+       template<typename T>
+       static std::string print(const T& val)
+       {
+           std::ostringstream oss;
+           oss << val;
+           return oss.str();
+       }
+   };
+   
+   }  // namespace formatter
+   }  // namespace gpa
+   
+   #define $(...) gpa::formatter::Formatter::print(__VA_ARGS__)

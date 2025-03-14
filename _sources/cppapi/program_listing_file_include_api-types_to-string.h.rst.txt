@@ -164,7 +164,8 @@ Program Listing for File api-types/to-string.h
        uint32_t tabSize,
        char const* fieldName,
        size_t count,
-       T const* pArray)
+       T const* pArray,
+       bool addNewLineBetweenElements = true)
    {
        fieldName = fieldName ? fieldName : "unknown";
        strStr << TabStr(strFmtFlags, tabCount++, tabSize) << "\"" << fieldName << "\":";
@@ -173,14 +174,21 @@ Program Listing for File api-types/to-string.h
            for (size_t i = 0; i < count; ++i) {
                auto arrayElementStrFmtFlags = strFmtFlags;
                if (i) {
-                   strStr << "," << NewLineStr(strFmtFlags);
+                   strStr << ",";
+                   if (addNewLineBetweenElements) {
+                       strStr << NewLineStr(strFmtFlags);
+                   }
                    arrayElementStrFmtFlags &= ~((uint32_t)GPA_STR_FMT_SKIP_LEADING_TAB);
                } else {
                    arrayElementStrFmtFlags |= GPA_STR_FMT_SKIP_LEADING_TAB;
                }
                strStr << ToString(pArray[i], arrayElementStrFmtFlags, tabCount, tabSize);
            }
-           strStr << NewLineStr(strFmtFlags) << TabStr(strFmtFlags, --tabCount, tabSize) << "]";
+           if (addNewLineBetweenElements) {
+               strStr << NewLineStr(strFmtFlags) << TabStr(strFmtFlags, --tabCount, tabSize) << "]";
+           } else {
+               strStr << "]";
+           }
        } else {
            strStr << "null";
        }
@@ -618,6 +626,8 @@ Program Listing for File api-types/to-string.h
            return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_RAYTRACING_GEOMETRY_TRIANGLES", value);
        case GPA_RAYTRACING_GEOMETRY_AABBS:
            return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_RAYTRACING_GEOMETRY_AABBS", value);
+       default:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "UNKNOWN", value);
        }
    }
    
@@ -633,6 +643,8 @@ Program Listing for File api-types/to-string.h
            return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_RAYTRACING_GEOMETRY_FLAGS_OPAQUE", value);
        case GPA_RAYTRACING_GEOMETRY_FLAGS_NO_DUPLICATE_ANYHIT_INVOCATION:
            return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_RAYTRACING_GEOMETRY_FLAGS_NO_DUPLICATE_ANYHIT_INVOCATION", value);
+       default:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "UNKNOWN", value);
        }
    }
    
@@ -652,6 +664,8 @@ Program Listing for File api-types/to-string.h
            return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_RAYTRACING_INSTANCE_FLAGS_FORCE_OPAQUE", value);
        case GPA_RAYTRACING_INSTANCE_FLAGS_FORCE_NON_OPAQUE:
            return WriteEnumStr(strFmtFlags, tabCount, tabSize, "GPA_RAYTRACING_INSTANCE_FLAGS_FORCE_NON_OPAQUE", value);
+       default:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "UNKNOWN", value);
        }
    }
    

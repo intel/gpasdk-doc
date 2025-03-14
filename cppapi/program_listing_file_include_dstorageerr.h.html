@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Program Listing for File dstorageerr.h &mdash; Intel® GPA Framework  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/gpa.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists\css\tree_view.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/collapsible-lists\js\CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists\js\apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+     
+    <script type="text/javascript">
+        //configure tms    
+        var wapLocalCode = 'us_en'; //dynamically set per localized site, see mapping table for values
+        var wapSection = "gpa-sdk";
+        //load tms
+        (function() {
+            var host = (window.document.location.protocol == 'http:') ? "http://www.intel.com" : "https://www.intel.com";
+            var url = host+"/content/dam/www/global/wap/tms-loader.js"; //wap file url
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;  po.src = url;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+    <form action="https://software.intel.com/en-us/gpa" method="get" target="_blank">
+        <button class="download-button" type="submit">Free Download</button>
+    </form>
+    
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-classicblue-3000px.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#layer-framework-primer">Layer Framework Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#capture-a-stream">Capture a Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#play-back-stream">Play Back Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#stack-multiple-layers">Stack Multiple Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/getting_started.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/guides.html">Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/extending_test_layer.html">Extending &quot;Helloworld&quot; Simple Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#layer-anatomy">Layer Anatomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/extending_test_layer.html#api-call-routing">API Call Routing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/guides/logging_layer_filters.html">Logging Layer Filters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/guides/logging_layer_filters.html#usage">Usage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/samples.html">Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#build-samples">Build Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#windows">Windows*</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/samples.html#available-samples">Available Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#print-api-log">Print API Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-simple-layer">'Helloworld' Simple Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#helloworld-generated-layer">'Helloworld' Generated Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#range-player">Range Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#buffer-extractor">Buffer Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-extraction">Texture Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-extractor">Shader Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#geometry-extraction">Geometry Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metadata-extraction-simple-api">Metadata Extraction Simple API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#disable-call-in-range">Disable Call in Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#metrics-collection">Metrics Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#highlighting-experiment">Highlighting Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#pipeline-experiment">Pipeline Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#texture-replacement-experiments">Texture Replacement Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#clamp-to-mip-experiments">Clamp to Mip Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#shader-experiment">Shader Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#prefab-experimentor">Prefab Experimentor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/samples.html#stream-filter">Stream Filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/reference.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-injector">gpa-injector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-player">gpa-player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-subcapture-recorder">gpa-subcapture-recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-info">gpa-stream-info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-stream-analyzer">gpa-stream-analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-cpp-generator">gpa-cpp-generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-help">gpa-help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-metrics-collector">gpa-metrics-collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/utilities.html#gpa-system-info">gpa-system-info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/layers.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#capture">capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#screenshot">screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#hud-layer">hud-layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#logging">logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#api-debug-layer">api-debug-layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#device-override">device-override</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#dump-resources-layer">dump-resources-layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/layers.html#dump-state-layer">dump-state-layer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/python.html">Python Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="library_root.html">C++ Interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#unions">Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/features.html">Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#capture-and-playback">Capture and Playback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#basic-capture-and-playback">Basic Capture and Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#deferred-capture">Deferred Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#range-repeat">Range Repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#subcapture">Subcapture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#stream-analysis">Stream Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metric-collection">Metric Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#experiments">Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#metadata-extraction">Metadata Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#resource-extraction">Resource Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-call-inspection">API Call Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/features.html#layers">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#heads-up-display-hud-layer">Heads-Up Display(HUD) Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#screenshot-layer">Screenshot Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#logging-layer">Logging Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#api-debug-layer">Api Debug Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#device-override-layer">Device Override Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/features.html#custom-user-layers">Custom (User) Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/requirements.html">System Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/requirements.html#supported-graphics-apis">Supported Graphics APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#id2">2025.1 (3/12/2025)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#new">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#changed">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#fixed">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#id3">2024.4 (12/12/2024)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id4">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id5">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id6">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#id7">2024.3 (09/12/2024)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id8">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id9">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id10">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-13-2024">2024.2 (June 13 2024)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id11">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id12">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id13">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-15-2024">2024.1 (March 15 2024)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id14">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id15">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id16">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#dec-14-2023">2023.4 (Dec 14 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id17">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id18">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id19">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#sept-21-2023">2023.3 (Sept 21 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id20">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id21">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id22">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2023">2023.2 (15 June 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id23">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id24">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id25">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2023">2023.1 (15 March 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id26">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id27">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id28">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2022">2022.4 (15 December 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id29">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id30">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id31">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#deprecated">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2022">2022.3 (15 September 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id32">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id33">Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id34">Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2022">2022.2 (30 June 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id35">New</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2022">2022.1 (16 March 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id36">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id37">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id38">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2021">2021.4 (16 December 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id39">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id40">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id41">Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2021">2021.3 (23 September 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id42">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id43">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id44">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2021">2021.2 (24 June 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id45">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id46">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id47">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2021">2021.1 (24 March 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id48">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id49">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id50">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#january-2021">2020.4.1 (21 January 2021)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id51">NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2020">2020.4 (14 December 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id52">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id53">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id54">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2020">2020.3 (24 September 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id55">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id56">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id57">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2020">2020.2 (25 June 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id58">NEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id61">CHANGED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../src/release_notes.html#id62">FIXED</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#march-2020">2020.1 (26 March 2020)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#december-2019">2019.4 (19 December 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#september-2019">2019.3 (26 September 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/release_notes.html#june-2019">2019.2 (27 June 2019)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#known-issues-and-limitations">Known Issues and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id2">2025.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id5">2024.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id8">2024.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id11">2024.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id16">2024.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id21">2023.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id26">2023.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id29">2023.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id32">2023.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id35">2022.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id36">2022.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id37">2022.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id38">2022.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id39">2021.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id40">2021.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id41">2021.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id42">2020.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../src/troubleshooting.html#id43">2019.2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/licenses.html">Legal Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../src/licenses.html#third-party-content">Third Party Content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../src/disclaimer.html">Notices &amp; Disclaimers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® GPA Framework</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Program Listing for File dstorageerr.h</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="program-listing-for-file-dstorageerr-h">
+<span id="program-listing-file-include-dstorageerr-h"></span><h1>Program Listing for File dstorageerr.h<a class="headerlink" href="#program-listing-for-file-dstorageerr-h" title="Permalink to this headline"></a></h1>
+<p>↰ <a class="reference internal" href="file_include_dstorageerr.h.html#file-include-dstorageerr-h"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">include\dstorageerr.h</span></code>)</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/*-------------------------------------------------------------------------------------</span>
+<span class="cm"> *</span>
+<span class="cm"> * Copyright (c) Microsoft Corporation</span>
+<span class="cm"> * Licensed under the MIT license</span>
+<span class="cm"> *</span>
+<span class="cm"> *-------------------------------------------------------------------------------------*/</span>
+<span class="cp">#pragma once</span>
+
+<span class="cm">/*++</span>
+
+<span class="cm"> MessageId&#39;s 0x0000 - 0x00ff (inclusive) are reserved for DirectStorage.</span>
+
+<span class="cm">--*/</span>
+<span class="c1">//</span>
+<span class="c1">//  Values are 32 bit values laid out as follows:</span>
+<span class="c1">//</span>
+<span class="c1">//   3 3 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1</span>
+<span class="c1">//   1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0</span>
+<span class="c1">//  +---+-+-+-----------------------+-------------------------------+</span>
+<span class="c1">//  |Sev|C|R|     Facility          |               Code            |</span>
+<span class="c1">//  +---+-+-+-----------------------+-------------------------------+</span>
+<span class="c1">//</span>
+<span class="c1">//  where</span>
+<span class="c1">//</span>
+<span class="c1">//      Sev - is the severity code</span>
+<span class="c1">//</span>
+<span class="c1">//          00 - Success</span>
+<span class="c1">//          01 - Informational</span>
+<span class="c1">//          10 - Warning</span>
+<span class="c1">//          11 - Error</span>
+<span class="c1">//</span>
+<span class="c1">//      C - is the Customer code flag</span>
+<span class="c1">//</span>
+<span class="c1">//      R - is a reserved bit</span>
+<span class="c1">//</span>
+<span class="c1">//      Facility - is the facility code</span>
+<span class="c1">//</span>
+<span class="c1">//      Code - is the facility&#39;s status code</span>
+<span class="c1">//</span>
+<span class="c1">//</span>
+<span class="c1">// Define the facility codes</span>
+<span class="c1">//</span>
+<span class="cp">#define FACILITY_GAME                    2340</span>
+
+
+<span class="c1">//</span>
+<span class="c1">// Define the severity codes</span>
+<span class="c1">//</span>
+
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_ALREADY_RUNNING</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// DStorage is already running exclusively.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_ALREADY_RUNNING       ((HRESULT)0x89240001L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_NOT_RUNNING</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// DStorage is not running.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_NOT_RUNNING           ((HRESULT)0x89240002L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_INVALID_QUEUE_CAPACITY</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// Invalid queue capacity parameter.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_INVALID_QUEUE_CAPACITY ((HRESULT)0x89240003L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_XVD_DEVICE_NOT_SUPPORTED</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The specified XVD is not on a supported NVMe device.</span>
+<span class="c1">// This error only applies to Xbox.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_XVD_DEVICE_NOT_SUPPORTED ((HRESULT)0x89240004L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_UNSUPPORTED_VOLUME</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The specified XVD is not on a supported volume.</span>
+<span class="c1">// This error only applies to Xbox.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_UNSUPPORTED_VOLUME    ((HRESULT)0x89240005L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_END_OF_FILE</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The specified offset and length exceeds the size of the file.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_END_OF_FILE           ((HRESULT)0x89240007L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_REQUEST_TOO_LARGE</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The IO request is too large.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_REQUEST_TOO_LARGE     ((HRESULT)0x89240008L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_ACCESS_VIOLATION</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The destination buffer for the DStorage request is not accessible.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_ACCESS_VIOLATION      ((HRESULT)0x89240009L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_UNSUPPORTED_FILE</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The file is not supported by DStorage. Possible reasons include the file is a</span>
+<span class="c1">// sparse file, or is compressed in NTFS.</span>
+<span class="c1">// This error only applies to Xbox.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_UNSUPPORTED_FILE      ((HRESULT)0x8924000AL)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_FILE_NOT_OPEN</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The file is not open.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_FILE_NOT_OPEN         ((HRESULT)0x8924000BL)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_RESERVED_FIELDS</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// A reserved field is not set to 0.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_RESERVED_FIELDS       ((HRESULT)0x8924000CL)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_INVALID_BCPACK_MODE</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The request has invalid BCPack decompression mode.</span>
+<span class="c1">// This error only applies to Xbox.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_INVALID_BCPACK_MODE   ((HRESULT)0x8924000DL)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_INVALID_SWIZZLE_MODE</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The request has invalid swizzle mode.</span>
+<span class="c1">// This error only applies to Xbox.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_INVALID_SWIZZLE_MODE  ((HRESULT)0x8924000EL)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_INVALID_DESTINATION_SIZE</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The request&#39;s destination size is invalid. If no decompression is used, it must</span>
+<span class="c1">// be equal to the request&#39;s length; If decompression is used, it must be larger</span>
+<span class="c1">// than the request&#39;s length.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_INVALID_DESTINATION_SIZE ((HRESULT)0x8924000FL)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_QUEUE_CLOSED</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The request targets a queue that is closed.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_QUEUE_CLOSED          ((HRESULT)0x89240010L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_INVALID_CLUSTER_SIZE</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The volume is formatted with an unsupported cluster size.</span>
+<span class="c1">// This error only applies to Xbox.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_INVALID_CLUSTER_SIZE  ((HRESULT)0x89240011L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_TOO_MANY_QUEUES</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The number of queues has reached the maximum limit.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_TOO_MANY_QUEUES       ((HRESULT)0x89240012L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_INVALID_QUEUE_PRIORITY</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// Invalid priority is specified for the queue.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_INVALID_QUEUE_PRIORITY ((HRESULT)0x89240013L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_TOO_MANY_FILES</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The number of files has reached the maximum limit.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_TOO_MANY_FILES        ((HRESULT)0x89240014L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_INDEX_BOUND</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The index parameter is out of bound.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_INDEX_BOUND           ((HRESULT)0x89240015L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_IO_TIMEOUT</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The IO operation has timed out.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_IO_TIMEOUT            ((HRESULT)0x89240016L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_INVALID_FILE_HANDLE</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The specified file has not been opened.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_INVALID_FILE_HANDLE   ((HRESULT)0x89240017L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_DEPRECATED_PREVIEW_GDK</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// This GDK preview is deprecated. Update to a supported GDK version.</span>
+<span class="c1">// This error only applies to Xbox.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_DEPRECATED_PREVIEW_GDK ((HRESULT)0x89240018L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_XVD_NOT_REGISTERED</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The specified XVD is not registered or unmounted.</span>
+<span class="c1">// This error only applies to Xbox.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_XVD_NOT_REGISTERED    ((HRESULT)0x89240019L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_INVALID_FILE_OFFSET</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The request has invalid file offset for the specified decompression mode.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_INVALID_FILE_OFFSET   ((HRESULT)0x8924001AL)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_INVALID_SOURCE_TYPE</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// A memory source request was enqueued into a file source queue, or a file source</span>
+<span class="c1">// request was enqueued into a memory source queue.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_INVALID_SOURCE_TYPE   ((HRESULT)0x8924001BL)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_INVALID_INTERMEDIATE_SIZE</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The request has invalid intermediate size for the specified decompression modes.</span>
+<span class="c1">// This error only applies to Xbox.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_INVALID_INTERMEDIATE_SIZE ((HRESULT)0x8924001CL)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_SYSTEM_NOT_SUPPORTED</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// This console generation doesn&#39;t support DirectStorage.</span>
+<span class="c1">// This error only applies to Xbox.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_SYSTEM_NOT_SUPPORTED  ((HRESULT)0x8924001DL)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_STAGING_BUFFER_LOCKED</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// Staging buffer size can only be changed when no queue is created and no file is</span>
+<span class="c1">// open.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_STAGING_BUFFER_LOCKED ((HRESULT)0x8924001FL)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_INVALID_STAGING_BUFFER_SIZE</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The specified staging buffer size is not valid.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_INVALID_STAGING_BUFFER_SIZE ((HRESULT)0x89240020L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_STAGING_BUFFER_TOO_SMALL</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The staging buffer isn&#39;t large enough to perform this operation.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_STAGING_BUFFER_TOO_SMALL ((HRESULT)0x89240021L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_INVALID_FENCE</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The fence is not valid or has been released.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_INVALID_FENCE         ((HRESULT)0x89240022L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_INVALID_STATUS_ARRAY</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The status array is not valid or has been released.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_INVALID_STATUS_ARRAY  ((HRESULT)0x89240023L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_INVALID_MEMORY_QUEUE_PRIORITY</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// Invalid priority is specified for the queue. Only DSTORAGE_PRIORITY_REALTIME</span>
+<span class="c1">// is a valid priority for a memory queue.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_INVALID_MEMORY_QUEUE_PRIORITY ((HRESULT)0x89240024L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_DECOMPRESSION_ERROR</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// A generic error has happened during decompression.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_DECOMPRESSION_ERROR   ((HRESULT)0x89240030L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_ZLIB_BAD_HEADER</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// ZLIB header is corrupted.</span>
+<span class="c1">// This error only applies to Xbox.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_ZLIB_BAD_HEADER       ((HRESULT)0x89240031L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_ZLIB_BAD_DATA</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// ZLIB compressed data is corrupted/invalid.</span>
+<span class="c1">// This error only applies to Xbox.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_ZLIB_BAD_DATA         ((HRESULT)0x89240032L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_ZLIB_PARITY_FAIL</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// Block-level ADLER parity check failed during ZLIB decompression.</span>
+<span class="c1">// This error only applies to Xbox.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_ZLIB_PARITY_FAIL      ((HRESULT)0x89240033L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_BCPACK_BAD_HEADER</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// BCPack header is corrupted.</span>
+<span class="c1">// This error only applies to Xbox.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_BCPACK_BAD_HEADER     ((HRESULT)0x89240034L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_BCPACK_BAD_DATA</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// BCPack decoder has generated more data than expected, most likely due to</span>
+<span class="c1">// corrupted bitstream.</span>
+<span class="c1">// This error only applies to Xbox.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_BCPACK_BAD_DATA       ((HRESULT)0x89240035L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_DECRYPTION_ERROR</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// A generic error has happened during decryption.</span>
+<span class="c1">// This error only applies to Xbox.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_DECRYPTION_ERROR      ((HRESULT)0x89240036L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_PASSTHROUGH_ERROR</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// A generic error has happened during copy operation.</span>
+<span class="c1">// This error only applies to Xbox.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_PASSTHROUGH_ERROR     ((HRESULT)0x89240037L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_FILE_TOO_FRAGMENTED</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The file is too fragmented to be accessed by DStorage. This error can only</span>
+<span class="c1">// happen with files overly fragmented on a writable volume.</span>
+<span class="c1">// This error only applies to Xbox.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_FILE_TOO_FRAGMENTED   ((HRESULT)0x89240038L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_COMPRESSED_DATA_TOO_LARGE</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// The size of the resulting compressed data is too large for</span>
+<span class="c1">// DirectStorage to decompress successfully on the GPU.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_COMPRESSED_DATA_TOO_LARGE ((HRESULT)0x89240039L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_INVALID_DESTINATION_TYPE</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// A gpu memory destination request was enqueued into a queue that</span>
+<span class="c1">// was created without a D3D device or the destination type is</span>
+<span class="c1">// unknown.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_INVALID_DESTINATION_TYPE ((HRESULT)0x89240040L)</span>
+
+<span class="c1">//</span>
+<span class="c1">// MessageId: E_DSTORAGE_FILEBUFFERING_REQUIRES_DISABLED_BYPASSIO</span>
+<span class="c1">//</span>
+<span class="c1">// MessageText:</span>
+<span class="c1">//</span>
+<span class="c1">// ForceFileBuffering was enabled without disabling BypassIO.</span>
+<span class="c1">//</span>
+<span class="cp">#define E_DSTORAGE_FILEBUFFERING_REQUIRES_DISABLED_BYPASSIO ((HRESULT)0x89240041L)</span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019 - 2023 Intel Corporation.
+This software and the related documents are Intel copyrighted materials, and your
+use of them is governed by the express license under which they were provided to
+you (License). Unless the License provides otherwise, you may not use, modify, copy,
+publish, distribute, disclose or transmit this software or the related documents
+without Intel&#39;s prior written permission.
+This software and the related documents are provided as is, with no express or implied
+warranties, other than those that are expressly stated in the License..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

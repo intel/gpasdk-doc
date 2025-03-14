@@ -62,11 +62,23 @@ Program Listing for File shader-profile-extractor.h
        inline virtual void SetRequest(ProfileShaderRequestWithType const& request) = 0;
    
        virtual gpa::shader_profiler::ProfiledShaders GetResult() const = 0;
+   
+       virtual bool IsFatalErrorPresent() const = 0;
    };
    
    inline ShaderProfileExtractor::~ShaderProfileExtractor()
    {
    }
+   
+   class NoopShaderProfileExtractor final
+       : public playback::ShaderProfileExtractor
+   {
+   public:
+       bool IsAvailable() const override { return false; }
+       bool IsFatalErrorPresent() const override { return false; }
+       void SetRequest(ProfileShaderRequestWithType const&) override final {}
+       gpa::shader_profiler::ProfiledShaders GetResult() const override final { return {}; }
+   };
    
    inline ShaderStage ConvertShaderStageSPToRainier(gpa::shader_profiler::ShaderStage type)
    {

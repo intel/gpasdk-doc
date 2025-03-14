@@ -1,0 +1,89 @@
+
+.. _program_listing_file_include_playback_data-collection_to-string.h:
+
+Program Listing for File playback/data-collection/to-string.h
+=============================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_data-collection_to-string.h>` (``include\playback\data-collection\to-string.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "api-types/to-string.h"
+   #include "metrics-extractor.h"
+   #include <metrics/metrics-group.h>
+   #include <playback/data-collection/collection-range.h>
+   
+   namespace gpa {
+   
+   template<>
+   inline std::string ToString(gpa::data_collection::CollectionRange const& obj, StrFmtFlags /*strFmtFlags*/, uint32_t /*tabCount*/, uint32_t /*tabSize*/)
+   {
+       using namespace gpa::detail;
+       uint64_t first = obj.First();
+       uint64_t last = obj.Last();
+   
+       std::stringstream strStr;
+       strStr << "[" << first << ", " << last << "]";
+       return strStr.str();
+   }
+   
+   template<>
+   inline std::string ToString(gpa::metrics::IMetricGroup const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace gpa::detail;
+       char const* name = obj.Name();
+       char const* symbolName = obj.SymbolName();
+       uint32_t count = obj.Count();
+       uint32_t id = obj.ID();
+   
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "name", name) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "symbolName", symbolName) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "count", count) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "id", id) << NewLineStr(strFmtFlags);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString(gpa::data_collection::MetricsRequest const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace gpa::detail;
+       uint32_t groupIndex = obj.GroupIndex();
+       bool isFrequencyOverrideEnabled = obj.IsFrequencyOverrideEnabled();
+       float frequencyOverrideValue = obj.GetFrequencyOverrideValue();
+   
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "groupIndex", groupIndex) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "isFrequencyOverrideEnabled", isFrequencyOverrideEnabled) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "frequencyOverrideValue", frequencyOverrideValue) << "," << NewLineStr(strFmtFlags);
+       if (obj.Group()) {
+           WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "Group", *obj.Group()) << "," << NewLineStr(strFmtFlags);
+       }
+       if (obj.CollectionRangeCount()) {
+           WriteArrayFieldStr(strStr, strFmtFlags, tabCount, tabSize, "collectionRanges", obj.CollectionRangeCount(), obj.CollectionRanges(), false);
+       }
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   }  // namespace gpa

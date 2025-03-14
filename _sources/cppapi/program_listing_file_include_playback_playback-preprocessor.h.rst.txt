@@ -31,6 +31,9 @@ Program Listing for File playback-preprocessor.h
    #include "playback/stream-data-bookmark.h"
    #include "playback/callable-cache.h"
    #include "playback/sync-handler.h"
+   #if HAVE_DIRECTX
+   #include "playback/directx12-deferred-playback-preprocessor.h"
+   #endif
    
    #include <memory>
    #include <functional>
@@ -43,8 +46,9 @@ Program Listing for File playback-preprocessor.h
    
    struct PlaybackPreprocessorConfig
    {
-       bool enableCrossGPU;
-       bool enableSyncResolving;
+       bool enableCrossGPU = false;
+       bool enableSyncResolving = false;
+       bool disableCmdListFiltering = false;
    };
    
    class PlaybackPreprocessor
@@ -61,8 +65,13 @@ Program Listing for File playback-preprocessor.h
        void EnumerateAdditionalRangeCalls(EnumerateCallback callback);
        const CallableCache& GetRangeCache();
    
+       bool IsFilteredRestorationPointCall(Callable& restorationPointCall);
+   
    private:
        std::unique_ptr<sync_handler::SyncHandler> mSyncHandler;
+   #if HAVE_DIRECTX
+       std::unique_ptr<D3D12DeferredPlaybackPreprocessor> mD3D12DeferredPlaybackPreprocessor;
+   #endif
        CallableCache mRangeCache;
    };
    

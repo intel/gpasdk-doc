@@ -1,0 +1,98 @@
+
+.. _program_listing_file_include_playback_geometry-extraction_to-string.h:
+
+Program Listing for File playback/geometry-extraction/to-string.h
+=================================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_playback_geometry-extraction_to-string.h>` (``include\playback\geometry-extraction\to-string.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /******************************************************************************
+   
+   © Intel Corporation.
+   
+   This software and the related documents are Intel copyrighted materials,
+   and your use of them is governed by the express license under which they
+   were provided to you ("License"). Unless the License provides otherwise,
+   you may not use, modify, copy, publish, distribute, disclose or transmit
+   this software or the related documents without Intel's prior written
+   permission.
+   
+    This software and the related documents are provided as is, with no express
+   or implied warranties, other than those that are expressly stated in the
+   License.
+   
+   ******************************************************************************/
+   
+   #pragma once
+   
+   #include "api-types/to-string.h"
+   #include "geometry-extractor.h"
+   
+   namespace gpa {
+   
+   template<>
+   inline std::string ToString<gpa::playback::GeometryExtractor::Request::Stage>(gpa::playback::GeometryExtractor::Request::Stage const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace gpa::playback;
+   
+       switch (value) {
+       case GeometryExtractor::Request::Stage::Unspecified:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "Unspecified", value);
+       case GeometryExtractor::Request::Stage::DrawInput:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "DrawInput", value);
+       case GeometryExtractor::Request::Stage::DrawPostVertexStage:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "DrawPostVertexStage", value);
+       case GeometryExtractor::Request::Stage::DrawPostDomainStage:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "DrawPostDomainStage", value);
+       case GeometryExtractor::Request::Stage::DrawPostGeometryStage:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "DrawPostGeometryStage", value);
+       default:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "UNKNOWN", value);
+       }
+   }
+   
+   template<>
+   inline std::string ToString<gpa::playback::GeometryExtractor::Request::Type>(gpa::playback::GeometryExtractor::Request::Type const& value, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace detail;
+       using namespace gpa::playback;
+   
+       switch (value) {
+       case GeometryExtractor::Request::Type::Unspecified:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "Unspecified", value);
+       case GeometryExtractor::Request::Type::PositionOnly:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "PositionOnly", value);
+       case GeometryExtractor::Request::Type::Full:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "Full", value);
+       default:
+           return WriteEnumStr(strFmtFlags, tabCount, tabSize, "UNKNOWN", value);
+       }
+   }
+   
+   template<>
+   inline std::string ToString(gpa::playback::GeometryExtractor::Request::Info const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace gpa::detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "callIndex", obj.callIndex) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "stage", obj.stage) << "," << NewLineStr(strFmtFlags);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "type", obj.type) << NewLineStr(strFmtFlags);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   template<>
+   inline std::string ToString(gpa::playback::GeometryExtractor::Request const& obj, StrFmtFlags strFmtFlags, uint32_t tabCount, uint32_t tabSize)
+   {
+       using namespace gpa::detail;
+       auto strStr = BeginStructureStr(strFmtFlags, tabCount, tabSize);
+       WriteStructureFieldStr(strStr, strFmtFlags, tabCount, tabSize, "infoCount", obj.infoCount) << "," << NewLineStr(strFmtFlags);
+       WriteArrayFieldStr(strStr, strFmtFlags, tabCount, tabSize, "pInfos", obj.infoCount, obj.pInfos);
+       return EndStructureStr(strStr, strFmtFlags, tabCount, tabSize);
+   }
+   
+   }  // namespace gpa

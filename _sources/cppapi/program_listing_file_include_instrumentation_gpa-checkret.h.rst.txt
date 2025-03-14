@@ -27,6 +27,51 @@ Program Listing for File gpa-checkret.h
    
    ******************************************************************************/
    
+   /*
+   
+       GPA_CHECK_RET is the error handling technique, that is very simple, but covers big set of standard C++ code issues.
+   
+       Usage example:
+   
+       int function1(void* ptr)
+       {
+           GPA_CHECK_RET(ptr, -1); //this works as: if (!ptr) {<REPORT>; return -1;}
+           string res = function2(ptr);
+           GPA_CHECK_RET(res.size(), -1);
+           auto tr = res.transform();
+           GPA_CHECK_RET(tr, -1);
+           if (res[0] == '\n') return 13;
+           return 0;
+       }
+       
+       The code covered with checkrets has clear distinction between product logic and error handling code.
+   
+       DEBUGGING:
+           Every unsuccessful GPA_CHECK_RET is logged as error.
+               DEFAULT FLOW: Before framework's logger module is initialized (see gpa:logger::internal::CCheckretReporter), issues are gathered to a buffer file, that is dumped to the logger once it is loaded. If no logger was loaded, at exit file is dumped to stdout.
+               FLAVOURS: you can set the "GPA_CHECK_RET" environment variable to: stderr, stdout, assert, break, or mix them
+                   set GPA_CHECK_RET = stderr|assert # will break on every failed CHECKRET with a MessageBox after writing it to stderr
+                   set GPA_CHECK_RET = break # will break debugger on every failed CHECKRET
+   
+           With good distribution of GPA_CHECK_RET in source code, just the log from client is completely enough to fix his problem without trying to repro.
+   
+       CODE COVERAGE:
+           The GPA_CHECK_RET can be safely replaced by empty macro in the code that passes without errors and used as significant code-coverage booster (error handling branches in usual code spoil code-coverage at least by 50%)
+   
+       PERFORMANCE:
+           The cost is "single if instruction" with prediction toward "no issue", so even the prefetch is tuned up toward performance of non failing code.
+           GPA_CHECK_RET can have perfomance implication only in case of "if (condition)" being too expencive in a highly performance critical bottleneck.
+               Usually this is the type of code when you ponder to use assembly to speed up. In the rest of the cases you will never see a GPA_CHECK_RET being a performance threat.
+   
+       CUMMULATIVE VALUE:
+           Logger adds stacks on errors
+           Seismo gathers multiple test logs data into issue frequency graph
+   
+       FUTURE FEATURES:
+           GPA_CHECK_RET(one.size() < two.length(), -1); // this will log only "one.size() < two.length()" text
+           GPA_CHECK_RET($(one.size()) < $(two.length()), -1); // this will log "one.size():value < two.length():value"
+   */
+   
    #pragma once
    #ifdef _WIN32
    #include "windows.h"
@@ -39,11 +84,14 @@ Program Listing for File gpa-checkret.h
    
    #include "gpa-singleton.h"
    #include "gpa-secure.h"
+   #include "gpa-formatter.h"
    #include <cstdlib>
    #include <iostream>
+   #include <fstream>
    #include <string>
    #include <algorithm>
    #include <filesystem>
+   #include <vector>
    
    #ifdef _MSC_VER
    #define __PRETTY_FUNCTION__ __FUNCSIG__
@@ -61,17 +109,32 @@ Program Listing for File gpa-checkret.h
    {
        bool mWriteToTemp = false;
    
+   public:
        CDefaultReporter()
            : mWriteToTemp(true)
        {
        }
    
-   public:
+       ~CDefaultReporter()
+       {
+           if (!mWriteToTemp) {
+               return;
+           }
+           mWriteToTemp = false;
+           if (const char* szPath = (char*)gpa::ProcessWideSingletonRegistry::Get("GPA_REPORTER_FILE", nullptr)) {
+               std::ifstream file(szPath);
+               std::cout << file.rdbuf();
+           }
+       }
+   
        void SetWriteToTemp(bool bWriteToTemp) { mWriteToTemp = bWriteToTemp; }
        void DebugString(const char* message)
        {
    #ifdef _WIN32
-           OutputDebugStringA(message);
+           static bool bIsDebuggerPresent = ::IsDebuggerPresent();
+           if (bIsDebuggerPresent) {
+               OutputDebugStringA(message);
+           }
    #else
            openlog("GPA", LOG_PID | LOG_CONS, LOG_USER);
            syslog(LOG_DEBUG, "%s", message);
@@ -117,7 +180,7 @@ Program Listing for File gpa-checkret.h
            if (mWriteToTemp) {
                WriteToTemp(message);
            }
-           const char* env = std::getenv("GPA_CHECKRET");
+           const char* env = std::getenv("GPA_CHECK_RET");  // should be gpa::system::Environment().GetPublic(gpa::system::eGPA_CHECK_RET), but that would create circular dependency
            if (!env) {
                return;
            }
@@ -129,7 +192,7 @@ Program Listing for File gpa-checkret.h
            }
            if (strstr(env, "assert")) {
    #ifdef _WIN32
-               ::MessageBoxA(nullptr, message, "GPA_CHECKRET", MB_OK);
+               ::MessageBoxA(nullptr, message, "GPA_CHECK_RET", MB_OK);
    #else
                std::string msg = message;
                std::replace(msg.begin(), msg.end(), '"', '\'');
@@ -140,7 +203,7 @@ Program Listing for File gpa-checkret.h
            }
    
    #ifdef _WIN32
-           if (strstr(env, "break") || ::IsDebuggerPresent()) {
+           if (strstr(env, "break") && ::IsDebuggerPresent()) {
                __debugbreak();
            }
    #else
@@ -156,13 +219,8 @@ Program Listing for File gpa-checkret.h
        }
    };
    
-   #define GPA_REPORT(fmt, ...)                                                                                                                                                                 \
-       {                                                                                                                                                                                        \
-           gpa::checkret::IReporter* pGPA_REPORT_Reporter = (gpa::checkret::IReporter*)gpa::ProcessWideSingletonRegistry::Get("Reporter", &gpa::checkret::CDefaultReporter::DefaultReporter()); \
-           char* GPA_REPORT_buff = (char*)alloca(1024);                                                                                                                                         \
-           GPA_SPRINTF(GPA_REPORT_buff, 1024, fmt, ##__VA_ARGS__);                                                                                                                              \
-           pGPA_REPORT_Reporter->Report(GPA_REPORT_buff);                                                                                                                                       \
-       }
+   //print like (fmt, args...)
+   #define GPA_REPORT(...) gpa::ProcessWideSingletonRegistry::GetOrCreate<gpa::checkret::CDefaultReporter, gpa::checkret::IReporter>("Reporter").Report($(__VA_ARGS__).c_str())
    
    #define GPA_IN_VOID_FUNCTION() ((std::string_view(__PRETTY_FUNCTION__).substr(0, 11) == "const void " || std::string_view(__PRETTY_FUNCTION__).substr(0, 5) == "void ") && std::string_view(__PRETTY_FUNCTION__).substr(0, 6) != "void *")
    #define GPA_IN_DESTRUCTOR() (std::string_view(__PRETTY_FUNCTION__).find("::~") != std::string_view::npos)
@@ -210,6 +268,7 @@ Program Listing for File gpa-checkret.h
    #define GPA_NO_RET_VAL() (GPA_IN_VOID_FUNCTION() || GPA_IN_DESTRUCTOR() || gpa::checkret::is_constructor(__PRETTY_FUNCTION__))
    #endif
    
+   //to return from a function no matter if it is void or needs a value
    #define GPA_EXIT_FUNCTION()           \
        if constexpr (GPA_NO_RET_VAL()) { \
            return;                       \
@@ -217,10 +276,14 @@ Program Listing for File gpa-checkret.h
            return {};                    \
        }
    
-   #define GPA_CHECK_DO(cond, todo)                                                                   \
-       if (!(cond)) {                                                                                 \
-           GPA_REPORT("%s(%d): error: %s | \t %s\n", __FILE__, __LINE__, __PRETTY_FUNCTION__, #cond); \
-           todo;                                                                                      \
+   //allows to replace the return with break/continue...
+   #define GPA_CHECK_DO(cond, todo)                                                                                   \
+       {                                                                                                              \
+           if (cond) {                                                                                                \
+           } else {                                                                                                   \
+               GPA_REPORT("%s(%d): warning CHECK_RET: %s | \t %s\n", __FILE__, __LINE__, __PRETTY_FUNCTION__, #cond); \
+               todo;                                                                                                  \
+           }                                                                                                          \
        }
    
    #define GPA_CONCAT2(x, y) x##y
@@ -236,9 +299,12 @@ Program Listing for File gpa-checkret.h
        GPA_CONCAT(func, GPA_EXPAND(GPA_NARG(__VA_ARGS__))) \
        (__VA_ARGS__)
    
+   //Syntax sugar for overload by arg count: GPA_CHECK_RET(one_arg) is consider returning from void function
    #define GPA_CHECK_RET(...) GPA_GET_MACRO(GPA_CHECK_RET, __VA_ARGS__)
    #define GPA_CHECK_RET2(cond, ret) GPA_CHECK_DO(cond, return ret)
    #define GPA_CHECK_RET1(cond) GPA_CHECK_DO(cond, return )
+   
+   //Do the usual but don't return
    #define GPA_CHECK_ONLY(cond) GPA_CHECK_DO(cond, ;)
    
    struct Dummy
@@ -274,6 +340,7 @@ Program Listing for File gpa-checkret.h
        }
    };
    
+   //when you can't avoid returning something: GPA_CHECK_RET(itr, GPA_DUMMY);
    #define GPA_DUMMY gpa::checkret::Dummy()
    #define GPA_DUMMY_T(the_type) (the_type) gpa::checkret::DummyT<the_type>()
    
